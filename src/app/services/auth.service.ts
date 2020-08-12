@@ -34,6 +34,10 @@ export class AuthService {
     return this.http.post( '/users/reset-password', params );
   }
 
+  /**
+   * @description Retorna true si el usuario esta autenticado
+   * @returns boolean
+   */
   isAuthenticated(): boolean {
     return true;
   }
