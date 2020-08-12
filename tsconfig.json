@@ -16,5 +16,9 @@
     {
       "path": "./tsconfig.server.json"
     }
-  ]
+  ],
+  "compilerOptions": {
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+  }
 }
