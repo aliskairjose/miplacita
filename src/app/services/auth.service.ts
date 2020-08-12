@@ -33,4 +33,9 @@ export class AuthService {
   resetPassword( params: any ): Observable<any> {
     return this.http.post( '/users/reset-password', params );
   }
+
+  isAuthenticated(): boolean {
+    return true;
+  }
+
 }
