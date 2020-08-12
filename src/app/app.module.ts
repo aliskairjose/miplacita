@@ -19,6 +19,7 @@ import { ElementsComponent } from './elements/elements.component';
 import 'hammerjs';
 import 'mousetrap';
 import { HttpInterceptor } from './interceptor/http.interceptor';
+import { AuthGuard } from './guard/auth.guard';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -55,7 +56,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     AppRoutingModule
   ],
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: HttpInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: HttpInterceptor, multi: true },
+    AuthGuard
   ],
   bootstrap: [AppComponent]
 })
