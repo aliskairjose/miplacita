@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProductDetailsMainSlider, ProductDetailsThumbSlider } from '../../../shared/data/slider';
 import { Product } from '../../../shared/classes/product';
-import { ProductService } from '../../../shared/services/product.service';
+import { ProductService } from '../../../shared/services/tm.product.service';
 import { SizeModalComponent } from "../../../shared/components/modal/size-modal/size-modal.component";
 
 @Component({

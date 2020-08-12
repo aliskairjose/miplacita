@@ -4,8 +4,8 @@ import { Observable } from 'rxjs';
 import { IPayPalConfig, ICreateOrderRequest } from 'ngx-paypal';
 import { environment } from '../../../environments/environment';
 import { Product } from "../../shared/classes/product";
-import { ProductService } from "../../shared/services/product.service";
-import { OrderService } from "../../shared/services/order.service";
+import { ProductService } from "../../shared/services/tm.product.service";
+import { OrderService } from "../../shared/services/tm.order.service";
 
 @Component({
   selector: 'app-checkout',

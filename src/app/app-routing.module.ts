@@ -4,7 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { ShopComponent } from './shop/shop.component';
 import { PagesComponent } from './pages/pages.component';
 import { ElementsComponent } from './elements/elements.component';
-import { AuthGuard } from './guard/auth.guard';
+// import { AuthGuard } from './shared/guard/auth.guard';
 
 const routes: Routes = [
   {

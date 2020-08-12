@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy, ViewChild, TemplateRef, Input, AfterViewI
   Injectable, PLATFORM_ID, Inject } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { NgbModal, ModalDismissReasons, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { ProductService } from "../../../services/product.service";
+import { ProductService } from "../../../services/tm.product.service";
 import { Product } from "../../../classes/product";
 
 @Component({

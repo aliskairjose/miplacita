@@ -2,7 +2,7 @@ import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { QuickViewComponent } from "../../modal/quick-view/quick-view.component";
 import { CartModalComponent } from "../../modal/cart-modal/cart-modal.component";
 import { Product } from "../../../classes/product";
-import { ProductService } from "../../../services/product.service";
+import { ProductService } from "../../../services/tm.product.service";
 
 @Component({
   selector: 'app-product-box-one',

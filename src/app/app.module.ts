@@ -18,8 +18,8 @@ import { ElementsComponent } from './elements/elements.component';
 
 import 'hammerjs';
 import 'mousetrap';
-import { HttpInterceptor } from './interceptor/http.interceptor';
-import { AuthGuard } from './guard/auth.guard';
+import { HttpInterceptor } from './shared/interceptor/http.interceptor';
+import { AuthGuard } from './shared/guard/auth.guard';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
