@@ -136,6 +136,9 @@ export class MarketplaceComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.spinner.show();
+    setTimeout(() => {
+      this.spinner.hide();
+    }, 3000);
     // Change color for this layout
     document.documentElement.style.setProperty( '--theme-deafult', '#e4604a' );
   }
