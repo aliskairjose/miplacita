@@ -27,7 +27,7 @@ export class MarketplaceComponent implements OnInit, OnDestroy {
       this.products.filter( ( item ) => {
         item.collection.filter( ( collection ) => {
           const index = this.productCollections.indexOf( collection );
-          if ( index === -1 ) { this.productCollections.push( collection ) };
+          if ( index === -1 ) { this.productCollections.push( collection ); }
         } );
       } );
     } );
