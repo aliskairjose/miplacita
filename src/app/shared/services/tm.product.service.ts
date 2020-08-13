@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map, startWith, delay } from 'rxjs/operators';
 import { ToastrService } from 'ngx-toastr';
-import { Product } from '../classes/product';
+import { Product } from '../classes/tm.product';
 
 const state = {
   products: JSON.parse(localStorage['products'] || '[]'),

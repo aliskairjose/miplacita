@@ -3,7 +3,7 @@ import { isPlatformBrowser } from '@angular/common';
 import { Observable } from 'rxjs';
 import { TranslateService } from '@ngx-translate/core';
 import { ProductService } from "../../services/tm.product.service";
-import { Product } from "../../classes/product";
+import { Product } from "../../classes/tm.product";
 
 @Component({
   selector: 'app-settings',

@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { VideoModalComponent } from "../../shared/components/modal/video-modal/video-modal.component";
 import { ProductSlider } from '../../shared/data/slider';
-import { Product } from '../../shared/classes/product';
+import { Product } from '../../shared/classes/tm.product';
 import { ProductService } from '../../shared/services/tm.product.service';
 
 @Component({

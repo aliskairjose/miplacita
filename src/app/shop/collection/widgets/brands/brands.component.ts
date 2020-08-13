@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Product } from '../../../../shared/classes/product';
+import { Product } from '../../../../shared/classes/tm.product';
 
 @Component({
   selector: 'app-brands',

@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ProductService } from "../../../services/tm.product.service";
-import { Product } from "../../../classes/product";
+import { Product } from "../../../classes/tm.product";
 
 @Component({
   selector: 'app-cart-variation',

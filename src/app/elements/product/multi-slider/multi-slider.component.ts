@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductOneSlider } from '../../../shared/data/slider';
-import { Product } from '../../../shared/classes/product';
+import { Product } from '../../../shared/classes/tm.product';
 import { ProductService } from '../../../shared/services/tm.product.service';
 
 @Component({

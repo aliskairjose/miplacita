@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Product } from '../../../shared/classes/product';
+import { Product } from '../../../shared/classes/tm.product';
 import { ProductService } from '../../../shared/services/tm.product.service';
 import { SizeModalComponent } from "../../../shared/components/modal/size-modal/size-modal.component";
 

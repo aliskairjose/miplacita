@@ -3,7 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { IPayPalConfig, ICreateOrderRequest } from 'ngx-paypal';
 import { environment } from '../../../environments/environment';
-import { Product } from "../../shared/classes/product";
+import { Product } from "../../shared/classes/tm.product";
 import { ProductService } from "../../shared/services/tm.product.service";
 import { OrderService } from "../../shared/services/tm.order.service";
 

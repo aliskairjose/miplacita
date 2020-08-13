@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve, Router } from '@angular/router';
-import { Product } from '../classes/product';
+import { Product } from '../classes/tm.product';
 import { ProductService } from './tm.product.service';
 
 @Injectable( {

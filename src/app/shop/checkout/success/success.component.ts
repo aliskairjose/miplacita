@@ -1,5 +1,5 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
-import { Order } from '../../../shared/classes/order';
+import { Order } from '../../../shared/classes/tm.order';
 import { OrderService } from '../../../shared/services/tm.order.service';
 import { ProductService } from '../../../shared/services/tm.product.service';
 
