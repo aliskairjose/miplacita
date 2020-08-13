@@ -27,7 +27,7 @@ export class NavService {
 	MENUITEMS: Menu[] = [
 		{ path: '/pages/login', title: 'inicia sesión', type: 'link' },
 		{ path: '/home/vegetable', title: 'Vende ahora', type: 'link' },
-		{ path: '/home/vegetable', title: 'Contactanos', type: 'link' },
+		{ path: '/pages/contact', title: 'contactanos', type: 'link' }
 	];
 
 	LEFTMENUITEMS: Menu[] = [
