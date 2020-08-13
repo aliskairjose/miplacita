@@ -23,6 +23,13 @@ export class AuthService {
   }
 
   /**
+   * @description Cierre de sesion del usuario
+   */
+  logout(): void {
+    localStorage.removeItem('user');
+  }
+
+  /**
    * @description Registro de dueño de tienda
    * @param params Datos del registro
    */
