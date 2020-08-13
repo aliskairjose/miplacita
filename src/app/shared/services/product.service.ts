@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Product } from '../classes/product';
+import { Product } from '../interfaces/product';
 import { HttpService } from './http.service';
 
 @Injectable({
@@ -13,6 +13,6 @@ export class ProductService {
   ) { }
 
   productList(): Observable<Product[]> {
-    return this.http.get<Product[]>('');
+    return this.http.get('');
   }
 }
