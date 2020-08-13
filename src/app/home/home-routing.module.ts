@@ -16,8 +16,13 @@ import { ToolsComponent } from './tools/tools.component';
 import { ShoesComponent } from './shoes/shoes.component';
 import { BagsComponent } from './bags/bags.component';
 import { MarijuanaComponent } from './marijuana/marijuana.component';
+import { MarketplaceComponent } from './marketplace/marketplace.component';
 
 const routes: Routes = [
+  {
+    path: 'marketplace',
+    component: MarketplaceComponent
+  },
   {
     path: 'fashion',
     component: FashionOneComponent

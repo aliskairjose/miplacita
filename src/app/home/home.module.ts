@@ -26,6 +26,7 @@ import { LogoComponent } from './widgets/logo/logo.component';
 import { InstagramComponent } from './widgets/instagram/instagram.component';
 import { ServicesComponent } from './widgets/services/services.component';
 import { CollectionComponent } from './widgets/collection/collection.component';
+import { MarketplaceComponent } from './marketplace/marketplace.component';
 
 @NgModule({
   declarations: [
@@ -44,13 +45,14 @@ import { CollectionComponent } from './widgets/collection/collection.component';
     ShoesComponent,
     BagsComponent,
     MarijuanaComponent,
+    MarketplaceComponent,
     // Widgest Components
     SliderComponent,
     BlogComponent,
     LogoComponent,
     InstagramComponent,
     ServicesComponent,
-    CollectionComponent
+    CollectionComponent,
   ],
   imports: [
     CommonModule,
