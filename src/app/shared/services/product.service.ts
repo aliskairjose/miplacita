@@ -8,7 +8,7 @@ import { Product } from '../classes/product';
 } )
 export class ProductService {
 
-  product$: Subject<Product> = new Subject<Product>();
+  $product: Subject<Product> = new Subject<Product>();
 
   constructor(
     private http: HttpService
@@ -30,12 +30,19 @@ export class ProductService {
   }
 
 
+  /**
+   * @description Genera el stream de eventos usando next() para crear el evento
+   * @param product
+   */
   productSubject( product: Product ): void {
-    this.product$.next( product );
+    this.$product.next( product );
   }
 
-  productObjerver(): Observable<Product> {
-    return this.product$;
+  /**
+   * @description Creación del observer mediante el método asObserver(), el cual sera consumido por el componente
+   */
+  productObserver(): Observable<Product> {
+    return this.$product.asObservable();
   }
 
 }
