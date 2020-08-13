@@ -24,7 +24,7 @@ export class Resolver implements Resolve<Product> {
       } else {
         this.product = product;
       }
-    } )
+    } );
     return this.product;
   }
 }
