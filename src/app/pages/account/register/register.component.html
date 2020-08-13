@@ -1,6 +1,6 @@
 <app-breadcrumb [title]="'Register'" [breadcrumb]="'Register'"></app-breadcrumb>
 <!-- section start -->
-<section class="register-page section-b-space">
+<section class="register-page section-b-space" *ngIf="!registerSuccess">
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
@@ -26,7 +26,7 @@
                                 <label for="review">Confirmación de contraseña</label>
                                 <input type="password" class="form-control" id="review" placeholder="Ingrese su contraseña nuevamente" required="">
                             </div>
-                            <div class="form-gruop" id="btn-center">
+                            <div class="form-gruop" id="btn-center" (click)="register()">
                                 <button class="btn btn-solid">Registrarme</button>
                             </div>
                         <!-- </div> -->
@@ -37,3 +37,6 @@
     </div>
 </section>
 <!--Section ends-->
+<!-- section start store register -->
+<app-register-store *ngIf="registerSuccess"></app-register-store>
+<!-- section ends-->

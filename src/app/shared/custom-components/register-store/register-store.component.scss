@@ -1,0 +1,28 @@
+
+.form-row{
+    margin-bottom: 5%;
+}
+
+.plan{
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    margin-bottom: 5%;
+    padding: 5%;
+    border-radius: 3px;
+    text-align: center;
+    border: 0.1rem solid #495057;
+}
+
+.plan-selected {
+    background-color: var(--red);
+    color: var(--white)
+}
+
+#btn-center{
+    text-align: center;
+}
+
+#exampleFormControlTextarea1{
+    margin-bottom: 3%;
+}
