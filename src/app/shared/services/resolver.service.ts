@@ -22,7 +22,7 @@ export class Resolver implements Resolve<Product> {
       if ( !product ) { // When product is empty redirect 404
         this.router.navigateByUrl( '/pages/404', { skipLocationChange: true } );
       } else {
-        this.product = product
+        this.product = product;
       }
     } )
     return this.product;
