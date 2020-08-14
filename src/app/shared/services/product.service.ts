@@ -60,8 +60,8 @@ export class ProductService {
   /**
    * @description Eliminando photo de producto
    */
-  deletePhoto( id, idPhoto, data: string ): Observable<any> {
-    return this.http.delete( `products/${id}/photo/${idPhoto}`, data );
+  deletePhoto( id, ): Observable<any> {
+    return this.http.delete( `products/photo/${id}`);
   }
 
   /**
