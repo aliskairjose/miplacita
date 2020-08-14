@@ -12,7 +12,7 @@ export class CategoryService {
   ) { }
 
   /**
-   * @description Returna la lista de categorias!
+   * @description Retorna la lista de categorias!
    */
   categoryList(): Observable<any> {
     return this.http.get('categories');
