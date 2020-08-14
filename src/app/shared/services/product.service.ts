@@ -15,6 +15,14 @@ export class ProductService {
   ) { }
 
   /**
+   * @description Crea un nuevo producto
+   * @param data Detale del producto
+   */
+  addProduct( data: Product ): Observable<any> {
+    return this.http.post( 'products', data );
+  }
+
+  /**
    * @description Lista de productos
    */
   productList(): Observable<Product[]> {
@@ -25,16 +33,8 @@ export class ProductService {
    * @description Detalle de un producto
    * @param Id Id del producto a consultar
    */
-  getProduct( id: number ): Observable<Product> {
+  getProduct( id ): Observable<Product> {
     return this.http.get( `product/${id}` );
-  }
-
-  /**
-   * @description Crea un nuevo producto
-   * @param data Detale del producto
-   */
-  addProduct( data: Product ): Observable<any> {
-    return this.http.post( 'products', data );
   }
 
   /**
