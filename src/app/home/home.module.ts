@@ -28,6 +28,7 @@ import { ServicesComponent } from './widgets/services/services.component';
 import { CollectionComponent } from './widgets/collection/collection.component';
 import { MarketplaceComponent } from './marketplace/marketplace.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { AlertModule } from 'ngx-alerts';
 
 @NgModule({
   declarations: [
@@ -59,7 +60,8 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     CommonModule,
     HomeRoutingModule,
     SharedModule,
-    NgxSpinnerModule
+    NgxSpinnerModule,
+    AlertModule.forRoot( { maxMessages: 5, timeout: 5000, position: 'right' } ),
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 

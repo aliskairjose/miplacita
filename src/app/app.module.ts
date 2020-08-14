@@ -34,26 +34,16 @@ export function HttpLoaderFactory( http: HttpClient ) {
     ElementsComponent
   ],
   imports: [
-    BrowserModule.withServerTransition( { appId: 'serverApp' } ),
-    BrowserAnimationsModule,
-    HttpClientModule,
     NgbModule,
-    LoadingBarHttpClientModule,
-    LoadingBarRouterModule,
-    ToastrModule.forRoot( {
-      timeOut: 3000,
-      progressBar: false,
-      enableHtml: true,
-    } ),
-    TranslateModule.forRoot( {
-      loader: {
-        provide: TranslateLoader,
-        useFactory: HttpLoaderFactory,
-        deps: [ HttpClient ]
-      }
-    } ),
     SharedModule,
-    AppRoutingModule
+    HttpClientModule,
+    AppRoutingModule,
+    LoadingBarRouterModule,
+    BrowserAnimationsModule,
+    LoadingBarHttpClientModule,
+    BrowserModule.withServerTransition( { appId: 'serverApp' } ),
+    ToastrModule.forRoot( { timeOut: 3000, progressBar: false, enableHtml: true, } ),
+    TranslateModule.forRoot( { loader: { provide: TranslateLoader, useFactory: HttpLoaderFactory, deps: [ HttpClient ] } } ),
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: HttpInterceptor, multi: true },

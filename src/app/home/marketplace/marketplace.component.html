@@ -4,6 +4,9 @@
     <p style="color: white"> Cargando... </p>
 </ngx-spinner>
 
+<ngx-alerts></ngx-alerts>
+
+
 <!-- Home slider start-->
 <section class="p-0">
     <app-slider [sliders]="sliders" [textClass]="'text-center'" [category]="'watch'" [buttonText]="'shop now'">
@@ -25,6 +28,7 @@
         <div class="d-flex flex-sm-row flex-column justify-content-between mt-3">
             <div>
                 <h4>Registrate</h4>
+                <button type="button" class="btn btn-outline-danger" (click)="showAlert()">Show Alert</button>
             </div>
             <div>
                 <h4>Selecciona tu plan</h4>
