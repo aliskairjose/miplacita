@@ -37,6 +37,4 @@ export class DeliveryService {
     return this.http.delete(`delivery/${id}`);
   }
 
-
-
 }
