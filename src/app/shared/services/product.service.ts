@@ -33,8 +33,17 @@ export class ProductService {
    * @description Crea un nuevo producto
    * @param data Detale del producto
    */
-  addProduct( data: Product): Observable<any>{
-    return this.http.post('products', data);
+  addProduct( data: Product ): Observable<any> {
+    return this.http.post( 'products', data );
+  }
+
+  /**
+   * @description Actualizacion del producto
+   * @param id Id del producto a actualizar
+   * @param data Data de producto
+   */
+  updateProduct( id, data: Product ): Observable<any> {
+    return this.http.put( `products/${id}`, data );
   }
 
   /**
