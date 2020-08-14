@@ -46,6 +46,34 @@ export class ProductService {
     return this.http.put( `products/${id}`, data );
   }
 
+  // Product Photo ---------------------------------------------------------------
+
+  /**
+   * @description Agregar foto al producto
+   * @param id Id del producto al cual se agrega photo
+   * @param data Url de la photo
+   */
+  addProductoPhoto( id, data: string ): Observable<any> {
+    return this.http.post( `products/${id}/photo`, data );
+  }
+
+  /**
+   * @description Eliminando photo de producto
+   */
+  deletePhoto( id, idPhoto, data: string ): Observable<any> {
+    return this.http.delete( `products/${id}/photo/${idPhoto}`, data );
+  }
+
+  /**
+   * @description Coloca la foto como principal
+   * @param id Id del producto
+   * @param idPhoto id de la foto
+   * @param data Data vacia
+   */
+  setMainPhoto( id, idPhoto, data = '' ): Observable<any> {
+    return this.http.put( `products/${id}/photo/${idPhoto}`, data );
+  }
+
   /**
    * @description Genera el stream de eventos usando next() para crear el evento
    * @param product
