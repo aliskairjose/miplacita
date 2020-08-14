@@ -37,7 +37,6 @@ export class ProductService {
     return this.http.post('products', data);
   }
 
-
   /**
    * @description Genera el stream de eventos usando next() para crear el evento
    * @param product
