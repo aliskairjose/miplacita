@@ -25,7 +25,7 @@ export class StoreService {
    * @description Retorna el detalle de la tienda
    * @param id Id de la tienda
    */
-  getStore( id ): Observable<Store> {
+  getStore( id: string ): Observable<Store> {
     return this.http.get( `stores/${id}` );
   }
 
@@ -34,7 +34,7 @@ export class StoreService {
    * @param id Id de la tienda
    * @param data Data de tipo Tienda
    */
-  updateStore( id, data: Store ): Observable<any> {
+  updateStore( id: string, data: Store ): Observable<any> {
     return this.http.put( `storea/${id}`, data );
   }
 }

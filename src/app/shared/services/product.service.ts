@@ -33,7 +33,7 @@ export class ProductService {
    * @description Detalle de un producto
    * @param Id Id del producto a consultar
    */
-  getProduct( id ): Observable<Product> {
+  getProduct( id: string ): Observable<Product> {
     return this.http.get( `product/${id}` );
   }
 
@@ -53,14 +53,14 @@ export class ProductService {
    * @param id Id del producto al cual se agrega photo
    * @param data Url de la photo
    */
-  addProductoPhoto( id, data: string ): Observable<any> {
+  addProductoPhoto( id: string, data: string ): Observable<any> {
     return this.http.post( `products/${id}/photo`, data );
   }
 
   /**
    * @description Eliminando photo de producto
    */
-  deletePhoto( id, ): Observable<any> {
+  deletePhoto( id: string, ): Observable<any> {
     return this.http.delete( `products/photo/${id}`);
   }
 
@@ -70,7 +70,7 @@ export class ProductService {
    * @param idPhoto id de la foto
    * @param data Data vacia
    */
-  setMainPhoto( id, idPhoto, data = '' ): Observable<any> {
+  setMainPhoto( id: string, idPhoto, data = '' ): Observable<any> {
     return this.http.put( `products/${id}/photo/${idPhoto}`, data );
   }
 

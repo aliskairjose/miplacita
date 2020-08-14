@@ -24,7 +24,7 @@ export class OrderService {
    * @description Retorna el detalle de la orden
    * @param id Id de la orden
    */
-  getOrder( id ): Observable<Order> {
+  getOrder( id: string ): Observable<Order> {
     return this.http.get( `order/${id}` );
   }
 
@@ -32,7 +32,7 @@ export class OrderService {
    * @description Retorna todas las ordenes de la tienda
    * @param id Id de la tienda
    */
-  getAll( id ): Observable<Order[]> {
+  getAll( id: string ): Observable<Order[]> {
     return this.http.get( `order?store=${id}` );
   }
 
