@@ -40,6 +40,7 @@ import { MasonryGridThreeComponent } from './portfolio/masonry-grid-three/masonr
 import { MasonryGridFourComponent } from './portfolio/masonry-grid-four/masonry-grid-four.component';
 import { MasonryFullWidthComponent } from './portfolio/masonry-full-width/masonry-full-width.component';
 import { AlertModule } from 'ngx-alerts';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 @NgModule({
   declarations: [
@@ -79,6 +80,7 @@ import { AlertModule } from 'ngx-alerts';
   imports: [
     SharedModule,
     CommonModule,
+    NgxSpinnerModule,
     PagesRoutingModule,
     GalleryModule.forRoot(),
     AlertModule.forRoot( { maxMessages: 5, timeout: 5000, position: 'right' } ),
