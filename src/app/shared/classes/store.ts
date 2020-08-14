@@ -1,3 +1,4 @@
+import { Product } from './product';
 export interface Store {
   id?: number;
   name: string;
@@ -6,6 +7,7 @@ export interface Store {
   logo_url: string;
   location: [];
   phone: string;
+  product?: Product[];
   shipment_options: ShipmentOptions[];
 }
 
