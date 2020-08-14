@@ -137,8 +137,8 @@ export class MarketplaceComponent implements OnInit, OnDestroy {
 
 
   ngOnInit(): void {
+    this.alertService.info( 'this is an info alert' );
     /*
-      this.alertService.info( 'this is an info alert' );
       this.alertService.danger( 'this is a danger alert' );
       this.alertService.success( 'this is a success alert' );
       this.alertService.warning( 'this is a warning alert' );
