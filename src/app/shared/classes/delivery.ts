@@ -1,4 +1,4 @@
-export interface DeliveryOptions {
+export interface Delivery{
   id: string;
   name: string;
   phone: string;
