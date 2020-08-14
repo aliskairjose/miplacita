@@ -31,4 +31,9 @@ export class HttpService {
     const url = environment.apiUrl + endpoint;
     return this.http.patch( url, data);
   }
+
+  delete(endpoint: string, data: any ): Observable<any> {
+    const url = environment.apiUrl + endpoint;
+    return this.http.delete( url, data);
+  }
 }
