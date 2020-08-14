@@ -26,7 +26,15 @@ export class ProductService {
    * @param Id Id del producto a consultar
    */
   getProduct( id: number ): Observable<Product> {
-    return this.http.get( `/${id}` );
+    return this.http.get( `product/${id}` );
+  }
+
+  /**
+   * @description Crea un nuevo producto
+   * @param data Detale del producto
+   */
+  addProduct( data: Product): Observable<any>{
+    return this.http.post('products', data);
   }
 
 
