@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../../shared/services/auth.service';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { AlertService } from 'ngx-alerts';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component( {
   selector: 'app-login',
@@ -18,6 +20,7 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private router: Router,
+    private alert: AlertService,
     private authService: AuthService,
     private formBuilder: FormBuilder,
     private spinner: NgxSpinnerService,
@@ -33,15 +36,22 @@ export class LoginComponent implements OnInit {
   get f() { return this.loginForm.controls; }
 
   onSubmit(): void {
-    console.log(this.loginForm.valid)
+    console.log( this.loginForm.valid )
     this.submitted = true;
 
     if ( this.loginForm.valid ) {
-      // this.spinner.show();
+      this.spinner.show();
       this.authService.login( this.loginForm.value ).subscribe( response => {
+
         console.log( response );
         this.spinner.hide();
-      }, () => this.spinner.hide() );
+
+      }, ( error: HttpErrorResponse ) => {
+
+        this.spinner.hide();
+        this.alert.warning( error.statusText );
+
+      } );
     }
   }
 
