@@ -1,6 +1,6 @@
 import { Product } from './product';
 export interface Store {
-  id?: number;
+  id?: string;
   name: string;
   description: string;
   currency: string;
