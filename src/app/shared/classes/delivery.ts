@@ -4,4 +4,5 @@ export interface Delivery{
   phone: string;
   email: string;
   store_id: string;
+  active?: boolean;
 }
