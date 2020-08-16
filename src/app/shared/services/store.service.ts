@@ -1,12 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpService } from './http.service';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { Store } from '../classes/store';
 
 @Injectable( {
   providedIn: 'root'
 } )
 export class StoreService {
+
+  $store: Subject<Store> = new Subject<Store>();
 
   constructor(
     private http: HttpService
@@ -37,4 +39,20 @@ export class StoreService {
   updateStore( id: string, data: Store ): Observable<any> {
     return this.http.put( `storea/${id}`, data );
   }
+
+  /**
+   * @description Genera el stream de eventos usando next() para crear el evento
+   * @param store
+   */
+  storeSubject( store: Store ): void {
+    this.$store.next( store );
+  }
+
+  /**
+   * @description Creación del observer mediante el método asObserver(), el cual sera consumido por el componente
+   */
+  storeObserver(): Observable<Store> {
+    return this.$store.asObservable();
+  }
+
 }

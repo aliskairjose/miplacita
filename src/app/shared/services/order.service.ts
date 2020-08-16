@@ -1,12 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpService } from './http.service';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { Order } from '../classes/order';
 
 @Injectable( {
   providedIn: 'root'
 } )
 export class OrderService {
+
+  $order: Subject<Order> = new Subject<Order>();
 
   constructor(
     private http: HttpService
@@ -42,5 +44,20 @@ export class OrderService {
    */
   clientList(): Observable<any> {
     return this.http.get( 'order/list/clients' );
+  }
+
+  /**
+   * @description Genera el stream de eventos usando next() para crear el evento
+   * @param order
+   */
+  orderSubject( order: Order ): void {
+    this.$order.next( order );
+  }
+
+  /**
+   * @description Creación del observer mediante el método asObserver(), el cual sera consumido por el componente
+   */
+  orderObserver(): Observable<Order> {
+    return this.$order.asObservable();
   }
 }
