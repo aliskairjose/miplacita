@@ -40,6 +40,7 @@ import { MasonryGridThreeComponent } from './portfolio/masonry-grid-three/masonr
 import { MasonryGridFourComponent } from './portfolio/masonry-grid-four/masonry-grid-four.component';
 import { MasonryFullWidthComponent } from './portfolio/masonry-full-width/masonry-full-width.component';
 
+import { GoogleChartsModule } from 'angular-google-charts';
 @NgModule({
   declarations: [
     WishlistComponent,
@@ -79,7 +80,8 @@ import { MasonryFullWidthComponent } from './portfolio/masonry-full-width/masonr
     CommonModule,
     GalleryModule.forRoot(),
     SharedModule,
-    PagesRoutingModule
+    PagesRoutingModule,
+    GoogleChartsModule.forRoot(),
   ]
 })
 export class PagesModule { }

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ProductService } from '../../../shared/services/tm.product.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -6,6 +7,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
+  myData = [
+    ['London', 8136000],
+    ['New York', 8538000],
+    ['Paris', 2244000],
+    ['Berlin', 3470000],
+    ['Kairo', 19500000]
+  ];
+  myType = "BarChart"
   public typeUser = 1;
   public openDashboard: boolean = false;
   public orders = [
@@ -29,7 +38,9 @@ export class DashboardComponent implements OnInit {
     amount: '45$',
     date: "12-10-2020"}
   ]
-  constructor() {
+  public paginate: any = {}; // Pagination use only
+  public pageNo = 1;
+  constructor(public productService: ProductService) {
     if(this.typeUser == 1){
       this.fields = this.storeFields;
     }else if(this.typeUser == 2){
@@ -38,11 +49,16 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.paginate = this.productService.getPager(this.orders.length, +this.pageNo);     // get paginate object from service
 
   }
 
   ToggleDashboard() {
     this.openDashboard = !this.openDashboard;
+  }
+
+  setPage(event){
+    console.log(event);
   }
 
 }

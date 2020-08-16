@@ -1,7 +1,41 @@
-.mark {
+.label {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     border: 1px solid var(--theme-deafult);
-    margin-bottom: 3%;
-    margin-right: 3%;
-    margin-left: 3%;
     text-align: center;
+    height: 40px;
+}
+.labels {
+    width: 100%;
+    padding-left: 3%;
+    padding-right: 3%;
+    row-gap: 10px;
+    margin-bottom: 3%;
+}
+.charts {
+    width: 100%;
+    padding-left: 3%;
+    padding-right: 3%;
+}
+.bar-chart {
+    padding: 3% 3%
+}
+.pie-chart {
+    padding: 3% 3%
+}
+.table-dashboard{
+    width: 100%;
+    margin: 0 auto;
+    margin-top: 3%;
+    
+}
+
+@media (max-width: 480px) {
+    .label {
+        height: 25px;
+    }
+    .charts {
+        row-gap: 10px;  
+    }
 }

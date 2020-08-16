@@ -3,35 +3,37 @@
 <section class="section-b-space">
     <div class="container">
         <div class="row">
-            <div class="row">
-                <div class="col-lg-3">
-                    <div class="mark daily">
+            <div class="form-row labels">
+                <div class="col-md-3">
+                    <div class="label daily">
                         2 ventas hoy
                     </div>
                 </div>
-                <div class="col-lg-3">
-                    <div class="mark daily">
+                <div class="col-md-3">
+                    <div class="label daily">
                         2 ventas totales
                     </div>
                 </div>
-                <div class="col-lg-3">
-                    <div class="mark daily">
+                <div class="col-md-3">
+                    <div class="label daily">
                         30 clientes
                     </div>
                 </div>
-                <div class="col-lg-3">
-                    <div class="mark daily">
+                <div class="col-md-3">
+                    <div class="label daily">
                         50 productos
                     </div>
                 </div>
             </div>
-            <div class="col-lg-6" style="background-color: aqua;">
-                <p>Estadistica barras</p>
+            <div class="form-row charts">
+                <div class="col-md-6 bar-chart" style="background-color: aqua;">
+                    <google-chart [type]="myType" [data]="myData" ></google-chart>
+                </div>
+                <div class="col-md-6 pie-chart" style="background-color: blueviolet;">
+                    <google-chart type="PieChart" [data]="myData" ></google-chart>
+                </div>
             </div>
-            <div class="col-lg-6" style="background-color: blueviolet;">
-                <p>Estadisticas torta</p>
-            </div>
-            <div class="row">
+            <div class="row table-dashboard">
                 <div class="col-sm-12">
                     <table class="table cart-table table-responsive-xs">
                         <thead>
@@ -69,6 +71,8 @@
                         </tbody>
                         <!--Admin Marketplace ends-->
                     </table>
+                    <app-pagination [products]="orders" [paginate]="paginate" (setPage)="setPage($event)">
+                    </app-pagination>
                 </div>
             </div>
         </div>
