@@ -48,7 +48,7 @@ export class LoginComponent implements OnInit {
       }, ( error: HttpErrorResponse ) => {
 
         this.spinner.hide();
-        this.alert.warning( error.statusText );
+        // this.alert.warning( error.statusText );
 
       } );
     }
