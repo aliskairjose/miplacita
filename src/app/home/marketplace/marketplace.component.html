@@ -1,5 +1,9 @@
 <app-header-one [themeLogo]="themeLogo"></app-header-one>
 
+<ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="ball-spin-clockwise" [fullScreen]="true">
+    <p style="color: white"> Cargando... </p>
+</ngx-spinner>
+
 <!-- Home slider start-->
 <section class="p-0">
     <app-slider [sliders]="sliders" [textClass]="'text-center'" [category]="'watch'" [buttonText]="'shop now'">
@@ -49,19 +53,31 @@
                 </div>
             </div>
             <div class="row mt-3">
-                <div class="col-sm-12 col-md-4 d-flex justify-content-center">
-                    <div>
-                        <h4>Beneficio 1</h4>
+                <div class="col-lg-4 my-2">
+                    <div class="card text-center shadow bg-white rounded">
+                        <div class="card-body">
+                            <h4>Beneficio 1</h4>
+                            <p class="card-text">With supporting text below as a natural lead-in to additional
+                                content.</p>
+                        </div>
                     </div>
                 </div>
-                <div class="col-sm-12 col-md-4 d-flex justify-content-center">
-                    <div>
-                        <h4>Beneficio 2</h4>
+                <div class="col-lg-4 my-2">
+                    <div class="card text-center shadow bg-white rounded">
+                        <div class="card-body">
+                            <h4>Beneficio 2</h4>
+                            <p class="card-text">With supporting text below as a natural lead-in to additional
+                                content.</p>
+                        </div>
                     </div>
                 </div>
-                <div class="col-sm-12 col-md-4 d-flex justify-content-center">
-                    <div>
-                        <h4>Beneficio 3</h4>
+                <div class="col-lg-4 my-2">
+                    <div class="card text-center shadow bg-white rounded">
+                        <div class="card-body">
+                            <h4>Beneficio 3</h4>
+                            <p class="card-text">With supporting text below as a natural lead-in to additional
+                                content.</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -82,11 +98,23 @@
             </div>
         </div>
         <div class="row mt-3">
-            <div class="col-sm-12 col-md-6 d-flex justify-content-center">
-                <h4>Plan 1</h4>
+            <div class="col-lg-6 my-2">
+                <div class="card text-center shadow bg-white rounded">
+                    <div class="card-body">
+                        <h4>Plan 1</h4>
+                        <p class="card-text">With supporting text below as a natural lead-in to additional
+                            content.</p>
+                    </div>
+                </div>
             </div>
-            <div class="col-sm-12 col-md-6 d-flex justify-content-center">
-                <h4>Plan 2</h4>
+            <div class="col-lg-6 my-2">
+                <div class="card text-center shadow bg-white rounded">
+                    <div class="card-body">
+                        <h4>Plan 2</h4>
+                        <p class="card-text">With supporting text below as a natural lead-in to additional
+                            content.</p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
