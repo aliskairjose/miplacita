@@ -43,6 +43,7 @@ import { AlertModule } from 'ngx-alerts';
 import { NgxSpinnerModule } from 'ngx-spinner';
 
 import { GoogleChartsModule } from 'angular-google-charts';
+
 @NgModule({
   declarations: [
     WishlistComponent,
@@ -77,6 +78,7 @@ import { GoogleChartsModule } from 'angular-google-charts';
     MasonryGridThreeComponent,
     MasonryGridFourComponent,
     MasonryFullWidthComponent
+
   ],
   imports: [
     SharedModule,

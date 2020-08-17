@@ -71,6 +71,8 @@
                         </tbody>
                         <!--Admin Marketplace ends-->
                     </table>
+                    <app-custom-pagination [products]="orders" [paginate]="paginate" (setPage)="setPage($event)">
+                    </app-custom-pagination>
                 </div>
             </div>
         </div>

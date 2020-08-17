@@ -55,6 +55,7 @@ import { TapToTopComponent } from './components/tap-to-top/tap-to-top.component'
 
 // Pipes
 import { DiscountPipe } from './pipes/discount.pipe';
+import { CustomPaginationComponent } from './custom-pagination/custom-pagination/custom-pagination.component';
 
 @NgModule({
   declarations: [
@@ -89,7 +90,8 @@ import { DiscountPipe } from './pipes/discount.pipe';
     LayoutBoxComponent,
     TapToTopComponent,
     DiscountPipe,
-    RegisterStoreComponent
+    RegisterStoreComponent,
+    CustomPaginationComponent
   ],
   imports: [
     CommonModule,

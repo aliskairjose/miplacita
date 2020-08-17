@@ -23,8 +23,92 @@ export class DashboardComponent implements OnInit {
       status: "pendiente",
     description: "un pedido x con muchos productos",
     price: "88.$"
-    }
-  ];
+    },
+    {
+      name:"pedido 1",
+      status: "pendiente",
+    description: "un pedido x con muchos productos",
+    price: "88.$"
+    },
+
+    {
+      name:"pedido 1",
+      status: "pendiente",
+    description: "un pedido x con muchos productos",
+    price: "88.$"
+    },
+    {
+      name:"pedido 1",
+      status: "pendiente",
+    description: "un pedido x con muchos productos",
+    price: "88.$"
+    },{
+      name:"pedido 1",
+      status: "pendiente",
+    description: "un pedido x con muchos productos",
+    price: "88.$"
+    },
+    {
+      name:"pedido 1",
+      status: "pendiente",
+    description: "un pedido x con muchos productos",
+    price: "88.$"
+    },{
+      name:"pedido 1",
+      status: "pendiente",
+    description: "un pedido x con muchos productos",
+    price: "88.$"
+    },
+    {
+      name:"pedido 1",
+      status: "pendiente",
+    description: "un pedido x con muchos productos",
+    price: "88.$"
+    },{
+      name:"pedido 1",
+      status: "pendiente",
+    description: "un pedido x con muchos productos",
+    price: "88.$"
+    },
+    {
+      name:"pedido 1",
+      status: "pendiente",
+    description: "un pedido x con muchos productos",
+    price: "88.$"
+    },{
+      name:"pedido 1",
+      status: "pendiente",
+    description: "un pedido x con muchos productos",
+    price: "88.$"
+    },
+    {
+      name:"pedido 1",
+      status: "pendiente",
+    description: "un pedido x con muchos productos",
+    price: "88.$"
+    },{
+      name:"pedido 1",
+      status: "pendiente",
+    description: "un pedido x con muchos productos",
+    price: "88.$"
+    },
+    {
+      name:"pedido 1",
+      status: "pendiente",
+    description: "un pedido x con muchos productos",
+    price: "88.$"
+    },{
+      name:"pedido 1",
+      status: "pendiente",
+    description: "un pedido x con muchos productos",
+    price: "88.$"
+    },
+    {
+      name:"pedido 1",
+      status: "pendiente",
+    description: "un pedido x con muchos productos",
+    price: "88.$"
+    },  ];
   public fields = [];
   public storeFields = [{name: "Pedidos"},
   {name: "Status"},
@@ -49,7 +133,7 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.paginate = this.productService.getPager(this.orders.length, +this.pageNo);     // get paginate object from service
+    this.paginate = this.productService.getPager(this.orders.length, +this.pageNo, 2);     // get paginate object from service
 
   }
 
