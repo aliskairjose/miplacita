@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SharedModule } from '../shared/shared.module';
 import { HomeRoutingModule } from './home-routing.module';
@@ -27,6 +27,9 @@ import { InstagramComponent } from './widgets/instagram/instagram.component';
 import { ServicesComponent } from './widgets/services/services.component';
 import { CollectionComponent } from './widgets/collection/collection.component';
 import { MarketplaceComponent } from './marketplace/marketplace.component';
+import { NgxSpinnerModule } from 'ngx-spinner';
+import { AlertModule } from 'ngx-alerts';
+import { RegisterComponent } from './widgets/register/register.component';
 
 @NgModule({
   declarations: [
@@ -47,17 +50,22 @@ import { MarketplaceComponent } from './marketplace/marketplace.component';
     MarijuanaComponent,
     MarketplaceComponent,
     // Widgest Components
-    SliderComponent,
-    BlogComponent,
     LogoComponent,
-    InstagramComponent,
+    BlogComponent,
+    SliderComponent,
+    RegisterComponent,
     ServicesComponent,
+    InstagramComponent,
     CollectionComponent,
   ],
   imports: [
     CommonModule,
     HomeRoutingModule,
-    SharedModule
-  ]
+    SharedModule,
+    NgxSpinnerModule,
+    AlertModule.forRoot( { maxMessages: 5, timeout: 5000, position: 'left' } ),
+  ],
+  schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
+
 })
 export class HomeModule { }

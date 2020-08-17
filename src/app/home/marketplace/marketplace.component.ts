@@ -3,6 +3,8 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { ProductSlider, CollectionSlider } from '../../shared/data/slider';
 import { Product } from '../../shared/classes/tm.product';
 import { ProductService } from '../../shared/services/tm.product.service';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { AlertService } from 'ngx-alerts';
 
 @Component( {
   selector: 'app-marketplace',
@@ -16,23 +18,6 @@ export class MarketplaceComponent implements OnInit, OnDestroy {
   productCollections: any[] = [];
   ProductSliderConfig: any = ProductSlider;
   CollectionSliderConfig: any = CollectionSlider;
-
-  constructor(
-    private _sanitizer: DomSanitizer,
-    public productService: ProductService
-  ) {
-    this.productService.getProducts.subscribe( response => {
-      this.products = response.filter( item => item.type === 'watch' );
-      // Get Product Collection
-      this.products.filter( ( item ) => {
-        item.collection.filter( ( collection ) => {
-          const index = this.productCollections.indexOf( collection );
-          if ( index === -1 ) { this.productCollections.push( collection ); }
-        } );
-      } );
-    } );
-  }
-
   sliders = [
     {
       title: 'every time',
@@ -131,7 +116,37 @@ export class MarketplaceComponent implements OnInit, OnDestroy {
     }
   ];
 
+  constructor(
+    private _sanitizer: DomSanitizer,
+    private alertService: AlertService,
+    private spinner: NgxSpinnerService,
+    public productService: ProductService,
+  ) {
+    this.productService.getProducts.subscribe( response => {
+      this.products = response.filter( item => item.type === 'watch' );
+      // Get Product Collection
+      this.products.filter( ( item ) => {
+        item.collection.filter( ( collection ) => {
+          const index = this.productCollections.indexOf( collection );
+          if ( index === -1 ) { this.productCollections.push( collection ); }
+        } );
+      } );
+    } );
+  }
+
+
+
   ngOnInit(): void {
+    /*
+      this.alertService.info( 'this is an info alert' );
+      this.alertService.danger( 'this is a danger alert' );
+      this.alertService.success( 'this is a success alert' );
+      this.alertService.warning( 'this is a warning alert' );
+      this.spinner.show();
+      setTimeout(() => {
+        this.spinner.hide();
+      }, 3000);
+    */
     // Change color for this layout
     document.documentElement.style.setProperty( '--theme-deafult', '#e4604a' );
   }

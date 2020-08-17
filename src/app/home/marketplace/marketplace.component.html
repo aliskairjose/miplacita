@@ -1,5 +1,12 @@
 <app-header-one [themeLogo]="themeLogo"></app-header-one>
 
+<ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="ball-spin-clockwise" [fullScreen]="true">
+    <p style="color: white"> Cargando... </p>
+</ngx-spinner>
+
+<ngx-alerts></ngx-alerts>
+
+
 <!-- Home slider start-->
 <section class="p-0">
     <app-slider [sliders]="sliders" [textClass]="'text-center'" [category]="'watch'" [buttonText]="'shop now'">
@@ -7,34 +14,13 @@
 </section>
 <!-- Home slider End -->
 
-<!-- Como me registro start -->
-<section class="section-b-space">
-    <div class="container">
-        <div class="row">
-            <div class="col">
-                <div class="title1 title5">
-                    <h2 class="title-inner1">Como me registro</h2>
-                    <hr role="tournament6">
-                </div>
-            </div>
-        </div>
-        <div class="d-flex flex-sm-row flex-column justify-content-between mt-3">
-            <div>
-                <h4>Registrate</h4>
-            </div>
-            <div>
-                <h4>Selecciona tu plan</h4>
-            </div>
-            <div>
-                <h4>Crea tu tienda</h4>
-            </div>
-            <div>
-                <h4>Sube y vende produtos</h4>
-            </div>
-        </div>
-    </div>
-</section>
-<!-- Como me registro end -->
+<!-- register start-->
+<div class="container">
+    <section class="service border-section small-section">
+        <app-register></app-register>
+    </section>
+</div>
+<!-- services End -->
 
 <!-- Crea tu tienda start -->
 <section class="section-b-space">
@@ -49,19 +35,31 @@
                 </div>
             </div>
             <div class="row mt-3">
-                <div class="col-sm-12 col-md-4 d-flex justify-content-center">
-                    <div>
-                        <h4>Beneficio 1</h4>
+                <div class="col-lg-4 my-2">
+                    <div class="card text-center shadow bg-white rounded">
+                        <div class="card-body">
+                            <h4>Beneficio 1</h4>
+                            <p class="card-text">With supporting text below as a natural lead-in to additional
+                                content.</p>
+                        </div>
                     </div>
                 </div>
-                <div class="col-sm-12 col-md-4 d-flex justify-content-center">
-                    <div>
-                        <h4>Beneficio 2</h4>
+                <div class="col-lg-4 my-2">
+                    <div class="card text-center shadow bg-white rounded">
+                        <div class="card-body">
+                            <h4>Beneficio 2</h4>
+                            <p class="card-text">With supporting text below as a natural lead-in to additional
+                                content.</p>
+                        </div>
                     </div>
                 </div>
-                <div class="col-sm-12 col-md-4 d-flex justify-content-center">
-                    <div>
-                        <h4>Beneficio 3</h4>
+                <div class="col-lg-4 my-2">
+                    <div class="card text-center shadow bg-white rounded">
+                        <div class="card-body">
+                            <h4>Beneficio 3</h4>
+                            <p class="card-text">With supporting text below as a natural lead-in to additional
+                                content.</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -82,11 +80,42 @@
             </div>
         </div>
         <div class="row mt-3">
-            <div class="col-sm-12 col-md-6 d-flex justify-content-center">
-                <h4>Plan 1</h4>
+            <div class="col-lg-6 my-2">
+                <div class="card text-center shadow bg-white rounded h-100">
+                    <div class="card-body">
+                        <h4>Membresia Básica</h4>
+                        <h3>0.00BI</h3>
+                        <ul class="list-group list-group-flush">
+                            <li>Logo de tienda</li>
+                            <li>Paleta de colores</li>
+                            <li>Tipografía</li>
+                            <li>Hasta 10 productos</li>
+                            <li>Fotos y características del producto</li>
+                            <li>Link de pago TDC y url para compartir</li>
+                            <li>Reporte (No incluye inventario)</li>
+                        </ul>
+                    </div>
+                </div>
             </div>
-            <div class="col-sm-12 col-md-6 d-flex justify-content-center">
-                <h4>Plan 2</h4>
+            <div class="col-lg-6 my-2">
+                <div class="card text-center shadow bg-white rounded h-100">
+                    <div class="card-body">
+                        <h4>Membresia Premium</h4>
+                        <h3>8.88BI</h3>
+                        <ul class="list-group list-group-flush">
+                            <li>Logo de tienda</li>
+                            <li>Paleta de colores</li>
+                            <li>Tipografía</li>
+                            <li>Sin límites de productos</li>
+                            <li>Fotos y características del producto (color, talla, cantidad, marca)</li>
+                            <li>Pasarela de pago</li>
+                            <li>Plan de compensaciones ( Referido)</li>
+                            <li>Inventario</li>
+                            <li>Reportes</li>
+                            <li>URL para compartir en redes sociales</li>
+                        </ul>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

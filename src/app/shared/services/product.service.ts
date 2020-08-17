@@ -15,6 +15,14 @@ export class ProductService {
   ) { }
 
   /**
+   * @description Crea un nuevo producto
+   * @param data Detale del producto
+   */
+  addProduct( data: Product ): Observable<any> {
+    return this.http.post( 'products', data );
+  }
+
+  /**
    * @description Lista de productos
    */
   productList(): Observable<Product[]> {
@@ -25,10 +33,46 @@ export class ProductService {
    * @description Detalle de un producto
    * @param Id Id del producto a consultar
    */
-  getProduct( id: number ): Observable<Product> {
-    return this.http.get( `/${id}` );
+  getProduct( id: string ): Observable<Product> {
+    return this.http.get( `product/${id}` );
   }
 
+  /**
+   * @description Actualizacion del producto
+   * @param id Id del producto a actualizar
+   * @param data Data de producto
+   */
+  updateProduct( id, data: Product ): Observable<any> {
+    return this.http.put( `products/${id}`, data );
+  }
+
+  // Product Photo ---------------------------------------------------------------
+
+  /**
+   * @description Agregar foto al producto
+   * @param id Id del producto al cual se agrega photo
+   * @param data Url de la photo
+   */
+  addProductoPhoto( id: string, data: string ): Observable<any> {
+    return this.http.post( `products/${id}/photo`, data );
+  }
+
+  /**
+   * @description Eliminando photo de producto
+   */
+  deletePhoto( id: string, ): Observable<any> {
+    return this.http.delete( `products/photo/${id}`);
+  }
+
+  /**
+   * @description Coloca la foto como principal
+   * @param id Id del producto
+   * @param idPhoto id de la foto
+   * @param data Data vacia
+   */
+  setMainPhoto( id: string, idPhoto, data = '' ): Observable<any> {
+    return this.http.put( `products/${id}/photo/${idPhoto}`, data );
+  }
 
   /**
    * @description Genera el stream de eventos usando next() para crear el evento

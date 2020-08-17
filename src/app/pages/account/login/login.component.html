@@ -1,19 +1,35 @@
-<app-breadcrumb [title]="'Login'" [breadcrumb]="'Login'"></app-breadcrumb>
+<app-breadcrumb [title]="'Inicio de sesión'" [breadcrumb]="'Login'"></app-breadcrumb>
+
+<ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="ball-spin-clockwise" [fullScreen]="true">
+    <p style="color: white"> Por favor espere... </p>
+</ngx-spinner>
+<ngx-alerts></ngx-alerts>
+
 <!-- section start -->
 <section class="login-page section-b-space">
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
-                <h3>Login</h3>
+                <h3>Iniciar Sesión</h3>
                 <div class="theme-card">
-                    <form class="theme-form">
+                    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="theme-form">
                         <div class="form-group">
-                            <label for="email">Email</label>
-                            <input type="text" class="form-control" id="email" placeholder="Email" required="">
+                            <label for="email">Correo electrónico</label>
+                            <input type="email" formControlName="email" class="form-control" id="email"
+                                placeholder="Correo electrónico" required [ngClass]="{ 'is-invalid': submitted && f.email.errors }">
+                            <div *ngIf="submitted && f.email.errors" class="invalid-feedback d-block">
+                                <div *ngIf="f.email.errors.required"> {{ required }} </div>
+                                <div *ngIf="f.email.errors.email"> {{ invalidEmail }} </div>
+                            </div>
                         </div>
                         <div class="form-group">
                             <label for="review">Contraseña</label>
-                            <input type="password" class="form-control" id="review" placeholder="Ingrese su contraseña" required="">
+                            <input type="password" formControlName="password" class="form-control" id="review"
+                                    placeholder="Ingrese su contraseña" 
+                                    required [ngClass]="{ 'is-invalid': submitted && f.password.errors }"/>
+                            <div *ngIf="submitted && f.password.errors">
+                                <div *ngIf="f.password.errors.required" class="invalid-feedback d-block"> {{ required }} </div>
+                            </div>
                         </div>
                         <div class="form-group">
                             <p><strong>Olvidé mi contraseña</strong></p>

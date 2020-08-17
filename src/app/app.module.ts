@@ -6,8 +6,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
 import { LoadingBarRouterModule } from '@ngx-loading-bar/router';
 import { ToastrModule } from 'ngx-toastr';
-import { TranslateLoader, TranslateModule} from '@ngx-translate/core';
-import { TranslateHttpLoader} from '@ngx-translate/http-loader';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { SharedModule } from './shared/shared.module';
 import { AppRoutingModule } from './app-routing.module';
 
@@ -22,11 +22,11 @@ import { HttpInterceptor } from './shared/interceptor/http.interceptor';
 import { AuthGuard } from './shared/guard/auth.guard';
 
 // AoT requires an exported function for factories
-export function HttpLoaderFactory(http: HttpClient) {
-   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
+export function HttpLoaderFactory( http: HttpClient ) {
+  return new TranslateHttpLoader( http, './assets/i18n/', '.json' );
 }
 
-@NgModule({
+@NgModule( {
   declarations: [
     AppComponent,
     ShopComponent,
@@ -34,31 +34,22 @@ export function HttpLoaderFactory(http: HttpClient) {
     ElementsComponent
   ],
   imports: [
-    BrowserModule.withServerTransition({ appId: 'serverApp' }),
-    BrowserAnimationsModule,
-    HttpClientModule,
     NgbModule,
-    LoadingBarHttpClientModule,
-    LoadingBarRouterModule,
-    ToastrModule.forRoot({
-      timeOut: 3000,
-      progressBar: false,
-      enableHtml: true,
-    }),
-    TranslateModule.forRoot({
-        loader: {
-            provide: TranslateLoader,
-            useFactory: HttpLoaderFactory,
-            deps: [HttpClient]
-        }
-    }),
     SharedModule,
-    AppRoutingModule
+    HttpClientModule,
+    AppRoutingModule,
+    LoadingBarRouterModule,
+    BrowserAnimationsModule,
+    LoadingBarHttpClientModule,
+    BrowserModule.withServerTransition( { appId: 'serverApp' } ),
+    ToastrModule.forRoot( { timeOut: 3000, progressBar: false, enableHtml: true, } ),
+    TranslateModule.forRoot( { loader: { provide: TranslateLoader, useFactory: HttpLoaderFactory, deps: [ HttpClient ] } } ),
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: HttpInterceptor, multi: true },
     AuthGuard
   ],
-  bootstrap: [AppComponent]
-})
+  bootstrap: [ AppComponent ]
+
+} )
 export class AppModule { }
