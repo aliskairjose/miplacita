@@ -48,12 +48,11 @@ export class RegisterComponent implements OnInit {
     if ( this.registerForm.valid ) {
       this.auth.register( this.registerForm.value ).subscribe( response => {
         console.log( response );
+        this.registerSuccess = true;
         this.spinner.hide();
         this.alert.info( 'Su registro se completo con exito' );
-        setTimeout( () => {
-          // Redireccionamiento despues del registro
-        }, 3200 );
-      }, ( ) => {
+        this.registerSuccess = true;
+      }, () => {
         this.spinner.hide();
         this.alert.danger( 'Ha ocurrido un error!' );
       } );
