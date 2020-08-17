@@ -5,6 +5,7 @@ import { AuthService } from '../../../shared/services/auth.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { AlertService } from 'ngx-alerts';
 import { HttpErrorResponse } from '@angular/common/http';
+import { StorageService } from '../../../shared/services/storage.service';
 
 @Component( {
   selector: 'app-login',
@@ -21,7 +22,8 @@ export class LoginComponent implements OnInit {
   constructor(
     private router: Router,
     private alert: AlertService,
-    private authService: AuthService,
+    private storage: StorageService,
+    private auth: AuthService,
     private formBuilder: FormBuilder,
     private spinner: NgxSpinnerService,
   ) {
@@ -40,7 +42,7 @@ export class LoginComponent implements OnInit {
 
     if ( this.loginForm.valid ) {
       this.spinner.show();
-      this.authService.login( this.loginForm.value ).subscribe( response => {
+      this.auth.login( this.loginForm.value ).subscribe( response => {
 
         console.log( response );
         this.spinner.hide();
