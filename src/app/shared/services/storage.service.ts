@@ -12,7 +12,7 @@ export class StorageService {
    * @param key Identificador del valor a almacenar
    * @param value Valor a almacenar
    */
-  set( key: string, value: any ) {
+  setItem( key: string, value: any ) {
     localStorage.setItem( key, JSON.stringify( value ) );
   }
 
@@ -20,7 +20,7 @@ export class StorageService {
    * @description Recuerpa la data almacenada en el localStorage
    * @param key Identificador del dato que se desea recuperar
    */
-  get( key: string ): Promise<{ value: any }> {
+  getItem( key: string ): Promise<{ value: any }> {
     const item = localStorage.getItem( key );
     return JSON.parse( item );
   }
@@ -29,14 +29,14 @@ export class StorageService {
    * @description Elimina la data almacenada según el identificador
    * @param key Identificador de la data que se desea eliminar
    */
-  removeStorageItem( key: string ) {
+  removeItem( key: string ) {
     localStorage.remove( key );
   }
 
   /**
    * @description Elimina toda la data almacenada en el localStorage
    */
-  clear() {
+  clearAll() {
     localStorage.clear();
   }
 
