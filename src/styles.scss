@@ -14,12 +14,9 @@ $radius: 5px;
 
 .info-benefit {
   .left-benefit{
-    border: solid thin $mp-blue;
-    // margin-right: 15px;
   }
   .rigth-benefit{
     padding: 15px 35px 35px;
-    // margin-left: 15px;
     width: inherit;
     border-radius: $radius;
     border: solid thin $mp-red;
@@ -82,11 +79,21 @@ form {
 }
 
 // Media Queries 
+/* Smartphones (portrait & landscape) */
+@media (min-width : 320px) and (max-width : 575px) {
+  .info-plan {
+    .left-info {
+      width: 100vw;
+    }
+    .rigth-info{
+      width: 100vw;
+    }
+  }
+}
 
 // Small devices (landscape phones, 576px and up)
 @media (min-width: 576px) { 
- 
- }
+}
 
 // Medium devices (tablets, 768px and up)
 @media (min-width: 768px) { }
