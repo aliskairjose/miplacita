@@ -1,33 +1,35 @@
 <app-breadcrumb [title]="'Register'" [breadcrumb]="'Register'"></app-breadcrumb>
 <!-- section start -->
-<section class="register-page section-b-space">
+<section class="register-page section-b-space" *ngIf="!registerSuccess">
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
-                <h3>create account</h3>
+                <h3>Registrate ahora</h3>
                 <div class="theme-card">
                     <form class="theme-form">
-                        <div class="form-row">
+                        <!-- <div class="form-row"> -->
                             <div class="col-md-6">
-                                <label for="email">First Name</label>
-                                <input type="text" class="form-control" id="fname" placeholder="First Name" required="">
+                                <label for="email">Nombre</label>
+                                <input type="text" class="form-control" id="fname" placeholder="Nombre" required="">
                             </div>
-                            <div class="col-md-6">
-                                <label for="review">Last Name</label>
-                                <input type="password" class="form-control" id="lname" placeholder="Last Name" required="">
-                            </div>
-                        </div>
-                        <div class="form-row">
                             <div class="col-md-6">
                                 <label for="email">email</label>
                                 <input type="text" class="form-control" id="email" placeholder="Email" required="">
                             </div>
+                        <!-- </div> -->
+                        <!-- <div class="form-row"> -->
                             <div class="col-md-6">
-                                <label for="review">Password</label>
-                                <input type="password" class="form-control" id="review" placeholder="Enter your password" required="">
+                                <label for="review">Contraseña</label>
+                                <input type="password" class="form-control" id="review" placeholder="Ingrese su contraseña" required="">
                             </div>
-                            <button class="btn btn-solid">create Account</button>
-                        </div>
+                            <div class="col-md-6">
+                                <label for="review">Confirmación de contraseña</label>
+                                <input type="password" class="form-control" id="review" placeholder="Ingrese su contraseña nuevamente" required="">
+                            </div>
+                            <div class="form-gruop" id="btn-center" (click)="register()">
+                                <button class="btn btn-solid">Registrarme</button>
+                            </div>
+                        <!-- </div> -->
                     </form>
                 </div>
             </div>
@@ -35,3 +37,6 @@
     </div>
 </section>
 <!--Section ends-->
+<!-- section start store register -->
+<app-register-store *ngIf="registerSuccess"></app-register-store>
+<!-- section ends-->

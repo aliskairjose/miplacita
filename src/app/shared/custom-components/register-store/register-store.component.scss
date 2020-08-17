@@ -1,0 +1,90 @@
+
+.form-row{
+    margin-bottom: 5%;
+}
+
+.plan{
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    margin-bottom: 5%;
+    padding: 5%;
+    border-radius: 3px;
+    text-align: center;
+    border: 0.1rem solid #495057;
+}
+
+.plan-selected {
+    border: 0.2rem solid var(--theme-deafult);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.20);
+}
+
+.list{
+    display: flex;
+    flex-direction: column;
+}
+
+.list li{
+    margin-bottom: 3%;
+}
+.plan-btn {
+    display: flex;
+    flex-direction: row;
+    column-gap: 10%;
+    width: 100%;
+    justify-content: center;
+    
+}
+.payment {
+    width: 45%;
+}
+
+.share{
+    width: 45%;
+}
+.payment button{
+    width: 100%;
+}
+.share button{
+    width: 100%;
+}
+#btn-center{
+    text-align: center;
+}
+
+#exampleFormControlTextarea1{
+    margin-bottom: 3%;
+}
+#logo-container{
+    margin: 0 auto;
+    margin-bottom: 3%;
+}
+.col-md-6 {
+    margin: 0 auto
+}
+.thumbnail{
+    margin: 0 auto;
+    width: 100%;
+    height: 150px;
+    background-color: transparent;
+    max-height: 20vh;
+    margin-bottom: 3%;
+}
+
+#upload-logo{
+    margin: 0 auto;
+    width: 100%;
+    font-size: 0.8rem;
+    border: 1px solid gray;
+    margin-bottom: 5%;
+    margin-top: 3%;
+    height: auto;
+    padding: 2px 2px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+#category{
+    margin-bottom: 2.5%;
+}
+
