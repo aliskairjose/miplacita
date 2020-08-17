@@ -86,7 +86,6 @@ import { GoogleChartsModule } from 'angular-google-charts';
     NgxSpinnerModule,
     PagesRoutingModule,
     GalleryModule.forRoot(),
-    SharedModule,
     PagesRoutingModule,
     GoogleChartsModule.forRoot(),
     AlertModule.forRoot( { maxMessages: 5, timeout: 5000, position: 'left' } ),
