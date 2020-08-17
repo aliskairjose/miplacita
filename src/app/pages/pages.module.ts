@@ -39,6 +39,7 @@ import { MasonryGridTwoComponent } from './portfolio/masonry-grid-two/masonry-gr
 import { MasonryGridThreeComponent } from './portfolio/masonry-grid-three/masonry-grid-three.component';
 import { MasonryGridFourComponent } from './portfolio/masonry-grid-four/masonry-grid-four.component';
 import { MasonryFullWidthComponent } from './portfolio/masonry-full-width/masonry-full-width.component';
+import { AlertModule } from 'ngx-alerts';
 
 @NgModule({
   declarations: [
@@ -79,7 +80,8 @@ import { MasonryFullWidthComponent } from './portfolio/masonry-full-width/masonr
     CommonModule,
     GalleryModule.forRoot(),
     SharedModule,
-    PagesRoutingModule
+    PagesRoutingModule,
+    AlertModule.forRoot({maxMessages: 5, timeout: 3000, position: 'left'})
   ]
 })
 export class PagesModule { }
