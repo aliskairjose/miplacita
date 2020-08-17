@@ -1,5 +1,62 @@
 /* You can add global styles to this file, and also import other style files */
 
+// Variables 
+/** MarketPlace custom variable *****************************************************/
+
+// Colors
+$mp-blue: #3d5afe;
+
+// radius
+$border-radius: 5px;
+
+// Landing Page 
+
+.info-plan {
+ 
+  .left-info {
+    padding: 30px;
+    width: 25vw;
+    border: solid thin $mp-blue;
+    border-top-left-radius: $border-radius;
+    border-bottom-left-radius: $border-radius;
+    h2{
+      color: $mp-blue;    
+    }
+    h4 {
+      color: $mp-blue;    
+    }
+    h5 {
+      color: $mp-blue;    
+    }
+    p{
+      color: $mp-blue;
+    }
+  }
+  .rigth-info {
+    padding: 30px;
+    width: 25vw;
+    border: solid thin $mp-blue;
+    border-top-right-radius: $border-radius;
+    border-bottom-right-radius: $border-radius;
+    background-color: $mp-blue;
+    h2{
+      color: #ffffff !important;
+    }
+    h4 {
+      color: #ffffff !important;
+    }
+    h5 {
+      color: #ffffff !important;
+    }
+    p {
+      color: #ffffff;
+    } 
+  }
+
+} // end  .info-plan
+
+
+
 form {
   input {
     margin-bottom: 0px !important;
