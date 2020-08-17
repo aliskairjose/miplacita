@@ -9,7 +9,7 @@
 
                         <div class="form-row">
                             
-                            <div class="col-md-6" >
+                            <div class="col-md-6" id="center-">
                                 <div class="plan"  [class.plan-selected]="planSelected==1" (click)="updatePlan(1)">
                                     <h5>MEMBRESÍA BÁSICA</h5>
                                     <h4><strong>0.00BI</strong></h4>
@@ -57,31 +57,30 @@
                                 </div>
                             </div>
                         </div>
-                            <div class="col-md-6">
+                            <div class="col-md-6" id="center-mb">
                                 <label for="email">Nombre</label>
                                 <input type="text" class="form-control" id="fname" placeholder="Nombre" required="">
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-6" id="center-mb">
                                 <label for="email">URL</label>
                                 <input type="url" class="form-control" id="url" placeholder="Ej. www.store.com" required="">
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-6" id="center-mb">
                                 <label for="review">Descripción</label>
                                 <textarea type="text" class="form-control" id="exampleFormControlTextarea1" placeholder="Descripción de la tienda" required=""></textarea>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-6" id="center-mb">
                                 <label for="review">Teléfono</label>
                                 <input type="tel" class="form-control" id="review" placeholder="Ingrese número de contacto" required="">
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-6" id="center-mb">
                                 <label for="review">Email</label>
                                 <input type="email" class="form-control" id="review" placeholder="Ingrese email de contacto" required="">
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-6" id="center-mb">
                                 <p for="logo">Seleccione un logo para su tienda</p>
-
                             </div>
-                            <div class="form-row col-md-6" id="logo-container">
+                            <div class="form-row col-md-6" id="center-mb">
                                 <div class="col-md-4">
                                     
                                     <img class="thumbnail" [src]="imageLogo" id="logo"/>
@@ -109,11 +108,11 @@
                 <div class="theme-card">
                     <form class="theme-form">
                         
-                        <div class="col-md-6">
+                        <div class="col-md-6" id="center-mb">
                             <label for="name">Nombre del artículo</label>
                             <input type="text" class="form-control" id="name" placeholder="Nombre" required="">
                         </div>
-                        <div class="col-md-6" id="category">
+                        <div class="col-md-6" id="center-mb">
                             <label for="category">Categoría</label>
                             <select class="form-control" name="category" >
                                 <option value="" selected>Select Country</option>
@@ -123,23 +122,23 @@
                              Categoria requerida
                             </div> -->
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-6" id="center-mb">
                             <label for="price">Precio</label>
                             <input type="number" class="form-control" id="price" placeholder="0.0" required="">
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-6" id="center-mb">
                             <label for="review">Impuesto</label>
                             <input type="number" class="form-control" id="review" placeholder="0.0" required="">
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-6" id="center-mb">
                             <label for="exampleFormControlTextarea1">Descripción</label>
                             <textarea type="text" class="form-control" id="exampleFormControlTextarea1" placeholder="Descripción del producto" required=""></textarea>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-6" id="center-mb">
                             <p for="logo">Seleccione una imagen para el artículo</p>
 
                         </div>
-                        <div class="form-row col-md-6" id="logo-container">
+                        <div class="form-row col-md-6" id="center-mb">
                             <div class="col-md-4">
                                 
                                 <img class="thumbnail" [src]="imageProduct" id="logo"/>
