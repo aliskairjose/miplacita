@@ -4,6 +4,7 @@ import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms'
 import { AuthService } from '../../../shared/services/auth.service';
 import { AlertService } from 'ngx-alerts';
 import { MustMatch } from '../../../shared/helper/must-match.validator';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component( {
   selector: 'app-register',
@@ -23,6 +24,7 @@ export class RegisterComponent implements OnInit {
     private auth: AuthService,
     private alert: AlertService,
     private formBuilder: FormBuilder,
+    private spinner: NgxSpinnerService,
   ) {
     this.createForm();
   }
@@ -32,11 +34,18 @@ export class RegisterComponent implements OnInit {
   get f() { return this.registerForm.controls; }
 
   ngOnInit(): void {
+    /** spinner starts on init */
+    this.spinner.show();
+ 
+    setTimeout(() => {
+      /** spinner ends after 5 seconds */
+      this.spinner.hide();
+    }, 2000);
   }
 
   onSubmit() {
-    console.log(this.registerForm)
     this.submitted = true;
+
     if ( this.registerForm.valid ) {
       this.auth.register( this.registerForm.value ).subscribe( response => {
         console.log( response );

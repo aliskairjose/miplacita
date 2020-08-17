@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -20,10 +20,11 @@ import 'hammerjs';
 import 'mousetrap';
 import { HttpInterceptor } from './shared/interceptor/http.interceptor';
 import { AuthGuard } from './shared/guard/auth.guard';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
-   return new TranslateHttpLoader(http, "./assets/i18n/", ".json");
+   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
 
 @NgModule({
@@ -38,6 +39,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     BrowserAnimationsModule,
     HttpClientModule,
     NgbModule,
+    NgxSpinnerModule,
     LoadingBarHttpClientModule,
     LoadingBarRouterModule,
     ToastrModule.forRoot({
@@ -59,6 +61,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     { provide: HTTP_INTERCEPTORS, useClass: HttpInterceptor, multi: true },
     AuthGuard
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+
 })
 export class AppModule { }
