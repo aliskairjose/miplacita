@@ -19,10 +19,11 @@ export class StorageService {
   /**
    * @description Recuerpa la data almacenada en el localStorage
    * @param key Identificador del dato que se desea recuperar
+   * @returns value { any }
    */
-  getItem( key: string ): Promise<{ value: any }> {
-    const item = localStorage.getItem( key );
-    return JSON.parse( item );
+  getItem( key: string ): any {
+    const value = localStorage.getItem( key );
+    return JSON.parse( value );
   }
 
   /**
