@@ -80,10 +80,10 @@ import { NgxSpinnerModule } from 'ngx-spinner';
   imports: [
     SharedModule,
     CommonModule,
-    NgxSpinnerModule,
     PagesRoutingModule,
+    NgxSpinnerModule,
     GalleryModule.forRoot(),
-    AlertModule.forRoot( { maxMessages: 5, timeout: 3000, position: 'left' } ),
+    AlertModule.forRoot({maxMessages: 5, timeout: 3000, position: 'left'})
   ]
 })
 export class PagesModule { }
