@@ -34,11 +34,11 @@ export class RegisterComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  register() {
+  onSubmit() {
     // consumo de api
     // si el registro fue exitoso
-    this.registerSuccess = !this.registerSuccess;
-    console.log( this.registerSuccess );
+    // this.registerSuccess = !this.registerSuccess;
+    // console.log( this.registerSuccess );
 
     this.submitted = true;
     if ( this.registerForm.valid ) {
