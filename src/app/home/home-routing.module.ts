@@ -20,68 +20,8 @@ import { MarketplaceComponent } from './marketplace/marketplace.component';
 
 const routes: Routes = [
   {
-    path: 'marketplace',
+    path: '',
     component: MarketplaceComponent
-  },
-  {
-    path: 'fashion',
-    component: FashionOneComponent
-  },
-  {
-    path: 'fashion-2',
-    component: FashionTwoComponent
-  },
-  {
-    path: 'fashion-3',
-    component: FashionThreeComponent
-  },
-  {
-    path: 'vegetable',
-    component: VegetableComponent
-  },
-  {
-    path: 'watch',
-    component: WatchComponent
-  },
-  {
-    path: 'furniture',
-    component: FurnitureComponent
-  },
-  {
-    path: 'flower',
-    component: FlowerComponent
-  },
-  {
-    path: 'beauty',
-    component: BeautyComponent
-  },
-  {
-    path: 'electronics',
-    component: ElectronicsComponent
-  },
-  {
-    path: 'pets',
-    component: PetsComponent
-  },
-  {
-    path: 'gym',
-    component: GymComponent
-  },
-  {
-    path: 'tools',
-    component: ToolsComponent
-  },
-  {
-    path: 'shoes',
-    component: ShoesComponent
-  },
-  {
-    path: 'bags',
-    component: BagsComponent
-  },
-  {
-    path: 'marijuana',
-    component: MarijuanaComponent
   }
 ];
 
