@@ -35,25 +35,28 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit(): void {
     /** spinner starts on init */
-    this.spinner.show();
- 
-    setTimeout(() => {
+
+    setTimeout( () => {
       /** spinner ends after 5 seconds */
-      this.spinner.hide();
-    }, 2000);
+    }, 2000 );
   }
 
   onSubmit() {
     this.submitted = true;
+    this.spinner.show();
 
     if ( this.registerForm.valid ) {
       this.auth.register( this.registerForm.value ).subscribe( response => {
         console.log( response );
+        this.spinner.hide();
         this.alert.info( 'Su registro se completo con exito' );
         setTimeout( () => {
           // Redireccionamiento despues del registro
         }, 3200 );
-      }, ( error ) => this.alert.danger( 'Ha ocurrido un error!' ) );
+      }, ( error ) => {
+        this.spinner.hide();
+        this.alert.danger( 'Ha ocurrido un error!' )
+      } );
     }
   }
 
