@@ -40,7 +40,10 @@ import { MasonryGridThreeComponent } from './portfolio/masonry-grid-three/masonr
 import { MasonryGridFourComponent } from './portfolio/masonry-grid-four/masonry-grid-four.component';
 import { MasonryFullWidthComponent } from './portfolio/masonry-full-width/masonry-full-width.component';
 import { AlertModule } from 'ngx-alerts';
+<<<<<<< HEAD
 import { NgxSpinnerModule } from 'ngx-spinner';
+=======
+>>>>>>> 09d8598328e5a94a091eb52cb97630593d0a9daf
 
 @NgModule({
   declarations: [
@@ -83,7 +86,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     NgxSpinnerModule,
     PagesRoutingModule,
     GalleryModule.forRoot(),
-    AlertModule.forRoot( { maxMessages: 5, timeout: 5000, position: 'left' } ),
+    AlertModule.forRoot({maxMessages: 5, timeout: 3000, position: 'left'})
   ]
 })
 export class PagesModule { }
