@@ -28,6 +28,8 @@ import { ServicesComponent } from './widgets/services/services.component';
 import { CollectionComponent } from './widgets/collection/collection.component';
 import { MarketplaceComponent } from './marketplace/marketplace.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { AlertModule } from 'ngx-alerts';
+import { RegisterComponent } from './widgets/register/register.component';
 
 @NgModule({
   declarations: [
@@ -48,18 +50,20 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     MarijuanaComponent,
     MarketplaceComponent,
     // Widgest Components
-    SliderComponent,
-    BlogComponent,
     LogoComponent,
-    InstagramComponent,
+    BlogComponent,
+    SliderComponent,
+    RegisterComponent,
     ServicesComponent,
+    InstagramComponent,
     CollectionComponent,
   ],
   imports: [
     CommonModule,
     HomeRoutingModule,
     SharedModule,
-    NgxSpinnerModule
+    NgxSpinnerModule,
+    AlertModule.forRoot( { maxMessages: 5, timeout: 5000, position: 'left' } ),
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 

@@ -39,6 +39,8 @@ import { MasonryGridTwoComponent } from './portfolio/masonry-grid-two/masonry-gr
 import { MasonryGridThreeComponent } from './portfolio/masonry-grid-three/masonry-grid-three.component';
 import { MasonryGridFourComponent } from './portfolio/masonry-grid-four/masonry-grid-four.component';
 import { MasonryFullWidthComponent } from './portfolio/masonry-full-width/masonry-full-width.component';
+import { AlertModule } from 'ngx-alerts';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 import { GoogleChartsModule } from 'angular-google-charts';
 @NgModule({
@@ -77,11 +79,15 @@ import { GoogleChartsModule } from 'angular-google-charts';
     MasonryFullWidthComponent
   ],
   imports: [
+    SharedModule,
     CommonModule,
+    NgxSpinnerModule,
+    PagesRoutingModule,
     GalleryModule.forRoot(),
     SharedModule,
     PagesRoutingModule,
     GoogleChartsModule.forRoot(),
+    AlertModule.forRoot( { maxMessages: 5, timeout: 5000, position: 'left' } ),
   ]
 })
 export class PagesModule { }
