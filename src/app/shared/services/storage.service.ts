@@ -34,7 +34,7 @@ export class StorageService {
   }
 
   /**
-   * Elimina toda la data almacenada en el localStorage
+   * @description Elimina toda la data almacenada en el localStorage
    */
   clear() {
     localStorage.clear();
