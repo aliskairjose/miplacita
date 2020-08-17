@@ -38,6 +38,10 @@ const routes: Routes = [
   {
     path: 'faq',
     component: FaqComponent
+  },
+  {
+    path: '404',
+    component: ErrorComponent
   }
 ];
 
