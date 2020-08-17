@@ -7,16 +7,39 @@ import { ProductService } from '../../../shared/services/tm.product.service';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
-  myData = [
-    ['London', 8136000],
-    ['New York', 8538000],
-    ['Paris', 2244000],
-    ['Berlin', 3470000],
-    ['Kairo', 19500000]
-  ];
-  myType = "BarChart"
-  public typeUser = 1;
   public openDashboard: boolean = false;
+  public typeUser = 'merchant'; // type user
+  /** Table fields */
+  public fields = [];
+
+  /** table fields by type user */
+  public storeFields = [{name: 'Pedidos'},
+                        {name: 'Status'},
+                        {name: 'Descripción'},
+                        {name: 'Precio'}];
+  public adminFields = [{name: 'Tienda'},
+                        {name: 'Monto'},
+                        {name: 'Fecha'}];
+  public paginate: any = {};
+  public pageNo = 1;
+  public pageSize = 5;
+  public stores = [];
+  public orders = [];
+
+  /** Google Chart information */
+  public barChartOptions = { legend: 'none', colors: ['#ff4c3b']};
+  public barChartColumns = ['Mayo', 'Junio', 'Julio', 'Agosto'];
+  public barChartTitle = '';
+  public pieChartTitle = '';
+  public barChartData = [];
+  public pieChartData = [];
+
+  public dailySale = "2 ventas hoy";
+  public totalSale = "30 ventas totales ";
+  public totalClients = "20 clientes";
+  public totalProducts = "50 productos";
+  /** variables provisionales  con data random*/
+ 
   public allOrders = [
     {
       name:"pedido 1",
@@ -109,36 +132,77 @@ export class DashboardComponent implements OnInit {
     description: "un pedido x con muchos productos",
     price: "88.$"
     },  ];
-  public fields = [];
-  public storeFields = [{name: "Pedidos"},
-  {name: "Status"},
-  {name: "Descripción"},
-  {name: "Precio"}]
-  public adminFields = [{name: "Tienda"},
-  {name: "Monto"},
-  {name: "Fecha"},]
+
   public allStores = [
     {name: "tienda 1",
     amount: '45$',
     date: "12-10-2020"}
-  ]
+  ];
+  public salesChart = [
+    ['Mayo', 19500000],
+    ['Junio', 8136000],
+    ['Julio', 8538000],
+    ['Agosto', 2244000],
+  ];
 
-  public paginate: any = {}; // Pagination use only
-  public pageNo = 1;
-  public pageSize = 5; 
-  public stores = [];
-  public orders = [];
+  public adminPieChart = [
+    ['Tienda 1', 19500000],
+    ['Tienda 2', 8136000],
+    ['Tienda 3', 8538000],
+    ['Tienda 4', 2244000],
+    ['Tienda 5', 19500000],
+    ['Tienda 6', 8136000],
+  ];
+
+  public storePieChart = [
+    ['Producto 1', 19500000],
+    ['Producto 2', 8136000],
+    ['Producto 3', 8538000],
+    ['Producto 4', 2244000],
+    ['Producto 5', 19500000],
+    ['Producto 6', 8136000],
+  ];
+
+
+
+
+  
+
   constructor(public productService: ProductService) {
-    if (this.typeUser === 1){
+    
+  }
+  ngOnInit(): void {
+    this.getTableInformation();
+    this.getChartInformation();
+  }
+
+  getTableInformation(){
+    //** carga de datos desde api */
+    if (this.typeUser === 'merchant'){
       this.fields = this.storeFields;
-      this.paginate = this.productService.getPager(this.allOrders.length, +this.pageNo, this.pageSize );     // get paginate object from service
+      this.paginate = this.productService.getPager(this.allOrders.length, +this.pageNo, this.pageSize );
 
       this.orders = this.slicePage(this.allOrders);
-    }else if (this.typeUser === 2){
+    }else if (this.typeUser === 'admin'){
       this.fields = this.adminFields;
-      this.paginate = this.productService.getPager(this.allStores.length, +this.pageNo, this.pageSize );     // get paginate object from service
+      this.paginate = this.productService.getPager(this.allStores.length, +this.pageNo, this.pageSize );
 
       this.stores = this.slicePage(this.allStores);
+    }
+  }
+
+  getChartInformation(){
+    /** carga de datos para las estadisticas */
+    this.barChartData = this.salesChart;
+    this.barChartTitle = 'Ventas';
+    if (this.typeUser === 'merchant'){
+      this.pieChartData = this.storePieChart;
+      this.pieChartTitle = 'Más vendidos este mes';
+
+    }else if (this.typeUser === 'admin'){
+      this.pieChartData = this.adminPieChart;
+      this.pieChartTitle = 'Ventas por tienda';
+
     }
   }
 
@@ -149,24 +213,21 @@ export class DashboardComponent implements OnInit {
       return items;
     }
   }
-  ngOnInit(): void {
-  }
 
   ToggleDashboard() {
     this.openDashboard = !this.openDashboard;
   }
 
   setPage(event){
-    console.log("SET PAGE",event,this.paginate);
     if (event === this.paginate.endPage){
       const end = event * this.paginate.pageSize;
       this.paginate.startIndex = end - this.paginate.pageSize;
       
-      if (this.typeUser === 1){
+      if (this.typeUser === 'merchant'){
         this.orders = this.allOrders.slice(this.paginate.startIndex );
         this.paginate.endIndex = this.allOrders.length - 1;
 
-      } else if (this.typeUser === 2) {
+      } else if (this.typeUser === 'admin') {
         this.stores = this.allStores.slice(this.paginate.startIndex);
         this.paginate.endIndex = this.allStores.length - 1;
 
@@ -176,16 +237,13 @@ export class DashboardComponent implements OnInit {
       this.paginate.startIndex = end - this.paginate.pageSize;
       
       this.paginate.endIndex = end - 1;
-      if (this.typeUser === 1){
+      if (this.typeUser === 'merchant'){
         this.orders = this.allOrders.slice(this.paginate.startIndex, this.paginate.endIndex + 1);
-      } else if (this.typeUser === 2) {
+      } else if (this.typeUser === 'admin') {
         this.stores = this.allStores.slice(this.paginate.startIndex, this.paginate.endIndex + 1 );
       }
     }
- 
     this.paginate.currentPage = event;
-
-    
   }
 
 }

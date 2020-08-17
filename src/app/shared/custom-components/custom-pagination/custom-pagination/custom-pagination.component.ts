@@ -7,7 +7,7 @@ import { Component, OnInit, Output, Input, EventEmitter } from '@angular/core';
 })
 export class CustomPaginationComponent implements OnInit {
 
-  @Input() products = [];
+  @Input() items = [];
   @Input() paginate: any = {};
 
   @Output() setPage: EventEmitter<any> = new EventEmitter<any>();
@@ -19,7 +19,7 @@ export class CustomPaginationComponent implements OnInit {
   }
 
   pageSet(page: number) {
-    this.setPage.emit(page);  // Set Page Number  
+    this.setPage.emit(page);  // Set Page Number
   }
 
 }

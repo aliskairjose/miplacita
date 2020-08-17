@@ -5,35 +5,65 @@
         <div class="row">
             <div class="form-row labels">
                 <div class="col-md-3">
-                    <div class="label daily">
-                        2 ventas hoy
+                    <div class="label card d-flex flex-row">
+                        <div class="col-1 d-flex align-items-stretch icon-label">
+                            
+                        </div>
+                        <div class="d-flex flex-fill justify-content-center align-items-center ">
+                            {{ dailySale }}
+                        </div>
                     </div>
                 </div>
                 <div class="col-md-3">
-                    <div class="label daily">
-                        2 ventas totales
+                    <div class="label card d-flex flex-row">
+                        <div class="col-1 d-flex align-items-stretch icon-label">
+                            
+                        </div>
+                        <div class="d-flex flex-fill justify-content-center align-items-center ">
+                            {{ totalSale }}
+                        </div>
                     </div>
                 </div>
                 <div class="col-md-3">
-                    <div class="label daily">
-                        30 clientes
+                    <div class="label card d-flex flex-row">
+                        <div class="col-1 d-flex align-items-stretch icon-label">
+                            
+                        </div>
+                        <div class="d-flex flex-fill justify-content-center align-items-center ">
+                            {{ totalClients }}
+                        </div>
                     </div>
                 </div>
                 <div class="col-md-3">
-                    <div class="label daily">
-                        50 productos
+                    <div class="label card d-flex flex-row">
+                        <div class="col-1 d-flex align-items-stretch icon-label">
+                            
+                        </div>
+                        <div class="d-flex flex-fill justify-content-center align-items-center ">
+                            {{ totalProducts }}
+                        </div>
                     </div>
                 </div>
             </div>
             <div class="form-row charts">
-                <div class="col-md-6 bar-chart" style="background-color: aqua;">
-                    <google-chart [type]="myType" [data]="myData" ></google-chart>
+                <div class="col-md-6" *ngIf="barChartData.length>0">
+                    <google-chart class="chart"
+                    [title]="barChartTitle"
+                    [options]="barChartOptions"
+                    width="100%"
+                    height="100%" 
+                    type="BarChart" 
+                    [data]="barChartData" ></google-chart>
                 </div>
-                <div class="col-md-6 pie-chart" style="background-color: blueviolet;">
-                    <google-chart type="PieChart" [data]="myData" ></google-chart>
+                <div class="col-md-6" *ngIf="pieChartData.length>0">
+                    <google-chart class="chart"
+                    [title]="pieChartTitle"
+                    [options]="" 
+                    type="PieChart" 
+                    [data]="pieChartData" ></google-chart>
                 </div>
             </div>
-            <div class="row table-dashboard">
+            <div class="row table-center-mt">
                 <div class="col-sm-12">
                     <table class="table cart-table table-responsive-xs">
                         <thead>
@@ -42,7 +72,7 @@
                         </tr>
                         </thead>
                         <!--Store Admin-->
-                        <tbody *ngIf="typeUser==1">
+                        <tbody *ngIf="typeUser=='merchant'">
                             <tr *ngFor="let order of orders">
                                 <td>
                                     {{order.name}}
@@ -58,7 +88,7 @@
                         </tbody>
                         <!--Store Admin ends-->
                         <!--Admin Marketplace-->
-                        <tbody *ngIf="typeUser==2">
+                        <tbody *ngIf="typeUser=='admin'">
                             <tr *ngFor="let store of stores">
                                 <td><h2>{{store.name}}</h2></td>
                                 <td >
@@ -71,8 +101,26 @@
                         </tbody>
                         <!--Admin Marketplace ends-->
                     </table>
-                    <app-custom-pagination [products]="orders" [paginate]="paginate" (setPage)="setPage($event)">
+                    <app-custom-pagination [items]="orders" [paginate]="paginate" (setPage)="setPage($event)">
                     </app-custom-pagination>
+                </div>
+            </div>
+            <div class="form-row container " *ngIf="orders.length==0 && stores.length==0">
+                <div class="col-md-5">
+                    <div class="card text-center" id="center-mb">
+                        <div class="card-body">
+                            <p>Configura tu tienda</p>
+                            <button class="btn btn-solid">Configurar</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="card text-center" id="center-mb">
+                        <div class="card-body">
+                            <p>Agrega productos a tu tienda</p>
+                            <button class="btn btn-solid">Agregar</button>    
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
