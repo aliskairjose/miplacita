@@ -53,9 +53,9 @@ export class RegisterComponent implements OnInit {
         setTimeout( () => {
           // Redireccionamiento despues del registro
         }, 3200 );
-      }, ( error ) => {
+      }, ( ) => {
         this.spinner.hide();
-        this.alert.danger( 'Ha ocurrido un error!' )
+        this.alert.danger( 'Ha ocurrido un error!' );
       } );
     }
   }
