@@ -16,7 +16,7 @@ export class RegisterComponent implements OnInit {
   submitted: boolean;
   invalidEmail = 'Email inválido';
   required = 'Campo obligatorio';
-  mustMatch = 'Los campos deben coincidir';
+  matchError = 'Los campos deben coincidir';
 
   constructor(
     private router: Router,
@@ -35,11 +35,7 @@ export class RegisterComponent implements OnInit {
   }
 
   onSubmit() {
-    // consumo de api
-    // si el registro fue exitoso
-    // this.registerSuccess = !this.registerSuccess;
-    // console.log( this.registerSuccess );
-
+    console.log(this.registerForm)
     this.submitted = true;
     if ( this.registerForm.valid ) {
       this.auth.register( this.registerForm.value ).subscribe( response => {
