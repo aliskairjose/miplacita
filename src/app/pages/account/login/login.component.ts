@@ -43,15 +43,16 @@ export class LoginComponent implements OnInit {
     if ( this.loginForm.valid ) {
       this.spinner.show();
       this.auth.login( this.loginForm.value ).subscribe( response => {
-
-        console.log( response );
         this.spinner.hide();
+        this.storage.setItem( 'token', response.token );
+        this.alert.info('Bienvenido');
+        setTimeout(() => {
+          // Redireccionamiento
+        }, 3200);
 
-      }, ( error: HttpErrorResponse ) => {
-
+      }, ( error ) => {
         this.spinner.hide();
         // this.alert.warning( error.statusText );
-
       } );
     }
   }
