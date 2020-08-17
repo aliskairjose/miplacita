@@ -43,9 +43,10 @@ export class RegisterComponent implements OnInit {
 
   onSubmit() {
     this.submitted = true;
-    this.spinner.show();
 
     if ( this.registerForm.valid ) {
+      this.spinner.show();
+
       this.auth.register( this.registerForm.value ).subscribe( response => {
         console.log( response );
         this.registerSuccess = true;

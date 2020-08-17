@@ -4,7 +4,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../../shared/services/auth.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { AlertService } from 'ngx-alerts';
-import { HttpErrorResponse } from '@angular/common/http';
 import { StorageService } from '../../../shared/services/storage.service';
 
 @Component( {
@@ -50,9 +49,9 @@ export class LoginComponent implements OnInit {
           // Redireccionamiento
         }, 3200);
 
-      }, ( error ) => {
+      }, () => {
         this.spinner.hide();
-        // this.alert.warning( error.statusText );
+        this.alert.danger( 'Error' );
       } );
     }
   }
