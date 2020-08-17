@@ -8,9 +8,9 @@
 <!-- section start -->
 <section class="login-page section-b-space">
     <div class="container">
-        <div class="row">
-            <div class="col-lg-12">
-                <h3>Iniciar Sesión</h3>
+        <div class="row justify-content-center">
+            <div class="col-lg-6">
+                <h3>Inicio de sesión</h3>
                 <div class="theme-card">
                     <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="theme-form">
                         <div class="form-group">
@@ -25,21 +25,23 @@
                         <div class="form-group">
                             <label for="review">Contraseña</label>
                             <input type="password" formControlName="password" class="form-control" id="review"
-                                    placeholder="Ingrese su contraseña" 
-                                    required [ngClass]="{ 'is-invalid': submitted && f.password.errors }"/>
+                                placeholder="Ingrese su contraseña" required [ngClass]="{ 'is-invalid': submitted && f.password.errors }">
                             <div *ngIf="submitted && f.password.errors">
                                 <div *ngIf="f.password.errors.required" class="invalid-feedback d-block"> {{ required }} </div>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <p><strong>Olvidé mi contraseña</strong></p>
-                        </div>
-                        <div class="form-group"  id="btn-center">
-                            <button class="btn btn-solid">Iniciar Sesión</button>
-                        </div>
+                        <button class="btn btn-solid">Inciar sesión</button>
                     </form>
                 </div>
             </div>
+            <!-- <div class="col-lg-6 right-login">
+                <h3>New Customer</h3>
+                <div class="theme-card authentication-right">
+                    <h6 class="title-font">Create A Account</h6>
+                    <p>Sign up for a free account at our store. Registration is quick and easy. It allows you to be able to order from our shop. To start shopping click register.</p>
+                    <button class="btn btn-solid">Create an Account</button>
+                </div>
+            </div> -->
         </div>
     </div>
 </section>
