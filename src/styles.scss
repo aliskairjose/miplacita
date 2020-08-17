@@ -5,11 +5,29 @@
 
 // Colors
 $mp-blue: #3d5afe;
+$mp-red: #eba39a;
 
 // radius
-$border-radius: 5px;
+$radius: 5px;
 
 // Landing Page 
+
+.info-benefit {
+  .left-benefit{
+    border: solid thin $mp-blue;
+    // margin-right: 15px;
+  }
+  .rigth-benefit{
+    padding: 15px 35px 35px;
+    // margin-left: 15px;
+    width: inherit;
+    border-radius: $radius;
+    border: solid thin $mp-red;
+    h3{
+      margin-top: 20px;
+    }
+  }
+}
 
 .info-plan {
  
@@ -17,8 +35,8 @@ $border-radius: 5px;
     padding: 30px;
     width: 25vw;
     border: solid thin $mp-blue;
-    border-top-left-radius: $border-radius;
-    border-bottom-left-radius: $border-radius;
+    border-top-left-radius: $radius;
+    border-bottom-left-radius: $radius;
     h2{
       color: $mp-blue;    
     }
@@ -36,8 +54,8 @@ $border-radius: 5px;
     padding: 30px;
     width: 25vw;
     border: solid thin $mp-blue;
-    border-top-right-radius: $border-radius;
-    border-bottom-right-radius: $border-radius;
+    border-top-right-radius: $radius;
+    border-bottom-right-radius: $radius;
     background-color: $mp-blue;
     h2{
       color: #ffffff !important;
@@ -62,3 +80,19 @@ form {
     margin-bottom: 0px !important;
   }
 }
+
+// Media Queries 
+
+// Small devices (landscape phones, 576px and up)
+@media (min-width: 576px) { 
+ 
+ }
+
+// Medium devices (tablets, 768px and up)
+@media (min-width: 768px) { }
+
+// Large devices (desktops, 992px and up)
+@media (min-width: 992px) {  }
+
+// Extra large devices (large desktops, 1200px and up)
+@media (min-width: 1200px) {  }
