@@ -61,7 +61,7 @@ import { AlertModule } from 'ngx-alerts';
     HomeRoutingModule,
     SharedModule,
     NgxSpinnerModule,
-    AlertModule.forRoot( { maxMessages: 5, timeout: 5000, position: 'left' } ),
+    AlertModule.forRoot( { maxMessages: 5, timeout: 3000, position: 'left' } ),
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 
