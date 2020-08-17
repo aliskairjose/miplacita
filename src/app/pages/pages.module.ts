@@ -81,6 +81,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     SharedModule,
     CommonModule,
     PagesRoutingModule,
+    NgxSpinnerModule,
     GalleryModule.forRoot(),
     AlertModule.forRoot({maxMessages: 5, timeout: 3000, position: 'left'})
   ]
