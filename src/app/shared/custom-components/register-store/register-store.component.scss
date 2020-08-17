@@ -6,7 +6,7 @@
 .plan{
     display: flex;
     flex-direction: column;
-    height: auto;
+    height: 100%;
     margin-bottom: 5%;
     padding: 5%;
     border-radius: 3px;
@@ -32,7 +32,9 @@
     flex-direction: row;
     column-gap: 10%;
     width: 100%;
+    height: 100%;
     justify-content: center;
+    align-items: flex-end;
     
 }
 .payment {
@@ -55,13 +57,11 @@
 #exampleFormControlTextarea1{
     margin-bottom: 3%;
 }
-#logo-container{
+#center-mb{
     margin: 0 auto;
     margin-bottom: 3%;
 }
-.col-md-6 {
-    margin: 0 auto
-}
+
 .thumbnail{
     margin: 0 auto;
     width: 100%;
