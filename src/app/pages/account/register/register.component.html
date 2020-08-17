@@ -14,17 +14,28 @@
                             </div>
                             <div class="col-md-6">
                                 <label for="email">Correo electrónico</label>
-                                <input type="text" class="form-control" id="email" placeholder="Email" required="">
+                                <input type="email" class="form-control" id="email" placeholder="Email" required="" [ngClass]="{ 'is-invalid': submitted && f.email.errors }"   >
+                                <div *ngIf="submitted && f.email.errors" class="invalid-feedback d-block">
+                                    <div *ngIf="f.email.errors.required"> {{ required }} </div>
+                                    <div *ngIf="f.email.errors.email"> {{ invalidEmail }} </div>
+                                </div>
                             </div>
                         <!-- </div> -->
                         <!-- <div class="form-row"> -->
                             <div class="col-md-6">
                                 <label for="review">Contraseña</label>
-                                <input type="password" class="form-control" id="review" placeholder="Ingrese su contraseña" required="">
+                                <input type="password" class="form-control" id="review" placeholder="Ingrese su contraseña" required="" [ngClass]="{ 'is-invalid': submitted && f.password.errors }">
+                                <div *ngIf="submitted && f.password.errors">
+                                    <div *ngIf="f.password.errors.required" class="invalid-feedback d-block"> {{ required }} </div>
+                                </div>
                             </div>
                             <div class="col-md-6">
-                                <label for="review">Confirmación de contraseña</label>
-                                <input type="password" class="form-control" id="review" placeholder="Ingrese su contraseña nuevamente" required="">
+                                <label for="review">Confirmar contraseña</label>
+                                <input type="password" class="form-control" id="review" placeholder="Ingrese su contraseña nuevamente" required="" [ngClass]="{ 'is-invalid': submitted && f.confirmPassword.errors }">
+                                <div *ngIf="submitted && f.confirmPassword.errors" class="invalid-feedback">
+                                    <div *ngIf="f.confirmPassword.errors.required">{{ required }}</div>
+                                    <div *ngIf="f.confirmPassword.errors.mustMatch">{{ mustMatch }}</div>
+                                </div>
                             </div>
                             <div class="form-gruop" id="btn-center" (click)="register()">
                                 <button class="btn btn-solid">Registrarme</button>

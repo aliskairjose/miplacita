@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { AuthService } from '../../../shared/services/auth.service';
 import { AlertService } from 'ngx-alerts';
+import { MustMatch } from '../../../shared/helper/must-match.validator';
 
 @Component( {
   selector: 'app-register',
@@ -15,7 +16,7 @@ export class RegisterComponent implements OnInit {
   submitted: boolean;
   invalidEmail = 'Email inválido';
   required = 'Campo obligatorio';
-
+  mustMatch = 'Los campos deben coincidir';
 
   constructor(
     private router: Router,
@@ -56,6 +57,9 @@ export class RegisterComponent implements OnInit {
       name: [ '', [ Validators.required ] ],
       email: [ '', [ Validators.required, Validators.email ] ],
       password: [ '', [ Validators.required ] ],
+      confirmPassword: [ '', Validators.required ]
+    }, {
+      validator: MustMatch( 'password', 'confirmPassword' )
     } );
   }
 
