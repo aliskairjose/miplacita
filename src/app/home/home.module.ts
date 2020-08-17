@@ -29,6 +29,7 @@ import { CollectionComponent } from './widgets/collection/collection.component';
 import { MarketplaceComponent } from './marketplace/marketplace.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { AlertModule } from 'ngx-alerts';
+import { RegisterComponent } from './widgets/register/register.component';
 
 @NgModule({
   declarations: [
@@ -49,11 +50,12 @@ import { AlertModule } from 'ngx-alerts';
     MarijuanaComponent,
     MarketplaceComponent,
     // Widgest Components
-    SliderComponent,
-    BlogComponent,
     LogoComponent,
-    InstagramComponent,
+    BlogComponent,
+    SliderComponent,
+    RegisterComponent,
     ServicesComponent,
+    InstagramComponent,
     CollectionComponent,
   ],
   imports: [
