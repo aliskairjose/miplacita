@@ -50,7 +50,7 @@ export class LoginComponent implements OnInit {
           this.storage.setItem( 'role', data.role );
           this.storage.setItem( 'user', data.user );
 
-          this.alert.info( 'Bienvenido' );
+          this.alert.info( `Bienvenido ${data.user.fullname}` );
           setTimeout( () => {
             // Redireccionamiento al dashboard
             this.router.navigate( [ 'pages/dashboard' ] );
