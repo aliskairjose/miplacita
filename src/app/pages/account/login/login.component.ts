@@ -49,13 +49,15 @@ export class LoginComponent implements OnInit {
           this.storage.setItem( 'token', data.token );
           this.storage.setItem( 'role', data.role );
           this.storage.setItem( 'user', data.user );
-        }
-        this.alert.info( 'Bienvenido' );
-        setTimeout( () => {
-          // Redireccionamiento
-        }, 3200 );
 
-      }, (response: HttpErrorResponse) => {
+          this.alert.info( 'Bienvenido' );
+          setTimeout( () => {
+            // Redireccionamiento al dashboard
+            this.router.navigate( [ 'pages/dashboard' ] );
+          }, 3200 );
+        }
+
+      }, ( response: HttpErrorResponse ) => {
         this.spinner.hide();
         this.alert.danger( response.error.message );
       } );
