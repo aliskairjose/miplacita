@@ -1,0 +1,40 @@
+<app-breadcrumb [title]="'Tiendas'" [breadcrumb]="'Tiendas'"></app-breadcrumb>
+
+<div class="row table-center-mt">
+    <div class="col-sm-12">
+        <table class="table cart-table table-responsive-xs">
+            <thead>
+            <tr class="table-head">
+                <th *ngFor="let field of fields" scope="col">{{field}}</th>
+            </tr>
+            </thead>
+            <tbody >
+                <tr *ngFor="let shop of shops">
+
+                    <td>
+                        {{shop.name}}
+                    </td>
+                    <td>
+                        {{shop.plan}}
+                    </td>
+                    <td >
+                        {{shop.price}}
+                    </td>
+                    <td>
+                        {{shop.estado}}
+                    </td>
+                   
+                    <td class="d-flex actions" >
+                        <button class="btn">Suscripción</button>
+                        <button class="btn">Desactivar</button>
+                    </td>
+                    
+                </tr>
+            </tbody>
+
+        </table>
+        <app-custom-pagination  [items]="shops" [paginate]="paginate" (setPage)="setPage($event)">
+        </app-custom-pagination>
+
+    </div>
+</div>
