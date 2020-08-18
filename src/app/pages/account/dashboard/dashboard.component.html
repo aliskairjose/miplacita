@@ -89,7 +89,7 @@
                         <!--Store Admin ends-->
                         <!--Admin Marketplace-->
                         <tbody *ngIf="typeUser=='admin'">
-                            <tr *ngFor="let store of stores">
+                            <tr *ngFor="let store of shops">
                                 <td><h2>{{store.name}}</h2></td>
                                 <td >
                                     <p>{{store.amount}}</p>
@@ -103,7 +103,7 @@
                     </table>
                     <app-custom-pagination *ngIf="typeUser=='merchant'" [items]="orders" [paginate]="paginate" (setPage)="setPage($event)">
                     </app-custom-pagination>
-                    <app-custom-pagination *ngIf="typeUser=='admin'" [items]="stores" [paginate]="paginate" (setPage)="setPage($event)">
+                    <app-custom-pagination *ngIf="typeUser=='admin'" [items]="shops" [paginate]="paginate" (setPage)="setPage($event)">
                     </app-custom-pagination>
                 </div>
             </div>

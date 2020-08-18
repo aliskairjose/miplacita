@@ -8,7 +8,7 @@ import { ProductService } from '../../../shared/services/tm.product.service';
 })
 export class DashboardComponent implements OnInit {
   public openDashboard: boolean = false;
-  public typeUser = 'admin'; // type user
+  public typeUser = 'merchant'; // type user
   /** Table fields */
   public fields = [];
 
@@ -23,7 +23,7 @@ export class DashboardComponent implements OnInit {
   public paginate: any = {};
   public pageNo = 1;
   public pageSize = 5;
-  public stores = [];
+  public shops = [];
   public orders = [];
 
   /** Google Chart information */
@@ -133,7 +133,7 @@ export class DashboardComponent implements OnInit {
     price: "88.$"
     },  ];
 
-  public allStores = [
+  public allshops = [
     {name: "tienda 1",
     amount: '45$',
     date: "12-10-2020"}
@@ -185,9 +185,9 @@ export class DashboardComponent implements OnInit {
       this.orders = this.slicePage(this.allOrders);
     }else if (this.typeUser === 'admin'){
       this.fields = this.adminFields;
-      this.paginate = this.productService.getPager(this.allStores.length, +this.pageNo, this.pageSize );
+      this.paginate = this.productService.getPager(this.allshops.length, +this.pageNo, this.pageSize );
 
-      this.stores = this.slicePage(this.allStores);
+      this.shops = this.slicePage(this.allshops);
     }
   }
 
@@ -228,8 +228,8 @@ export class DashboardComponent implements OnInit {
         this.paginate.endIndex = this.allOrders.length - 1;
 
       } else if (this.typeUser === 'admin') {
-        this.stores = this.allStores.slice(this.paginate.startIndex);
-        this.paginate.endIndex = this.allStores.length - 1;
+        this.shops = this.allshops.slice(this.paginate.startIndex);
+        this.paginate.endIndex = this.allshops.length - 1;
 
       }
     } else {
@@ -240,7 +240,7 @@ export class DashboardComponent implements OnInit {
       if (this.typeUser === 'merchant'){
         this.orders = this.allOrders.slice(this.paginate.startIndex, this.paginate.endIndex + 1);
       } else if (this.typeUser === 'admin') {
-        this.stores = this.allStores.slice(this.paginate.startIndex, this.paginate.endIndex + 1 );
+        this.shops = this.allshops.slice(this.paginate.startIndex, this.paginate.endIndex + 1 );
       }
     }
     this.paginate.currentPage = event;
