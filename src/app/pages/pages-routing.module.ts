@@ -9,6 +9,7 @@ import { AboutUsComponent } from './about-us/about-us.component';
 import { ErrorComponent } from './error/error.component';
 import { FaqComponent } from './faq/faq.component';
 import { CartComponent } from './account/cart/cart.component';
+import { ProductsComponent } from './products/products.component';
 
 const routes: Routes = [
   {
@@ -19,6 +20,11 @@ const routes: Routes = [
     path: 'dashboard',
     component: DashboardComponent
   },
+  {
+    path: 'productos',
+    component: ProductsComponent
+  },
+
   {
     path: 'login',
     component: LoginComponent

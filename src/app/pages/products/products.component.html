@@ -1,0 +1,50 @@
+<app-breadcrumb [title]="'Productos'" [breadcrumb]="'Productos'"></app-breadcrumb>
+
+<div class="row table-center-mt">
+    <div class="col-sm-12">
+        <table class="table cart-table table-responsive-xs">
+            <thead>
+            <tr class="table-head">
+                <th *ngFor="let field of fields" scope="col">{{field}}</th>
+            </tr>
+            </thead>
+            <tbody >
+                <tr *ngFor="let product of products">
+                    <td>
+                        {{product.id}}
+                    </td>
+                    <td>
+                        <img class="product-image" [src]="product.image" />
+                    </td>
+                    <td>
+                        {{product.name}}
+                    </td>
+                    <td>
+                        {{product.price}}
+                    </td>
+                    <td >
+                        {{product.itbms}}
+                    </td>
+                    <td><h4>{{product.estado}}</h4></td>
+                    <td>
+                        {{product.vendidos}}
+                    </td>
+                    <td>
+                        {{product.principal}}
+                    </td>
+                    <td class="d-flex flex-row" *ngIf="typeUser=='merchant'">
+                        <button class="btn">Editar</button>
+                        <button class="btn">Eliminar</button>
+                    </td>
+                    <td class="d-flex flex-row" *ngIf="typeUser=='admin'">
+                        <button class="btn">Desactivar</button>
+                    </td>
+                </tr>
+            </tbody>
+
+        </table>
+        <app-custom-pagination  [items]="products" [paginate]="paginate" (setPage)="setPage($event)">
+        </app-custom-pagination>
+
+    </div>
+</div>
