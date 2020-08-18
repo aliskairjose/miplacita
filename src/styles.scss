@@ -10,8 +10,11 @@ $mp-red: #eba39a;
 // radius
 $radius: 5px;
 
-// Landing Page 
+// text
+.text-red { color: $mp-red; }
+.text-blue { color: $mp-blue; }
 
+// Landing Page 
 .info-benefit {
   .left-benefit{
     img {
