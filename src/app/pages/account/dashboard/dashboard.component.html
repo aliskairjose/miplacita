@@ -101,7 +101,9 @@
                         </tbody>
                         <!--Admin Marketplace ends-->
                     </table>
-                    <app-custom-pagination [items]="orders" [paginate]="paginate" (setPage)="setPage($event)">
+                    <app-custom-pagination *ngIf="typeUser=='merchant'" [items]="orders" [paginate]="paginate" (setPage)="setPage($event)">
+                    </app-custom-pagination>
+                    <app-custom-pagination *ngIf="typeUser=='admin'" [items]="stores" [paginate]="paginate" (setPage)="setPage($event)">
                     </app-custom-pagination>
                 </div>
             </div>
