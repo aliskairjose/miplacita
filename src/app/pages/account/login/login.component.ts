@@ -5,6 +5,8 @@ import { AuthService } from '../../../shared/services/auth.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { AlertService } from 'ngx-alerts';
 import { StorageService } from '../../../shared/services/storage.service';
+import { LoginResponse } from '../../../shared/classes/login-response';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component( {
   selector: 'app-login',
@@ -41,17 +43,21 @@ export class LoginComponent implements OnInit {
 
     if ( this.loginForm.valid ) {
       this.spinner.show();
-      this.auth.login( this.loginForm.value ).subscribe( response => {
-        this.spinner.hide();
-        this.storage.setItem( 'token', response.token );
-        this.alert.info('Bienvenido');
-        setTimeout(() => {
+      this.auth.login( this.loginForm.value ).subscribe( ( data: LoginResponse ) => {
+        if ( data.success ) {
+          this.spinner.hide();
+          this.storage.setItem( 'token', data.token );
+          this.storage.setItem( 'role', data.role );
+          this.storage.setItem( 'user', data.user );
+        }
+        this.alert.info( 'Bienvenido' );
+        setTimeout( () => {
           // Redireccionamiento
-        }, 3200);
+        }, 3200 );
 
-      }, () => {
+      }, (response: HttpErrorResponse) => {
         this.spinner.hide();
-        this.alert.danger( 'Error' );
+        this.alert.danger( response.error.message );
       } );
     }
   }
