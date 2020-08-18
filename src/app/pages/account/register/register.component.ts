@@ -12,7 +12,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
   styleUrls: [ './register.component.scss' ]
 } )
 export class RegisterComponent implements OnInit {
-  registerSuccess = false;
+  registerSuccess = true;
   registerForm: FormGroup;
   submitted: boolean;
   invalidEmail = 'Email inválido';
@@ -34,11 +34,6 @@ export class RegisterComponent implements OnInit {
   get f() { return this.registerForm.controls; }
 
   ngOnInit(): void {
-    /** spinner starts on init */
-
-    setTimeout( () => {
-      /** spinner ends after 5 seconds */
-    }, 2000 );
   }
 
   onSubmit() {

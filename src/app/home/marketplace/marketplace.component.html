@@ -1,12 +1,5 @@
 <app-header-one [themeLogo]="themeLogo"></app-header-one>
 
-<ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="ball-spin-clockwise" [fullScreen]="true">
-    <p style="color: white"> Cargando... </p>
-</ngx-spinner>
-
-<ngx-alerts></ngx-alerts>
-
-
 <!-- Home slider start-->
 <section class="p-0">
     <app-slider [sliders]="sliders" [textClass]="'text-center'" [category]="'watch'" [buttonText]="'shop now'">
@@ -16,104 +9,91 @@
 
 <!-- register start-->
 <div class="container">
-    <section class="service border-section small-section">
-        <app-register></app-register>
+    <section class="service small-section">
+        <widget-register></widget-register>
     </section>
 </div>
 <!-- services End -->
 
-<!-- Crea tu tienda start -->
+<!-- Beneficio de vinculación start -->
 <section class="section-b-space">
-    <div class="tab-bg">
-        <div class="container">
-            <div class="row">
-                <div class="col">
-                    <div class="title1 title5">
-                        <h2 class="title-inner1">Crea tu tienda</h2>
-                        <hr role="tournament6">
-                    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="title1">
+                    <h2>Beneficio de vinculación</h2>
+                    <h3>Al formar parte de nuestra familia te <br> otorgaremos estos beneficios</h3>
                 </div>
             </div>
-            <div class="row mt-3">
-                <div class="col-lg-4 my-2">
-                    <div class="card text-center shadow bg-white rounded">
-                        <div class="card-body">
-                            <h4>Beneficio 1</h4>
-                            <p class="card-text">With supporting text below as a natural lead-in to additional
-                                content.</p>
-                        </div>
-                    </div>
+        </div>
+        <div class="row mt-3 d-flex justify-content-center">
+            <div class="col-md-12 col-lg-8 info-benefit">
+                <div class="left-benefit">
+                    <img class="mx-auto d-block" src="../../../assets/images/marketplace/svg/undraw_Gift_box_re_vau4.svg" alt="">
                 </div>
-                <div class="col-lg-4 my-2">
-                    <div class="card text-center shadow bg-white rounded">
-                        <div class="card-body">
-                            <h4>Beneficio 2</h4>
-                            <p class="card-text">With supporting text below as a natural lead-in to additional
-                                content.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 my-2">
-                    <div class="card text-center shadow bg-white rounded">
-                        <div class="card-body">
-                            <h4>Beneficio 3</h4>
-                            <p class="card-text">With supporting text below as a natural lead-in to additional
-                                content.</p>
-                        </div>
-                    </div>
+            </div>
+            <div class=" col-md-12 col-lg-4 d-flex info-benefit">
+                <div class="rigth-benefit">
+                    <h3>Beneficio</h3>
+                    <h4>Descripción del beneficio</h4>
+                    <h4>Descripción del beneficio</h4>
+                    <h3>Beneficio</h3>
+                    <h4>Descripción del beneficio</h4>
+                    <h4>Descripción del beneficio</h4>
+                    <h3>Beneficio</h3>
+                    <h4>Descripción del beneficio</h4>
+                    <h4>Descripción del beneficio</h4>
                 </div>
             </div>
         </div>
     </div>
 </section>
-<!-- Crea tu tienda end -->
+<!-- Beneficio de vinculación end -->
 
 <!-- Cuanto me cuesta start -->
 <section class="section-b-space">
     <div class="container">
         <div class="row">
             <div class="col">
-                <div class="title1 title5">
-                    <h2 class="title-inner1">Cuanto me cuesta</h2>
-                    <hr role="tournament6">
+                <div class="title1">
+                    <h2>Beneficio de vinculación</h2>
+                    <h3>Al formar parte de nuestra familia te <br> otorgaremos estos beneficios</h3>
                 </div>
             </div>
         </div>
-        <div class="row mt-3">
-            <div class="col-lg-6 my-2">
-                <div class="card text-center shadow bg-white rounded h-100">
-                    <div class="card-body">
-                        <h4>Membresia Básica</h4>
-                        <h3>0.00BI</h3>
-                        <ul class="list-group list-group-flush">
-                            <li>Logo de tienda</li>
-                            <li>Paleta de colores</li>
-                            <li>Tipografía</li>
-                            <li>Hasta 10 productos</li>
-                            <li>Fotos y características del producto</li>
-                            <li>Link de pago TDC y url para compartir</li>
-                            <li>Reporte (No incluye inventario)</li>
-                        </ul>
+        <div class="row mt-3 d-flex justify-content-center">
+            <div class="col-lg-12 d-flex justify-content-center info-plan">
+                <div class="left-info">
+                    <h4 class="text-center">Gratis</h4>
+                    <hr>
+                    <h2 class="text-center">$00.00</h2>
+                    <h4 class="text-center">Por mes</h4>
+                    <hr>
+                    <h5>- Enlace de pago</h5>
+                    <h5>- Sin cargo inicial, sin mensualidad, sin cargos ocultos</h5>
+                    <h5>- Retiro a tu banco gratis</h5>
+                    <h5>- Ver términos y condiciones aquí</h5>
+                    <hr>
+                    <div class="d-flex justify-content-around">
+                        <button type="button" class="btn btn-outline-primary">Primary</button>
+                        <button type="button" class="btn btn-outline-primary">Primary</button>
                     </div>
                 </div>
-            </div>
-            <div class="col-lg-6 my-2">
-                <div class="card text-center shadow bg-white rounded h-100">
-                    <div class="card-body">
-                        <h4>Membresia Premium</h4>
-                        <h3>8.88BI</h3>
-                        <ul class="list-group list-group-flush">
-                            <li>Logo de tienda</li>
-                            <li>Paleta de colores</li>
-                            <li>Tipografía</li>
-                            <li>Sin límites de productos</li>
-                            <li>Fotos y características del producto (color, talla, cantidad, marca)</li>
-                            <li>Pasarela de pago</li>
-                            <li>Plan de compensaciones ( Referido)</li>
-                            <li>Inventario</li>
-                            <li>Reportes</li>
-                            <li>URL para compartir en redes sociales</li>
-                        </ul>
+                <div class="rigth-info">
+                    <h4 class="text-center">Pago</h4>
+                    <hr>
+                    <h2 class="text-center">$88.00</h2>
+                    <h4 class="text-center">Por mes</h4>
+                    <hr>
+                    <h5>- 3.5% + $0.35 por transacción</h5>
+                    <h5>- Tienda en línea</h5>
+                    <h5>- Manejo de entregas</h5>
+                    <h5>- Manejo de inventario</h5>
+                    <h5>- Todo lo de pago por uso</h5>
+                    <hr>
+                    <div class="d-flex justify-content-around">
+                        <button type="button" class="btn btn-outline-light">Light</button>
+                        <button type="button" class="btn btn-outline-light">Light</button>
                     </div>
                 </div>
             </div>
@@ -128,15 +108,27 @@
         <div class="container">
             <div class="row">
                 <div class="col">
-                    <div class="title1 title5">
-                        <h2 class="title-inner1">Preguntas frecuentes</h2>
-                        <hr role="tournament6">
+                    <div class="title1">
+                        <h2>Preguntas frecuentes</h2>
                     </div>
                 </div>
             </div>
-            <div class="d-flex flex-sm-row flex-column justify-content-between mt-3">
-                <div>
-                    <h4>Preguntas y respuestas</h4>
+            <div class="row mt-3 d-flex justify-content-center">
+                <div class="col-md-6 d-flex justify-content-center">
+                    <div>
+                        <h3>Qué es lorem ipsum?</h3>
+                        <h5>Es un texto de pruebas de impresión</h5>
+                        <h3>De donde viene?</h3>
+                        <h5>Es un texto de pruebas de impresión</h5>
+                    </div>
+                </div>
+                <div class="col-md-6 d-flex justify-content-center">
+                    <div>
+                        <h3>Qué es lorem ipsum?</h3>
+                        <h5>Es un texto de pruebas de impresión</h5>
+                        <h3>De donde viene?</h3>
+                        <h5>Es un texto de pruebas de impresión</h5>
+                    </div>
                 </div>
             </div>
         </div>
