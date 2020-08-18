@@ -29,12 +29,12 @@ export class HttpInterceptor implements HttpInterceptor {
     return next.handle( request ).pipe(
       map( ( event: HttpEvent<any> ) => {
         if ( event instanceof HttpResponse ) {
-          console.log( 'event--->>>', event );
+          // console.log( 'event--->>>', event );
         }
         return event;
       } ),
       catchError( ( error: HttpErrorResponse ) => {
-        console.log( error );
+        // console.log( error );
         return throwError( error );
       } )
     );
