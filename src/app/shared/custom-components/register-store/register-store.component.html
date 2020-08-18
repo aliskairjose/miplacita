@@ -4,7 +4,7 @@
             <div class="col-lg-12">
                 <h3>Configura tu tienda</h3>
                 <div class="theme-card">
-                    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="theme-form">
+                    <form [formGroup]="registerForm" class="theme-form">
                         <p>Selecciona el plan de tu preferencia</p>
 
                         <div class="form-row">
@@ -74,7 +74,8 @@
                         </div>
                         <!-- Url -->
                         <div class="col-md-6 form-group input-group" id="center-mb">
-                            <input type="url" class="form-control" id="url" placeholder="Ej. www.store.com" required="" formControlName="url">
+                            <input type="url" class="form-control" id="url" placeholder="Ej. www.store.com" required=""
+                                formControlName="url">
                             <div class="input-group-prepend">
                                 <span class="input-group-text">
                                     <img src="../../../../assets/images/marketplace/svg/left-align.svg" alt="">
@@ -130,8 +131,8 @@
                         </div>
 
                         <div class="form-gruop" id="btn-center">
-                            <!-- <button class="btn btn-solid" (click)="storeRegister()">Registrar tienda</button> -->
-                            <button class="btn btn-solid">Registrar tienda</button>
+                            <button class="btn btn-solid" (click)="storeRegister()">Registrar tienda</button>
+                            <!-- <button class="btn btn-solid">Registrar tienda</button> -->
                         </div>
 
                     </form>
@@ -146,26 +147,46 @@
             <div class="col-lg-12">
                 <h3>Configura tu primer producto</h3>
                 <div class="theme-card">
-                    <form class="theme-form">
-
-                        <div class="col-md-6" id="center-mb">
-                            <input type="text" class="form-control" id="name" placeholder="Nombre" required="">
+                    <form [formGroup]="productForm" class="theme-form">
+                        <div class="col-md-6 form-group input-group" id="center-mb">
+                            <input formControlName="title" type="text" class="form-control" id="title" placeholder="Nombre del producto" required="">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                    <img src="../../../../assets/images/marketplace/svg/bag.svg" alt="">
+                                </span>
+                            </div>
+                            <div *ngIf="submitted && p.title.errors" class="invalid-feedback d-block">
+                                <div *ngIf="p.title.errors.required"> {{ required }} </div>
+                            </div>
                         </div>
-                        <div class="col-md-6" id="center-mb">
+                        <div class="col-md-6 form-group input-group" id="center-mb">
+                            <input formControlName="price" type="text" class="form-control" id="price" placeholder="Precio del producto" required="">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                    <img src="../../../../assets/images/marketplace/svg/dolar.svg" alt="">
+                                </span>
+                            </div>
+                            <div *ngIf="submitted && p.price.errors" class="invalid-feedback d-block">
+                                <div *ngIf="p.price.errors.required"> {{ required }} </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 form-group input-group" id="center-mb">
+                            <input formControlName="tax" type="text" class="form-control" id="review" placeholder="Impuesto del producto" required="">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                    <img src="../../../../assets/images/marketplace/svg/dolar.svg" alt="">
+                                </span>
+                            </div>
+                            <div *ngIf="submitted && p.tax.errors" class="invalid-feedback d-block">
+                                <div *ngIf="p.tax.errors.required"> {{ required }} </div>
+                            </div>
+                        </div>
+                        <!-- <div class="col-md-6" id="center-mb">
                             <select class="form-control" name="category">
-                                <option value="" selected>Select Country</option>
+                                <option value="" selected>Seleccione categoría</option>
                                 <option *ngFor="let category of categories" value="India">India</option>
                             </select>
-                            <!-- <div *ngIf="checkoutForm.controls.country.touched && checkoutForm.controls.country.errors?.required" class="text text-danger">
-                             Categoria requerida
-                            </div> -->
-                        </div>
-                        <div class="col-md-6" id="center-mb">
-                            <input type="number" class="form-control" id="price" placeholder="0.0" required="">
-                        </div>
-                        <div class="col-md-6" id="center-mb">
-                            <input type="number" class="form-control" id="review" placeholder="0.0" required="">
-                        </div>
+                        </div> -->
                         <div class="col-md-6" id="center-mb">
                             <textarea type="text" class="form-control" id="exampleFormControlTextarea1"
                                 placeholder="Descripción del producto" required=""></textarea>

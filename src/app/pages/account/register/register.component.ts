@@ -15,7 +15,7 @@ import { StorageService } from '../../../shared/services/storage.service';
   styleUrls: [ './register.component.scss' ]
 } )
 export class RegisterComponent implements OnInit {
-  registerSuccess = true;
+  registerSuccess = false;
   registerForm: FormGroup;
   submitted: boolean;
   invalidEmail = 'Email inválido';

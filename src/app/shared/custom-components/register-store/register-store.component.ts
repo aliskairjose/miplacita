@@ -17,6 +17,7 @@ export class RegisterStoreComponent implements OnInit {
   imageLogo: any;
   imageProduct: any;
   registerForm: FormGroup;
+  productForm: FormGroup;
   submitted: boolean;
   invalidEmail = 'Email inválido';
   required = 'Campo obligatorio';
@@ -34,16 +35,9 @@ export class RegisterStoreComponent implements OnInit {
   // convenience getter for easy access to form fields
   // tslint:disable-next-line: typedef
   get f() { return this.registerForm.controls; }
+  get p() { return this.productForm.controls; }
 
   ngOnInit(): void {
-  }
-
-  onSubmit(): void {
-    this.submitted = true;
-
-    if ( this.registerForm.valid ) {
-      this.storeRegister();
-    }
   }
 
   updatePlan( plan: number ) {
@@ -51,13 +45,20 @@ export class RegisterStoreComponent implements OnInit {
   }
 
   storeRegister() {
-    //consumo de api
-    // si el registro de la tienda fue exitoso
-    this.step = 2;
+    this.submitted = true;
+
+    if ( this.registerForm.valid ) {
+      this.step = 2;
+      this.submitted = false;
+    }
   }
 
   productRegister() {
     //consumo de api
+    this.submitted = true;
+    if ( this.productForm.valid ) {
+
+    }
   }
 
   updateImage( $event ) {
@@ -84,12 +85,20 @@ export class RegisterStoreComponent implements OnInit {
   }
 
   private createForm(): void {
+
     this.registerForm = this.formBuilder.group( {
       url: [ '', [ Validators.required ] ],
       name: [ '', [ Validators.required ] ],
       phone: [ '', [ Validators.required ] ],
       email: [ '', [ Validators.required, Validators.email ] ],
     } );
+
+    this.productForm = this.formBuilder.group( {
+      title: [ '', [ Validators.required ] ],
+      price: [ '', [ Validators.required ] ],
+      tax: [ '', [ Validators.required ] ],
+    } );
+
   }
 
 }
