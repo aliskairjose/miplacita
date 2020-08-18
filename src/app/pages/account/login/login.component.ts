@@ -59,7 +59,7 @@ export class LoginComponent implements OnInit {
 
       }, ( response: HttpErrorResponse ) => {
         this.spinner.hide();
-        this.alert.danger( response.error.message );
+        this.alert.warning( response.error.message );
       } );
     }
   }
