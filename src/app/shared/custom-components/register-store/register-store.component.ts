@@ -42,7 +42,7 @@ export class RegisterStoreComponent implements OnInit {
     this.submitted = true;
 
     if ( this.registerForm.valid ) {
-
+      this.storeRegister();
     }
   }
 

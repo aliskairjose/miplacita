@@ -110,10 +110,10 @@
                                 <span class="input-group-text">
                                     <img src="../../../../assets/images/marketplace/svg/email.svg" alt="">
                                 </span>
-                                <div *ngIf="submitted && f.email.errors" class="invalid-feedback d-block">
-                                    <div *ngIf="f.email.errors.required"> {{ required }} </div>
-                                    <div *ngIf="f.email.errors.email"> {{ invalidEmail }} </div>
-                                </div>
+                            </div>
+                            <div *ngIf="submitted && f.email.errors" class="invalid-feedback d-block">
+                                <div *ngIf="f.email.errors.required"> {{ required }} </div>
+                                <div *ngIf="f.email.errors.email"> {{ invalidEmail }} </div>
                             </div>
                         </div>
                         <div class="col-md-6" id="center-mb">
@@ -130,7 +130,8 @@
                         </div>
 
                         <div class="form-gruop" id="btn-center">
-                            <button class="btn btn-solid" (click)="storeRegister()">Registrar tienda</button>
+                            <!-- <button class="btn btn-solid" (click)="storeRegister()">Registrar tienda</button> -->
+                            <button class="btn btn-solid">Registrar tienda</button>
                         </div>
 
                     </form>
