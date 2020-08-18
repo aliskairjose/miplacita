@@ -49,6 +49,8 @@ export class LoginComponent implements OnInit {
           this.storage.setItem( 'token', data.token );
           this.storage.setItem( 'role', data.role );
           this.storage.setItem( 'user', data.user );
+          
+          this.auth.authSubject( data.success );
 
           this.alert.info( `Bienvenido ${data.user.fullname}` );
           setTimeout( () => {
