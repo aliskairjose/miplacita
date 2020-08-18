@@ -101,7 +101,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-push": "npm run lint:ci"
+      "pre-commit": "npm run lint:ci"
     }
   },
   "engines": {
