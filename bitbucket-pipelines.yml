@@ -1,0 +1,36 @@
+# This is a sample build configuration for JavaScript.
+# Check our guides at https://confluence.atlassian.com/x/14UWN for more examples.
+# Only use spaces to indent your .yml configuration.
+# -----
+# You can specify a custom docker image from Docker Hub as your build environment.
+# https://support.atlassian.com/bitbucket-cloud/docs/laravel-with-bitbucket-pipelines/
+image: node:10.22.0-jessie
+
+options:
+  max-time: 20
+
+pipelines:
+  branches:
+    master:
+      - step:
+          name: Build
+          deployment: production
+          script:
+            - apt-get update -qy
+            - apt-get install -y ruby-dev npm
+            - gem install dpl
+            - npm install
+            - npm run lint:ci
+            - npm run build:prod
+          artifacts:
+            - dist/**
+      - step:
+          name: Build
+          deployment: production
+          script:
+            - pipe: atlassian/scp-deploy:0.3.3
+              variables:
+                USER: $USER_APP
+                SERVER: $SERVER_APP
+                REMOTE_PATH: $PATH_APP
+                LOCAL_PATH: $LOCAL_PATH
