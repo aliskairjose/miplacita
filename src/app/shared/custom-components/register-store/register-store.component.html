@@ -8,12 +8,11 @@
                         <p>Selecciona el plan de tu preferencia</p>
 
                         <div class="form-row">
-                            
                             <div class="col-md-6" id="center-">
-                                <div class="plan"  [class.plan-selected]="planSelected==1" (click)="updatePlan(1)">
+                                <div class="plan" [class.plan-selected]="planSelected==1" (click)="updatePlan(1)">
                                     <h5>MEMBRESÍA BÁSICA</h5>
                                     <h4><strong>0.00BI</strong></h4>
-                                    
+
                                     <ul class="list">
                                         <li>Logo de la tienda</li>
                                         <li>Paleta de colores</li>
@@ -25,12 +24,13 @@
                                     </ul>
                                     <div class="plan-btn">
                                         <div class="share">
-                                            <button class="btn" [class.btn-outline]="planSelected!=1" [class.btn-solid]="planSelected==1">Compartir</button>
+                                            <button class="btn" [class.btn-outline]="planSelected!=1"
+                                                [class.btn-solid]="planSelected==1">Compartir</button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-6" >
+                            <div class="col-md-6">
                                 <div [class.plan-selected]="planSelected==2" class="plan" (click)="updatePlan(2)">
                                     <h5>MEMBRESÍA Premium</h5>
                                     <h4><strong>8.88BI</strong></h4>
@@ -48,62 +48,87 @@
 
                                     <div class="plan-btn">
                                         <div class="payment">
-                                            <button class="btn" [class.btn-outline]="planSelected!=2" [class.btn-solid]="planSelected==2">TDC</button>
+                                            <button class="btn" [class.btn-outline]="planSelected!=2"
+                                                [class.btn-solid]="planSelected==2">TDC</button>
                                         </div>
                                         <div class="share">
-                                            <button class="btn" [class.btn-outline]="planSelected!=2" [class.btn-solid]="planSelected==2">Compartir</button>
+                                            <button class="btn" [class.btn-outline]="planSelected!=2"
+                                                [class.btn-solid]="planSelected==2">Compartir</button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                            <div class="col-md-6 form-group input-group" id="center-mb">
-                                <input type="text" class="form-control" id="fname" placeholder="Nombre de la tienda" required="">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text">
-                                        <img src="../../../../assets/images/marketplace/svg/home.svg" alt="">
-                                    </span>
+                        <!-- Shop name -->
+                        <div class="col-md-6 form-group input-group" id="center-mb">
+                            <input type="text" class="form-control" id="name" placeholder="Nombre de la tienda"
+                                required="" formControlName="name">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                    <img src="../../../../assets/images/marketplace/svg/home.svg" alt="">
+                                </span>
+                            </div>
+                            <div *ngIf="submitted && f.name.errors" class="invalid-feedback d-block">
+                                <div *ngIf="f.name.errors.required"> {{ required }} </div>
+                            </div>
+                        </div>
+                        <!-- Url -->
+                        <div class="col-md-6 form-group input-group" id="center-mb">
+                            <input type="url" class="form-control" id="url" placeholder="Ej. www.store.com" required="" formControlName="url">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                    <img src="../../../../assets/images/marketplace/svg/left-align.svg" alt="">
+                                </span>
+                            </div>
+                            <div *ngIf="submitted && f.url.errors" class="invalid-feedback d-block">
+                                <div *ngIf="f.url.errors.required"> {{ required }} </div>
+                            </div>
+                        </div>
+                        <!-- Description -->
+                        <div class="col-md-6 form-group input-group" id="center-mb">
+                            <textarea type="text" class="form-control" id="exampleFormControlTextarea1"
+                                placeholder="Descripción de la tienda" required=""></textarea>
+                        </div>
+                        <!-- Phone -->
+                        <div class="col-md-6 form-group input-group" id="center-mb">
+                            <input type="tel" class="form-control" id="review" placeholder="Teléfono de la tienda"
+                                required="" formControlName="phone">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                    <img src="../../../../assets/images/marketplace/svg/phone.svg" alt="">
+                                </span>
+                            </div>
+                            <div *ngIf="submitted && f.phone.errors" class="invalid-feedback d-block">
+                                <div *ngIf="f.phone.errors.required"> {{ required }} </div>
+                            </div>
+                        </div>
+                        <!-- Shop email -->
+                        <div class="col-md-6 form-group input-group" id="center-mb">
+                            <input type="email" class="form-control" id="review" placeholder="Email de la tienda"
+                                required="" formControlName="email">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                    <img src="../../../../assets/images/marketplace/svg/email.svg" alt="">
+                                </span>
+                                <div *ngIf="submitted && f.email.errors" class="invalid-feedback d-block">
+                                    <div *ngIf="f.email.errors.required"> {{ required }} </div>
+                                    <div *ngIf="f.email.errors.email"> {{ invalidEmail }} </div>
                                 </div>
                             </div>
-                            <div class="col-md-6 form-group input-group" id="center-mb">
-                                <input type="url" class="form-control" id="url" placeholder="Ej. www.store.com" required="">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text">
-                                        <img src="../../../../assets/images/marketplace/svg/left-align.svg" alt="">
-                                    </span>
-                                </div>
+                        </div>
+                        <div class="col-md-6" id="center-mb">
+                            <p for="logo">Seleccione un logo para su tienda</p>
+                        </div>
+                        <div class="form-row col-md-6" id="center-mb">
+                            <div class="col-md-4">
+                                <img class="thumbnail" [src]="imageLogo" id="logo" />
                             </div>
-                            <div class="col-md-6 form-group input-group" id="center-mb">
-                                <textarea type="text" class="form-control" id="exampleFormControlTextarea1" placeholder="Descripción de la tienda" required=""></textarea>
+                            <div class="col-md-2">
+                                <input class="" type="file" id="upload-logo" (change)="updateImage($event)"
+                                    placeholder="Seleccionar imagen..." />
                             </div>
-                            <div class="col-md-6 form-group input-group" id="center-mb">
-                                <input type="tel" class="form-control" id="review" placeholder="Teléfono de la tienda" required="">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text">
-                                        <img src="../../../../assets/images/marketplace/svg/phone.svg" alt="">
-                                    </span>
-                                </div>
-                            </div>
-                            <div class="col-md-6 form-group input-group" id="center-mb">
-                                <input type="email" class="form-control" id="review" placeholder="Email de la tienda" required="">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text">
-                                        <img src="../../../../assets/images/marketplace/svg/email.svg" alt="">
-                                    </span>
-                                </div>
-                            </div>
-                            <div class="col-md-6" id="center-mb">
-                                <p for="logo">Seleccione un logo para su tienda</p>
-                            </div>
-                            <div class="form-row col-md-6" id="center-mb">
-                                <div class="col-md-4">
-                                    <img class="thumbnail" [src]="imageLogo" id="logo"/>
-                                </div>
-                                <div class="col-md-2">
-                                    <input class="" type="file" id="upload-logo" (change)="updateImage($event)" placeholder="Seleccionar imagen..."/>
-                                </div>
-                            </div>
-                        
+                        </div>
+
                         <div class="form-gruop" id="btn-center">
                             <button class="btn btn-solid" (click)="storeRegister()">Registrar tienda</button>
                         </div>
@@ -121,12 +146,12 @@
                 <h3>Configura tu primer producto</h3>
                 <div class="theme-card">
                     <form class="theme-form">
-                        
+
                         <div class="col-md-6" id="center-mb">
                             <input type="text" class="form-control" id="name" placeholder="Nombre" required="">
                         </div>
                         <div class="col-md-6" id="center-mb">
-                            <select class="form-control" name="category" >
+                            <select class="form-control" name="category">
                                 <option value="" selected>Select Country</option>
                                 <option *ngFor="let category of categories" value="India">India</option>
                             </select>
@@ -141,7 +166,8 @@
                             <input type="number" class="form-control" id="review" placeholder="0.0" required="">
                         </div>
                         <div class="col-md-6" id="center-mb">
-                            <textarea type="text" class="form-control" id="exampleFormControlTextarea1" placeholder="Descripción del producto" required=""></textarea>
+                            <textarea type="text" class="form-control" id="exampleFormControlTextarea1"
+                                placeholder="Descripción del producto" required=""></textarea>
                         </div>
                         <div class="col-md-6" id="center-mb">
                             <p for="logo">Seleccione una imagen para el artículo</p>
@@ -149,17 +175,18 @@
                         </div>
                         <div class="form-row col-md-6" id="center-mb">
                             <div class="col-md-4">
-                                
-                                <img class="thumbnail" [src]="imageProduct" id="logo"/>
+
+                                <img class="thumbnail" [src]="imageProduct" id="logo" />
                             </div>
                             <div class="col-md-2">
-                                <input class="" type="file" id="upload-logo" (change)="updateImage($event)" placeholder="Seleccionar imagen..."/>
+                                <input class="" type="file" id="upload-logo" (change)="updateImage($event)"
+                                    placeholder="Seleccionar imagen..." />
                             </div>
                         </div>
                         <div class="form-gruop" id="btn-center">
                             <button class="btn btn-solid" (click)="productRegister()">Registrar producto</button>
                         </div>
-                        
+
                     </form>
                 </div>
             </div>
