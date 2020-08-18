@@ -15,11 +15,8 @@ pipelines:
       - step:
           name: Build
           script:
-            - apt-get update -qy
-            - apt-get install -y ruby-dev npm
-            - gem install dpl
             - npm install
-            - npm run lint:ci
+            # - npm run lint:ci
             - npm run build:prod
           artifacts:
             - dist/**
