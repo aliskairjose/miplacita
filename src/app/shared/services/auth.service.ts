@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { HttpService } from './http.service';
 
 @Injectable( {
   providedIn: 'root'
 } )
 export class AuthService {
+  $auth: Subject<any> = new Subject<any>();
 
   constructor(
     private http: HttpService
@@ -45,6 +46,21 @@ export class AuthService {
   isAuthenticated(): boolean {
     const user = localStorage.getItem( 'user' );
     return (user) ? true : false;
+  }
+
+  /**
+   * @description Genera el stream de eventos usando next() para crear el evento
+   * @param isAuth
+   */
+  authSubject( isAuth: boolean ): void {
+    this.$auth.next( isAuth );
+  }
+
+  /**
+   * @description Creación del observer mediante el método asObserver(), el cual sera consumido por el componente
+   */
+  authObserver(): Observable<any> {
+    return this.$auth.asObservable();
   }
 
 }
