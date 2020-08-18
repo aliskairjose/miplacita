@@ -5,6 +5,8 @@ import { AuthService } from '../../../shared/services/auth.service';
 import { AlertService } from 'ngx-alerts';
 import { MustMatch } from '../../../shared/helper/must-match.validator';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { AuthResponse } from '../../../shared/classes/auth-response';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component( {
   selector: 'app-register',
@@ -42,13 +44,13 @@ export class RegisterComponent implements OnInit {
     if ( this.registerForm.valid ) {
       this.spinner.show();
 
-      this.auth.register( this.registerForm.value ).subscribe( response => {
-        console.log( response );
-        this.registerSuccess = true;
-        this.spinner.hide();
-        this.alert.info( 'Su registro se completo con exito' );
-        this.registerSuccess = true;
-      }, () => {
+      this.auth.register( this.registerForm.value ).subscribe( ( data: AuthResponse ) => {
+        if ( data.success ) {
+          this.registerSuccess = true;
+          this.alert.info( data.message );
+          this.spinner.hide();
+        }
+      }, ( response: HttpErrorResponse ) => {
         this.spinner.hide();
         this.alert.danger( 'Ha ocurrido un error!' );
       } );

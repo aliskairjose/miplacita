@@ -5,7 +5,7 @@ import { AuthService } from '../../../shared/services/auth.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { AlertService } from 'ngx-alerts';
 import { StorageService } from '../../../shared/services/storage.service';
-import { LoginResponse } from '../../../shared/classes/login-response';
+import { AuthResponse } from '../../../shared/classes/auth-response';
 import { HttpErrorResponse } from '@angular/common/http';
 
 @Component( {
@@ -43,7 +43,7 @@ export class LoginComponent implements OnInit {
 
     if ( this.loginForm.valid ) {
       this.spinner.show();
-      this.auth.login( this.loginForm.value ).subscribe( ( data: LoginResponse ) => {
+      this.auth.login( this.loginForm.value ).subscribe( ( data: AuthResponse ) => {
         if ( data.success ) {
           this.spinner.hide();
           this.storage.setItem( 'token', data.token );
