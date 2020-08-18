@@ -152,7 +152,7 @@ export class NavService {
 		{
 			path: '/home/tienda', title: 'Tienda', type: 'link'
 		},
-		
+
 	];
 
 	// Array

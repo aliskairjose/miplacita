@@ -18,7 +18,8 @@ export class HttpInterceptor implements HttpInterceptor {
     // return next.handle(request);
     const token: string = localStorage.getItem( 'token' );
     if ( token ) {
-      request = request.clone( { headers: request.headers.set( 'Authorization', 'Bearer ' + token ) } );
+      // request = request.clone( { headers: request.headers.set( 'Authorization', 'Bearer ' + token ) } );
+      request = request.clone( { headers: request.headers.set( 'Authorization', token ) } );
     }
 
     if ( !request.headers.has( 'Content-Type' ) ) {
