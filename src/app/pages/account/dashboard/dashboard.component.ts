@@ -8,7 +8,7 @@ import { ProductService } from '../../../shared/services/tm.product.service';
 })
 export class DashboardComponent implements OnInit {
   public openDashboard: boolean = false;
-  public typeUser = 'merchant'; // type user
+  public typeUser = 'admin'; // type user
   /** Table fields */
   public fields = [];
 
