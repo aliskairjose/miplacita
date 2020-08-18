@@ -43,14 +43,16 @@
                         <!-- Password -->
                         <div class="form-group input-group">
                             <input type="password" formControlName="password" class="form-control" id="password"
-                                placeholder="Ingrese su contraseña" required="" [ngClass]="{ 'is-invalid': submitted && f.password.errors }">
+                                placeholder="Ingrese su contraseña" required=""
+                                [ngClass]="{ 'is-invalid': submitted && f.password.errors }">
                             <div class="input-group-prepend">
                                 <span class="input-group-text">
                                     <img src="../../../../assets/images/marketplace/svg/key.svg" alt="">
                                 </span>
                             </div>
                             <div *ngIf="submitted && f.password.errors">
-                                <div *ngIf="f.password.errors.required" class="invalid-feedback d-block"> {{ required }}</div>
+                                <div *ngIf="f.password.errors.required" class="invalid-feedback d-block"> {{ required }}
+                                </div>
                             </div>
                         </div>
                         <!-- Confirm Password -->
@@ -66,6 +68,21 @@
                             <div *ngIf="submitted && f.passwordConfirmation.errors" class="invalid-feedback">
                                 <div *ngIf="f.passwordConfirmation.errors.required">{{ required }}</div>
                                 <div *ngIf="f.passwordConfirmation.errors.mustMatch">{{ matchError }}</div>
+                            </div>
+                        </div>
+                        <div class="form-group input-group">
+                            <select formControlName="role" class="form-control" name="category" required>
+                                <option value="">Seleccione Role</option>
+                                <option value="merchant">Tienda</option>
+                                <option value="client">Cliente</option>
+                            </select>
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                    <img src="../../../../assets/images/marketplace/svg/user.svg" alt="">
+                                </span>
+                            </div>
+                            <div *ngIf="submitted && f.role.errors" class="invalid-feedback">
+                                <div *ngIf="f.role.errors.required">{{ required }}</div>
                             </div>
                         </div>
                         <div class="form-group text-center">

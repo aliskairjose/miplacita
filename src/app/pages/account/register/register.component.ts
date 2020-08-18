@@ -47,12 +47,14 @@ export class RegisterComponent implements OnInit {
       this.spinner.show();
       this.auth.register( this.registerForm.value ).subscribe( ( data: AuthResponse ) => {
         if ( data.success ) {
-          this.registerSuccess = true;
           this.storage.setItem( 'token', data.token );
           this.storage.setItem( 'role', data.role );
           this.storage.setItem( 'user', data.user );
           this.alert.info( data.message );
           this.spinner.hide();
+
+          // Solo cuando es tipo tienda se muestran el resto del registro Tienda y Producto
+          ( data.user.role === 'merchant' ) ? this.registerSuccess = true : this.router.navigate( [ 'pages/login' ] );
         }
       }, ( response: HttpErrorResponse ) => {
         this.spinner.hide();
