@@ -14,7 +14,6 @@ pipelines:
     master:
       - step:
           name: Build
-          deployment: production
           script:
             - apt-get update -qy
             - apt-get install -y ruby-dev npm
@@ -25,8 +24,7 @@ pipelines:
           artifacts:
             - dist/**
       - step:
-          name: Build
-          deployment: production
+          name: SCP
           script:
             - pipe: atlassian/scp-deploy:0.3.3
               variables:
