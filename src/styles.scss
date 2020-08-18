@@ -14,6 +14,10 @@ $radius: 5px;
 
 .info-benefit {
   .left-benefit{
+    img {
+      height: auto;
+      width: 60%;
+    }
   }
   .rigth-benefit{
     padding: 15px 35px 35px;
@@ -75,6 +79,12 @@ $radius: 5px;
 form {
   input {
     margin-bottom: 0px !important;
+  }
+  span {
+    img {
+      height: auto;
+      width: 24px;
+    }
   }
 }
 
