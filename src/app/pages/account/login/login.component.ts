@@ -4,7 +4,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../../shared/services/auth.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { AlertService } from 'ngx-alerts';
-import { HttpErrorResponse } from '@angular/common/http';
 import { StorageService } from '../../../shared/services/storage.service';
 
 @Component( {
@@ -43,15 +42,16 @@ export class LoginComponent implements OnInit {
     if ( this.loginForm.valid ) {
       this.spinner.show();
       this.auth.login( this.loginForm.value ).subscribe( response => {
-
-        console.log( response );
         this.spinner.hide();
+        this.storage.setItem( 'token', response.token );
+        this.alert.info('Bienvenido');
+        setTimeout(() => {
+          // Redireccionamiento
+        }, 3200);
 
-      }, ( error: HttpErrorResponse ) => {
-
+      }, () => {
         this.spinner.hide();
-        // this.alert.warning( error.statusText );
-
+        this.alert.danger( 'Error' );
       } );
     }
   }

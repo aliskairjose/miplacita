@@ -83,12 +83,12 @@ import { GoogleChartsModule } from 'angular-google-charts';
   imports: [
     SharedModule,
     CommonModule,
-    NgxSpinnerModule,
     PagesRoutingModule,
+    NgxSpinnerModule,
     GalleryModule.forRoot(),
     PagesRoutingModule,
     GoogleChartsModule.forRoot(),
-    AlertModule.forRoot( { maxMessages: 5, timeout: 5000, position: 'left' } ),
+    AlertModule.forRoot({maxMessages: 5, timeout: 3000, position: 'left'})
   ]
 })
 export class PagesModule { }
