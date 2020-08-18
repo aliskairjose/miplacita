@@ -17,10 +17,10 @@
                                 placeholder="Nombre" required="">
                             <div class="input-group-prepend">
                                 <span class="input-group-text">
-                                    <i class="fa fa-user form-control-feedback"></i>
+                                    <img src="../../../../assets/images/marketplace/svg/user.svg" alt="">
                                 </span>
                             </div>
-                            <div *ngIf="submitted && f.email.errors" class="invalid-feedback d-block">
+                            <div *ngIf="submitted && f.name.errors" class="invalid-feedback d-block">
                                 <div *ngIf="f.name.errors.required"> {{ required }} </div>
                             </div>
                         </div>
@@ -30,7 +30,7 @@
                                 [ngClass]="{ 'is-invalid': submitted && f.email.errors }">
                             <div class="input-group-prepend">
                                 <span class="input-group-text">
-                                    <i class="fa fa-envelope form-control-feedback"></i>
+                                    <img src="../../../../assets/images/marketplace/svg/email.svg" alt="">
                                 </span>
                             </div>
                             <div *ngIf="submitted && f.email.errors" class="invalid-feedback d-block">
@@ -44,12 +44,11 @@
                                 [ngClass]="{ 'is-invalid': submitted && f.password.errors }">
                             <div class="input-group-prepend">
                                 <span class="input-group-text">
-                                    <i class="fa fa-key form-control-feedback"></i>
+                                    <img src="../../../../assets/images/marketplace/svg/key.svg" alt="">
                                 </span>
                             </div>
                             <div *ngIf="submitted && f.password.errors">
-                                <div *ngIf="f.password.errors.required" class="invalid-feedback d-block"> {{ required }}
-                                </div>
+                                <div *ngIf="f.password.errors.required" class="invalid-feedback d-block"> {{ required }}</div>
                             </div>
                         </div>
                         <div class="form-group input-group">
@@ -58,7 +57,7 @@
                                 [ngClass]="{ 'is-invalid': submitted && f.confirmPassword.errors }">
                             <div class="input-group-prepend">
                                 <span class="input-group-text">
-                                    <i class="fa fa-key form-control-feedback"></i>
+                                    <img src="../../../../assets/images/marketplace/svg/key.svg" alt="">
                                 </span>
                             </div>
                             <div *ngIf="submitted && f.confirmPassword.errors" class="invalid-feedback">
