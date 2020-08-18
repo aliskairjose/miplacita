@@ -42,6 +42,8 @@ import { MasonryFullWidthComponent } from './portfolio/masonry-full-width/masonr
 import { AlertModule } from 'ngx-alerts';
 import { NgxSpinnerModule } from 'ngx-spinner';
 
+import { GoogleChartsModule } from 'angular-google-charts';
+
 @NgModule({
   declarations: [
     WishlistComponent,
@@ -76,6 +78,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     MasonryGridThreeComponent,
     MasonryGridFourComponent,
     MasonryFullWidthComponent
+
   ],
   imports: [
     SharedModule,
@@ -83,6 +86,8 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     PagesRoutingModule,
     NgxSpinnerModule,
     GalleryModule.forRoot(),
+    PagesRoutingModule,
+    GoogleChartsModule.forRoot(),
     AlertModule.forRoot({maxMessages: 5, timeout: 3000, position: 'left'})
   ]
 })

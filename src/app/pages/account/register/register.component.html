@@ -13,15 +13,15 @@
                 <div class="theme-card">
                     <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="theme-form">
                         <div class="form-group input-group">
-                            <input type="text" formControlName="name" class="form-control" id="name"
+                            <input type="text" formControlName="fullName" class="form-control" id="fullName"
                                 placeholder="Nombre" required="">
                             <div class="input-group-prepend">
                                 <span class="input-group-text">
                                     <img src="../../../../assets/images/marketplace/svg/user.svg" alt="">
                                 </span>
                             </div>
-                            <div *ngIf="submitted && f.name.errors" class="invalid-feedback d-block">
-                                <div *ngIf="f.name.errors.required"> {{ required }} </div>
+                            <div *ngIf="submitted && f.fullName.errors" class="invalid-feedback d-block">
+                                <div *ngIf="f.fullName.errors.required"> {{ required }} </div>
                             </div>
                         </div>
                         <div class="form-group input-group">
@@ -52,17 +52,17 @@
                             </div>
                         </div>
                         <div class="form-group input-group">
-                            <input type="password" formControlName="confirmPassword" class="form-control"
-                                id="confirmPassword" placeholder="Ingrese su contraseña nuevamente" required=""
-                                [ngClass]="{ 'is-invalid': submitted && f.confirmPassword.errors }">
+                            <input type="password" formControlName="passwordConfirmation" class="form-control"
+                                id="passwordConfirmation" placeholder="Ingrese su contraseña nuevamente" required=""
+                                [ngClass]="{ 'is-invalid': submitted && f.passwordConfirmation.errors }">
                             <div class="input-group-prepend">
                                 <span class="input-group-text">
                                     <img src="../../../../assets/images/marketplace/svg/key.svg" alt="">
                                 </span>
                             </div>
-                            <div *ngIf="submitted && f.confirmPassword.errors" class="invalid-feedback">
-                                <div *ngIf="f.confirmPassword.errors.required">{{ required }}</div>
-                                <div *ngIf="f.confirmPassword.errors.mustMatch">{{ matchError }}</div>
+                            <div *ngIf="submitted && f.passwordConfirmation.errors" class="invalid-feedback">
+                                <div *ngIf="f.passwordConfirmation.errors.required">{{ required }}</div>
+                                <div *ngIf="f.passwordConfirmation.errors.mustMatch">{{ matchError }}</div>
                             </div>
                         </div>
                         <div class="form-group text-center">

@@ -64,12 +64,12 @@ export class RegisterComponent implements OnInit {
 
   private createForm(): void {
     this.registerForm = this.formBuilder.group( {
-      name: [ '', [ Validators.required ] ],
+      fullName: [ '', [ Validators.required ] ],
       email: [ '', [ Validators.required, Validators.email ] ],
       password: [ '', [ Validators.required ] ],
-      confirmPassword: [ '', Validators.required ]
+      passwordConfirmation: [ '', Validators.required ]
     }, {
-      validator: MustMatch( 'password', 'confirmPassword' )
+      validator: MustMatch( 'password', 'passwordConfirmation' )
     } );
   }
 
