@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductService } from '../../shared/services/tm.product.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-shops',
@@ -58,14 +59,19 @@ export class ShopsComponent implements OnInit {
   public paginate: any = {};
   public pageNo = 1;
   public pageSize = 3;
-  constructor(public productService: ProductService) { }
-  
+  public searchForm: FormGroup;
+  constructor(public productService: ProductService,
+              private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
-    this.paginate = this.productService.getPager(this.shops.length, +this.pageNo, this.pageSize );
+    this.createForm();
     this.getTableInformation();
   }
-
+  createForm(){
+    this.searchForm = this.formBuilder.group({
+      shop: ['']
+    });
+  }
   slicePage(items){
     if (items.length > this.pageSize ){
       return items.slice(0, this.pageSize );
@@ -92,5 +98,10 @@ export class ShopsComponent implements OnInit {
       this.paginate.endIndex = end - 1;
     }
     this.paginate.currentPage = event;
+  }
+
+
+  search(){
+    console.log(this.searchForm.value)
   }
 }
