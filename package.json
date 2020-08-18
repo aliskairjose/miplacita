@@ -101,7 +101,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-push": "npm run validate-code-full"
+      "pre-push": "npm run lint:ci"
     }
   },
   "engines": {
