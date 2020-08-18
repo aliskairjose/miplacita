@@ -15,7 +15,7 @@ import { StorageService } from '../../../shared/services/storage.service';
   styleUrls: [ './register.component.scss' ]
 } )
 export class RegisterComponent implements OnInit {
-  registerSuccess = true;
+  registerSuccess = false;
   registerForm: FormGroup;
   submitted: boolean;
   invalidEmail = 'Email inválido';
@@ -45,7 +45,6 @@ export class RegisterComponent implements OnInit {
 
     if ( this.registerForm.valid ) {
       this.spinner.show();
-
       this.auth.register( this.registerForm.value ).subscribe( ( data: AuthResponse ) => {
         if ( data.success ) {
           this.registerSuccess = true;
@@ -64,10 +63,11 @@ export class RegisterComponent implements OnInit {
 
   private createForm(): void {
     this.registerForm = this.formBuilder.group( {
-      fullName: [ '', [ Validators.required ] ],
-      email: [ '', [ Validators.required, Validators.email ] ],
+      role: ['merchant'],
+      fullname: [ '', [ Validators.required ] ],
       password: [ '', [ Validators.required ] ],
-      passwordConfirmation: [ '', Validators.required ]
+      passwordConfirmation: [ '', Validators.required ],
+      email: [ '', [ Validators.required, Validators.email ] ],
     }, {
       validator: MustMatch( 'password', 'passwordConfirmation' )
     } );

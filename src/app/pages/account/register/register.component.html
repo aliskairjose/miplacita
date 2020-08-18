@@ -12,18 +12,20 @@
                 <h3>Registrate ahora</h3>
                 <div class="theme-card">
                     <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="theme-form">
+                        <!-- FullName -->
                         <div class="form-group input-group">
-                            <input type="text" formControlName="fullName" class="form-control" id="fullName"
+                            <input type="text" formControlName="fullname" class="form-control" id="fullname"
                                 placeholder="Nombre" required="">
                             <div class="input-group-prepend">
                                 <span class="input-group-text">
                                     <img src="../../../../assets/images/marketplace/svg/user.svg" alt="">
                                 </span>
                             </div>
-                            <div *ngIf="submitted && f.fullName.errors" class="invalid-feedback d-block">
-                                <div *ngIf="f.fullName.errors.required"> {{ required }} </div>
+                            <div *ngIf="submitted && f.fullname.errors" class="invalid-feedback d-block">
+                                <div *ngIf="f.fullname.errors.required"> {{ required }} </div>
                             </div>
                         </div>
+                        <!-- Email -->
                         <div class="form-group input-group">
                             <input type="email" formControlName="email" class="form-control" id="email"
                                 placeholder="Correo electrónico" required=""
@@ -38,10 +40,10 @@
                                 <div *ngIf="f.email.errors.email"> {{ invalidEmail }} </div>
                             </div>
                         </div>
+                        <!-- Password -->
                         <div class="form-group input-group">
                             <input type="password" formControlName="password" class="form-control" id="password"
-                                placeholder="Ingrese su contraseña" required=""
-                                [ngClass]="{ 'is-invalid': submitted && f.password.errors }">
+                                placeholder="Ingrese su contraseña" required="" [ngClass]="{ 'is-invalid': submitted && f.password.errors }">
                             <div class="input-group-prepend">
                                 <span class="input-group-text">
                                     <img src="../../../../assets/images/marketplace/svg/key.svg" alt="">
@@ -51,6 +53,7 @@
                                 <div *ngIf="f.password.errors.required" class="invalid-feedback d-block"> {{ required }}</div>
                             </div>
                         </div>
+                        <!-- Confirm Password -->
                         <div class="form-group input-group">
                             <input type="password" formControlName="passwordConfirmation" class="form-control"
                                 id="passwordConfirmation" placeholder="Ingrese su contraseña nuevamente" required=""
