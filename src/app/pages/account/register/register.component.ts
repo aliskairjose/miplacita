@@ -7,6 +7,7 @@ import { MustMatch } from '../../../shared/helper/must-match.validator';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { AuthResponse } from '../../../shared/classes/auth-response';
 import { HttpErrorResponse } from '@angular/common/http';
+import { StorageService } from '../../../shared/services/storage.service';
 
 @Component( {
   selector: 'app-register',
@@ -25,6 +26,7 @@ export class RegisterComponent implements OnInit {
     private router: Router,
     private auth: AuthService,
     private alert: AlertService,
+    private storage: StorageService,
     private formBuilder: FormBuilder,
     private spinner: NgxSpinnerService,
   ) {
@@ -47,6 +49,9 @@ export class RegisterComponent implements OnInit {
       this.auth.register( this.registerForm.value ).subscribe( ( data: AuthResponse ) => {
         if ( data.success ) {
           this.registerSuccess = true;
+          this.storage.setItem( 'token', data.token );
+          this.storage.setItem( 'role', data.role );
+          this.storage.setItem( 'user', data.user );
           this.alert.info( data.message );
           this.spinner.hide();
         }
