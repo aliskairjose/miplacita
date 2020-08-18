@@ -1,1 +1,76 @@
-<p>orders works!</p>
+<app-breadcrumb [title]="'Órdenes'" [breadcrumb]="'Órdenes'"></app-breadcrumb>
+<section class="section-b-space">
+    <div class="container">
+        <div class="d-flex flex-row bd-highlight ">
+            
+            
+            <div class="search-box flex-fill p-2">
+                <select name="model" class="form-control">
+                    <option value="">Estado</option>
+                    <option value="" *ngFor="let state of states"></option>
+
+                </select>
+            </div> 
+            <div class="search-box flex-fill p-2">
+                <select name="model" class="form-control">
+                    <option value="">Desde</option>
+                    <option value="" *ngFor="let state of states"></option>
+
+                </select>
+            </div>   
+            <div class="search-box flex-fill p-2">
+                <select name="model" class="form-control">
+                    <option value="">Hasta</option>
+                    <option value="" *ngFor="let state of states"></option>
+
+                </select>
+            </div>    
+                      
+            <div class="search-button p-2 bd-highlight">
+                <button class="btn btn-solid btn-find" (click)="search()">Filtrar</button>
+            </div>
+
+        </div>        
+        <div class="row table-center-mt">
+            <div class="col-sm-12">
+                <table class="table cart-table table-responsive-xs">
+                    <thead>
+                    <tr class="table-head">
+                        <th *ngFor="let field of fields" scope="col">{{field}}</th>
+                    </tr>
+                    </thead>
+                    <tbody >
+                        <tr *ngFor="let order of orders">
+                            <td>
+                                {{order.id}}
+                            </td>
+                            
+                            <td>
+                                {{order.client}}
+                            </td>
+                            <td>
+                                <div class="d-flex flex-wrap ">
+                                    {{order.products}}
+                                </div>
+                            </td>
+                            <td >
+                                {{order.amount}}
+                            </td>
+                            <td>
+                                {{order.zone}}
+                            </td>
+                            <td>
+                                {{order.state}}
+                            </td>
+                            <td class="d-flex flex-row">
+                                <button class="btn btn-table-action">Editar</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <app-custom-pagination  [items]="orders" [paginate]="paginate" (setPage)="setPage($event)">
+                </app-custom-pagination>
+            </div>
+        </div>        
+    </div>
+</section>
