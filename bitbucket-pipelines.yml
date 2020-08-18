@@ -7,16 +7,18 @@
 image: node:10.22.0-jessie
 
 options:
-  max-time: 20
+  max-time: 10
 
 pipelines:
   branches:
     master:
       - step:
           name: Build
+          caches:
+            - node
           script:
             - npm install
-            # - npm run lint:ci
+            - npm run lint:ci
             - npm run build:prod
           artifacts:
             - dist/**
