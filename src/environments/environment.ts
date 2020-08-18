@@ -7,7 +7,7 @@ export const environment = {
   instagram_token: 'INSTAGRAM_TOKEN',
   stripe_token: 'STRIPE_PUBLISHABLE_KEY',
   paypal_token: 'PAYPAL_CLIENT_ID',
-  apiUrl: ''
+  apiUrl: 'http://marketplace.dev.cronapis.com:3010/api/'
 };
 
 /*
