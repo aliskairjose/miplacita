@@ -13,7 +13,7 @@ export class ShopsComponent implements OnInit {
   public typeUser = 'admin';
   public fields = ['Tienda', 'Plan', 'Precio', 'Estado', '' ];
   public allShops = [{
-                    name: "tienda 1",
+                    name: "ny & co",
                     plan: "Premium",
                     price: 8.88,
                     estado: "Activo"
@@ -25,19 +25,19 @@ export class ShopsComponent implements OnInit {
                     estado: "Activo"
                   },
                   {
-                    name: "tienda 1",
+                    name: "tienda 3",
                     plan: "Premium",
                     price: 8.88,
                     estado: "Activo"
                   },
                   {
-                    name: "tienda 1",
+                    name: "tienda 4",
                     plan: "Premium",
                     price: 8.88,
                     estado: "Activo"
                   },
                   {
-                    name: "tienda 1",
+                    name: "miami shop",
                     plan: "Premium",
                     price: 8.88,
                     estado: "Activo"
@@ -48,7 +48,7 @@ export class ShopsComponent implements OnInit {
                     estado: "Activo"
                   },
                   {
-                    name: "tienda 1",
+                    name: "tiendita",
                     plan: "Premium",
                     price: 8.88,
                     estado: "Activo"
@@ -60,12 +60,18 @@ export class ShopsComponent implements OnInit {
   public pageNo = 1;
   public pageSize = 3;
   public searchForm: FormGroup;
+  public searchValid = true;
+  public allShopsCopy = [];
   constructor(public productService: ProductService,
-              private formBuilder: FormBuilder) { }
+              private formBuilder: FormBuilder) { 
+                this.allShopsCopy = this.allShops;
+
+              }
 
   ngOnInit(): void {
     this.createForm();
     this.getTableInformation();
+
   }
   createForm(){
     this.searchForm = this.formBuilder.group({
@@ -82,9 +88,9 @@ export class ShopsComponent implements OnInit {
 
   getTableInformation(){
     //** carga de datos desde api */
-
-      this.paginate = this.productService.getPager(this.allShops.length, +this.pageNo, this.pageSize );
-      this.shops = this.slicePage(this.allShops);
+    this.paginate = this.productService.getPager(this.allShops.length, +this.pageNo, this.pageSize );
+    this.shops = this.slicePage(this.allShops);
+    console.log(this.shops, this.allShops, this.paginate);
   }
 
   setPage(event){
@@ -94,14 +100,28 @@ export class ShopsComponent implements OnInit {
       this.shops = this.allShops.slice(this.paginate.startIndex );
       this.paginate.endIndex = this.allShops.length - 1;
     } else {
-      this.shops = this.allShops.slice(this.paginate.startIndex, this.paginate.endIndex + 1);
       this.paginate.endIndex = end - 1;
+      this.shops = this.allShops.slice(this.paginate.startIndex, this.paginate.endIndex + 1);
     }
     this.paginate.currentPage = event;
   }
 
 
   search(){
-    console.log(this.searchForm.value)
+    this.clean();
+    this.shops = this.allShopsCopy.filter((shop) => shop.name.includes(this.searchForm.value.shop));
+    if (this.shops.length === 0){
+      this.searchValid = false;
+    } else {
+      this.searchValid = true;
+    }
+    this.allShops = this.shops;
+    this.paginate = this.productService.getPager(this.shops.length, +this.pageNo, this.pageSize );
+    this.shops = this.slicePage(this.shops);
+  }
+
+  clean(){
+    this.searchValid = true;
+    this.getTableInformation();
   }
 }

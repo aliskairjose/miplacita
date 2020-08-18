@@ -1,17 +1,18 @@
 <app-breadcrumb [title]="'Tiendas'" [breadcrumb]="'Tiendas'"></app-breadcrumb>
 <section class="section-b-space">
     <div class="container">
-        <div class="d-flex flex-row bd-highlight ">
+        
+        <form action="" class="form-inline" [formGroup]="searchForm">
+            <div class="input-group md-form form-sm form-1 pl-0">
+                <div class="input-group-prepend" (click)="search()">
+                  <span class="input-group-text lighten-3" id="basic-text1">
+                    <img src="" alt="">
+                  </span>
+                </div>
+                <input class="form-control my-0 py-1" formControlName="shop" type="text" placeholder="Buscar tienda" >
+              </div>
+        </form>
             
-            <div class="col-md-5">
-                <input type="text" class="form-control search" placeholder="Buscar tienda">
-            </div>
-                      
-            <div class="bd-highlight">
-                <button class="btn btn-solid btn-find" (click)="search()">Filtrar</button>
-            </div>
-
-        </div>    
         <div class="row table-center-mt">
             <div class="col-sm-12">
                 <table class="table cart-table table-responsive-xs">
@@ -36,7 +37,7 @@
                                 {{shop.estado}}
                             </td>
                         
-                            <td class="d-flex actions" >
+                            <td class="d-flex justify-content-end" >
                                 <button class="btn">Suscripción</button>
                                 <button class="btn">Desactivar</button>
                             </td>
@@ -45,6 +46,8 @@
                     </tbody>
 
                 </table>
+                <p *ngIf="searchValid && shops.length==0">No hay resultados disponibles</p>
+                <p *ngIf="!searchValid">No hay resultados para su búsqueda</p>
                 <app-custom-pagination  [items]="shops" [paginate]="paginate" (setPage)="setPage($event)">
                 </app-custom-pagination>
 
