@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductService } from '../../shared/services/tm.product.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-products',
@@ -7,89 +8,142 @@ import { ProductService } from '../../shared/services/tm.product.service';
   styleUrls: ['./products.component.scss']
 })
 export class ProductsComponent implements OnInit {
-  public typeUser = 'admin';
+  public typeUser = 'merchant';
   public fields = ['ID', '', 'Nombre', 'Precio', 'Itbms',
                    'Estado', 'Vendidos', 'Principal', '' ];
-  public allProducts = [{
-                    id: 1,
-                    image: 'assets/images/collection/4.jpg',
-                    name: 'producto 1',
-                    price: 12.8,
-                    itbms: 4,
-                    estado: 'Activo',
-                    vendidos: 'jbhgvgc',
-                    principal: 'si'
-                  },
-                  {
-                    id: 1,
-                    image: 'assets/images/collection/4.jpg',
-                    name: 'producto 1',
-                    price: 12.8,
-                    itbms: 4,
-                    estado: 'Activo',
-                    vendidos: 'jbhgvgc',
-                    principal: 'si'
-                  },
-                  {
-                    id: 1,
-                    image: 'assets/images/collection/4.jpg',
-                    name: 'producto 1',
-                    price: 12.8,
-                    itbms: 4,
-                    estado: 'Activo',
-                    vendidos: 'jbhgvgc',
-                    principal: 'si'
-                  },
-                  {
-                    id: 1,
-                    image: 'assets/images/collection/4.jpg',
-                    name: 'producto 1',
-                    price: 12.8,
-                    itbms: 4,
-                    estado: 'Activo',
-                    vendidos: 'jbhgvgc',
-                    principal: 'si'
-                  },
-                  {
-                    id: 1,
-                    image: 'assets/images/collection/4.jpg',
-                    name: 'producto 1',
-                    price: 12.8,
-                    itbms: 4,
-                    estado: 'Activo',
-                    vendidos: 'jbhgvgc',
-                    principal: 'si'
-                  },{
-                    id: 1,
-                    image: 'assets/images/collection/4.jpg',
-                    name: 'producto 1',
-                    price: 12.8,
-                    itbms: 4,
-                    estado: 'Activo',
-                    vendidos: 'jbhgvgc',
-                    principal: 'si'
-                  },
-                  {
-                    id: 1,
-                    image: 'assets/images/collection/4.jpg',
-                    name: 'producto 1',
-                    price: 12.8,
-                    itbms: 4,
-                    estado: 'Activo',
-                    vendidos: 'jbhgvgc',
-                    principal: 'si'
-                  }
-
-  ];
+  
   public products = [];
+  public productTypes = []; // tipos de productos
+  public states = []; // tipos de productos
+
   public paginate: any = {};
   public pageNo = 1;
-  public pageSize = 3;
-  constructor(public productService: ProductService) { }
+  public pageSize = 5;
+  public allProducts = [{
+    id: 1,
+    image: 'assets/images/collection/4.jpg',
+    name: 'producto 1',
+    price: 12.8,
+    itbms: 4,
+    estado: 'Activo',
+    vendidos: 'jbhgvgc',
+    principal: 'si'
+  },
+  {
+    id: 2,
+    image: 'assets/images/collection/4.jpg',
+    name: 'producto 1',
+    price: 12.8,
+    itbms: 4,
+    estado: 'Activo',
+    vendidos: 'jbhgvgc',
+    principal: 'si'
+  },{
+    id: 3,
+    image: 'assets/images/collection/4.jpg',
+    name: 'producto 1',
+    price: 12.8,
+    itbms: 4,
+    estado: 'Activo',
+    vendidos: 'jbhgvgc',
+    principal: 'si'
+  },
+  {
+    id: 4,
+    image: 'assets/images/collection/4.jpg',
+    name: 'producto 1',
+    price: 12.8,
+    itbms: 4,
+    estado: 'Activo',
+    vendidos: 'jbhgvgc',
+    principal: 'si'
+  },
+  {
+    id: 5,
+    image: 'assets/images/collection/4.jpg',
+    name: 'producto 1',
+    price: 12.8,
+    itbms: 4,
+    estado: 'Activo',
+    vendidos: 'jbhgvgc',
+    principal: 'si'
+  },
+  {
+    id: 6,
+    image: 'assets/images/collection/4.jpg',
+    name: 'producto 1',
+    price: 12.8,
+    itbms: 4,
+    estado: 'Activo',
+    vendidos: 'jbhgvgc',
+    principal: 'si'
+  },
+  {
+    id: 7,
+    image: 'assets/images/collection/4.jpg',
+    name: 'producto 1',
+    price: 12.8,
+    itbms: 4,
+    estado: 'Activo',
+    vendidos: 'jbhgvgc',
+    principal: 'si'
+  },{
+    id: 8,
+    image: 'assets/images/collection/4.jpg',
+    name: 'producto 1',
+    price: 12.8,
+    itbms: 4,
+    estado: 'Activo',
+    vendidos: 'jbhgvgc',
+    principal: 'si'
+  },
+  {
+    id: 9,
+    image: 'assets/images/collection/4.jpg',
+    name: 'producto 1',
+    price: 12.8,
+    itbms: 4,
+    estado: 'Activo',
+    vendidos: 'jbhgvgc',
+    principal: 'si'
+  },
+  {
+    id: 10,
+    image: 'assets/images/collection/4.jpg',
+    name: 'producto 1',
+    price: 12.8,
+    itbms: 4,
+    estado: 'Activo',
+    vendidos: 'jbhgvgc',
+    principal: 'si'
+  },
+  {
+    id: 11,
+    image: 'assets/images/collection/4.jpg',
+    name: 'producto 1',
+    price: 12.8,
+    itbms: 4,
+    estado: 'Activo',
+    vendidos: 'jbhgvgc',
+    principal: 'si'
+  }
+
+  ];
+  /*Search*/
+  public searchForm: FormGroup;
+  constructor(public productService: ProductService,
+              private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
-    this.paginate = this.productService.getPager(this.products.length, +this.pageNo, this.pageSize );
+    this.createForm();
     this.getTableInformation();
+  }
+
+  createForm(){
+    this.searchForm = this.formBuilder.group({
+      typeProduct: [''],
+      stateProduct: ['']
+    });
   }
 
   slicePage(items){
@@ -114,10 +168,17 @@ export class ProductsComponent implements OnInit {
       this.products = this.allProducts.slice(this.paginate.startIndex );
       this.paginate.endIndex = this.allProducts.length - 1;
     } else {
-      this.products = this.allProducts.slice(this.paginate.startIndex, this.paginate.endIndex + 1);
       this.paginate.endIndex = end - 1;
+      this.products = this.allProducts.slice(this.paginate.startIndex, this.paginate.endIndex + 1);
     }
     this.paginate.currentPage = event;
+  }
+
+  search(event){
+    if(event !== ''){
+      let word = event.target.value;
+      console.log(word);
+    }
   }
 
 }
