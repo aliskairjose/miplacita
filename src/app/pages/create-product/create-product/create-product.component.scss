@@ -1,0 +1,20 @@
+.input-group-prepend {
+    height: 50px;
+}
+
+@media (min-width: 768px){
+    .create-product-form {
+        display: flex;
+        justify-content: center;
+    }
+    .first-column {
+        width: 45%;
+    }
+    .second-column {
+        width: 50%;
+    }
+    .save{
+        display: flex;
+        justify-content: end;
+    }
+}
