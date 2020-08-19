@@ -7,25 +7,23 @@
                     <form [formGroup]="registerForm" class="theme-form">
                         <p class="text-center">Selecciona el plan de tu preferencia</p>
 
-                        <div class="d-flex justify-content-center mb-3">                            
-                            <div class="col-md-5 justify-content-center mr-1"
-                                 (click)="updatePlan(1)">
-                                <div class="d-flex justify-content-center h-100 p-3 plan" 
-                                [class.plan-selected]="planSelected==1">
+                        <div class="d-flex justify-content-center mb-3">
+                            <div class="col-md-5 justify-content-center mr-1" (click)="updatePlan(1)">
+                                <div class="d-flex justify-content-center h-100 p-3 plan"
+                                    [class.plan-selected]="planSelected==1">
                                     <p class="my-auto">GRATIS</p>
                                 </div>
-                            </div> 
-                            <div class="col-md-5 justify-content-center mr-1"
-                                 (click)="updatePlan(2)">
-                                <div class="d-flex justify-content-center h-100 p-3 plan" 
-                                [class.plan-selected]="planSelected==2">
+                            </div>
+                            <div class="col-md-5 justify-content-center mr-1" (click)="updatePlan(2)">
+                                <div class="d-flex justify-content-center h-100 p-3 plan"
+                                    [class.plan-selected]="planSelected==2">
                                     <p class="my-auto">$ 8.88 USD</p>
                                 </div>
-                            </div>   
-                                                        
+                            </div>
+
                         </div>
                         <!-- Shop name -->
-                        <div class="col-md-6 form-group input-group mx-auto mb-2" >
+                        <div class="col-md-6 form-group input-group mx-auto mb-2">
                             <input type="text" class="form-control" id="name" placeholder="Nombre de la tienda"
                                 required="" formControlName="name">
                             <div class="input-group-prepend">
@@ -39,8 +37,8 @@
                         </div>
                         <!-- Url -->
                         <div class="col-md-6 form-group input-group" id="center-mb">
-                            <input type="url" class="form-control" id="url_store" placeholder="Ej. www.store.com" required=""
-                                formControlName="url_store">
+                            <input type="url" class="form-control" id="url_store" placeholder="Ej. www.store.com"
+                                required="" formControlName="url_store">
                             <div class="input-group-prepend">
                                 <span class="input-group-text">
                                     <img src="../../../../assets/images/marketplace/svg/left-align.svg" alt="">
@@ -51,12 +49,12 @@
                             </div>
                         </div>
                         <!-- Description -->
-                        <div class="col-md-6 form-group input-group mx-auto mb-2" >
+                        <div class="col-md-6 form-group input-group mx-auto mb-2">
                             <textarea type="text" class="form-control mb-2" id="exampleFormControlTextarea1"
                                 placeholder="Descripción de la tienda" required=""></textarea>
                         </div>
                         <!-- Phone -->
-                        <div class="col-md-6 form-group input-group mx-auto mb-2" >
+                        <div class="col-md-6 form-group input-group mx-auto mb-2">
                             <input type="tel" class="form-control" id="review" placeholder="Teléfono de la tienda"
                                 required="" formControlName="phone">
                             <div class="input-group-prepend">
@@ -69,7 +67,7 @@
                             </div>
                         </div>
                         <!-- Shop email -->
-                        <div class="col-md-6 form-group input-group mx-auto mb-2" >
+                        <div class="col-md-6 form-group input-group mx-auto mb-2">
                             <input type="email" class="form-control" id="review" placeholder="Email de la tienda"
                                 required="" formControlName="email">
                             <div class="input-group-prepend">
@@ -82,10 +80,10 @@
                                 <div *ngIf="f.email.errors.email"> {{ invalidEmail }} </div>
                             </div>
                         </div>
-                        <div class="col-md-6 mx-auto mb-2" >
+                        <div class="col-md-6 mx-auto mb-2">
                             <p for="logo">Seleccione un logo para su tienda</p>
                         </div>
-                        <div class="form-row col-md-6 mx-auto mb-2" >
+                        <div class="form-row col-md-6 mx-auto mb-2">
                             <div class="col-md-4 ">
                                 <img class="thumbnail" [src]="imageLogo" id="logo" />
                             </div>
@@ -95,7 +93,7 @@
                             </div>
                         </div>
 
-                        <div class="form-gruop text-center" >
+                        <div class="form-gruop text-center">
                             <button class="btn btn-solid" (click)="storeRegister()">Registrar tienda</button>
                             <!-- <button class="btn btn-solid">Registrar tienda</button> -->
                         </div>
@@ -114,7 +112,8 @@
                 <div class="theme-card">
                     <form [formGroup]="productForm" class="theme-form">
                         <div class="col-md-6 form-group input-group" id="center-mb">
-                            <input formControlName="name" type="text" class="form-control" id="name" placeholder="Nombre del producto" required="">
+                            <input formControlName="name" type="text" class="form-control" id="name"
+                                placeholder="Nombre del producto" required="">
                             <div class="input-group-prepend">
                                 <span class="input-group-text">
                                     <img src="../../../../assets/images/marketplace/svg/bag.svg" alt="">
@@ -125,7 +124,8 @@
                             </div>
                         </div>
                         <div class="col-md-6 form-group input-group" id="center-mb">
-                            <input formControlName="price" type="text" class="form-control" id="price" placeholder="Precio del producto" required="">
+                            <input formControlName="price" type="text" class="form-control" id="price"
+                                placeholder="Precio del producto" required="">
                             <div class="input-group-prepend">
                                 <span class="input-group-text">
                                     <img src="../../../../assets/images/marketplace/svg/dolar.svg" alt="">
@@ -136,7 +136,8 @@
                             </div>
                         </div>
                         <div class="col-md-6 form-group input-group" id="center-mb">
-                            <input formControlName="tax" type="text" class="form-control" id="review" placeholder="Impuesto del producto" required="">
+                            <input formControlName="tax" type="text" class="form-control" id="review"
+                                placeholder="Impuesto del producto" required="">
                             <div class="input-group-prepend">
                                 <span class="input-group-text">
                                     <img src="../../../../assets/images/marketplace/svg/dolar.svg" alt="">
@@ -147,16 +148,25 @@
                             </div>
                         </div>
                         <div class="col-md-6" id="center-mb">
-                            <select class="form-control" name="category" (change)="selectCategory($event.target.value)">
-                                <option value="null" selected>Seleccione categoría</option>
-                                <option *ngFor="let category of categories" [value]="category._id">{{category.name}}</option>
+                            <select formControlName class="form-control" name="category" (change)="selectCategory($event.target.value)">
+                                <option value="" selected>Seleccione categoría</option>
+                                <option *ngFor="let category of categories" [value]="category._id">{{category.name}}
+                                </option>
                             </select>
+                            <div *ngIf="submitted && p.description.errors" class="invalid-feedback d-block">
+                                <div *ngIf="p.description.errors.required"> {{ required }} </div>
+                            </div>
                         </div>
+                        <!-- Descripcion del producto -->
                         <div class="col-md-6" id="center-mb">
-                            <textarea type="text" class="form-control" id="exampleFormControlTextarea1"
-                                placeholder="Descripción del producto" required=""></textarea>
+                            <textarea formControlName="description" type="text" class="form-control"
+                                id="descriptionProduct" placeholder="Descripción del producto"
+                                required=""></textarea>
+                            <div *ngIf="submitted && p.description.errors" class="invalid-feedback d-block">
+                                <div *ngIf="p.description.errors.required"> {{ required }} </div>
+                            </div>
                         </div>
-                        <div class="col-md-6 mb-2" >
+                        <div class="col-md-6 mb-2">
                             <p for="logo">Seleccione una imagen para el artículo</p>
                         </div>
                         <div class="form-row col-md-6 mb-2">

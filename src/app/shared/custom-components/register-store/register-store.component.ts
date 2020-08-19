@@ -17,7 +17,7 @@ import { Category } from '../../classes/category';
 } )
 export class RegisterStoreComponent implements OnInit {
   planSelected = 2;
-  step = 1;
+  step = 2;
   imageLogo: any = '../../../../assets/images/marketplace/svg/upload-image.svg';;
   imageProduct: any = '../../../../assets/images/marketplace/svg/upload-image.svg';
   registerForm: FormGroup;
@@ -105,23 +105,30 @@ export class RegisterStoreComponent implements OnInit {
   private createForm(): void {
     // Formulario de tienda
     this.registerForm = this.formBuilder.group( {
-      owner_id: [ this.id ],
-      url: [ '', [ Validators.required ] ],
       name: [ '', [ Validators.required ] ],
-      phone: [ '', [ Validators.required ] ],
-      logo_url: [ '', [ Validators.required ] ],
       description: [ '', [ Validators.required ] ],
+      url_store: [ '', [ Validators.required ] ],
+      phone: [ '', [ Validators.required ] ],
       email: [ '', [ Validators.required, Validators.email ] ],
+      logo: [ '', [ Validators.required ] ],
+      owner_id: [ this.id ],
+      plan: [ '', [ Validators.required ] ],
     } );
 
     // Formulario de Producto
     this.productForm = this.formBuilder.group( {
       name: [ '', [ Validators.required ] ],
+      description: [ '', [ Validators.required ] ],
       price: [ '', [ Validators.required ] ],
       tax: [ '', [ Validators.required ] ],
-      store_id: [ '' ],
+      image: [ '', [ Validators.required ] ],
+      store: [ '' ],
+      category: [ '', [ Validators.required ] ],
     } );
+  }
 
+  selectCategory( id: string ): void {
+    console.log( id );
   }
 
 }
