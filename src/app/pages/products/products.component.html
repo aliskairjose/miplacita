@@ -1,39 +1,38 @@
 <app-breadcrumb [title]="'Productos'" [breadcrumb]="'Productos'"></app-breadcrumb>
 <section class="section-b-space">
     <div class="container">
-        <div class="d-flex flex-row bd-highlight ">
-            <div class="search-box flex-fill p-2">
-                <input class="form-control" placeholder="Buscar" (change)="search($event)" />
-                <!-- <div class="input-group-prepend">
-                    <span class="input-group-text">
-                        <img src="../../../../assets/images/marketplace/svg/email.svg" alt="">
-                    </span>
-                </div> -->
-            </div>
-            <div class="search-box flex-fill p-2">
-                <select class="form-control">
-                    <option value="">Tipo de producto</option>
-                    <option value="" *ngFor="let type of productTypes"></option>
-                </select>
-            </div>
-            <div class="search-box flex-fill p-2">
-                <select name="model" class="form-control">
-                    <option value="">Estado</option>
-                    <option value="" *ngFor="let state of states"></option>
-
-                </select>
-            </div>    
-            <div class="search-box flex-fill p-2" *ngIf="typeUser=='admin'">
-                <select name="model" class="form-control">
-                    <option value="">Tienda</option>
-                    <option value="" *ngFor="let state of states"></option>
-
-                </select>
-            </div>            
-            <div class="search-button p-2 bd-highlight">
-                <button class="btn btn-solid btn-find">Crear producto</button>
-            </div>
-
+        <div class="d-flex search ">
+            <form class="theme-form">
+                <div class="search-box p-2">
+                    <input class="form-control" placeholder="Buscar" (change)="search($event)" />
+                </div>
+                <div class="select-filter">
+                    <div class="flex-fill p-2">
+                        <select class="form-control">
+                            <option value="">Tipo de producto</option>
+                            <option value="" *ngFor="let type of productTypes"></option>
+                        </select>
+                    </div>
+                    <div class="flex-fill p-2">
+                        <select name="model" class="form-control">
+                            <option value="">Estado</option>
+                            <option value="" *ngFor="let state of states"></option>
+        
+                        </select>
+                    </div>    
+                    <div class="flex-fill p-2" *ngIf="typeUser=='admin'">
+                        <select name="model" class="form-control">
+                            <option value="">Tienda</option>
+                            <option value="" *ngFor="let state of states"></option>
+        
+                        </select>
+                    </div>
+                </div>  
+                <div class="d-flex p-2 justify-content-end">
+                    <button class="btn btn-solid btn-find">Crear producto</button>
+                </div>
+            </form>
+                        
         </div>        
         <div class="row table-center-mt">
             <div class="col-sm-12">
