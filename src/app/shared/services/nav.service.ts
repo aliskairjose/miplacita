@@ -146,13 +146,13 @@ export class NavService {
 			path: '/home/dashboard', title: 'Dashboard', type: 'link'
 		},
 		{
-			path: '/home/productos', title: 'Productos', type: 'link'
+			path: '/pages/products', title: 'Productos', type: 'link'
 		},
 		{
-			path: '/home/ordenes', title: 'Órdenes', type: 'link'
+			path: '/pages/orders', title: 'Órdenes', type: 'link'
 		},
 		{
-			path: '/home/tienda', title: 'Tienda', type: 'link'
+			path: '/pages/shops', title: 'Tienda', type: 'link'
 		},
 
 	];

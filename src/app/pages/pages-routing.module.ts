@@ -16,22 +16,25 @@ import { ProductsComponent } from './products/products.component';
 import { ShopsComponent } from './shops/shops.component';
 
 const routes: Routes = [
-  {
-    path: 'cart',
-    component: CartComponent
-  },
+
   {
     path: 'dashboard',
     component: DashboardComponent,
     canActivate: [ AuthGuard ]
   },
   {
-    path: 'productos',
-    component: ProductsComponent
+    path: 'products',
+    component: ProductsComponent,
+    canActivate: [ AuthGuard ]
   },
   {
     path: 'shops',
     component: ShopComponent,
+    canActivate: [ AuthGuard ]
+  },
+  {
+    path: 'cart',
+    component: CartComponent,
     canActivate: [ AuthGuard ]
   },
   {
@@ -61,11 +64,6 @@ const routes: Routes = [
   {
     path: 'contact',
     component: ContactComponent
-  },
-  {
-    path: 'shop',
-    component: ShopComponent,
-    canActivate: [ AuthGuard ]
   }
 ];
 
