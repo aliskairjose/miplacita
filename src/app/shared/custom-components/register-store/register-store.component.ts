@@ -8,6 +8,7 @@ import { User } from '../../classes/user';
 import { StorageService } from '../../services/storage.service';
 import { ProductService } from '../../services/product.service';
 import { StoreService } from '../../services/store.service';
+import { Category } from '../../classes/category';
 
 @Component( {
   selector: 'app-register-store',
@@ -17,7 +18,6 @@ import { StoreService } from '../../services/store.service';
 export class RegisterStoreComponent implements OnInit {
   planSelected = 2;
   step = 1;
-  categories = [];
   imageLogo: any = '../../../../assets/images/marketplace/svg/upload-image.svg';;
   imageProduct: any = '../../../../assets/images/marketplace/svg/upload-image.svg';
   registerForm: FormGroup;
@@ -26,6 +26,7 @@ export class RegisterStoreComponent implements OnInit {
   invalidEmail = 'Email inválido';
   required = 'Campo obligatorio';
   id = '';
+  categories: Category[] = [];
 
   constructor(
     private router: Router,
@@ -46,8 +47,11 @@ export class RegisterStoreComponent implements OnInit {
   get p() { return this.productForm.controls; }
 
   ngOnInit(): void {
+    this.productService.categoryList().subscribe( ( categories: Category[] ) => {
+      this.categories = [ ...categories ];
+    } );
     const user: User = this.storage.getItem( 'user' );
-    this.id = user.id;
+    // this.id = user.id;
   }
 
   updatePlan( plan: number ) {
@@ -99,9 +103,8 @@ export class RegisterStoreComponent implements OnInit {
   }
 
   private createForm(): void {
-
+    // Formulario de tienda
     this.registerForm = this.formBuilder.group( {
-
       owner_id: [ this.id ],
       url: [ '', [ Validators.required ] ],
       name: [ '', [ Validators.required ] ],
@@ -111,8 +114,9 @@ export class RegisterStoreComponent implements OnInit {
       email: [ '', [ Validators.required, Validators.email ] ],
     } );
 
+    // Formulario de Producto
     this.productForm = this.formBuilder.group( {
-      title: [ '', [ Validators.required ] ],
+      name: [ '', [ Validators.required ] ],
       price: [ '', [ Validators.required ] ],
       tax: [ '', [ Validators.required ] ],
       store_id: [ '' ],
