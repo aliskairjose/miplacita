@@ -8,10 +8,11 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./products.component.scss']
 })
 export class ProductsComponent implements OnInit {
-  public typeUser = 'merchant';
-  public fields = ['ID', '', 'Nombre', 'Precio', 'Itbms',
-                   'Estado', 'Vendidos', 'Principal', '' ];
-  
+  public typeUser = 'admin';
+  public fields = ['ID', '', 'Nombre' ];
+  public optionalFields = ['Precio', 'Itbms',
+  'Estado', 'Vendidos', 'Principal' ];
+
   public products = [];
   public productTypes = []; // tipos de productos
   public states = []; // tipos de productos
