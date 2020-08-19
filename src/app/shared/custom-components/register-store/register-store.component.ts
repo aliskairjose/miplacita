@@ -14,8 +14,8 @@ export class RegisterStoreComponent implements OnInit {
   planSelected = 2;
   step = 1;
   categories = [];
-  imageLogo: any;
-  imageProduct: any;
+  imageLogo: any = '../../../../assets/images/marketplace/svg/upload-image.svg';;
+  imageProduct: any = '../../../../assets/images/marketplace/svg/upload-image.svg';
   registerForm: FormGroup;
   submitted: boolean;
   invalidEmail = 'Email inválido';
