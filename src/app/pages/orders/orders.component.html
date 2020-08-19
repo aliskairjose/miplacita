@@ -38,8 +38,7 @@
             </div> 
             </form>
                
-        <div class="row table-center-mt">
-            <div class="col-sm-12">
+            <div class="table-responsive-sm mt-3">
                 <table class="table cart-table table-responsive-xs">
                     <thead>
                     <tr class="table-head">
@@ -75,9 +74,10 @@
                         </tr>
                     </tbody>
                 </table>
-                <app-custom-pagination  [items]="orders" [paginate]="paginate" (setPage)="setPage($event)">
-                </app-custom-pagination>
+                
             </div>
-        </div>        
+            <app-custom-pagination  [items]="orders" [paginate]="paginate" (setPage)="setPage($event)">
+            </app-custom-pagination>
+     
     </div>
 </section>
