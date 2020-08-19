@@ -1,0 +1,15 @@
+#state {
+    max-width: 25%;
+}
+@media (min-width: 320px) and (max-width:768px){
+    #state{
+        min-width: 100%;
+    }
+    .search {
+        flex-direction: column;
+    }
+    .filters {
+        display: flex;
+        flex-direction: row;
+    }
+}

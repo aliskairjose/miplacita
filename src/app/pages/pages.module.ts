@@ -43,6 +43,7 @@ import { AlertModule } from 'ngx-alerts';
 import { NgxSpinnerModule } from 'ngx-spinner';
 
 import { GoogleChartsModule } from 'angular-google-charts';
+import { OrdersComponent } from './orders/orders.component';
 import { ProductsComponent } from './products/products.component';
 import { CreateProductComponent } from './create-product/create-product/create-product.component';
 
@@ -81,7 +82,8 @@ import { CreateProductComponent } from './create-product/create-product/create-p
     MasonryGridFourComponent,
     MasonryFullWidthComponent,
     ProductsComponent,
-    CreateProductComponent
+    CreateProductComponent,
+    OrdersComponent,
 
   ],
   imports: [

@@ -1,0 +1,83 @@
+<app-breadcrumb [title]="'Órdenes'" [breadcrumb]="'Órdenes'"></app-breadcrumb>
+<section class="section-b-space">
+    <div class="container">
+        
+            <form [formGroup]="searchForm" class="theme-form" (ngSubmit)="search()">
+                <div class="d-flex search">
+                <div class="form-group flex-fill" id="state">
+                    <select name="model" formControlName="state" class="form-control">
+                        <option value="">Estado</option>
+                        <option value="" *ngFor="let state of states"></option>
+    
+                    </select>
+                </div>
+                <div class="filters">
+                    <div class="form-group flex-fill mr-1">
+                        <div class="input-group">
+                            <input class="form-control lighten-3" placeholder="dd/mm/yyyy"
+                                 name="d2"  formControlName="init"  ngbDatepicker #d1="ngbDatepicker">
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-secondary calendar" (click)="d1.toggle()" type="button"></button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group flex-fill">
+                        <div class="input-group">
+                            <input class="form-control lighten-3" placeholder="dd/mm/yyyy"
+                                    name="d2"  formControlName="end" ngbDatepicker #d2="ngbDatepicker">
+                            <div class="input-group-append">
+                            <button class="btn btn-outline-secondary calendar" (click)="d2.toggle()" type="button"></button>
+                            </div>
+                        </div>
+                    </div>
+                      
+                </div>
+                <div class="d-flex flex-fill justify-content-end h-100">
+                    <button class="btn btn-solid btn-find" type="submit">Filtrar</button>
+                </div>
+            </div> 
+            </form>
+               
+        <div class="row table-center-mt">
+            <div class="col-sm-12">
+                <table class="table cart-table table-responsive-xs">
+                    <thead>
+                    <tr class="table-head">
+                        <th *ngFor="let field of fields" scope="col">{{field}}</th>
+                    </tr>
+                    </thead>
+                    <tbody >
+                        <tr *ngFor="let order of orders">
+                            <td>
+                                {{order.id}}
+                            </td>
+                            
+                            <td>
+                                {{order.client}}
+                            </td>
+                            <td>
+                                <div class="d-flex flex-wrap ">
+                                    {{order.products}}
+                                </div>
+                            </td>
+                            <td >
+                                {{order.amount}}
+                            </td>
+                            <td>
+                                {{order.zone}}
+                            </td>
+                            <td>
+                                {{order.state}}
+                            </td>
+                            <td class="d-flex flex-row">
+                                <button class="btn btn-table-action">Editar</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <app-custom-pagination  [items]="orders" [paginate]="paginate" (setPage)="setPage($event)">
+                </app-custom-pagination>
+            </div>
+        </div>        
+    </div>
+</section>
