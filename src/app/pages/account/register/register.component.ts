@@ -12,7 +12,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
   styleUrls: [ './register.component.scss' ]
 } )
 export class RegisterComponent implements OnInit {
-  registerSuccess = true;
+  registerSuccess = false;
   registerForm: FormGroup;
   submitted: boolean;
   invalidEmail = 'Email inválido';
