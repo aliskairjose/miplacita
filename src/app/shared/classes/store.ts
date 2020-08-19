@@ -10,4 +10,5 @@ export interface Store {
   logo: string;
   owner_id: string;
   plan: string;
+  active: boolean;
 }
