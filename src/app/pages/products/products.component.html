@@ -1,0 +1,90 @@
+<app-breadcrumb [title]="'Productos'" [breadcrumb]="'Productos'"></app-breadcrumb>
+<section class="section-b-space">
+    <div class="container">
+        <div class="d-flex search ">
+            <form [formGroup]="searchForm" class="theme-form">
+                <div class="search-box p-2">
+                    <div class="input-group ">
+                        <div class="input-group-prepend" >
+                          <span class="input-group-text lighten-3" (click)="search()" id="basic-text1">
+                            <img src="" alt="">
+                          </span>
+                        </div>
+                        <input class="form-control my-0 py-1" formControlName="product"  type="text" placeholder="Buscar " >
+                    </div>
+                    <!-- <input class="form-control" placeholder="Buscar" (change)="search($event)" /> -->
+                </div>
+                <div class="select-filter">
+                    <div class="flex-fill p-2">
+                        <select class="form-control" formControlName="typeProduct">
+                            <option value="">Tipo de producto</option>
+                            <option value="" *ngFor="let type of productTypes"></option>
+                        </select>
+                    </div>
+                    <div class="flex-fill p-2">
+                        <select name="model" class="form-control" formControlName="stateProduct">
+                            <option value="">Estado</option>
+                            <option value="" *ngFor="let state of states"></option>
+                        </select>
+                    </div>    
+                    <div class="flex-fill p-2" *ngIf="typeUser=='admin'" formControlName="shop">
+                        <select name="model" class="form-control">
+                            <option value="">Tienda</option>
+                            <option value="" *ngFor="let state of states"></option>
+                        </select>
+                    </div>
+                </div>  
+            </form>
+            <div class="d-flex p-2 justify-content-end">
+                <button class="btn btn-solid btn-find">Crear producto</button>
+            </div>
+                        
+        </div>        
+        <div class="row table-center-mt">
+            <div class="col-sm-12">
+                <table class="table cart-table table-responsive-xs">
+                    <thead>
+                    <tr class="table-head">
+                        <th *ngFor="let field of fields" scope="col">{{field}}</th>
+                    </tr>
+                    </thead>
+                    <tbody >
+                        <tr *ngFor="let product of products">
+                            <td>
+                                {{product.id}}
+                            </td>
+                            <td>
+                                <img class="product-image" [src]="product.image" />
+                            </td>
+                            <td>
+                                {{product.name}}
+                            </td>
+                            <td>
+                                {{product.price}}
+                            </td>
+                            <td >
+                                {{product.itbms}}
+                            </td>
+                            <td><h4>{{product.estado}}</h4></td>
+                            <td>
+                                {{product.vendidos}}
+                            </td>
+                            <td>
+                                {{product.principal}}
+                            </td>
+                            <td class="d-flex flex-row" *ngIf="typeUser=='merchant'">
+                                <button class="btn btn-table-action">Editar</button>
+                                <button class="btn btn-table-action">Eliminar</button>
+                            </td>
+                            <td class="d-flex flex-row" *ngIf="typeUser=='admin'">
+                                <button class="btn btn-table-action">Desactivar</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <app-custom-pagination  [items]="products" [paginate]="paginate" (setPage)="setPage($event)">
+                </app-custom-pagination>
+            </div>
+        </div>        
+    </div>
+</section>

@@ -10,6 +10,7 @@ import { ErrorComponent } from './error/error.component';
 import { FaqComponent } from './faq/faq.component';
 import { CartComponent } from './account/cart/cart.component';
 import { OrdersComponent } from './orders/orders.component';
+import { ProductsComponent } from './products/products.component';
 
 const routes: Routes = [
   {
@@ -24,6 +25,11 @@ const routes: Routes = [
     path: 'ordenes',
     component: OrdersComponent
   },
+  {
+    path: 'productos',
+    component: ProductsComponent
+  },
+
   {
     path: 'login',
     component: LoginComponent

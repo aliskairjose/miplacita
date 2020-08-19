@@ -1,10 +1,93 @@
 /* You can add global styles to this file, and also import other style files */
 
+// Variables 
+/** MarketPlace custom variable *****************************************************/
+
+// Colors
+$mp-blue: #3d5afe;
+$mp-red: #eba39a;
+
+// radius
+$radius: 5px;
+
+// Landing Page 
+
+.info-benefit {
+  .left-benefit{
+    img {
+      height: auto;
+      width: 60%;
+    }
+  }
+  .rigth-benefit{
+    padding: 15px 35px 35px;
+    width: inherit;
+    border-radius: $radius;
+    border: solid thin $mp-red;
+    h3{
+      margin-top: 20px;
+    }
+  }
+}
+
+.info-plan {
+ 
+  .left-info {
+    padding: 30px;
+    width: 25vw;
+    border: solid thin $mp-blue;
+    border-top-left-radius: $radius;
+    border-bottom-left-radius: $radius;
+    h2{
+      color: $mp-blue;    
+    }
+    h4 {
+      color: $mp-blue;    
+    }
+    h5 {
+      color: $mp-blue;    
+    }
+    p{
+      color: $mp-blue;
+    }
+  }
+  .rigth-info {
+    padding: 30px;
+    width: 25vw;
+    border: solid thin $mp-blue;
+    border-top-right-radius: $radius;
+    border-bottom-right-radius: $radius;
+    background-color: $mp-blue;
+    h2{
+      color: #ffffff !important;
+    }
+    h4 {
+      color: #ffffff !important;
+    }
+    h5 {
+      color: #ffffff !important;
+    }
+    p {
+      color: #ffffff;
+    } 
+  }
+
+} // end  .info-plan
+
+
+
 form {
   input {
     margin-bottom: 0px !important;
   }
+  span {
+    img {
+      height: auto;
+      width: 24px;
+    }
+  }
 }
+
 
 .table-center-mt{
   width: 100%;
@@ -21,3 +104,30 @@ form {
   margin: 0 auto;
   margin-bottom: 3%;
 }
+
+
+// Media Queries 
+/* Smartphones (portrait & landscape) */
+@media (min-width : 320px) and (max-width : 575px) {
+  .info-plan {
+    .left-info {
+      width: 100vw;
+    }
+    .rigth-info{
+      width: 100vw;
+    }
+  }
+}
+
+// Small devices (landscape phones, 576px and up)
+@media (min-width: 576px) { 
+}
+
+// Medium devices (tablets, 768px and up)
+@media (min-width: 768px) { }
+
+// Large devices (desktops, 992px and up)
+@media (min-width: 992px) {  }
+
+// Extra large devices (large desktops, 1200px and up)
+@media (min-width: 1200px) {  }
