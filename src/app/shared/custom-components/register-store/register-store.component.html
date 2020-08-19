@@ -39,15 +39,15 @@
                         </div>
                         <!-- Url -->
                         <div class="col-md-6 form-group input-group" id="center-mb">
-                            <input type="url" class="form-control" id="url" placeholder="Ej. www.store.com" required=""
-                                formControlName="url">
+                            <input type="url" class="form-control" id="url_store" placeholder="Ej. www.store.com" required=""
+                                formControlName="url_store">
                             <div class="input-group-prepend">
                                 <span class="input-group-text">
                                     <img src="../../../../assets/images/marketplace/svg/left-align.svg" alt="">
                                 </span>
                             </div>
-                            <div *ngIf="submitted && f.url.errors" class="invalid-feedback d-block">
-                                <div *ngIf="f.url.errors.required"> {{ required }} </div>
+                            <div *ngIf="submitted && f.url_store.errors" class="invalid-feedback d-block">
+                                <div *ngIf="f.url_store.errors.required"> {{ required }} </div>
                             </div>
                         </div>
                         <!-- Description -->
@@ -146,19 +146,18 @@
                                 <div *ngIf="p.tax.errors.required"> {{ required }} </div>
                             </div>
                         </div>
-                        <!-- <div class="col-md-6" id="center-mb">
-                            <select class="form-control" name="category">
-                                <option value="" selected>Seleccione categoría</option>
-                                <option *ngFor="let category of categories" value="India">India</option>
+                        <div class="col-md-6" id="center-mb">
+                            <select class="form-control" name="category" (change)="selectCategory($event.target.value)">
+                                <option value="null" selected>Seleccione categoría</option>
+                                <option *ngFor="let category of categories" [value]="category._id">{{category.name}}</option>
                             </select>
-                        </div> -->
+                        </div>
                         <div class="col-md-6" id="center-mb">
                             <textarea type="text" class="form-control" id="exampleFormControlTextarea1"
                                 placeholder="Descripción del producto" required=""></textarea>
                         </div>
                         <div class="col-md-6 mb-2" >
                             <p for="logo">Seleccione una imagen para el artículo</p>
-
                         </div>
                         <div class="form-row col-md-6 mb-2">
                             <div class="col-md-4 mx-auto">
