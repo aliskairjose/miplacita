@@ -44,6 +44,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 
 import { GoogleChartsModule } from 'angular-google-charts';
 import { ProductsComponent } from './products/products.component';
+import { CreateProductComponent } from './create-product/create-product/create-product.component';
 
 @NgModule({
   declarations: [
@@ -79,7 +80,8 @@ import { ProductsComponent } from './products/products.component';
     MasonryGridThreeComponent,
     MasonryGridFourComponent,
     MasonryFullWidthComponent,
-    ProductsComponent
+    ProductsComponent,
+    CreateProductComponent
 
   ],
   imports: [

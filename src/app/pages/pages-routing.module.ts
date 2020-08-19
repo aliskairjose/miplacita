@@ -24,6 +24,10 @@ const routes: Routes = [
     path: 'productos',
     component: ProductsComponent
   },
+  {
+    path: 'create-product',
+    component: ProductsComponent
+  },
 
   {
     path: 'login',
