@@ -58,7 +58,7 @@ export class SettingsComponent implements OnInit {
   ngOnInit(): void {
     this.isLoggedIn = this.auth.isAuthenticated();
     this.auth.authObserver().subscribe( ( isAuth: boolean ) => {
-      if (isAuth){
+      if ( isAuth ) {
         this.isLoggedIn = isAuth;
       }
     } );
@@ -88,6 +88,7 @@ export class SettingsComponent implements OnInit {
   loggOut(): void {
     this.storage.clearAll();
     this.router.navigate( [ 'home/marketplace' ] );
+    this.auth.authSubject( false );
   }
 
 }

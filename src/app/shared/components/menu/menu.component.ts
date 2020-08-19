@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 } )
 export class MenuComponent implements OnInit {
 
-  public menuItems: Menu[];
+  menuItems: Menu[];
 
   constructor(
     private router: Router,
