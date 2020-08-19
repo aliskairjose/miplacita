@@ -4,6 +4,10 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { AlertService } from 'ngx-alerts';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
+import { User } from '../../classes/user';
+import { StorageService } from '../../services/storage.service';
+import { ProductService } from '../../services/product.service';
+import { StoreService } from '../../services/store.service';
 
 @Component( {
   selector: 'app-register-store',
@@ -21,13 +25,17 @@ export class RegisterStoreComponent implements OnInit {
   submitted: boolean;
   invalidEmail = 'Email inválido';
   required = 'Campo obligatorio';
+  user: User;
 
   constructor(
     private router: Router,
     private auth: AuthService,
     private alert: AlertService,
+    private storage: StorageService,
     private formBuilder: FormBuilder,
+    private storeService: StoreService,
     private spinner: NgxSpinnerService,
+    private productService: ProductService,
   ) {
     this.createForm();
   }
@@ -38,6 +46,7 @@ export class RegisterStoreComponent implements OnInit {
   get p() { return this.productForm.controls; }
 
   ngOnInit(): void {
+    this.user = this.storage.getItem( 'user' );
   }
 
   updatePlan( plan: number ) {
@@ -48,8 +57,10 @@ export class RegisterStoreComponent implements OnInit {
     this.submitted = true;
 
     if ( this.registerForm.valid ) {
-      this.step = 2;
-      this.submitted = false;
+      this.storeService.addStore( this.registerForm.value ).subscribe( response => {
+        this.step = 2;
+        this.submitted = false;
+      } );
     }
   }
 
@@ -57,7 +68,10 @@ export class RegisterStoreComponent implements OnInit {
     //consumo de api
     this.submitted = true;
     if ( this.productForm.valid ) {
-
+      this.productService.addProduct( this.productForm.value ).subscribe( response => {
+        this.step = 2;
+        this.submitted = false;
+      } );
     }
   }
 
@@ -75,9 +89,9 @@ export class RegisterStoreComponent implements OnInit {
     const reader = new FileReader();
     reader.readAsDataURL( image );
     reader.onload = ( _event ) => {
-      if ( this.step == 1 ) {
+      if ( this.step === 1 ) {
         this.imageLogo = reader.result;
-      } else if ( this.step == 2 ) {
+      } else if ( this.step === 2 ) {
         this.imageProduct = reader.result;
       }
     }
@@ -87,9 +101,13 @@ export class RegisterStoreComponent implements OnInit {
   private createForm(): void {
 
     this.registerForm = this.formBuilder.group( {
+
+      owner_id: [ this.user.id ],
       url: [ '', [ Validators.required ] ],
       name: [ '', [ Validators.required ] ],
       phone: [ '', [ Validators.required ] ],
+      logo_url: [ '', [ Validators.required ] ],
+      description: [ '', [ Validators.required ] ],
       email: [ '', [ Validators.required, Validators.email ] ],
     } );
 
@@ -97,6 +115,7 @@ export class RegisterStoreComponent implements OnInit {
       title: [ '', [ Validators.required ] ],
       price: [ '', [ Validators.required ] ],
       tax: [ '', [ Validators.required ] ],
+      store_id: [ '' ],
     } );
 
   }
