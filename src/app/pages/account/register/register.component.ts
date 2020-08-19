@@ -42,7 +42,6 @@ export class RegisterComponent implements OnInit {
 
   onSubmit() {
     this.submitted = true;
-
     if ( this.registerForm.valid ) {
       this.spinner.show();
       this.auth.register( this.registerForm.value ).subscribe( ( data: AuthResponse ) => {
@@ -52,9 +51,9 @@ export class RegisterComponent implements OnInit {
           this.storage.setItem( 'user', data.user );
           this.alert.info( data.message );
           this.spinner.hide();
-
+          this.registerSuccess = true;
           // Solo cuando es tipo tienda se muestran el resto del registro Tienda y Producto
-          ( data.user.role === 'merchant' ) ? this.registerSuccess = true : this.router.navigate( [ 'pages/login' ] );
+          // ( data.user.role === 'merchant' ) ? this.registerSuccess = true : this.router.navigate( [ 'pages/login' ] );
         }
       }, ( response: HttpErrorResponse ) => {
         this.spinner.hide();
@@ -65,7 +64,8 @@ export class RegisterComponent implements OnInit {
 
   private createForm(): void {
     this.registerForm = this.formBuilder.group( {
-      role: [ '', [ Validators.required ] ],
+      // role: [ '', [ Validators.required ] ],
+      role: [ 'merchant' ],
       fullname: [ '', [ Validators.required ] ],
       password: [ '', [ Validators.required ] ],
       passwordConfirmation: [ '', Validators.required ],
