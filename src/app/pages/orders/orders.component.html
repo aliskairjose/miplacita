@@ -1,36 +1,43 @@
 <app-breadcrumb [title]="'Órdenes'" [breadcrumb]="'Órdenes'"></app-breadcrumb>
 <section class="section-b-space">
     <div class="container">
-        <div class="d-flex flex-row bd-highlight ">
-            
-            
-            <div class="search-box flex-fill p-2">
-                <select name="model" class="form-control">
-                    <option value="">Estado</option>
-                    <option value="" *ngFor="let state of states"></option>
-
-                </select>
-            </div> 
-            <div class="search-box flex-fill p-2">
-                <select name="model" class="form-control">
-                    <option value="">Desde</option>
-                    <option value="" *ngFor="let state of states"></option>
-
-                </select>
-            </div>   
-            <div class="search-box flex-fill p-2">
-                <select name="model" class="form-control">
-                    <option value="">Hasta</option>
-                    <option value="" *ngFor="let state of states"></option>
-
-                </select>
-            </div>    
+        
+            <form [formGroup]="searchForm" class="theme-form" (ngSubmit)="search()">
+                <div class="d-flex search">
+                <div class="form-group flex-fill" id="state">
+                    <select name="model" formControlName="state" class="form-control">
+                        <option value="">Estado</option>
+                        <option value="" *ngFor="let state of states"></option>
+    
+                    </select>
+                </div>
+                <div class="filters">
+                    <div class="form-group flex-fill mr-1">
+                        <div class="input-group">
+                            <input class="form-control lighten-3" placeholder="dd/mm/yyyy"
+                                 name="d2"  formControlName="init"  ngbDatepicker #d1="ngbDatepicker">
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-secondary calendar" (click)="d1.toggle()" type="button"></button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group flex-fill">
+                        <div class="input-group">
+                            <input class="form-control lighten-3" placeholder="dd/mm/yyyy"
+                                    name="d2"  formControlName="end" ngbDatepicker #d2="ngbDatepicker">
+                            <div class="input-group-append">
+                            <button class="btn btn-outline-secondary calendar" (click)="d2.toggle()" type="button"></button>
+                            </div>
+                        </div>
+                    </div>
                       
-            <div class="search-button p-2 bd-highlight">
-                <button class="btn btn-solid btn-find" (click)="search()">Filtrar</button>
-            </div>
-
-        </div>        
+                </div>
+                <div class="d-flex flex-fill justify-content-end h-100">
+                    <button class="btn btn-solid btn-find" type="submit">Filtrar</button>
+                </div>
+            </div> 
+            </form>
+               
         <div class="row table-center-mt">
             <div class="col-sm-12">
                 <table class="table cart-table table-responsive-xs">

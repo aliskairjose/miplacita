@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ProductService } from '../../shared/services/tm.product.service';
+import { NgbCalendar, NgbDateAdapter } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-orders',
@@ -11,13 +12,14 @@ export class OrdersComponent implements OnInit {
   public typeUser = 'merchant';
   public fields = ['ID', 'Cliente', 'Productos', 'Monto', 'Zona de Entrega',
                    'Estado', '' ];
-  
+
   public orders = [];
   public states = []; // estados de las ordenes
 
   public paginate: any = {};
   public pageNo = 1;
   public pageSize = 5;
+  /** variable provisional */
   public allOrders = [{
     id: 1,
     client: 'cliente',
@@ -110,7 +112,8 @@ export class OrdersComponent implements OnInit {
   ];
   public searchForm: FormGroup;
   constructor(public productService: ProductService,
-              private formBuilder: FormBuilder) { }
+              private formBuilder: FormBuilder,
+              private ngbCalendar: NgbCalendar, private dateAdapter: NgbDateAdapter<string>) { }
 
   ngOnInit(): void {
     this.createForm();
@@ -154,7 +157,7 @@ export class OrdersComponent implements OnInit {
   }
 
   search(){
-    console.log(this.searchForm.value)
+    console.log(this.searchForm.value);
   }
 
 }
