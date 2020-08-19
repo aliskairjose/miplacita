@@ -19,6 +19,7 @@ export class ProductsComponent implements OnInit {
   public paginate: any = {};
   public pageNo = 1;
   public pageSize = 5;
+  /** variable provisional con data */
   public allProducts = [{
     id: 1,
     image: 'assets/images/collection/4.jpg',
@@ -141,8 +142,10 @@ export class ProductsComponent implements OnInit {
 
   createForm(){
     this.searchForm = this.formBuilder.group({
+      product: [''],
       typeProduct: [''],
-      stateProduct: ['']
+      stateProduct: [''],
+      shop:['']
     });
   }
 
@@ -174,11 +177,8 @@ export class ProductsComponent implements OnInit {
     this.paginate.currentPage = event;
   }
 
-  search(event){
-    if(event !== ''){
-      let word = event.target.value;
-      console.log(word);
-    }
+  search(){
+    console.log(this.searchForm.value);
   }
 
 }
