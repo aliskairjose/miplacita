@@ -11,6 +11,7 @@ import { FaqComponent } from './faq/faq.component';
 import { CartComponent } from './account/cart/cart.component';
 import { AuthGuard } from '../shared/guard/auth.guard';
 import { ContactComponent } from './account/contact/contact.component';
+import { ShopComponent } from '../shop/shop.component';
 
 const routes: Routes = [
   {
@@ -49,6 +50,11 @@ const routes: Routes = [
   {
     path: 'contact',
     component: ContactComponent
+  },
+  {
+    path: 'shop',
+    component: ShopComponent,
+    canActivate: [ AuthGuard ]
   }
 ];
 
