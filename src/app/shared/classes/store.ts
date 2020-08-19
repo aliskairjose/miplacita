@@ -3,15 +3,10 @@ export interface Store {
   id?: string;
   name: string;
   description: string;
-  currency: string;
-  logo_url: string;
-  location: [];
+  url_store: string;
   phone: string;
-  product?: Product[];
-  shipment_options: ShipmentOptions[];
-}
-
-export interface ShipmentOptions {
-  name: string;
-  price: string;
+  email: string;
+  logo: string;
+  owner_id: string;
+  plan: string;
 }
