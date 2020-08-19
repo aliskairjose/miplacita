@@ -1,5 +1,6 @@
 import { Injectable, HostListener } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
+import { AuthService } from './auth.service';
 
 // Menu
 export interface Menu {
@@ -164,7 +165,7 @@ export class NavService {
 	onResize( event?) {
 		this.screenWidth = window.innerWidth;
 	}
-	constructor() { }
+	constructor() {}
 
 
 }
