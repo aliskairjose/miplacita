@@ -14,6 +14,13 @@ export class ProductService {
     private http: HttpService
   ) { }
 
+ /**
+  * @description Retorna la lista de categorias!
+  */
+  categoryList(): Observable<any> {
+    return this.http.get( 'categories' );
+  }
+
   /**
    * @description Crea un nuevo producto
    * @param data Detale del producto
@@ -61,7 +68,7 @@ export class ProductService {
    * @description Eliminando photo de producto
    */
   deletePhoto( id: string, ): Observable<any> {
-    return this.http.delete( `products/photo/${id}`);
+    return this.http.delete( `products/photo/${id}` );
   }
 
   /**
