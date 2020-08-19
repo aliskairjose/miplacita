@@ -91,6 +91,24 @@ form {
   }
 }
 
+
+.table-center-mt{
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 3%;
+  
+}
+
+.icon-label {
+  background-color: var(--red);    
+} 
+
+#center-mb{
+  margin: 0 auto;
+  margin-bottom: 3%;
+}
+
+
 // Media Queries 
 /* Smartphones (portrait & landscape) */
 @media (min-width : 320px) and (max-width : 575px) {

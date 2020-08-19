@@ -1,0 +1,17 @@
+.product-image {
+    max-width: 150px;
+    max-height: 100px;
+}
+.search {
+    flex-direction: row;
+}
+
+@media (max-width: 768px){
+    .search {
+        flex-direction: column;
+    }
+    .select-filter {
+        display: flex;
+        flex-direction: row;
+    }
+}
