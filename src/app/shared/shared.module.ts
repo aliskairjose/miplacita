@@ -56,6 +56,7 @@ import { TapToTopComponent } from './components/tap-to-top/tap-to-top.component'
 // Pipes
 import { DiscountPipe } from './pipes/discount.pipe';
 import { CustomPaginationComponent } from './custom-components/custom-pagination/custom-pagination/custom-pagination.component';
+import { AlertModule } from 'ngx-alerts';
 
 @NgModule({
   declarations: [
@@ -101,6 +102,7 @@ import { CustomPaginationComponent } from './custom-components/custom-pagination
     NgbModule,
     CarouselModule,
     BarRatingModule,
+    AlertModule.forRoot({maxMessages: 5, timeout: 3000, position: 'left'}),
     LazyLoadImageModule.forRoot({
       // preset: scrollPreset // <-- tell LazyLoadImage that you want to use scrollPreset
     }),

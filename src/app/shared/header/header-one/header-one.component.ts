@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, HostListener } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
+import { AlertService } from 'ngx-alerts';
 
 @Component( {
   selector: 'app-header-one',
@@ -29,12 +30,15 @@ export class HeaderOneComponent implements OnInit {
 
   constructor(
     private auth: AuthService,
+    private alert: AlertService,
   ) { }
 
   ngOnInit(): void {
     this.isLoggedIn = this.auth.isAuthenticated();
     this.auth.authObserver().subscribe( ( isAuth: boolean ) => {
       this.isLoggedIn = isAuth;
+      // tslint:disable-next-line: curly
+      if ( !isAuth ) this.alert.info( 'Hasta luego...' );
     } );
   }
 
