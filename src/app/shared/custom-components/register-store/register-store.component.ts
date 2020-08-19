@@ -70,13 +70,12 @@ export class RegisterStoreComponent implements OnInit {
     if ( this.productForm.valid ) {
       this.productService.addProduct( this.productForm.value ).subscribe( response => {
         this.step = 2;
-        this.submitted = false;
       } );
     }
   }
 
   updateImage( $event ) {
-    if ( $event.target.files.length == 0 ) {
+    if ( $event.target.files.length === 0 ) {
       return;
     }
 
