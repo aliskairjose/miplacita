@@ -1,6 +1,6 @@
 import { Product } from './product';
 export interface Store {
-  id?: string;
+  _id?: string;
   name: string;
   description: string;
   url_store: string;
