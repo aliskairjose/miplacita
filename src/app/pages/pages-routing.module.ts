@@ -13,6 +13,7 @@ import { AuthGuard } from '../shared/guard/auth.guard';
 import { ContactComponent } from './account/contact/contact.component';
 import { ProductsComponent } from './products/products.component';
 import { ShopsComponent } from './shops/shops.component';
+import { OrdersComponent } from './orders/orders.component';
 
 const routes: Routes = [
 
@@ -34,6 +35,11 @@ const routes: Routes = [
   {
     path: 'cart',
     component: CartComponent,
+    canActivate: [ AuthGuard ]
+  },
+  {
+    path: 'orders',
+    component: OrdersComponent,
     canActivate: [ AuthGuard ]
   },
   {
