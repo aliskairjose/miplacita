@@ -4,60 +4,17 @@
 }
 
 .plan{
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    margin-bottom: 5%;
-    padding: 5%;
-    border-radius: 3px;
-    text-align: center;
     border: 0.1rem solid #495057;
+    border-radius: 0.6rem;
 }
 
 .plan-selected {
     border: 0.2rem solid var(--theme-deafult);
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.20);
+    border-radius: 0.6rem;
+    font-weight: bold;
+    font-size: 1.2rem;
 }
-
-.list{
-    display: flex;
-    flex-direction: column;
-}
-
-.list li{
-    margin-bottom: 3%;
-}
-.plan-btn {
-    display: flex;
-    flex-direction: row;
-    column-gap: 10%;
-    width: 100%;
-    height: 100%;
-    justify-content: center;
-    align-items: flex-end;
-    
-}
-.payment {
-    width: 45%;
-}
-
-.share{
-    width: 45%;
-}
-.payment button{
-    width: 100%;
-}
-.share button{
-    width: 100%;
-}
-#btn-center{
-    text-align: center;
-}
-
-#exampleFormControlTextarea1{
-    margin-bottom: 3%;
-}
-
 
 .thumbnail{
     margin: 0 auto;
@@ -81,7 +38,4 @@
     padding-bottom: 5px;
 }
 
-#category{
-    margin-bottom: 2.5%;
-}
 
