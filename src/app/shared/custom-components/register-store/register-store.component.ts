@@ -25,7 +25,7 @@ export class RegisterStoreComponent implements OnInit {
   submitted: boolean;
   invalidEmail = 'Email inválido';
   required = 'Campo obligatorio';
-  user: User;
+  id = '';
 
   constructor(
     private router: Router,
@@ -46,7 +46,8 @@ export class RegisterStoreComponent implements OnInit {
   get p() { return this.productForm.controls; }
 
   ngOnInit(): void {
-    this.user = this.storage.getItem( 'user' );
+    const user: User = this.storage.getItem( 'user' );
+    this.id = user.id;
   }
 
   updatePlan( plan: number ) {
@@ -65,7 +66,7 @@ export class RegisterStoreComponent implements OnInit {
   }
 
   productRegister() {
-    //consumo de api
+    // consumo de api
     this.submitted = true;
     if ( this.productForm.valid ) {
       this.productService.addProduct( this.productForm.value ).subscribe( response => {
@@ -93,7 +94,7 @@ export class RegisterStoreComponent implements OnInit {
       } else if ( this.step === 2 ) {
         this.imageProduct = reader.result;
       }
-    }
+    };
 
   }
 
@@ -101,7 +102,7 @@ export class RegisterStoreComponent implements OnInit {
 
     this.registerForm = this.formBuilder.group( {
 
-      owner_id: [ this.user.id ],
+      owner_id: [ this.id ],
       url: [ '', [ Validators.required ] ],
       name: [ '', [ Validators.required ] ],
       phone: [ '', [ Validators.required ] ],

@@ -58,6 +58,7 @@ export class AuthService {
 
   /**
    * @description Creación del observer mediante el método asObserver(), el cual sera consumido por el componente
+   * @returns Observable
    */
   authObserver(): Observable<any> {
     return this.$auth.asObservable();

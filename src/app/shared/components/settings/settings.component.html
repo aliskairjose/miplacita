@@ -2,11 +2,21 @@
   <ul>
     <li class="onhover-div mobile-search search-widgets" id="search-widgets">
       <div>
-        <img src="assets/images/icon/search.png" class="img-fluid" alt="">
-        <i class="ti-search"></i>
+        <img src="assets/images/marketplace/svg/user.svg" class="img-fluid" alt="">
+        <i class="fa fa-user" aria-hidden="true"></i>
+      </div>
+      <div class="show-div setting">
+        <h6 [routerLink]="[ '/pages/login']">Iniciar sesión</h6>
+        <h6 *ngIf="isLoggedIn" href="javascript:void(0)" (click)="loggOut()">Cerrar sesión</h6>
       </div>
     </li>
     <li class="onhover-div mobile-setting">
+      <div>
+        <img src="assets/images/icon/setting.png" class="img-fluid" alt="settong">
+        <i class="ti-settings"></i>
+      </div>
+    </li>
+    <!-- <li class="onhover-div mobile-setting">
       <div><img src="assets/images/icon/setting.png" class="img-fluid" alt="settong">
         <i class="ti-settings"></i></div>
       <div class="show-div setting">
@@ -23,7 +33,7 @@
           </li>
         </ul>
       </div>
-    </li>
+    </li> -->
     <li class="onhover-div mobile-cart">
       <div>
         <a [routerLink]="['/shop/cart']">
@@ -47,7 +57,7 @@
               </a>
               <h4>
                 <span>
-                  {{ product?.quantity }} x 
+                  {{ product?.quantity }} x
                   {{ product?.price * productService?.Currency.price | discount:product | currency:productService?.Currency.currency:'symbol' }}
                 </span>
               </h4>
@@ -59,7 +69,8 @@
         </li>
         <li>
           <div class="total">
-            <h5>subtotal : <span>{{ getTotal | async | currency:productService?.Currency.currency:'symbol' }}</span></h5>
+            <h5>subtotal : <span>{{ getTotal | async | currency:productService?.Currency.currency:'symbol' }}</span>
+            </h5>
           </div>
         </li>
         <li>
