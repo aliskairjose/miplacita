@@ -4,14 +4,8 @@
 }
 
 .plan{
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    margin-bottom: 5%;
-    padding: 5%;
-    border-radius: 3px;
-    text-align: center;
     border: 0.1rem solid #495057;
+    border-radius: 0.6rem;
 }
 
 .plan-selected {
@@ -56,8 +50,10 @@
 
 #exampleFormControlTextarea1{
     margin-bottom: 3%;
+    border-radius: 0.6rem;
+    font-weight: bold;
+    font-size: 1.2rem;
 }
-
 
 .thumbnail{
     margin: 0 auto;

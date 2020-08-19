@@ -4,63 +4,28 @@
             <div class="col-lg-12">
                 <h3>Configura tu tienda</h3>
                 <div class="theme-card">
-                    <form [formGroup]="registerForm" class="theme-form">
-                        <p>Selecciona el plan de tu preferencia</p>
+                    <form class="theme-form">
+                        <p class="text-center">Selecciona el plan de tu preferencia</p>
 
-                        <div class="form-row">
-                            <div class="col-md-6" id="center-">
-                                <div class="plan" [class.plan-selected]="planSelected==1" (click)="updatePlan(1)">
-                                    <h5>MEMBRESÍA BÁSICA</h5>
-                                    <h4><strong>0.00BI</strong></h4>
-
-                                    <ul class="list">
-                                        <li>Logo de la tienda</li>
-                                        <li>Paleta de colores</li>
-                                        <li>Tipografía</li>
-                                        <li>Máximo 10 productos</li>
-                                        <li>Fotos y características de productos (color y talla)</li>
-                                        <li>Reporte</li>
-                                        <li>NO INCLUYE INVENTARIO</li>
-                                    </ul>
-                                    <div class="plan-btn">
-                                        <div class="share">
-                                            <button class="btn" [class.btn-outline]="planSelected!=1"
-                                                [class.btn-solid]="planSelected==1">Compartir</button>
-                                        </div>
-                                    </div>
+                        <div class="d-flex justify-content-center mb-3">                            
+                            <div class="col-md-5 justify-content-center mr-1"
+                                 (click)="updatePlan(1)">
+                                <div class="d-flex justify-content-center h-100 p-3 plan" 
+                                [class.plan-selected]="planSelected==1">
+                                    <p class="my-auto">GRATIS</p>
                                 </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div [class.plan-selected]="planSelected==2" class="plan" (click)="updatePlan(2)">
-                                    <h5>MEMBRESÍA Premium</h5>
-                                    <h4><strong>8.88BI</strong></h4>
-                                    <ul class="list">
-                                        <li>Logo de la tienda</li>
-                                        <li>Paleta de colores</li>
-                                        <li>Tipografía</li>
-                                        <li>Productos ilimitados</li>
-                                        <li>Fotos y características de productos (color, talla, cantidad y marca)</li>
-                                        <li>Pasarela de Pago</li>
-                                        <li>Plan de compensaciones</li>
-                                        <li>Inventario</li>
-                                        <li>Reportes</li>
-                                    </ul>
-
-                                    <div class="plan-btn">
-                                        <div class="payment">
-                                            <button class="btn" [class.btn-outline]="planSelected!=2"
-                                                [class.btn-solid]="planSelected==2">TDC</button>
-                                        </div>
-                                        <div class="share">
-                                            <button class="btn" [class.btn-outline]="planSelected!=2"
-                                                [class.btn-solid]="planSelected==2">Compartir</button>
-                                        </div>
-                                    </div>
+                            </div> 
+                            <div class="col-md-5 justify-content-center mr-1"
+                                 (click)="updatePlan(2)">
+                                <div class="d-flex justify-content-center h-100 p-3 plan" 
+                                [class.plan-selected]="planSelected==2">
+                                    <p class="my-auto">$ 8.88 USD</p>
                                 </div>
-                            </div>
+                            </div>   
+                                                        
                         </div>
                         <!-- Shop name -->
-                        <div class="col-md-6 form-group input-group" id="center-mb">
+                        <div class="col-md-6 form-group input-group mx-auto mb-2" >
                             <input type="text" class="form-control" id="name" placeholder="Nombre de la tienda"
                                 required="" formControlName="name">
                             <div class="input-group-prepend">
@@ -86,12 +51,12 @@
                             </div>
                         </div>
                         <!-- Description -->
-                        <div class="col-md-6 form-group input-group" id="center-mb">
-                            <textarea type="text" class="form-control" id="exampleFormControlTextarea1"
+                        <div class="col-md-6 form-group input-group mx-auto mb-2" >
+                            <textarea type="text" class="form-control mb-2" id="exampleFormControlTextarea1"
                                 placeholder="Descripción de la tienda" required=""></textarea>
                         </div>
                         <!-- Phone -->
-                        <div class="col-md-6 form-group input-group" id="center-mb">
+                        <div class="col-md-6 form-group input-group mx-auto mb-2" >
                             <input type="tel" class="form-control" id="review" placeholder="Teléfono de la tienda"
                                 required="" formControlName="phone">
                             <div class="input-group-prepend">
@@ -104,7 +69,7 @@
                             </div>
                         </div>
                         <!-- Shop email -->
-                        <div class="col-md-6 form-group input-group" id="center-mb">
+                        <div class="col-md-6 form-group input-group mx-auto mb-2" >
                             <input type="email" class="form-control" id="review" placeholder="Email de la tienda"
                                 required="" formControlName="email">
                             <div class="input-group-prepend">
@@ -117,20 +82,20 @@
                                 <div *ngIf="f.email.errors.email"> {{ invalidEmail }} </div>
                             </div>
                         </div>
-                        <div class="col-md-6" id="center-mb">
+                        <div class="col-md-6 mx-auto mb-2" >
                             <p for="logo">Seleccione un logo para su tienda</p>
                         </div>
-                        <div class="form-row col-md-6" id="center-mb">
-                            <div class="col-md-4">
+                        <div class="form-row col-md-6 mx-auto mb-2" >
+                            <div class="col-md-4 ">
                                 <img class="thumbnail" [src]="imageLogo" id="logo" />
                             </div>
-                            <div class="col-md-2">
+                            <div class="col-md-2 ">
                                 <input class="" type="file" id="upload-logo" (change)="updateImage($event)"
                                     placeholder="Seleccionar imagen..." />
                             </div>
                         </div>
 
-                        <div class="form-gruop" id="btn-center">
+                        <div class="form-gruop text-center" >
                             <button class="btn btn-solid" (click)="storeRegister()">Registrar tienda</button>
                             <!-- <button class="btn btn-solid">Registrar tienda</button> -->
                         </div>
@@ -191,21 +156,21 @@
                             <textarea type="text" class="form-control" id="exampleFormControlTextarea1"
                                 placeholder="Descripción del producto" required=""></textarea>
                         </div>
-                        <div class="col-md-6" id="center-mb">
+                        <div class="col-md-6 mb-2" >
                             <p for="logo">Seleccione una imagen para el artículo</p>
 
                         </div>
-                        <div class="form-row col-md-6" id="center-mb">
-                            <div class="col-md-4">
+                        <div class="form-row col-md-6 mb-2">
+                            <div class="col-md-4 mx-auto">
 
                                 <img class="thumbnail" [src]="imageProduct" id="logo" />
                             </div>
-                            <div class="col-md-2">
+                            <div class="col-md-2 mx-auto">
                                 <input class="" type="file" id="upload-logo" (change)="updateImage($event)"
                                     placeholder="Seleccionar imagen..." />
                             </div>
                         </div>
-                        <div class="form-gruop" id="btn-center">
+                        <div class="form-gruop text-center">
                             <button class="btn btn-solid" (click)="productRegister()">Registrar producto</button>
                         </div>
 
