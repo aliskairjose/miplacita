@@ -25,11 +25,11 @@ export class NavService {
 	leftMenuToggle = false;
 	mainMenuToggle = false;
 
-	
+
 	MENUITEMS: Menu[] = [
-		// { path: '/pages/login', title: 'inicia sesión', type: 'link' },
-		// { path: '/home/vegetable', title: 'Vende ahora', type: 'link' },
-		// { path: '/pages/contact', title: 'contactanos', type: 'link' }
+		{ path: '/pages/login', title: 'inicia sesión', type: 'link' },
+		{ path: '/home/vegetable', title: 'Vende ahora', type: 'link' },
+		{ path: '/pages/contact', title: 'contactanos', type: 'link' }
 	];
 
 	LEFTMENUITEMS: Menu[] = [

@@ -24,11 +24,11 @@
             <li class="onhover-dropdown mobile-account">
               <i class="fa fa-user" aria-hidden="true"></i> Mi cuenta
               <ul class="onhover-show-div">
-                <li>
+                <li *ngIf="!isLoggedIn">
                   <a [routerLink]="[ '/pages/login' ]">Iniciar sesión</a>
                 </li>
-                <li>
-                  <a data-lng="es">
+                <li *ngIf="isLoggedIn">
+                  <a data-lng="es" href="javascript:void(0)" (click)="loggOut()">
                     Cerrar sesión
                   </a>
                 </li>
@@ -56,7 +56,7 @@
               <app-menu></app-menu>
             </div>
             <div>
-              <app-settings></app-settings>
+              <!-- <app-settings></app-settings> -->
             </div>
           </div>
         </div>

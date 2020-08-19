@@ -1,6 +1,8 @@
 import { Component, OnInit, Input, HostListener } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { AlertService } from 'ngx-alerts';
+import { Router } from '@angular/router';
+import { StorageService } from '../../services/storage.service';
 
 @Component( {
   selector: 'app-header-one',
@@ -29,8 +31,10 @@ export class HeaderOneComponent implements OnInit {
   }
 
   constructor(
+    private router: Router,
     private auth: AuthService,
     private alert: AlertService,
+    private storage: StorageService,
   ) { }
 
   ngOnInit(): void {
@@ -40,6 +44,15 @@ export class HeaderOneComponent implements OnInit {
       // tslint:disable-next-line: curly
       if ( !isAuth ) this.alert.info( 'Hasta luego...' );
     } );
+  }
+
+ /**
+  * @description Cierra sesión
+  */
+  loggOut(): void {
+    this.storage.clearAll();
+    this.router.navigate( [ 'home/marketplace' ] );
+    this.auth.authSubject( false );
   }
 
 }
