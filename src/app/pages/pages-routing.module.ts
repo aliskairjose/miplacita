@@ -10,6 +10,7 @@ import { ErrorComponent } from './error/error.component';
 import { FaqComponent } from './faq/faq.component';
 import { CartComponent } from './account/cart/cart.component';
 import { AuthGuard } from '../shared/guard/auth.guard';
+import { ContactComponent } from './account/contact/contact.component';
 
 const routes: Routes = [
   {
@@ -44,6 +45,10 @@ const routes: Routes = [
   {
     path: '404',
     component: ErrorComponent
+  },
+  {
+    path: 'contact',
+    component: ContactComponent
   }
 ];
 

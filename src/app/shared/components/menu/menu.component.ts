@@ -36,6 +36,7 @@ export class MenuComponent implements OnInit {
 
   maiMenu(): void {
     this.menuItems = [
+      { path: '/pages/dashboard', title: 'Dashboard', type: 'link' },
       { path: '/home/vegetable', title: 'Vende ahora', type: 'link' },
       { path: '/pages/contact', title: 'contactanos', type: 'link' }
     ];
