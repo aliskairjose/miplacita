@@ -11,7 +11,6 @@ import { FaqComponent } from './faq/faq.component';
 import { CartComponent } from './account/cart/cart.component';
 import { AuthGuard } from '../shared/guard/auth.guard';
 import { ContactComponent } from './account/contact/contact.component';
-import { ShopComponent } from '../shop/shop.component';
 import { ProductsComponent } from './products/products.component';
 import { ShopsComponent } from './shops/shops.component';
 
@@ -29,7 +28,7 @@ const routes: Routes = [
   },
   {
     path: 'shops',
-    component: ShopComponent,
+    component: ShopsComponent,
     canActivate: [ AuthGuard ]
   },
   {
