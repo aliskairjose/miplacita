@@ -22,7 +22,7 @@ import { Plan } from '../../classes/plan';
 export class RegisterStoreComponent implements OnInit {
 
   planSelected = 2;
-  step = 2;
+  step = 1;
   imageLogo: any = '../../../../assets/images/marketplace/svg/upload-image.svg';;
   imageProduct: any = '../../../../assets/images/marketplace/svg/upload-image.svg';
   registerForm: FormGroup;
