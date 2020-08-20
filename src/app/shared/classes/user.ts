@@ -1,6 +1,6 @@
 import { Store } from './store';
 export class User {
-  id?: string;
+  _id?: string;
   avatar?: string;
   fullname: string;
   email: string;

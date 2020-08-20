@@ -16,9 +16,9 @@ export class HttpInterceptor implements HttpInterceptor {
 
   intercept( request: HttpRequest<unknown>, next: HttpHandler ): Observable<HttpEvent<unknown>> {
     // return next.handle(request);
-    const token: string = localStorage.getItem( 'token' );
+    const token = JSON.parse( localStorage.getItem( 'token' ) );
     if ( token ) {
-      request = request.clone( { headers: request.headers.set( 'Authorization', 'JWT ' + token ) } );
+      request = request.clone( { headers: request.headers.set( 'Authorization', `JWT ${token}` ) } );
     }
 
     if ( !request.headers.has( 'Content-Type' ) ) {

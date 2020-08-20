@@ -33,8 +33,14 @@ export class ProductService {
    * @description Crea un nuevo producto
    * @param data Detale del producto
    */
-  addProduct( data: Product ): Observable<any> {
-    return this.http.post( 'products', data );
+  addProduct( data: Product ): Observable<Product> {
+    return this.http.post( 'products', data ).pipe(
+      map( response => {
+        if ( response.success ) {
+          return response.product;
+        }
+      } )
+    );
   }
 
   /**

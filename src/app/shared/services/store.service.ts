@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpService } from './http.service';
 import { Observable, Subject } from 'rxjs';
 import { Store } from '../classes/store';
+import { map } from 'rxjs/operators';
 
 @Injectable( {
   providedIn: 'root'
@@ -19,8 +20,14 @@ export class StoreService {
    * @description Crea una nueva tienda
    * @param data Data de tipo Store
    */
-  addStore( data: Store ): Observable<any> {
-    return this.http.post( 'stores', data );
+  addStore( data: Store ): Observable<Store> {
+    return this.http.post( 'stores', data ).pipe(
+      map( response => {
+        if ( response.success ) {
+          return response.store;
+        }
+      } )
+    );
   }
 
   /**

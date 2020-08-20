@@ -2,8 +2,8 @@ import { Component, OnInit, Injectable, PLATFORM_ID, Inject } from '@angular/cor
 import { isPlatformBrowser } from '@angular/common';
 import { Observable } from 'rxjs';
 import { TranslateService } from '@ngx-translate/core';
-// import { ProductService } from "../../services/tm.product.service";
-// import { Product } from "../../classes/tm.product";
+import { ProductService } from "../../services/tm.product.service";
+import { Product } from "../../classes/tm.product";
 import { AuthService } from '../../services/auth.service';
 import { StorageService } from '../../services/storage.service';
 import { Router } from '@angular/router';
@@ -15,18 +15,18 @@ import { Router } from '@angular/router';
 } )
 export class SettingsComponent implements OnInit {
 
-  // products: Product[] = [];
+  products: Product[] = [];
   isLoggedIn: boolean;
 
-  /*  public languages = [{ 
+   public languages = [{ 
      name: 'English',
      code: 'en'
    }, {
      name: 'French',
      code: 'fr'
-   }]; */
+   }];
 
-  /* public currencies = [{
+  public currencies = [{
     name: 'Euro',
     currency: 'EUR',
     price: 0.90 // price of euro
@@ -42,7 +42,7 @@ export class SettingsComponent implements OnInit {
     name: 'Dollar',
     currency: 'USD',
     price: 1 // price of usd
-  }] */
+  }]
 
   constructor(
     @Inject( PLATFORM_ID ) private platformId: Object,
@@ -50,9 +50,9 @@ export class SettingsComponent implements OnInit {
     private auth: AuthService,
     private storage: StorageService,
     private translate: TranslateService,
-    // public productService: ProductService,
+    public productService: ProductService,
   ) {
-    // this.productService.cartItems.subscribe( response => this.products = response );
+    this.productService.cartItems.subscribe( response => this.products = response );
   }
 
   ngOnInit(): void {
@@ -70,16 +70,16 @@ export class SettingsComponent implements OnInit {
     }
   }
 
-  // get getTotal(): Observable<number> {
-  //   return this.productService.cartTotalAmount();
-  // }
+  get getTotal(): Observable<number> {
+    return this.productService.cartTotalAmount();
+  }
 
   removeItem( product: any ) {
-    // this.productService.removeCartItem( product );
+    this.productService.removeCartItem( product );
   }
 
   changeCurrency( currency: any ) {
-    // this.productService.Currency = currency;
+    this.productService.Currency = currency;
   }
 
   /**

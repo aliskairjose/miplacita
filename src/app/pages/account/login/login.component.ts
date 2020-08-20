@@ -32,6 +32,7 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
   }
 
   // convenience getter for easy access to form fields
@@ -46,7 +47,7 @@ export class LoginComponent implements OnInit {
       this.auth.login( this.loginForm.value ).subscribe( ( data: AuthResponse ) => {
         if ( data.success ) {
           this.spinner.hide();
-          this.storage.setItem( 'token', data.token );
+          this.storage.setItem( 'token', data.token);
           this.storage.setItem( 'role', data.role );
           this.storage.setItem( 'user', data.user );
 

@@ -9,6 +9,8 @@ import { StorageService } from '../../services/storage.service';
 import { ProductService } from '../../services/product.service';
 import { StoreService } from '../../services/store.service';
 import { Category } from '../../classes/category';
+import { Store } from '../../classes/store';
+import { Product } from '../../classes/product';
 
 @Component( {
   selector: 'app-register-store',
@@ -16,8 +18,9 @@ import { Category } from '../../classes/category';
   styleUrls: [ './register-store.component.scss' ]
 } )
 export class RegisterStoreComponent implements OnInit {
+
   planSelected = 2;
-  step = 2;
+  step = 1;
   imageLogo: any = '../../../../assets/images/marketplace/svg/upload-image.svg';;
   imageProduct: any = '../../../../assets/images/marketplace/svg/upload-image.svg';
   registerForm: FormGroup;
@@ -25,8 +28,12 @@ export class RegisterStoreComponent implements OnInit {
   submitted: boolean;
   invalidEmail = 'Email inválido';
   required = 'Campo obligatorio';
-  id = '';
+  userId = '';
+  storeId = '';
   categories: Category[] = [];
+  store: Store;
+  product: Product;
+  categoryId = '';
 
   constructor(
     private router: Router,
@@ -50,8 +57,7 @@ export class RegisterStoreComponent implements OnInit {
     this.productService.categoryList().subscribe( ( categories: Category[] ) => {
       this.categories = [ ...categories ];
     } );
-    const user: User = this.storage.getItem( 'user' );
-    // this.id = user.id;
+    this.userId = this.storage.getItem( 'userId' );
   }
 
   updatePlan( plan: number ) {
@@ -60,12 +66,15 @@ export class RegisterStoreComponent implements OnInit {
 
   storeRegister() {
     this.submitted = true;
-
     if ( this.registerForm.valid ) {
-      this.storeService.addStore( this.registerForm.value ).subscribe( response => {
-        this.step = 2;
+      this.spinner.show();
+      this.storeService.addStore( this.registerForm.value ).subscribe( ( store: Store ) => {
+        this.store = { ...store };
+        this.storeId = this.store._id;
+        this.spinner.hide();
         this.submitted = false;
-      } );
+        this.step = 2;
+      }, () => this.spinner.hide() );
     }
   }
 
@@ -73,9 +82,12 @@ export class RegisterStoreComponent implements OnInit {
     // consumo de api
     this.submitted = true;
     if ( this.productForm.valid ) {
-      this.productService.addProduct( this.productForm.value ).subscribe( response => {
+      this.spinner.show()
+      this.productService.addProduct( this.productForm.value ).subscribe( ( product: Product ) => {
+        this.product = { ...product };
+        this.spinner.hide();
         this.step = 2;
-      } );
+      }, () => this.spinner.hide() );
     }
   }
 
@@ -103,6 +115,7 @@ export class RegisterStoreComponent implements OnInit {
   }
 
   private createForm(): void {
+
     // Formulario de tienda
     this.registerForm = this.formBuilder.group( {
       name: [ '', [ Validators.required ] ],
@@ -110,9 +123,10 @@ export class RegisterStoreComponent implements OnInit {
       url_store: [ '', [ Validators.required ] ],
       phone: [ '', [ Validators.required ] ],
       email: [ '', [ Validators.required, Validators.email ] ],
-      logo: [ '', [ Validators.required ] ],
-      owner_id: [ this.id ],
-      plan: [ '', [ Validators.required ] ],
+      logo: [ 'logonoreal', [ Validators.required ] ],
+      // owner_id: [ this.userId ],
+      owner_id: [ '5f3d92e8c6dcbd1a01d9d24b' ],
+      plan: [ '5f3d92e8c6dcbd1a01d9d24b', [ Validators.required ] ],
     } );
 
     // Formulario de Producto
@@ -121,14 +135,14 @@ export class RegisterStoreComponent implements OnInit {
       description: [ '', [ Validators.required ] ],
       price: [ '', [ Validators.required ] ],
       tax: [ '', [ Validators.required ] ],
-      image: [ '', [ Validators.required ] ],
-      store: [ '' ],
-      category: [ '', [ Validators.required ] ],
+      image: [ 'imagendepruebanoreal', [ Validators.required ] ],
+      store: [ this.storeId ],
+      category: [ this.categoryId ? this.categoryId : '', [ Validators.required ] ],
     } );
   }
 
   selectCategory( id: string ): void {
-    console.log( id );
+    this.categoryId = id;
   }
 
 }

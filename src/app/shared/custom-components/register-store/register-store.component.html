@@ -50,8 +50,12 @@
                         </div>
                         <!-- Description -->
                         <div class="col-md-6 form-group input-group mx-auto mb-2">
-                            <textarea type="text" class="form-control mb-2" id="exampleFormControlTextarea1"
-                                placeholder="Descripción de la tienda" required=""></textarea>
+                            <textarea formControlName="description" type="text" class="form-control mb-2"
+                                id="exampleFormControlTextarea1" placeholder="Descripción de la tienda"
+                                required=""></textarea>
+                            <div *ngIf="submitted && f.description.errors" class="invalid-feedback d-block">
+                                <div *ngIf="f.description.errors.required"> {{ required }} </div>
+                            </div>
                         </div>
                         <!-- Phone -->
                         <div class="col-md-6 form-group input-group mx-auto mb-2">
@@ -148,7 +152,8 @@
                             </div>
                         </div>
                         <div class="col-md-6" id="center-mb">
-                            <select formControlName class="form-control" name="category" (change)="selectCategory($event.target.value)">
+                            <select formControlName class="form-control" name="category"
+                                (change)="selectCategory($event.target.value)">
                                 <option value="" selected>Seleccione categoría</option>
                                 <option *ngFor="let category of categories" [value]="category._id">{{category.name}}
                                 </option>
@@ -160,8 +165,7 @@
                         <!-- Descripcion del producto -->
                         <div class="col-md-6" id="center-mb">
                             <textarea formControlName="description" type="text" class="form-control"
-                                id="descriptionProduct" placeholder="Descripción del producto"
-                                required=""></textarea>
+                                id="descriptionProduct" placeholder="Descripción del producto" required=""></textarea>
                             <div *ngIf="submitted && p.description.errors" class="invalid-feedback d-block">
                                 <div *ngIf="p.description.errors.required"> {{ required }} </div>
                             </div>

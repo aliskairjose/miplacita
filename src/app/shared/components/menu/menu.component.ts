@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NavService, Menu } from '../../services/nav.service';
 import { Router } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
 
 @Component( {
   selector: 'app-menu',
@@ -13,6 +14,7 @@ export class MenuComponent implements OnInit {
 
   constructor(
     private router: Router,
+    private auth: AuthService,
     public navServices: NavService,
   ) {
     this.navServices.items.subscribe( menuItems => this.menuItems = menuItems );
@@ -22,6 +24,21 @@ export class MenuComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.auth.authObserver().subscribe( ( isAuth: boolean ) => {
+      if ( isAuth ) {
+        this.setMenu();
+      }
+    } );
+
+    // tslint:disable-next-line: curly
+    if ( this.auth.isAuthenticated() ) this.setMenu();
+  }
+
+  setMenu(): void {
+    this.menuItems = [
+      { path: '/home/vegetable', title: 'Vende ahora', type: 'link' },
+      { path: '/pages/contact', title: 'contactanos', type: 'link' }
+    ];
   }
 
 
