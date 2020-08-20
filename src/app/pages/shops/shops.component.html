@@ -37,7 +37,7 @@
                         </td>
                     
                         <td class="d-flex justify-content-end actions" >
-                            <button class="btn">Suscripción</button>
+                            <button class="btn" (click)="ShopDetails.openModal(shop)">Suscripción</button>
                             <button class="btn">Desactivar</button>
                         </td>
                         
@@ -55,3 +55,4 @@
        
     </div>
 </section>
+<app-shop-details #shopDetails ></app-shop-details>
