@@ -20,12 +20,26 @@ import 'hammerjs';
 import 'mousetrap';
 import { HttpInterceptor } from './shared/interceptor/http.interceptor';
 import { AuthGuard } from './shared/guard/auth.guard';
+import { NgxCurrencyModule, CurrencyMaskInputMode } from 'ngx-currency';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory( http: HttpClient ) {
   return new TranslateHttpLoader( http, './assets/i18n/', '.json' );
 }
-
+export const customCurrencyMaskConfig = {
+  align: 'right',
+  allowNegative: false,
+  allowZero: true,
+  decimal: ',',
+  precision: 2,
+  prefix: '',
+  suffix: '',
+  thousands: '.',
+  nullable: true,
+  min: null,
+  max: null,
+  inputMode: CurrencyMaskInputMode.FINANCIAL
+};
 @NgModule( {
   declarations: [
     AppComponent,
@@ -41,6 +55,7 @@ export function HttpLoaderFactory( http: HttpClient ) {
     LoadingBarRouterModule,
     BrowserAnimationsModule,
     LoadingBarHttpClientModule,
+    NgxCurrencyModule.forRoot(customCurrencyMaskConfig),
     BrowserModule.withServerTransition( { appId: 'serverApp' } ),
     ToastrModule.forRoot( { timeOut: 3000, progressBar: false, enableHtml: true, } ),
     TranslateModule.forRoot( { loader: { provide: TranslateLoader, useFactory: HttpLoaderFactory, deps: [ HttpClient ] } } ),
