@@ -4,7 +4,7 @@ import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CarouselModule } from 'ngx-owl-carousel-o';
-import { BarRatingModule } from "ngx-bar-rating";
+import { BarRatingModule } from 'ngx-bar-rating';
 import { LazyLoadImageModule, scrollPreset } from 'ng-lazyload-image';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { TranslateModule } from '@ngx-translate/core';
@@ -57,6 +57,22 @@ import { TapToTopComponent } from './components/tap-to-top/tap-to-top.component'
 import { DiscountPipe } from './pipes/discount.pipe';
 import { CustomPaginationComponent } from './custom-components/custom-pagination/custom-pagination/custom-pagination.component';
 import { AlertModule } from 'ngx-alerts';
+import { NgxCurrencyModule, CurrencyMaskInputMode } from 'ngx-currency';
+
+export const customCurrencyMaskConfig = {
+  align: 'right',
+  allowNegative: false,
+  allowZero: true,
+  decimal: ',',
+  precision: 2,
+  prefix: '',
+  suffix: '',
+  thousands: '.',
+  nullable: true,
+  min: null,
+  max: null,
+  inputMode: CurrencyMaskInputMode.FINANCIAL
+};
 
 @NgModule({
   declarations: [
@@ -95,6 +111,7 @@ import { AlertModule } from 'ngx-alerts';
     CustomPaginationComponent
   ],
   imports: [
+    NgxCurrencyModule.forRoot(customCurrencyMaskConfig),
     CommonModule,
     RouterModule,
     FormsModule,
