@@ -29,7 +29,7 @@
                                 <!-- Categoria -->
                                 <div class="form-group input-group">
                                     <select formControlName="category" class="form-control" name="category"
-                                        (change)="selectCategory($event.target.value)">
+                                        [(ngModel)]="selectedCategory">
                                         <option value="" selected>Seleccione una categoría</option>
                                         <option *ngFor="let category of categories" [value]="category._id">
                                             {{category.name}}</option>
@@ -78,17 +78,14 @@
                                     </div>
                                 </div>
                                 <div class="form-group input-group">
-                                    <select formControlName="status" class="form-control" name="status">
-                                        <option value="" selected>Seleccione un estado</option>
+                                    <select formControlName="status" class="form-control" name="status" [(ngModel)]="statusSelected">
+                                        <!-- <option value="" selected>Seleccione un estado</option> -->
                                         <option *ngFor="let status of statuses" [value]="status.value">{{status.text}}</option>
                                     </select>
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">
                                             <img src="../../../../assets/images/marketplace/svg/bag.svg" alt="">
                                         </span>
-                                    </div>
-                                    <div *ngIf="submitted && f.status.errors" class="invalid-feedback d-block">
-                                        <div *ngIf="f.status.errors.required"> {{ required }} </div>
                                     </div>
                                 </div>
                                 <!-- <div class="form-group input-group">

@@ -29,10 +29,13 @@ export class CreateProductComponent implements OnInit {
   required = 'Campo obligatorio';
   status: string;
   statuses = [
-    {value: 'active', text: 'Activo' },
-    {value: 'inactive', text: 'Inactivo' },
-    {value: 'blocked', text: 'Bloqueado' },
+    { value: 'active', text: 'Activo' },
+    { value: 'inactive', text: 'Inactivo' },
+    { value: 'blocked', text: 'Bloqueado' },
   ];
+  statusSelected = 'active';
+  selectedCategory = '';
+  
   constructor(
     private router: Router,
     private alert: AlertService,
@@ -58,6 +61,7 @@ export class CreateProductComponent implements OnInit {
 
   onSubmit(): void {
     this.submitted = true;
+    console.log( this.productForm.value );
 
     if ( this.productForm.valid ) {
       this.spinner.show();
@@ -85,7 +89,7 @@ export class CreateProductComponent implements OnInit {
       image: [ '', [ Validators.required ] ],
       store: [ '', [ Validators.required ] ],
       category: [ this.categoryId ? this.categoryId : '', [ Validators.required ] ],
-      status: [ '', [ Validators.required ] ],
+      status: [ this.statusSelected, [ Validators.required ] ],
       stock: [ '', [ Validators.required ] ],
     } );
   }
