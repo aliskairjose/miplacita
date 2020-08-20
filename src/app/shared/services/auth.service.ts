@@ -1,13 +1,15 @@
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { HttpService } from './http.service';
+import { User } from '../classes/user';
 
 @Injectable( {
   providedIn: 'root'
 } )
 export class AuthService {
   $auth: Subject<any> = new Subject<any>();
-
+  selectedUSer: User;
+  
   constructor(
     private http: HttpService
   ) { }

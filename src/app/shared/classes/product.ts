@@ -1,10 +1,10 @@
 export interface Product {
   _id?: string;
+  uuid?: string;
   name: string;
   description: string;
   price: string;
   quantity: number;
-  category_id: string;
   stock_control: boolean;
   store_id: string;
   status: string;

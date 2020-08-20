@@ -11,6 +11,7 @@ import { StoreService } from '../../services/store.service';
 import { Category } from '../../classes/category';
 import { Store } from '../../classes/store';
 import { Product } from '../../classes/product';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component( {
   selector: 'app-register-store',
@@ -29,11 +30,11 @@ export class RegisterStoreComponent implements OnInit {
   invalidEmail = 'Email inválido';
   required = 'Campo obligatorio';
   userId = '';
-  storeId = '';
   categories: Category[] = [];
   store: Store;
   product: Product;
   categoryId = '';
+  user: User;
 
   constructor(
     private router: Router,
@@ -45,6 +46,7 @@ export class RegisterStoreComponent implements OnInit {
     private spinner: NgxSpinnerService,
     private productService: ProductService,
   ) {
+
     this.createForm();
   }
 
@@ -57,7 +59,7 @@ export class RegisterStoreComponent implements OnInit {
     this.productService.categoryList().subscribe( ( categories: Category[] ) => {
       this.categories = [ ...categories ];
     } );
-    this.userId = this.storage.getItem( 'userId' );
+    this.user = this.auth.selectedUSer;
   }
 
   updatePlan( plan: number ) {
@@ -70,19 +72,24 @@ export class RegisterStoreComponent implements OnInit {
       this.spinner.show();
       this.storeService.addStore( this.registerForm.value ).subscribe( ( store: Store ) => {
         this.store = { ...store };
-        this.storeId = this.store._id;
+        // this.productForm.setValue( { store: this.store._id } );
+        this.productForm.value.store = this.store._id;
         this.spinner.hide();
         this.submitted = false;
         this.step = 2;
-      }, () => this.spinner.hide() );
+      }, ( response: HttpErrorResponse ) => {
+        this.spinner.hide();
+        this.alert.warning( response.error.message );
+      } );
     }
   }
 
   productRegister() {
+    console.log( ' registro de producto', this.productForm );
     // consumo de api
     this.submitted = true;
     if ( this.productForm.valid ) {
-      this.spinner.show()
+      this.spinner.show();
       this.productService.addProduct( this.productForm.value ).subscribe( ( product: Product ) => {
         this.product = { ...product };
         this.spinner.hide();
@@ -123,10 +130,9 @@ export class RegisterStoreComponent implements OnInit {
       url_store: [ '', [ Validators.required ] ],
       phone: [ '', [ Validators.required ] ],
       email: [ '', [ Validators.required, Validators.email ] ],
-      logo: [ 'logonoreal.com', [ Validators.required ] ],
-      // owner_id: [ this.userId ],
-      owner_id: [ '5f3d92e8c6dcbd1a01d9d24b' ],
-      plan: [ '5f3d92e8c6dcbd1a01d9d24b', [ Validators.required ] ],
+      logo: [ 'logonoreal.com' ],
+      owner_id: [ this.storage.getItem( 'userId' ) ],
+      plan: [ '5f3e72f4c6dcbd1a01d9d255' ],
     } );
 
     // Formulario de Producto
@@ -136,7 +142,7 @@ export class RegisterStoreComponent implements OnInit {
       price: [ '', [ Validators.required ] ],
       tax: [ '', [ Validators.required ] ],
       image: [ 'imagenprueba.com', [ Validators.required ] ],
-      store: [ this.storeId ],
+      store: [ '' ],
       category: [ this.categoryId ? this.categoryId : '', [ Validators.required ] ],
     } );
   }

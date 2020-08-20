@@ -47,6 +47,7 @@ export class RegisterComponent implements OnInit {
       this.auth.register( this.registerForm.value ).subscribe( ( data: AuthResponse ) => {
         console.log( data );
         if ( data.success ) {
+          this.auth.selectedUSer = data.user;
           this.storage.setItem( 'token', data.token );
           this.storage.setItem( 'userId', data.user._id );
           this.spinner.hide();
