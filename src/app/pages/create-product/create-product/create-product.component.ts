@@ -80,6 +80,8 @@ export class CreateProductComponent implements OnInit {
       image: [ '', [ Validators.required ] ],
       store: [ '', [ Validators.required ] ],
       category: [ '', [ Validators.required ] ],
+      status: [ '', [ Validators.required ] ],
+      stock: [ '', [ Validators.required ] ],
     } );
   }
 

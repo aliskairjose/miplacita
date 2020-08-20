@@ -13,16 +13,21 @@
                     <form class="theme-form" [formGroup]="productForm" (ngSubmit)="onSubmit()">
                         <div class="create-product-form">
                             <div class="first-column">
+                                <!-- Nombre -->
                                 <div class="form-group input-group">
-                                    <input type="text" class="form-control" id="name" placeholder="Nombre" required="">
+                                    <input formControlName="name" type="text" class="form-control" id="name" placeholder="Nombre" required="">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">
                                             <img src="../../../../assets/images/marketplace/svg/bag.svg" alt="">
                                         </span>
                                     </div>
+                                    <div *ngIf="submitted && f.name.errors" class="invalid-feedback d-block">
+                                        <div *ngIf="f.name.errors.required"> {{ required }} </div>
+                                    </div>
                                 </div>
+                                <!-- Categoria -->
                                 <div class="form-group input-group">
-                                    <select class="form-control" name="category"
+                                    <select formControlName="category" class="form-control" name="category"
                                         (change)="selectCategory($event.target.value)">
                                         <option value="" selected>Seleccione una categoría</option>
                                         <option *ngFor="let category of categories" [value]="category._id">
@@ -33,10 +38,25 @@
                                             <img src="../../../../assets/images/marketplace/svg/email.svg" alt="">
                                         </span>
                                     </div>
+                                    <div *ngIf="submitted && f.category.errors" class="invalid-feedback d-block">
+                                        <div *ngIf="f.category.errors.required"> {{ required }} </div>
+                                    </div>
                                 </div>
 
-                                <div class=" form-group input-group">
-                                    <input currencyMask type="text" class="form-control" id="price" placeholder="Precio"
+                                <div class="form-group input-group">
+                                    <input formControlName="price" currencyMask type="text" class="form-control" id="price" placeholder="Precio"
+                                        required="">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <img class="h-100" src="../../../../assets/images/marketplace/svg/dolar.svg">
+                                        </span>
+                                    </div>
+                                    <div *ngIf="submitted && f.price.errors" class="invalid-feedback d-block">
+                                        <div *ngIf="f.price.errors.required"> {{ required }} </div>
+                                    </div>
+                                </div>
+                                <div class="form-group input-group">
+                                    <input formControlName="tax" currencyMask type="text" class="form-control" id="itbms" placeholder="Itbms"
                                         required="">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">
@@ -44,40 +64,42 @@
                                                 alt="">
                                         </span>
                                     </div>
-                                </div>
-                                <div class="form-group input-group">
-                                    <input currencyMask type="text" class="form-control" id="itbms" placeholder="Itbms"
-                                        required="">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text">
-                                            <img class="h-100" src="../../../../assets/images/marketplace/svg/dolar.svg"
-                                                alt="">
-                                        </span>
+                                    <div *ngIf="submitted && f.tax.errors" class="invalid-feedback d-block">
+                                        <div *ngIf="f.tax.errors.required"> {{ required }} </div>
                                     </div>
                                 </div>
                                 <div class="form-group input-group">
                                     <textarea type="text" class="form-control" id="exampleFormControlTextarea1"
                                         placeholder="Descripción" required=""></textarea>
                                 </div>
-                                <div class="form-group input-group">
-                                    <select class="form-control" name="category">
-                                        <option value="" selected>Estado</option>
-                                        <option *ngFor="let state of states" value=""></option>
+                                <div  class="form-group input-group">
+                                    <select formControlName="status" class="form-control" name="category">
+                                        <option value="active" selected>Activo</option>
+                                        <option value="inactive">Inactivo</option>
+                                        <option value="blocked">Bloqueado</option>
                                     </select>
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <img src="../../../../assets/images/marketplace/svg/bag.svg" alt="">
+                                        </span>
+                                    </div>
                                 </div>
-                                <div class="form-group input-group">
+                                <!-- <div class="form-group input-group">
                                     <select class="form-control" name="category">
                                         <option value="" selected>Tipo</option>
                                         <option *ngFor="let type of typesProduct" value=""></option>
                                     </select>
-                                </div>
+                                </div> -->
                                 <div class="form-group input-group">
-                                    <input type="number" class="form-control" id="available"
+                                    <input formControlName="stock" type="number" class="form-control" id="available"
                                         placeholder="Cantidad disponible" required="">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">
-                                            <img class="h-100" src="../../../../assets/images/marketplace/svg/dolar.svg" alt="">
+                                            <img class="h-100" src="../../../../assets/images/marketplace/svg/dolar.svg">
                                         </span>
+                                    </div>
+                                    <div *ngIf="submitted && f.stock.errors" class="invalid-feedback d-block">
+                                        <div *ngIf="f.stock.errors.required"> {{ required }} </div>
                                     </div>
                                 </div>
                             </div>
