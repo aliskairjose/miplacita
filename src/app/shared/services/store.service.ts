@@ -3,6 +3,7 @@ import { HttpService } from './http.service';
 import { Observable, Subject } from 'rxjs';
 import { Store } from '../classes/store';
 import { map } from 'rxjs/operators';
+import { Plan } from '../classes/plan';
 
 @Injectable( {
   providedIn: 'root'
@@ -15,6 +16,15 @@ export class StoreService {
     private http: HttpService
   ) { }
 
+  getPlans(): Observable<Plan[]> {
+    return this.http.get( 'plan' ).pipe(
+      map( response => {
+        if ( response.success ) {
+          return response.planes;
+        }
+      } )
+    );
+  }
 
   /**
    * @description Crea una nueva tienda

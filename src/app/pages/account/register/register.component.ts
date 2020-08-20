@@ -8,6 +8,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { AuthResponse } from '../../../shared/classes/auth-response';
 import { HttpErrorResponse } from '@angular/common/http';
 import { StorageService } from '../../../shared/services/storage.service';
+import { StoreService } from '../../../shared/services/store.service';
 
 @Component( {
   selector: 'app-register',
@@ -45,7 +46,6 @@ export class RegisterComponent implements OnInit {
     if ( this.registerForm.valid ) {
       this.spinner.show();
       this.auth.register( this.registerForm.value ).subscribe( ( data: AuthResponse ) => {
-        console.log( data );
         if ( data.success ) {
           this.auth.selectedUSer = data.user;
           this.storage.setItem( 'token', data.token );
