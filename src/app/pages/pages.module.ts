@@ -43,6 +43,7 @@ import { AlertModule } from 'ngx-alerts';
 import { NgxSpinnerModule } from 'ngx-spinner';
 
 import { GoogleChartsModule } from 'angular-google-charts';
+import { ShopProfileComponent } from './shop-profile/shop-profile.component';
 
 @NgModule({
   declarations: [
@@ -77,7 +78,8 @@ import { GoogleChartsModule } from 'angular-google-charts';
     MasonryGridTwoComponent,
     MasonryGridThreeComponent,
     MasonryGridFourComponent,
-    MasonryFullWidthComponent
+    MasonryFullWidthComponent,
+    ShopProfileComponent
 
   ],
   imports: [
