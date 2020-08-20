@@ -7,6 +7,8 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { Product } from '../../../shared/classes/product';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { StoreService } from '../../../shared/services/store.service';
+import { Category } from '../../../shared/classes/category';
 
 @Component( {
   selector: 'app-create-product',
@@ -15,13 +17,13 @@ import { Router } from '@angular/router';
 } )
 export class CreateProductComponent implements OnInit {
 
-  categories = [];
   typesProduct = [];
   states = [];
   image1: any = '../../../../assets/images/marketplace/svg/upload-image.svg';
   image2: any = '../../../../assets/images/marketplace/svg/upload-image.svg';
   image3: any = '../../../../assets/images/marketplace/svg/upload-image.svg';
 
+  categories: Category[];
   productForm: FormGroup;
   submitted: boolean;
   required = 'Campo obligatorio';
@@ -35,6 +37,9 @@ export class CreateProductComponent implements OnInit {
     private productService: ProductService,
   ) {
     this.createForm();
+    this.productService.categoryList().subscribe( ( categories: Category[] ) => {
+      this.categories = [ ...categories ];
+    } );
   }
 
 
@@ -54,10 +59,10 @@ export class CreateProductComponent implements OnInit {
       this.productService.addProduct( this.productForm.value ).subscribe( ( product: Product ) => {
         this.spinner.hide();
         this.alert.info( 'El producto se ha creado con exito' );
-        this.productService.productSubject(product);
-        setTimeout(() => {
-          this.router.navigate(['pages/products']);
-        }, 3200);
+        this.productService.productSubject( product );
+        setTimeout( () => {
+          this.router.navigate( [ 'pages/products' ] );
+        }, 3200 );
       }, ( response: HttpErrorResponse ) => {
         this.spinner.hide();
         this.alert.warning( response.error.message );
@@ -76,6 +81,10 @@ export class CreateProductComponent implements OnInit {
       store: [ '', [ Validators.required ] ],
       category: [ '', [ Validators.required ] ],
     } );
+  }
+
+  selectCategory( id: string ): void {
+
   }
 
 }

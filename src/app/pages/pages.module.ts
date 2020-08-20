@@ -47,7 +47,22 @@ import { ShopsComponent } from './shops/shops.component';
 import { OrdersComponent } from './orders/orders.component';
 import { ProductsComponent } from './products/products.component';
 import { CreateProductComponent } from './create-product/create-product/create-product.component';
+import { NgxCurrencyModule, CurrencyMaskInputMode } from 'ngx-currency';
 
+export const customCurrencyMaskConfig = {
+  align: 'right',
+  allowNegative: false,
+  allowZero: true,
+  decimal: ',',
+  precision: 2,
+  prefix: '',
+  suffix: '',
+  thousands: '.',
+  nullable: true,
+  min: null,
+  max: null,
+  inputMode: CurrencyMaskInputMode.FINANCIAL
+};
 @NgModule({
   declarations: [
     WishlistComponent,
@@ -97,6 +112,7 @@ import { CreateProductComponent } from './create-product/create-product/create-p
     GalleryModule.forRoot(),
     PagesRoutingModule,
     GoogleChartsModule.forRoot(),
+    NgxCurrencyModule.forRoot(customCurrencyMaskConfig),
     AlertModule.forRoot({maxMessages: 5, timeout: 3000, position: 'left'})
   ]
 })
