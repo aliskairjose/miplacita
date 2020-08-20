@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Validators, FormGroup, FormBuilder } from '@angular/forms';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { AlertService } from 'ngx-alerts';
@@ -13,6 +13,8 @@ import { Store } from '../../classes/store';
 import { Product } from '../../classes/product';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Plan } from '../../classes/plan';
+import { SuccessModalComponent } from '../../custom-component/success-modal/success-modal.component';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component( {
   selector: 'app-register-store',
@@ -20,6 +22,7 @@ import { Plan } from '../../classes/plan';
   styleUrls: [ './register-store.component.scss' ]
 } )
 export class RegisterStoreComponent implements OnInit {
+  @ViewChild('successModal') SuccessModal : SuccessModalComponent;
 
   planSelected = 2;
   step = 2;
@@ -50,6 +53,7 @@ export class RegisterStoreComponent implements OnInit {
     private storeService: StoreService,
     private spinner: NgxSpinnerService,
     private productService: ProductService,
+    private modalService: NgbModal
   ) {
 
     this.createForm();
@@ -95,23 +99,28 @@ export class RegisterStoreComponent implements OnInit {
   }
 
   productRegister() {
-    // consumo de api
-    this.submitted = true;
-    this.productData = { ...this.productForm.value };
-    this.productData.store = this.store._id;
-    console.log( this.productData );
-    if ( this.productForm.valid ) {
-      this.spinner.show();
-      this.productService.addProduct( this.productData ).subscribe( ( product: Product ) => {
-        this.product = { ...product };
-        this.spinner.hide();
-        this.step = 2;
-        this.router.navigate( [ 'pages/login' ] );
-      }, ( response: HttpErrorResponse ) => {
-        this.spinner.hide();
-        this.alert.warning( response.error.message );
-      } );
-    }
+    this.openModal();
+    // this.submitted = true;
+    // this.productData = { ...this.productForm.value };
+    // this.productData.store = this.store._id;
+    // console.log( this.productData );
+    // if ( this.productForm.valid ) {
+    //   this.spinner.show();
+    //   this.productService.addProduct( this.productData ).subscribe( ( product: Product ) => {
+    //     this.product = { ...product };
+    //     this.spinner.hide();
+    //     this.step = 2;
+    // // consumo de api
+        
+    //   }, ( response: HttpErrorResponse ) => {
+    //     this.spinner.hide();
+    //     this.alert.warning( response.error.message );
+    //   } );
+    // }
+  }
+
+  openModal(){
+    this.SuccessModal.openModal();
   }
 
   updateImage( $event ) {
