@@ -46,8 +46,14 @@ export class ProductService {
   /**
    * @description Lista de productos
    */
-  productList(): Observable<Product[]> {
-    return this.http.get( '' );
+  productList( id: string ): Observable<Product[]> {
+    return this.http.get( `products?store=${id}` ).pipe(
+      map( response => {
+        if ( response.success ) {
+          return response.products;
+        }
+      } )
+    );
   }
 
   /**
