@@ -1,5 +1,5 @@
 export interface Delivery{
-  id: string;
+  _id: string;
   name: string;
   phone: string;
   email: string;
