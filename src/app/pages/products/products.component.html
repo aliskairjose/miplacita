@@ -58,16 +58,11 @@
                             <td>
                                 <img class="product-image" [src]="product.image" />
                             </td>
-                            <td>
-                                {{product.name}}
-                            </td>
-                            <td >
-                                {{product.description}}
-                            </td>
-                            <td>
-                                {{product.price}}
-                            </td>
-                            <td><h4>{{product.status}}</h4></td>
+                            <td>{{product.name}}</td>
+                            <td >{{product.description}}</td>
+                            <td>{{product.price}}</td>
+                            <td>{{product.tax}}</td>
+                            <td>{{product.status}}</td>
                             
                             <td class="d-flex flex-row" *ngIf="typeUser=='merchant'">
                                 <button class="btn btn-table-action">Editar</button>

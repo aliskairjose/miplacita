@@ -12,7 +12,7 @@ import { Product } from '../../shared/classes/product';
 } )
 export class ProductsComponent implements OnInit, OnChanges {
   typeUser = 'merchant';
-  fields = [ '', 'Nombre', 'Descripción', 'Precio', 'Estado', '' ];
+  fields = [ '', 'Nombre', 'Descripción', 'Precio', 'ITBMS', 'Estado', '' ];
 
   allProducts: Product[];
   products: Product[];

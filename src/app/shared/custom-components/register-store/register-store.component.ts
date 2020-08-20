@@ -71,7 +71,6 @@ export class RegisterStoreComponent implements OnInit {
   }
 
   updatePlan( plan: string ) {
-    console.log( plan );
     this.planID = plan;
   }
 
@@ -99,7 +98,6 @@ export class RegisterStoreComponent implements OnInit {
     this.submitted = true;
     this.productData = { ...this.productForm.value };
     this.productData.store = this.store._id;
-    console.log( this.productData );
     if ( this.productForm.valid ) {
       this.spinner.show();
       this.productService.addProduct( this.productData ).subscribe( ( product: Product ) => {
