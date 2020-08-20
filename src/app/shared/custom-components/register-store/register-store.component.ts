@@ -123,7 +123,7 @@ export class RegisterStoreComponent implements OnInit {
       url_store: [ '', [ Validators.required ] ],
       phone: [ '', [ Validators.required ] ],
       email: [ '', [ Validators.required, Validators.email ] ],
-      logo: [ 'logonoreal', [ Validators.required ] ],
+      logo: [ 'logonoreal.com', [ Validators.required ] ],
       // owner_id: [ this.userId ],
       owner_id: [ '5f3d92e8c6dcbd1a01d9d24b' ],
       plan: [ '5f3d92e8c6dcbd1a01d9d24b', [ Validators.required ] ],
@@ -135,7 +135,7 @@ export class RegisterStoreComponent implements OnInit {
       description: [ '', [ Validators.required ] ],
       price: [ '', [ Validators.required ] ],
       tax: [ '', [ Validators.required ] ],
-      image: [ 'imagendepruebanoreal', [ Validators.required ] ],
+      image: [ 'imagenprueba.com', [ Validators.required ] ],
       store: [ this.storeId ],
       category: [ this.categoryId ? this.categoryId : '', [ Validators.required ] ],
     } );
