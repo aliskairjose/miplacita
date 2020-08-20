@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ProductService } from '../../shared/services/tm.product.service';
 import { NgbCalendar, NgbDateAdapter } from '@ng-bootstrap/ng-bootstrap';
+import { OrderDetailsComponent } from '../../shared/custom-components/order-details/order-details.component';
 
 @Component({
   selector: 'app-orders',
@@ -19,6 +20,8 @@ export class OrdersComponent implements OnInit {
   public paginate: any = {};
   public pageNo = 1;
   public pageSize = 5;
+
+  @ViewChild("orderDetails") OrderDetails: OrderDetailsComponent;
   /** variable provisional */
   public allOrders = [{
     id: 1,
@@ -158,6 +161,10 @@ export class OrdersComponent implements OnInit {
 
   search(){
     console.log(this.searchForm.value);
+  }
+
+  showDetails(){
+
   }
 
 }
