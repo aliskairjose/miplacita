@@ -15,7 +15,8 @@
                             <div class="first-column">
                                 <!-- Nombre -->
                                 <div class="form-group input-group">
-                                    <input formControlName="name" type="text" class="form-control" id="name" placeholder="Nombre" required="">
+                                    <input formControlName="name" type="text" class="form-control" id="name"
+                                        placeholder="Nombre" required="">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">
                                             <img src="../../../../assets/images/marketplace/svg/bag.svg" alt="">
@@ -44,11 +45,12 @@
                                 </div>
 
                                 <div class="form-group input-group">
-                                    <input formControlName="price" currencyMask type="text" class="form-control" id="price" placeholder="Precio"
-                                        required="">
+                                    <input formControlName="price" currencyMask type="text" class="form-control"
+                                        id="price" placeholder="Precio" required="">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">
-                                            <img class="h-100" src="../../../../assets/images/marketplace/svg/dolar.svg">
+                                            <img class="h-100"
+                                                src="../../../../assets/images/marketplace/svg/dolar.svg">
                                         </span>
                                     </div>
                                     <div *ngIf="submitted && f.price.errors" class="invalid-feedback d-block">
@@ -56,8 +58,8 @@
                                     </div>
                                 </div>
                                 <div class="form-group input-group">
-                                    <input formControlName="tax" currencyMask type="text" class="form-control" id="itbms" placeholder="Itbms"
-                                        required="">
+                                    <input formControlName="tax" currencyMask type="text" class="form-control"
+                                        id="itbms" placeholder="Itbms" required="">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">
                                             <img class="h-100" src="../../../../assets/images/marketplace/svg/dolar.svg"
@@ -69,19 +71,24 @@
                                     </div>
                                 </div>
                                 <div class="form-group input-group">
-                                    <textarea type="text" class="form-control" id="exampleFormControlTextarea1"
+                                    <textarea formControlName="description" type="text" class="form-control" id="exampleFormControlTextarea1"
                                         placeholder="Descripción" required=""></textarea>
+                                    <div *ngIf="submitted && f.description.errors" class="invalid-feedback d-block">
+                                        <div *ngIf="f.description.errors.required"> {{ required }} </div>
+                                    </div>
                                 </div>
-                                <div  class="form-group input-group">
-                                    <select formControlName="status" class="form-control" name="category">
-                                        <option value="active" selected>Activo</option>
-                                        <option value="inactive">Inactivo</option>
-                                        <option value="blocked">Bloqueado</option>
+                                <div class="form-group input-group">
+                                    <select formControlName="status" class="form-control" name="status">
+                                        <option value="" selected>Seleccione un estado</option>
+                                        <option *ngFor="let status of statuses" [value]="status.value">{{status.text}}</option>
                                     </select>
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">
                                             <img src="../../../../assets/images/marketplace/svg/bag.svg" alt="">
                                         </span>
+                                    </div>
+                                    <div *ngIf="submitted && f.status.errors" class="invalid-feedback d-block">
+                                        <div *ngIf="f.status.errors.required"> {{ required }} </div>
                                     </div>
                                 </div>
                                 <!-- <div class="form-group input-group">
@@ -95,7 +102,8 @@
                                         placeholder="Cantidad disponible" required="">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">
-                                            <img class="h-100" src="../../../../assets/images/marketplace/svg/dolar.svg">
+                                            <img class="h-100"
+                                                src="../../../../assets/images/marketplace/svg/dolar.svg">
                                         </span>
                                     </div>
                                     <div *ngIf="submitted && f.stock.errors" class="invalid-feedback d-block">
@@ -112,8 +120,6 @@
                                 <div class="d-flex justify-content-center">
                                     <button class="btn btn-solid" type="button">Cargar Imagen</button>
                                 </div>
-
-
                             </div>
                         </div>
                         <div class="save text-center p-3">

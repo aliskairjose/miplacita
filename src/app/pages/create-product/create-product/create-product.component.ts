@@ -22,12 +22,17 @@ export class CreateProductComponent implements OnInit {
   image1: any = '../../../../assets/images/marketplace/svg/upload-image.svg';
   image2: any = '../../../../assets/images/marketplace/svg/upload-image.svg';
   image3: any = '../../../../assets/images/marketplace/svg/upload-image.svg';
-
+  categoryId = '';
   categories: Category[];
   productForm: FormGroup;
   submitted: boolean;
   required = 'Campo obligatorio';
-
+  status: string;
+  statuses = [
+    {value: 'active', text: 'Activo' },
+    {value: 'inactive', text: 'Inactivo' },
+    {value: 'blocked', text: 'Bloqueado' },
+  ];
   constructor(
     private router: Router,
     private alert: AlertService,
@@ -79,14 +84,14 @@ export class CreateProductComponent implements OnInit {
       tax: [ '', [ Validators.required ] ],
       image: [ '', [ Validators.required ] ],
       store: [ '', [ Validators.required ] ],
-      category: [ '', [ Validators.required ] ],
+      category: [ this.categoryId ? this.categoryId : '', [ Validators.required ] ],
       status: [ '', [ Validators.required ] ],
       stock: [ '', [ Validators.required ] ],
     } );
   }
 
   selectCategory( id: string ): void {
-
+    this.categoryId = id;
   }
 
 }
