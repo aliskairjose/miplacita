@@ -40,6 +40,7 @@ export class RegisterStoreComponent implements OnInit {
   productData: any;
   storeData: Store;
   planID = '';
+  selectedCategory = '';
 
   constructor(
     private router: Router,
@@ -155,12 +156,8 @@ export class RegisterStoreComponent implements OnInit {
       price: [ '', [ Validators.required ] ],
       tax: [ '', [ Validators.required ] ],
       image: [ 'imagenprueba.com', [ Validators.required ] ],
-      category: [ this.categoryId ? this.categoryId : '', [ Validators.required ] ],
+      category: [ this.selectedCategory, [ Validators.required ] ],
     } );
-  }
-
-  selectCategory( id: string ): void {
-    this.categoryId = id;
   }
 
 }

@@ -158,7 +158,7 @@
                         </div>
                         <div class="col-md-6" id="center-mb">
                             <select formControlName="category" class="form-control" name="category"
-                                (change)="selectCategory($event.target.value)">
+                                [(ngModel)]="selectedCategory">
                                 <option value="" selected>Seleccione categoría</option>
                                 <option *ngFor="let category of categories" [value]="category._id">{{category.name}}
                                 </option>
