@@ -31,16 +31,23 @@ export class MenuComponent implements OnInit {
     } );
 
     // tslint:disable-next-line: curly
-    if ( this.auth.isAuthenticated() ) this.setMenu();
+    this.setMenu();
   }
 
   setMenu(): void {
-    this.menuItems = [
-      { path: '/home/vegetable', title: 'Vende ahora', type: 'link' },
-      { path: '/pages/contact', title: 'contactanos', type: 'link' }
-    ];
+    if ( this.auth.isAuthenticated() ) {
+      this.menuItems = [
+        { path: '/home/vegetable', title: 'Vende ahora', type: 'link' },
+        { path: '/pages/contact', title: 'contactanos', type: 'link' }
+      ];
+    } else {
+      this.menuItems = [
+        { path: '/pages/login', title: 'inicia sesión', type: 'link' },
+        { path: '/home/vegetable', title: 'Vende ahora', type: 'link' },
+        { path: '/pages/contact', title: 'contactanos', type: 'link' }
+      ];
+    }
   }
-
 
   mainMenuToggle(): void {
     this.navServices.mainMenuToggle = !this.navServices.mainMenuToggle;

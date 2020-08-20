@@ -175,10 +175,9 @@ export class DashboardComponent implements OnInit {
     private storage: StorageService,
     public productService: ProductService,
   ) { }
-  
+
   ngOnInit(): void {
     this.auth.authObserver().subscribe( ( resp: boolean ) => {
-      console.log( resp );
       if ( resp ) {
         const user: User = this.storage.getItem( 'user' );
         this.alert.info( `Bienvenido ${user.fullname}` );
