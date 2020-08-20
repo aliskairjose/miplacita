@@ -108,6 +108,16 @@ form {
   margin-bottom: 3%;
 }
 
+.search {
+  width: 100%;
+  flex-direction: row;
+  gap: 0.25rem;
+}
+
+.filters {
+  display: flex;
+  flex-direction: row;
+}
 
 // Media Queries 
 /* Smartphones (portrait & landscape) */

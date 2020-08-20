@@ -43,9 +43,10 @@ import { AlertModule } from 'ngx-alerts';
 import { NgxSpinnerModule } from 'ngx-spinner';
 
 import { GoogleChartsModule } from 'angular-google-charts';
-import { ProductsComponent } from './products/products.component';
 import { ShopsComponent } from './shops/shops.component';
 import { OrdersComponent } from './orders/orders.component';
+import { ProductsComponent } from './products/products.component';
+import { CreateProductComponent } from './create-product/create-product/create-product.component';
 
 @NgModule({
   declarations: [
@@ -83,7 +84,10 @@ import { OrdersComponent } from './orders/orders.component';
     MasonryFullWidthComponent,
     ProductsComponent,
     ShopsComponent,
-    OrdersComponent
+    OrdersComponent,
+    CreateProductComponent,
+    OrdersComponent,
+
   ],
   imports: [
     SharedModule,

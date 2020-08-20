@@ -11,9 +11,10 @@ import { FaqComponent } from './faq/faq.component';
 import { CartComponent } from './account/cart/cart.component';
 import { AuthGuard } from '../shared/guard/auth.guard';
 import { ContactComponent } from './account/contact/contact.component';
-import { ProductsComponent } from './products/products.component';
 import { ShopsComponent } from './shops/shops.component';
 import { OrdersComponent } from './orders/orders.component';
+import { ProductsComponent } from './products/products.component';
+import { CreateProductComponent } from './create-product/create-product/create-product.component';
 
 const routes: Routes = [
 
@@ -42,6 +43,11 @@ const routes: Routes = [
     component: OrdersComponent,
     canActivate: [ AuthGuard ]
   },
+  {
+    path: 'create-product',
+    component: CreateProductComponent
+  },
+
   {
     path: 'login',
     component: LoginComponent
