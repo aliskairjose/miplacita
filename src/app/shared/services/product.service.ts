@@ -107,6 +107,60 @@ export class ProductService {
     return this.http.put( `products/${id}/photo/${idPhoto}`, data );
   }
 
+  /*
+   ---------------------------------------------
+   ------------- Product Pagination  -----------
+   ---------------------------------------------
+ */
+  public getPager( totalItems: number, currentPage: number = 1, pageSize: number = 16 ) {
+    // calculate total pages
+    const totalPages = Math.ceil( totalItems / pageSize );
+
+    // Paginate Range
+    const paginateRange = 3;
+
+    // ensure current page isn't out of range
+    if ( currentPage < 1 ) {
+      currentPage = 1;
+    } else if ( currentPage > totalPages ) {
+      currentPage = totalPages;
+    }
+
+    let startPage: number;
+    let endPage: number;
+
+    if ( totalPages <= 5 ) {
+      startPage = 1;
+      endPage = totalPages;
+    } else if ( currentPage < paginateRange - 1 ) {
+      startPage = 1;
+      endPage = startPage + paginateRange - 1;
+    } else {
+      startPage = currentPage - 1;
+      endPage = currentPage + 1;
+    }
+
+    // calculate start and end item indexes
+    const startIndex = ( currentPage - 1 ) * pageSize;
+    const endIndex = Math.min( startIndex + pageSize - 1, totalItems - 1 );
+
+    // create an array of pages to ng-repeat in the pager control
+    const pages = Array.from( Array( ( endPage + 1 ) - startPage ).keys() ).map( i => startPage + i );
+
+    // return object with all pager properties required by the view
+    return {
+      totalItems,
+      currentPage,
+      pageSize,
+      totalPages,
+      startPage,
+      endPage,
+      startIndex,
+      endIndex,
+      pages
+    };
+  }
+
   /**
    * @description Genera el stream de eventos usando next() para crear el evento
    * @param product
@@ -117,6 +171,7 @@ export class ProductService {
 
   /**
    * @description Creación del observer mediante el método asObserver(), el cual sera consumido por el componente
+   * @returns Observable product
    */
   productObserver(): Observable<Product> {
     return this.$product.asObservable();
