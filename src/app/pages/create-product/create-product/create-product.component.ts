@@ -36,8 +36,7 @@ export class CreateProductComponent implements OnInit {
   ];
   statusSelected = 'active';
   selectedCategory = '';
-  productImages: string[] = [];
-  images = [];
+  imageBase64: string;
 
   constructor(
     private router: Router,
@@ -64,11 +63,11 @@ export class CreateProductComponent implements OnInit {
     this.submitted = true;
     if ( this.productForm.valid ) {
       this.spinner.show();
-      this.productService.uploadImages( { images: this.productImages } ).subscribe( response => {
-        console.log( response );
+      this.productService.uploadImages( { images: this.imageBase64 } ).subscribe( response => {
         if ( response.status === 'isOk' ) {
           const data: any = { ...this.productForm.value };
-          data.image = [ ...response.images ];
+          // data.image = [ ...response.images ];
+          data.image = response.images[0];
           this.createProduct( data );
         }
       }, ( response: HttpErrorResponse ) => {
@@ -83,7 +82,6 @@ export class CreateProductComponent implements OnInit {
    * @description Crea el producto via api
    */
   private createProduct( data: any ): void {
-    console.log( data );
     this.productService.addProduct( data ).subscribe( ( product: Product ) => {
       this.spinner.hide();
       this.alert.info( 'El producto se ha creado con exito' );
@@ -114,16 +112,14 @@ export class CreateProductComponent implements OnInit {
   }
 
   onFileChange( event ) {
+    const reader = new FileReader();
 
     if ( event.target.files && event.target.files.length ) {
-      for ( const file of event.target.files ) {
-        const reader = new FileReader();
-        reader.readAsDataURL( file );
-        reader.onload = () => {
-          const imageBase64 = reader.result as string;
-          this.productImages.push( imageBase64 );
-        };
-      }
+      const [ file ] = event.target.files;
+      reader.readAsDataURL( file );
+
+      reader.onload = () => { this.imageBase64 = reader.result as string; };
+
     }
   }
 

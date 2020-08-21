@@ -21,7 +21,7 @@ import { SuccessModalComponent } from '../../custom-component/success-modal/succ
   styleUrls: [ './register-store.component.scss' ]
 } )
 export class RegisterStoreComponent implements OnInit {
-  @ViewChild('successModal') SuccessModal : SuccessModalComponent;
+  @ViewChild( 'successModal' ) SuccessModal: SuccessModalComponent;
 
   planSelected = '';
   step = 1;
@@ -39,10 +39,11 @@ export class RegisterStoreComponent implements OnInit {
   categoryId = '';
   user: User;
   plans: Plan[];
-  productData: any;
+  productData: Product;
   storeData: Store;
   planID = '';
   selectedCategory = '';
+  imageBase64: string;
 
   constructor(
     private router: Router,
@@ -66,7 +67,7 @@ export class RegisterStoreComponent implements OnInit {
   ngOnInit(): void {
     this.storeService.getPlans().subscribe( ( plans: Plan[] ) => {
       this.plans = [ ...plans ];
-      this.planSelected = this.plans[0]._id;
+      this.planSelected = this.plans[ 0 ]._id;
     } );
     this.productService.categoryList().subscribe( ( categories: Category[] ) => {
       this.categories = [ ...categories ];
@@ -86,14 +87,14 @@ export class RegisterStoreComponent implements OnInit {
 
     if ( this.registerForm.valid ) {
       this.spinner.show();
-      this.storeService.addStore( this.storeData ).subscribe( ( store: Store ) => {
-        this.store = { ...store };
-        this.spinner.hide();
-        this.submitted = false;
-        this.step = 2;
+      this.storeService.uploadImages( { images: this.imageBase64 } ).subscribe( result => {
+        if ( result.status === 'isOk' ) {
+          this.storeData.logo = result.images[ 0 ];
+          this.createStore();
+        }
       }, ( response: HttpErrorResponse ) => {
         this.spinner.hide();
-        this.alert.warning( response.error.message );
+        this.alert.danger( response.error.message );
       } );
     }
   }
@@ -102,48 +103,46 @@ export class RegisterStoreComponent implements OnInit {
     this.submitted = true;
     this.productData = { ...this.productForm.value };
     this.productData.store = this.store._id;
-    console.log( this.productData );
     if ( this.productForm.valid ) {
       this.spinner.show();
-      this.productService.addProduct( this.productData ).subscribe( ( product: Product ) => {
-        this.product = { ...product };
-        this.spinner.hide();
-        this.step = 2;
-    // consumo de api
-        this.openModal();
+      this.productService.uploadImages( { images: this.imageBase64 } ).subscribe( result => {
+        if ( result.status === 'isOk' ) {
+          this.productData.image = result.images[ 0 ];
+          this.createProduct();
+        }
       }, ( response: HttpErrorResponse ) => {
         this.spinner.hide();
-        this.alert.warning( response.error.message );
+        this.alert.danger( response.error.message );
       } );
     }
   }
 
-  openModal(){
+  openModal() {
     this.SuccessModal.openModal();
   }
 
-  updateImage( $event ) {
-    if ( $event.target.files.length === 0 ) {
-      return;
-    }
+  // updateImage( $event ) {
+  //   if ( $event.target.files.length === 0 ) {
+  //     return;
+  //   }
 
-    const image = $event.target.files[ 0 ];
-    const mimeType = image.type;
-    if ( mimeType.match( /image\/*/ ) == null ) {
-      return;
-    }
+  //   const image = $event.target.files[ 0 ];
+  //   const mimeType = image.type;
+  //   if ( mimeType.match( /image\/*/ ) == null ) {
+  //     return;
+  //   }
 
-    const reader = new FileReader();
-    reader.readAsDataURL( image );
-    reader.onload = ( _event ) => {
-      if ( this.step === 1 ) {
-        this.imageLogo = reader.result;
-      } else if ( this.step === 2 ) {
-        this.imageProduct = reader.result;
-      }
-    };
+  //   const reader = new FileReader();
+  //   reader.readAsDataURL( image );
+  //   reader.onload = ( _event ) => {
+  //     if ( this.step === 1 ) {
+  //       this.imageLogo = reader.result;
+  //     } else if ( this.step === 2 ) {
+  //       this.imageProduct = reader.result;
+  //     }
+  //   };
 
-  }
+  // }
 
   private createForm(): void {
 
@@ -154,7 +153,7 @@ export class RegisterStoreComponent implements OnInit {
       url_store: [ '', [ Validators.required ] ],
       phone: [ '', [ Validators.required ] ],
       email: [ '', [ Validators.required, Validators.email ] ],
-      logo: [ 'logonoreal.com' ],
+      logo: [ '',  [ Validators.required ] ],
       owner_id: [ this.storage.getItem( 'userId' ) ],
     } );
 
@@ -164,9 +163,45 @@ export class RegisterStoreComponent implements OnInit {
       description: [ '', [ Validators.required ] ],
       price: [ '', [ Validators.required ] ],
       tax: [ '', [ Validators.required ] ],
-      image: [ 'imagenprueba.com', [ Validators.required ] ],
+      image: [ '', [ Validators.required ] ],
       category: [ this.selectedCategory, [ Validators.required ] ],
     } );
+  }
+
+  private createStore(): void {
+    this.storeService.addStore( this.storeData ).subscribe( ( store: Store ) => {
+      this.store = { ...store };
+      this.spinner.hide();
+      this.submitted = false;
+      this.step = 2;
+    }, ( response: HttpErrorResponse ) => {
+      this.spinner.hide();
+      this.alert.warning( response.error.message );
+    } );
+  }
+
+  private createProduct(): void {
+    this.productService.addProduct( this.productData ).subscribe( ( product: Product ) => {
+      this.product = { ...product };
+      this.spinner.hide();
+      this.openModal();
+    }, ( response: HttpErrorResponse ) => {
+      this.spinner.hide();
+      this.alert.warning( response.error.message );
+    } );
+  }
+
+  onFileChange( event ) {
+    this.imageBase64 = '';
+    const reader = new FileReader();
+
+    if ( event.target.files && event.target.files.length ) {
+      const [ file ] = event.target.files;
+      reader.readAsDataURL( file );
+
+      reader.onload = () => { this.imageBase64 = reader.result as string; };
+
+    }
   }
 
 }

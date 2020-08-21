@@ -289,7 +289,6 @@ export class ProductService {
     ---------------------------------------------
   */
   public getPager(totalItems: number, currentPage: number = 1, pageSize: number = 16) {
-    console.log("SERVICE" ,pageSize);
     // calculate total pages
     let totalPages = Math.ceil(totalItems / pageSize);
 

@@ -58,6 +58,15 @@ export class StoreService {
   }
 
   /**
+   * @description Carga las imagenes en Cloudinary
+   * @returns Retorna un listado de url de imagenes
+   * @param data Array de imagenes en base 64
+   */
+  uploadImages( data: any ): Observable<any> {
+    return this.http.post( 'files', data );
+  }
+
+  /**
    * @description Genera el stream de eventos usando next() para crear el evento
    * @param store
    */

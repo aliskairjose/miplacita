@@ -86,8 +86,8 @@
                                 <img class="thumbnail" [src]="imageLogo" id="logo" />
                             </div>
                             <div class="col-md-2 ">
-                                <input class="" type="file" id="upload-logo" (change)="updateImage($event)"
-                                    placeholder="Seleccionar imagen..." />
+                                <input class="" type="file" id="upload-logo"
+                                    placeholder="Seleccionar imagen..." (change)="onFileChange($event)" />
                             </div>
                         </div>
 
@@ -178,7 +178,7 @@
                                 <img class="thumbnail" [src]="imageProduct" id="logo" />
                             </div>
                             <div class="mx-auto">
-                                <input class="" type="file" id="upload-logo" (change)="updateImage($event)"
+                                <input class="" type="file" id="upload-logo" (change)="onFileChange($event)"
                                     placeholder="Seleccionar imagen..." />
                             </div>
                         </div>

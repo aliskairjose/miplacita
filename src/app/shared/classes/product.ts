@@ -9,8 +9,9 @@ export interface Product {
   store_id: string;
   status: string;
   category: string;
-  images: Images[];
+  image: string;
   stock: number;
+  store?: string;
 }
 
 export interface Images {

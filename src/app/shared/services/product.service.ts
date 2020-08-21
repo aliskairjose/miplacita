@@ -48,7 +48,6 @@ export class ProductService {
    * @description Lista de productos
    */
   productList( id: string, page = 1 ): Observable<Result<Product>> {
-    console.log( page );
     return this.http.get( `products?store=${id}&page=${page}` ).pipe(
       map( ( response: Response<Product> ) => {
         if ( response.success ) {
