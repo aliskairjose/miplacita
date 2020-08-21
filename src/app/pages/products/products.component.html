@@ -44,38 +44,36 @@
                 </div>
             </form>
         </div>
-        <div class="row table-center-mt">
-            <div class="col-sm-12">
-                <table class="table cart-table table-responsive-xs">
-                    <thead>
-                        <tr class="table-head">
-                            <th *ngFor="let field of fields" scope="col">{{field}}</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let product of products | filter: searchText">
-                            <td>
-                                <img class="product-image" [src]="product.image" />
-                            </td>
-                            <td>{{product.name}}</td>
-                            <td>{{product.description}}</td>
-                            <td>{{product.price}}</td>
-                            <td>{{product.tax}}</td>
-                            <td>{{product.status}}</td>
-
-                            <td class="d-flex flex-row" *ngIf="typeUser=='merchant'">
-                                <button class="btn btn-table-action">Editar</button>
-                                <button class="btn btn-table-action">Eliminar</button>
-                            </td>
-                            <td class="d-flex flex-row" *ngIf="typeUser=='admin'">
-                                <button class="btn btn-table-action">Desactivar</button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-                <app-custom-pagination [items]="products" [paginate]="paginate" (setPage)="setPage($event)">
-                </app-custom-pagination>
-            </div>
+        <div class="table-responsive-sm mt-3">
+            <table class="table">
+                <thead>
+                    <tr class="table-head">
+                        <th *ngFor="let field of fields" scope="col">{{field}}</th>
+                    </tr>
+                </thead>
+                <tbody >
+                    <tr *ngFor="let product of products | filter: searchText">
+                        <td>
+                            <img class="product-image" [src]="product.image" />
+                        </td>
+                        <td>{{product.name}}</td>
+                        <td >{{product.description}}</td>
+                        <td>{{product.price}}</td>
+                        <td>{{product.tax}}</td>
+                        <td>{{product.status}}</td>
+                        
+                        <td class="d-flex flex-row" *ngIf="typeUser=='merchant'">
+                            <button class="btn btn-table-action">Editar</button>
+                            <button class="btn btn-table-action">Eliminar</button>
+                        </td>
+                        <td class="d-flex flex-row" *ngIf="typeUser=='admin'">
+                            <button class="btn btn-table-action">Desactivar</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
+        <app-custom-pagination  [items]="products" [paginate]="paginate" (setPage)="setPage($event)">
+        </app-custom-pagination>
     </div>
 </section>

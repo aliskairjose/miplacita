@@ -60,6 +60,7 @@ import { DiscountPipe } from './pipes/discount.pipe';
 import { CustomPaginationComponent } from './custom-components/custom-pagination/custom-pagination/custom-pagination.component';
 import { AlertModule } from 'ngx-alerts';
 import { NgxCurrencyModule, CurrencyMaskInputMode } from 'ngx-currency';
+import { SuccessModalComponent } from './custom-component/success-modal/success-modal.component';
 
 export const customCurrencyMaskConfig = {
   align: 'right',
@@ -110,6 +111,7 @@ export const customCurrencyMaskConfig = {
     TapToTopComponent,
     RegisterStoreComponent,
     CustomPaginationComponent,
+    SuccessModalComponent,
     // Pipes
     DiscountPipe,
     FilterPipe
@@ -169,9 +171,11 @@ export const customCurrencyMaskConfig = {
     TapToTopComponent,
     RegisterStoreComponent,
     CustomPaginationComponent,
+    SuccessModalComponent,
     // Pipes
     DiscountPipe,
     FilterPipe,
+
   ]
 })
 export class SharedModule { }

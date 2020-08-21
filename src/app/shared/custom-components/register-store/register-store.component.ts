@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Validators, FormGroup, FormBuilder } from '@angular/forms';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { AlertService } from 'ngx-alerts';
@@ -13,6 +13,7 @@ import { Store } from '../../classes/store';
 import { Product } from '../../classes/product';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Plan } from '../../classes/plan';
+import { SuccessModalComponent } from '../../custom-component/success-modal/success-modal.component';
 
 @Component( {
   selector: 'app-register-store',
@@ -20,8 +21,9 @@ import { Plan } from '../../classes/plan';
   styleUrls: [ './register-store.component.scss' ]
 } )
 export class RegisterStoreComponent implements OnInit {
+  @ViewChild('successModal') SuccessModal : SuccessModalComponent;
 
-  planSelected = 2;
+  planSelected = '';
   step = 1;
   imageLogo: any = '../../../../assets/images/marketplace/svg/upload-image.svg';;
   imageProduct: any = '../../../../assets/images/marketplace/svg/upload-image.svg';
@@ -64,6 +66,7 @@ export class RegisterStoreComponent implements OnInit {
   ngOnInit(): void {
     this.storeService.getPlans().subscribe( ( plans: Plan[] ) => {
       this.plans = [ ...plans ];
+      this.planSelected = this.plans[0]._id;
     } );
     this.productService.categoryList().subscribe( ( categories: Category[] ) => {
       this.categories = [ ...categories ];
@@ -72,6 +75,7 @@ export class RegisterStoreComponent implements OnInit {
   }
 
   updatePlan( plan: string ) {
+    this.planSelected = plan;
     this.planID = plan;
   }
 
@@ -95,22 +99,27 @@ export class RegisterStoreComponent implements OnInit {
   }
 
   productRegister() {
-    // consumo de api
     this.submitted = true;
     this.productData = { ...this.productForm.value };
     this.productData.store = this.store._id;
+    console.log( this.productData );
     if ( this.productForm.valid ) {
       this.spinner.show();
       this.productService.addProduct( this.productData ).subscribe( ( product: Product ) => {
         this.product = { ...product };
         this.spinner.hide();
         this.step = 2;
-        this.router.navigate( [ 'pages/login' ] );
+    // consumo de api
+        this.openModal();
       }, ( response: HttpErrorResponse ) => {
         this.spinner.hide();
         this.alert.warning( response.error.message );
       } );
     }
+  }
+
+  openModal(){
+    this.SuccessModal.openModal();
   }
 
   updateImage( $event ) {
