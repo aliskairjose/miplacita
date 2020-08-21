@@ -20,7 +20,6 @@ export class ProductsComponent implements OnInit, OnChanges {
   productTypes = []; // tipos de productos
   states = []; // tipos de productos
   paginate: any = {};
-  page = 1;
   nextPage: number;
   pageSize = 5;
   searchForm: FormGroup;

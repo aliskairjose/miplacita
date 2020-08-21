@@ -9,7 +9,7 @@ export interface Product {
   store_id: string;
   status: string;
   category: string;
-  image: string;
+  image: [string];
   stock: number;
   store?: string;
 }

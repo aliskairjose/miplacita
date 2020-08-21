@@ -36,7 +36,8 @@ export class CreateProductComponent implements OnInit {
   ];
   statusSelected = 'active';
   selectedCategory = '';
-  imageBase64: string;
+  productImages: string[] = [];
+  images = [];
 
   constructor(
     private router: Router,
@@ -63,11 +64,11 @@ export class CreateProductComponent implements OnInit {
     this.submitted = true;
     if ( this.productForm.valid ) {
       this.spinner.show();
-      this.productService.uploadImages( { images: this.imageBase64 } ).subscribe( response => {
+      this.productService.uploadImages( { images: this.productImages } ).subscribe( response => {
         if ( response.status === 'isOk' ) {
-          const data: any = { ...this.productForm.value };
+          const data: Product = { ...this.productForm.value };
           // data.image = [ ...response.images ];
-          data.image = response.images[0];
+          data.image = [ ...response.images ] as [ string ];
           this.createProduct( data );
         }
       }, ( response: HttpErrorResponse ) => {
@@ -112,14 +113,17 @@ export class CreateProductComponent implements OnInit {
   }
 
   onFileChange( event ) {
-    const reader = new FileReader();
+    this.productImages = [];
 
     if ( event.target.files && event.target.files.length ) {
-      const [ file ] = event.target.files;
-      reader.readAsDataURL( file );
-
-      reader.onload = () => { this.imageBase64 = reader.result as string; };
-
+      for ( const file of event.target.files ) {
+        const reader = new FileReader();
+        reader.readAsDataURL( file );
+        reader.onload = () => {
+          const imageBase64 = reader.result as string;
+          this.productImages.push( imageBase64 );
+        };
+      }
     }
   }
 
