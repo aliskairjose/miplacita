@@ -5,16 +5,16 @@ import { Pipe, PipeTransform } from '@angular/core';
 } )
 export class FilterPipe implements PipeTransform {
 
-  transform( value: any[], arg: string ): any[] {
+  transform( value: any, args?: any ): any {
 
-    if ( arg === '' || arg.length < 3 ) { return value; }
-    const result = [];
-    for ( const val of value ) {
-      if ( val.name.toLowerCase().indexOf( arg ) > -1 || val.name.indexOf( arg ) > -1 ) {
-        result.push( val );
-      }
-    }
-    return result;
+    if ( !value ) { return null; }
+    if ( !args ) { return value; }
+
+    args = args.toLowerCase();
+
+    return value.filter( ( item ) => {
+      return JSON.stringify( item ).toLowerCase().includes( args );
+    } );
   }
 
 }
