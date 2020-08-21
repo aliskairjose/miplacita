@@ -24,7 +24,7 @@ export class RegisterStoreComponent implements OnInit {
   @ViewChild('successModal') SuccessModal : SuccessModalComponent;
 
   planSelected = '';
-  step = 1;
+  step = 2;
   imageLogo: any = '../../../../assets/images/marketplace/svg/upload-image.svg';;
   imageProduct: any = '../../../../assets/images/marketplace/svg/upload-image.svg';
   registerForm: FormGroup;

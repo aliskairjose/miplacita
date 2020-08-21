@@ -103,12 +103,12 @@
 </section>
 <section class="register-page-mp section-b-space" *ngIf="step==2">
     <div class="container">
-        <div class="row">
+        <div class="row justify-content-center">
             <div class="col-lg-12">
                 <h3 class="mx-auto">Configura tu primer producto</h3>
                 <div class="theme-card">
                     <form [formGroup]="productForm" class="theme-form">
-                        <div class="col-md-6 form-group input-group mx-auto mb-2" >
+                        <div class="col-md-6 form-group input-group mx-auto mb-2">
                             <input formControlName="name" type="text" class="form-control" id="name"
                                 placeholder="Nombre del producto" required="">
                             <div class="input-group-prepend">
@@ -120,7 +120,7 @@
                                 <div *ngIf="p.name.errors.required"> {{ required }} </div>
                             </div>
                         </div>
-                        <div class="col-md-6 form-group input-group mx-auto mb-2" >
+                        <div class="col-md-6 form-group input-group mx-auto mb-2">
                             <input currencyMask formControlName="price" type="text" class="form-control" id="price"
                                 placeholder="Precio del producto" required="">
                             <div class="input-group-prepend">
@@ -132,7 +132,7 @@
                                 <div *ngIf="p.price.errors.required"> {{ required }} </div>
                             </div>
                         </div>
-                        <div class="col-md-6 form-group input-group mx-auto mb-2" >
+                        <div class="col-md-6 form-group input-group mx-auto mb-2">
                             <input currencyMask formControlName="tax" type="text" class="form-control" id="review"
                                 placeholder="Impuesto del producto" required="">
                             <div class="input-group-prepend">
@@ -144,15 +144,21 @@
                                 <div *ngIf="p.tax.errors.required"> {{ required }} </div>
                             </div>
                         </div>
-                        <div class="col-md-6 mx-auto mb-2">
+                        <!-- Categoria -->
+                        <div class="col-md-6 mx-auto form-group input-group">
                             <select formControlName="category" class="form-control" name="category"
                                 [(ngModel)]="selectedCategory">
-                                <option value="" selected>Seleccione categoría</option>
-                                <option *ngFor="let category of categories" [value]="category._id">{{category.name}}
-                                </option>
+                                <option value="" selected>Seleccione una categoría</option>
+                                <option *ngFor="let category of categories" [value]="category._id">
+                                    {{category.name}}</option>
                             </select>
-                            <div *ngIf="submitted && p.description.errors" class="invalid-feedback d-block">
-                                <div *ngIf="p.description.errors.required"> {{ required }} </div>
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                    <img src="../../../../assets/images/marketplace/svg/email.svg" alt="">
+                                </span>
+                            </div>
+                            <div *ngIf="submitted && f.category.errors" class="invalid-feedback d-block">
+                                <div *ngIf="f.category.errors.required"> {{ required }} </div>
                             </div>
                         </div>
                         <!-- Descripcion del producto -->
