@@ -10,6 +10,7 @@ export interface Product {
   status: string;
   category: string;
   images: Images[];
+  stock: number;
 }
 
 export interface Images {

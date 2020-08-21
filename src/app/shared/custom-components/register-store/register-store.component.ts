@@ -25,7 +25,7 @@ export class RegisterStoreComponent implements OnInit {
   @ViewChild('successModal') SuccessModal : SuccessModalComponent;
 
   planSelected = 2;
-  step = 2;
+  step = 1;
   imageLogo: any = '../../../../assets/images/marketplace/svg/upload-image.svg';;
   imageProduct: any = '../../../../assets/images/marketplace/svg/upload-image.svg';
   registerForm: FormGroup;
@@ -43,6 +43,7 @@ export class RegisterStoreComponent implements OnInit {
   productData: any;
   storeData: Store;
   planID = '';
+  selectedCategory = '';
 
   constructor(
     private router: Router,
@@ -75,7 +76,6 @@ export class RegisterStoreComponent implements OnInit {
   }
 
   updatePlan( plan: string ) {
-    console.log( plan );
     this.planID = plan;
   }
 
@@ -99,24 +99,24 @@ export class RegisterStoreComponent implements OnInit {
   }
 
   productRegister() {
-    this.openModal();
-    // this.submitted = true;
-    // this.productData = { ...this.productForm.value };
-    // this.productData.store = this.store._id;
-    // console.log( this.productData );
-    // if ( this.productForm.valid ) {
-    //   this.spinner.show();
-    //   this.productService.addProduct( this.productData ).subscribe( ( product: Product ) => {
-    //     this.product = { ...product };
-    //     this.spinner.hide();
-    //     this.step = 2;
-    // // consumo de api
-        
-    //   }, ( response: HttpErrorResponse ) => {
-    //     this.spinner.hide();
-    //     this.alert.warning( response.error.message );
-    //   } );
-    // }
+    this.submitted = true;
+    this.productData = { ...this.productForm.value };
+    this.productData.store = this.store._id;
+    console.log( this.productData );
+    if ( this.productForm.valid ) {
+      this.spinner.show();
+      this.productService.addProduct( this.productData ).subscribe( ( product: Product ) => {
+        this.product = { ...product };
+        this.spinner.hide();
+        this.step = 2;
+    // consumo de api
+      this.openModal();
+
+      }, ( response: HttpErrorResponse ) => {
+        this.spinner.hide();
+        this.alert.warning( response.error.message );
+      } );
+    }
   }
 
   openModal(){
@@ -166,12 +166,8 @@ export class RegisterStoreComponent implements OnInit {
       price: [ '', [ Validators.required ] ],
       tax: [ '', [ Validators.required ] ],
       image: [ 'imagenprueba.com', [ Validators.required ] ],
-      category: [ this.categoryId ? this.categoryId : '', [ Validators.required ] ],
+      category: [ this.selectedCategory, [ Validators.required ] ],
     } );
-  }
-
-  selectCategory( id: string ): void {
-    this.categoryId = id;
   }
 
 }

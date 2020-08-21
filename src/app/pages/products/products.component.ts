@@ -12,8 +12,8 @@ import { Product } from '../../shared/classes/product';
 } )
 export class ProductsComponent implements OnInit, OnChanges {
   typeUser = 'merchant';
-  fields = [ '', 'Nombre', 'Descripción', 'Precio', 'Estado', '' ];
-  optionalFields = [];
+  fields = [ '', 'Nombre', 'Descripción', 'Precio', 'ITBMS', 'Estado', '' ];
+
   allProducts: Product[];
   products: Product[];
   productTypes = []; // tipos de productos

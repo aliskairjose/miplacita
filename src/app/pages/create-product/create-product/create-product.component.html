@@ -10,93 +10,120 @@
         <div class="row justify-content-center">
             <div class="col-lg-12 ">
                 <div class="theme-card">
-                    <form class="theme-form ">
+                    <form class="theme-form" [formGroup]="productForm" (ngSubmit)="onSubmit()">
                         <div class="create-product-form">
                             <div class="first-column">
+                                <!-- Nombre -->
                                 <div class="form-group input-group">
-                                    <input type="text" class="form-control" id="name"
+                                    <input formControlName="name" type="text" class="form-control" id="name"
                                         placeholder="Nombre" required="">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">
                                             <img src="../../../../assets/images/marketplace/svg/bag.svg" alt="">
                                         </span>
                                     </div>
-                                    
+                                    <div *ngIf="submitted && f.name.errors" class="invalid-feedback d-block">
+                                        <div *ngIf="f.name.errors.required"> {{ required }} </div>
+                                    </div>
                                 </div>
-                                <div class="form-group">
-                                    <select class="form-control" name="category">
-                                        <option value="" selected>Categoría</option>
-                                        <option *ngFor="let category of categories" value=""></option>
-                                    </select>
-                                    <!-- <div *ngIf="checkoutForm.controls.country.touched && checkoutForm.controls.country.errors?.required" class="text text-danger">
-                                     Categoria requerida
-                                    </div> -->
-                                </div>
-                                
+                                <!-- Categoria -->
                                 <div class="form-group input-group">
-                                    <input type="number"  class="form-control" id="price"
-                                        placeholder="Precio" required="">
+                                    <select formControlName="category" class="form-control" name="category"
+                                        [(ngModel)]="selectedCategory">
+                                        <option value="" selected>Seleccione una categoría</option>
+                                        <option *ngFor="let category of categories" [value]="category._id">
+                                            {{category.name}}</option>
+                                    </select>
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">
-                                            <img class="h-100" src="../../../../assets/images/marketplace/svg/pago.svg" alt="">
+                                            <img src="../../../../assets/images/marketplace/svg/email.svg" alt="">
                                         </span>
+                                    </div>
+                                    <div *ngIf="submitted && f.category.errors" class="invalid-feedback d-block">
+                                        <div *ngIf="f.category.errors.required"> {{ required }} </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group input-group">
+                                    <input formControlName="price" currencyMask type="text" class="form-control"
+                                        id="price" placeholder="Precio" required="">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <img class="h-100"
+                                                src="../../../../assets/images/marketplace/svg/dolar.svg">
+                                        </span>
+                                    </div>
+                                    <div *ngIf="submitted && f.price.errors" class="invalid-feedback d-block">
+                                        <div *ngIf="f.price.errors.required"> {{ required }} </div>
                                     </div>
                                 </div>
                                 <div class="form-group input-group">
-                                    <input type="number" class="form-control" id="itbms"
-                                        placeholder="Itbms" required="">
+                                    <input formControlName="tax" currencyMask type="text" class="form-control"
+                                        id="itbms" placeholder="Itbms" required="">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">
-                                            <img class="h-100" src="../../../../assets/images/marketplace/svg/pago.svg" alt="">
+                                            <img class="h-100" src="../../../../assets/images/marketplace/svg/dolar.svg"
+                                                alt="">
                                         </span>
                                     </div>
-                                    
+                                    <div *ngIf="submitted && f.tax.errors" class="invalid-feedback d-block">
+                                        <div *ngIf="f.tax.errors.required"> {{ required }} </div>
+                                    </div>
                                 </div>
-                                <div class="form-group ">
-                                    <textarea type="text"  class="form-control"
-                                        id="exampleFormControlTextarea1" placeholder="Descripción" required=""></textarea>
+                                <div class="form-group input-group">
+                                    <textarea formControlName="description" type="text" class="form-control" id="exampleFormControlTextarea1"
+                                        placeholder="Descripción" required=""></textarea>
+                                    <div *ngIf="submitted && f.description.errors" class="invalid-feedback d-block">
+                                        <div *ngIf="f.description.errors.required"> {{ required }} </div>
+                                    </div>
                                 </div>
-                                <div class="form-group">
-                                    <select class="form-control" name="category">
-                                        <option value="" selected>Estado</option>
-                                        <option *ngFor="let state of states" value=""></option>
+                                <div class="form-group input-group">
+                                    <select formControlName="status" class="form-control" name="status" [(ngModel)]="statusSelected">
+                                        <!-- <option value="" selected>Seleccione un estado</option> -->
+                                        <option *ngFor="let status of statuses" [value]="status.value">{{status.text}}</option>
                                     </select>
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <img src="../../../../assets/images/marketplace/svg/bag.svg" alt="">
+                                        </span>
+                                    </div>
                                 </div>
-                                <div class="form-group">
+                                <!-- <div class="form-group input-group">
                                     <select class="form-control" name="category">
                                         <option value="" selected>Tipo</option>
                                         <option *ngFor="let type of typesProduct" value=""></option>
                                     </select>
-                                </div>
+                                </div> -->
                                 <div class="form-group input-group">
-                                    <input type="number" class="form-control" id="available"
+                                    <input formControlName="stock" type="number" class="form-control" id="available"
                                         placeholder="Cantidad disponible" required="">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">
-                                            <img class="h-100" src="" alt="">
+                                            <img class="h-100"
+                                                src="../../../../assets/images/marketplace/svg/dolar.svg">
                                         </span>
                                     </div>
-                                    
+                                    <div *ngIf="submitted && f.stock.errors" class="invalid-feedback d-block">
+                                        <div *ngIf="f.stock.errors.required"> {{ required }} </div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="second-column">
                                 <div class="form-group d-flex justify-content-center">
-                                    <img class="col-md-3 p-2" [src]="image1"/>
-                                    <img class="col-md-3 p-2" [src]="image2"/>
-                                    <img class="col-md-3 p-2" [src]="image3"/>
+                                    <img class="col-md-3 p-2" [src]="image1" />
+                                    <img class="col-md-3 p-2" [src]="image2" />
+                                    <img class="col-md-3 p-2" [src]="image3" />
                                 </div>
                                 <div class="d-flex justify-content-center">
-                                    <button class="btn btn-solid" type="button" >Cargar Imagen</button>
+                                    <button class="btn btn-solid" type="button">Cargar Imagen</button>
                                 </div>
-                                
-                            
                             </div>
                         </div>
                         <div class="save text-center p-3">
-                            <button class="btn btn-solid">Guardar Producto</button>
+                            <button class="btn btn-solid" type="submit">Guardar Producto</button>
                         </div>
-                        
-                        
+
+
                     </form>
                 </div>
             </div>
