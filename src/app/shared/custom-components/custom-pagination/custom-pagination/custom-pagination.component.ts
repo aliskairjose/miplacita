@@ -1,4 +1,5 @@
 import { Component, OnInit, Output, Input, EventEmitter } from '@angular/core';
+import { Paginate } from '../../../classes/paginate';
 
 @Component( {
   selector: 'app-custom-pagination',
@@ -8,7 +9,7 @@ import { Component, OnInit, Output, Input, EventEmitter } from '@angular/core';
 export class CustomPaginationComponent implements OnInit {
 
   @Input() items = [];
-  @Input() paginate: any = {};
+  @Input() paginate: Paginate;
 
   @Output() setPage: EventEmitter<any> = new EventEmitter<any>();
 

@@ -5,6 +5,7 @@ import { StorageService } from '../../shared/services/storage.service';
 import { User } from '../../shared/classes/user';
 import { Product } from '../../shared/classes/product';
 import { Response, Result } from '../../shared/classes/response';
+import { Paginate } from '../../shared/classes/paginate';
 
 @Component( {
   selector: 'app-products',
@@ -15,13 +16,10 @@ export class ProductsComponent implements OnInit, OnChanges {
   typeUser = 'admin';
   fields = [ '', 'Nombre', 'Descripción', 'Precio', 'ITBMS', 'Estado', '' ];
   searchText = '';
-  allProducts: Product[];
   products: Product[] = [];
   productTypes = []; // tipos de productos
   states = []; // tipos de productos
-  paginate: any = {};
-  nextPage: number;
-  pageSize = 5;
+  paginate: Paginate;
   searchForm: FormGroup;
   statuses = [
     { value: 'active', text: 'Activo' },
@@ -34,13 +32,15 @@ export class ProductsComponent implements OnInit, OnChanges {
     private formBuilder: FormBuilder,
     private productService: ProductService,
     private storageService: StorageService,
-  ) { }
+  ) {
+    this.loadData();
+  }
 
   ngOnInit(): void {
     this.productService.productObserver().subscribe( ( product: Product ) => {
       this.loadData();
     } );
-    this.loadData();
+
   }
 
   ngOnChanges(): void {
@@ -50,28 +50,26 @@ export class ProductsComponent implements OnInit, OnChanges {
   loadData( page = 1 ): void {
     this.user = this.storageService.getItem( 'user' );
     this.productService.productList( this.user.stores[ 0 ]._id, page ).subscribe( ( result: Result<Product> ) => {
-      this.allProducts = [ ...result.docs ];
-      this.nextPage = result.nextPage;
-      this.getTableInformation();
+      this.products = [ ...result.docs ];
+      this.paginate = { ...result };
+      // this.getTableInformation();
     } );
   }
 
-  slicePage( items ) {
+  /* slicePage( items ) {
     if ( items.length > this.pageSize ) {
       return items.slice( 0, this.pageSize );
     } else {
       return items;
     }
-  }
+  } */
 
-  getTableInformation() {
-    // carga de datos desde api
-
+  /* getTableInformation() {
     this.paginate = this.productService.getPager( this.allProducts.length, +this.pageNo, this.pageSize );
     this.products = this.slicePage( this.allProducts );
-  }
+  } */
 
-  setPage( event ) {
+  /* setPage( event ) {
     const end = event * this.paginate.pageSize;
     this.paginate.startIndex = end - this.paginate.pageSize;
     if ( event === this.paginate.endPage ) {
@@ -82,7 +80,7 @@ export class ProductsComponent implements OnInit, OnChanges {
       this.products = this.allProducts.slice( this.paginate.startIndex, this.paginate.endIndex + 1 );
     }
     this.paginate.currentPage = event;
-  }
+  } */
 
   search() {
     console.log( this.searchForm.value );
