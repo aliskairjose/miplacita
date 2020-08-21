@@ -46,6 +46,8 @@ import { GoogleChartsModule } from 'angular-google-charts';
 import { ShopProfileComponent } from './shop-profile/shop-profile.component';
 import { ShopDesignComponent } from './shop-design/shop-design.component';
 import { ColorPickerModule } from 'ngx-color-picker';
+import { ShopsComponent } from './shops/shops.component';
+
 @NgModule({
   declarations: [
     WishlistComponent,
@@ -81,7 +83,8 @@ import { ColorPickerModule } from 'ngx-color-picker';
     MasonryGridFourComponent,
     MasonryFullWidthComponent,
     ShopProfileComponent,
-    ShopDesignComponent
+    ShopDesignComponent,
+    ShopsComponent
 
   ],
   imports: [

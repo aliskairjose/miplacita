@@ -56,6 +56,7 @@ import { TapToTopComponent } from './components/tap-to-top/tap-to-top.component'
 // Pipes
 import { DiscountPipe } from './pipes/discount.pipe';
 import { CustomPaginationComponent } from './custom-components/custom-pagination/custom-pagination/custom-pagination.component';
+import { ShopDetailsComponent } from './custom-components/shop-details/shop-details.component';
 
 @NgModule({
   declarations: [
@@ -91,7 +92,8 @@ import { CustomPaginationComponent } from './custom-components/custom-pagination
     TapToTopComponent,
     DiscountPipe,
     RegisterStoreComponent,
-    CustomPaginationComponent
+    CustomPaginationComponent,
+    ShopDetailsComponent
   ],
   imports: [
     CommonModule,
@@ -146,7 +148,8 @@ import { CustomPaginationComponent } from './custom-components/custom-pagination
     TapToTopComponent,
     DiscountPipe,
     RegisterStoreComponent,
-    CustomPaginationComponent
+    CustomPaginationComponent,
+    ShopDetailsComponent
   ]
 })
 export class SharedModule { }

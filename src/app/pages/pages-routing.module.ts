@@ -13,6 +13,7 @@ import { AuthGuard } from '../shared/guard/auth.guard';
 import { ContactComponent } from './account/contact/contact.component';
 import { ShopProfileComponent } from './shop-profile/shop-profile.component';
 import { ShopDesignComponent } from './shop-design/shop-design.component';
+import { ShopsComponent } from './shops/shops.component';
 
 const routes: Routes = [
   {
@@ -23,6 +24,10 @@ const routes: Routes = [
     path: 'dashboard',
     component: DashboardComponent,
     canActivate: [ AuthGuard ]
+  },
+  {
+    path: 'tiendas',
+    component: ShopsComponent
   },
   {
     path: 'login',
