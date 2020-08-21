@@ -67,7 +67,6 @@ export class CreateProductComponent implements OnInit {
       this.productService.uploadImages( { images: this.productImages } ).subscribe( response => {
         if ( response.status === 'isOk' ) {
           const data: Product = { ...this.productForm.value };
-          // data.image = [ ...response.images ];
           data.image = [ ...response.images ] as [ string ];
           this.createProduct( data );
         }

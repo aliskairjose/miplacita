@@ -81,6 +81,8 @@ export class RegisterStoreComponent implements OnInit {
   }
 
   storeRegister() {
+    console.log('storeRegister');
+    console.log(this.registerForm)
     this.submitted = true;
     this.storeData = { ...this.registerForm.value };
     this.storeData.plan = this.planID;
@@ -121,29 +123,6 @@ export class RegisterStoreComponent implements OnInit {
     this.SuccessModal.openModal();
   }
 
-  // updateImage( $event ) {
-  //   if ( $event.target.files.length === 0 ) {
-  //     return;
-  //   }
-
-  //   const image = $event.target.files[ 0 ];
-  //   const mimeType = image.type;
-  //   if ( mimeType.match( /image\/*/ ) == null ) {
-  //     return;
-  //   }
-
-  //   const reader = new FileReader();
-  //   reader.readAsDataURL( image );
-  //   reader.onload = ( _event ) => {
-  //     if ( this.step === 1 ) {
-  //       this.imageLogo = reader.result;
-  //     } else if ( this.step === 2 ) {
-  //       this.imageProduct = reader.result;
-  //     }
-  //   };
-
-  // }
-
   private createForm(): void {
 
     // Formulario de tienda
@@ -153,7 +132,7 @@ export class RegisterStoreComponent implements OnInit {
       url_store: [ '', [ Validators.required ] ],
       phone: [ '', [ Validators.required ] ],
       email: [ '', [ Validators.required, Validators.email ] ],
-      logo: [ '',  [ Validators.required ] ],
+      // logo: [ '' ],
       owner_id: [ this.storage.getItem( 'userId' ) ],
     } );
 
@@ -163,7 +142,7 @@ export class RegisterStoreComponent implements OnInit {
       description: [ '', [ Validators.required ] ],
       price: [ '', [ Validators.required ] ],
       tax: [ '', [ Validators.required ] ],
-      image: [ '', [ Validators.required ] ],
+      // image: [ '' ],
       category: [ this.selectedCategory, [ Validators.required ] ],
     } );
   }
@@ -193,6 +172,11 @@ export class RegisterStoreComponent implements OnInit {
 
   onFileChange( event ) {
     this.imageBase64 = '';
+    const image = event.target.files[ 0 ];
+    const mimeType = image.type;
+    if ( mimeType.match( /image\/*/ ) == null ) {
+      return;
+    }
     const reader = new FileReader();
 
     if ( event.target.files && event.target.files.length ) {
