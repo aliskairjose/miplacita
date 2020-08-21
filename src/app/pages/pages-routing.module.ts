@@ -12,6 +12,7 @@ import { CartComponent } from './account/cart/cart.component';
 import { AuthGuard } from '../shared/guard/auth.guard';
 import { ContactComponent } from './account/contact/contact.component';
 import { ShopProfileComponent } from './shop-profile/shop-profile.component';
+import { ShopDesignComponent } from './shop-design/shop-design.component';
 
 const routes: Routes = [
   {
@@ -54,6 +55,10 @@ const routes: Routes = [
   {
     path: 'shop/profile',
     component: ShopProfileComponent
+  },
+  {
+    path: 'shop/design',
+    component: ShopDesignComponent
   }
 ];
 

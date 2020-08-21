@@ -44,7 +44,8 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 
 import { GoogleChartsModule } from 'angular-google-charts';
 import { ShopProfileComponent } from './shop-profile/shop-profile.component';
-
+import { ShopDesignComponent } from './shop-design/shop-design.component';
+import { ColorPickerModule } from 'ngx-color-picker';
 @NgModule({
   declarations: [
     WishlistComponent,
@@ -79,7 +80,8 @@ import { ShopProfileComponent } from './shop-profile/shop-profile.component';
     MasonryGridThreeComponent,
     MasonryGridFourComponent,
     MasonryFullWidthComponent,
-    ShopProfileComponent
+    ShopProfileComponent,
+    ShopDesignComponent
 
   ],
   imports: [
@@ -90,6 +92,7 @@ import { ShopProfileComponent } from './shop-profile/shop-profile.component';
     GalleryModule.forRoot(),
     PagesRoutingModule,
     GoogleChartsModule.forRoot(),
+    ColorPickerModule,
     AlertModule.forRoot({maxMessages: 5, timeout: 3000, position: 'left'})
   ]
 })
