@@ -58,6 +58,7 @@ import { DiscountPipe } from './pipes/discount.pipe';
 import { CustomPaginationComponent } from './custom-components/custom-pagination/custom-pagination/custom-pagination.component';
 import { AlertModule } from 'ngx-alerts';
 import { NgxCurrencyModule, CurrencyMaskInputMode } from 'ngx-currency';
+import { FilterPipe } from './pipes/filter.pipe';
 
 export const customCurrencyMaskConfig = {
   align: 'right',
@@ -108,7 +109,8 @@ export const customCurrencyMaskConfig = {
     TapToTopComponent,
     DiscountPipe,
     RegisterStoreComponent,
-    CustomPaginationComponent
+    CustomPaginationComponent,
+    FilterPipe
   ],
   imports: [
     NgxCurrencyModule.forRoot(customCurrencyMaskConfig),
