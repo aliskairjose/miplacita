@@ -47,7 +47,7 @@ export class ProductsComponent implements OnInit, OnChanges {
     this.loadData();
   }
 
-  loadData( page = 2 ): void {
+  loadData( page = 1 ): void {
     this.user = this.storageService.getItem( 'user' );
     this.productService.productList( this.user.stores[ 0 ]._id, page ).subscribe( ( result: Result<Product> ) => {
       this.allProducts = [ ...result.docs ];
