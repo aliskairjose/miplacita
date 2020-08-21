@@ -14,6 +14,9 @@ import { ContactComponent } from './account/contact/contact.component';
 import { ShopProfileComponent } from './shop-profile/shop-profile.component';
 import { ShopDesignComponent } from './shop-design/shop-design.component';
 import { ShopsComponent } from './shops/shops.component';
+import { ShopDetailsComponent } from '../shared/custom-components/shop-details/shop-details.component';
+import { ShopWithdrawalComponent } from './shop-withdrawal/shop-withdrawal.component';
+import { ShopSuscriptionComponent } from './shop-suscription/shop-suscription.component';
 
 const routes: Routes = [
   {
@@ -26,7 +29,7 @@ const routes: Routes = [
     canActivate: [ AuthGuard ]
   },
   {
-    path: 'tiendas',
+    path: 'shops',
     component: ShopsComponent
   },
   {
@@ -64,6 +67,14 @@ const routes: Routes = [
   {
     path: 'shop/design',
     component: ShopDesignComponent
+  },
+  {
+    path: 'shop/suscription',
+    component: ShopSuscriptionComponent
+  },
+  {
+    path: 'shop/withdrawal',
+    component: ShopWithdrawalComponent
   }
 ];
 

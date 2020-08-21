@@ -47,6 +47,8 @@ import { ShopProfileComponent } from './shop-profile/shop-profile.component';
 import { ShopDesignComponent } from './shop-design/shop-design.component';
 import { ColorPickerModule } from 'ngx-color-picker';
 import { ShopsComponent } from './shops/shops.component';
+import { ShopWithdrawalComponent } from './shop-withdrawal/shop-withdrawal.component';
+import { ShopSuscriptionComponent } from './shop-suscription/shop-suscription.component';
 
 @NgModule({
   declarations: [
@@ -84,7 +86,9 @@ import { ShopsComponent } from './shops/shops.component';
     MasonryFullWidthComponent,
     ShopProfileComponent,
     ShopDesignComponent,
-    ShopsComponent
+    ShopsComponent,
+    ShopWithdrawalComponent,
+    ShopSuscriptionComponent
 
   ],
   imports: [
