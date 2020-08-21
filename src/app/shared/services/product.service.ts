@@ -47,8 +47,8 @@ export class ProductService {
   /**
    * @description Lista de productos
    */
-  productList( id: string, page = 1 ): Observable<Response> {
-    console.log(page);
+  productList( id: string, page = 1 ): Observable<Response<Product>> {
+    console.log( page );
     return this.http.get( `products?store=${id}&page=${page}` );
   }
 

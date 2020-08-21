@@ -1,11 +1,11 @@
-export interface Response {
+export interface Response<T> {
   message: string;
   success: boolean;
-  result: ResponsePaginagion;
+  result: ResponsePaginagion<T>;
 }
 
-export interface ResponsePaginagion {
-  docs: [];
+export interface ResponsePaginagion<T> {
+  docs: T[];
   totalDocs: number;
   limit: number;
   totalPages: number;
@@ -15,4 +15,5 @@ export interface ResponsePaginagion {
   hasNextPage: boolean;
   prevPage: number;
   nextPage: number;
-} 
+}
+
