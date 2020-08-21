@@ -22,7 +22,12 @@ export class ProductsComponent implements OnInit, OnChanges {
   pageNo = 1;
   pageSize = 5;
   searchForm: FormGroup;
-
+  statuses = [
+    { value: 'active', text: 'Activo' },
+    { value: 'inactive', text: 'Inactivo' },
+    { value: 'blocked', text: 'Bloqueado' },
+  ];
+  
   constructor(
     private formBuilder: FormBuilder,
     private productService: ProductService,
