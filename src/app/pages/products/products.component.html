@@ -3,16 +3,17 @@
     <div class="container">
         <div class="d-flex">
             <form [formGroup]="searchForm" class="flex-fill theme-form">
-                
+
                 <div class="d-flex search">
                     <div class="form-group flex-fill">
                         <div class="input-group ">
-                            <div class="input-group-prepend" >
-                            <span class="input-group-text lighten-3" (click)="search()" id="basic-text1">
-                                <img src="" alt="">
-                            </span>
+                            <div class="input-group-prepend">
+                                <span class="input-group-text lighten-3" (click)="search()" id="basic-text1">
+                                    <img src="" alt="">
+                                </span>
                             </div>
-                            <input class="form-control my-0 py-1" formControlName="product"  type="text" placeholder="Buscar " >
+                            <input [(ngModel)]="searchText" class="form-control my-0 py-1" formControlName="product" type="text"
+                                placeholder="Buscar...">
                         </div>
                         <!-- <input class="form-control" placeholder="Buscar" (change)="search($event)" /> -->
                     </div>
@@ -28,42 +29,40 @@
                                 <option value="">Estado</option>
                                 <option [value]="status.value" *ngFor="let status of statuses">{{status.text}}</option>
                             </select>
-                        </div>    
+                        </div>
                         <div class="flex-fill " *ngIf="typeUser=='admin'" formControlName="shop">
                             <select name="model" class="form-control">
                                 <option value="">Tienda</option>
                                 <option value="" *ngFor="let state of states"></option>
                             </select>
                         </div>
-                    </div>  
+                    </div>
                     <div class="d-flex flex-fill h-100 justify-content-end">
-                        <a [routerLink]="[ '/pages/create-product' ]" class="btn btn-solid btn-find" type="button">Crear producto</a>
+                        <a [routerLink]="[ '/pages/create-product' ]" class="btn btn-solid btn-find" type="button">Crear
+                            producto</a>
                     </div>
                 </div>
             </form>
-            
-            
-                        
-        </div>        
+        </div>
         <div class="row table-center-mt">
             <div class="col-sm-12">
                 <table class="table cart-table table-responsive-xs">
                     <thead>
-                    <tr class="table-head">
-                        <th *ngFor="let field of fields" scope="col">{{field}}</th>
-                    </tr>
+                        <tr class="table-head">
+                            <th *ngFor="let field of fields" scope="col">{{field}}</th>
+                        </tr>
                     </thead>
-                    <tbody >
-                        <tr *ngFor="let product of products">
+                    <tbody>
+                        <tr *ngFor="let product of products | filter: searchText">
                             <td>
                                 <img class="product-image" [src]="product.image" />
                             </td>
                             <td>{{product.name}}</td>
-                            <td >{{product.description}}</td>
+                            <td>{{product.description}}</td>
                             <td>{{product.price}}</td>
                             <td>{{product.tax}}</td>
                             <td>{{product.status}}</td>
-                            
+
                             <td class="d-flex flex-row" *ngIf="typeUser=='merchant'">
                                 <button class="btn btn-table-action">Editar</button>
                                 <button class="btn btn-table-action">Eliminar</button>
@@ -74,9 +73,9 @@
                         </tr>
                     </tbody>
                 </table>
-                <app-custom-pagination  [items]="products" [paginate]="paginate" (setPage)="setPage($event)">
+                <app-custom-pagination [items]="products" [paginate]="paginate" (setPage)="setPage($event)">
                 </app-custom-pagination>
             </div>
-        </div>        
+        </div>
     </div>
 </section>

@@ -13,7 +13,7 @@ import { Product } from '../../shared/classes/product';
 export class ProductsComponent implements OnInit, OnChanges {
   typeUser = 'merchant';
   fields = [ '', 'Nombre', 'Descripción', 'Precio', 'ITBMS', 'Estado', '' ];
-
+  searchText = '';
   allProducts: Product[];
   products: Product[] = [];
   productTypes = []; // tipos de productos
@@ -27,7 +27,7 @@ export class ProductsComponent implements OnInit, OnChanges {
     { value: 'inactive', text: 'Inactivo' },
     { value: 'blocked', text: 'Bloqueado' },
   ];
-  
+
   constructor(
     private formBuilder: FormBuilder,
     private productService: ProductService,

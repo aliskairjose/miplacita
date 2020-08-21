@@ -54,11 +54,12 @@ import { LayoutBoxComponent } from './components/layout-box/layout-box.component
 import { TapToTopComponent } from './components/tap-to-top/tap-to-top.component';
 
 // Pipes
+import { FilterPipe } from './pipes/filter.pipe';
 import { DiscountPipe } from './pipes/discount.pipe';
+
 import { CustomPaginationComponent } from './custom-components/custom-pagination/custom-pagination/custom-pagination.component';
 import { AlertModule } from 'ngx-alerts';
 import { NgxCurrencyModule, CurrencyMaskInputMode } from 'ngx-currency';
-import { FilterPipe } from './pipes/filter.pipe';
 
 export const customCurrencyMaskConfig = {
   align: 'right',
@@ -107,9 +108,10 @@ export const customCurrencyMaskConfig = {
     SkeletonProductBoxComponent,
     LayoutBoxComponent,
     TapToTopComponent,
-    DiscountPipe,
     RegisterStoreComponent,
     CustomPaginationComponent,
+    // Pipes
+    DiscountPipe,
     FilterPipe
   ],
   imports: [
@@ -165,9 +167,11 @@ export const customCurrencyMaskConfig = {
     SkeletonProductBoxComponent,
     LayoutBoxComponent,
     TapToTopComponent,
-    DiscountPipe,
     RegisterStoreComponent,
-    CustomPaginationComponent
+    CustomPaginationComponent,
+    // Pipes
+    DiscountPipe,
+    FilterPipe,
   ]
 })
 export class SharedModule { }
