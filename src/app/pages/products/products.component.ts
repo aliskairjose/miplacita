@@ -11,7 +11,7 @@ import { Product } from '../../shared/classes/product';
   styleUrls: [ './products.component.scss' ]
 } )
 export class ProductsComponent implements OnInit, OnChanges {
-  typeUser = 'merchant';
+  typeUser = 'admin';
   fields = [ '', 'Nombre', 'Descripción', 'Precio', 'ITBMS', 'Estado', '' ];
 
   allProducts: Product[];

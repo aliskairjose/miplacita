@@ -4,126 +4,125 @@
 <!-- section start -->
 <section class="section-b-space">
     <div class="container">
-        <div class="row">
-            <div class="form-row labels">
-                <div class="col-md-3">
-                    <div class="label card d-flex flex-row">
-                        <div class="col-1 d-flex align-items-stretch icon-label">
-                            
-                        </div>
-                        <div class="d-flex flex-fill justify-content-center align-items-center ">
-                            {{ dailySale }}
-                        </div>
+        <div class="form-row labels">
+            <div class="col-md-3">
+                <div class="label card d-flex flex-row">
+                    <div class="col-1 d-flex align-items-stretch icon-label">
+                        
                     </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="label card d-flex flex-row">
-                        <div class="col-1 d-flex align-items-stretch icon-label">
-                            
-                        </div>
-                        <div class="d-flex flex-fill justify-content-center align-items-center ">
-                            {{ totalSale }}
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="label card d-flex flex-row">
-                        <div class="col-1 d-flex align-items-stretch icon-label">
-                            
-                        </div>
-                        <div class="d-flex flex-fill justify-content-center align-items-center ">
-                            {{ totalClients }}
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="label card d-flex flex-row">
-                        <div class="col-1 d-flex align-items-stretch icon-label">
-                            
-                        </div>
-                        <div class="d-flex flex-fill justify-content-center align-items-center ">
-                            {{ totalProducts }}
-                        </div>
+                    <div class="d-flex flex-fill justify-content-center align-items-center ">
+                        {{ dailySale }}
                     </div>
                 </div>
             </div>
-            <div class="form-row charts">
-                <div class="col-md-6" *ngIf="barChartData.length>0">
-                    <google-chart class="chart"
-                    [title]="barChartTitle"
-                    [options]="barChartOptions"
-                    width="100%"
-                    height="100%" 
-                    type="BarChart" 
-                    [data]="barChartData" ></google-chart>
-                </div>
-                <div class="col-md-6" *ngIf="pieChartData.length>0">
-                    <google-chart class="chart"
-                    [title]="pieChartTitle"
-                    [options]="" 
-                    type="PieChart" 
-                    [data]="pieChartData" ></google-chart>
+            <div class="col-md-3">
+                <div class="label card d-flex flex-row">
+                    <div class="col-1 d-flex align-items-stretch icon-label">
+                        
+                    </div>
+                    <div class="d-flex flex-fill justify-content-center align-items-center ">
+                        {{ totalSale }}
+                    </div>
                 </div>
             </div>
-            <div class="row table-center-mt">
-                <div class="col-sm-12">
-                    <table class="table cart-table table-responsive-xs">
-                        <thead>
-                        <tr class="table-head">
-                            <th *ngFor="let field of fields" scope="col">{{field.name}}</th>
+            <div class="col-md-3">
+                <div class="label card d-flex flex-row">
+                    <div class="col-1 d-flex align-items-stretch icon-label">
+                        
+                    </div>
+                    <div class="d-flex flex-fill justify-content-center align-items-center ">
+                        {{ totalClients }}
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="label card d-flex flex-row">
+                    <div class="col-1 d-flex align-items-stretch icon-label">
+                        
+                    </div>
+                    <div class="d-flex flex-fill justify-content-center align-items-center ">
+                        {{ totalProducts }}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-row charts">
+            <div class="col-md-6" *ngIf="barChartData.length>0">
+                <google-chart class="chart"
+                [title]="barChartTitle"
+                [options]="barChartOptions"
+                width="100%"
+                height="100%" 
+                type="BarChart" 
+                [data]="barChartData" ></google-chart>
+            </div>
+            <div class="col-md-6" *ngIf="pieChartData.length>0">
+                <google-chart class="chart"
+                [title]="pieChartTitle"
+                [options]="" 
+                type="PieChart" 
+                [data]="pieChartData" ></google-chart>
+            </div>
+        </div>
+        <div class="form-row flex-fill flex-column mt-5 px-1">
+            <div class="table-responsive-sm ">
+                <table class="table">
+                    <thead>
+                    <tr class="table-head">
+                        <th *ngFor="let field of fields" scope="col">{{field.name}}</th>
+                    </tr>
+                    </thead>
+                    <!--Store Admin-->
+                    <tbody *ngIf="typeUser=='merchant'">
+                        <tr *ngFor="let order of orders">
+                            <td>
+                                {{order.name}}
+                            </td>
+                            <td>
+                                {{order.status}}
+                            </td>
+                            <td >
+                                <p>{{order.description}}</p>
+                            </td>
+                            <td><h4>{{order.price}}</h4></td>
                         </tr>
-                        </thead>
-                        <!--Store Admin-->
-                        <tbody *ngIf="typeUser=='merchant'">
-                            <tr *ngFor="let order of orders">
-                                <td>
-                                    {{order.name}}
-                                </td>
-                                <td>
-                                    {{order.status}}
-                                </td>
-                                <td >
-                                    <p>{{order.description}}</p>
-                                </td>
-                                <td><h4>{{order.price}}</h4></td>
-                            </tr>
-                        </tbody>
-                        <!--Store Admin ends-->
-                        <!--Admin Marketplace-->
-                        <tbody *ngIf="typeUser=='admin'">
-                            <tr *ngFor="let store of shops">
-                                <td><h2>{{store.name}}</h2></td>
-                                <td >
-                                    <p>{{store.amount}}</p>
-                                </td>
-                                <td>
-                                    <p>{{store.date}}</p>
-                                </td>
-                            </tr>
-                        </tbody>
-                        <!--Admin Marketplace ends-->
-                    </table>
-                    <app-custom-pagination *ngIf="typeUser=='merchant'" [items]="orders" [paginate]="paginate" (setPage)="setPage($event)">
-                    </app-custom-pagination>
-                    <app-custom-pagination *ngIf="typeUser=='admin'" [items]="shops" [paginate]="paginate" (setPage)="setPage($event)">
-                    </app-custom-pagination>
-                </div>
+                    </tbody>
+                    <!--Store Admin ends-->
+                    <!--Admin Marketplace-->
+                    <tbody *ngIf="typeUser=='admin'">
+                        <tr *ngFor="let store of shops">
+                            <td><h2>{{store.name}}</h2></td>
+                            <td >
+                                <p>{{store.amount}}</p>
+                            </td>
+                            <td>
+                                <p>{{store.date}}</p>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <!--Admin Marketplace ends-->
+                </table>
+                
             </div>
-            <div class="form-row container " *ngIf="orders.length==0 && typeUser=='merchant'">
-                <div class="col-md-5">
-                    <div class="card text-center" id="center-mb">
-                        <div class="card-body">
-                            <p>Configura tu tienda</p>
-                            <button class="btn btn-solid">Configurar</button>
-                        </div>
+            <app-custom-pagination *ngIf="typeUser=='merchant'" [items]="orders" [paginate]="paginate" (setPage)="setPage($event)">
+            </app-custom-pagination>
+            <app-custom-pagination *ngIf="typeUser=='admin'" [items]="shops" [paginate]="paginate" (setPage)="setPage($event)">
+            </app-custom-pagination>
+        </div>
+        <div class="form-row container " *ngIf="orders.length==0 && typeUser=='merchant'">
+            <div class="col-md-5">
+                <div class="card text-center mx-auto mb-2">
+                    <div class="card-body">
+                        <p>Configura tu tienda</p>
+                        <button class="btn btn-solid">Configurar</button>
                     </div>
                 </div>
-                <div class="col-md-5">
-                    <div class="card text-center" id="center-mb">
-                        <div class="card-body">
-                            <p>Agrega productos a tu tienda</p>
-                            <button class="btn btn-solid">Agregar</button>    
-                        </div>
+            </div>
+            <div class="col-md-5">
+                <div class="card text-center mx-auto mb-2">
+                    <div class="card-body">
+                        <p>Agrega productos a tu tienda</p>
+                        <button class="btn btn-solid">Agregar</button>    
                     </div>
                 </div>
             </div>

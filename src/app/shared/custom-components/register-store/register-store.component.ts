@@ -14,7 +14,6 @@ import { Product } from '../../classes/product';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Plan } from '../../classes/plan';
 import { SuccessModalComponent } from '../../custom-component/success-modal/success-modal.component';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component( {
   selector: 'app-register-store',
@@ -24,7 +23,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 export class RegisterStoreComponent implements OnInit {
   @ViewChild('successModal') SuccessModal : SuccessModalComponent;
 
-  planSelected = 2;
+  planSelected = '';
   step = 1;
   imageLogo: any = '../../../../assets/images/marketplace/svg/upload-image.svg';;
   imageProduct: any = '../../../../assets/images/marketplace/svg/upload-image.svg';
@@ -54,7 +53,6 @@ export class RegisterStoreComponent implements OnInit {
     private storeService: StoreService,
     private spinner: NgxSpinnerService,
     private productService: ProductService,
-    private modalService: NgbModal
   ) {
 
     this.createForm();
@@ -68,6 +66,7 @@ export class RegisterStoreComponent implements OnInit {
   ngOnInit(): void {
     this.storeService.getPlans().subscribe( ( plans: Plan[] ) => {
       this.plans = [ ...plans ];
+      this.planSelected = this.plans[0]._id;
     } );
     this.productService.categoryList().subscribe( ( categories: Category[] ) => {
       this.categories = [ ...categories ];
@@ -76,6 +75,7 @@ export class RegisterStoreComponent implements OnInit {
   }
 
   updatePlan( plan: string ) {
+    this.planSelected = plan;
     this.planID = plan;
   }
 
@@ -110,8 +110,7 @@ export class RegisterStoreComponent implements OnInit {
         this.spinner.hide();
         this.step = 2;
     // consumo de api
-      this.openModal();
-
+        this.openModal();
       }, ( response: HttpErrorResponse ) => {
         this.spinner.hide();
         this.alert.warning( response.error.message );
