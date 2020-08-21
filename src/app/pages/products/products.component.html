@@ -2,8 +2,8 @@
 <section class="section-b-space">
     <div class="container">
         <div class="d-flex">
-            <form [formGroup]="searchForm" class="flex-fill theme-form">
-
+            <!-- <form [formGroup]="searchForm" class="flex-fill theme-form"> -->
+            <form class="flex-fill theme-form">
                 <div class="d-flex search">
                     <div class="form-group flex-fill">
                         <div class="input-group ">
@@ -12,7 +12,7 @@
                                     <img src="" alt="">
                                 </span>
                             </div>
-                            <input [(ngModel)]="searchText" class="form-control my-0 py-1" formControlName="product" type="text"
+                            <input [(ngModel)]="searchText" [ngModelOptions]="{standalone: true}" class="form-control my-0 py-1" type="text"
                                 placeholder="Buscar...">
                         </div>
                         <!-- <input class="form-control" placeholder="Buscar" (change)="search($event)" /> -->
@@ -25,12 +25,12 @@
                             </select>
                         </div> -->
                         <div class="flex-fill ">
-                            <select name="model" class="form-control" formControlName="stateProduct">
+                            <select name="model" class="form-control">
                                 <option value="">Estado</option>
                                 <option [value]="status.value" *ngFor="let status of statuses">{{status.text}}</option>
                             </select>
                         </div>
-                        <div class="flex-fill " *ngIf="typeUser=='admin'" formControlName="shop">
+                        <div class="flex-fill " *ngIf="user.role === 'admin'">
                             <select name="model" class="form-control">
                                 <option value="">Tienda</option>
                                 <option value="" *ngFor="let state of states"></option>
@@ -51,29 +51,29 @@
                         <th *ngFor="let field of fields" scope="col">{{field}}</th>
                     </tr>
                 </thead>
-                <tbody >
+                <tbody>
                     <tr *ngFor="let product of products | filter: searchText">
                         <td>
                             <img class="product-image" [src]="product.image" />
                         </td>
                         <td>{{product.name}}</td>
-                        <td >{{product.description}}</td>
+                        <td>{{product.description}}</td>
                         <td>{{product.price}}</td>
                         <td>{{product.tax}}</td>
                         <td>{{product.status}}</td>
-                        
-                        <td class="d-flex flex-row" *ngIf="typeUser=='merchant'">
+
+                        <td class="d-flex flex-row" *ngIf="user.role==='merchant'">
                             <button class="btn btn-table-action">Editar</button>
                             <button class="btn btn-table-action">Eliminar</button>
                         </td>
-                        <td class="d-flex flex-row" *ngIf="typeUser=='admin'">
+                        <td class="d-flex flex-row" *ngIf="user.role==='admin'">
                             <button class="btn btn-table-action">Desactivar</button>
                         </td>
                     </tr>
                 </tbody>
             </table>
         </div>
-        <app-custom-pagination  [items]="products" [paginate]="paginate" (setPage)="setPage($event)">
+        <app-custom-pagination [items]="products" [paginate]="paginate" (setPage)="setPage($event)">
         </app-custom-pagination>
     </div>
 </section>

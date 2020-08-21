@@ -7,7 +7,7 @@ export class FilterPipe implements PipeTransform {
 
   transform( value: any, args?: any ): any {
 
-    if ( args === '' || args.length < 3 ) { return value; }
+    // if ( args === '' || args.length < 3 ) { return value; }
     if ( !value ) { return null; }
     if ( !args ) { return value; }
 

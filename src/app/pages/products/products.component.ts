@@ -27,6 +27,7 @@ export class ProductsComponent implements OnInit, OnChanges {
     { value: 'inactive', text: 'Inactivo' },
     { value: 'blocked', text: 'Bloqueado' },
   ];
+  user: User;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -39,7 +40,7 @@ export class ProductsComponent implements OnInit, OnChanges {
       this.loadData();
     } );
     this.loadData();
-    this.createForm();
+    // this.createForm();
   }
 
   ngOnChanges(): void {
@@ -47,21 +48,21 @@ export class ProductsComponent implements OnInit, OnChanges {
   }
 
   loadData(): void {
-    const user: User = this.storageService.getItem( 'user' );
-    this.productService.productList( user.stores[ 0 ]._id ).subscribe( ( products: Product[] ) => {
-      this.allProducts = [ ...products ];
+    this.user = this.storageService.getItem( 'user' );
+    this.productService.productList( this.user.stores[ 0 ]._id ).subscribe( ( products: Product[] ) => {
+      this.allProducts = [ ...products.docs ];
       this.getTableInformation();
     } );
   }
 
-  createForm() {
-    this.searchForm = this.formBuilder.group( {
-      product: [ '' ],
-      typeProduct: [ '' ],
-      stateProduct: [ '' ],
-      shop: [ '' ]
-    } );
-  }
+  // createForm() {
+  //   this.searchForm = this.formBuilder.group( {
+  //     product: [ '' ],
+  //     typeProduct: [ '' ],
+  //     stateProduct: [ '' ],
+  //     shop: [ '' ]
+  //   } );
+  // }
 
   slicePage( items ) {
     if ( items.length > this.pageSize ) {
