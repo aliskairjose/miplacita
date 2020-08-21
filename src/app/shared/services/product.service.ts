@@ -4,7 +4,7 @@ import { HttpService } from './http.service';
 import { Product } from '../classes/product';
 import { map } from 'rxjs/operators';
 import { Category } from '../classes/category';
-import { Response } from '../classes/response';
+import { Response, ResponsePaginagion, Result } from '../classes/response';
 
 @Injectable( {
   providedIn: 'root'
@@ -47,9 +47,15 @@ export class ProductService {
   /**
    * @description Lista de productos
    */
-  productList( id: string, page = 1 ): Observable<Response<Product>> {
+  productList( id: string, page = 1 ): Observable<Result<Product>> {
     console.log( page );
-    return this.http.get( `products?store=${id}&page=${page}` );
+    return this.http.get( `products?store=${id}&page=${page}` ).pipe(
+      map( ( response: Response<Product> ) => {
+        if ( response.success ) {
+          return response.result;
+        }
+      } )
+    );
   }
 
   /**

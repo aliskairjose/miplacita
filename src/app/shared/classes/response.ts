@@ -1,10 +1,10 @@
 export interface Response<T> {
   message: string;
   success: boolean;
-  result: ResponsePaginagion<T>;
+  result?: Result<T>;
 }
 
-export interface ResponsePaginagion<T> {
+export interface Result<T> {
   docs: T[];
   totalDocs: number;
   limit: number;

@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { StorageService } from '../../shared/services/storage.service';
 import { User } from '../../shared/classes/user';
 import { Product } from '../../shared/classes/product';
-import { Response } from '../../shared/classes/response';
+import { Response, Result } from '../../shared/classes/response';
 
 @Component( {
   selector: 'app-products',
@@ -50,9 +50,9 @@ export class ProductsComponent implements OnInit, OnChanges {
 
   loadData( page = 1 ): void {
     this.user = this.storageService.getItem( 'user' );
-    this.productService.productList( this.user.stores[ 0 ]._id, page ).subscribe( ( response: Response<Product> ) => {
-      this.allProducts = [ ...response.result.docs ];
-      this.nextPage = response.result.nextPage;
+    this.productService.productList( this.user.stores[ 0 ]._id, page ).subscribe( ( result: Result<Product> ) => {
+      this.allProducts = [ ...result.docs ];
+      this.nextPage = result.nextPage;
       this.getTableInformation();
     } );
   }
