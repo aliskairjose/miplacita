@@ -81,8 +81,6 @@ export class RegisterStoreComponent implements OnInit {
   }
 
   storeRegister() {
-    console.log('storeRegister');
-    console.log(this.registerForm)
     this.submitted = true;
     this.storeData = { ...this.registerForm.value };
     this.storeData.plan = this.planID;

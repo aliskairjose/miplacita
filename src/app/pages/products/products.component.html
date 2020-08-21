@@ -56,7 +56,7 @@
                 <tbody>
                     <tr *ngFor="let product of products | filter: searchText">
                         <td>
-                            <img class="product-image" [src]="product.image" />
+                            <img class="product-image" [src]="product.image[0]" />
                         </td>
                         <td>{{product.name}}</td>
                         <td>{{product.description}}</td>
