@@ -1,10 +1,10 @@
-export class Response {
+export interface Response {
   message: string;
   success: boolean;
   result: ResponsePaginagion;
 }
 
-export class ResponsePaginagion {
+export interface ResponsePaginagion {
   docs: [];
   totalDocs: number;
   limit: number;
@@ -15,4 +15,4 @@ export class ResponsePaginagion {
   hasNextPage: boolean;
   prevPage: number;
   nextPage: number;
-}
+} 

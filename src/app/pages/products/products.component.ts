@@ -20,7 +20,8 @@ export class ProductsComponent implements OnInit, OnChanges {
   productTypes = []; // tipos de productos
   states = []; // tipos de productos
   paginate: any = {};
-  pageNo = 1;
+  page = 1;
+  nextPage: number;
   pageSize = 5;
   searchForm: FormGroup;
   statuses = [
@@ -41,29 +42,20 @@ export class ProductsComponent implements OnInit, OnChanges {
       this.loadData();
     } );
     this.loadData();
-    // this.createForm();
   }
 
   ngOnChanges(): void {
     this.loadData();
   }
 
-  loadData(): void {
+  loadData( page = 1 ): void {
     this.user = this.storageService.getItem( 'user' );
-    this.productService.productList( this.user.stores[ 0 ]._id ).subscribe( ( response: Response ) => {
+    this.productService.productList( this.user.stores[ 0 ]._id, page ).subscribe( ( response: Response ) => {
       this.allProducts = [ ...response.result.docs ];
+      this.nextPage = response.result.nextPage;
       this.getTableInformation();
     } );
   }
-
-  // createForm() {
-  //   this.searchForm = this.formBuilder.group( {
-  //     product: [ '' ],
-  //     typeProduct: [ '' ],
-  //     stateProduct: [ '' ],
-  //     shop: [ '' ]
-  //   } );
-  // }
 
   slicePage( items ) {
     if ( items.length > this.pageSize ) {

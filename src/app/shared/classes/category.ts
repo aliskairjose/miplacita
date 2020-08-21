@@ -1,4 +1,4 @@
-export class Category {
+export interface Category {
   _id?: string;
   active: boolean;
   name: string;

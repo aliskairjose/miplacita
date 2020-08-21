@@ -1,4 +1,4 @@
-export class Plan {
+export interface Plan {
   _id: string;
   active: boolean;
   name: string;
