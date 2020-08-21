@@ -36,6 +36,8 @@ export class CreateProductComponent implements OnInit {
   ];
   statusSelected = 'active';
   selectedCategory = '';
+  productImages: string[] = [];
+  images = [];
 
   constructor(
     private router: Router,
@@ -60,22 +62,39 @@ export class CreateProductComponent implements OnInit {
 
   onSubmit(): void {
     this.submitted = true;
-    console.log(this.productForm.value);
     if ( this.productForm.valid ) {
       this.spinner.show();
-      this.productService.addProduct( this.productForm.value ).subscribe( ( product: Product ) => {
-        this.spinner.hide();
-        this.alert.info( 'El producto se ha creado con exito' );
-        this.productService.productSubject( product );
-        setTimeout( () => {
-          this.router.navigate( [ 'pages/products' ] );
-        }, 3200 );
+      this.productService.uploadImages( { images: this.productImages } ).subscribe( response => {
+        console.log( response );
+        if ( response.status === 'isOk' ) {
+          const data: any = { ...this.productForm.value };
+          data.image = [ ...response.images ];
+          this.createProduct( data );
+        }
       }, ( response: HttpErrorResponse ) => {
         this.spinner.hide();
-        this.alert.warning( response.error.message );
+        this.alert.danger( response.error.message );
       } );
     }
 
+  }
+
+  /**
+   * @description Crea el producto via api
+   */
+  private createProduct( data: any ): void {
+    console.log( data );
+    this.productService.addProduct( data ).subscribe( ( product: Product ) => {
+      this.spinner.hide();
+      this.alert.info( 'El producto se ha creado con exito' );
+      this.productService.productSubject( product );
+      setTimeout( () => {
+        this.router.navigate( [ 'pages/products' ] );
+      }, 3200 );
+    }, ( response: HttpErrorResponse ) => {
+      this.spinner.hide();
+      this.alert.warning( response.error.message );
+    } );
   }
 
   createForm(): void {
@@ -87,11 +106,25 @@ export class CreateProductComponent implements OnInit {
       description: [ '', [ Validators.required ] ],
       price: [ '', [ Validators.required ] ],
       tax: [ '', [ Validators.required ] ],
-      image: [ 'sdsdssd.com', [ Validators.required ] ],
+      // image: [ this.images ],
       category: [ this.categoryId ? this.categoryId : '', [ Validators.required ] ],
       status: [ this.statusSelected, [ Validators.required ] ],
       stock: [ '', [ Validators.required ] ],
     } );
+  }
+
+  onFileChange( event ) {
+
+    if ( event.target.files && event.target.files.length ) {
+      for ( const file of event.target.files ) {
+        const reader = new FileReader();
+        reader.readAsDataURL( file );
+        reader.onload = () => {
+          const imageBase64 = reader.result as string;
+          this.productImages.push( imageBase64 );
+        };
+      }
+    }
   }
 
 }

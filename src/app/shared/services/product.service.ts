@@ -4,7 +4,7 @@ import { HttpService } from './http.service';
 import { Product } from '../classes/product';
 import { map } from 'rxjs/operators';
 import { Category } from '../classes/category';
-import { Response, ResponsePaginagion, Result } from '../classes/response';
+import { Response, Result } from '../classes/response';
 
 @Injectable( {
   providedIn: 'root'
@@ -107,6 +107,15 @@ export class ProductService {
    */
   setMainPhoto( id: string, idPhoto, data = '' ): Observable<any> {
     return this.http.put( `products/${id}/photo/${idPhoto}`, data );
+  }
+
+  /**
+   * @description Carga las imagenes en Cloudinary
+   * @returns Retorna un listado de url de imagenes
+   * @param data Array de imagenes en base 64
+   */
+  uploadImages( data: any ): Observable<any> {
+    return this.http.post( 'files', data );
   }
 
   /*
