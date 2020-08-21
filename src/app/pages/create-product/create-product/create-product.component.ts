@@ -36,8 +36,6 @@ export class CreateProductComponent implements OnInit {
   ];
   statusSelected = 'active';
   selectedCategory = '';
-  storeId = '';
-  productData: any;
 
   constructor(
     private router: Router,
@@ -50,7 +48,6 @@ export class CreateProductComponent implements OnInit {
     this.createForm();
   }
 
-
   // convenience getter for easy access to form fields
   // tslint:disable-next-line: typedef
   get f() { return this.productForm.controls; }
@@ -59,18 +56,14 @@ export class CreateProductComponent implements OnInit {
     this.productService.categoryList().subscribe( ( categories: Category[] ) => {
       this.categories = [ ...categories ];
     } );
-    const user: User = this.storageService.getItem('user');
-    this.storeId = user.stores[0]._id;
   }
 
   onSubmit(): void {
     this.submitted = true;
-    this.productData = {...this.productForm.value};
-    this.productData.store = this.storeId;
 
     if ( this.productForm.valid ) {
       this.spinner.show();
-      this.productService.addProduct( this.productData ).subscribe( ( product: Product ) => {
+      this.productService.addProduct( this.productForm.value ).subscribe( ( product: Product ) => {
         this.spinner.hide();
         this.alert.info( 'El producto se ha creado con exito' );
         this.productService.productSubject( product );
@@ -86,13 +79,15 @@ export class CreateProductComponent implements OnInit {
   }
 
   createForm(): void {
+    const user: User = this.storageService.getItem( 'user' );
+
     this.productForm = this.formBuilder.group( {
+      store: [ user.stores[ 0 ]._id, [ Validators.required ] ],
       name: [ '', [ Validators.required ] ],
       description: [ '', [ Validators.required ] ],
       price: [ '', [ Validators.required ] ],
       tax: [ '', [ Validators.required ] ],
       image: [ 'sdsdssd.com', [ Validators.required ] ],
-      // store: [ '', [ Validators.required ] ],
       category: [ this.categoryId ? this.categoryId : '', [ Validators.required ] ],
       status: [ this.statusSelected, [ Validators.required ] ],
       stock: [ '', [ Validators.required ] ],
