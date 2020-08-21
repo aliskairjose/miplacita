@@ -49,7 +49,6 @@ export class ProductService {
   productList( id: string ): Observable<Product[]> {
     return this.http.get( `products?store=${id}` ).pipe(
       map( response => {
-        console.log( response );
         if ( response.success ) {
           return response.products;
         }

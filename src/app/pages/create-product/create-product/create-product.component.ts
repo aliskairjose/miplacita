@@ -60,7 +60,7 @@ export class CreateProductComponent implements OnInit {
 
   onSubmit(): void {
     this.submitted = true;
-
+    console.log(this.productForm.value);
     if ( this.productForm.valid ) {
       this.spinner.show();
       this.productService.addProduct( this.productForm.value ).subscribe( ( product: Product ) => {

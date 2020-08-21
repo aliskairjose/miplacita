@@ -15,7 +15,7 @@ export class ProductsComponent implements OnInit, OnChanges {
   fields = [ '', 'Nombre', 'Descripción', 'Precio', 'ITBMS', 'Estado', '' ];
 
   allProducts: Product[];
-  products: Product[];
+  products: Product[] = [];
   productTypes = []; // tipos de productos
   states = []; // tipos de productos
   paginate: any = {};
