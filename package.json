@@ -40,6 +40,7 @@
     "angular-google-charts": "^1.1.4",
     "animate.css": "^3.7.2",
     "bootstrap": "^4.4.1",
+    "bootstrap-icons": "^1.0.0-alpha5",
     "domino": "^2.1.5",
     "express": "^4.15.2",
     "font-awesome": "^4.7.0",
