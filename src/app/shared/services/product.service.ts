@@ -4,6 +4,7 @@ import { HttpService } from './http.service';
 import { Product } from '../classes/product';
 import { map } from 'rxjs/operators';
 import { Category } from '../classes/category';
+import { Response } from '../classes/response';
 
 @Injectable( {
   providedIn: 'root'
@@ -46,15 +47,8 @@ export class ProductService {
   /**
    * @description Lista de productos
    */
-  productList( id: string ): Observable<Product[]> {
-    return this.http.get( `products?store=${id}` ).pipe(
-      map( response => {
-        console.log( response );
-        if ( response.success ) {
-          return response.products;
-        }
-      } )
-    );
+  productList( id: string ): Observable<Response> {
+    return this.http.get( `products?store=${id}` );
   }
 
   /**
