@@ -8,15 +8,17 @@ import { Paginate } from '../../../classes/paginate';
 } )
 export class CustomPaginationComponent implements OnInit {
 
+  pages = [];
   @Input() items = [];
   @Input() paginate: Paginate;
-
   @Output() setPage: EventEmitter<any> = new EventEmitter<any>();
 
   constructor() {
+    
   }
 
   ngOnInit(): void {
+   
   }
 
   pageSet( page: number ) {

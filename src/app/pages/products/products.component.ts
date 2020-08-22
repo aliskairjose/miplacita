@@ -6,6 +6,7 @@ import { User } from '../../shared/classes/user';
 import { Product } from '../../shared/classes/product';
 import { Response, Result } from '../../shared/classes/response';
 import { Paginate } from '../../shared/classes/paginate';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component( {
   selector: 'app-products',
@@ -30,6 +31,7 @@ export class ProductsComponent implements OnInit, OnChanges {
 
   constructor(
     private formBuilder: FormBuilder,
+    private spinner: NgxSpinnerService,
     private productService: ProductService,
     private storageService: StorageService,
   ) {
@@ -48,39 +50,22 @@ export class ProductsComponent implements OnInit, OnChanges {
   }
 
   loadData( page = 1 ): void {
+    this.spinner.show();
     this.user = this.storageService.getItem( 'user' );
     this.productService.productList( this.user.stores[ 0 ]._id, page ).subscribe( ( result: Result<Product> ) => {
+      this.spinner.hide();
       this.products = [ ...result.docs ];
       this.paginate = { ...result };
-      // this.getTableInformation();
-    } );
+      this.paginate.pages = [];
+      for ( let i = 1; i <= this.paginate.totalPages; i++ ) {
+        this.paginate.pages.push( i );
+      }
+    }, () => this.spinner.hide() );
   }
 
-  /* slicePage( items ) {
-    if ( items.length > this.pageSize ) {
-      return items.slice( 0, this.pageSize );
-    } else {
-      return items;
-    }
-  } */
-
-  /* getTableInformation() {
-    this.paginate = this.productService.getPager( this.allProducts.length, +this.pageNo, this.pageSize );
-    this.products = this.slicePage( this.allProducts );
-  } */
-
-  /* setPage( event ) {
-    const end = event * this.paginate.pageSize;
-    this.paginate.startIndex = end - this.paginate.pageSize;
-    if ( event === this.paginate.endPage ) {
-      this.products = this.allProducts.slice( this.paginate.startIndex );
-      this.paginate.endIndex = this.allProducts.length - 1;
-    } else {
-      this.paginate.endIndex = end - 1;
-      this.products = this.allProducts.slice( this.paginate.startIndex, this.paginate.endIndex + 1 );
-    }
-    this.paginate.currentPage = event;
-  } */
+  setPage( page: number ) {
+    this.loadData( page );
+  }
 
   search() {
     console.log( this.searchForm.value );

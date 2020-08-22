@@ -26,6 +26,7 @@ export class HttpInterceptor implements HttpInterceptor {
     }
 
     request = request.clone( { headers: request.headers.set( 'Accept', 'application/json' ) } );
+   
     return next.handle( request ).pipe(
       map( ( event: HttpEvent<any> ) => {
         if ( event instanceof HttpResponse ) {
