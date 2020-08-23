@@ -18,9 +18,10 @@
     }
   ],
   "compilerOptions": {
+    "types": [ "node" ],
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "resolveJsonModule": true,
-    "esModuleInterop": true,
+    "esModuleInterop": true
   }
 }
