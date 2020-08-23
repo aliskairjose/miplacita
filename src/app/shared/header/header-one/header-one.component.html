@@ -27,20 +27,24 @@
                 <!-- Cuando no ha iniciado sesión -->
                 <div *ngIf="!isLoggedIn"> 
                   <li >
+                    <i class="fa fa-sign-in" aria-hidden="true"></i> 
                     <a [routerLink]="[ '/pages/login' ]">Iniciar sesión</a>
                   </li>
                   <li>
+                    <i class="fa fa-edit" aria-hidden="true"></i>
                     <a [routerLink]="[ '/pages/register' ]">Registro</a>
                   </li>
                 </div>
                 <!-- Cuando ha iniciado sesión -->
                 <div *ngIf="isLoggedIn">
                   <li>
+                    <i class="fa fa-sliders" aria-hidden="true"></i>
                     <a [routerLink]="[ '/pages/configuration' ]">Configuración</a>
                   </li>
                   <li>
+                    <i class="fa fa-sign-out" aria-hidden="true"></i>
                     <a data-lng="es" href="javascript:void(0)" (click)="loggOut()">
-                      Cerrar sesión
+                      Salir
                     </a>
                   </li>
                 </div>
