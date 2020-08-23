@@ -1,0 +1,13 @@
+{
+  "menuItems": [
+    { "path": "/pages/login", "title": "inicia sesión", "type": "link", "logged": false },
+		{ "path": "/home/vegetable", "title": "Vende ahora", "type": "link", "logged": null },
+		{ "path": "/pages/contact", "title": "contactanos", "type": "link", "logged": null }
+  ],
+  "leftMenuItems": [
+    { "path": "/pages/dashboard", "title": "Dashboard", "type": "link", "role": null },
+		{ "path": "/pages/products", "title": "Productos", "type": "link", "role": "merchant" },
+		{ "path": "/pages/orders", "title": "Órdenes", "type": "link", "role": "merchant" },
+		{ "path": "/pages/shops", "title": "Tienda", "type": "link", "role": "admin" }
+  ]
+}

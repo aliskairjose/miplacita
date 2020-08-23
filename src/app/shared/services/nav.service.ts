@@ -1,8 +1,6 @@
 import { Injectable, HostListener } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
-import { AuthService } from './auth.service';
-
-// Menu
+import { BehaviorSubject, from } from 'rxjs';
+import { default as menu } from '../../../assets/data/menu.json';
 export interface Menu {
 	path?: string;
 	title?: string;
@@ -13,6 +11,8 @@ export interface Menu {
 	badge?: boolean;
 	badgeText?: string;
 	children?: Menu[];
+	logged?: boolean;
+	role?: string;
 }
 
 @Injectable( {
@@ -25,28 +25,8 @@ export class NavService {
 	leftMenuToggle = false;
 	mainMenuToggle = false;
 
-
-	MENUITEMS: Menu[] = [
-		{ path: '/pages/login', title: 'inicia sesión', type: 'link' },
-		{ path: '/home/vegetable', title: 'Vende ahora', type: 'link' },
-		{ path: '/pages/contact', title: 'contactanos', type: 'link' }
-	];
-
-	LEFTMENUITEMS: Menu[] = [
-		{
-			path: '/pages/dashboard', title: 'Dashboard', type: 'link'
-		},
-		{
-			path: '/pages/products', title: 'Productos', type: 'link'
-		},
-		{
-			path: '/pages/orders', title: 'Órdenes', type: 'link'
-		},
-		{
-			path: '/pages/shops', title: 'Tienda', type: 'link'
-		},
-
-	];
+	MENUITEMS: Menu[] = menu.menuItems;
+	LEFTMENUITEMS: Menu[] = menu.leftMenuItems;
 
 	// Array
 	items = new BehaviorSubject<Menu[]>( this.MENUITEMS );
@@ -57,7 +37,9 @@ export class NavService {
 	onResize( event?) {
 		this.screenWidth = window.innerWidth;
 	}
-	constructor() { }
 
+	constructor() {
+		console.log(menu)
+	 }
 
 }

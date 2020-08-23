@@ -48,7 +48,7 @@ export class LoginComponent implements OnInit {
         if ( data.success ) {
           this.spinner.hide();
           this.storage.setItem( 'token', data.token );
-          this.storage.setItem( 'role', data.role );
+          this.storage.setItem( 'role', data.user.role );
           this.storage.setItem( 'user', data.user );
 
           this.auth.authSubject( data.success );

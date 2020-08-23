@@ -18,7 +18,7 @@
                  <span class="sub-arrow"  *ngIf="menuItem.children"></span>
               </a>
               <!-- Link -->
-              <a [routerLink]="menuItem.path" *ngIf="menuItem.type === 'link'">
+              <a [routerLink]="menuItem.path" *ngIf="menuItem.type === 'link' && (menuItem.role === role || menuItem.role === null)">
                  {{menuItem.title}}
                  <span class="sub-arrow" *ngIf="menuItem.children"></span>
               </a>

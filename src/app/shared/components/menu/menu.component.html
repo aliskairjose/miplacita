@@ -22,7 +22,7 @@
         </a>
         <!-- Link -->
         <a [routerLink]="menuItem.path" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="nav-link"
-          *ngIf="menuItem.type === 'link'">
+          *ngIf="menuItem.type === 'link' && (menuItem.logged === auth.isAuthenticated() || menuItem.logged === null)">
           {{ menuItem.title }}
           <div class="lable-nav" *ngIf="menuItem.badge">{{ menuItem.badgeText | translate }}</div>
           <span class="sub-arrow" *ngIf="menuItem.children"></span>
