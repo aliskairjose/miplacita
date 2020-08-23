@@ -24,17 +24,26 @@
             <li class="onhover-dropdown mobile-account">
               <i class="fa fa-user" aria-hidden="true"></i> Mi cuenta
               <ul class="onhover-show-div">
-                <li *ngIf="!isLoggedIn">
-                  <a [routerLink]="[ '/pages/login' ]">Iniciar sesión</a>
-                </li>
-                <li *ngIf="!isLoggedIn">
-                  <a [routerLink]="[ '/pages/register' ]">Registro</a>
-                </li>
-                <li *ngIf="isLoggedIn">
-                  <a data-lng="es" href="javascript:void(0)" (click)="loggOut()">
-                    Cerrar sesión
-                  </a>
-                </li>
+                <!-- Cuando no ha iniciado sesión -->
+                <div *ngIf="!isLoggedIn"> 
+                  <li >
+                    <a [routerLink]="[ '/pages/login' ]">Iniciar sesión</a>
+                  </li>
+                  <li>
+                    <a [routerLink]="[ '/pages/register' ]">Registro</a>
+                  </li>
+                </div>
+                <!-- Cuando ha iniciado sesión -->
+                <div *ngIf="isLoggedIn">
+                  <li>
+                    <a [routerLink]="[ '/pages/configuration' ]">Configuración</a>
+                  </li>
+                  <li>
+                    <a data-lng="es" href="javascript:void(0)" (click)="loggOut()">
+                      Cerrar sesión
+                    </a>
+                  </li>
+                </div>
               </ul>
             </li>
           </ul>
