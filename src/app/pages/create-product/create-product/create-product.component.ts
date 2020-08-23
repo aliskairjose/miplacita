@@ -111,19 +111,8 @@ export class CreateProductComponent implements OnInit {
     } );
   }
 
-  onFileChange( event ) {
-    this.productImages = [];
-
-    if ( event.target.files && event.target.files.length ) {
-      for ( const file of event.target.files ) {
-        const reader = new FileReader();
-        reader.readAsDataURL( file );
-        reader.onload = () => {
-          const imageBase64 = reader.result as string;
-          this.productImages.push( imageBase64 );
-        };
-      }
-    }
+  upload( images: string[] ): void {
+    this.productImages = [ ...images ];
   }
 
 }

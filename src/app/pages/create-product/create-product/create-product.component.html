@@ -125,13 +125,14 @@
                             </div>
                             <div class="second-column">
                                 <div class="form-group d-flex justify-content-center">
-                                    <img class="col-md-3 p-2" [src]="image1" />
+                                    <!-- <img class="col-md-3 p-2" [src]="image1" /> -->
                                     <!-- <img class="col-md-3 p-2" [src]="image2" />
                                     <img class="col-md-3 p-2" [src]="image3" /> -->
                                 </div>
                                 <div class="d-flex justify-content-center">
-                                    <input multiple id="file" type="file" class="form-control"
-                                        (change)="onFileChange($event)">
+                                    <app-upload-image (uploadImage)="upload($event)"></app-upload-image>
+                                    <!-- <input multiple id="file" type="file" class="form-control" accept="image/*"
+                                        (change)="onFileChange($event)"> -->
                                     <!-- <button class="btn btn-solid" type="button">Cargar Imagen</button> -->
                                 </div>
                             </div>

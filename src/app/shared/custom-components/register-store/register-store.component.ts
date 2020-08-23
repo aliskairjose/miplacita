@@ -173,6 +173,7 @@ export class RegisterStoreComponent implements OnInit {
     const image = event.target.files[ 0 ];
     const mimeType = image.type;
     if ( mimeType.match( /image\/*/ ) == null ) {
+      this.alert.warning( 'Solo se permiten archivos de tipo imagen' );
       return;
     }
     const reader = new FileReader();
