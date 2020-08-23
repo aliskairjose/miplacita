@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ProductService } from '../../shared/services/tm.product.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ShopDetailsComponent } from '../../shared/custom-components/shop-details/shop-details.component';
 
 @Component({
   selector: 'app-shops',
@@ -9,8 +10,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class ShopsComponent implements OnInit {
 
-
-  public typeUser = 'admin';
+  @ViewChild('shopDetails') ShopDetails: ShopDetailsComponent;
   public fields = ['Tienda', 'Plan', 'Precio', 'Estado', '' ];
   public allShops = [{
                     name: "ny & co",
@@ -61,12 +61,10 @@ export class ShopsComponent implements OnInit {
   public pageSize = 3;
   public searchForm: FormGroup;
   public searchValid = true;
-  public allShopsCopy = [];
-  constructor(public productService: ProductService,
-              private formBuilder: FormBuilder) { 
-                this.allShopsCopy = this.allShops;
 
-              }
+
+  constructor(public productService: ProductService,
+              private formBuilder: FormBuilder) {}
 
   ngOnInit(): void {
     this.createForm();

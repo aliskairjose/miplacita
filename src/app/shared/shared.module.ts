@@ -76,6 +76,7 @@ export const customCurrencyMaskConfig = {
   max: null,
   inputMode: CurrencyMaskInputMode.FINANCIAL
 };
+import { ShopDetailsComponent } from './custom-components/shop-details/shop-details.component';
 
 @NgModule({
   declarations: [
@@ -112,9 +113,10 @@ export const customCurrencyMaskConfig = {
     RegisterStoreComponent,
     CustomPaginationComponent,
     SuccessModalComponent,
+    ShopDetailsComponent,
     // Pipes
     DiscountPipe,
-    FilterPipe
+    FilterPipe,
   ],
   imports: [
     NgxCurrencyModule.forRoot(customCurrencyMaskConfig),
@@ -176,6 +178,7 @@ export const customCurrencyMaskConfig = {
     DiscountPipe,
     FilterPipe,
 
+    ShopDetailsComponent
   ]
 })
 export class SharedModule { }

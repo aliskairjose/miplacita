@@ -13,45 +13,46 @@
               </div>
         </form>
             
-        <div class="row table-center-mt">
-            <div class="col-sm-12">
-                <table class="table cart-table table-responsive-xs">
-                    <thead>
-                    <tr class="table-head">
-                        <th *ngFor="let field of fields" scope="col">{{field}}</th>
-                    </tr>
-                    </thead>
-                    <tbody >
-                        <tr *ngFor="let shop of shops">
+        <div class="table-responsive-sm mt-3">
+            <table class="table ">
+                <thead>
+                <tr class="table-head">
+                    <th *ngFor="let field of fields" scope="col">{{field}}</th>
+                </tr>
+                </thead>
+                <tbody >
+                    <tr *ngFor="let shop of shops">
 
-                            <td>
-                                {{shop.name}}
-                            </td>
-                            <td>
-                                {{shop.plan}}
-                            </td>
-                            <td >
-                                {{shop.price}}
-                            </td>
-                            <td>
-                                {{shop.estado}}
-                            </td>
+                        <td>
+                            {{shop.name}}
+                        </td>
+                        <td>
+                            {{shop.plan}}
+                        </td>
+                        <td >
+                            {{shop.price}}
+                        </td>
+                        <td>
+                            {{shop.estado}}
+                        </td>
+                    
+                        <td class="d-flex justify-content-end actions" >
+                            <button class="btn" (click)="ShopDetails.openModal(shop)">Suscripción</button>
+                            <button class="btn">Desactivar</button>
+                        </td>
                         
-                            <td class="d-flex justify-content-end actions" >
-                                <button class="btn">Suscripción</button>
-                                <button class="btn">Desactivar</button>
-                            </td>
-                            
-                        </tr>
-                    </tbody>
+                    </tr>
+                </tbody>
 
-                </table>
-                <p *ngIf="searchValid && shops.length==0">No hay resultados disponibles</p>
-                <p *ngIf="!searchValid">No hay resultados para su búsqueda</p>
-                <app-custom-pagination  [items]="shops" [paginate]="paginate" (setPage)="setPage($event)">
-                </app-custom-pagination>
+            </table>
+            <p *ngIf="searchValid && shops.length==0">No hay resultados disponibles</p>
+            <p *ngIf="!searchValid">No hay resultados para su búsqueda</p>
+            
 
-            </div>
         </div>
+        <app-custom-pagination  [items]="shops" [paginate]="paginate" (setPage)="setPage($event)">
+        </app-custom-pagination>
+       
     </div>
 </section>
+<app-shop-details #shopDetails ></app-shop-details>
