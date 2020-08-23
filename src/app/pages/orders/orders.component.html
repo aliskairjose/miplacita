@@ -38,8 +38,7 @@
             </div> 
             </form>
                
-        <div class="row table-center-mt">
-            <div class="col-sm-12">
+            <div class="table-responsive-sm mt-3">
                 <table class="table cart-table table-responsive-xs">
                     <thead>
                     <tr class="table-head">
@@ -49,7 +48,7 @@
                     <tbody >
                         <tr *ngFor="let order of orders">
                             <td>
-                                {{order.id}}
+                              {{order.id}}
                             </td>
                             
                             <td>
@@ -70,14 +69,17 @@
                                 {{order.state}}
                             </td>
                             <td class="d-flex flex-row">
-                                <button class="btn btn-table-action">Editar</button>
+                                <button class="btn btn-table-action" (click)="OrderDetails.openModal(order)">Editar</button>
                             </td>
                         </tr>
                     </tbody>
                 </table>
-                <app-custom-pagination  [items]="orders" [paginate]="paginate" (setPage)="setPage($event)">
-                </app-custom-pagination>
+                
             </div>
-        </div>        
+            <app-custom-pagination  [items]="orders" [paginate]="paginate" (setPage)="setPage($event)">
+            </app-custom-pagination>
+     
     </div>
 </section>
+
+<app-order-details #orderDetails></app-order-details>

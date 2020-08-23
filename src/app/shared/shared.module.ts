@@ -78,6 +78,7 @@ export const customCurrencyMaskConfig = {
 };
 import { ShopDetailsComponent } from './custom-components/shop-details/shop-details.component';
 
+import { OrderDetailsComponent } from './custom-components/order-details/order-details.component';
 @NgModule({
   declarations: [
     HeaderOneComponent,
@@ -117,6 +118,7 @@ import { ShopDetailsComponent } from './custom-components/shop-details/shop-deta
     // Pipes
     DiscountPipe,
     FilterPipe,
+    OrderDetailsComponent
   ],
   imports: [
     NgxCurrencyModule.forRoot(customCurrencyMaskConfig),
@@ -177,8 +179,8 @@ import { ShopDetailsComponent } from './custom-components/shop-details/shop-deta
     // Pipes
     DiscountPipe,
     FilterPipe,
-
-    ShopDetailsComponent
+    ShopDetailsComponent,
+    OrderDetailsComponent
   ]
 })
 export class SharedModule { }
