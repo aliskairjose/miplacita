@@ -8,7 +8,10 @@ import { AlertService } from 'ngx-alerts';
 } )
 export class UploadImageComponent implements OnInit {
 
+  fakeImage = '../../../../assets/images/marketplace/svg/upload-image.svg';
+  imageURL: string;
   images: Array<string> = [];
+  @Input() multiple = false;
   @Output() uploadImage: EventEmitter<Array<string>> = new EventEmitter<Array<string>>();
 
   constructor(
@@ -23,6 +26,11 @@ export class UploadImageComponent implements OnInit {
     const image = event.target.files[ 0 ];
     const mimeType = image.type;
 
+    if( event.target.files.length > 3){
+      this.alert.warning( 'Máximo 3 imagenes' );
+      return;
+    }
+
     if ( mimeType.match( /image\/*/ ) == null ) {
       this.alert.warning( 'Solo se permiten archivos de tipo imagen' );
       return;
@@ -33,8 +41,8 @@ export class UploadImageComponent implements OnInit {
         const reader = new FileReader();
         reader.readAsDataURL( file );
         reader.onload = () => {
-          const imageBase64 = reader.result as string;
-          this.imageBase( imageBase64, event.target.files.length );
+          this.imageURL = reader.result as string;
+          this.imageBase( this.imageURL, event.target.files.length );
         };
       }
     }

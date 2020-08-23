@@ -128,12 +128,8 @@
                                     <!-- <img class="col-md-3 p-2" [src]="image1" /> -->
                                     <!-- <img class="col-md-3 p-2" [src]="image2" />
                                     <img class="col-md-3 p-2" [src]="image3" /> -->
-                                </div>
-                                <div class="d-flex justify-content-center">
-                                    <app-upload-image (uploadImage)="upload($event)"></app-upload-image>
-                                    <!-- <input multiple id="file" type="file" class="form-control" accept="image/*"
-                                        (change)="onFileChange($event)"> -->
-                                    <!-- <button class="btn btn-solid" type="button">Cargar Imagen</button> -->
+                                    <app-upload-image [multiple]="true" (uploadImage)="upload($event)"></app-upload-image>
+
                                 </div>
                             </div>
                         </div>

@@ -20,9 +20,7 @@ export class CreateProductComponent implements OnInit {
 
   typesProduct = [];
   states = [];
-  image1: any = '../../../../assets/images/marketplace/svg/upload-image.svg';
-  image2: any = '../../../../assets/images/marketplace/svg/upload-image.svg';
-  image3: any = '../../../../assets/images/marketplace/svg/upload-image.svg';
+ 
   categoryId = '';
   categories: Category[];
   productForm: FormGroup;
