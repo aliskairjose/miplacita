@@ -48,6 +48,7 @@ import { OrdersComponent } from './orders/orders.component';
 import { ProductsComponent } from './products/products.component';
 import { CreateProductComponent } from './create-product/create-product/create-product.component';
 import { NgxCurrencyModule, CurrencyMaskInputMode } from 'ngx-currency';
+import { MyShopComponent } from './account/my-shop/my-shop.component';
 
 export const customCurrencyMaskConfig = {
   align: 'right',
@@ -102,6 +103,7 @@ export const customCurrencyMaskConfig = {
     OrdersComponent,
     CreateProductComponent,
     OrdersComponent,
+    MyShopComponent,
 
   ],
   imports: [
