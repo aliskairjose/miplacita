@@ -39,8 +39,6 @@ export class NavService {
 		this.screenWidth = window.innerWidth;
 	}
 
-	constructor() {
-		console.log(menu)
-	 }
+	constructor() { }
 
 }
