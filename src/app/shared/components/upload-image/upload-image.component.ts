@@ -9,7 +9,6 @@ import { AlertService } from 'ngx-alerts';
 export class UploadImageComponent implements OnInit {
 
   fakeImage = '../../../../assets/images/marketplace/svg/upload-image.svg';
-  imageURL: string;
   images: Array<string> = [];
   @Input() multiple = false;
   @Output() uploadImage: EventEmitter<Array<string>> = new EventEmitter<Array<string>>();
@@ -41,8 +40,8 @@ export class UploadImageComponent implements OnInit {
         const reader = new FileReader();
         reader.readAsDataURL( file );
         reader.onload = () => {
-          this.imageURL = reader.result as string;
-          this.imageBase( this.imageURL, event.target.files.length );
+          const imageBase64 = reader.result as string;
+          this.imageBase( imageBase64, event.target.files.length );
         };
       }
     }
