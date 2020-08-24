@@ -1,0 +1,42 @@
+<app-breadcrumb [title]="'Diseño'" [breadcrumb]="'Tienda'"></app-breadcrumb>
+
+<section class="section-b-space">
+    <div class="container">
+        <div class="theme-form col-md-6 mx-auto" >
+            <div class="form-row mb-3">
+                <label for="color">Color de la tienda</label>
+                <input id="color" [(colorPicker)]="color" [style.background]="color"/>
+            </div>
+           
+                <!-- <img src="../../../assets/images/gym-bg.jpg"/> -->
+                <!-- CAROUSEL -->
+                <div class="carousel-box-mp">
+                    <owl-carousel-o [options]="carouselConfig" class="slider-box-mp">
+                        <ng-template *ngFor="let image of images" carouselSlide>
+                          <div class="slider-mp text-center" >
+                            <div class="container">
+                              <div class="row">
+                                <div class="col">
+                                  <div class="slider-contain-mp">
+                                    <div>
+                                      <img class="w-100 h-100" [src]="image.url"/>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </ng-template>
+                    </owl-carousel-o>
+                </div>
+                
+                <!-- END CAROUSEL-->
+            
+            <div class="d-flex ">
+                <img class="preview px-3" src="../../../assets/images/dog.png" *ngFor="let image of images"/>
+                <img class="preview px-3" src="../../../assets/images/dog.png"/>
+
+            </div>
+        </div>
+    </div>
+</section>

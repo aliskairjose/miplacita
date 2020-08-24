@@ -50,6 +50,7 @@ export class LoginComponent implements OnInit {
           this.storage.setItem( 'token', data.token );
           this.storage.setItem( 'role', data.user.role );
           this.storage.setItem( 'user', data.user );
+          this.storage.setItem( 'stores', data.user.stores );
 
           this.auth.authSubject( data.success );
 

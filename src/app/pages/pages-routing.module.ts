@@ -16,6 +16,11 @@ import { OrdersComponent } from './orders/orders.component';
 import { ProductsComponent } from './products/products.component';
 import { CreateProductComponent } from './create-product/create-product/create-product.component';
 import { MyShopComponent } from './account/my-shop/my-shop.component';
+import { ShopProfileComponent } from './shop-profile/shop-profile.component';
+import { ShopDesignComponent } from './shop-design/shop-design.component';
+import { ShopDetailsComponent } from '../shared/custom-components/shop-details/shop-details.component';
+import { ShopWithdrawalComponent } from './shop-withdrawal/shop-withdrawal.component';
+import { ShopSuscriptionComponent } from './shop-suscription/shop-suscription.component';
 
 const routes: Routes = [
 
@@ -81,6 +86,30 @@ const routes: Routes = [
   {
     path: 'contact',
     component: ContactComponent
+  },
+  {
+    path: 'shop/profile',
+    component: ShopProfileComponent,
+    canActivate: [ AuthGuard ]
+
+  },
+  {
+    path: 'shop/design',
+    component: ShopDesignComponent,
+    canActivate: [ AuthGuard ]
+
+  },
+  {
+    path: 'shop/suscription',
+    component: ShopSuscriptionComponent,
+    canActivate: [ AuthGuard ]
+
+  },
+  {
+    path: 'shop/withdrawal',
+    component: ShopWithdrawalComponent,
+    canActivate: [ AuthGuard ]
+
   }
 ];
 

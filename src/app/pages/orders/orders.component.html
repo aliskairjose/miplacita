@@ -1,21 +1,23 @@
 <app-breadcrumb [title]="'Órdenes'" [breadcrumb]="'Órdenes'"></app-breadcrumb>
+<ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="ball-spin-clockwise" [fullScreen]="true">
+    <p style="color: white"> Por favor espere... </p>
+</ngx-spinner>
 <section class="section-b-space">
     <div class="container">
 
-        <form [formGroup]="searchForm" class="theme-form" (ngSubmit)="search()">
+        <form class="theme-form">
             <div class="d-flex search">
                 <div class="form-group flex-fill" id="state">
-                    <select name="model" formControlName="state" class="form-control">
+                    <select name="model" class="form-control">
                         <option value="">Estado</option>
-                        <option value="" *ngFor="let state of states"></option>
-
+                        <option [value]="status" *ngFor="let status of orderStatus">{{status}}</option>
                     </select>
                 </div>
                 <div class="filters">
                     <div class="form-group flex-fill mr-1">
                         <div class="input-group">
-                            <input class="form-control lighten-3" placeholder="dd/mm/yyyy" name="d2"
-                                formControlName="init" ngbDatepicker #d1="ngbDatepicker">
+                            <input class="form-control lighten-3" placeholder="dd/mm/yyyy" name="d2" ngbDatepicker
+                                #d1="ngbDatepicker">
                             <div class="input-group-append">
                                 <button class="btn btn-outline-secondary calendar" (click)="d1.toggle()" type="button">
                                     <svg width="1.5em" height="1.5em" viewBox="0 0 16 16"
@@ -30,8 +32,8 @@
                     </div>
                     <div class="form-group flex-fill">
                         <div class="input-group">
-                            <input class="form-control lighten-3" placeholder="dd/mm/yyyy" name="d2"
-                                formControlName="end" ngbDatepicker #d2="ngbDatepicker">
+                            <input class="form-control lighten-3" placeholder="dd/mm/yyyy" name="d2" ngbDatepicker
+                                #d2="ngbDatepicker">
                             <div class="input-group-append">
                                 <button class="btn btn-outline-secondary calendar" (click)="d2.toggle()" type="button">
                                     <svg width="1.5em" height="1.5em" viewBox="0 0 16 16"
@@ -61,27 +63,16 @@
                 </thead>
                 <tbody>
                     <tr *ngFor="let order of orders">
-                        <td>
-                            {{order.id}}
-                        </td>
-
-                        <td>
-                            {{order.client}}
-                        </td>
+                        <td>{{order.user.fullname}}</td>
                         <td>
                             <div class="d-flex flex-wrap ">
                                 {{order.products}}
                             </div>
                         </td>
-                        <td>
-                            {{order.amount}}
-                        </td>
-                        <td>
-                            {{order.zone}}
-                        </td>
-                        <td>
-                            {{order.state}}
-                        </td>
+                        <td>{{order.amount | currency }}</td>
+                        <td>{{ order.created_at | date }}</td>
+                        <td>{{ order.zone }}</td>
+                        <td class="text-capitalize">{{order.status }}</td>
                         <td class="d-flex flex-row">
                             <button class="btn btn-table-action" (click)="OrderDetails.openModal(order)">Editar</button>
                         </td>
@@ -92,7 +83,6 @@
         </div>
         <app-custom-pagination [items]="orders" [paginate]="paginate" (setPage)="setPage($event)">
         </app-custom-pagination>
-
     </div>
 </section>
 

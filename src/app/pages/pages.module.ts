@@ -43,15 +43,20 @@ import { AlertModule } from 'ngx-alerts';
 import { NgxSpinnerModule } from 'ngx-spinner';
 
 import { GoogleChartsModule } from 'angular-google-charts';
+import { ShopProfileComponent } from './shop-profile/shop-profile.component';
+import { ShopDesignComponent } from './shop-design/shop-design.component';
+import { ColorPickerModule } from 'ngx-color-picker';
 import { ShopsComponent } from './shops/shops.component';
 import { OrdersComponent } from './orders/orders.component';
 import { ProductsComponent } from './products/products.component';
 import { CreateProductComponent } from './create-product/create-product/create-product.component';
 import { NgxCurrencyModule, CurrencyMaskInputMode } from 'ngx-currency';
 import { MyShopComponent } from './account/my-shop/my-shop.component';
+import { ShopWithdrawalComponent } from './shop-withdrawal/shop-withdrawal.component';
+import { ShopSuscriptionComponent } from './shop-suscription/shop-suscription.component';
 
 export const customCurrencyMaskConfig = {
-  align: 'right',
+  align: 'left',
   allowNegative: false,
   allowZero: true,
   decimal: ',',
@@ -104,6 +109,11 @@ export const customCurrencyMaskConfig = {
     CreateProductComponent,
     OrdersComponent,
     MyShopComponent,
+    ShopProfileComponent,
+    ShopDesignComponent,
+    ShopsComponent,
+    ShopWithdrawalComponent,
+    ShopSuscriptionComponent
 
   ],
   imports: [
@@ -115,6 +125,7 @@ export const customCurrencyMaskConfig = {
     PagesRoutingModule,
     GoogleChartsModule.forRoot(),
     NgxCurrencyModule.forRoot(customCurrencyMaskConfig),
+    ColorPickerModule,
     AlertModule.forRoot({maxMessages: 5, timeout: 3000, position: 'left'})
   ]
 })

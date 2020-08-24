@@ -1,0 +1,51 @@
+<app-breadcrumb [title]="'Retiro de dinero'" [breadcrumb]="'Tienda'"></app-breadcrumb>
+
+<section class="section-b-space">
+    <div class="container">
+        <div class="d-flex flex-column col-md-6 mx-auto">
+            <div class="card form-group text-center p-4">
+                <h3>Monto de ventas </h3>
+                <h3><strong>8.88$</strong></h3>
+                <p>Te pagaremos el día {{ paymentDay }}</p>
+            </div>
+            <p>Cuéntanos cuál es tu banco</p>
+            <div class="form-group">
+                <select class="form-control">
+                    <option >Banco</option>
+                    <option *ngFor="let bank of banks"></option>
+                </select>
+            </div>
+            <div class="form-group input-group">
+                <input type="text" class="form-control" id="titular" placeholder="Titular de la cuenta"
+                    required="" >
+                <div class="input-group-prepend">
+                    <span class="input-group-text">
+                        <img src="../../../../assets/images/marketplace/svg/home.svg" alt="">
+                    </span>
+                </div>
+            </div>
+            <div class="form-group input-group ">
+                <input type="text" class="form-control" id="bank-account" placeholder="Número de la cuenta"
+                    required="" >
+                <div class="input-group-prepend">
+                    <span class="input-group-text">
+                        <img src="../../../../assets/images/marketplace/svg/home.svg" alt="">
+                    </span>
+                </div>
+            </div>
+            <div class="form-group input-group">
+                <input type="text" class="form-control" id="titular" placeholder="Tipo de cuenta"
+                    required="" >
+                <div class="input-group-prepend">
+                    <span class="input-group-text">
+                        <img src="../../../../assets/images/marketplace/svg/home.svg" alt="">
+                    </span>
+                </div>
+            </div>
+            <div class="form-group text-center">
+                <button class="btn btn-solid flex-fill">Actualizar banco</button>
+            </div>
+            
+        </div>
+    </div>
+</section>

@@ -1,0 +1,120 @@
+.carousel-box-mp {
+    width: 100%;
+    height: 45vh;
+    background-color: lightcoral;
+    margin-bottom: 3%;
+}
+
+
+.slider-box-mp {
+   
+        .slider-mp {
+            height: 60vh;
+            .slider-contain-mp {
+                height: 60vh;
+            }
+        }
+    
+    .owl-prev,
+    .owl-next {
+        opacity: 0;
+        transform: scale(1);
+        transition: all 0.5s ease;
+        margin-top: -10px;
+        border-radius: 100% !important;
+        display: flex !important;
+        align-items: center;
+        justify-content: center;
+        // background: rgba(255, 255, 255, 0.15) !important;
+        i {
+            font-size: 8px;
+        }
+    }
+    .owl-next {
+        right: 1px;
+    }
+    .owl-prev {
+        left: 1px;
+        z-index: 1;
+    }
+    .slider-mp {
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+        height: 75vh;
+    }
+    .slider-contain-mp {
+        width: 100%;
+        height: 75vh;
+        display: flex;
+        align-items: center;
+        
+        .btn-solid,
+        .btn-outline {
+            margin-top: 20px;
+        }
+    }
+    .p-left {
+        .slider-contain-mp {
+            justify-content: flex-start;
+        }
+    }
+    .p-right {
+        .slider-contain-mp {
+            justify-content: flex-end;
+        }
+    }
+    .p-center {
+        .slider-contain-mp {
+            justify-content: center;
+        }
+    }
+    &.text-white {
+        .slider-contain-mp {
+            h1,
+            h4 {
+                color: white;
+            }
+        }
+    }
+    &:hover {
+        .owl-prev,
+        .owl-next {
+            opacity: 1;
+            transform: scale(2.5);
+            transition: all 0.5s ease;
+            &:before {
+                opacity: 1;
+            }
+        }
+        .owl-next {
+            right: 100px;
+        }
+        .owl-prev {
+            left: 100px;
+        }
+    }
+}
+
+.owl-prev,
+.owl-next {
+    position: absolute;
+    display: block;
+    height: 20px;
+    width: 20px;
+    line-height: 0px;
+    font-size: 0px;
+    cursor: pointer;
+    background: transparent;
+    color: transparent;
+    top: 50%;
+    -webkit-transform: translate(0, -50%);
+    transform: translate(0, -50%);
+    padding: 0;
+    border: none;
+    outline: none;
+}
+
+.preview {
+    max-width: 20%;
+}

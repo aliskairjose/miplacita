@@ -3,168 +3,62 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ProductService } from '../../shared/services/tm.product.service';
 import { NgbCalendar, NgbDateAdapter } from '@ng-bootstrap/ng-bootstrap';
 import { OrderDetailsComponent } from '../../shared/custom-components/order-details/order-details.component';
+import { Order } from '../../shared/classes/order';
+import { AlertService } from 'ngx-alerts';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { OrderService } from '../../shared/services/order.service';
+import { Store } from '../../shared/classes/store';
+import { StorageService } from '../../shared/services/storage.service';
+import { Paginate } from '../../shared/classes/paginate';
+import { Result } from '../../shared/classes/response';
+import { environment } from '../../../environments/environment';
 
-@Component({
+@Component( {
   selector: 'app-orders',
   templateUrl: './orders.component.html',
-  styleUrls: ['./orders.component.scss']
-})
+  styleUrls: [ './orders.component.scss' ]
+} )
 export class OrdersComponent implements OnInit {
-  public typeUser = 'merchant';
-  public fields = ['ID', 'Cliente', 'Productos', 'Monto', 'Zona de Entrega',
-                   'Estado', '' ];
 
-  public orders = [];
-  public states = []; // estados de las ordenes
+  fields = [ 'Cliente', 'Productos', 'Monto', 'Fecha', 'Zona de Entrega',
+    'Estado', '' ];
 
-  public paginate: any = {};
-  public pageNo = 1;
-  public pageSize = 5;
-
-  @ViewChild("orderDetails") OrderDetails: OrderDetailsComponent;
+  orders: Order[] = [];
+  paginate: Paginate;
+  orderStatus = environment.orderStatus;
+  
+  @ViewChild( "orderDetails" ) OrderDetails: OrderDetailsComponent;
   /** variable provisional */
-  public allOrders = [{
-    id: 1,
-    client: 'cliente',
-    products: ['producto1','producto 2', 'producto 3',
-    
-  ],
-    amount: 100.00,
-    zone: 'Panamá',
-    state: 'Entregado'
-  },
-  {
-    id: 2,
-    client: 'cliente',
-    products: ['producto1','producto 2', 'producto 3'],
-    amount: 100.00,
-    zone: 'Panamá',
-    state: 'Entregado'
-  },{
-    id: 3,
-    client: 'cliente',
-    products: ['producto1','producto 2', 'producto 3'],
-    amount: 100.00,
-    zone: 'Panamá',
-    state: 'Entregado'
-  },
-  {
-    id: 4,
-    client: 'cliente',
-    products: ['producto1','producto 2', 'producto 3'],
-    amount: 100.00,
-    zone: 'Panamá',
-    state: 'Entregado'
-  },
-  {
-    id: 5,
-    client: 'cliente',
-    products: ['producto1','producto 2', 'producto 3'],
-    amount: 100.00,
-    zone: 'Panamá',
-    state: 'Entregado'
-  },
-  {
-    id: 6,
-    client: 'cliente',
-    products: ['producto1','producto 2', 'producto 3'],
-    amount: 100.00,
-    zone: 'Panamá',
-    state: 'Entregado'
-  },
-  {
-    id: 7,
-    client: 'cliente',
-    products: ['producto1','producto 2', 'producto 3'],
-    amount: 100.00,
-    zone: 'Panamá',
-    state: 'Entregado'
-  },{
-    id: 8,
-    client: 'cliente',
-    products: ['producto1','producto 2', 'producto 3'],
-    amount: 100.00,
-    zone: 'Panamá',
-    state: 'Entregado'
-  },
-  {
-    id: 9,
-    client: 'cliente',
-    products: ['producto1','producto 2', 'producto 3'],
-    amount: 100.00,
-    zone: 'Panamá',
-    state: 'Entregado'
-  },
-  {
-    id: 10,
-    client: 'cliente',
-    products: ['producto1','producto 2', 'producto 3'],
-    amount: 100.00,
-    zone: 'Panamá',
-    state: 'Entregado'
-  },
-  {
-    id: 11,
-    client: 'cliente',
-    products: ['producto1','producto 2', 'producto 3'],
-    amount: 100.00,
-    zone: 'Panamá',
-    state: 'Entregado'
-  }
 
-  ];
-  public searchForm: FormGroup;
-  constructor(public productService: ProductService,
-              private formBuilder: FormBuilder,
-              private ngbCalendar: NgbCalendar, private dateAdapter: NgbDateAdapter<string>) { }
+  constructor(
+    private alert: AlertService,
+    private spinner: NgxSpinnerService,
+    private orderService: OrderService,
+    private storageService: StorageService,
+    private ngbCalendar: NgbCalendar, private dateAdapter: NgbDateAdapter<string>
+  ) { }
 
   ngOnInit(): void {
-    this.createForm();
-    this.getTableInformation();
+    this.loadData();
   }
 
-  createForm(){
-    this.searchForm = this.formBuilder.group({
-      init: [''],
-      end: [''],
-      state: ['']
-    });
+  private loadData( page = 1 ): void {
+    this.spinner.show();
+    const store: Store[] = this.storageService.getItem( 'stores' );
+    this.orderService.orderList( store[ 0 ]._id, page ).subscribe( ( result: Result<Order> ) => {
+      this.spinner.hide();
+      this.orders = [ ...result.docs ];
+      this.paginate = { ...result };
+      this.paginate.pages = [];
+      for ( let i = 1; i <= this.paginate.totalPages; i++ ) {
+        this.paginate.pages.push( i );
+      }
+    } );
   }
 
-  slicePage(items){
-    if (items.length > this.pageSize ){
-      return items.slice(0, this.pageSize );
-    } else {
-      return items;
-    }
+  setPage( page: number ) {
+    this.loadData( page );
   }
 
-  getTableInformation(){
-    //** carga de datos desde api */
-
-      this.paginate = this.productService.getPager(this.allOrders.length, +this.pageNo, this.pageSize );
-      this.orders = this.slicePage(this.allOrders);
-  }
-
-  setPage(event){
-    const end = event * this.paginate.pageSize;
-    this.paginate.startIndex = end - this.paginate.pageSize;
-    if (event === this.paginate.endPage){
-      this.orders = this.allOrders.slice(this.paginate.startIndex );
-      this.paginate.endIndex = this.allOrders.length - 1;
-    } else {
-      this.paginate.endIndex = end - 1;
-      this.orders = this.allOrders.slice(this.paginate.startIndex, this.paginate.endIndex + 1);
-    }
-    this.paginate.currentPage = event;
-  }
-
-  search(){
-    console.log(this.searchForm.value);
-  }
-
-  showDetails(){
-
-  }
 
 }
