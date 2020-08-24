@@ -13,12 +13,14 @@ export class ShopDetailsComponent implements OnInit {
   public modal: any;
   public shop: any;
   public plan: any;
+  public page = false;
 
   constructor(private modalService: NgbModal) { 
     console.log("construtor");
   }
 
   ngOnInit(): void {
+    console.log("ngOnInit");
   }
 
   openModal(shop) {
@@ -26,6 +28,10 @@ export class ShopDetailsComponent implements OnInit {
     this.getPlanInformation();
     this.modalOpen = true;
     this.modal = this.modalService.open(this.ShopDetails);
+  }
+
+  openPage(){
+    this.page = true;
   }
 
   getPlanInformation(){
