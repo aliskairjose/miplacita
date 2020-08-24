@@ -11,6 +11,7 @@ import { Store } from '../../shared/classes/store';
 import { StorageService } from '../../shared/services/storage.service';
 import { Paginate } from '../../shared/classes/paginate';
 import { Result } from '../../shared/classes/response';
+import { environment } from '../../../environments/environment';
 
 @Component( {
   selector: 'app-orders',
@@ -19,12 +20,13 @@ import { Result } from '../../shared/classes/response';
 } )
 export class OrdersComponent implements OnInit {
 
-  fields = [ 'Cliente', 'Productos', 'Monto', 'Zona de Entrega',
+  fields = [ 'Cliente', 'Productos', 'Monto', 'Fecha', 'Zona de Entrega',
     'Estado', '' ];
 
   orders: Order[] = [];
   paginate: Paginate;
-
+  orderStatus = environment.orderStatus;
+  
   @ViewChild( "orderDetails" ) OrderDetails: OrderDetailsComponent;
   /** variable provisional */
 

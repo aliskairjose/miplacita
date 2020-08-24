@@ -1,15 +1,15 @@
 import { Product } from './product';
+import { User } from './user';
 export interface Order {
-  _id?: string;
-  user: string; // Id del usuario
-  store: string; // Id de la tienda
+  _id: string;
   status: string;
   amount: number;
   tax: number;
   created_at: string;
   updated_at: string;
-  shipment_option: ShipmentOptions  ;
-  items: Array<Item>;
+  user: User;
+  shipment_option: ShipmentOptions;
+  items: Item[];
 }
 
 export interface Item {
@@ -17,8 +17,8 @@ export interface Item {
   product: string; // Id de producto
   quantity: number;
   tax: number;
-  amount_single: number;
-  amount_amount: number;
+  unit_price: number;
+  total_price: number; // unit_price   x quantity
 }
 
 export interface ShipmentOptions {
