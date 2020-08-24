@@ -43,7 +43,7 @@ export class RegisterStoreComponent implements OnInit {
   storeData: Store;
   planID = '';
   selectedCategory = '';
-  imageBase64: string;
+  imageBase64: Array<string> = [];
   shopLogo: string;
 
   constructor(
@@ -170,7 +170,7 @@ export class RegisterStoreComponent implements OnInit {
   }
 
   uploadImage( images: string[] ): void {
-    this.imageBase64 = images[ 0 ];
+    this.imageBase64 = [ ...images ];
   }
 
 }
