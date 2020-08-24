@@ -52,7 +52,7 @@ export class ShopProfileComponent implements OnInit {
   onSubmit(): void {
     this.submitted = true;
     console.log( this.profileForm.value );
-    if ( this.profileForm.valid ) {
+    /* if ( this.profileForm.valid ) {
       this.spinner.show();
       this.storeService.updateStore( this.store._id, this.profileForm.value ).subscribe( () => {
         this.spinner.hide();
@@ -61,7 +61,7 @@ export class ShopProfileComponent implements OnInit {
         this.spinner.hide();
         this.alert.warning( response.error.message );
       } );
-    }
+    } */
   }
 
   private createForm(): void {
