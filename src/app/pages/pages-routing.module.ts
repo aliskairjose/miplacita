@@ -89,19 +89,27 @@ const routes: Routes = [
   },
   {
     path: 'shop/profile',
-    component: ShopProfileComponent
+    component: ShopProfileComponent,
+    canActivate: [ AuthGuard ]
+
   },
   {
     path: 'shop/design',
-    component: ShopDesignComponent
+    component: ShopDesignComponent,
+    canActivate: [ AuthGuard ]
+
   },
   {
     path: 'shop/suscription',
-    component: ShopSuscriptionComponent
+    component: ShopSuscriptionComponent,
+    canActivate: [ AuthGuard ]
+
   },
   {
     path: 'shop/withdrawal',
-    component: ShopWithdrawalComponent
+    component: ShopWithdrawalComponent,
+    canActivate: [ AuthGuard ]
+
   }
 ];
 

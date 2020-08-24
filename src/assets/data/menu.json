@@ -7,7 +7,7 @@
   "leftMenuItems": [
     { "path": "/pages/dashboard", "title": "Dashboard", "type": "link", "role": null },
 		{ "path": "/pages/products", "title": "Productos", "type": "link", "role": "merchant" },
-		{ "path": "/pages/account/my-shop", "title": "Tienda", "type": "link", "role": "merchant" },
+		{ "path": "/pages/shop/profile", "title": "Tienda", "type": "link", "role": "merchant" },
 		{ "path": "/pages/orders", "title": "Órdenes", "type": "link", "role": "merchant" },
 		{ "path": "/pages/shops", "title": "Tienda", "type": "link", "role": "admin" }
   ]
