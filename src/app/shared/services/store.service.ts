@@ -4,6 +4,7 @@ import { Observable, Subject } from 'rxjs';
 import { Store } from '../classes/store';
 import { map } from 'rxjs/operators';
 import { Plan } from '../classes/plan';
+import { Response, Result } from '../classes/response';
 
 @Injectable( {
   providedIn: 'root'
@@ -41,11 +42,26 @@ export class StoreService {
   }
 
   /**
-   * @description Retorna el detalle de la tienda
+   * @description Retorna el detalle de la tienda cuando recibe ID, y un listado si no recibe el ID
    * @param id Id de la tienda
    */
-  getStore( id: string ): Observable<Store> {
-    return this.http.get( `stores/${id}` );
+  getStore( id?: string ): Observable<Store[]> {
+    return this.http.get( `stores` ).pipe(
+      map( ( response: Response<Store> ) => {
+        return response.result.docs;
+      } )
+    );
+  }
+  /**
+   * @description Retorna el detalle de la tienda cuando recibe ID, y un listado si no recibe el ID
+   * @param id Id de la tienda
+   */
+  storelist(): Observable<Result<Store>> {
+    return this.http.get( `stores` ).pipe(
+      map( ( response: Response<Store> ) => {
+        return response.result;
+      } )
+    );
   }
 
   /**

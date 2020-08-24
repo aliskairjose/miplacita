@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpService } from './http.service';
 import { Observable, Subject } from 'rxjs';
 import { Order } from '../classes/order';
+import { Response, Result } from '../classes/response';
+import { map } from 'rxjs/operators';
 
 @Injectable( {
   providedIn: 'root'
@@ -26,8 +28,21 @@ export class OrderService {
    * @description Retorna el detalle de la orden
    * @param id Id de la orden
    */
-  getOrder( id: string ): Observable<Order> {
+  getOrder  ( id: string ): Observable<Order> {
     return this.http.get( `order/${id}` );
+  }
+
+  /**
+   * @description Retorna la lista de ordenes de una tienda es específico
+   * @param id ID de la tienda a consultar las ordenes
+   * @returns Observable de array de ordenes
+   */
+  orderList( id: string, page = 1 ): Observable<Result<Order>>{
+    return this.http.get(`order?store=${id}`).pipe(
+      map( (response: Response<Order>) => {
+        return response.result;
+      })
+    );
   }
 
   /**

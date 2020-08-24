@@ -56,7 +56,7 @@ import { ShopWithdrawalComponent } from './shop-withdrawal/shop-withdrawal.compo
 import { ShopSuscriptionComponent } from './shop-suscription/shop-suscription.component';
 
 export const customCurrencyMaskConfig = {
-  align: 'right',
+  align: 'left',
   allowNegative: false,
   allowZero: true,
   decimal: ',',

@@ -8,31 +8,45 @@
                 <div class="form-group d-flex justify-content-center">
                     <img src="../../../assets/images/marketplace/svg/user.svg" alt="" class="img-circle">
                 </div>
+                <!-- Shop Name -->
                 <div class="form-group input-group">
-                    <input class="form-control" placeholder="Nombre de la tienda"/>
+                    <input formControlName="name" type="text" class="form-control" placeholder="Nombre de la tienda" [(ngModel)]="store.name"/>
                     <div class="input-group-prepend">
                         <span class="input-group-text">
                             <img src="../../../../assets/images/marketplace/svg/user.svg" alt="">
                         </span>
                     </div>
+                    <div *ngIf="submitted && f.name.errors" class="invalid-feedback d-block">
+                        <div *ngIf="f.name.errors.required"> {{ required }} </div>
+                    </div>
                 </div>
+                <!-- Description -->
                 <div class="form-group input-group">
-                    <textarea class="form-control" placeholder="Descripción"></textarea>
+                    <textarea class="form-control" placeholder="Descripción" value="{{store.description}}"></textarea>
                 </div>
+                <!-- Email -->
                 <div class="form-group input-group">
-                    <input class="form-control" placeholder="Email"/>
+                    <input formControlName="email" type="email" class="form-control" placeholder="Email" [(ngModel)]="store.email"/>
                     <div class="input-group-prepend">
                         <span class="input-group-text">
                             <img src="../../../../assets/images/marketplace/svg/email.svg" alt="">
                         </span>
                     </div>
+                    <div *ngIf="submitted && f.email.errors" class="invalid-feedback d-block">
+                        <div *ngIf="f.email.errors.required"> {{ required }} </div>
+                        <div *ngIf="f.email.errors.email"> {{ invalidEmail }} </div>
+                    </div>
                 </div>
+                <!-- Phone -->
                 <div class="form-group input-group">
-                    <input class="form-control" placeholder="Teléfono" />
+                    <input formControlName="phone" type="text" class="form-control" placeholder="Teléfono" [(ngModel)]="store.phone" />
                     <div class="input-group-prepend">
                         <span class="input-group-text">
                             <img src="../../../../assets/images/marketplace/svg/phone.svg" alt="">
                         </span>
+                    </div>
+                    <div *ngIf="submitted && f.phone.errors" class="invalid-feedback d-block">
+                        <div *ngIf="f.phone.errors.required"> {{ required }} </div>
                     </div>
                 </div>
                 <div class="form-group input-group">
