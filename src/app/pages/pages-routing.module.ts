@@ -15,9 +15,15 @@ import { ShopsComponent } from './shops/shops.component';
 import { OrdersComponent } from './orders/orders.component';
 import { ProductsComponent } from './products/products.component';
 import { CreateProductComponent } from './create-product/create-product/create-product.component';
+import { MyShopComponent } from './account/my-shop/my-shop.component';
 
 const routes: Routes = [
 
+  {
+    path: 'account/my-shop',
+    component: MyShopComponent,
+    canActivate: [ AuthGuard ]
+  },
   {
     path: 'dashboard',
     component: DashboardComponent,

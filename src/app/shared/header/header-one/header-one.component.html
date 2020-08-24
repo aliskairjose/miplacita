@@ -22,28 +22,33 @@
               <a [routerLink]="['/shop/wishlist']"><i class="fa fa-heart" aria-hidden="true"></i>Wishlist</a>
             </li> -->
             <li class="onhover-dropdown mobile-account">
-              <i class="fa fa-user" aria-hidden="true"></i> Mi cuenta
+              <i class="fa fa-user-circle-o fa-lg" aria-hidden="true"></i> 
+              <!-- Mi cuenta -->
               <ul class="onhover-show-div">
                 <!-- Cuando no ha iniciado sesión -->
                 <div *ngIf="!isLoggedIn"> 
                   <li >
-                    <i class="fa fa-sign-in" aria-hidden="true"></i> 
+                    <!-- <i class="fa fa-sign-in" aria-hidden="true"></i>  -->
                     <a [routerLink]="[ '/pages/login' ]">Iniciar sesión</a>
                   </li>
                   <li>
-                    <i class="fa fa-edit" aria-hidden="true"></i>
+                    <!-- <i class="fa fa-edit" aria-hidden="true"></i> -->
                     <a [routerLink]="[ '/pages/register' ]">Registro</a>
                   </li>
                 </div>
                 <!-- Cuando ha iniciado sesión -->
                 <div *ngIf="isLoggedIn">
                   <li>
-                    <i class="fa fa-sliders" aria-hidden="true"></i>
-                    <a [routerLink]="[ '/pages/configuration' ]">Configuración</a>
+                    <!-- <i class="fa fa-sliders" aria-hidden="true"></i> -->
+                    <a [routerLink]="[ '/pages/configuration' ]">Perfil</a>
                   </li>
-                  <!-- <hr> -->
+                  <li *ngIf="role === 'merchant'">
+                    <!-- <i class="fa fa-sliders" aria-hidden="true"></i> -->
+                    <a [routerLink]="[ '/pages/account/my-shop' ]">Tienda</a>
+                  </li>
+                  <hr>
                   <li>
-                    <i class="fa fa-sign-out" aria-hidden="true"></i>
+                    <!-- <i class="fa fa-sign-out" aria-hidden="true"></i> -->
                     <a data-lng="es" href="javascript:void(0)" (click)="loggOut()">
                       Salir
                     </a>

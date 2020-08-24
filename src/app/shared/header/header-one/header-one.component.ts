@@ -18,7 +18,8 @@ export class HeaderOneComponent implements OnInit {
 
   stick = false;
   isLoggedIn: boolean;
-
+  role: string;
+  
   // @HostListener Decorator
   @HostListener( 'window:scroll', [] )
   onWindowScroll() {
@@ -39,6 +40,7 @@ export class HeaderOneComponent implements OnInit {
 
   ngOnInit(): void {
     this.isLoggedIn = this.auth.isAuthenticated();
+    this.role = this.storage.getItem('role');
     this.auth.authObserver().subscribe( ( isAuth: boolean ) => {
       this.isLoggedIn = isAuth;
       // tslint:disable-next-line: curly

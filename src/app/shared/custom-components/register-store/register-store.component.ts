@@ -43,7 +43,8 @@ export class RegisterStoreComponent implements OnInit {
   storeData: Store;
   planID = '';
   selectedCategory = '';
-  imageBase64: string;
+  imageBase64: Array<string> = [];
+  shopLogo: string;
 
   constructor(
     private router: Router,
@@ -168,22 +169,8 @@ export class RegisterStoreComponent implements OnInit {
     } );
   }
 
-  onFileChange( event ) {
-    this.imageBase64 = '';
-    const image = event.target.files[ 0 ];
-    const mimeType = image.type;
-    if ( mimeType.match( /image\/*/ ) == null ) {
-      return;
-    }
-    const reader = new FileReader();
-
-    if ( event.target.files && event.target.files.length ) {
-      const [ file ] = event.target.files;
-      reader.readAsDataURL( file );
-
-      reader.onload = () => { this.imageBase64 = reader.result as string; };
-
-    }
+  uploadImage( images: string[] ): void {
+    this.imageBase64 = [ ...images ];
   }
 
 }

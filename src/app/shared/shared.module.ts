@@ -61,6 +61,9 @@ import { CustomPaginationComponent } from './custom-components/custom-pagination
 import { AlertModule } from 'ngx-alerts';
 import { NgxCurrencyModule, CurrencyMaskInputMode } from 'ngx-currency';
 import { SuccessModalComponent } from './custom-component/success-modal/success-modal.component';
+import { ShopDetailsComponent } from './custom-components/shop-details/shop-details.component';
+import { OrderDetailsComponent } from './custom-components/order-details/order-details.component';
+import { UploadImageComponent } from './components/upload-image/upload-image.component';
 
 export const customCurrencyMaskConfig = {
   align: 'right',
@@ -76,9 +79,6 @@ export const customCurrencyMaskConfig = {
   max: null,
   inputMode: CurrencyMaskInputMode.FINANCIAL
 };
-import { ShopDetailsComponent } from './custom-components/shop-details/shop-details.component';
-
-import { OrderDetailsComponent } from './custom-components/order-details/order-details.component';
 @NgModule({
   declarations: [
     HeaderOneComponent,
@@ -118,7 +118,8 @@ import { OrderDetailsComponent } from './custom-components/order-details/order-d
     // Pipes
     DiscountPipe,
     FilterPipe,
-    OrderDetailsComponent
+    OrderDetailsComponent,
+    UploadImageComponent
   ],
   imports: [
     NgxCurrencyModule.forRoot(customCurrencyMaskConfig),
@@ -176,6 +177,7 @@ import { OrderDetailsComponent } from './custom-components/order-details/order-d
     RegisterStoreComponent,
     CustomPaginationComponent,
     SuccessModalComponent,
+    UploadImageComponent,
     // Pipes
     DiscountPipe,
     FilterPipe,

@@ -82,12 +82,8 @@
                             <p for="logo">Seleccione un logo para su tienda</p>
                         </div>
                         <div class="form-row col-md-6 mx-auto mb-2">
-                            <div class="col-md-4 ">
-                                <img class="thumbnail" [src]="imageLogo" id="logo" />
-                            </div>
-                            <div class="col-md-2 ">
-                                <input class="" type="file" id="upload-logo"
-                                    placeholder="Seleccionar imagen..." (change)="onFileChange($event)" />
+                            <div class="col-md-6">
+                                <app-upload-image (uploadImage)="uploadImage($event)"></app-upload-image>
                             </div>
                         </div>
 
@@ -157,8 +153,8 @@
                                     <img src="../../../../assets/images/marketplace/svg/left-align.svg" alt="">
                                 </span>
                             </div>
-                            <div *ngIf="submitted && f.category.errors" class="invalid-feedback d-block">
-                                <div *ngIf="f.category.errors.required"> {{ required }} </div>
+                            <div *ngIf="submitted && p.category.errors" class="invalid-feedback d-block">
+                                <div *ngIf="p.category.errors.required"> {{ required }} </div>
                             </div>
                         </div>
                         <!-- Descripcion del producto -->
@@ -173,13 +169,8 @@
                             <p for="logo">Seleccione una imagen para el artículo</p>
                         </div>
                         <div class="form-row col-md-6 mx-auto mb-2">
-                            <div class="col-md-4 mx-auto">
-
-                                <img class="thumbnail" [src]="imageProduct" id="logo" />
-                            </div>
                             <div class="mx-auto">
-                                <input class="" type="file" id="upload-logo" (change)="onFileChange($event)"
-                                    placeholder="Seleccionar imagen..." />
+                                <app-upload-image (uploadImage)="uploadImage($event)"></app-upload-image>
                             </div>
                         </div>
                         <div class="form-gruop text-center">
