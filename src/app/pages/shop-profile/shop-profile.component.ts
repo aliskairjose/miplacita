@@ -21,7 +21,7 @@ export class ShopProfileComponent implements OnInit {
   submitted: boolean;
   required = 'Campo obligatorio';
   invalidEmail = 'Email inválido';
-  store: Store;
+  store: Store = {};
 
   constructor(
     private router: Router,
@@ -40,11 +40,12 @@ export class ShopProfileComponent implements OnInit {
   get f() { return this.profileForm.controls; }
 
   ngOnInit(): void {
+    this.spinner.show();
     const stores: Store[] = this.storage.getItem( 'stores' );
     this.storeService.getStore( stores[ 0 ]._id ).subscribe( ( store: Store[] ) => {
+      this.spinner.hide();
       this.store = { ...store[ 0 ] };
-      console.log( this.store );
-    } );
+    }, () => this.spinner.hide() );
   }
 
   onSubmit(): void {
