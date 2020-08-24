@@ -119,19 +119,13 @@ form {
       }
   }
 }
-.table-center-mt{
-  width: 100%;
-  margin: 0 auto;
-  margin-top: 3%;
-  
-}
 
 .icon-label {
   background-color: var(--red);    
 } 
 
 .input-group-prepend {
-  height: 50px;
+  height: 55px;
 }
 
 .search {
@@ -174,14 +168,4 @@ form {
 // Extra large devices (large desktops, 1200px and up)
 @media (min-width: 1200px) {  }
 
-.table-center-mt{
-  width: 100%;
-  margin: 0 auto;
-  margin-top: 3%;
-  
-}
-
-.icon-label {
-  background-color: var(--red);    
-} 
 
