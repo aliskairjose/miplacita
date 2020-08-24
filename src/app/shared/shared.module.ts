@@ -64,6 +64,7 @@ import { SuccessModalComponent } from './custom-component/success-modal/success-
 import { ShopDetailsComponent } from './custom-components/shop-details/shop-details.component';
 import { OrderDetailsComponent } from './custom-components/order-details/order-details.component';
 import { UploadImageComponent } from './components/upload-image/upload-image.component';
+import { TimelineComponent } from './custom-component/timeline/timeline.component';
 
 export const customCurrencyMaskConfig = {
   align: 'right',
@@ -119,7 +120,8 @@ export const customCurrencyMaskConfig = {
     DiscountPipe,
     FilterPipe,
     OrderDetailsComponent,
-    UploadImageComponent
+    UploadImageComponent,
+    TimelineComponent
   ],
   imports: [
     NgxCurrencyModule.forRoot(customCurrencyMaskConfig),
@@ -182,7 +184,8 @@ export const customCurrencyMaskConfig = {
     DiscountPipe,
     FilterPipe,
     ShopDetailsComponent,
-    OrderDetailsComponent
+    OrderDetailsComponent,
+    TimelineComponent
   ]
 })
 export class SharedModule { }
