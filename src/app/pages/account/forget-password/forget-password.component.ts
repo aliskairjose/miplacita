@@ -37,17 +37,12 @@ export class ForgetPasswordComponent implements OnInit {
     this.submitted = true;
 
     if ( this.forgotForm.valid ) {
-      this.spinner.show();
       this.auth.resetPassword( this.forgotForm.value ).subscribe( () => {
-        this.spinner.hide();
         this.alert.info( 'Le hemos enviado un correo, revise su buzón! Gracias' );
         setTimeout( () => {
           this.router.navigate( [ 'pages/login' ] );
         }, 3200 );
-      }, () => {
-        this.spinner.hide();
-        this.alert.danger( 'Error' );
-      } );
+      });
     }
   }
 

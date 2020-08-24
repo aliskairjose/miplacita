@@ -4,9 +4,7 @@ import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms'
 import { AuthService } from '../../../shared/services/auth.service';
 import { AlertService } from 'ngx-alerts';
 import { MustMatch } from '../../../shared/helper/must-match.validator';
-import { NgxSpinnerService } from 'ngx-spinner';
 import { AuthResponse } from '../../../shared/classes/auth-response';
-import { HttpErrorResponse } from '@angular/common/http';
 import { StorageService } from '../../../shared/services/storage.service';
 import { StoreService } from '../../../shared/services/store.service';
 
@@ -29,7 +27,6 @@ export class RegisterComponent implements OnInit {
     private alert: AlertService,
     private storage: StorageService,
     private formBuilder: FormBuilder,
-    private spinner: NgxSpinnerService,
   ) {
     this.createForm();
   }
@@ -44,19 +41,14 @@ export class RegisterComponent implements OnInit {
   onSubmit() {
     this.submitted = true;
     if ( this.registerForm.valid ) {
-      this.spinner.show();
       this.auth.register( this.registerForm.value ).subscribe( ( data: AuthResponse ) => {
         if ( data.success ) {
           this.auth.selectedUSer = data.user;
           this.storage.setItem( 'token', data.token );
           this.storage.setItem( 'userId', data.user._id );
-          this.spinner.hide();
           this.registerSuccess = true;
         }
-      }, ( response: HttpErrorResponse ) => {
-        this.spinner.hide();
-        this.alert.danger( 'Ha ocurrido un error!' );
-      } );
+      });
     }
   }
 
