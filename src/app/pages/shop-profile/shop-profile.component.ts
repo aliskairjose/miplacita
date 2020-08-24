@@ -51,6 +51,16 @@ export class ShopProfileComponent implements OnInit {
   onSubmit(): void {
     this.submitted = true;
     console.log( this.profileForm.value );
+    if ( this.profileForm.valid ) {
+      this.spinner.show();
+      this.storeService.updateStore( this.store._id, this.profileForm.value ).subscribe( () => {
+        this.spinner.hide();
+        this.alert.info( 'La tienda se actualizó con exito' );
+      }, ( response: HttpErrorResponse ) => {
+        this.spinner.hide();
+        this.alert.warning( response.error.message );
+      } );
+    }
   }
 
   private createForm(): void {
