@@ -45,6 +45,7 @@ export class ShopProfileComponent implements OnInit {
     this.storeService.getStore( stores[ 0 ]._id ).subscribe( ( store: Store[] ) => {
       this.spinner.hide();
       this.store = { ...store[ 0 ] };
+      console.log( this.store );
     }, () => this.spinner.hide() );
   }
 

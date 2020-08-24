@@ -10,7 +10,8 @@
         <div class="d-flex flex-column col-md-6 mx-auto">
             <form [formGroup]="profileForm" (ngSubmit)="onSubmit()" class="theme-form">
                 <div class="form-group d-flex justify-content-center">
-                    <img src="../../../assets/images/marketplace/svg/user.svg" alt="" class="img-circle">
+                    <!-- <img src="../../../assets/images/marketplace/svg/user.svg" alt="" class="img-circle"> -->
+                    <img [src]="store.logo" class="rounded-circle img-circle" alt="">
                 </div>
                 <!-- Shop Name -->
                 <div class="form-group input-group">
