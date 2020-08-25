@@ -1,5 +1,10 @@
 <section class="register-page-mp section-b-space" *ngIf="step==1">
     <div class="container">
+        <!-- TIMELINE -->
+        <div class="d-flex mb-3" style="height: 10vh;">
+            <app-timeline *ngIf="step==1" class="mx-auto" [active]="step+1"></app-timeline>   
+        </div>
+        <!-- TIMELINE-->
         <div class="row">
             <div class="col-lg-12">
                 <h3>Configura tu tienda</h3>
@@ -99,6 +104,11 @@
 </section>
 <section class="register-page-mp section-b-space" *ngIf="step==2">
     <div class="container">
+        <!-- TIMELINE -->
+        <div class="d-flex mb-3" style="height: 10vh;">
+            <app-timeline *ngIf="step==2" class="mx-auto" [active]="step+1"></app-timeline>   
+        </div>
+        <!-- TIMELINE-->
         <div class="row justify-content-center">
             <div class="col-lg-12">
                 <h3 class="mx-auto">Configura tu primer producto</h3>

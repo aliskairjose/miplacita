@@ -3,3 +3,10 @@
     height: 9rem;
     // border-radius: 50%;
 }
+
+@media(max-width: 768px){
+    .optional{
+        display: none !important;
+    }
+    
+}
