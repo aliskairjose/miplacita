@@ -22,7 +22,7 @@ export class ShopProfileComponent implements OnInit {
   required = 'Campo obligatorio';
   invalidEmail = 'Email inválido';
   store: Store = {};
-
+ 
   constructor(
     private router: Router,
     private auth: AuthService,

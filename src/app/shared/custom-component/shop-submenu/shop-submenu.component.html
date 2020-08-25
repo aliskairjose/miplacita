@@ -1,0 +1,7 @@
+<ul id="sub-menu" class="d-flex flex-column my-2" *ngIf="active">
+    <li class="pl-1 my-2" *ngFor="let menuItem of menuItems" [class.active]="active==menuItem.id">
+        <a [routerLink]="menuItem.path" >
+            {{menuItem.title}}
+        </a>
+    </li>
+</ul>
