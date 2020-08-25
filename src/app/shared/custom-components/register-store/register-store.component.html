@@ -3,7 +3,9 @@
     <div class="container">
         <!-- TIMELINE -->
         <div class="d-flex mb-3" style="height: 10vh;">
-            <button type="button" class="btn btn-link" (click)="back()">Link</button>
+            <button type="button" class="btn btn-link" (click)="back()">
+                <img src="../../../../assets/images/marketplace/svg/arrow-back.svg" alt="">
+            </button>
             <app-timeline *ngIf="step==1" class="mx-auto" [active]="step+1"></app-timeline>   
         </div>
         <!-- TIMELINE-->
@@ -108,6 +110,9 @@
     <div class="container">
         <!-- TIMELINE -->
         <div class="d-flex mb-3" style="height: 10vh;">
+            <button type="button" class="btn btn-link" (click)="backStep()">
+                <img src="../../../../assets/images/marketplace/svg/arrow-back.svg" alt="">
+            </button>
             <app-timeline *ngIf="step==2" class="mx-auto" [active]="step+1"></app-timeline>   
         </div>
         <!-- TIMELINE-->

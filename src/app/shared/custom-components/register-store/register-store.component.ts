@@ -26,7 +26,7 @@ export class RegisterStoreComponent implements OnInit {
   $register: Subject<boolean> = new Subject<boolean>();
 
   planSelected = '';
-  step = 1;
+  step = 2;
   imageLogo: any = '../../../../assets/images/marketplace/svg/upload-image.svg';;
   imageProduct: any = '../../../../assets/images/marketplace/svg/upload-image.svg';
   storeForm: FormGroup;
@@ -179,6 +179,10 @@ export class RegisterStoreComponent implements OnInit {
 
   back(): void {
     this.setBack.emit( false );
+  }
+
+  backStep(): void {
+    this.step = 1;
   }
 
 }
