@@ -7,7 +7,13 @@
   "leftMenuItems": [
     { "path": "/pages/dashboard", "title": "Dashboard", "type": "link", "role": null },
 		{ "path": "/pages/products", "title": "Productos", "type": "link", "role": "merchant" },
-		{ "path": "/pages/shop/profile", "title": "Tienda", "type": "link", "role": "merchant" },
+    { "path": "/pages/shop/profile", "title": "Tienda", "type": "sub", "role": "merchant",
+      "children": [
+        { "path": "/pages/shop/profile", "title": "Perfil", "type": "link", "role": "merchant" },
+        { "path": "/pages/shop/design", "title": "Diseño", "type": "link", "role": "merchant" },
+        { "path": "/pages/shop/suscription", "title": "Suscripción", "type": "link", "role": "merchant" },
+        { "path": "/pages/shop/withdrawal", "title": "Retiro", "type": "link", "role": "merchant" }
+      ] },
 		{ "path": "/pages/orders", "title": "Órdenes", "type": "link", "role": "merchant" },
 		{ "path": "/pages/shops", "title": "Tienda", "type": "link", "role": "admin" }
   ]
