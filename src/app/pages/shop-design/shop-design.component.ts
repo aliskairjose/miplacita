@@ -8,9 +8,9 @@ import { NgbSlideEvent, NgbSlideEventSource, NgbCarousel } from '@ng-bootstrap/n
 export class ShopDesignComponent implements OnInit {
   @ViewChild('ngcarousel', { static: true }) ngCarousel: NgbCarousel;
   color: any;
-  images = [{id:1,url:'../../../assets/images/dog.png'}, 
-  // {id:2, url:'../../../assets/images/lookbook.jpg'}, 
-  // {id:3, url:'../../../assets/images/dog.png'}
+  images = [{id:0,url:'../../../assets/images/dog.png'}, 
+    {id:1, url:'../../../assets/images/lookbook.jpg'}, 
+    {id:2, url:'../../../assets/images/dog.png'}
   ];
   constructor() {
     
@@ -20,6 +20,9 @@ export class ShopDesignComponent implements OnInit {
     this.ngCarousel.select(item);
   }
 
+  delete(idItem){
+    this.images.splice(idItem, 1);
+  }
   ngOnInit(): void {
   }
 

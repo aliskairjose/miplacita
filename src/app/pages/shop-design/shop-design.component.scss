@@ -1,10 +1,49 @@
 .preview {
-    max-width: 20%;
-    
+    height: 8rem;
+    width: 10rem;
+    max-width: 10rem;
 }
+
+  
+.preview{
+    & img{
+        
+        transform:scale(1);
+        -ms-transform:scale(1); // IE 9 
+        -moz-transform:scale(1); // Firefox 
+        -webkit-transform:scale(1); // Safari and Chrome 
+        -o-transform:scale(1); // Opera 
+        -webkit-transition: all 500ms ease-in-out; // IE 9
+        -moz-transition: all 500ms ease-in-out; // Firefox
+        -ms-transition: all 500ms ease-in-out; // Safari and Chrome 
+        -o-transition: all 500ms ease-in-out; // Opera       
+    }      
+    .img-btn {
+        opacity: 0;
+    }
+    &:hover{
+        img{
+            transform:scale(0.8);
+            -ms-transform:scale(0.8); // IE 9 
+            -moz-transform:scale(0.8); // Firefox 
+            -webkit-transform:scale(0.8); // Safari and Chrome 
+            -o-transform:scale(0.8); // Opera
+        }
+        .img-btn{
+            transform:translate(0px,-20px);
+            opacity: 1;
+        }
+    } 
+}
+
 @media(max-width: 768px){
     .optional{
         display: none !important;
     }
-    
+    .preview{
+        min-width: 45%;
+        max-width: 45%;
+        margin: 0 auto;
+        height: 10vh;
+    }
 }
