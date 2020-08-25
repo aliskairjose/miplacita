@@ -38,7 +38,6 @@ export class ShopsComponent implements OnInit {
 
   private loadData( page = 1 ): void {
     this.storeService.getAll( page ).subscribe( ( result: Result<Store> ) => {
-      console.log( result );
       this.shops = [ ...result.docs ];
       this.paginate = { ...result };
       this.paginate.pages = [];
