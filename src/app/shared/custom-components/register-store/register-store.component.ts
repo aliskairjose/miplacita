@@ -10,9 +10,9 @@ import { StoreService } from '../../services/store.service';
 import { Category } from '../../classes/category';
 import { Store } from '../../classes/store';
 import { Product } from '../../classes/product';
-import { HttpErrorResponse } from '@angular/common/http';
 import { Plan } from '../../classes/plan';
 import { SuccessModalComponent } from '../../custom-component/success-modal/success-modal.component';
+import { AuthResponse } from '../../classes/auth-response';
 
 @Component( {
   selector: 'app-register-store',
@@ -26,29 +26,27 @@ export class RegisterStoreComponent implements OnInit {
   step = 1;
   imageLogo: any = '../../../../assets/images/marketplace/svg/upload-image.svg';;
   imageProduct: any = '../../../../assets/images/marketplace/svg/upload-image.svg';
-  registerForm: FormGroup;
+  storeForm: FormGroup;
   productForm: FormGroup;
   submitted: boolean;
   invalidEmail = 'Email inválido';
   required = 'Campo obligatorio';
   userId = '';
   categories: Category[] = [];
-  store: Store;
-  product: Product;
+  store: Store = {};
+  product: Product = {};
   categoryId = '';
-  user: User;
+  user: User = {};
   plans: Plan[];
-  productData: Product;
-  storeData: Store;
-  planID = '';
+  productData: Product = {};
+  storeData: Store = {};
   selectedCategory = '';
-  imageBase64: Array<string> = [];
-  shopLogo: string;
+  productImage: Array<string> = [];
+  logoStore: Array<string> = [];
 
   constructor(
     private router: Router,
     private auth: AuthService,
-    private alert: AlertService,
     private storage: StorageService,
     private formBuilder: FormBuilder,
     private storeService: StoreService,
@@ -60,7 +58,7 @@ export class RegisterStoreComponent implements OnInit {
 
   // convenience getter for easy access to form fields
   // tslint:disable-next-line: typedef
-  get f() { return this.registerForm.controls; }
+  get f() { return this.storeForm.controls; }
   get p() { return this.productForm.controls; }
 
   ngOnInit(): void {
@@ -68,6 +66,7 @@ export class RegisterStoreComponent implements OnInit {
       this.plans = [ ...plans ];
       this.planSelected = this.plans[ 0 ]._id;
     } );
+
     this.productService.categoryList().subscribe( ( categories: Category[] ) => {
       this.categories = [ ...categories ];
     } );
@@ -76,19 +75,22 @@ export class RegisterStoreComponent implements OnInit {
 
   updatePlan( plan: string ) {
     this.planSelected = plan;
-    this.planID = plan;
   }
 
   storeRegister() {
     this.submitted = true;
-    this.storeData = { ...this.registerForm.value };
-    this.storeData.plan = this.planID;
+    this.storeData = { ...this.storeForm.value };
+    this.storeData.plan = this.planSelected;
 
-    if ( this.registerForm.valid ) {
-      this.storeService.uploadImages( { images: this.imageBase64 } ).subscribe( result => {
+    console.log( this.storeData );
+
+    if ( this.storeForm.valid ) {
+      this.storeService.uploadImages( { images: this.logoStore } ).subscribe( result => {
         if ( result.status === 'isOk' ) {
           this.storeData.logo = result.images[ 0 ];
-          this.createStore();
+          this.step = 2;
+          this.submitted = false;
+          console.log( this.storeData );
         }
       } );
     }
@@ -97,32 +99,46 @@ export class RegisterStoreComponent implements OnInit {
   productRegister() {
     this.submitted = true;
     this.productData = { ...this.productForm.value };
-    this.productData.store = this.store._id;
+    console.log( this.productData );
     if ( this.productForm.valid ) {
-      this.productService.uploadImages( { images: this.imageBase64 } ).subscribe( result => {
+      this.productService.uploadImages( { images: this.productImage } ).subscribe( result => {
         if ( result.status === 'isOk' ) {
           this.productData.image = result.images[ 0 ];
-          this.createProduct();
+          console.log( this.productData );
+          // this.createUser();
         }
-      });
+      } );
     }
   }
 
-  openModal() {
-    this.SuccessModal.openModal();
+
+  /**
+   * @description Carga de logo de tienda
+   * @param images Logo de tienda
+   */
+  uploadLogo( images: string[] ): void {
+    this.logoStore = [ ...images ];
+  }
+
+  /**
+   * @description Carga de imagen de producto
+   * @param images Imagen de producto
+   */
+  uploadImage( images: string[] ): void {
+    this.productImage = [ ...images ];
   }
 
   private createForm(): void {
 
     // Formulario de tienda
-    this.registerForm = this.formBuilder.group( {
+    this.storeForm = this.formBuilder.group( {
       name: [ '', [ Validators.required ] ],
       description: [ '', [ Validators.required ] ],
       url_store: [ '', [ Validators.required ] ],
       phone: [ '', [ Validators.required ] ],
       email: [ '', [ Validators.required, Validators.email ] ],
       // logo: [ '' ],
-      owner_id: [ this.storage.getItem( 'userId' ) ],
+      // owner_id: [ this.storage.getItem( 'userId' ) ],
     } );
 
     // Formulario de Producto
@@ -136,23 +152,33 @@ export class RegisterStoreComponent implements OnInit {
     } );
   }
 
+  private createUser(): void {
+    const userData = JSON.parse( sessionStorage.userForm );
+    this.auth.register( userData ).subscribe( ( data: AuthResponse ) => {
+      if ( data.success ) {
+        this.storeData.owner_id = data.user._id;
+        // this.createStore();
+      }
+    } );
+  }
+
   private createStore(): void {
     this.storeService.addStore( this.storeData ).subscribe( ( store: Store ) => {
       this.store = { ...store };
-      this.submitted = false;
-      this.step = 2;
-    });
+      // this.createProduct();
+    } );
   }
 
   private createProduct(): void {
+    this.productData.store = this.store._id;
     this.productService.addProduct( this.productData ).subscribe( ( product: Product ) => {
       this.product = { ...product };
       this.openModal();
-    });
+    } );
   }
 
-  uploadImage( images: string[] ): void {
-    this.imageBase64 = [ ...images ];
+  private openModal() {
+    this.SuccessModal.openModal();
   }
 
 }

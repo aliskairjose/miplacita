@@ -1,12 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
-import { AuthService } from '../../../shared/services/auth.service';
-import { AlertService } from 'ngx-alerts';
+import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { MustMatch } from '../../../shared/helper/must-match.validator';
-import { AuthResponse } from '../../../shared/classes/auth-response';
-import { StorageService } from '../../../shared/services/storage.service';
-import { StoreService } from '../../../shared/services/store.service';
 
 @Component( {
   selector: 'app-register',
@@ -22,10 +16,6 @@ export class RegisterComponent implements OnInit {
   matchError = 'Los campos deben coincidir';
 
   constructor(
-    private router: Router,
-    private auth: AuthService,
-    private alert: AlertService,
-    private storage: StorageService,
     private formBuilder: FormBuilder,
   ) {
     this.createForm();
@@ -40,15 +30,10 @@ export class RegisterComponent implements OnInit {
 
   onSubmit() {
     this.submitted = true;
+
     if ( this.registerForm.valid ) {
-      this.auth.register( this.registerForm.value ).subscribe( ( data: AuthResponse ) => {
-        if ( data.success ) {
-          this.auth.selectedUSer = data.user;
-          this.storage.setItem( 'token', data.token );
-          this.storage.setItem( 'userId', data.user._id );
-          this.registerSuccess = true;
-        }
-      });
+      sessionStorage.setItem( 'userForm', JSON.stringify( this.registerForm.value ) );
+      this.registerSuccess = true;
     }
   }
 

@@ -4,7 +4,7 @@
             <div class="col-lg-12">
                 <h3>Configura tu tienda</h3>
                 <div class="theme-card">
-                    <form [formGroup]="registerForm" class="theme-form">
+                    <form [formGroup]="storeForm" class="theme-form">
                         <p class="text-center">Selecciona el plan de tu preferencia</p>
                         <div class="d-flex col-md-6 justify-content-center mx-auto">
                             <div class="d-flex w-50 justify-content-center mb-3 px-5" *ngFor="let plan of plans">
@@ -83,7 +83,7 @@
                         </div>
                         <div class="form-row col-md-6 mx-auto mb-2">
                             <div class="mx-auto">
-                                <app-upload-image (uploadImage)="uploadImage($event)"></app-upload-image>
+                                <app-upload-image (uploadImage)="uploadLogo($event)"></app-upload-image>
                             </div>
                         </div>
 
