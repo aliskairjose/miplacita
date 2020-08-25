@@ -80,7 +80,6 @@ export class RegisterStoreComponent implements OnInit {
 
   ngOnInit(): void {
     const userData = JSON.parse( sessionStorage.userForm );
-    console.log( userData );
 
     this.storeService.getPlans().subscribe( ( plans: Plan[] ) => {
       this.plans = [ ...plans ];
@@ -111,7 +110,6 @@ export class RegisterStoreComponent implements OnInit {
       this.storeService.uploadImages( { images: this.images } ).subscribe( result => {
         if ( result.status === 'isOk' ) {
           this.storeData.logo = result.images[ 0 ];
-          console.log( 'carga de logo tienda', result.images )
           this.step = 2;
           this.images.length = 0;
           this.submitted = false;
@@ -131,7 +129,6 @@ export class RegisterStoreComponent implements OnInit {
       this.productService.uploadImages( { images: this.images } ).subscribe( result => {
         if ( result.status === 'isOk' ) {
           this.productData.image = result.images[ 0 ];
-          console.log( 'carga de imagen producto', result.images )
           this.createUser();
         }
       } );
@@ -156,8 +153,6 @@ export class RegisterStoreComponent implements OnInit {
       url_store: [ '', [ Validators.required ] ],
       phone: [ '', [ Validators.required ] ],
       email: [ '', [ Validators.required, Validators.email ] ],
-      // logo: [ '' ],
-      // owner_id: [ this.storage.getItem( 'userId' ) ],
     } );
 
     // Formulario de Producto
@@ -166,7 +161,6 @@ export class RegisterStoreComponent implements OnInit {
       description: [ '', [ Validators.required ] ],
       price: [ '', [ Validators.required ] ],
       tax: [ '', [ Validators.required ] ],
-      // image: [ '' ],
       category: [ this.selectedCategory, [ Validators.required ] ],
     } );
   }
@@ -174,11 +168,9 @@ export class RegisterStoreComponent implements OnInit {
   private createUser(): void {
     const userData = JSON.parse( sessionStorage.userForm );
     this.auth.register( userData ).subscribe( ( data: AuthResponse ) => {
-      console.log( data )
       if ( data.success ) {
         this.storage.setItem( 'token', data.token );
         this.storeData.owner_id = data.user._id;
-        console.log( 'create user', this.storeData );
         this.createStore();
       }
     } );
@@ -187,7 +179,6 @@ export class RegisterStoreComponent implements OnInit {
   private createStore(): void {
     this.storeService.addStore( this.storeData ).subscribe( ( store: Store ) => {
       this.store = { ...store };
-      console.log( 'createStore', this.store );
       this.createProduct();
     } );
   }
@@ -195,7 +186,6 @@ export class RegisterStoreComponent implements OnInit {
   private createProduct(): void {
     this.productData.store = this.store._id;
     this.productService.addProduct( this.productData ).subscribe( ( product: Product ) => {
-      console.log( 'create product', product );
       this.openModal();
     } );
   }
