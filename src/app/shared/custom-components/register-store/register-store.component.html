@@ -5,13 +5,13 @@
             <app-timeline *ngIf="step==1" class="mx-auto" [active]="step+1"></app-timeline>   
         </div>
         <!-- TIMELINE-->
-        <div class="row">
-            <div class="col-lg-12">
+        <div class="row justify-content-center">
+            <div class="col-lg-6">
                 <h3>Configura tu tienda</h3>
                 <div class="theme-card">
                     <form [formGroup]="storeForm" class="theme-form">
                         <p class="text-center">Selecciona el plan de tu preferencia</p>
-                        <div class="d-flex col-md-6 justify-content-center mx-auto">
+                        <div class="d-flex justify-content-center mx-auto">
                             <div class="d-flex w-50 justify-content-center mb-3 px-5" *ngFor="let plan of plans">
                                 <div class="d-flex flex-fill justify-content-center" (click)="updatePlan(plan._id)">
                                     <div class="d-flex flex-fill justify-content-center h-100 p-3 plan"
@@ -22,7 +22,7 @@
                             </div>
                         </div>
                         <!-- Shop name -->
-                        <div class="col-md-6 form-group input-group mx-auto mb-2">
+                        <div class="form-group input-group">
                             <input type="text" class="form-control" id="name" placeholder="Nombre de la tienda"
                                 required="" formControlName="name">
                             <div class="input-group-prepend">
@@ -35,7 +35,7 @@
                             </div>
                         </div>
                         <!-- Url -->
-                        <div class="col-md-6 form-group input-group mx-auto mb-2">
+                        <div class="form-group input-group">
                             <input type="url" class="form-control" id="url_store" placeholder="Ej. www.store.com"
                                 required="" formControlName="url_store">
                             <div class="input-group-prepend">
@@ -48,7 +48,7 @@
                             </div>
                         </div>
                         <!-- Description -->
-                        <div class="col-md-6 form-group input-group mx-auto mb-2">
+                        <div class="form-group input-group">
                             <textarea formControlName="description" type="text" class="form-control mb-2"
                                 id="exampleFormControlTextarea1" placeholder="Descripción de la tienda"
                                 required=""></textarea>
@@ -57,7 +57,7 @@
                             </div>
                         </div>
                         <!-- Phone -->
-                        <div class="col-md-6 form-group input-group mx-auto mb-2">
+                        <div class="form-group input-group">
                             <input type="tel" class="form-control" id="review" placeholder="Teléfono de la tienda"
                                 required="" formControlName="phone">
                             <div class="input-group-prepend">
@@ -70,7 +70,7 @@
                             </div>
                         </div>
                         <!-- Shop email -->
-                        <div class="col-md-6 form-group input-group mx-auto mb-2">
+                        <div class="form-group input-group">
                             <input type="email" class="form-control" id="review" placeholder="Email de la tienda"
                                 required="" formControlName="email">
                             <div class="input-group-prepend">
@@ -83,13 +83,11 @@
                                 <div *ngIf="f.email.errors.email"> {{ invalidEmail }} </div>
                             </div>
                         </div>
-                        <div class="col-md-6 mx-auto mb-2">
+                        <div class="text-center">
                             <p for="logo">Seleccione un logo para su tienda</p>
                         </div>
-                        <div class="form-row col-md-6 mx-auto mb-2">
-                            <div class="mx-auto">
-                                <app-upload-image (uploadImage)="uploadLogo($event)"></app-upload-image>
-                            </div>
+                        <div class="form-group text-center">
+                            <app-upload-image (uploadImage)="uploadImage($event)"></app-upload-image>
                         </div>
 
                         <div class="form-gruop text-center">
@@ -102,6 +100,7 @@
         </div>
     </div>
 </section>
+
 <section class="register-page-mp section-b-space" *ngIf="step==2">
     <div class="container">
         <!-- TIMELINE -->
@@ -110,11 +109,11 @@
         </div>
         <!-- TIMELINE-->
         <div class="row justify-content-center">
-            <div class="col-lg-12">
+            <div class="col-lg-6">
                 <h3 class="mx-auto">Configura tu primer producto</h3>
                 <div class="theme-card">
                     <form [formGroup]="productForm" class="theme-form">
-                        <div class="col-md-6 form-group input-group mx-auto mb-2">
+                        <div class="form-group input-group">
                             <input formControlName="name" type="text" class="form-control" id="name"
                                 placeholder="Nombre del producto" required="">
                             <div class="input-group-prepend">
@@ -126,7 +125,7 @@
                                 <div *ngIf="p.name.errors.required"> {{ required }} </div>
                             </div>
                         </div>
-                        <div class="col-md-6 form-group input-group mx-auto mb-2">
+                        <div class="form-group input-group">
                             <input currencyMask formControlName="price" type="text" class="form-control" id="price"
                                 placeholder="Precio del producto" required="">
                             <div class="input-group-prepend">
@@ -138,7 +137,7 @@
                                 <div *ngIf="p.price.errors.required"> {{ required }} </div>
                             </div>
                         </div>
-                        <div class="col-md-6 form-group input-group mx-auto mb-2">
+                        <div class="form-group input-group">
                             <input currencyMask formControlName="tax" type="text" class="form-control" id="review"
                                 placeholder="Impuesto del producto" required="">
                             <div class="input-group-prepend">
@@ -151,7 +150,7 @@
                             </div>
                         </div>
                         <!-- Categoria -->
-                        <div class="col-md-6 mx-auto form-group input-group">
+                        <div class="mx-auto form-group input-group">
                             <select formControlName="category" class="form-control" name="category"
                                 [(ngModel)]="selectedCategory">
                                 <option value="" selected>Seleccione una categoría</option>
@@ -168,20 +167,18 @@
                             </div>
                         </div>
                         <!-- Descripcion del producto -->
-                        <div class="col-md-6 mx-auto mb-2">
+                        <div class="mx-auto mb-2">
                             <textarea formControlName="description" type="text" class="form-control"
                                 id="descriptionProduct" placeholder="Descripción del producto" required=""></textarea>
                             <div *ngIf="submitted && p.description.errors" class="invalid-feedback d-block">
                                 <div *ngIf="p.description.errors.required"> {{ required }} </div>
                             </div>
                         </div>
-                        <div class="col-md-6 mx-auto mb-2">
+                        <div class="mx-auto mb-2">
                             <p for="logo">Seleccione una imagen para el artículo</p>
                         </div>
-                        <div class="form-row col-md-6 mx-auto mb-2">
-                            <div class="mx-auto">
-                                <app-upload-image (uploadImage)="uploadImage($event)"></app-upload-image>
-                            </div>
+                        <div class="form-group">
+                            <app-upload-image (uploadImage)="uploadImage($event)"></app-upload-image>
                         </div>
                         <div class="form-gruop text-center">
                             <button class="btn btn-solid" (click)="productRegister()">Registrar producto</button>

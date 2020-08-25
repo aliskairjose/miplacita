@@ -41,8 +41,7 @@ export class RegisterStoreComponent implements OnInit {
   productData: Product = {};
   storeData: Store = {};
   selectedCategory = '';
-  productImage: Array<string> = [];
-  logoStore: Array<string> = [];
+  images: Array<string> = [];
 
   constructor(
     private router: Router,
@@ -51,10 +50,7 @@ export class RegisterStoreComponent implements OnInit {
     private formBuilder: FormBuilder,
     private storeService: StoreService,
     private productService: ProductService,
-  ) {
-
-    this.createForm();
-  }
+  ) { this.createForm(); }
 
   // convenience getter for easy access to form fields
   // tslint:disable-next-line: typedef
@@ -62,6 +58,9 @@ export class RegisterStoreComponent implements OnInit {
   get p() { return this.productForm.controls; }
 
   ngOnInit(): void {
+    const userData = JSON.parse( sessionStorage.userForm );
+    console.log( userData );
+
     this.storeService.getPlans().subscribe( ( plans: Plan[] ) => {
       this.plans = [ ...plans ];
       this.planSelected = this.plans[ 0 ]._id;
@@ -85,7 +84,7 @@ export class RegisterStoreComponent implements OnInit {
     console.log( this.storeData );
 
     if ( this.storeForm.valid ) {
-      this.storeService.uploadImages( { images: this.logoStore } ).subscribe( result => {
+      this.storeService.uploadImages( { images: this.images } ).subscribe( result => {
         if ( result.status === 'isOk' ) {
           this.storeData.logo = result.images[ 0 ];
           this.step = 2;
@@ -101,7 +100,7 @@ export class RegisterStoreComponent implements OnInit {
     this.productData = { ...this.productForm.value };
     console.log( this.productData );
     if ( this.productForm.valid ) {
-      this.productService.uploadImages( { images: this.productImage } ).subscribe( result => {
+      this.productService.uploadImages( { images: this.images } ).subscribe( result => {
         if ( result.status === 'isOk' ) {
           this.productData.image = result.images[ 0 ];
           console.log( this.productData );
@@ -111,21 +110,13 @@ export class RegisterStoreComponent implements OnInit {
     }
   }
 
-
-  /**
-   * @description Carga de logo de tienda
-   * @param images Logo de tienda
-   */
-  uploadLogo( images: string[] ): void {
-    this.logoStore = [ ...images ];
-  }
-
   /**
    * @description Carga de imagen de producto
    * @param images Imagen de producto
    */
   uploadImage( images: string[] ): void {
-    this.productImage = [ ...images ];
+    // this.productImage = [ ...images ];
+    this.images = [ ...images ];
   }
 
   private createForm(): void {

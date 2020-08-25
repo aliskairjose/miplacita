@@ -8,7 +8,7 @@ import { MustMatch } from '../../../shared/helper/must-match.validator';
   styleUrls: [ './register.component.scss' ]
 } )
 export class RegisterComponent implements OnInit {
-  registerSuccess = false;
+  registerSuccess = true;
   registerForm: FormGroup;
   submitted: boolean;
   invalidEmail = 'Email inválido';
@@ -26,6 +26,7 @@ export class RegisterComponent implements OnInit {
   get f() { return this.registerForm.controls; }
 
   ngOnInit(): void {
+    console.log('register init')
   }
 
   onSubmit() {
