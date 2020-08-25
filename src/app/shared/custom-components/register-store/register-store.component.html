@@ -3,16 +3,16 @@
     <div class="container">
         <!-- TIMELINE -->
         <div class="d-flex mb-3" style="height: 10vh;">
-            <button type="button" class="btn btn-link" (click)="back()">
-                <img src="../../../../assets/images/marketplace/svg/arrow-back.svg" alt="">
-            </button>
             <app-timeline *ngIf="step==1" class="mx-auto" [active]="step+1"></app-timeline>   
         </div>
         <!-- TIMELINE-->
         <div class="row justify-content-center">
             <div class="col-lg-6 ">
                 <div class="d-flex mb-2 ">
-                    <img (click)="this.back(0)" class="pr-2" src="../../../../assets/images/marketplace/svg/arrow-back.svg"/>
+                    <button type="button" class="btn btn-link" (click)="back(0)">
+                        <img src="../../../../assets/images/marketplace/svg/arrow-back.svg" alt="">
+                    </button>
+                    <!-- <img (click)="this.back(0)" class="pr-2" src="../../../../assets/images/marketplace/svg/arrow-back.svg"/> -->
                     <div class="w-100 text-center">
                         <h3 class="my-auto">Gracias por registrarte</h3>
                         <h4>Configura tu tienda</h4>    
@@ -117,16 +117,15 @@
     <div class="container">
         <!-- TIMELINE -->
         <div class="d-flex mb-3" style="height: 10vh;">
-            <button type="button" class="btn btn-link" (click)="backStep()">
-                <img src="../../../../assets/images/marketplace/svg/arrow-back.svg" alt="">
-            </button>
             <app-timeline *ngIf="step==2" class="mx-auto" [active]="step+1"></app-timeline>   
         </div>
         <!-- TIMELINE-->
         <div class="row justify-content-center">
             <div class="col-lg-6">
                 <div class="d-flex mb-2 ">
-                    <img (click)="this.back(1)" class="pr-2" src="../../../../assets/images/marketplace/svg/arrow-back.svg"/>
+                    <button type="button" class="btn btn-link" (click)="back(1)">
+                        <img src="../../../../assets/images/marketplace/svg/arrow-back.svg" alt="">
+                    </button>
                     <div class="w-100 text-center">
                         <h3 class="my-auto">Falta poco</h3>
                         <h4>Carga tu primer prodcuto</h4>    
