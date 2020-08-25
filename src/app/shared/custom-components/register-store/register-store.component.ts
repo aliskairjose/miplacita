@@ -15,6 +15,21 @@ import { SuccessModalComponent } from '../../custom-component/success-modal/succ
 import { AuthResponse } from '../../classes/auth-response';
 import { Subject } from 'rxjs';
 
+
+interface ShopForm {
+  name?: string;
+  url?: string;
+  description?: string;
+  phone?: string;
+  email?: string;
+}
+interface ProductForm {
+  name?: string;
+  price?: string;
+  tax?: string;
+  category?: string;
+  description?: string;
+}
 @Component( {
   selector: 'app-register-store',
   templateUrl: './register-store.component.html',
@@ -23,10 +38,8 @@ import { Subject } from 'rxjs';
 export class RegisterStoreComponent implements OnInit {
   @ViewChild( 'successModal' ) SuccessModal: SuccessModalComponent;
 
-  $register: Subject<boolean> = new Subject<boolean>();
-
   planSelected = '';
-  step = 2;
+  step = 1;
   imageLogo: any = '../../../../assets/images/marketplace/svg/upload-image.svg';;
   imageProduct: any = '../../../../assets/images/marketplace/svg/upload-image.svg';
   storeForm: FormGroup;
@@ -45,11 +58,15 @@ export class RegisterStoreComponent implements OnInit {
   selectedCategory = '';
   images: Array<string> = [];
 
+  shop: ShopForm = {};
+  product: ProductForm = {};
+
   @Output() setBack: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(
     private router: Router,
     private auth: AuthService,
+    private alert: AlertService,
     private storage: StorageService,
     private formBuilder: FormBuilder,
     private storeService: StoreService,
@@ -85,12 +102,18 @@ export class RegisterStoreComponent implements OnInit {
     this.storeData = { ...this.storeForm.value };
     this.storeData.plan = this.planSelected;
 
+
     if ( this.storeForm.valid ) {
+      if ( this.images.length === 0 ) {
+        this.alert.warning( 'Debe cargar un logo para la tienda!' );
+        return;
+      }
       this.storeService.uploadImages( { images: this.images } ).subscribe( result => {
         if ( result.status === 'isOk' ) {
           this.storeData.logo = result.images[ 0 ];
-          console.log('carga de logo tienda', result.images)
+          console.log( 'carga de logo tienda', result.images )
           this.step = 2;
+          this.images.length = 0;
           this.submitted = false;
         }
       } );
@@ -101,10 +124,14 @@ export class RegisterStoreComponent implements OnInit {
     this.submitted = true;
     this.productData = { ...this.productForm.value };
     if ( this.productForm.valid ) {
+      if ( this.images.length === 0 ) {
+        this.alert.warning( 'Debe cargar un logo para la tienda!' );
+        return;
+      }
       this.productService.uploadImages( { images: this.images } ).subscribe( result => {
         if ( result.status === 'isOk' ) {
           this.productData.image = result.images[ 0 ];
-          console.log('carga de imagen producto', result.images)
+          console.log( 'carga de imagen producto', result.images )
           this.createUser();
         }
       } );
@@ -168,7 +195,7 @@ export class RegisterStoreComponent implements OnInit {
   private createProduct(): void {
     this.productData.store = this.store._id;
     this.productService.addProduct( this.productData ).subscribe( ( product: Product ) => {
-      console.log('create product', product);
+      console.log( 'create product', product );
       this.openModal();
     } );
   }

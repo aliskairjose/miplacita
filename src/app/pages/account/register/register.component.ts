@@ -11,13 +11,19 @@ import { Subject } from 'rxjs';
 export class RegisterComponent implements OnInit {
   $register: Subject<boolean> = new Subject<boolean>();
 
-  registerSuccess = true;
+  registerSuccess = false;
   registerForm: FormGroup;
   submitted: boolean;
   invalidEmail = 'Email inválido';
   required = 'Campo obligatorio';
   matchError = 'Los campos deben coincidir';
-  user: any;
+  user = {
+    fullname: '',
+    email: '',
+    password: '',
+    passwordConfirmation: ''
+  };
+
   constructor(
     private formBuilder: FormBuilder,
   ) {
