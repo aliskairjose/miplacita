@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { StorageService } from '../../shared/services/storage.service';
 import { User } from '../../shared/classes/user';
 import { Product } from '../../shared/classes/product';
-import { Response, Result } from '../../shared/classes/response';
+import { Result } from '../../shared/classes/response';
 import { Paginate } from '../../shared/classes/paginate';
 
 @Component( {
@@ -40,7 +40,6 @@ export class ProductsComponent implements OnInit, OnChanges {
     this.productService.productObserver().subscribe( ( product: Product ) => {
       this.loadData();
     } );
-
   }
 
   ngOnChanges(): void {
