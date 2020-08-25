@@ -4,7 +4,13 @@
     max-width: 10rem;
 }
 
-  
+.preview-box {
+    overflow-y: hidden;
+    overflow-x: scroll;
+    height: 15vh;
+    padding-bottom: 1.5rem;
+}
+
 .preview{
     & img{
         

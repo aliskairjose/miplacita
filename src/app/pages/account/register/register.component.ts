@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { MustMatch } from '../../../shared/helper/must-match.validator';
+import { RegisterStoreComponent } from '../../../shared/custom-components/register-store/register-store.component';
 
 @Component( {
   selector: 'app-register',
@@ -8,7 +9,7 @@ import { MustMatch } from '../../../shared/helper/must-match.validator';
   styleUrls: [ './register.component.scss' ]
 } )
 export class RegisterComponent implements OnInit {
-  registerSuccess = true;
+  registerSuccess = false;
   registerForm: FormGroup;
   submitted: boolean;
   invalidEmail = 'Email inválido';
@@ -25,8 +26,10 @@ export class RegisterComponent implements OnInit {
   // tslint:disable-next-line: typedef
   get f() { return this.registerForm.controls; }
 
-  ngOnInit(): void {
-    console.log('register init')
+  ngOnInit(): void {}
+
+  listen(r: boolean){
+    this.registerSuccess = false;
   }
 
   onSubmit() {

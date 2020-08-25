@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, Output, EventEmitter } from '@angular/core';
 import { Validators, FormGroup, FormBuilder } from '@angular/forms';
 import { AlertService } from 'ngx-alerts';
 import { AuthService } from '../../services/auth.service';
@@ -20,6 +20,7 @@ import { AuthResponse } from '../../classes/auth-response';
   styleUrls: [ './register-store.component.scss' ]
 } )
 export class RegisterStoreComponent implements OnInit {
+  @Output() emitEvent: EventEmitter<boolean> = new EventEmitter<boolean>();
   @ViewChild( 'successModal' ) SuccessModal: SuccessModalComponent;
 
   planSelected = '';
@@ -170,6 +171,15 @@ export class RegisterStoreComponent implements OnInit {
 
   private openModal() {
     this.SuccessModal.openModal();
+  }
+
+  public back(option: number){
+    if (option === 0){
+      this.step = 1;
+      this.emitEvent.emit(false);
+    } else if (option === 1){
+      this.step = 1;
+    }
   }
 
 }

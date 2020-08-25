@@ -25,9 +25,8 @@
           
           <!-- END CAROUSEL-->
           
-          <div class="d-flex " *ngIf="images.length>0" >
+          <div class="d-flex preview-box" *ngIf="images.length>0" >
               <div class="preview px-3" *ngFor="let image of images" >
-
                 <img class="w-100 h-100" [src]="image.url" (click)="update(image.id)"/>
                 <div class="img-btn d-flex">
                   <div class="w-45 mx-auto" (click)="delete(image.id)">
