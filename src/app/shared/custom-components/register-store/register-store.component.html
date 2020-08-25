@@ -3,7 +3,7 @@
     <div class="container">
         <!-- TIMELINE -->
         <div class="d-flex mb-3" style="height: 10vh;">
-            
+            <button type="button" class="btn btn-link" (click)="back()">Link</button>
             <app-timeline *ngIf="step==1" class="mx-auto" [active]="step+1"></app-timeline>   
         </div>
         <!-- TIMELINE-->

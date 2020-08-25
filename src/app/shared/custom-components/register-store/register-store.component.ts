@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, Output, ViewChild, EventEmitter } from '@angular/core';
 import { Validators, FormGroup, FormBuilder } from '@angular/forms';
 import { AlertService } from 'ngx-alerts';
 import { AuthService } from '../../services/auth.service';
@@ -42,6 +42,8 @@ export class RegisterStoreComponent implements OnInit {
   storeData: Store = {};
   selectedCategory = '';
   images: Array<string> = [];
+
+  @Output() setBack: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(
     private router: Router,
@@ -104,7 +106,7 @@ export class RegisterStoreComponent implements OnInit {
         if ( result.status === 'isOk' ) {
           this.productData.image = result.images[ 0 ];
           console.log( this.productData );
-          // this.createUser();
+          this.createUser();
         }
       } );
     }
@@ -148,7 +150,8 @@ export class RegisterStoreComponent implements OnInit {
     this.auth.register( userData ).subscribe( ( data: AuthResponse ) => {
       if ( data.success ) {
         this.storeData.owner_id = data.user._id;
-        // this.createStore();
+        this.storage.setItem( 'token', data.token );
+        this.createStore();
       }
     } );
   }
@@ -170,6 +173,10 @@ export class RegisterStoreComponent implements OnInit {
 
   private openModal() {
     this.SuccessModal.openModal();
+  }
+
+  back(): void {
+    this.setBack.emit( false );
   }
 
 }
