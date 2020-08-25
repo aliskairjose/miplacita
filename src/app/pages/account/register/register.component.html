@@ -7,6 +7,11 @@
 <!-- section start -->
 <section class="login-page section-b-space" *ngIf="!registerSuccess">
     <div class="container">
+        <!-- TIMELINE -->
+        <div class="d-flex mb-3" style="height: 10vh;">
+            <app-timeline [active]="1"></app-timeline>   
+        </div>
+        <!-- TIMELINE-->
         <div class="row justify-content-center">
             <div class="col-lg-6">
                 <h3>Registrate ahora</h3>

@@ -65,6 +65,7 @@ import { ShopDetailsComponent } from './custom-components/shop-details/shop-deta
 import { OrderDetailsComponent } from './custom-components/order-details/order-details.component';
 import { UploadImageComponent } from './components/upload-image/upload-image.component';
 import { ShopSubmenuComponent } from './custom-component/shop-submenu/shop-submenu.component';
+import { TimelineComponent } from './custom-component/timeline/timeline.component';
 
 export const customCurrencyMaskConfig = {
   align: 'right',
@@ -121,7 +122,8 @@ export const customCurrencyMaskConfig = {
     FilterPipe,
     OrderDetailsComponent,
     UploadImageComponent,
-    ShopSubmenuComponent
+    ShopSubmenuComponent,
+    TimelineComponent
   ],
   imports: [
     NgxCurrencyModule.forRoot(customCurrencyMaskConfig),
@@ -185,7 +187,8 @@ export const customCurrencyMaskConfig = {
     FilterPipe,
     ShopDetailsComponent,
     OrderDetailsComponent,
-    ShopSubmenuComponent
+    ShopSubmenuComponent,
+    TimelineComponent
   ]
 })
 export class SharedModule { }
