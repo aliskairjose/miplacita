@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { MustMatch } from '../../../shared/helper/must-match.validator';
-import { Subject } from 'rxjs';
+import { RegisterStoreComponent } from '../../../shared/custom-components/register-store/register-store.component';
 
 @Component( {
   selector: 'app-register',
@@ -9,8 +9,6 @@ import { Subject } from 'rxjs';
   styleUrls: [ './register.component.scss' ]
 } )
 export class RegisterComponent implements OnInit {
-  $register: Subject<boolean> = new Subject<boolean>();
-
   registerSuccess = false;
   registerForm: FormGroup;
   submitted: boolean;
@@ -36,9 +34,12 @@ export class RegisterComponent implements OnInit {
   // tslint:disable-next-line: typedef
   get f() { return this.registerForm.controls; }
 
-  ngOnInit(): void {
+  ngOnInit(): void {}
 
-    console.log( 'register init' );
+  listen(r: boolean){
+    this.registerSuccess = false;
+    this.user = JSON.parse( sessionStorage.userForm );
+
   }
 
   onSubmit() {
@@ -48,12 +49,6 @@ export class RegisterComponent implements OnInit {
       sessionStorage.setItem( 'userForm', JSON.stringify( this.registerForm.value ) );
       this.registerSuccess = true;
     }
-  }
-
-  return( event: boolean ): void {
-    this.registerSuccess = event;
-    this.user = JSON.parse( sessionStorage.userForm );
-    console.log( this.user );
   }
 
   private createForm(): void {

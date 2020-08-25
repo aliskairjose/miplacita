@@ -10,8 +10,15 @@
         </div>
         <!-- TIMELINE-->
         <div class="row justify-content-center">
-            <div class="col-lg-6">
-                <h3>Configura tu tienda</h3>
+            <div class="col-lg-6 ">
+                <div class="d-flex mb-2 ">
+                    <img (click)="this.back(0)" class="pr-2" src="../../../../assets/images/marketplace/svg/arrow-back.svg"/>
+                    <div class="w-100 text-center">
+                        <h3 class="my-auto">Gracias por registrarte</h3>
+                        <h4>Configura tu tienda</h4>    
+                    </div>
+                    
+                </div>
                 <div class="theme-card">
                     <form [formGroup]="storeForm" class="theme-form">
                         <p class="text-center">Selecciona el plan de tu preferencia</p>
@@ -118,7 +125,13 @@
         <!-- TIMELINE-->
         <div class="row justify-content-center">
             <div class="col-lg-6">
-                <h3 class="mx-auto">Configura tu primer producto</h3>
+                <div class="d-flex mb-2 ">
+                    <img (click)="this.back(1)" class="pr-2" src="../../../../assets/images/marketplace/svg/arrow-back.svg"/>
+                    <div class="w-100 text-center">
+                        <h3 class="my-auto">Falta poco</h3>
+                        <h4>Carga tu primer prodcuto</h4>    
+                    </div>
+                </div>
                 <div class="theme-card">
                     <form [formGroup]="productForm" class="theme-form">
                         <!-- Product Name -->

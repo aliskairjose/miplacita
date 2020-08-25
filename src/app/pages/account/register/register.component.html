@@ -103,5 +103,5 @@
 <!--Section ends-->
 
 <!-- section start store register -->
-<app-register-store *ngIf="registerSuccess" (setBack)="return($event)"></app-register-store>
+<app-register-store *ngIf="registerSuccess" (emitEvent)="listen($event)" #registerStore></app-register-store>
 <!-- section ends-->
