@@ -15,7 +15,7 @@
               <!-- CAROUSEL -->
               <ngb-carousel #ngcarousel>
                 <ng-template *ngFor="let image of images" ngbSlide [id]="image.id">
-                  <div class="picsum-img-wrapper" >
+                  <div class="picsum-img-wrapper w-100" >
                     <img [src]="image.url" alt="Angular Carousel 1">
                   </div>
                 </ng-template>
@@ -25,7 +25,7 @@
               <!-- END CAROUSEL-->
           
           <div class="d-flex ">
-              <img class="preview px-3" src="../../../assets/images/dog.png" *ngFor="let image of images"/>
+              <img class="preview px-3" [src]="image.url" *ngFor="let image of images" (click)="update(image.id)"/>
               <!--Image con el simbolo + -->
               <img class="preview px-3" src="../../../assets/images/dog.png"/>
 
