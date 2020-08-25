@@ -3,9 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { StorageService } from '../../../shared/services/storage.service';
 import { ProductService } from '../../../shared/services/product.service';
 import { AlertService } from 'ngx-alerts';
-import { NgxSpinnerService } from 'ngx-spinner';
 import { Product } from '../../../shared/classes/product';
-import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { StoreService } from '../../../shared/services/store.service';
 import { Category } from '../../../shared/classes/category';
@@ -41,7 +39,6 @@ export class CreateProductComponent implements OnInit {
     private router: Router,
     private alert: AlertService,
     private formBuilder: FormBuilder,
-    private spinner: NgxSpinnerService,
     private storageService: StorageService,
     private productService: ProductService,
   ) {
@@ -61,16 +58,12 @@ export class CreateProductComponent implements OnInit {
   onSubmit(): void {
     this.submitted = true;
     if ( this.productForm.valid ) {
-      this.spinner.show();
       this.productService.uploadImages( { images: this.productImages } ).subscribe( response => {
         if ( response.status === 'isOk' ) {
           const data: Product = { ...this.productForm.value };
           data.image = [ ...response.images ] as [ string ];
           this.createProduct( data );
         }
-      }, ( response: HttpErrorResponse ) => {
-        this.spinner.hide();
-        this.alert.danger( response.error.message );
       } );
     }
 
@@ -81,15 +74,11 @@ export class CreateProductComponent implements OnInit {
    */
   private createProduct( data: any ): void {
     this.productService.addProduct( data ).subscribe( ( product: Product ) => {
-      this.spinner.hide();
       this.alert.info( 'El producto se ha creado con exito' );
       this.productService.productSubject( product );
       setTimeout( () => {
         this.router.navigate( [ 'pages/products' ] );
       }, 3200 );
-    }, ( response: HttpErrorResponse ) => {
-      this.spinner.hide();
-      this.alert.warning( response.error.message );
     } );
   }
 

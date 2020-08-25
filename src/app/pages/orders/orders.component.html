@@ -65,8 +65,8 @@
                     <tr *ngFor="let order of orders">
                         <td>{{order.user.fullname}}</td>
                         <td>
-                            <div class="d-flex flex-wrap ">
-                                {{order.products}}
+                            <div class="d-flex flex-wrap " *ngFor="let item of order.items">
+                                {{ item.product_name }}
                             </div>
                         </td>
                         <td>{{order.amount | currency }}</td>

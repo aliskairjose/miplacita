@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../../shared/services/auth.service';
-import { NgxSpinnerService } from 'ngx-spinner';
 import { AlertService } from 'ngx-alerts';
 import { StorageService } from '../../../shared/services/storage.service';
 import { AuthResponse } from '../../../shared/classes/auth-response';
@@ -26,7 +25,6 @@ export class LoginComponent implements OnInit {
     private storage: StorageService,
     private auth: AuthService,
     private formBuilder: FormBuilder,
-    private spinner: NgxSpinnerService,
   ) {
     this.createForm();
   }
@@ -43,10 +41,8 @@ export class LoginComponent implements OnInit {
     this.submitted = true;
 
     if ( this.loginForm.valid ) {
-      this.spinner.show();
       this.auth.login( this.loginForm.value ).subscribe( ( data: AuthResponse ) => {
         if ( data.success ) {
-          this.spinner.hide();
           this.storage.setItem( 'token', data.token );
           this.storage.setItem( 'role', data.user.role );
           this.storage.setItem( 'user', data.user );
@@ -58,9 +54,6 @@ export class LoginComponent implements OnInit {
           this.router.navigate( [ 'pages/dashboard' ] );
         }
 
-      }, ( response: HttpErrorResponse ) => {
-        this.spinner.hide();
-        this.alert.warning( response.error.message );
       } );
     }
   }

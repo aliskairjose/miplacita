@@ -1,6 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Validators, FormGroup, FormBuilder } from '@angular/forms';
-import { NgxSpinnerService } from 'ngx-spinner';
 import { AlertService } from 'ngx-alerts';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
@@ -53,7 +52,6 @@ export class RegisterStoreComponent implements OnInit {
     private storage: StorageService,
     private formBuilder: FormBuilder,
     private storeService: StoreService,
-    private spinner: NgxSpinnerService,
     private productService: ProductService,
   ) {
 
@@ -87,15 +85,11 @@ export class RegisterStoreComponent implements OnInit {
     this.storeData.plan = this.planID;
 
     if ( this.registerForm.valid ) {
-      this.spinner.show();
       this.storeService.uploadImages( { images: this.imageBase64 } ).subscribe( result => {
         if ( result.status === 'isOk' ) {
           this.storeData.logo = result.images[ 0 ];
           this.createStore();
         }
-      }, ( response: HttpErrorResponse ) => {
-        this.spinner.hide();
-        this.alert.danger( response.error.message );
       } );
     }
   }
@@ -105,16 +99,12 @@ export class RegisterStoreComponent implements OnInit {
     this.productData = { ...this.productForm.value };
     this.productData.store = this.store._id;
     if ( this.productForm.valid ) {
-      this.spinner.show();
       this.productService.uploadImages( { images: this.imageBase64 } ).subscribe( result => {
         if ( result.status === 'isOk' ) {
           this.productData.image = result.images[ 0 ];
           this.createProduct();
         }
-      }, ( response: HttpErrorResponse ) => {
-        this.spinner.hide();
-        this.alert.danger( response.error.message );
-      } );
+      });
     }
   }
 
@@ -149,24 +139,16 @@ export class RegisterStoreComponent implements OnInit {
   private createStore(): void {
     this.storeService.addStore( this.storeData ).subscribe( ( store: Store ) => {
       this.store = { ...store };
-      this.spinner.hide();
       this.submitted = false;
       this.step = 2;
-    }, ( response: HttpErrorResponse ) => {
-      this.spinner.hide();
-      this.alert.warning( response.error.message );
-    } );
+    });
   }
 
   private createProduct(): void {
     this.productService.addProduct( this.productData ).subscribe( ( product: Product ) => {
       this.product = { ...product };
-      this.spinner.hide();
       this.openModal();
-    }, ( response: HttpErrorResponse ) => {
-      this.spinner.hide();
-      this.alert.warning( response.error.message );
-    } );
+    });
   }
 
   uploadImage( images: string[] ): void {

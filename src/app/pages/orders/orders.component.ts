@@ -5,7 +5,6 @@ import { NgbCalendar, NgbDateAdapter } from '@ng-bootstrap/ng-bootstrap';
 import { OrderDetailsComponent } from '../../shared/custom-components/order-details/order-details.component';
 import { Order } from '../../shared/classes/order';
 import { AlertService } from 'ngx-alerts';
-import { NgxSpinnerService } from 'ngx-spinner';
 import { OrderService } from '../../shared/services/order.service';
 import { Store } from '../../shared/classes/store';
 import { StorageService } from '../../shared/services/storage.service';
@@ -32,7 +31,6 @@ export class OrdersComponent implements OnInit {
 
   constructor(
     private alert: AlertService,
-    private spinner: NgxSpinnerService,
     private orderService: OrderService,
     private storageService: StorageService,
     private ngbCalendar: NgbCalendar, private dateAdapter: NgbDateAdapter<string>
@@ -43,10 +41,8 @@ export class OrdersComponent implements OnInit {
   }
 
   private loadData( page = 1 ): void {
-    this.spinner.show();
     const store: Store[] = this.storageService.getItem( 'stores' );
     this.orderService.orderList( store[ 0 ]._id, page ).subscribe( ( result: Result<Order> ) => {
-      this.spinner.hide();
       this.orders = [ ...result.docs ];
       this.paginate = { ...result };
       this.paginate.pages = [];
