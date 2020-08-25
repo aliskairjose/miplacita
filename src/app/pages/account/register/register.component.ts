@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { MustMatch } from '../../../shared/helper/must-match.validator';
+import { Subject } from 'rxjs';
 
 @Component( {
   selector: 'app-register',
@@ -8,17 +9,21 @@ import { MustMatch } from '../../../shared/helper/must-match.validator';
   styleUrls: [ './register.component.scss' ]
 } )
 export class RegisterComponent implements OnInit {
-  registerSuccess = false;
+  $register: Subject<boolean> = new Subject<boolean>();
+
+  registerSuccess = true;
   registerForm: FormGroup;
   submitted: boolean;
   invalidEmail = 'Email inválido';
   required = 'Campo obligatorio';
   matchError = 'Los campos deben coincidir';
-
+  user: any;
   constructor(
     private formBuilder: FormBuilder,
   ) {
     this.createForm();
+    console.log( 'register init' );
+
   }
 
   // convenience getter for easy access to form fields
@@ -26,7 +31,8 @@ export class RegisterComponent implements OnInit {
   get f() { return this.registerForm.controls; }
 
   ngOnInit(): void {
-    console.log( 'register init' )
+
+    console.log( 'register init' );
   }
 
   onSubmit() {
@@ -39,7 +45,9 @@ export class RegisterComponent implements OnInit {
   }
 
   return( event: boolean ): void {
-    console.log( event );
+    this.registerSuccess = event;
+    this.user = JSON.parse( sessionStorage.userForm );
+    console.log( this.user );
   }
 
   private createForm(): void {

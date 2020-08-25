@@ -19,7 +19,7 @@
                         <!-- FullName -->
                         <div class="form-group input-group">
                             <input type="text" formControlName="fullname" class="form-control" id="fullname"
-                                placeholder="Nombre" required="">
+                                placeholder="Nombre" required="" [(ngModel)]="user.fullname">
                             <div class="input-group-prepend">
                                 <span class="input-group-text">
                                     <img src="../../../../assets/images/marketplace/svg/user.svg" alt="">
@@ -32,7 +32,7 @@
                         <!-- Email -->
                         <div class="form-group input-group">
                             <input type="email" formControlName="email" class="form-control" id="email"
-                                placeholder="Correo electrónico" required=""
+                                placeholder="Correo electrónico" required="" [(ngModel)]="user.email"
                                 [ngClass]="{ 'is-invalid': submitted && f.email.errors }">
                             <div class="input-group-prepend">
                                 <span class="input-group-text">
@@ -47,7 +47,7 @@
                         <!-- Password -->
                         <div class="form-group input-group">
                             <input type="password" formControlName="password" class="form-control" id="password"
-                                placeholder="Ingrese su contraseña" required=""
+                                placeholder="Ingrese su contraseña" required="" [(ngModel)]="user.password"
                                 [ngClass]="{ 'is-invalid': submitted && f.password.errors }">
                             <div class="input-group-prepend">
                                 <span class="input-group-text">
@@ -63,7 +63,7 @@
                         <div class="form-group input-group">
                             <input type="password" formControlName="passwordConfirmation" class="form-control"
                                 id="passwordConfirmation" placeholder="Ingrese su contraseña nuevamente" required=""
-                                [ngClass]="{ 'is-invalid': submitted && f.passwordConfirmation.errors }">
+                                [ngClass]="{ 'is-invalid': submitted && f.passwordConfirmation.errors }" [(ngModel)]="user.passwordConfirmation">
                             <div class="input-group-prepend">
                                 <span class="input-group-text">
                                     <img src="../../../../assets/images/marketplace/svg/key.svg" alt="">
@@ -101,5 +101,5 @@
 <!--Section ends-->
 
 <!-- section start store register -->
-<app-register-store *ngIf="registerSuccess" (back)="return($event)"></app-register-store>
+<app-register-store *ngIf="registerSuccess" (setBack)="return($event)"></app-register-store>
 <!-- section ends-->

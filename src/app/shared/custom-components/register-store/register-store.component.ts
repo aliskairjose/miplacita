@@ -13,6 +13,7 @@ import { Product } from '../../classes/product';
 import { Plan } from '../../classes/plan';
 import { SuccessModalComponent } from '../../custom-component/success-modal/success-modal.component';
 import { AuthResponse } from '../../classes/auth-response';
+import { Subject } from 'rxjs';
 
 @Component( {
   selector: 'app-register-store',
@@ -21,6 +22,8 @@ import { AuthResponse } from '../../classes/auth-response';
 } )
 export class RegisterStoreComponent implements OnInit {
   @ViewChild( 'successModal' ) SuccessModal: SuccessModalComponent;
+
+  $register: Subject<boolean> = new Subject<boolean>();
 
   planSelected = '';
   step = 1;
@@ -34,7 +37,6 @@ export class RegisterStoreComponent implements OnInit {
   userId = '';
   categories: Category[] = [];
   store: Store = {};
-  product: Product = {};
   categoryId = '';
   user: User = {};
   plans: Plan[];
@@ -83,15 +85,13 @@ export class RegisterStoreComponent implements OnInit {
     this.storeData = { ...this.storeForm.value };
     this.storeData.plan = this.planSelected;
 
-    console.log( this.storeData );
-
     if ( this.storeForm.valid ) {
       this.storeService.uploadImages( { images: this.images } ).subscribe( result => {
         if ( result.status === 'isOk' ) {
           this.storeData.logo = result.images[ 0 ];
+          console.log('carga de logo tienda', result.images)
           this.step = 2;
           this.submitted = false;
-          console.log( this.storeData );
         }
       } );
     }
@@ -100,12 +100,11 @@ export class RegisterStoreComponent implements OnInit {
   productRegister() {
     this.submitted = true;
     this.productData = { ...this.productForm.value };
-    console.log( this.productData );
     if ( this.productForm.valid ) {
       this.productService.uploadImages( { images: this.images } ).subscribe( result => {
         if ( result.status === 'isOk' ) {
           this.productData.image = result.images[ 0 ];
-          console.log( this.productData );
+          console.log('carga de imagen producto', result.images)
           this.createUser();
         }
       } );
@@ -148,9 +147,11 @@ export class RegisterStoreComponent implements OnInit {
   private createUser(): void {
     const userData = JSON.parse( sessionStorage.userForm );
     this.auth.register( userData ).subscribe( ( data: AuthResponse ) => {
+      console.log( data )
       if ( data.success ) {
-        this.storeData.owner_id = data.user._id;
         this.storage.setItem( 'token', data.token );
+        this.storeData.owner_id = data.user._id;
+        console.log( 'create user', this.storeData );
         this.createStore();
       }
     } );
@@ -159,14 +160,15 @@ export class RegisterStoreComponent implements OnInit {
   private createStore(): void {
     this.storeService.addStore( this.storeData ).subscribe( ( store: Store ) => {
       this.store = { ...store };
-      // this.createProduct();
+      console.log( 'createStore', this.store );
+      this.createProduct();
     } );
   }
 
   private createProduct(): void {
     this.productData.store = this.store._id;
     this.productService.addProduct( this.productData ).subscribe( ( product: Product ) => {
-      this.product = { ...product };
+      console.log('create product', product);
       this.openModal();
     } );
   }
