@@ -8,7 +8,8 @@ import { NgbSlideEvent, NgbSlideEventSource, NgbCarousel } from '@ng-bootstrap/n
 export class ShopDesignComponent implements OnInit {
   @ViewChild('ngcarousel', { static: true }) ngCarousel: NgbCarousel;
   color: any;
-  images = [{id:0,url:'../../../assets/images/dog.png'}, 
+  images = [
+    {id:0,url:'../../../assets/images/dog.png'}, 
     {id:1, url:'../../../assets/images/lookbook.jpg'}, 
     {id:2, url:'../../../assets/images/dog.png'}
   ];
