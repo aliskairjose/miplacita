@@ -2,112 +2,50 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ProductService } from '../../shared/services/tm.product.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ShopDetailsComponent } from '../../shared/custom-components/shop-details/shop-details.component';
+import { Paginate } from '../../shared/classes/paginate';
+import { StoreService } from '../../shared/services/store.service';
+import { Store } from '../../shared/classes/store';
+import { Result } from '../../shared/classes/response';
 
-@Component({
+@Component( {
   selector: 'app-shops',
   templateUrl: './shops.component.html',
-  styleUrls: ['./shops.component.scss']
-})
+  styleUrls: [ './shops.component.scss' ]
+} )
 export class ShopsComponent implements OnInit {
 
-  @ViewChild('shopDetails') ShopDetails: ShopDetailsComponent;
-  public fields = ['Tienda', 'Plan', 'Precio', 'Estado', '' ];
-  public allShops = [{
-                    name: "ny & co",
-                    plan: "Premium",
-                    price: 8.88,
-                    estado: "Activo"
-                  },
-                  {
-                    name: "tienda 1",
-                    plan: "Premium",
-                    price: 8.88,
-                    estado: "Activo"
-                  },
-                  {
-                    name: "tienda 3",
-                    plan: "Premium",
-                    price: 8.88,
-                    estado: "Activo"
-                  },
-                  {
-                    name: "tienda 4",
-                    plan: "Premium",
-                    price: 8.88,
-                    estado: "Activo"
-                  },
-                  {
-                    name: "miami shop",
-                    plan: "Premium",
-                    price: 8.88,
-                    estado: "Activo"
-                  },{
-                    name: "tienda 1",
-                    plan: "Premium",
-                    price: 8.88,
-                    estado: "Activo"
-                  },
-                  {
-                    name: "tiendita",
-                    plan: "Premium",
-                    price: 8.88,
-                    estado: "Activo"
-                  }
+  @ViewChild( 'shopDetails' ) ShopDetails: ShopDetailsComponent;
 
-  ];
-  public shops = [];
-  public paginate: any = {};
-  public pageNo = 1;
-  public pageSize = 3;
-  public searchForm: FormGroup;
-  public searchValid = true;
+  searchText = '';
+  fields = [ 'Tienda', 'Plan', 'Precio', 'Activo', '' ];
+  shops: Store[] = [];
+  paginate: Paginate;
 
 
-  constructor(public productService: ProductService,
-              private formBuilder: FormBuilder) {}
+  constructor(
+    public productService: ProductService,
+    private storeService: StoreService,
+  ) {
+  }
 
   ngOnInit(): void {
-    this.createForm();
-    this.getTableInformation();
-
-  }
-  createForm(){
-    this.searchForm = this.formBuilder.group({
-      shop: ['']
-    });
-  }
-  slicePage(items){
-    if (items.length > this.pageSize ){
-      return items.slice(0, this.pageSize );
-    } else {
-      return items;
-    }
+    this.loadData();
   }
 
-  getTableInformation(){
-    //** carga de datos desde api */
-    this.paginate = this.productService.getPager(this.allShops.length, +this.pageNo, this.pageSize );
-    this.shops = this.slicePage(this.allShops);
+  setPage( page: number ) {
+    this.loadData( page );
   }
 
-  setPage(event){
-    const end = event * this.paginate.pageSize;
-    this.paginate.startIndex = end - this.paginate.pageSize;
-    if (event === this.paginate.endPage){
-      this.shops = this.allShops.slice(this.paginate.startIndex );
-      this.paginate.endIndex = this.allShops.length - 1;
-    } else {
-      this.paginate.endIndex = end - 1;
-      this.shops = this.allShops.slice(this.paginate.startIndex, this.paginate.endIndex + 1);
-    }
-    this.paginate.currentPage = event;
+  private loadData( page = 1 ): void {
+    this.storeService.getAll( page ).subscribe( ( result: Result<Store> ) => {
+      console.log( result );
+      this.shops = [ ...result.docs ];
+      this.paginate = { ...result };
+      this.paginate.pages = [];
+      for ( let i = 1; i <= this.paginate.totalPages; i++ ) {
+        this.paginate.pages.push( i );
+      }
+    } );
   }
-
-
-  search(){
-    // consulta a api
-    console.log( this.searchForm.value.shop );
-  }
-
 
 }

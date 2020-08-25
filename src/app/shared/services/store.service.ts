@@ -52,14 +52,32 @@ export class StoreService {
       } )
     );
   }
+
+
   /**
-   * @description Retorna el detalle de la tienda cuando recibe ID, y un listado si no recibe el ID
+   * @description Retorna la lista de las tiendas de un usuario
+   * @param id Id del usuario
+   */
+  getMyStores(): Observable<Result<Store>> {
+    return this.http.get( '' ).pipe(
+      map( ( response: Response<Store> ) => {
+        if ( response.success ) {
+          return response.result;
+        }
+      } )
+    );
+  }
+
+  /**
+   * @description Retorna la lista de todas las tiendas
    * @param id Id de la tienda
    */
-  storelist(): Observable<Result<Store>> {
-    return this.http.get( `stores` ).pipe(
+  getAll( page = 1 ): Observable<Result<Store>> {
+    return this.http.get( `stores?page=${page}` ).pipe(
       map( ( response: Response<Store> ) => {
-        return response.result;
+        if ( response.success ) {
+          return response.result;
+        }
       } )
     );
   }
@@ -70,7 +88,7 @@ export class StoreService {
    * @param data Data de tipo Tienda
    */
   updateStore( id: string, data: Store ): Observable<any> {
-    return this.http.put( `storea/${id}`, data );
+    return this.http.put( `stores/${id}`, data );
   }
 
   /**

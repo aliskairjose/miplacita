@@ -20,7 +20,6 @@ export class ProductsComponent implements OnInit, OnChanges {
   productTypes = []; // tipos de productos
   states = []; // tipos de productos
   paginate: Paginate;
-  searchForm: FormGroup;
   statuses = [
     { value: 'active', text: 'Activo' },
     { value: 'inactive', text: 'Inactivo' },
@@ -46,7 +45,7 @@ export class ProductsComponent implements OnInit, OnChanges {
     this.loadData();
   }
 
-  loadData( page = 1 ): void {
+  private loadData( page = 1 ): void {
     this.user = this.storageService.getItem( 'user' );
     this.productService.productList( this.user.stores[ 0 ]._id, page ).subscribe( ( result: Result<Product> ) => {
       this.products = [ ...result.docs ];
@@ -60,10 +59,6 @@ export class ProductsComponent implements OnInit, OnChanges {
 
   setPage( page: number ) {
     this.loadData( page );
-  }
-
-  search() {
-    console.log( this.searchForm.value );
   }
 
 }

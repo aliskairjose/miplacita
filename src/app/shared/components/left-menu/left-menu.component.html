@@ -12,10 +12,10 @@
         <ul id="sub-menu" class="sidebar-menu">
           <li *ngFor="let menuItem of menuItems">
               <!-- Sub -->
-              <a [routerLink]="menuItem.path" *ngIf="menuItem.type === 'sub'" 
+              <a [routerLink]="menuItem.path" *ngIf="menuItem.type === 'sub' && (menuItem.role === role || menuItem.role === null)" 
                   (click)="toggletNavActive(menuItem)">
                  {{menuItem.title}}
-                 <span class="sub-arrow optional"  *ngIf="menuItem.children"></span>
+                 <span class="sub-arrow optional"  *ngIf="menuItem.children" ></span>
               </a>
               <!-- Link -->
               <a [routerLink]="menuItem.path" *ngIf="menuItem.type === 'link' && (menuItem.role === role || menuItem.role === null)" (click)="leftMenuToggle()">
