@@ -24,7 +24,7 @@
             <li class="onhover-dropdown mobile-account">
               <div class="px-3">
                 <i class="fa fa-user-circle-o fa-lg" aria-hidden="true"></i>
-                {{ user.fullname }} ({{ role }})
+                <label *ngIf="user">{{ user.fullname }} ({{ role }})</label>
               </div>
               <!-- Mi cuenta -->
               <ul class="onhover-show-div">

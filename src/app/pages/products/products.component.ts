@@ -15,7 +15,6 @@ import { Paginate } from '../../shared/classes/paginate';
 export class ProductsComponent implements OnInit {
   typeUser = 'admin';
   fields = [ '', 'Nombre', 'Descripción', 'Precio', 'ITBMS', 'Estado', '' ];
-  adminFields = [ '', 'Nombre', 'Descripción', 'Tienda', 'Precio', 'ITBMS', 'Estado', '' ];
   searchText = '';
   products: Product[] = [];
   productTypes = []; // tipos de productos
@@ -33,17 +32,21 @@ export class ProductsComponent implements OnInit {
     private productService: ProductService,
     private storageService: StorageService,
   ) {
+    this.user = this.storageService.getItem( 'user' );
     this.loadData();
+
+    // tslint:disable-next-line: curly
+    if ( this.user.role === 'admin' ) this.fields.splice( 2, 0, 'Tienda' );
   }
 
   ngOnInit(): void {
+
     this.productService.productObserver().subscribe( ( product: Product ) => {
       this.loadData();
     } );
   }
 
   private loadData( page = 1 ): void {
-    this.user = this.storageService.getItem( 'user' );
     ( this.user.role === 'admin' ) ? this.loadAdminProducts( page ) : this.loadUserProducts( page );
   }
 
@@ -61,7 +64,7 @@ export class ProductsComponent implements OnInit {
       }
     } );
   }
-  private loadAdminProducts( page: number ): void { 
+  private loadAdminProducts( page: number ): void {
     this.productService.getAll( page ).subscribe( ( result: Result<Product> ) => {
       this.products = [ ...result.docs ];
       this.paginate = { ...result };

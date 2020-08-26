@@ -21,8 +21,8 @@ export class OrdersComponent implements OnInit {
 
   fields = [ 'Cliente', 'Productos', 'Monto', 'Fecha', 'Zona de Entrega',
     'Estado', '' ];
-  adminFields = [ 'Cliente', 'Tienda', 'Productos', 'Monto', 'Fecha', 'Zona de Entrega',
-  'Estado', '' ];
+  // adminFields = [ 'Cliente', 'Tienda', 'Productos', 'Monto', 'Fecha', 'Zona de Entrega',
+  // 'Estado', '' ];
 
   orders: Order[] = [];
   paginate: Paginate;
@@ -41,6 +41,8 @@ export class OrdersComponent implements OnInit {
 
   ngOnInit(): void {
     this.role = this.storageService.getItem( 'role' );
+    // tslint:disable-next-line: curly
+    if ( this.role === 'admin' ) this.fields.splice( 1, 0, 'Tienda' );
     this.loadData();
   }
 
@@ -55,6 +57,7 @@ export class OrdersComponent implements OnInit {
   private loadUserOrders( page = 1 ): void {
     const store: Store[] = this.storageService.getItem( 'stores' );
     this.orderService.orderList( store[ 0 ]._id, page ).subscribe( ( result: Result<Order> ) => {
+      console.log(result.docs)
       this.orders = [ ...result.docs ];
       this.paginate = { ...result };
       this.paginate.pages = [];
