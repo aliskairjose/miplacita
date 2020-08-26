@@ -53,7 +53,7 @@
         <div class="table-responsive-sm mt-3">
             <table class="table">
                 <thead>
-                    <tr class="table-head">
+                    <tr class="table-head text-center">
                         <th *ngFor="let field of fields" scope="col">{{field}}</th>
                     </tr>
                 </thead>
@@ -73,7 +73,7 @@
                             <button class="btn btn-table-action">Editar</button>
                             <button class="btn btn-table-action">Eliminar</button>
                         </td>
-                        <td class="d-flex flex-row" *ngIf="user.role==='admin'">
+                        <td class="text-center" *ngIf="user.role==='admin'">
                             <button class="btn btn-table-action">Desactivar</button>
                         </td>
                     </tr>

@@ -75,7 +75,7 @@
                         <td>{{ order.created_at | date }}</td>
                         <td>{{ order.zone }}</td>
                         <td class="text-capitalize">{{order.status }}</td>
-                        <td class="d-flex flex-row">
+                        <td class="text-center">
                             <button class="btn btn-table-action" (click)="OrderDetails.openModal(order)">Editar</button>
                         </td>
                     </tr>

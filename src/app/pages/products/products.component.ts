@@ -14,7 +14,7 @@ import { Paginate } from '../../shared/classes/paginate';
 } )
 export class ProductsComponent implements OnInit {
   typeUser = 'admin';
-  fields = [ '', 'Nombre', 'Descripción', 'Precio', 'ITBMS', 'Estado', '' ];
+  fields = [ '', 'Nombre', 'Descripción', 'Precio', 'ITBMS', 'Estado', 'Acción' ];
   searchText = '';
   products: Product[] = [];
   productTypes = []; // tipos de productos

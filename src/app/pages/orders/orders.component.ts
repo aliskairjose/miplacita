@@ -20,9 +20,7 @@ import { environment } from '../../../environments/environment';
 export class OrdersComponent implements OnInit {
 
   fields = [ 'Cliente', 'Productos', 'Monto', 'Fecha', 'Zona de Entrega',
-    'Estado', '' ];
-  // adminFields = [ 'Cliente', 'Tienda', 'Productos', 'Monto', 'Fecha', 'Zona de Entrega',
-  // 'Estado', '' ];
+    'Estado', 'Acción' ];
 
   orders: Order[] = [];
   paginate: Paginate;
