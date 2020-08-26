@@ -6,7 +6,7 @@
   ],
   "leftMenuItems": [
     { "path": "/pages/dashboard", "title": "Dashboard", "type": "link", "role": null },
-		{ "path": "/pages/products", "title": "Productos", "type": "link", "role": "merchant" },
+		{ "path": "/pages/products", "title": "Productos", "type": "link", "role": null },
     { "path": "/pages/shop/profile", "title": "Tienda", "type": "sub", "role": "merchant",
       "children": [
         { "path": "/pages/shop/profile", "title": "Perfil", "type": "link", "role": "merchant" },
@@ -15,7 +15,6 @@
         { "path": "/pages/shop/withdrawal", "title": "Retiro", "type": "link", "role": "merchant" }
       ] },
 		{ "path": "/pages/orders", "title": "Órdenes", "type": "link", "role": null },
-		{ "path": "/pages/products", "title": "Productos", "type": "link", "role": "admin" },
 		{ "path": "/pages/shops", "title": "Tiendas", "type": "link", "role": "admin" },
 		{ "path": "#", "title": "Reportes", "type": "link", "role": "admin" }
   ]
