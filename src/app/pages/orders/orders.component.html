@@ -10,7 +10,7 @@
                 <div class="form-group flex-fill" id="state">
                     <select name="model" class="form-control">
                         <option value="">Estado</option>
-                        <option [value]="status" *ngFor="let status of orderStatus">{{status}}</option>
+                        <option [value]="status" *ngFor="let status of orderStatus" class="text-capitalize">{{ status }}</option>
                     </select>
                 </div>
                 <div class="filters">
