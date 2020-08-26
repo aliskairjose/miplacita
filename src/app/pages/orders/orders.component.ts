@@ -21,12 +21,15 @@ export class OrdersComponent implements OnInit {
 
   fields = [ 'Cliente', 'Productos', 'Monto', 'Fecha', 'Zona de Entrega',
     'Estado', '' ];
+  adminFields = [ 'Cliente', 'Tienda', 'Productos', 'Monto', 'Fecha', 'Zona de Entrega',
+  'Estado', '' ];
 
   orders: Order[] = [];
   paginate: Paginate;
   orderStatus = environment.orderStatus;
-  
-  @ViewChild( "orderDetails" ) OrderDetails: OrderDetailsComponent;
+  role: string;
+
+  @ViewChild( 'orderDetails' ) OrderDetails: OrderDetailsComponent;
   /** variable provisional */
 
   constructor(
@@ -37,10 +40,19 @@ export class OrdersComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.role = this.storageService.getItem( 'role' );
     this.loadData();
   }
 
   private loadData( page = 1 ): void {
+    ( this.role === 'admin' ) ? this.loadAdminOrders( page ) : this.loadUserOrders( page );
+  }
+
+  setPage( page: number ) {
+    this.loadData( page );
+  }
+
+  private loadUserOrders( page = 1 ): void {
     const store: Store[] = this.storageService.getItem( 'stores' );
     this.orderService.orderList( store[ 0 ]._id, page ).subscribe( ( result: Result<Order> ) => {
       this.orders = [ ...result.docs ];
@@ -52,8 +64,16 @@ export class OrdersComponent implements OnInit {
     } );
   }
 
-  setPage( page: number ) {
-    this.loadData( page );
+  private loadAdminOrders( page = 1 ): void {
+    const store: Store[] = this.storageService.getItem( 'stores' );
+    this.orderService.getAll( page ).subscribe( ( result: Result<Order> ) => {
+      this.orders = [ ...result.docs ];
+      this.paginate = { ...result };
+      this.paginate.pages = [];
+      for ( let i = 1; i <= this.paginate.totalPages; i++ ) {
+        this.paginate.pages.push( i );
+      }
+    } );
   }
 
 

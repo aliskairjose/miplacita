@@ -14,9 +14,8 @@
         { "path": "/pages/shop/suscription", "title": "Suscripción", "type": "link", "role": "merchant" },
         { "path": "/pages/shop/withdrawal", "title": "Retiro", "type": "link", "role": "merchant" }
       ] },
-		{ "path": "/pages/orders", "title": "Órdenes", "type": "link", "role": "merchant" },
+		{ "path": "/pages/orders", "title": "Órdenes", "type": "link", "role": null },
 		{ "path": "#", "title": "Productos", "type": "link", "role": "admin" },
-		{ "path": "#", "title": "Ordenes", "type": "link", "role": "admin" },
 		{ "path": "/pages/shops", "title": "Tiendas", "type": "link", "role": "admin" },
 		{ "path": "#", "title": "Reportes", "type": "link", "role": "admin" }
   ]

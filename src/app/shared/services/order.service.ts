@@ -28,7 +28,7 @@ export class OrderService {
    * @description Retorna el detalle de la orden
    * @param id Id de la orden
    */
-  getOrder  ( id: string ): Observable<Order> {
+  getOrder( id: string ): Observable<Order> {
     return this.http.get( `order/${id}` );
   }
 
@@ -37,11 +37,11 @@ export class OrderService {
    * @param id ID de la tienda a consultar las ordenes
    * @returns Observable de array de ordenes
    */
-  orderList( id: string, page = 1 ): Observable<Result<Order>>{
-    return this.http.get(`order?store=${id}`).pipe(
-      map( (response: Response<Order>) => {
+  orderList( id: string, page = 1 ): Observable<Result<Order>> {
+    return this.http.get( `order?store=${id}` ).pipe(
+      map( ( response: Response<Order> ) => {
         return response.result;
-      })
+      } )
     );
   }
 
@@ -49,8 +49,12 @@ export class OrderService {
    * @description Retorna todas las ordenes de la tienda
    * @param id Id de la tienda
    */
-  getAll( id: string ): Observable<Order[]> {
-    return this.http.get( `order?store=${id}` );
+  getAll( page = 1 ): Observable<Result<Order>> {
+    return this.http.get( `order?page=${page}` ).pipe(
+      map( ( response: Response<Order> ) => {
+        return response.result;
+      } )
+    );
   }
 
 
