@@ -8,7 +8,12 @@ export const environment = {
   stripe_token: 'STRIPE_PUBLISHABLE_KEY',
   paypal_token: 'PAYPAL_CLIENT_ID',
   apiUrl: 'http://marketplace.dev.cronapis.com:3010/api/',
-  orderStatus: ['Pendiente', 'En proceso', 'Entregada']
+  orderStatus: ['Pendiente', 'En proceso', 'Entregada'],
+  errorForm: {
+    invalidEmail: 'Email inválido.',
+    required: 'Campo obligatorio.',
+    invalidUrl: 'Ingere una url válida.',
+  }
 };
 
 /*

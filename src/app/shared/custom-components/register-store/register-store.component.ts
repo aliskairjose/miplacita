@@ -13,7 +13,7 @@ import { Product } from '../../classes/product';
 import { Plan } from '../../classes/plan';
 import { SuccessModalComponent } from '../../custom-component/success-modal/success-modal.component';
 import { AuthResponse } from '../../classes/auth-response';
-
+import { environment } from '../../../../environments/environment';
 
 interface ShopForm {
   name?: string;
@@ -45,9 +45,9 @@ export class RegisterStoreComponent implements OnInit {
   storeForm: FormGroup;
   productForm: FormGroup;
   submitted: boolean;
-  invalidEmail = 'Email inválido';
-  required = 'Campo obligatorio';
-  invalidUrl = 'Ingere una url válida.';
+  invalidEmail = environment.errorForm.invalidEmail;
+  required = environment.errorForm.required;
+  invalidUrl = environment.errorForm.invalidUrl;
   userId = '';
   categories: Category[] = [];
   store: Store = {};

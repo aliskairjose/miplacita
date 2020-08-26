@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { MustMatch } from '../../../shared/helper/must-match.validator';
 import { RegisterStoreComponent } from '../../../shared/custom-components/register-store/register-store.component';
+import { environment } from '../../../../environments/environment';
 
 @Component( {
   selector: 'app-register',
@@ -12,8 +13,8 @@ export class RegisterComponent implements OnInit {
   registerSuccess = true;
   registerForm: FormGroup;
   submitted: boolean;
-  invalidEmail = 'Email inválido';
-  required = 'Campo obligatorio';
+  invalidEmail = environment.errorForm.invalidEmail;
+  required = environment.errorForm.required;
   matchError = 'Los campos deben coincidir';
   minlength = 'Debe tener mínimo 8 caracteres';
   user = {

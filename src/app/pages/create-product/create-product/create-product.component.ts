@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 import { StoreService } from '../../../shared/services/store.service';
 import { Category } from '../../../shared/classes/category';
 import { User } from '../../../shared/classes/user';
+import { environment } from '../../../../environments/environment';
 
 @Component( {
   selector: 'app-create-product',
@@ -23,7 +24,7 @@ export class CreateProductComponent implements OnInit {
   categories: Category[];
   productForm: FormGroup;
   submitted: boolean;
-  required = 'Campo obligatorio';
+  required = environment.errorForm.required;
   status: string;
   statuses = [
     { value: 'active', text: 'Activo' },
