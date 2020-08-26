@@ -27,17 +27,17 @@
         <div class="table-responsive-sm mt-3">
             <table class="table ">
                 <thead>
-                    <tr class="table-head">
+                    <tr class="table-head text-center">
                         <th *ngFor="let field of fields" scope="col">{{field}}</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr *ngFor="let shop of shops | filter: searchText">
                         <td> {{ shop.name }} </td>
-                        <td> {{ shop.plan ? shop.plan.name : '' }} </td>
-                        <td *ngIf="shop.plan"> {{ shop.plan.price | currency }}</td>
+                        <td class="text-center"> {{ shop.plan ? shop.plan.name : '' }} </td>
+                        <td *ngIf="shop.plan" class="text-center"> {{ shop.plan.price | currency }}</td>
                         <td *ngIf="!shop.plan"></td>
-                        <td>
+                        <td class="text-center">
                             <div *ngIf="shop.active">
                                 <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-check2" fill="#63b4f2"
                                     xmlns="http://www.w3.org/2000/svg">
@@ -55,7 +55,7 @@
                                 </svg>
                             </div>
                         </td>
-                        <td class="d-flex justify-content-end actions">
+                        <td class="text-center">
                             <button class="btn" (click)="ShopDetails.openModal(shop)">Suscripción</button>
                             <button class="btn">Desactivar</button>
                         </td>
