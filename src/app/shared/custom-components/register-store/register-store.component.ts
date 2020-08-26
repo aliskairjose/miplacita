@@ -168,8 +168,8 @@ export class RegisterStoreComponent implements OnInit {
   }
 
   private createForm(): void {
-    const reg = '(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?';
-
+    const reg = '(https?://)?(www\.)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?';
+    
     // Formulario de tienda
     this.storeForm = this.formBuilder.group( {
       name: [ '', [ Validators.required ] ],
