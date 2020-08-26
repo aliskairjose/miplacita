@@ -17,7 +17,7 @@ export class ShopsComponent implements OnInit {
   @ViewChild( 'shopDetails' ) ShopDetails: ShopDetailsComponent;
 
   searchText = '';
-  fields = [ 'Tienda', 'Plan', 'Precio', 'Activo', '', 'Opciones' ];
+  fields = [ 'Tienda', 'Plan', 'Precio', 'Activo', 'Opciones' ];
   shops: Store[] = [];
   paginate: Paginate;
 

@@ -27,12 +27,12 @@
         <div class="table-responsive-sm mt-3">
             <table class="table ">
                 <thead>
-                    <tr class="table-head">
+                    <tr class="table-head text-center">
                         <th *ngFor="let field of fields" scope="col">{{field}}</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let shop of shops | filter: searchText">
+                    <tr class="text-center" *ngFor="let shop of shops | filter: searchText">
                         <td> {{ shop.name }} </td>
                         <td> {{ shop.plan ? shop.plan.name : '' }} </td>
                         <td *ngIf="shop.plan"> {{ shop.plan.price | currency }}</td>
@@ -55,7 +55,7 @@
                                 </svg>
                             </div>
                         </td>
-                        <td class="d-flex justify-content-end actions">
+                        <td class="d-flex justify-content-center actions">
                             <button class="btn" (click)="ShopDetails.openModal(shop)">Suscripción</button>
                             <button class="btn">Desactivar</button>
                         </td>
@@ -63,8 +63,6 @@
                 </tbody>
 
             </table>
-            <!-- <p *ngIf="searchValid && shops.length==0">No hay resultados disponibles</p>
-            <p *ngIf="!searchValid">No hay resultados para su búsqueda</p> -->
         </div>
         <app-custom-pagination [items]="shops" [paginate]="paginate" (setPage)="setPage($event)">
         </app-custom-pagination>
