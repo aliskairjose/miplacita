@@ -47,6 +47,7 @@ export class RegisterStoreComponent implements OnInit {
   submitted: boolean;
   invalidEmail = 'Email inválido';
   required = 'Campo obligatorio';
+  invalidUrl = 'Ingere una url válida.';
   userId = '';
   categories: Category[] = [];
   store: Store = {};
@@ -167,12 +168,13 @@ export class RegisterStoreComponent implements OnInit {
   }
 
   private createForm(): void {
+    const reg = '(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?';
 
     // Formulario de tienda
     this.storeForm = this.formBuilder.group( {
       name: [ '', [ Validators.required ] ],
       description: [ '', [ Validators.required ] ],
-      url_store: [ '', [ Validators.required ] ],
+      url_store: [ '', [ Validators.required, Validators.pattern( reg ) ] ],
       phone: [ '', [ Validators.required ] ],
       email: [ '', [ Validators.required, Validators.email ] ],
     } );

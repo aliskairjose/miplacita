@@ -56,6 +56,7 @@
                             </div>
                             <div *ngIf="submitted && f.url_store.errors" class="invalid-feedback d-block">
                                 <div *ngIf="f.url_store.errors.required"> {{ required }} </div>
+                                <div *ngIf="f.url_store.errors.pattern">{{ invalidUrl }}</div>
                             </div>
                         </div>
                         <!-- Description -->
