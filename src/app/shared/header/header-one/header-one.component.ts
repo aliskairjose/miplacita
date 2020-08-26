@@ -3,6 +3,7 @@ import { AuthService } from '../../services/auth.service';
 import { AlertService } from 'ngx-alerts';
 import { Router } from '@angular/router';
 import { StorageService } from '../../services/storage.service';
+import { User } from '../../classes/user';
 
 @Component( {
   selector: 'app-header-one',
@@ -19,7 +20,8 @@ export class HeaderOneComponent implements OnInit {
   stick = false;
   isLoggedIn: boolean;
   role: string;
-  
+  user: User;
+
   // @HostListener Decorator
   @HostListener( 'window:scroll', [] )
   onWindowScroll() {
@@ -40,17 +42,26 @@ export class HeaderOneComponent implements OnInit {
 
   ngOnInit(): void {
     this.isLoggedIn = this.auth.isAuthenticated();
-    this.role = this.storage.getItem('role');
+
+    if ( this.isLoggedIn ) {
+      this.user = this.storage.getItem( 'user' );
+      this.role = this.storage.getItem( 'role' );
+    }
+
     this.auth.authObserver().subscribe( ( isAuth: boolean ) => {
       this.isLoggedIn = isAuth;
+      if ( isAuth ) {
+        this.user = this.storage.getItem( 'user' );
+        this.role = this.storage.getItem( 'role' );
+      }
       // tslint:disable-next-line: curly
       if ( !isAuth ) this.alert.info( 'Hasta luego...' );
     } );
   }
 
- /**
-  * @description Cierra sesión
-  */
+  /**
+   * @description Cierra sesión
+   */
   loggOut(): void {
     this.storage.clearAll();
     this.router.navigate( [ 'home/marketplace' ] );

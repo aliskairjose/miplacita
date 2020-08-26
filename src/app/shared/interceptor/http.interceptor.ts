@@ -10,11 +10,13 @@ import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { AlertService } from 'ngx-alerts';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class HttpInterceptor implements HttpInterceptor {
 
   constructor(
+    private router: Router,
     private alert: AlertService,
     private spinner: NgxSpinnerService
   ) { }
@@ -41,8 +43,24 @@ export class HttpInterceptor implements HttpInterceptor {
         return event;
       } ),
       catchError( ( response: HttpErrorResponse ) => {
+
         this.spinner.hide();
         this.alert.danger( response.error.message );
+
+        switch ( response.status ) {
+          case 401:
+            this.router.navigate( [ 'login' ] );
+            break;
+          case 404:
+            this.router.navigate( [ 'pages/404' ] );
+            break;
+          case 500:
+            // Manejor de error
+            break;
+          default:
+            break;
+        }
+
         return throwError( response );
       } )
     );

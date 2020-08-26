@@ -53,26 +53,27 @@
         <div class="table-responsive-sm mt-3">
             <table class="table">
                 <thead>
-                    <tr class="table-head">
+                    <tr class="table-head text-center">
                         <th *ngFor="let field of fields" scope="col">{{field}}</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr *ngFor="let product of products | filter: searchText">
-                        <td>
+                        <td class="text-center">
                             <img class="product-image" [src]="product.image[0]" />
                         </td>
                         <td>{{ product.name }}</td>
+                        <td  *ngIf="user.role==='admin' "> {{ product.store ? product.store.name : 'Sin tienda' }}</td>
                         <td>{{ product.description }}</td>
-                        <td>{{ product.price | currency }}</td>
-                        <td>{{ product.tax | currency }}</td>
-                        <td>{{ product.status }}</td>
+                        <td class="text-center">{{ product.price | currency }}</td>
+                        <td class="text-center">{{ product.tax | currency }}</td>
+                        <td class="text-center">{{ product.status }}</td>
 
                         <td class="d-flex flex-row" *ngIf="user.role==='merchant'">
                             <button class="btn btn-table-action">Editar</button>
                             <button class="btn btn-table-action">Eliminar</button>
                         </td>
-                        <td class="d-flex flex-row" *ngIf="user.role==='admin'">
+                        <td class="text-center" *ngIf="user.role==='admin'">
                             <button class="btn btn-table-action">Desactivar</button>
                         </td>
                     </tr>

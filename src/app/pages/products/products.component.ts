@@ -12,9 +12,9 @@ import { Paginate } from '../../shared/classes/paginate';
   templateUrl: './products.component.html',
   styleUrls: [ './products.component.scss' ]
 } )
-export class ProductsComponent implements OnInit, OnChanges {
+export class ProductsComponent implements OnInit {
   typeUser = 'admin';
-  fields = [ '', 'Nombre', 'Descripción', 'Precio', 'ITBMS', 'Estado', '' ];
+  fields = [ '', 'Nombre', 'Descripción', 'Precio', 'ITBMS', 'Estado', 'Acción' ];
   searchText = '';
   products: Product[] = [];
   productTypes = []; // tipos de productos
@@ -32,21 +32,29 @@ export class ProductsComponent implements OnInit, OnChanges {
     private productService: ProductService,
     private storageService: StorageService,
   ) {
+    this.user = this.storageService.getItem( 'user' );
     this.loadData();
+
+    // tslint:disable-next-line: curly
+    if ( this.user.role === 'admin' ) this.fields.splice( 2, 0, 'Tienda' );
   }
 
   ngOnInit(): void {
+
     this.productService.productObserver().subscribe( ( product: Product ) => {
       this.loadData();
     } );
   }
 
-  ngOnChanges(): void {
-    this.loadData();
+  private loadData( page = 1 ): void {
+    ( this.user.role === 'admin' ) ? this.loadAdminProducts( page ) : this.loadUserProducts( page );
   }
 
-  private loadData( page = 1 ): void {
-    this.user = this.storageService.getItem( 'user' );
+  setPage( page: number ) {
+    this.loadData( page );
+  }
+
+  private loadUserProducts( page: number ): void {
     this.productService.productList( this.user.stores[ 0 ]._id, page ).subscribe( ( result: Result<Product> ) => {
       this.products = [ ...result.docs ];
       this.paginate = { ...result };
@@ -54,11 +62,17 @@ export class ProductsComponent implements OnInit, OnChanges {
       for ( let i = 1; i <= this.paginate.totalPages; i++ ) {
         this.paginate.pages.push( i );
       }
-    });
+    } );
   }
-
-  setPage( page: number ) {
-    this.loadData( page );
+  private loadAdminProducts( page: number ): void {
+    this.productService.getAll( page ).subscribe( ( result: Result<Product> ) => {
+      this.products = [ ...result.docs ];
+      this.paginate = { ...result };
+      this.paginate.pages = [];
+      for ( let i = 1; i <= this.paginate.totalPages; i++ ) {
+        this.paginate.pages.push( i );
+      }
+    } );
   }
 
 }

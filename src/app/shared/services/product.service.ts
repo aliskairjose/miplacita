@@ -45,10 +45,24 @@ export class ProductService {
   }
 
   /**
-   * @description Lista de productos
+   * @description Listado de productos de la tienda
+   * @param id Id de la tienda
+   * @param page Numero de la pagina a mostrar
    */
   productList( id: string, page = 1 ): Observable<Result<Product>> {
-    return this.http.get( `products?store=${id}&page=${page}` ).pipe(
+    return this.http.get( `products?page=${page}&store=${id}` ).pipe(
+      map( ( response: Response<Product> ) => {
+        if ( response.success ) {
+          return response.result;
+        }
+      } )
+    );
+  }
+  /**
+   * @description Lista de todos los productos
+   */
+  getAll( page = 1 ): Observable<Result<Product>> {
+    return this.http.get( `products?page=${page}` ).pipe(
       map( ( response: Response<Product> ) => {
         if ( response.success ) {
           return response.result;

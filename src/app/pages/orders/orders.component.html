@@ -10,7 +10,7 @@
                 <div class="form-group flex-fill" id="state">
                     <select name="model" class="form-control">
                         <option value="">Estado</option>
-                        <option [value]="status" *ngFor="let status of orderStatus">{{status}}</option>
+                        <option [value]="status" *ngFor="let status of orderStatus" class="text-capitalize">{{ status }}</option>
                     </select>
                 </div>
                 <div class="filters">
@@ -55,56 +55,27 @@
         </form>
 
         <!-- Data de usuario -->
-        <div class="table-responsive-sm mt-3" *ngIf="role === 'merchant'">
+        <div class="table-responsive-sm mt-3">
             <table class="table cart-table table-responsive-xs">
                 <thead>
-                    <tr class="table-head">
+                    <tr class="table-head text-center">
                         <th *ngFor="let field of fields" scope="col">{{field}}</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr *ngFor="let order of orders">
                         <td>{{order.user.fullname}}</td>
+                        <td *ngIf="role === 'admin' ">{{order.store.name}}</td>
                         <td>
                             <div class="d-flex flex-wrap " *ngFor="let item of order.items">
                                 {{ item.product_name }}
                             </div>
                         </td>
-                        <td>{{order.amount | currency }}</td>
+                        <td>{{ order.amount | currency }}</td>
                         <td>{{ order.created_at | date }}</td>
                         <td>{{ order.zone }}</td>
                         <td class="text-capitalize">{{order.status }}</td>
-                        <td class="d-flex flex-row">
-                            <button class="btn btn-table-action" (click)="OrderDetails.openModal(order)">Editar</button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-
-        </div>
-
-        <!-- Data de Admin -->
-        <div class="table-responsive-sm mt-3" *ngIf="role === 'admin'">
-            <table class="table cart-table table-responsive-xs">
-                <thead>
-                    <tr class="table-head">
-                        <th *ngFor="let field of adminFields" scope="col">{{field}}</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let order of orders">
-                        <td>{{order.user.fullname}}</td>
-                        <td>{{order.store.name}}</td>
-                        <td>
-                            <div class="d-flex flex-wrap " *ngFor="let item of order.items">
-                                {{ item.product_name }}
-                            </div>
-                        </td>
-                        <td>{{order.amount | currency }}</td>
-                        <td>{{ order.created_at | date }}</td>
-                        <td>{{ order.zone }}</td>
-                        <td class="text-capitalize">{{order.status }}</td>
-                        <td class="d-flex flex-row">
+                        <td class="text-center">
                             <button class="btn btn-table-action" (click)="OrderDetails.openModal(order)">Editar</button>
                         </td>
                     </tr>
