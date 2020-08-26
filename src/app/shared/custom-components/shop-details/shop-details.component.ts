@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
 import { NgbModal, ModalDismissReasons, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { StoreService } from '../../services/store.service';
 
 @Component({
   selector: 'app-shop-details',
@@ -8,22 +9,40 @@ import { NgbModal, ModalDismissReasons, NgbActiveModal } from '@ng-bootstrap/ng-
 })
 export class ShopDetailsComponent implements OnInit {
   @ViewChild('shopDetails', { static: false }) ShopDetails: TemplateRef<any>;
-  public benefits = ['10 productos máximos', 'Tienda propia', 'Catálogo virtual'];
+  public allBenefits = [
+    ['Logo de la tienda',
+      'Paleta de Colores',
+      'Tipografía',
+      'Máximo 10 productos',
+      'Fotos y características del producto',
+      'Pago con TDC',
+      'Reporte'],
+    ['Logo de la tienda',
+      'Paleta de Colores',
+      'Tipografía',
+      'Productos ilimitados',
+      'Fotos y características del producto',
+      'Pasarela de pago',
+      'Plan de compesación',
+      'Inventario',
+      'Reporte']
+  ];
+  public benefits = [];
   public modalOpen = false;
   public modal: any;
   public shop: any;
   public plan: any;
   public page = false;
 
-  constructor(private modalService: NgbModal) { 
-    console.log("construtor");
-  }
+  constructor(
+    private modalService: NgbModal,
+    private storeService: StoreService) { }
 
   ngOnInit(): void {
-    console.log("ngOnInit");
   }
 
   openModal(shop) {
+    console.log(shop);
     this.shop = shop;
     this.getPlanInformation();
     this.modalOpen = true;
@@ -36,7 +55,16 @@ export class ShopDetailsComponent implements OnInit {
 
   getPlanInformation(){
     // informacion de plan de la tienda
-    this.plan = { name: 'plan #1'};
+    // this.storeService.getPlans().subscribe( ( plans: any ) => {
+    //   this.plan = plans.filter(plan => plan.id === this.shop.plan.id );
+    //   console.log(this.plan);
+
+    // } );
+    if (this.shop.plan.price > 0) {
+      this.benefits = this.allBenefits[1];
+    } else {
+      this.benefits = this.allBenefits[0];
+    }
   }
 
   close(reason){
