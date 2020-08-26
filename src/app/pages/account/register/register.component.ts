@@ -15,6 +15,7 @@ export class RegisterComponent implements OnInit {
   invalidEmail = 'Email inválido';
   required = 'Campo obligatorio';
   matchError = 'Los campos deben coincidir';
+  minlength = 'Debe tener mínimo 8 caracteres';
   user = {
     fullname: '',
     email: '',
@@ -26,8 +27,6 @@ export class RegisterComponent implements OnInit {
     private formBuilder: FormBuilder,
   ) {
     this.createForm();
-    console.log( 'register init' );
-
   }
 
   // convenience getter for easy access to form fields
@@ -55,7 +54,7 @@ export class RegisterComponent implements OnInit {
     this.registerForm = this.formBuilder.group( {
       role: [ 'merchant' ],
       fullname: [ '', [ Validators.required ] ],
-      password: [ '', [ Validators.required ] ],
+      password: [ '', [ Validators.required, Validators.minLength(8) ] ],
       passwordConfirmation: [ '', Validators.required ],
       email: [ '', [ Validators.required, Validators.email ] ],
     }, {

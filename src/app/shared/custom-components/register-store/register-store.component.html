@@ -35,7 +35,7 @@
                         <!-- Shop name -->
                         <div class="form-group input-group">
                             <input type="text" class="form-control" id="name" placeholder="Nombre de la tienda"
-                                required="" formControlName="name" [(ngModel)]="shop.name">
+                                required="" formControlName="name" [(ngModel)]="shop.name" (blur)="validateName()">
                             <div class="input-group-prepend">
                                 <span class="input-group-text">
                                     <img src="../../../../assets/images/marketplace/svg/home.svg" alt="">
@@ -102,7 +102,7 @@
                         </div>
 
                         <div class="form-gruop text-center">
-                            <button class="btn btn-solid" (click)="storeRegister()">Registrar tienda</button>
+                            <button class="btn btn-solid" (click)="storeRegister()" [disabled]="disabled">Registrar tienda</button>
                         </div>
 
                     </form>

@@ -56,9 +56,9 @@
                                     <img src="../../../../assets/images/marketplace/svg/key.svg" alt="">
                                 </span>
                             </div>
-                            <div *ngIf="submitted && f.password.errors">
-                                <div *ngIf="f.password.errors.required" class="invalid-feedback d-block"> {{ required }}
-                                </div>
+                            <div *ngIf="submitted && f.password.errors" class="invalid-feedback d-block">
+                                <div *ngIf="f.password.errors.required"> {{ required }}</div>
+                                <div *ngIf="f.password.errors.minlength"> {{ minlength }}</div>
                             </div>
                         </div>
                         <!-- Confirm Password -->

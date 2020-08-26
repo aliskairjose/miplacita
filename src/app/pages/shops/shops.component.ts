@@ -17,7 +17,7 @@ export class ShopsComponent implements OnInit {
   @ViewChild( 'shopDetails' ) ShopDetails: ShopDetailsComponent;
 
   searchText = '';
-  fields = [ 'Tienda', 'Plan', 'Precio', 'Activo', '' ];
+  fields = [ 'Tienda', 'Plan', 'Precio', 'Activo', '', 'Opciones' ];
   shops: Store[] = [];
   paginate: Paginate;
 
@@ -44,6 +44,8 @@ export class ShopsComponent implements OnInit {
       for ( let i = 1; i <= this.paginate.totalPages; i++ ) {
         this.paginate.pages.push( i );
       }
+
+      console.log(this.shops[2].plan)
     } );
   }
 

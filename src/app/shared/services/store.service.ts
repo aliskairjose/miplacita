@@ -101,6 +101,16 @@ export class StoreService {
   }
 
   /**
+   * @description Valida que el nombre de la tienda este o no en uso por otro usuario
+   * @param name Nombre de la tienda a consultar
+   */
+  validateName( name: string ): Observable<any> {
+    // tslint:disable-next-line: prefer-const
+    let data: any;
+    return this.http.post( `stores/validate?name=${name}`, data );
+  }
+
+  /**
    * @description Genera el stream de eventos usando next() para crear el evento
    * @param store
    */

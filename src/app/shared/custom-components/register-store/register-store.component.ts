@@ -58,9 +58,9 @@ export class RegisterStoreComponent implements OnInit {
   storeData: Store = {};
   selectedCategory = '';
   images: Array<string> = [];
-
   shop: ShopForm = {};
   product: ProductForm = {};
+  disabled = true;
 
   @Output() setBack: EventEmitter<any> = new EventEmitter<any>();
 
@@ -145,6 +145,22 @@ export class RegisterStoreComponent implements OnInit {
     this.images = [ ...images ];
   }
 
+  /**
+   * @description Valida que el nombre de la tienda no este en uso
+   */
+  validateName(): void {
+    this.storeService.validateName( this.shop.name ).subscribe( resp => {
+      if ( resp.taken ) {
+        this.alert.warning( resp.message[ 0 ] );
+        this.disabled = true;
+        return;
+      }
+      this.alert.info( resp.message[ 0 ] );
+      this.disabled = false;
+
+    } );
+  }
+
   private createForm(): void {
 
     // Formulario de tienda
@@ -195,11 +211,11 @@ export class RegisterStoreComponent implements OnInit {
     this.SuccessModal.openModal();
   }
 
-  public back(option: number){
-    if (option === 0){
+  public back( option: number ) {
+    if ( option === 0 ) {
       this.step = 1;
-      this.emitEvent.emit(false);
-    } else if (option === 1){
+      this.emitEvent.emit( false );
+    } else if ( option === 1 ) {
       this.step = 1;
     }
   }

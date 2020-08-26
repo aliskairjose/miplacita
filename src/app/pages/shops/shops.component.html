@@ -33,15 +33,10 @@
                 </thead>
                 <tbody>
                     <tr *ngFor="let shop of shops | filter: searchText">
-                        <td>
-                            {{shop.name}}
-                        </td>
-                        <td>
-                            {{shop.plan}}
-                        </td>
-                        <td>
-                            {{shop.price}}
-                        </td>
+                        <td> {{ shop.name }} </td>
+                        <td> {{ shop.plan ? shop.plan.name : '' }} </td>
+                        <td *ngIf="shop.plan"> {{ shop.plan.price | currency }}</td>
+                        <td *ngIf="!shop.plan"></td>
                         <td>
                             <div *ngIf="shop.active">
                                 <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-check2" fill="#63b4f2"
@@ -60,7 +55,6 @@
                                 </svg>
                             </div>
                         </td>
-
                         <td class="d-flex justify-content-end actions">
                             <button class="btn" (click)="ShopDetails.openModal(shop)">Suscripción</button>
                             <button class="btn">Desactivar</button>
