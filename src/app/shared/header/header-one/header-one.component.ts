@@ -3,6 +3,7 @@ import { AuthService } from '../../services/auth.service';
 import { AlertService } from 'ngx-alerts';
 import { Router } from '@angular/router';
 import { StorageService } from '../../services/storage.service';
+import { User } from '../../classes/user';
 
 @Component( {
   selector: 'app-header-one',
@@ -19,6 +20,7 @@ export class HeaderOneComponent implements OnInit {
   stick = false;
   isLoggedIn: boolean;
   role: string;
+  user: User;
   
   // @HostListener Decorator
   @HostListener( 'window:scroll', [] )
@@ -40,6 +42,7 @@ export class HeaderOneComponent implements OnInit {
 
   ngOnInit(): void {
     this.isLoggedIn = this.auth.isAuthenticated();
+    this.user = this.storage.getItem('user');
     this.role = this.storage.getItem('role');
     this.auth.authObserver().subscribe( ( isAuth: boolean ) => {
       this.isLoggedIn = isAuth;

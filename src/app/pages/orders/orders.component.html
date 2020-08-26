@@ -58,7 +58,7 @@
         <div class="table-responsive-sm mt-3" *ngIf="role === 'merchant'">
             <table class="table cart-table table-responsive-xs">
                 <thead>
-                    <tr class="table-head">
+                    <tr class="table-head text-center">
                         <th *ngFor="let field of fields" scope="col">{{field}}</th>
                     </tr>
                 </thead>
@@ -87,7 +87,7 @@
         <div class="table-responsive-sm mt-3" *ngIf="role === 'admin'">
             <table class="table cart-table table-responsive-xs">
                 <thead>
-                    <tr class="table-head">
+                    <tr class="table-head text-center">
                         <th *ngFor="let field of adminFields" scope="col">{{field}}</th>
                     </tr>
                 </thead>

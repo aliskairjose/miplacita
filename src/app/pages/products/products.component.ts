@@ -12,9 +12,10 @@ import { Paginate } from '../../shared/classes/paginate';
   templateUrl: './products.component.html',
   styleUrls: [ './products.component.scss' ]
 } )
-export class ProductsComponent implements OnInit, OnChanges {
+export class ProductsComponent implements OnInit {
   typeUser = 'admin';
   fields = [ '', 'Nombre', 'Descripción', 'Precio', 'ITBMS', 'Estado', '' ];
+  adminFields = [ '', 'Nombre', 'Descripción', 'Tienda', 'Precio', 'ITBMS', 'Estado', '' ];
   searchText = '';
   products: Product[] = [];
   productTypes = []; // tipos de productos
@@ -41,12 +42,16 @@ export class ProductsComponent implements OnInit, OnChanges {
     } );
   }
 
-  ngOnChanges(): void {
-    this.loadData();
-  }
-
   private loadData( page = 1 ): void {
     this.user = this.storageService.getItem( 'user' );
+    ( this.user.role === 'admin' ) ? this.loadAdminProducts( page ) : this.loadUserProducts( page );
+  }
+
+  setPage( page: number ) {
+    this.loadData( page );
+  }
+
+  private loadUserProducts( page: number ): void {
     this.productService.productList( this.user.stores[ 0 ]._id, page ).subscribe( ( result: Result<Product> ) => {
       this.products = [ ...result.docs ];
       this.paginate = { ...result };
@@ -54,11 +59,17 @@ export class ProductsComponent implements OnInit, OnChanges {
       for ( let i = 1; i <= this.paginate.totalPages; i++ ) {
         this.paginate.pages.push( i );
       }
-    });
+    } );
   }
-
-  setPage( page: number ) {
-    this.loadData( page );
+  private loadAdminProducts( page: number ): void { 
+    this.productService.getAll( page ).subscribe( ( result: Result<Product> ) => {
+      this.products = [ ...result.docs ];
+      this.paginate = { ...result };
+      this.paginate.pages = [];
+      for ( let i = 1; i <= this.paginate.totalPages; i++ ) {
+        this.paginate.pages.push( i );
+      }
+    } );
   }
 
 }

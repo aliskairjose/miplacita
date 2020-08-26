@@ -56,6 +56,18 @@ export class ProductService {
       } )
     );
   }
+  /**
+   * @description Lista de productos
+   */
+  getAll( page = 1 ): Observable<Result<Product>> {
+    return this.http.get( `products?page=${page}` ).pipe(
+      map( ( response: Response<Product> ) => {
+        if ( response.success ) {
+          return response.result;
+        }
+      } )
+    );
+  }
 
   /**
    * @description Detalle de un producto
