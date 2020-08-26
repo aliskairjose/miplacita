@@ -42,7 +42,7 @@
                                         <div *ngIf="f.category.errors.required"> {{ required }} </div>
                                     </div>
                                 </div>
-
+                                <!-- Price -->
                                 <div class="form-group input-group">
                                     <input formControlName="price" currencyMask type="text" class="form-control"
                                         id="price" placeholder="Precio" required="">
@@ -56,6 +56,7 @@
                                         <div *ngIf="f.price.errors.required"> {{ required }} </div>
                                     </div>
                                 </div>
+                                <!-- Tax -->
                                 <div class="form-group input-group">
                                     <input formControlName="tax" currencyMask type="text" class="form-control"
                                         id="itbms" placeholder="Itbms" required="">
@@ -69,6 +70,7 @@
                                         <div *ngIf="f.tax.errors.required"> {{ required }} </div>
                                     </div>
                                 </div>
+                                <!-- Descripcion -->
                                 <div class="form-group input-group">
                                     <textarea formControlName="description" type="text" class="form-control"
                                         id="exampleFormControlTextarea1" placeholder="Descripción"
@@ -77,6 +79,7 @@
                                         <div *ngIf="f.description.errors.required"> {{ required }} </div>
                                     </div>
                                 </div>
+                                <!-- Status -->
                                 <div class="form-group input-group">
                                     <select formControlName="status" class="form-control" name="status"
                                         [(ngModel)]="statusSelected">
@@ -104,6 +107,7 @@
                                         <option *ngFor="let type of typesProduct" value=""></option>
                                     </select>
                                 </div> -->
+                                <!-- Cantidad disponible -->
                                 <div class="form-group input-group">
                                     <input formControlName="stock" type="number" class="form-control" id="available"
                                         placeholder="Cantidad disponible" required="">
