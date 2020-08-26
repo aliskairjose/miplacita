@@ -54,6 +54,9 @@ import { NgxCurrencyModule, CurrencyMaskInputMode } from 'ngx-currency';
 import { MyShopComponent } from './account/my-shop/my-shop.component';
 import { ShopWithdrawalComponent } from './shop-withdrawal/shop-withdrawal.component';
 import { ShopSuscriptionComponent } from './shop-suscription/shop-suscription.component';
+import { NgxMaskModule, IConfig } from 'ngx-mask';
+
+export let options: Partial<IConfig> | (() => Partial<IConfig>);
 
 export const customCurrencyMaskConfig = {
   align: 'left',
@@ -123,6 +126,7 @@ export const customCurrencyMaskConfig = {
     NgxSpinnerModule,
     GalleryModule.forRoot(),
     PagesRoutingModule,
+    NgxMaskModule.forRoot(),
     GoogleChartsModule.forRoot(),
     NgxCurrencyModule.forRoot(customCurrencyMaskConfig),
     ColorPickerModule,

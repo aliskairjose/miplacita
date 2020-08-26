@@ -20,8 +20,8 @@
                     <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="theme-form">
                         <!-- FullName -->
                         <div class="form-group input-group">
-                            <input type="text" formControlName="fullname" class="form-control" id="fullname"
-                                placeholder="Nombre" required="" [(ngModel)]="user.fullname">
+                            <input mask="S{30}" type="text" formControlName="fullname" class="form-control" id="fullname"
+                                placeholder="Nombre completo" required="" [(ngModel)]="user.fullname">
                             <div class="input-group-prepend">
                                 <span class="input-group-text">
                                     <img src="../../../../assets/images/marketplace/svg/user.svg" alt="">

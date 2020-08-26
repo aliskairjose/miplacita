@@ -67,6 +67,10 @@ import { UploadImageComponent } from './components/upload-image/upload-image.com
 import { ShopSubmenuComponent } from './custom-component/shop-submenu/shop-submenu.component';
 import { TimelineComponent } from './custom-component/timeline/timeline.component';
 
+import { NgxMaskModule, IConfig } from 'ngx-mask';
+
+export let options: Partial<IConfig> | (() => Partial<IConfig>);
+
 export const customCurrencyMaskConfig = {
   align: 'right',
   allowNegative: false,
@@ -134,6 +138,7 @@ export const customCurrencyMaskConfig = {
     NgbModule,
     CarouselModule,
     BarRatingModule,
+    NgxMaskModule.forRoot(),
     AlertModule.forRoot({maxMessages: 5, timeout: 3000, position: 'left'}),
     LazyLoadImageModule.forRoot({
       // preset: scrollPreset // <-- tell LazyLoadImage that you want to use scrollPreset

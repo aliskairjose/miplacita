@@ -13,7 +13,6 @@ import { Product } from '../../classes/product';
 import { Plan } from '../../classes/plan';
 import { SuccessModalComponent } from '../../custom-component/success-modal/success-modal.component';
 import { AuthResponse } from '../../classes/auth-response';
-import { Subject } from 'rxjs';
 
 
 interface ShopForm {
@@ -149,16 +148,22 @@ export class RegisterStoreComponent implements OnInit {
    * @description Valida que el nombre de la tienda no este en uso
    */
   validateName(): void {
-    this.storeService.validateName( this.shop.name ).subscribe( resp => {
-      if ( resp.taken ) {
-        this.alert.warning( resp.message[ 0 ] );
-        this.disabled = true;
-        return;
-      }
-      this.alert.info( resp.message[ 0 ] );
-      this.disabled = false;
+    if ( this.shop.name.length > 0 && this.shop.name.length < 4 ) {
+      this.alert.warning( 'El nombre debe tener un mínimo de 4 caracteres' );
+      return;
+    }
+    if ( this.shop.name ) {
+      this.storeService.validateName( this.shop.name ).subscribe( resp => {
+        if ( resp.taken ) {
+          this.alert.warning( resp.message[ 0 ] );
+          this.disabled = true;
+          return;
+        }
+        this.alert.info( resp.message[ 0 ] );
+        this.disabled = false;
 
-    } );
+      } );
+    }
   }
 
   private createForm(): void {
