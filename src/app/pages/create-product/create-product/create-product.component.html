@@ -15,7 +15,7 @@
                                 <!-- Nombre -->
                                 <div class="form-group input-group">
                                     <input formControlName="name" type="text" class="form-control" id="name"
-                                        placeholder="Nombre" required="">
+                                        placeholder="Nombre" required="" [(ngModel)]="productData.name">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">
                                             <img src="../../../../assets/images/marketplace/svg/bag.svg" alt="">
@@ -45,7 +45,7 @@
                                 <!-- Price -->
                                 <div class="form-group input-group">
                                     <input formControlName="price" currencyMask type="text" class="form-control"
-                                        id="price" placeholder="Precio" required="">
+                                        id="price" placeholder="Precio" required="" [(ngModel)]="productData.price">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">
                                             <img class="h-100"
@@ -59,7 +59,7 @@
                                 <!-- Tax -->
                                 <div class="form-group input-group">
                                     <input formControlName="tax" currencyMask type="text" class="form-control"
-                                        id="itbms" placeholder="Itbms" required="">
+                                        id="itbms" placeholder="Itbms" required="" [(ngModel)]="productData.tax">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">
                                             <img class="h-100" src="../../../../assets/images/marketplace/svg/dolar.svg"
@@ -74,7 +74,7 @@
                                 <div class="form-group input-group">
                                     <textarea formControlName="description" type="text" class="form-control"
                                         id="exampleFormControlTextarea1" placeholder="Descripción"
-                                        required=""></textarea>
+                                        required="" [(ngModel)]="productData.description"></textarea>
                                     <div *ngIf="submitted && f.description.errors" class="invalid-feedback d-block">
                                         <div *ngIf="f.description.errors.required"> {{ required }} </div>
                                     </div>
@@ -110,7 +110,7 @@
                                 <!-- Cantidad disponible -->
                                 <div class="form-group input-group">
                                     <input formControlName="stock" type="number" class="form-control" id="available"
-                                        placeholder="Cantidad disponible" required="">
+                                        placeholder="Cantidad disponible" required="" [(ngModel)]="productData.stock">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">
                                             <svg width="1.5em" height="1.5em" viewBox="0 0 16 16"

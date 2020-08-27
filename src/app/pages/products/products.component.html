@@ -71,7 +71,7 @@
                         <td class="text-center">{{ product.status }}</td>
 
                         <td class="d-flex flex-row" *ngIf="user.role==='merchant'">
-                            <button class="btn btn-table-action">Editar</button>
+                            <a [routerLink]="[ '/pages/edit-product', product._id ]" class="btn btn-table-action">Editar</a>
                             <button class="btn btn-table-action">Eliminar</button>
                         </td>
                         <td class="text-center" *ngIf="user.role==='admin'">

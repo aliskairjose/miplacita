@@ -4,7 +4,7 @@ import { StorageService } from '../../../shared/services/storage.service';
 import { ProductService } from '../../../shared/services/product.service';
 import { AlertService } from 'ngx-alerts';
 import { Product } from '../../../shared/classes/product';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { StoreService } from '../../../shared/services/store.service';
 import { Category } from '../../../shared/classes/category';
 import { User } from '../../../shared/classes/user';
@@ -19,7 +19,6 @@ export class CreateProductComponent implements OnInit {
 
   typesProduct = [];
   states = [];
-
   categoryId = '';
   categories: Category[];
   productForm: FormGroup;
@@ -35,11 +34,13 @@ export class CreateProductComponent implements OnInit {
   selectedCategory = '';
   productImages: string[] = [];
   images = [];
+  productData: Product = {};
 
   constructor(
     private router: Router,
     private alert: AlertService,
     private formBuilder: FormBuilder,
+    private route: ActivatedRoute,
     private storageService: StorageService,
     private productService: ProductService,
   ) {
@@ -51,6 +52,10 @@ export class CreateProductComponent implements OnInit {
   get f() { return this.productForm.controls; }
 
   ngOnInit(): void {
+    const param = this.route.snapshot.params.id;
+    if ( param ) {
+      this.loadProductData( param );
+    }
     this.productService.categoryList().subscribe( ( categories: Category[] ) => {
       this.categories = [ ...categories ];
     } );
@@ -100,6 +105,15 @@ export class CreateProductComponent implements OnInit {
 
   upload( images: string[] ): void {
     this.productImages = [ ...images ];
+  }
+
+  private loadProductData( id: string ): void {
+    this.productService.updateProduct( id, this.productForm.value ).subscribe( response => {
+      this.alert.info( 'Procuto actualizado correctamente' );
+      setTimeout( () => {
+        this.router.navigate( [ 'pages/products' ] );
+      }, 3200 );
+    } );
   }
 
 }

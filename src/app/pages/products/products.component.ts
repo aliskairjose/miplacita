@@ -6,6 +6,7 @@ import { User } from '../../shared/classes/user';
 import { Product } from '../../shared/classes/product';
 import { Result } from '../../shared/classes/response';
 import { Paginate } from '../../shared/classes/paginate';
+import { Router } from '@angular/router';
 
 @Component( {
   selector: 'app-products',
@@ -28,6 +29,7 @@ export class ProductsComponent implements OnInit {
   user: User;
 
   constructor(
+    private router: Router,
     private formBuilder: FormBuilder,
     private productService: ProductService,
     private storageService: StorageService,
