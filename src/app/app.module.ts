@@ -23,7 +23,10 @@ import { AuthGuard } from './shared/guard/auth.guard';
 import { NgxCurrencyModule, CurrencyMaskInputMode } from 'ngx-currency';
 import { NgxMaskModule, IConfig } from 'ngx-mask';
 
-export let options: Partial<IConfig> | (() => Partial<IConfig>);
+// export let options: Partial<IConfig> | (() => Partial<IConfig>);
+const maskConfig: Partial<IConfig> = {
+  validation: false,
+};
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory( http: HttpClient ) {
@@ -57,7 +60,7 @@ export const customCurrencyMaskConfig = {
     AppRoutingModule,
     LoadingBarRouterModule,
     BrowserAnimationsModule,
-    NgxMaskModule.forRoot(),
+    NgxMaskModule.forRoot(maskConfig),
     LoadingBarHttpClientModule,
     NgxCurrencyModule.forRoot(customCurrencyMaskConfig),
     BrowserModule.withServerTransition( { appId: 'serverApp' } ),

@@ -64,7 +64,7 @@ export class HeaderOneComponent implements OnInit {
    */
   loggOut(): void {
     this.storage.clearAll();
-    this.router.navigate( [ 'home/marketplace' ] );
+    this.router.navigate( [ 'home' ] );
     this.auth.authSubject( false );
   }
 

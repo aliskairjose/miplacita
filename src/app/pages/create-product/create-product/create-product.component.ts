@@ -19,7 +19,7 @@ export class CreateProductComponent implements OnInit {
 
   typesProduct = [];
   states = [];
- 
+
   categoryId = '';
   categories: Category[];
   productForm: FormGroup;
@@ -92,7 +92,6 @@ export class CreateProductComponent implements OnInit {
       description: [ '', [ Validators.required ] ],
       price: [ '', [ Validators.required ] ],
       tax: [ '', [ Validators.required ] ],
-      // image: [ this.images ],
       category: [ this.categoryId ? this.categoryId : '', [ Validators.required ] ],
       status: [ this.statusSelected, [ Validators.required ] ],
       stock: [ '', [ Validators.required ] ],

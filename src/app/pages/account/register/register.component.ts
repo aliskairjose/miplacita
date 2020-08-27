@@ -44,7 +44,8 @@ export class RegisterComponent implements OnInit {
 
   onSubmit() {
     this.submitted = true;
-
+    console.log(this.registerForm.valid)
+    console.log(this.registerForm)
     if ( this.registerForm.valid ) {
       sessionStorage.setItem( 'userForm', JSON.stringify( this.registerForm.value ) );
       this.registerSuccess = true;

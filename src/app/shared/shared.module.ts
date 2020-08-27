@@ -69,7 +69,10 @@ import { TimelineComponent } from './custom-component/timeline/timeline.componen
 
 import { NgxMaskModule, IConfig } from 'ngx-mask';
 
-export let options: Partial<IConfig> | (() => Partial<IConfig>);
+// export let options: Partial<IConfig> | (() => Partial<IConfig>);
+const maskConfig: Partial<IConfig> = {
+  validation: false,
+};
 
 export const customCurrencyMaskConfig = {
   align: 'right',
@@ -138,7 +141,7 @@ export const customCurrencyMaskConfig = {
     NgbModule,
     CarouselModule,
     BarRatingModule,
-    NgxMaskModule.forRoot(),
+    NgxMaskModule.forRoot(maskConfig),
     AlertModule.forRoot({maxMessages: 5, timeout: 3000, position: 'left'}),
     LazyLoadImageModule.forRoot({
       // preset: scrollPreset // <-- tell LazyLoadImage that you want to use scrollPreset
