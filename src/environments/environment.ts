@@ -13,6 +13,8 @@ export const environment = {
     invalidEmail: 'Email inválido.',
     required: 'Campo obligatorio.',
     invalidUrl: 'Ingere una url válida.',
+    onlyLetter: 'Solo se permiten caracteres',
+    matchError: 'Los campos deben coincidir'
   }
 };
 

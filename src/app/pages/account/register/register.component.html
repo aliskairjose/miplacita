@@ -20,7 +20,9 @@
                     <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="theme-form">
                         <!-- FullName -->
                         <div class="form-group input-group">
-                            <input mask="S{30}" type="text" formControlName="fullname" class="form-control" id="fullname"
+                            <!-- <input mask="S{60}" type="text" formControlName="fullname" class="form-control" id="fullname"
+                                placeholder="Nombre completo" required="" [(ngModel)]="user.fullname"> -->
+                            <input type="text" formControlName="fullname" class="form-control" id="fullname"
                                 placeholder="Nombre completo" required="" [(ngModel)]="user.fullname">
                             <div class="input-group-prepend">
                                 <span class="input-group-text">
@@ -29,6 +31,7 @@
                             </div>
                             <div *ngIf="submitted && f.fullname.errors" class="invalid-feedback d-block">
                                 <div *ngIf="f.fullname.errors.required"> {{ required }} </div>
+                                <div *ngIf="f.fullname.errors.pattern"> {{ onlyLetter }} </div>
                             </div>
                         </div>
                         <!-- Email -->
