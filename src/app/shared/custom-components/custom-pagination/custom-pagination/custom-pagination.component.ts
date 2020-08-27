@@ -18,9 +18,9 @@ export class CustomPaginationComponent implements OnInit, OnChanges {
   ngOnInit(): void {}
 
   ngOnChanges() {
-    if (this.paginate.page % 5 === 0){
+    if (this.paginate && this.paginate.page % 5 === 0){
       this.pages = this.paginate.pages.slice(this.paginate.page - 5 , this.paginate.page);
-    } else {
+    } else if (this.paginate && this.paginate.page % 5 !== 0){
       const init = Math.trunc(this.paginate.page / 5) * 5;
       this.pages = this.paginate.pages.slice(init , init + 5);
     }
