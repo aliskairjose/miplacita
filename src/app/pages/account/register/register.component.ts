@@ -45,8 +45,6 @@ export class RegisterComponent implements OnInit {
 
   onSubmit() {
     this.submitted = true;
-    console.log( this.registerForm.valid )
-    console.log( this.registerForm )
     if ( this.registerForm.valid ) {
       sessionStorage.setItem( 'userForm', JSON.stringify( this.registerForm.value ) );
       this.registerSuccess = true;
@@ -54,11 +52,10 @@ export class RegisterComponent implements OnInit {
   }
 
   private createForm(): void {
-    const reg = '\[a-zA-Z\]';
 
     this.registerForm = this.formBuilder.group( {
       role: [ 'merchant' ],
-      fullname: [ '', [ Validators.required, Validators.pattern( reg ) ] ],
+      fullname: [ '', [ Validators.required, Validators.pattern( '[a-zA-Z ]*' ) ] ],
       password: [ '', [ Validators.required, Validators.minLength( 8 ) ] ],
       passwordConfirmation: [ '', Validators.required ],
       email: [ '', [ Validators.required, Validators.email ] ],

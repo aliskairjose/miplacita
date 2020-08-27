@@ -23,7 +23,7 @@
                             <!-- <input mask="S{60}" type="text" formControlName="fullname" class="form-control" id="fullname"
                                 placeholder="Nombre completo" required="" [(ngModel)]="user.fullname"> -->
                             <input type="text" formControlName="fullname" class="form-control" id="fullname"
-                                placeholder="Nombre completo" required="" [(ngModel)]="user.fullname">
+                                placeholder="Nombre completo" required="" [(ngModel)]="user.fullname" pattern="[a-zA-Z ]*">
                             <div class="input-group-prepend">
                                 <span class="input-group-text">
                                     <img src="../../../../assets/images/marketplace/svg/user.svg" alt="">
