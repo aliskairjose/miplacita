@@ -30,22 +30,23 @@
                                 <option value="" *ngFor="let type of productTypes"></option>
                             </select>
                         </div> -->
-                        <div class="flex-fill ">
+                        <div class="flex-fill">
                             <select name="model" class="form-control">
                                 <option value="">Estado</option>
                                 <option [value]="status.value" *ngFor="let status of statuses">{{status.text}}</option>
                             </select>
                         </div>
-                        <div class="flex-fill " *ngIf="user.role === 'admin'">
+                        <div class="flex-fill" *ngIf="user.role === 'admin'">
                             <select name="model" class="form-control">
                                 <option value="">Tienda</option>
                                 <option value="" *ngFor="let state of states"></option>
                             </select>
                         </div>
                     </div>
-                    <div class="d-flex flex-fill h-100 justify-content-end">
-                        <a [routerLink]="[ '/pages/create-product' ]" class="btn btn-solid btn-find" type="button">Crear
-                            producto</a>
+                    <div class="d-flex flex-fill h-100 justify-content-end" *ngIf="user.role==='merchant'">
+                        <a [routerLink]="[ '/pages/create-product' ]" class="btn btn-solid btn-find" type="button">
+                            Crearproducto
+                        </a>
                     </div>
                 </div>
             </form>
