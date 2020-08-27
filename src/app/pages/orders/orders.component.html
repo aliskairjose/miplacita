@@ -8,7 +8,7 @@
         <form class="theme-form">
             <div class="d-flex search">
                 <div class="form-group flex-fill" id="state">
-                    <select name="model" class="form-control">
+                    <select name="model" class="form-control" [(ngModel)]="searchText">
                         <option value="">Estado</option>
                         <option [value]="status" *ngFor="let status of orderStatus" class="text-capitalize">{{ status }}</option>
                     </select>
@@ -63,7 +63,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let order of orders">
+                    <tr *ngFor="let order of orders | filter: searchText">
                         <td>{{order.user.fullname}}</td>
                         <td *ngIf="role === 'admin' ">{{order.store.name}}</td>
                         <td>

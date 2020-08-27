@@ -26,7 +26,8 @@ export class OrdersComponent implements OnInit {
   paginate: Paginate;
   orderStatus = environment.orderStatus;
   role: string;
-
+  searchText = '';
+  
   @ViewChild( 'orderDetails' ) OrderDetails: OrderDetailsComponent;
   /** variable provisional */
 
