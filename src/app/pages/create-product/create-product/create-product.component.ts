@@ -108,8 +108,15 @@ export class CreateProductComponent implements OnInit {
   }
 
   private loadProductData( id: string ): void {
-    this.productService.updateProduct( id, this.productForm.value ).subscribe( response => {
-      this.alert.info( 'Procuto actualizado correctamente' );
+    console.log( 'loadProductData' );
+    // this.productService.productDetail( id ).subscribe( response => {
+    //   this.productData = response;
+    // } );
+  }
+
+  updateProduct(): void {
+    this.productService.updateProduct( this.productData._id, this.productForm.value ).subscribe( response => {
+      this.alert.info( 'Producto actualizado correctamente' );
       setTimeout( () => {
         this.router.navigate( [ 'pages/products' ] );
       }, 3200 );

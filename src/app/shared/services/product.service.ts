@@ -75,7 +75,7 @@ export class ProductService {
    * @description Detalle de un producto
    * @param Id Id del producto a consultar
    */
-  getProduct( id: string ): Observable<Product> {
+  productDetail( id: string ): Observable<Product> {
     return this.http.get( `product/${id}` ).pipe(
       map( response => {
         if ( response.success ) {
