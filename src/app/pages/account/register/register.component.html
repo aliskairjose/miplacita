@@ -1,32 +1,98 @@
-<app-breadcrumb [title]="'Register'" [breadcrumb]="'Register'"></app-breadcrumb>
+<app-breadcrumb [title]="'Registro'" [breadcrumb]="'Register'"></app-breadcrumb>
+<ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="ball-spin-clockwise" [fullScreen]="true">
+    <p style="color: white"> Por favor espere... </p>
+</ngx-spinner>
+<ngx-alerts></ngx-alerts>
+
+
 <!-- section start -->
-<section class="register-page section-b-space">
+<section class="login-page section-b-space" *ngIf="!registerSuccess">
     <div class="container">
-        <div class="row">
-            <div class="col-lg-12">
-                <h3>create account</h3>
+        <!-- TIMELINE -->
+        <div class="d-flex mb-3 timeline" >
+            <app-timeline class="mx-auto" [active]="1"></app-timeline>   
+        </div>
+        <!-- TIMELINE-->
+        <div class="row justify-content-center">
+            <div class="col-lg-6">
+                <h3>Registrate ahora</h3>
                 <div class="theme-card">
-                    <form class="theme-form">
-                        <div class="form-row">
-                            <div class="col-md-6">
-                                <label for="email">First Name</label>
-                                <input type="text" class="form-control" id="fname" placeholder="First Name" required="">
+                    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="theme-form">
+                        <!-- FullName -->
+                        <div class="form-group input-group">
+                            <input mask="S{30}" type="text" formControlName="fullname" class="form-control" id="fullname"
+                                placeholder="Nombre completo" required="" [(ngModel)]="user.fullname">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                    <img src="../../../../assets/images/marketplace/svg/user.svg" alt="">
+                                </span>
                             </div>
-                            <div class="col-md-6">
-                                <label for="review">Last Name</label>
-                                <input type="password" class="form-control" id="lname" placeholder="Last Name" required="">
+                            <div *ngIf="submitted && f.fullname.errors" class="invalid-feedback d-block">
+                                <div *ngIf="f.fullname.errors.required"> {{ required }} </div>
                             </div>
                         </div>
-                        <div class="form-row">
-                            <div class="col-md-6">
-                                <label for="email">email</label>
-                                <input type="text" class="form-control" id="email" placeholder="Email" required="">
+                        <!-- Email -->
+                        <div class="form-group input-group">
+                            <input type="email" formControlName="email" class="form-control" id="email"
+                                placeholder="Correo electrónico" required="" [(ngModel)]="user.email"
+                                [ngClass]="{ 'is-invalid': submitted && f.email.errors }">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                    <img src="../../../../assets/images/marketplace/svg/email.svg" alt="">
+                                </span>
                             </div>
-                            <div class="col-md-6">
-                                <label for="review">Password</label>
-                                <input type="password" class="form-control" id="review" placeholder="Enter your password" required="">
+                            <div *ngIf="submitted && f.email.errors" class="invalid-feedback d-block">
+                                <div *ngIf="f.email.errors.required"> {{ required }} </div>
+                                <div *ngIf="f.email.errors.email"> {{ invalidEmail }} </div>
                             </div>
-                            <button class="btn btn-solid">create Account</button>
+                        </div>
+                        <!-- Password -->
+                        <div class="form-group input-group">
+                            <input type="password" formControlName="password" class="form-control" id="password"
+                                placeholder="Ingrese su contraseña" required="" [(ngModel)]="user.password"
+                                [ngClass]="{ 'is-invalid': submitted && f.password.errors }">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                    <img src="../../../../assets/images/marketplace/svg/key.svg" alt="">
+                                </span>
+                            </div>
+                            <div *ngIf="submitted && f.password.errors" class="invalid-feedback d-block">
+                                <div *ngIf="f.password.errors.required"> {{ required }}</div>
+                                <div *ngIf="f.password.errors.minlength"> {{ minlength }}</div>
+                            </div>
+                        </div>
+                        <!-- Confirm Password -->
+                        <div class="form-group input-group">
+                            <input type="password" formControlName="passwordConfirmation" class="form-control"
+                                id="passwordConfirmation" placeholder="Ingrese su contraseña nuevamente" required=""
+                                [ngClass]="{ 'is-invalid': submitted && f.passwordConfirmation.errors }" [(ngModel)]="user.passwordConfirmation">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                    <img src="../../../../assets/images/marketplace/svg/key.svg" alt="">
+                                </span>
+                            </div>
+                            <div *ngIf="submitted && f.passwordConfirmation.errors" class="invalid-feedback">
+                                <div *ngIf="f.passwordConfirmation.errors.required">{{ required }}</div>
+                                <div *ngIf="f.passwordConfirmation.errors.mustMatch">{{ matchError }}</div>
+                            </div>
+                        </div>
+                        <!-- <div class="form-group input-group">
+                            <select formControlName="role" class="form-control" name="category" required>
+                                <option value="">Seleccione Role</option>
+                                <option value="merchant">Tienda</option>
+                                <option value="client">Cliente</option>
+                            </select>
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                    <img src="../../../../assets/images/marketplace/svg/user.svg" alt="">
+                                </span>
+                            </div>
+                            <div *ngIf="submitted && f.role.errors" class="invalid-feedback">
+                                <div *ngIf="f.role.errors.required">{{ required }}</div>
+                            </div>
+                        </div> -->
+                        <div class="form-group text-center">
+                            <button class="btn btn-solid">Registrarme</button>
                         </div>
                     </form>
                 </div>
@@ -35,3 +101,7 @@
     </div>
 </section>
 <!--Section ends-->
+
+<!-- section start store register -->
+<app-register-store *ngIf="registerSuccess" (emitEvent)="listen($event)" #registerStore></app-register-store>
+<!-- section ends-->

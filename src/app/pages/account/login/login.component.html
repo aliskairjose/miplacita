@@ -1,30 +1,51 @@
-<app-breadcrumb [title]="'Login'" [breadcrumb]="'Login'"></app-breadcrumb>
+<app-breadcrumb [title]="'Inicio de sesión'" [breadcrumb]="'Login'"></app-breadcrumb>
+<ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="ball-spin-clockwise" [fullScreen]="true">
+    <p style="color: white"> Por favor espere... </p>
+</ngx-spinner>
+
 <!-- section start -->
 <section class="login-page section-b-space">
     <div class="container">
-        <div class="row">
+        <div class="row justify-content-center">
             <div class="col-lg-6">
-                <h3>Login</h3>
+                <h3>Inicio de sesión</h3>
                 <div class="theme-card">
-                    <form class="theme-form">
-                        <div class="form-group">
-                            <label for="email">Email</label>
-                            <input type="text" class="form-control" id="email" placeholder="Email" required="">
+                    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="theme-form">
+                        <div class="form-group input-group">
+                            <input type="email" formControlName="email" class="form-control" id="email"
+                                placeholder="Correo electrónico" required
+                                [ngClass]="{ 'is-invalid': submitted && f.email.errors }">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                    <img src="../../../../assets/images/marketplace/svg/email.svg" alt="">
+                                </span>
+                            </div>
+                            <div *ngIf="submitted && f.email.errors" class="invalid-feedback d-block">
+                                <div *ngIf="f.email.errors.required"> {{ required }} </div>
+                                <div *ngIf="f.email.errors.email"> {{ invalidEmail }} </div>
+                            </div>
+                        </div>
+                        <div class="form-group input-group">
+                            <input type="password" formControlName="password" class="form-control" id="review"
+                                placeholder="Ingrese su contraseña" required
+                                [ngClass]="{ 'is-invalid': submitted && f.password.errors }">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                    <img src="../../../../assets/images/marketplace/svg/key.svg" alt="">
+                                </span>
+                            </div>
+                            <div *ngIf="submitted && f.password.errors">
+                                <div *ngIf="f.password.errors.required" class="invalid-feedback d-block"> {{ required }}
+                                </div>
+                            </div>
                         </div>
                         <div class="form-group">
-                            <label for="review">Password</label>
-                            <input type="password" class="form-control" id="review" placeholder="Enter your password" required="">
+                            Olvido su contraseña?, haga click <a [routerLink]="[ '/pages/forget/password' ]">aquí</a>
                         </div>
-                        <button class="btn btn-solid">Login</button>
+                        <div class="form-group text-center">
+                            <button class="btn btn-solid">Inciar sesión</button>
+                        </div>
                     </form>
-                </div>
-            </div>
-            <div class="col-lg-6 right-login">
-                <h3>New Customer</h3>
-                <div class="theme-card authentication-right">
-                    <h6 class="title-font">Create A Account</h6>
-                    <p>Sign up for a free account at our store. Registration is quick and easy. It allows you to be able to order from our shop. To start shopping click register.</p>
-                    <button class="btn btn-solid">Create an Account</button>
                 </div>
             </div>
         </div>

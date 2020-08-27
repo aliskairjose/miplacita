@@ -39,7 +39,42 @@ import { MasonryGridTwoComponent } from './portfolio/masonry-grid-two/masonry-gr
 import { MasonryGridThreeComponent } from './portfolio/masonry-grid-three/masonry-grid-three.component';
 import { MasonryGridFourComponent } from './portfolio/masonry-grid-four/masonry-grid-four.component';
 import { MasonryFullWidthComponent } from './portfolio/masonry-full-width/masonry-full-width.component';
+import { AlertModule } from 'ngx-alerts';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
+import { GoogleChartsModule } from 'angular-google-charts';
+import { ShopProfileComponent } from './shop-profile/shop-profile.component';
+import { ShopDesignComponent } from './shop-design/shop-design.component';
+import { ColorPickerModule } from 'ngx-color-picker';
+import { ShopsComponent } from './shops/shops.component';
+import { OrdersComponent } from './orders/orders.component';
+import { ProductsComponent } from './products/products.component';
+import { CreateProductComponent } from './create-product/create-product/create-product.component';
+import { NgxCurrencyModule, CurrencyMaskInputMode } from 'ngx-currency';
+import { MyShopComponent } from './account/my-shop/my-shop.component';
+import { ShopWithdrawalComponent } from './shop-withdrawal/shop-withdrawal.component';
+import { ShopSuscriptionComponent } from './shop-suscription/shop-suscription.component';
+import { NgxMaskModule, IConfig } from 'ngx-mask';
+
+// export let options: Partial<IConfig> | (() => Partial<IConfig>);
+const maskConfig: Partial<IConfig> = {
+  validation: false,
+};
+
+export const customCurrencyMaskConfig = {
+  align: 'left',
+  allowNegative: false,
+  allowZero: true,
+  decimal: ',',
+  precision: 2,
+  prefix: '',
+  suffix: '',
+  thousands: '.',
+  nullable: true,
+  min: null,
+  max: null,
+  inputMode: CurrencyMaskInputMode.FINANCIAL
+};
 @NgModule({
   declarations: [
     WishlistComponent,
@@ -73,13 +108,32 @@ import { MasonryFullWidthComponent } from './portfolio/masonry-full-width/masonr
     MasonryGridTwoComponent,
     MasonryGridThreeComponent,
     MasonryGridFourComponent,
-    MasonryFullWidthComponent
+    MasonryFullWidthComponent,
+    ProductsComponent,
+    ShopsComponent,
+    OrdersComponent,
+    CreateProductComponent,
+    OrdersComponent,
+    MyShopComponent,
+    ShopProfileComponent,
+    ShopDesignComponent,
+    ShopsComponent,
+    ShopWithdrawalComponent,
+    ShopSuscriptionComponent
+
   ],
   imports: [
-    CommonModule,
-    GalleryModule.forRoot(),
     SharedModule,
-    PagesRoutingModule
+    CommonModule,
+    PagesRoutingModule,
+    NgxSpinnerModule,
+    GalleryModule.forRoot(),
+    PagesRoutingModule,
+    NgxMaskModule.forRoot(maskConfig),
+    GoogleChartsModule.forRoot(),
+    NgxCurrencyModule.forRoot(customCurrencyMaskConfig),
+    ColorPickerModule,
+    AlertModule.forRoot({maxMessages: 5, timeout: 3000, position: 'left'})
   ]
 })
 export class PagesModule { }

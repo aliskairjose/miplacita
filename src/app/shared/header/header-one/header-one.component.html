@@ -1,3 +1,5 @@
+<ngx-alerts></ngx-alerts>
+
 <header class="sticky" [ngClass]="class" [class.fixed]="stick && sticky">
   <div class="mobile-fix-option"></div>
   <div class="top-header" *ngIf="topbar">
@@ -13,25 +15,48 @@
         </div>
         <div class="col-lg-6 text-right">
           <ul class="header-dropdown">
-            <li class="compare">
+            <!-- <li class="compare">
               <a [routerLink]="['/shop/compare']"><i class="fa fa-random" aria-hidden="true"></i>Compare</a>
             </li>
             <li class="mobile-wishlist">
               <a [routerLink]="['/shop/wishlist']"><i class="fa fa-heart" aria-hidden="true"></i>Wishlist</a>
-            </li>
+            </li> -->
             <li class="onhover-dropdown mobile-account">
-              <i class="fa fa-user" aria-hidden="true"></i> My Account
+              <div class="px-3">
+                <i class="fa fa-user-circle-o fa-lg" aria-hidden="true"></i>
+                <label *ngIf="user">{{ user.fullname }} ({{ role }})</label>
+              </div>
+              <!-- Mi cuenta -->
               <ul class="onhover-show-div">
-                <li>
-                  <a data-lng="en">
-                    Login
-                  </a>
-                </li>
-                <li>
-                  <a data-lng="es">
-                    Logout
-                  </a>
-                </li>
+                <!-- Cuando no ha iniciado sesión -->
+                <div *ngIf="!isLoggedIn">
+                  <li>
+                    <!-- <i class="fa fa-sign-in" aria-hidden="true"></i>  -->
+                    <a [routerLink]="[ '/pages/login' ]">Iniciar sesión</a>
+                  </li>
+                  <li>
+                    <!-- <i class="fa fa-edit" aria-hidden="true"></i> -->
+                    <a [routerLink]="[ '/pages/register' ]">Registro</a>
+                  </li>
+                </div>
+                <!-- Cuando ha iniciado sesión -->
+                <div *ngIf="isLoggedIn">
+                  <li>
+                    <!-- <i class="fa fa-sliders" aria-hidden="true"></i> -->
+                    <a [routerLink]="[ '/pages/dashboard' ]">Inicio</a>
+                  </li>
+                  <li *ngIf="role === 'merchant'">
+                    <!-- <i class="fa fa-sliders" aria-hidden="true"></i> -->
+                    <a [routerLink]="[ '/pages/shop/profile' ]">Tienda</a>
+                  </li>
+                  <hr>
+                  <li>
+                    <!-- <i class="fa fa-sign-out" aria-hidden="true"></i> -->
+                    <a data-lng="es" href="javascript:void(0)" (click)="loggOut()">
+                      Cerrar Sesión
+                    </a>
+                  </li>
+                </div>
               </ul>
             </li>
           </ul>
@@ -44,9 +69,9 @@
       <div class="col-sm-12">
         <div class="main-menu">
           <div class="menu-left">
-            <app-left-menu></app-left-menu>
+            <app-left-menu *ngIf="isLoggedIn"></app-left-menu>
             <div class="brand-logo">
-              <a routerLink="/home/fashion" id="headerlogo">
+              <a routerLink="/home" id="headerlogo">
                 <img [src]="themeLogo" class="img-fluid" alt="logo">
               </a>
             </div>
@@ -56,7 +81,7 @@
               <app-menu></app-menu>
             </div>
             <div>
-              <app-settings></app-settings>
+              <!-- <app-settings></app-settings> -->
             </div>
           </div>
         </div>

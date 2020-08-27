@@ -1,1 +1,233 @@
 /* You can add global styles to this file, and also import other style files */
+
+// Variables 
+/** MarketPlace custom variable *****************************************************/
+
+// Colors
+$mp-blue: #3d5afe;
+$mp-red: #eba39a;
+
+// radius
+$radius: 5px;
+
+// text
+.text-red { color: $mp-red; }
+.text-blue { color: $mp-blue; }
+
+// Landing Page 
+.info-benefit {
+  .left-benefit{
+    img {
+      height: auto;
+      width: 60%;
+    }
+  }
+  .rigth-benefit{
+    padding: 15px 35px 35px;
+    width: inherit;
+    border-radius: $radius;
+    border: solid thin $mp-red;
+    h3{
+      margin-top: 20px;
+    }
+  }
+}
+
+.info-plan {
+ 
+  .left-info {
+    padding: 30px;
+    width: 25vw;
+    border: solid thin $mp-blue;
+    border-top-left-radius: $radius;
+    border-bottom-left-radius: $radius;
+    h2{
+      color: $mp-blue;    
+    }
+    h4 {
+      color: $mp-blue;    
+    }
+    h5 {
+      color: $mp-blue;    
+    }
+    p{
+      color: $mp-blue;
+    }
+  }
+  .rigth-info {
+    padding: 30px;
+    width: 25vw;
+    border: solid thin $mp-blue;
+    border-top-right-radius: $radius;
+    border-bottom-right-radius: $radius;
+    background-color: $mp-blue;
+    h2{
+      color: #ffffff !important;
+    }
+    h4 {
+      color: #ffffff !important;
+    }
+    h5 {
+      color: #ffffff !important;
+    }
+    p {
+      color: #ffffff;
+    } 
+  }
+
+} // end  .info-plan
+
+
+
+form {
+  input {
+    margin-bottom: 0px !important;
+  }
+  span {
+    img {
+      height: auto;
+      width: 24px;
+    }
+  }
+}
+#exampleFormControlTextarea1{
+  font-weight: inherit !important;
+}
+/* ==============
+    ShopDesign -Carousel start
+   ==============
+*/
+ngb-carousel {
+  width: 100%;
+  max-width: 100%;
+  height: 45vh;
+  max-height: 50vh;
+  margin: 50px auto;
+  & .carousel-inner{
+      height: 100%;
+  }
+}
+
+ngb-carousel img {
+  width: 100%;
+  height: 45vh;
+  max-height:50vh ;
+  outline: none;
+}
+
+
+.carousel-inner {
+  overflow: visible;
+  height: 100%;
+}
+
+.carousel-item {
+  display: flex !important;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 1.2s ease-in-out, visibility 1.2s;
+  z-index: -1;
+}
+
+.carousel-item.active{
+  opacity: 1;
+  visibility: visible;
+  z-index: 10;
+  height: 100%;
+}
+
+.carousel-control-prev {
+   z-index: 20;
+}
+
+
+.carousel-control-next {
+   z-index: 20;
+}
+
+.carousel-indicators{
+  z-index: 20;
+}
+/* ==============
+    ShopDesign -Carousel ends
+   ==============
+*/
+
+
+.register-page-mp {
+  h3 {
+      margin-bottom: 20px;
+      text-transform: uppercase;
+      color: #222;
+      font-weight: 700;
+      margin-top: -4px;
+  }
+  .theme-card {
+      padding: 30px;
+      border: 1px solid #ddd;
+      line-height: 1;
+      .theme-form {
+          label {
+              text-transform: capitalize;
+              color: var(--font-color);
+              font-size: 14px;
+              font-weight: 600;
+          }
+          input {
+              border-color: #ddd;
+              font-size: 12px;
+              padding: 17px 25px;
+              margin-bottom: 30px;
+          }
+      }
+  }
+}
+
+.icon-label {
+  background-color: var(--red);    
+} 
+
+.input-group-prepend {
+  height: 50px;
+}
+
+.search {
+  width: 100%;
+  flex-direction: row;
+  gap: 0.25rem;
+}
+
+.filters {
+  display: flex;
+  flex-direction: row;
+}
+
+// Media Queries 
+/* Smartphones (portrait & landscape) */
+@media (min-width : 320px) and (max-width : 575px) {
+  .info-plan {
+    .left-info {
+      width: 100vw;
+    }
+    .rigth-info{
+      width: 100vw;
+    }
+  }
+  .search {
+    height: 100%;
+  }
+}
+
+// Small devices (landscape phones, 576px and up)
+@media (min-width: 576px) { 
+}
+
+// Medium devices (tablets, 768px and up)
+@media (min-width: 768px) { }
+
+// Large devices (desktops, 992px and up)
+@media (min-width: 992px) {  }
+
+// Extra large devices (large desktops, 1200px and up)
+@media (min-width: 1200px) {  }
+

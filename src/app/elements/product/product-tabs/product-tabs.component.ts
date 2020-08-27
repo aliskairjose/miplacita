@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Product } from '../../../shared/classes/product';
-import { ProductService } from '../../../shared/services/product.service';
+import { Product } from '../../../shared/classes/tm.product';
+import { ProductService } from '../../../shared/services/tm.product.service';
 
 @Component({
   selector: 'app-product-tabs',

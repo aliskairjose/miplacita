@@ -1,0 +1,48 @@
+.form-row{
+    margin-bottom: 5%;
+}
+
+.plan{
+    border: 0.1rem solid #495057;
+    border-radius: 0.6rem;
+    min-width: 90px;
+    max-width: 200px;
+}
+
+.plan-selected {
+    border: 0.2rem solid var(--theme-deafult);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.20);
+}
+
+#exampleFormControlTextarea1{
+    margin-bottom: 3%;
+    border-radius: 0.6rem;
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+.thumbnail{
+    margin: 0 auto;
+    width: 100%;
+    height: 150px;
+    background-color: transparent;
+    max-height: 20vh;
+    margin-bottom: 3%;
+}
+
+#upload-logo{
+    margin: 0 auto;
+    width: 100%;
+    font-size: 0.8rem;
+    border: 1px solid gray;
+    margin-bottom: 5%;
+    margin-top: 3%;
+    height: auto;
+    padding: 2px 2px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+#category{
+    margin-bottom: 2.5%;
+}

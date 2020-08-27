@@ -1,8 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { HomeSlider, ProductSlider } from '../../shared/data/slider';
-import { Product } from '../../shared/classes/product';
-import { ProductService } from '../../shared/services/product.service';
+import { Product } from '../../shared/classes/tm.product';
+import { ProductService } from '../../shared/services/tm.product.service';
 
 @Component({
   selector: 'app-tools',

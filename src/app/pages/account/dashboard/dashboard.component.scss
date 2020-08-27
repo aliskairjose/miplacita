@@ -1,0 +1,26 @@
+.label {
+    height: 70px;
+}
+
+.labels {
+    width: 100%;
+    padding-left: 3%;
+    padding-right: 3%;
+    row-gap: 10px;
+    margin-bottom: 3%;
+}
+.charts {
+    width: 100%;
+    padding-left: 3%;
+    padding-right: 3%;
+}
+
+/*responsive*/
+@media (max-width: 480px) {
+    .label {
+        height: 50px;
+    }
+    .charts {
+        row-gap: 10px;  
+    }
+}

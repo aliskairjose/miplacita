@@ -1,0 +1,51 @@
+<app-breadcrumb [title]="'Diseño'" [breadcrumb]="'Tienda'"></app-breadcrumb>
+
+<section class="section-b-space">
+    <div class="container d-flex">
+      <div class="col-md-4 flex-column pl-3 optional">
+        <app-shop-submenu active="1"></app-shop-submenu>
+      </div>  
+      <div class="theme-form col-md-8 mx-auto" >
+          <div class="form-row mb-3">
+            <label class="label mr-2 my-auto" for="color">Color de la tienda</label>
+            <input  class="form-control col-md-3" id="color" [(colorPicker)]="color" [style.background]="color"/>
+          </div>
+          <div class="form-row mb-3">
+            <label class="label mr-2 my-auto"><strong>Banner</strong> </label>
+          </div>
+          <!-- CAROUSEL -->
+          <ngb-carousel *ngIf="images.length>0" #ngcarousel>
+            <ng-template *ngFor="let image of images" ngbSlide [id]="image.id">
+              <div class="picsum-img-wrapper w-100" >
+                <img [src]="image.url" alt="Angular Carousel 1">
+              </div>
+            </ng-template>
+            
+          </ngb-carousel>
+          
+          <!-- END CAROUSEL-->
+          
+          <div class="d-flex preview-box" *ngIf="images.length>0" >
+              <div class="preview px-3" *ngFor="let image of images" >
+                <img class="w-100 h-100" [src]="image.url" (click)="update(image.id)"/>
+                <div class="img-btn d-flex">
+                  <div class="w-45 mx-auto" (click)="delete(image.id)">
+                    <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-x-circle-fill" fill="#ff4c3b" xmlns="http://www.w3.org/2000/svg">
+                      <path fill-rule="evenodd" d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.146-3.146a.5.5 0 0 0-.708-.708L8 7.293 4.854 4.146a.5.5 0 1 0-.708.708L7.293 8l-3.147 3.146a.5.5 0 0 0 .708.708L8 8.707l3.146 3.147a.5.5 0 0 0 .708-.708L8.707 8l3.147-3.146z"/>
+                    </svg>
+                  </div>
+                  
+                </div>
+              </div>
+              
+              <!--Image con el simbolo + -->
+              <img class="preview px-5" src="../../../assets/images/marketplace/svg/upload-image.svg"/>
+              
+          </div>
+          <div class="d-fle flex-column" *ngIf="images.length==0">
+            <img class="preview px-5" src="../../../assets/images/marketplace/svg/upload-image.svg"/>
+            <input type="file" >
+          </div>
+      </div>
+    </div>
+</section>

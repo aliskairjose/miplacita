@@ -1,0 +1,11 @@
+.actions {
+    display: flex;
+    flex-direction: row;
+}
+
+@media (max-width: 480px){
+    .actions {
+        display: flex;
+        flex-direction: column;
+    }
+}

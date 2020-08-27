@@ -4,7 +4,7 @@ import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CarouselModule } from 'ngx-owl-carousel-o';
-import { BarRatingModule } from "ngx-bar-rating";
+import { BarRatingModule } from 'ngx-bar-rating';
 import { LazyLoadImageModule, scrollPreset } from 'ng-lazyload-image';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { TranslateModule } from '@ngx-translate/core';
@@ -32,6 +32,8 @@ import { ProductBoxFourComponent } from './components/product/product-box-four/p
 import { ProductBoxFiveComponent } from './components/product/product-box-five/product-box-five.component';
 import { ProductBoxVerticalComponent } from './components/product/product-box-vertical/product-box-vertical.component';
 import { ProductBoxVerticalSliderComponent } from './components/product/product-box-vertical-slider/product-box-vertical-slider.component';
+// custom components
+import { RegisterStoreComponent } from './custom-components/register-store/register-store.component';
 
 // Modals Components
 import { NewsletterComponent } from './components/modal/newsletter/newsletter.component';
@@ -52,8 +54,40 @@ import { LayoutBoxComponent } from './components/layout-box/layout-box.component
 import { TapToTopComponent } from './components/tap-to-top/tap-to-top.component';
 
 // Pipes
+import { FilterPipe } from './pipes/filter.pipe';
 import { DiscountPipe } from './pipes/discount.pipe';
 
+import { CustomPaginationComponent } from './custom-components/custom-pagination/custom-pagination/custom-pagination.component';
+import { AlertModule } from 'ngx-alerts';
+import { NgxCurrencyModule, CurrencyMaskInputMode } from 'ngx-currency';
+import { SuccessModalComponent } from './custom-component/success-modal/success-modal.component';
+import { ShopDetailsComponent } from './custom-components/shop-details/shop-details.component';
+import { OrderDetailsComponent } from './custom-components/order-details/order-details.component';
+import { UploadImageComponent } from './components/upload-image/upload-image.component';
+import { ShopSubmenuComponent } from './custom-component/shop-submenu/shop-submenu.component';
+import { TimelineComponent } from './custom-component/timeline/timeline.component';
+
+import { NgxMaskModule, IConfig } from 'ngx-mask';
+
+// export let options: Partial<IConfig> | (() => Partial<IConfig>);
+const maskConfig: Partial<IConfig> = {
+  validation: false,
+};
+
+export const customCurrencyMaskConfig = {
+  align: 'right',
+  allowNegative: false,
+  allowZero: true,
+  decimal: ',',
+  precision: 2,
+  prefix: '',
+  suffix: '',
+  thousands: '.',
+  nullable: true,
+  min: null,
+  max: null,
+  inputMode: CurrencyMaskInputMode.FINANCIAL
+};
 @NgModule({
   declarations: [
     HeaderOneComponent,
@@ -86,9 +120,20 @@ import { DiscountPipe } from './pipes/discount.pipe';
     SkeletonProductBoxComponent,
     LayoutBoxComponent,
     TapToTopComponent,
-    DiscountPipe
+    RegisterStoreComponent,
+    CustomPaginationComponent,
+    SuccessModalComponent,
+    ShopDetailsComponent,
+    // Pipes
+    DiscountPipe,
+    FilterPipe,
+    OrderDetailsComponent,
+    UploadImageComponent,
+    ShopSubmenuComponent,
+    TimelineComponent
   ],
   imports: [
+    NgxCurrencyModule.forRoot(customCurrencyMaskConfig),
     CommonModule,
     RouterModule,
     FormsModule,
@@ -96,6 +141,8 @@ import { DiscountPipe } from './pipes/discount.pipe';
     NgbModule,
     CarouselModule,
     BarRatingModule,
+    NgxMaskModule.forRoot(maskConfig),
+    AlertModule.forRoot({maxMessages: 5, timeout: 3000, position: 'left'}),
     LazyLoadImageModule.forRoot({
       // preset: scrollPreset // <-- tell LazyLoadImage that you want to use scrollPreset
     }),
@@ -139,7 +186,17 @@ import { DiscountPipe } from './pipes/discount.pipe';
     SkeletonProductBoxComponent,
     LayoutBoxComponent,
     TapToTopComponent,
-    DiscountPipe
+    RegisterStoreComponent,
+    CustomPaginationComponent,
+    SuccessModalComponent,
+    UploadImageComponent,
+    // Pipes
+    DiscountPipe,
+    FilterPipe,
+    ShopDetailsComponent,
+    OrderDetailsComponent,
+    ShopSubmenuComponent,
+    TimelineComponent
   ]
 })
 export class SharedModule { }

@@ -1,101 +1,127 @@
 <app-breadcrumb [title]="'Dashboard'" [breadcrumb]="'Dashboard'"></app-breadcrumb>
+<ngx-alerts></ngx-alerts>
 <!-- section start -->
 <section class="section-b-space">
     <div class="container">
-        <div class="row">
-            <div class="col-lg-3">
-                <div class="account-sidebar" (click)="ToggleDashboard()">
-                    <a hre="javascript:void(0)" class="popup-btn">
-                        my account
-                    </a>
-                </div>
-                <div class="dashboard-left" [class.open]="openDashboard">
-                    <div class="collection-mobile-back" (click)="ToggleDashboard()">
-                        <span class="filter-back">
-                            <i class="fa fa-angle-left" aria-hidden="true"></i> back
-                        </span>
+        <div class="form-row labels">
+            <div class="col-md-3">
+                <div class="label card d-flex flex-row">
+                    <div class="col-1 d-flex align-items-stretch icon-label">
+                        
                     </div>
-                    <div class="block-content">
-                        <ul>
-                            <li class="active"><a href="javascript:void(0)">Account Info</a></li>
-                            <li><a href="javascript:void(0)">Address Book</a></li>
-                            <li><a href="javascript:void(0)">My Orders</a></li>
-                            <li><a href="javascript:void(0)">My Wishlist</a></li>
-                            <li><a href="javascript:void(0)">Newsletter</a></li>
-                            <li><a href="javascript:void(0)">My Account</a></li>
-                            <li><a href="javascript:void(0)">Change Password</a></li>
-                            <li class="last"><a href="javascript:void(0)">Log Out</a></li>
-                        </ul>
+                    <div class="d-flex flex-fill justify-content-center align-items-center ">
+                        {{ dailySale }}
                     </div>
                 </div>
             </div>
-            <div class="col-lg-9">
-                <div class="dashboard-right">
-                    <div class="dashboard">
-                        <div class="page-title">
-                            <h2>My Dashboard</h2>
-                        </div>
-                        <div class="welcome-msg">
-                            <p>Hello, MARK JECNO !</p>
-                            <p>From your My Account Dashboard you have the ability to view a snapshot of your recent account activity and update your account information. Select a link below to view or edit information.</p>
-                        </div>
-                        <div class="box-account box-info">
-                            <div class="box-head">
-                                <h2>Account Information</h2>
-                            </div>
-                            <div class="row">
-                                <div class="col-sm-6">
-                                    <div class="box">
-                                        <div class="box-title">
-                                            <h3>Contact Information</h3>
-                                            <a href="javascript:void(0)">Edit</a>
-                                        </div>
-                                        <div class="box-content">
-                                            <h6>MARK JECNO</h6>
-                                            <h6>MARk-JECNO@gmail.com</h6>
-                                            <h6><a href="javascript:void(0)">Change Password</a></h6>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-6">
-                                    <div class="box">
-                                        <div class="box-title">
-                                            <h3>Newsletters</h3>
-                                            <a href="javascript:void(0)">Edit</a>
-                                        </div>
-                                        <div class="box-content">
-                                            <p>
-                                                You are currently not subscribed to any newsletter.
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div>
-                                <div class="box">
-                                    <div class="box-title">
-                                        <h3>Address Book</h3>
-                                        <a href="javascript:void(0)">Manage Addresses</a>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-sm-6">
-                                            <h6>Default Billing Address</h6>
-                                            <address>
-                                                You have not set a default billing address.<br>
-                                                <a href="javascript:void(0)">Edit Address</a>
-                                            </address>
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <h6>Default Shipping Address</h6>
-                                            <address>
-                                                You have not set a default shipping address.<br>
-                                                <a href="javascript:void(0)">Edit Address</a>
-                                            </address>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+            <div class="col-md-3">
+                <div class="label card d-flex flex-row">
+                    <div class="col-1 d-flex align-items-stretch icon-label">
+                        
+                    </div>
+                    <div class="d-flex flex-fill justify-content-center align-items-center ">
+                        {{ totalSale }}
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="label card d-flex flex-row">
+                    <div class="col-1 d-flex align-items-stretch icon-label">
+                        
+                    </div>
+                    <div class="d-flex flex-fill justify-content-center align-items-center ">
+                        {{ totalClients }}
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="label card d-flex flex-row">
+                    <div class="col-1 d-flex align-items-stretch icon-label">
+                        
+                    </div>
+                    <div class="d-flex flex-fill justify-content-center align-items-center ">
+                        {{ totalProducts }}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-row charts">
+            <div class="col-md-6" *ngIf="barChartData.length>0">
+                <google-chart class="chart"
+                [title]="barChartTitle"
+                [options]="barChartOptions"
+                width="100%"
+                height="100%" 
+                type="BarChart" 
+                [data]="barChartData" ></google-chart>
+            </div>
+            <div class="col-md-6" *ngIf="pieChartData.length>0">
+                <google-chart class="chart"
+                [title]="pieChartTitle"
+                [options]="" 
+                type="PieChart" 
+                [data]="pieChartData" ></google-chart>
+            </div>
+        </div>
+        <div class="form-row flex-fill flex-column mt-5 px-1">
+            <div class="table-responsive-sm ">
+                <table class="table">
+                    <thead>
+                    <tr class="table-head">
+                        <th *ngFor="let field of fields" scope="col">{{field.name}}</th>
+                    </tr>
+                    </thead>
+                    <!--Store Admin-->
+                    <tbody *ngIf="typeUser=='merchant'">
+                        <tr *ngFor="let order of orders">
+                            <td>
+                                {{order.name}}
+                            </td>
+                            <td>
+                                {{order.status}}
+                            </td>
+                            <td >
+                                <p>{{order.description}}</p>
+                            </td>
+                            <td><h4>{{order.price}}</h4></td>
+                        </tr>
+                    </tbody>
+                    <!--Store Admin ends-->
+                    <!--Admin Marketplace-->
+                    <tbody *ngIf="typeUser=='admin'">
+                        <tr *ngFor="let store of shops">
+                            <td><h2>{{store.name}}</h2></td>
+                            <td >
+                                <p>{{store.amount}}</p>
+                            </td>
+                            <td>
+                                <p>{{store.date}}</p>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <!--Admin Marketplace ends-->
+                </table>
+                
+            </div>
+            <app-custom-pagination *ngIf="typeUser=='merchant'" [items]="orders" [paginate]="paginate" (setPage)="setPage($event)">
+            </app-custom-pagination>
+            <app-custom-pagination *ngIf="typeUser=='admin'" [items]="shops" [paginate]="paginate" (setPage)="setPage($event)">
+            </app-custom-pagination>
+        </div>
+        <div class="form-row container " *ngIf="orders.length==0 && typeUser=='merchant'">
+            <div class="col-md-5">
+                <div class="card text-center mx-auto mb-2">
+                    <div class="card-body">
+                        <p>Configura tu tienda</p>
+                        <button class="btn btn-solid">Configurar</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-5">
+                <div class="card text-center mx-auto mb-2">
+                    <div class="card-body">
+                        <p>Agrega productos a tu tienda</p>
+                        <button class="btn btn-solid">Agregar</button>    
                     </div>
                 </div>
             </div>

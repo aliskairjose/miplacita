@@ -6,19 +6,19 @@
       <a href="javascript:void(0)" class="sidebar-overlay" (click)="leftMenuToggle()"></a>
       <nav>
         <div (click)="leftMenuToggle()">
-          <div class="sidebar-back text-left"><i class="fa fa-angle-left pr-2" aria-hidden="true"></i> Back
+          <div class="sidebar-back text-left"><i class="fa fa-angle-left pr-2" aria-hidden="true"></i> Cerrar
           </div>
         </div>
         <ul id="sub-menu" class="sidebar-menu">
           <li *ngFor="let menuItem of menuItems">
               <!-- Sub -->
-              <a href="javascript:void(0)" *ngIf="menuItem.type === 'sub'" 
+              <a [routerLink]="menuItem.path" *ngIf="menuItem.type === 'sub' && (menuItem.role === role || menuItem.role === null)" 
                   (click)="toggletNavActive(menuItem)">
                  {{menuItem.title}}
-                 <span class="sub-arrow"  *ngIf="menuItem.children"></span>
+                 <span class="sub-arrow optional"  *ngIf="menuItem.children" ></span>
               </a>
               <!-- Link -->
-              <a [routerLink]="menuItem.path" *ngIf="menuItem.type === 'link'">
+              <a [routerLink]="menuItem.path" *ngIf="menuItem.type === 'link' && (menuItem.role === role || menuItem.role === null)" (click)="leftMenuToggle()">
                  {{menuItem.title}}
                  <span class="sub-arrow" *ngIf="menuItem.children"></span>
               </a>
@@ -33,7 +33,7 @@
                  <span class="sub-arrow" *ngIf="menuItem.children"></span>
               </a>
               <!-- 2nd Level Menu -->
-              <ul [class]="menuItem.megaMenu ? 'mega-menu clothing-menu' : ''" [class.opensub1]="menuItem.active" *ngIf="menuItem.children">
+              <ul [class]="menuItem.megaMenu ? 'mega-menu clothing-menu ' : 'optional'" [class.opensub1]="menuItem.active" *ngIf="menuItem.children">
                 
                 <!-- Simple Menu Start-->
                 <ng-container *ngIf="!menuItem.megaMenu">

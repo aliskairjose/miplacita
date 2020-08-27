@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy, ViewChild, TemplateRef, Input,
   Injectable, PLATFORM_ID, Inject } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
-import { Product } from "../../../classes/product";
+import { Product } from "../../../classes/tm.product";
 
 @Component({
   selector: 'app-size-modal',

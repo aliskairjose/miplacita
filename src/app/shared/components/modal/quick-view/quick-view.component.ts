@@ -3,8 +3,8 @@ import { Component, OnInit, OnDestroy, ViewChild, TemplateRef, Input,
 import { isPlatformBrowser } from '@angular/common';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
-import { Product } from "../../../classes/product";
-import { ProductService } from '../../../../shared/services/product.service';
+import { Product } from "../../../classes/tm.product";
+import { ProductService } from '../../../../shared/services/tm.product.service';
 
 @Component({
   selector: 'app-quick-view',

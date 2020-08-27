@@ -1,0 +1,13 @@
+.form-group{
+    width: 60%;
+    margin: 0 auto;
+    margin-bottom: 10px;
+}
+.input-group-prepend{
+    height: auto;
+}
+@media (max-width: 480px){
+    .form-group{
+        width: 100%;
+    }
+}

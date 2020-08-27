@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ViewportScroller } from '@angular/common';
-import { ProductService } from "../../../shared/services/product.service";
-import { Product } from '../../../shared/classes/product';
+import { ProductService } from "../../../shared/services/tm.product.service";
+import { Product } from '../../../shared/classes/tm.product';
 
 @Component({
   selector: 'app-collection-no-sidebar',

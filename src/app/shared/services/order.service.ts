@@ -1,39 +1,82 @@
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { HttpService } from './http.service';
+import { Observable, Subject } from 'rxjs';
+import { Order } from '../classes/order';
+import { Response, Result } from '../classes/response';
+import { map } from 'rxjs/operators';
 
-const state = {
-  checkoutItems: JSON.parse(localStorage['checkoutItems'] || '[]')
-}
-
-@Injectable({
+@Injectable( {
   providedIn: 'root'
-})
+} )
 export class OrderService {
 
-  constructor(private router: Router) { }
+  $order: Subject<Order> = new Subject<Order>();
 
-  // Get Checkout Items
-  public get checkoutItems(): Observable<any> {
-    const itemsStream = new Observable(observer => {
-      observer.next(state.checkoutItems);
-      observer.complete();
-    });
-    return <Observable<any>>itemsStream;
+  constructor(
+    private http: HttpService
+  ) { }
+
+  /**
+   * @description Crea una nueva Orden
+   * @param data Data de tipo Order
+   */
+  addOrder( data: Order ): Observable<any> {
+    return this.http.post( 'order', data );
   }
 
-  // Create order
-  public createOrder(product: any, details: any, orderId: any, amount: any) {
-    var item = {
-        shippingDetails: details,
-        product: product,
-        orderId: orderId,
-        totalAmount: amount
-    };
-    state.checkoutItems = item;
-    localStorage.setItem("checkoutItems", JSON.stringify(item));
-    localStorage.removeItem("cartItems");
-    this.router.navigate(['/shop/checkout/success', orderId]);
+  /**
+   * @description Retorna el detalle de la orden
+   * @param id Id de la orden
+   */
+  getOrder( id: string ): Observable<Order> {
+    return this.http.get( `order/${id}` );
   }
-  
+
+  /**
+   * @description Retorna la lista de ordenes de una tienda es específico
+   * @param id ID de la tienda a consultar las ordenes
+   * @returns Observable de array de ordenes
+   */
+  orderList( id: string, page = 1 ): Observable<Result<Order>> {
+    return this.http.get( `order?store=${id}` ).pipe(
+      map( ( response: Response<Order> ) => {
+        return response.result;
+      } )
+    );
+  }
+
+  /**
+   * @description Retorna todas las ordenes de la tienda
+   * @param id Id de la tienda
+   */
+  getAll( page = 1 ): Observable<Result<Order>> {
+    return this.http.get( `order?page=${page}` ).pipe(
+      map( ( response: Response<Order> ) => {
+        return response.result;
+      } )
+    );
+  }
+
+
+  /**
+   * @description Retorna el listado de clientes del usuario logueado
+   */
+  clientList(): Observable<any> {
+    return this.http.get( 'order/list/clients' );
+  }
+
+  /**
+   * @description Genera el stream de eventos usando next() para crear el evento
+   * @param order
+   */
+  orderSubject( order: Order ): void {
+    this.$order.next( order );
+  }
+
+  /**
+   * @description Creación del observer mediante el método asObserver(), el cual sera consumido por el componente
+   */
+  orderObserver(): Observable<Order> {
+    return this.$order.asObservable();
+  }
 }

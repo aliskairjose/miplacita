@@ -1,172 +1,125 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-
-import { WishlistComponent } from './account/wishlist/wishlist.component';
-import { CartComponent } from './account/cart/cart.component';
-import { DashboardComponent } from './account/dashboard/dashboard.component';
+// MarkepPlace Routes
 import { LoginComponent } from './account/login/login.component';
 import { RegisterComponent } from './account/register/register.component';
 import { ForgetPasswordComponent } from './account/forget-password/forget-password.component';
-import { ProfileComponent } from './account/profile/profile.component';
-import { ContactComponent } from './account/contact/contact.component';
-import { CheckoutComponent } from './account/checkout/checkout.component';
+import { DashboardComponent } from './account/dashboard/dashboard.component';
 import { AboutUsComponent } from './about-us/about-us.component';
-import { SearchComponent } from './search/search.component';
-import { TypographyComponent } from './typography/typography.component';
-import { ReviewComponent } from './review/review.component';
-import { OrderSuccessComponent } from './order-success/order-success.component';
-import { CompareOneComponent } from './compare/compare-one/compare-one.component';
-import { CompareTwoComponent } from './compare/compare-two/compare-two.component';
-import { CollectionComponent } from './collection/collection.component';
-import { LookbookComponent } from './lookbook/lookbook.component';
 import { ErrorComponent } from './error/error.component';
-import { ComingSoonComponent } from './coming-soon/coming-soon.component';
 import { FaqComponent } from './faq/faq.component';
-import { BlogLeftSidebarComponent } from './blog/blog-left-sidebar/blog-left-sidebar.component';
-import { BlogRightSidebarComponent } from './blog/blog-right-sidebar/blog-right-sidebar.component';
-import { BlogNoSidebarComponent } from './blog/blog-no-sidebar/blog-no-sidebar.component';
-import { BlogDetailsComponent } from './blog/blog-details/blog-details.component';
-import { GridTwoComponent } from './portfolio/grid-two/grid-two.component';
-import { GridThreeComponent } from './portfolio/grid-three/grid-three.component';
-import { GridFourComponent } from './portfolio/grid-four/grid-four.component';
-import { MasonryGridTwoComponent } from './portfolio/masonry-grid-two/masonry-grid-two.component';
-import { MasonryGridThreeComponent } from './portfolio/masonry-grid-three/masonry-grid-three.component';
-import { MasonryGridFourComponent } from './portfolio/masonry-grid-four/masonry-grid-four.component';
-import { MasonryFullWidthComponent } from './portfolio/masonry-full-width/masonry-full-width.component';
+import { CartComponent } from './account/cart/cart.component';
+import { AuthGuard } from '../shared/guard/auth.guard';
+import { ContactComponent } from './account/contact/contact.component';
+import { ShopsComponent } from './shops/shops.component';
+import { OrdersComponent } from './orders/orders.component';
+import { ProductsComponent } from './products/products.component';
+import { CreateProductComponent } from './create-product/create-product/create-product.component';
+import { MyShopComponent } from './account/my-shop/my-shop.component';
+import { ShopProfileComponent } from './shop-profile/shop-profile.component';
+import { ShopDesignComponent } from './shop-design/shop-design.component';
+import { ShopDetailsComponent } from '../shared/custom-components/shop-details/shop-details.component';
+import { ShopWithdrawalComponent } from './shop-withdrawal/shop-withdrawal.component';
+import { ShopSuscriptionComponent } from './shop-suscription/shop-suscription.component';
 
 const routes: Routes = [
-  { 
-    path: 'wishlist', 
-    component: WishlistComponent 
+
+  {
+    path: 'account/my-shop',
+    component: MyShopComponent,
+    canActivate: [ AuthGuard ]
   },
-  { 
-    path: 'cart', 
-    component: CartComponent 
+  {
+    path: 'dashboard',
+    component: DashboardComponent,
+    canActivate: [ AuthGuard ]
   },
-  { 
-    path: 'dashboard', 
-    component: DashboardComponent 
+  {
+    path: 'products',
+    component: ProductsComponent,
+    canActivate: [ AuthGuard ]
   },
-  { 
-    path: 'login', 
-    component: LoginComponent 
+  {
+    path: 'create-product',
+    component: CreateProductComponent,
+    canActivate: [ AuthGuard ]
   },
-  { 
-    path: 'register', 
-    component: RegisterComponent 
+  {
+    path: 'edit-product/:id',
+    component: CreateProductComponent,
+    canActivate: [ AuthGuard ]
   },
-  { 
-    path: 'forget/password', 
-    component: ForgetPasswordComponent 
+  {
+    path: 'shops',
+    component: ShopsComponent,
+    canActivate: [ AuthGuard ]
   },
-  { 
-    path: 'profile', 
-    component: ProfileComponent 
+  {
+    path: 'cart',
+    component: CartComponent,
+    canActivate: [ AuthGuard ]
   },
-  { 
-    path: 'contact', 
-    component: ContactComponent 
+  {
+    path: 'orders',
+    component: OrdersComponent,
+    canActivate: [ AuthGuard ]
   },
-  { 
-    path: 'checkout', 
-    component: CheckoutComponent 
+  {
+    path: 'login',
+    component: LoginComponent
   },
-  { 
-    path: 'aboutus', 
-    component: AboutUsComponent 
+  {
+    path: 'register',
+    component: RegisterComponent
   },
-  { 
-    path: 'search', 
-    component: SearchComponent 
+  {
+    path: 'forget/password',
+    component: ForgetPasswordComponent
   },
-  { 
-    path: 'typography', 
-    component: TypographyComponent 
+  {
+    path: 'aboutus',
+    component: AboutUsComponent
   },
-  { 
-    path: 'review', 
-    component: ReviewComponent 
+  {
+    path: 'faq',
+    component: FaqComponent
   },
-  { 
-    path: 'order/success', 
-    component: OrderSuccessComponent 
+  {
+    path: '404',
+    component: ErrorComponent
   },
-  { 
-    path: 'compare/one', 
-    component: CompareOneComponent 
+  {
+    path: 'contact',
+    component: ContactComponent
   },
-  { 
-    path: 'compare/two', 
-    component: CompareTwoComponent 
+  {
+    path: 'shop/profile',
+    component: ShopProfileComponent,
+    canActivate: [ AuthGuard ]
+
   },
-  { 
-    path: 'collection', 
-    component: CollectionComponent 
+  {
+    path: 'shop/design',
+    component: ShopDesignComponent,
+    canActivate: [ AuthGuard ]
+
   },
-  { 
-    path: 'lookbook', 
-    component: LookbookComponent 
+  {
+    path: 'shop/suscription',
+    component: ShopSuscriptionComponent,
+    canActivate: [ AuthGuard ]
+
   },
-  { 
-    path: '404', 
-    component: ErrorComponent 
-  },
-  { 
-    path: 'comingsoon', 
-    component: ComingSoonComponent 
-  },
-  { 
-    path: 'faq', 
-    component: FaqComponent 
-  },
-  { 
-    path: 'blog/left/sidebar', 
-    component: BlogLeftSidebarComponent 
-  },
-  { 
-    path: 'blog/right/sidebar', 
-    component: BlogRightSidebarComponent 
-  },
-  { 
-    path: 'blog/no/sidebar', 
-    component: BlogNoSidebarComponent 
-  },
-  { 
-    path: 'blog/details', 
-    component: BlogDetailsComponent 
-  },
-  { 
-    path: 'portfolio/grid/two', 
-    component: GridTwoComponent 
-  },
-  { 
-    path: 'portfolio/grid/three', 
-    component: GridThreeComponent 
-  },
-  { 
-    path: 'portfolio/grid/four', 
-    component: GridFourComponent 
-  },
-  { 
-    path: 'portfolio/masonry/grid/two', 
-    component: MasonryGridTwoComponent 
-  },
-  { 
-    path: 'portfolio/masonry/grid/three', 
-    component: MasonryGridThreeComponent 
-  },
-  { 
-    path: 'portfolio/masonry/grid/four', 
-    component: MasonryGridFourComponent 
-  },
-  { 
-    path: 'portfolio/masonry/full-width', 
-    component: MasonryFullWidthComponent 
+  {
+    path: 'shop/withdrawal',
+    component: ShopWithdrawalComponent,
+    canActivate: [ AuthGuard ]
+
   }
 ];
 
-@NgModule({
-  imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
-})
+@NgModule( {
+  imports: [ RouterModule.forChild( routes ) ],
+  exports: [ RouterModule ]
+} )
 export class PagesRoutingModule { }

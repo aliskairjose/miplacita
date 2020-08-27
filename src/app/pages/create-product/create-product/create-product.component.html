@@ -1,0 +1,144 @@
+<app-breadcrumb [title]="title" [breadcrumb]="'Productos'"></app-breadcrumb>
+<ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="ball-spin-clockwise" [fullScreen]="true">
+    <p style="color: white"> Por favor espere... </p>
+</ngx-spinner>
+<ngx-alerts></ngx-alerts>
+<!-- section start -->
+<section class="section-b-space">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-12 ">
+                <div class="theme-card">
+                    <form class="theme-form" [formGroup]="productForm" (ngSubmit)="onSubmit()">
+                        <div class="create-product-form">
+                            <div class="first-column">
+                                <!-- Nombre -->
+                                <div class="form-group input-group">
+                                    <input formControlName="name" type="text" class="form-control" id="name"
+                                        placeholder="Nombre" required="" [(ngModel)]="productData.name">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <img src="../../../../assets/images/marketplace/svg/bag.svg" alt="">
+                                        </span>
+                                    </div>
+                                    <div *ngIf="submitted && f.name.errors" class="invalid-feedback d-block">
+                                        <div *ngIf="f.name.errors.required"> {{ required }} </div>
+                                    </div>
+                                </div>
+                                <!-- Categoria -->
+                                <div class="form-group input-group">
+                                    <select formControlName="category" class="form-control" name="category"
+                                        [(ngModel)]="selectedCategory">
+                                        <option value="" selected>Seleccione una categoría</option>
+                                        <option *ngFor="let category of categories" [value]="category._id">
+                                            {{category.name}}</option>
+                                    </select>
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <img src="../../../../assets/images/marketplace/svg/email.svg" alt="">
+                                        </span>
+                                    </div>
+                                    <div *ngIf="submitted && f.category.errors" class="invalid-feedback d-block">
+                                        <div *ngIf="f.category.errors.required"> {{ required }} </div>
+                                    </div>
+                                </div>
+                                <!-- Price -->
+                                <div class="form-group input-group">
+                                    <input formControlName="price" currencyMask type="text" class="form-control"
+                                        id="price" placeholder="Precio" required="" [(ngModel)]="productData.price">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <img class="h-100"
+                                                src="../../../../assets/images/marketplace/svg/dolar.svg">
+                                        </span>
+                                    </div>
+                                    <div *ngIf="submitted && f.price.errors" class="invalid-feedback d-block">
+                                        <div *ngIf="f.price.errors.required"> {{ required }} </div>
+                                    </div>
+                                </div>
+                                <!-- Tax -->
+                                <div class="form-group input-group">
+                                    <input formControlName="tax" currencyMask type="text" class="form-control"
+                                        id="itbms" placeholder="Itbms" required="" [(ngModel)]="productData.tax">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <img class="h-100" src="../../../../assets/images/marketplace/svg/dolar.svg"
+                                                alt="">
+                                        </span>
+                                    </div>
+                                    <div *ngIf="submitted && f.tax.errors" class="invalid-feedback d-block">
+                                        <div *ngIf="f.tax.errors.required"> {{ required }} </div>
+                                    </div>
+                                </div>
+                                <!-- Descripcion -->
+                                <div class="form-group input-group">
+                                    <textarea formControlName="description" type="text" class="form-control"
+                                        id="exampleFormControlTextarea1" placeholder="Descripción"
+                                        required="" [(ngModel)]="productData.description"></textarea>
+                                    <div *ngIf="submitted && f.description.errors" class="invalid-feedback d-block">
+                                        <div *ngIf="f.description.errors.required"> {{ required }} </div>
+                                    </div>
+                                </div>
+                                <!-- Status -->
+                                <div class="form-group input-group">
+                                    <select formControlName="status" class="form-control" name="status"
+                                        [(ngModel)]="statusSelected">
+                                        <!-- <option value="" selected>Seleccione un estado</option> -->
+                                        <option *ngFor="let status of statuses" [value]="status.value">{{status.text}}
+                                        </option>
+                                    </select>
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <!-- <img src="../../../../assets/images/marketplace/svg/bag.svg" alt=""> -->
+                                            <svg width="1.5em" height="1.5em" viewBox="0 0 16 16"
+                                                class="bi bi-shield-shaded" fill="currentColor"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd"
+                                                    d="M5.443 1.991a60.17 60.17 0 0 0-2.725.802.454.454 0 0 0-.315.366C1.87 7.056 3.1 9.9 4.567 11.773c.736.94 1.533 1.636 2.197 2.093.333.228.626.394.857.5.116.053.21.089.282.11A.73.73 0 0 0 8 14.5c.007-.001.038-.005.097-.023.072-.022.166-.058.282-.111.23-.106.525-.272.857-.5a10.197 10.197 0 0 0 2.197-2.093C12.9 9.9 14.13 7.056 13.597 3.159a.454.454 0 0 0-.315-.366c-.626-.2-1.682-.526-2.725-.802C9.491 1.71 8.51 1.5 8 1.5c-.51 0-1.49.21-2.557.491zm-.256-.966C6.23.749 7.337.5 8 .5c.662 0 1.77.249 2.813.525a61.09 61.09 0 0 1 2.772.815c.528.168.926.623 1.003 1.184.573 4.197-.756 7.307-2.367 9.365a11.191 11.191 0 0 1-2.418 2.3 6.942 6.942 0 0 1-1.007.586c-.27.124-.558.225-.796.225s-.526-.101-.796-.225a6.908 6.908 0 0 1-1.007-.586 11.192 11.192 0 0 1-2.417-2.3C2.167 10.331.839 7.221 1.412 3.024A1.454 1.454 0 0 1 2.415 1.84a61.11 61.11 0 0 1 2.772-.815z" />
+                                                <path
+                                                    d="M8 2.25c.909 0 3.188.685 4.254 1.022a.94.94 0 0 1 .656.773c.814 6.424-4.13 9.452-4.91 9.452V2.25z" />
+                                            </svg>
+                                        </span>
+                                    </div>
+                                </div>
+                                <!-- <div class="form-group input-group">
+                                    <select class="form-control" name="category">
+                                        <option value="" selected>Tipo</option>
+                                        <option *ngFor="let type of typesProduct" value=""></option>
+                                    </select>
+                                </div> -->
+                                <!-- Cantidad disponible -->
+                                <div class="form-group input-group">
+                                    <input formControlName="stock" type="number" class="form-control" id="available"
+                                        placeholder="Cantidad disponible" required="" [(ngModel)]="productData.stock">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <svg width="1.5em" height="1.5em" viewBox="0 0 16 16"
+                                                class="bi bi-question-circle-fill" fill="currentColor"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd"
+                                                    d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM6.57 6.033H5.25C5.22 4.147 6.68 3.5 8.006 3.5c1.397 0 2.673.73 2.673 2.24 0 1.08-.635 1.594-1.244 2.057-.737.559-1.01.768-1.01 1.486v.355H7.117l-.007-.463c-.038-.927.495-1.498 1.168-1.987.59-.444.965-.736.965-1.371 0-.825-.628-1.168-1.314-1.168-.901 0-1.358.603-1.358 1.384zm1.251 6.443c-.584 0-1.009-.394-1.009-.927 0-.552.425-.94 1.01-.94.609 0 1.028.388 1.028.94 0 .533-.42.927-1.029.927z" />
+                                            </svg>
+                                        </span>
+                                    </div>
+                                    <div *ngIf="submitted && f.stock.errors" class="invalid-feedback d-block">
+                                        <div *ngIf="f.stock.errors.required"> {{ required }} </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="second-column">
+                                <div class="form-group d-flex justify-content-center">
+                                    <app-upload-image [multiple]="true" (uploadImage)="upload($event)"></app-upload-image>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="save text-center p-3">
+                            <button class="btn btn-solid" type="submit">Guardar Producto</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--Section ends-->

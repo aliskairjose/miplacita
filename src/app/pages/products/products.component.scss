@@ -1,0 +1,23 @@
+.product-image {
+    max-width: 150px;
+    max-height: 100px;
+}
+.search {
+    flex-direction: row;
+}
+
+@media (min-width: 320px) and (max-width:768px){
+    #state{
+        min-width: 100%;
+    }
+    .search {
+        flex-direction: column;
+    }
+    .filters {
+        display: flex;
+        flex-direction: row;
+    }
+    .optional-field {
+        display: none;
+    }
+}
