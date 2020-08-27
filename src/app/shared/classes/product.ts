@@ -12,4 +12,5 @@ export interface Product {
   image?: [string];
   stock?: number;
   store?: string;
+  tax?: string;
 }

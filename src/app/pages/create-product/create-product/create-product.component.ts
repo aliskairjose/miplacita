@@ -35,7 +35,7 @@ export class CreateProductComponent implements OnInit {
   productImages: string[] = [];
   images = [];
   productData: Product = {};
-
+  title = 'Crear producto';
   constructor(
     private router: Router,
     private alert: AlertService,
@@ -54,6 +54,7 @@ export class CreateProductComponent implements OnInit {
   ngOnInit(): void {
     const param = this.route.snapshot.params.id;
     if ( param ) {
+      this.title = 'Editar producto';
       this.loadProductData( param );
     }
     this.productService.categoryList().subscribe( ( categories: Category[] ) => {
