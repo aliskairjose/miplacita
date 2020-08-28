@@ -74,7 +74,7 @@
                         <td class="text-center">{{ order.amount | currency }}</td>
                         <td class="text-center">{{ order.created_at | date }}</td>
                         <td class="text-center">{{ order.shipment_option.name }}</td>
-                        <td class="text-capitalize">{{order.status }}</td>
+                        <td class="text-center text-capitalize">{{order.status }}</td>
                         <td class="text-center">
                             <button class="btn btn-table-action" (click)="OrderDetails.openModal(order)">Editar</button>
                         </td>
