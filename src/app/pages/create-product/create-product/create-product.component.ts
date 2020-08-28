@@ -71,27 +71,19 @@ export class CreateProductComponent implements OnInit {
 
   onSubmit(): void {
     this.submitted = true;
-    if ( this.status === 'edit' ) {
-      this.updateProduct();
-      return;
-    }
-    this.addProduct();
-  }
-
-  addProduct(): void {
     if ( this.productForm.valid ) {
       this.productService.uploadImages( { images: this.productImages } ).subscribe( response => {
         if ( response.status === 'isOk' ) {
           const data: Product = { ...this.productForm.value };
           data.image = [ ...response.images ] as [ string ];
-          this.createProduct( data );
+          ( this.status === 'add' ) ? this.createProduct( data ) : this.updateProduct( data );
         }
       } );
     }
   }
 
-  updateProduct(): void {
-    this.productService.updateProduct( this.productData._id, this.productForm.value ).subscribe( response => {
+  private updateProduct( data: Product ): void {
+    this.productService.updateProduct( this.productData._id, data ).subscribe( response => {
       this.alert.info( 'Producto actualizado correctamente' );
       setTimeout( () => {
         this.router.navigate( [ 'pages/products' ] );
@@ -103,7 +95,7 @@ export class CreateProductComponent implements OnInit {
   /**
    * @description Crea el producto via api
    */
-  private createProduct( data: any ): void {
+  private createProduct( data: Product ): void {
     this.productService.addProduct( data ).subscribe( ( product: Product ) => {
       this.alert.info( 'El producto se ha creado con exito' );
       this.productService.productSubject( product );
