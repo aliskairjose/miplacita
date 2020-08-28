@@ -45,10 +45,12 @@ export class StoreService {
    * @description Retorna el detalle de la tienda cuando recibe ID, y un listado si no recibe el ID
    * @param id Id de la tienda
    */
-  getStore( id?: string ): Observable<Store[]> {
-    return this.http.get( `stores` ).pipe(
-      map( ( response: Response<Store> ) => {
-        return response.result.docs;
+  getStore( id?: string ): Observable<Result<Store[]>> {
+    return this.http.get( `stores?store=${id}` ).pipe(
+      map( ( response: Response<Store[]> ) => {
+        if ( response.success ) {
+          return response.result;
+        }
       } )
     );
   }
