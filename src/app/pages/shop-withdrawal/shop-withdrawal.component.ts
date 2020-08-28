@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { environment } from '../../../environments/environment.prod';
 
 @Component( {
   selector: 'app-shop-withdrawal',
@@ -11,7 +12,7 @@ export class ShopWithdrawalComponent implements OnInit {
   banks = [];
   form: FormGroup;
   submitted: boolean;
-  required = 'Campo obligatorio';
+  required = environment.errorForm.required;
 
   constructor(
     private formBuilder: FormBuilder,
