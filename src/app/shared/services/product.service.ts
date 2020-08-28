@@ -12,6 +12,7 @@ import { Response, Result } from '../classes/response';
 export class ProductService {
 
   $product: Subject<Product> = new Subject<Product>();
+  selectedProduct: Product;
   
   constructor(
     private http: HttpService
@@ -93,6 +94,17 @@ export class ProductService {
   updateProduct( id, data: Product ): Observable<any> {
     return this.http.put( `products/${id}`, data );
   }
+
+  /**
+   * @description Valida que el nombre del producto este o no en usi
+   * @param name Nombre de la tienda a consultar
+   */
+  validateName( name: string ): Observable<any> {
+    // tslint:disable-next-line: prefer-const
+    let data: any;
+    return this.http.post( `products/validate?name=${name}`, data );
+  }
+
 
   // Product Photo ---------------------------------------------------------------
 
