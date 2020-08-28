@@ -1,4 +1,18 @@
 .preview {
-  max-width: 150px !important;
+  max-width: 50% !important;
   height: auto;
+}
+.img-thumbnail {
+  border: none;
+}
+.fakeImage {
+  width: 35%;
+  max-width: 35%;
+}
+
+@media (min-width:768px){
+  .fakeImage {
+    width: 25%;
+    max-width: 25%;
+  }
 }
