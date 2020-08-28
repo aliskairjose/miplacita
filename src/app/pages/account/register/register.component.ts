@@ -10,7 +10,7 @@ import { environment } from '../../../../environments/environment';
   styleUrls: [ './register.component.scss' ]
 } )
 export class RegisterComponent implements OnInit {
-  registerSuccess = true;
+  registerSuccess = false;
   registerForm: FormGroup;
   submitted: boolean;
   invalidEmail = environment.errorForm.invalidEmail;
