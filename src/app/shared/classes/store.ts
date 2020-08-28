@@ -10,6 +10,6 @@ export interface Store {
   email?: string;
   logo?: string;
   owner_id?: string | User;
-  plan?: string | Plan;
+  plan?: Plan | string;
   active?: boolean;
 }

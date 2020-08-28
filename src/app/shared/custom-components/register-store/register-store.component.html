@@ -23,11 +23,12 @@
                     <form [formGroup]="storeForm" class="theme-form">
                         <p class="text-center">Selecciona el plan de tu preferencia</p>
                         <div class="d-flex justify-content-center mx-auto">
-                            <div class="d-flex w-50 justify-content-center mb-3 px-5" *ngFor="let plan of plans">
-                                <div class="d-flex flex-fill justify-content-center" (click)="updatePlan(plan._id)">
-                                    <div class="d-flex flex-fill justify-content-center h-100 p-3 plan"
+                            <div class="d-flex w-50 justify-content-center mb-3 px-5" *ngFor="let plan of plans; let i=index">
+                                <div class="d-flex flex-fill justify-content-center" (click)="updatePlan(plan._id)" *ngIf="i !== 2">
+                                    <div class="d-flex flex-column flex-fill justify-content-center h-100 p-3 plan text-center"
                                         [class.plan-selected]="planSelected==plan._id">
                                         <p class="my-auto text-capitalize">{{plan.name}}</p>
+                                        <h4 class="mt-3">{{plan.price | currency}}</h4>
                                     </div>
                                 </div>
                             </div>

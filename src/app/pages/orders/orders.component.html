@@ -64,17 +64,17 @@
                 </thead>
                 <tbody>
                     <tr *ngFor="let order of orders | filter: searchText">
-                        <td>{{order.user.fullname}}</td>
-                        <td *ngIf="role === 'admin' ">{{order.store.name}}</td>
+                        <td class="text-center">{{order.user.fullname}}</td>
+                        <td *ngIf="role === 'admin' " class="text-center">{{order.store.name}}</td>
                         <td>
-                            <div class="d-flex flex-wrap " *ngFor="let item of order.items">
+                            <div class="d-flex justify-content-center flex-wrap" *ngFor="let item of order.items">
                                 {{ item.product_name }}
                             </div>
                         </td>
-                        <td>{{ order.amount | currency }}</td>
-                        <td>{{ order.created_at | date }}</td>
-                        <td>{{ order.zone }}</td>
-                        <td class="text-capitalize">{{order.status }}</td>
+                        <td class="text-center">{{ order.amount | currency }}</td>
+                        <td class="text-center">{{ order.created_at | date }}</td>
+                        <td class="text-center">{{ order.shipment_option.name }}</td>
+                        <td class="text-center text-capitalize">{{order.status }}</td>
                         <td class="text-center">
                             <button class="btn btn-table-action" (click)="OrderDetails.openModal(order)">Editar</button>
                         </td>
