@@ -6,6 +6,7 @@ import { StorageService } from '../../shared/services/storage.service';
 import { AuthService } from '../../shared/services/auth.service';
 import { StoreService } from '../../shared/services/store.service';
 import { Store } from '../../shared/classes/store';
+import { Result } from '../../shared/classes/response';
 
 @Component( {
   selector: 'app-shop-profile',
@@ -37,8 +38,8 @@ export class ShopProfileComponent implements OnInit {
 
   ngOnInit(): void {
     const stores: Store[] = this.storage.getItem( 'stores' );
-    this.storeService.getStore( stores[ 0 ]._id ).subscribe( ( store: Store[] ) => {
-      this.store = { ...store[ 0 ] };
+    this.storeService.getStore( stores[ 0 ]._id ).subscribe( ( response: Result<Store> ) => {
+      this.store = { ...response.docs[0] };
     } );
   }
 

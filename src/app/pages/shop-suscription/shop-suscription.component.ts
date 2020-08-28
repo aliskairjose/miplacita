@@ -12,7 +12,7 @@ import { Result } from '../../shared/classes/response';
 } )
 export class ShopSuscriptionComponent implements OnInit {
   shop: any;
-  plan: Plan;
+  plan: any;
   checkIcon = 'bi bi-check2';
   uncheckIcon = 'bi bi-x';
 
@@ -23,7 +23,7 @@ export class ShopSuscriptionComponent implements OnInit {
 
   ngOnInit(): void {
     const stores: Store[] = this.storage.getItem( 'stores' );
-    this.storeService.getStore( stores[ 0 ]._id ).subscribe( ( response: Result<Store[]> ) => {
+    this.storeService.getStore( stores[ 0 ]._id ).subscribe( ( response: Result<Store> ) => {
       this.plan = response.docs[0].plan;
     } );
   }
