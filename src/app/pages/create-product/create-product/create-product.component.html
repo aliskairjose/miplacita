@@ -15,7 +15,7 @@
                                 <!-- Nombre -->
                                 <div class="form-group input-group">
                                     <input formControlName="name" type="text" class="form-control" id="name"
-                                        placeholder="Nombre" required="" [(ngModel)]="productData.name">
+                                        placeholder="Nombre" required="" [(ngModel)]="productData.name" (blur)="validateName()">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">
                                             <img src="../../../../assets/images/marketplace/svg/bag.svg" alt="">
@@ -133,7 +133,7 @@
                             </div>
                         </div>
                         <div class="save text-center p-3">
-                            <button class="btn btn-solid" type="submit">Guardar Producto</button>
+                            <button class="btn btn-solid" type="submit" [disabled]="disabled">Guardar Producto</button>
                         </div>
                     </form>
                 </div>
