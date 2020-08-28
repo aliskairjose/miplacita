@@ -87,7 +87,7 @@ export class CreateProductComponent implements OnInit {
       this.alert.info( 'Producto actualizado correctamente' );
       setTimeout( () => {
         this.router.navigate( [ 'pages/products' ] );
-      }, 3200 );
+      }, 2000 );
     } );
   }
 
@@ -101,7 +101,7 @@ export class CreateProductComponent implements OnInit {
       this.productService.productSubject( product );
       setTimeout( () => {
         this.router.navigate( [ 'pages/products' ] );
-      }, 3200 );
+      }, 2000 );
     } );
   }
 
