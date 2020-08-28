@@ -10,6 +10,6 @@ export const environment = {
     required: 'Campo obligatorio.',
     invalidUrl: 'Ingere una url válida.',
     onlyLetter: 'Solo se permiten caracteres',
-    matchError: 'Los campos deben coincidir'
+    matchError: 'Los campos contraseña y Repetir contraseña deben coincidir'
   }
 };
