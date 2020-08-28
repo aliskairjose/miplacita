@@ -11,7 +11,7 @@ export class ShopWithdrawalComponent implements OnInit {
   banks = [];
   form: FormGroup;
   submitted: boolean;
-  required = 'Campo obligatorio';
+  required = environment.errorForm.required;
 
   constructor(
     private formBuilder: FormBuilder,
