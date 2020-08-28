@@ -13,6 +13,8 @@ import { Result } from '../../shared/classes/response';
 export class ShopSuscriptionComponent implements OnInit {
   shop: any;
   plan: Plan;
+  checkIcon = 'bi bi-check2';
+  uncheckIcon = 'bi bi-x';
 
   constructor(
     private storage: StorageService,
