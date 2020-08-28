@@ -18,19 +18,19 @@ $radius: 5px;
    ==============
 */
 .app-alerts .app-alert.info {
-  background-color: green !important;
+  opacity: 1 !important;
 }
 
-.app-alert.warning {
-
+.app-alerts .app-alert.warning {
+  opacity: 1 !important;
 }
 
-.app-alert.success {
-
+.app-alerts .app-alert.success {
+  opacity: 1 !important;
 }
 
-.app-alert.danger {
-
+.app-alerts .app-alert.danger {
+  opacity: 1 !important;
 }
 /* ==============
     Alerts styles ends
