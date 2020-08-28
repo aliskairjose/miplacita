@@ -1,7 +1,7 @@
 {
   "menuItems": [
     { "path": "/pages/login", "title": "inicia sesión", "type": "link", "logged": false },
-		{ "path": "/home/vegetable", "title": "Vende ahora", "type": "link", "logged": null },
+		{ "path": "/pages/register", "title": "Vende ahora", "type": "link", "logged": false },
 		{ "path": "/pages/contact", "title": "contactanos", "type": "link", "logged": null }
   ],
   "leftMenuItems": [
