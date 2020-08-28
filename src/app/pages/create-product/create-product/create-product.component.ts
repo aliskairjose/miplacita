@@ -9,6 +9,7 @@ import { StoreService } from '../../../shared/services/store.service';
 import { Category } from '../../../shared/classes/category';
 import { User } from '../../../shared/classes/user';
 import { environment } from '../../../../environments/environment';
+import { Result } from '../../../shared/classes/response';
 
 @Component( {
   selector: 'app-create-product',
@@ -57,12 +58,11 @@ export class CreateProductComponent implements OnInit {
   ngOnInit(): void {
     const param = this.route.snapshot.params.id;
     if ( param ) {
-      this.productData = this.productService.selectedProduct;
       this.selectedCategory = this.productData.category;
       this.status = 'edit';
       this.disabled = false;
       this.title = 'Editar producto';
-      // this.loadProductData( param );
+      this.loadProductData( param );
     }
     this.productService.categoryList().subscribe( ( categories: Category[] ) => {
       this.categories = [ ...categories ];
@@ -125,9 +125,10 @@ export class CreateProductComponent implements OnInit {
   }
 
   private loadProductData( id: string ): void {
-    // this.productService.productDetail( product._id ).subscribe( response => {
-    //   this.productData = response;
-    // } );
+    this.productService.productDetail( id ).subscribe( ( response: Result<Product> ) => {
+      this.productData = { ...response.docs[ 0 ] };
+      this.selectedCategory = this.productData.category;
+    } );
   }
 
   /**

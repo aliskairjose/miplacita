@@ -49,7 +49,6 @@ export class ProductsComponent implements OnInit {
   }
 
   editProduct( product: Product ): void {
-    this.productService.selectedProduct = product;
     this.router.navigate( [ `pages/edit-product/${product._id}` ] );
   }
 

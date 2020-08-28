@@ -76,11 +76,11 @@ export class ProductService {
    * @description Detalle de un producto
    * @param Id Id del producto a consultar
    */
-  productDetail( id: string ): Observable<Product> {
-    return this.http.get( `product/${id}` ).pipe(
-      map( response => {
+  productDetail( id: string ): Observable<Result<Product>> {
+    return this.http.get( `products?product=${id}` ).pipe(
+      map( ( response: Response<Product> ) => {
         if ( response.success ) {
-          return response.product;
+          return response.result;
         }
       } )
     );
