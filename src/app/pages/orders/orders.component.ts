@@ -27,7 +27,7 @@ export class OrdersComponent implements OnInit {
   orderStatus = environment.orderStatus;
   role: string;
   searchText = '';
-  
+
   @ViewChild( 'orderDetails' ) OrderDetails: OrderDetailsComponent;
   /** variable provisional */
 
@@ -56,7 +56,6 @@ export class OrdersComponent implements OnInit {
   private loadUserOrders( page = 1 ): void {
     const store: Store[] = this.storageService.getItem( 'stores' );
     this.orderService.orderList( store[ 0 ]._id, page ).subscribe( ( result: Result<Order> ) => {
-      console.log(result.docs)
       this.orders = [ ...result.docs ];
       this.paginate = { ...result };
       this.paginate.pages = [];
