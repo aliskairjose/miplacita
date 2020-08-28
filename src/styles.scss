@@ -13,7 +13,29 @@ $radius: 5px;
 // text
 .text-red { color: $mp-red; }
 .text-blue { color: $mp-blue; }
+/* ==============
+    Alerts styles start
+   ==============
+*/
+.app-alert.info {
+  
+}
 
+.app-alert.warning {
+
+}
+
+.app-alert.success {
+
+}
+
+.app-alert.danger {
+
+}
+/* ==============
+    Alerts styles ends
+   ==============
+*/
 // Landing Page 
 .info-benefit {
   .left-benefit{
@@ -86,12 +108,15 @@ form {
   span {
     img {
       height: auto;
-      width: 24px;
+      width: 18px;
     }
   }
 }
+
 #exampleFormControlTextarea1{
   font-weight: inherit !important;
+  margin-bottom: 3%;
+  border-radius: 0.6rem;
 }
 /* ==============
     ShopDesign -Carousel start
