@@ -30,8 +30,8 @@
                             <img src="../../../../assets/images/marketplace/svg/home.svg" alt="">
                         </span>
                     </div>
-                    <div *ngIf="submitted && f.titular.errors">
-                        <div *ngIf="f.titular.errors.required" class="invalid-feedback d-block"> {{ required }}
+                    <div *ngIf="submitted && f.titular.errors" class="invalid-feedback d-block">
+                        <div *ngIf="f.titular.errors.required"> {{ required }}
                         </div>
                     </div>
                 </div>
@@ -44,8 +44,8 @@
                             <img src="../../../../assets/images/marketplace/svg/home.svg" alt="">
                         </span>
                     </div>
-                    <div *ngIf="submitted && f.account.errors">
-                        <div *ngIf="f.account.errors.required" class="invalid-feedback d-block"> {{ required }}
+                    <div *ngIf="submitted && f.account.errors" class="invalid-feedback d-block">
+                        <div *ngIf="f.account.errors.required"> {{ required }}
                         </div>
                     </div>
                 </div>
@@ -57,8 +57,8 @@
                             <img src="../../../../assets/images/marketplace/svg/home.svg" alt="">
                         </span>
                     </div>
-                    <div *ngIf="submitted && f.type.errors">
-                        <div *ngIf="f.type.errors.required" class="invalid-feedback d-block"> {{ required }}
+                    <div *ngIf="submitted && f.type.errors" class="invalid-feedback d-block">
+                        <div *ngIf="f.type.errors.required"> {{ required }}
                         </div>
                     </div>
                 </div>
