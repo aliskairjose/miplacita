@@ -114,7 +114,6 @@ export class StoreService {
 
   /**
    * @description Genera el stream de eventos usando next() para crear el evento
-   * @param store
    */
   storeSubject( store: Store ): void {
     this.$store.next( store );
