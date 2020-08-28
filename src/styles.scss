@@ -77,8 +77,6 @@ $radius: 5px;
 
 } // end  .info-plan
 
-
-
 form {
   input {
     margin-bottom: 0px !important;
@@ -90,9 +88,22 @@ form {
     }
   }
 }
+
 #exampleFormControlTextarea1{
   font-weight: inherit !important;
 }
+
+/* ==============
+    ShopDesign - Alerts
+   ==============
+*/
+.app-alerts {
+  .app.alert.info {
+    background-color: green !important;
+  }
+}
+
+
 /* ==============
     ShopDesign -Carousel start
    ==============
@@ -152,7 +163,6 @@ ngb-carousel img {
     ShopDesign -Carousel ends
    ==============
 */
-
 
 .register-page-mp {
   h3 {

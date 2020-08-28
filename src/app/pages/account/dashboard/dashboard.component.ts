@@ -181,7 +181,6 @@ export class DashboardComponent implements OnInit {
   async ngOnInit() {
     await this.auth.authObserver().subscribe( async ( resp: boolean ) => {
       if ( resp ) {
-        //this.user = await this.storage.getItem( 'user' );
         this.alert.info( `Bienvenido ${this.user.fullname}` );
       }
     } );
