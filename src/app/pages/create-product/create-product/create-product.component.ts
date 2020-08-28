@@ -24,7 +24,7 @@ export class CreateProductComponent implements OnInit {
   productForm: FormGroup;
   submitted: boolean;
   required = environment.errorForm.required;
-  status: string;
+  status = 'add';
   statuses = [
     { value: 'active', text: 'Activo' },
     { value: 'inactive', text: 'Inactivo' },
@@ -36,6 +36,9 @@ export class CreateProductComponent implements OnInit {
   images = [];
   productData: Product = {};
   title = 'Crear producto';
+  disabled = true;
+
+
   constructor(
     private router: Router,
     private alert: AlertService,
@@ -54,8 +57,12 @@ export class CreateProductComponent implements OnInit {
   ngOnInit(): void {
     const param = this.route.snapshot.params.id;
     if ( param ) {
+      this.productData = this.productService.selectedProduct;
+      this.selectedCategory = this.productData.category;
+      this.status = 'edit';
+      this.disabled = false;
       this.title = 'Editar producto';
-      this.loadProductData( param );
+      // this.loadProductData( param );
     }
     this.productService.categoryList().subscribe( ( categories: Category[] ) => {
       this.categories = [ ...categories ];
@@ -69,17 +76,26 @@ export class CreateProductComponent implements OnInit {
         if ( response.status === 'isOk' ) {
           const data: Product = { ...this.productForm.value };
           data.image = [ ...response.images ] as [ string ];
-          this.createProduct( data );
+          ( this.status === 'add' ) ? this.createProduct( data ) : this.updateProduct( data );
         }
       } );
     }
-
   }
+
+  private updateProduct( data: Product ): void {
+    this.productService.updateProduct( this.productData._id, data ).subscribe( response => {
+      this.alert.info( 'Producto actualizado correctamente' );
+      setTimeout( () => {
+        this.router.navigate( [ 'pages/products' ] );
+      }, 3200 );
+    } );
+  }
+
 
   /**
    * @description Crea el producto via api
    */
-  private createProduct( data: any ): void {
+  private createProduct( data: Product ): void {
     this.productService.addProduct( data ).subscribe( ( product: Product ) => {
       this.alert.info( 'El producto se ha creado con exito' );
       this.productService.productSubject( product );
@@ -98,7 +114,7 @@ export class CreateProductComponent implements OnInit {
       description: [ '', [ Validators.required ] ],
       price: [ '', [ Validators.required ] ],
       tax: [ '', [ Validators.required ] ],
-      category: [ this.categoryId ? this.categoryId : '', [ Validators.required ] ],
+      category: [ '', [ Validators.required ] ],
       status: [ this.statusSelected, [ Validators.required ] ],
       stock: [ '', [ Validators.required ] ],
     } );
@@ -109,19 +125,31 @@ export class CreateProductComponent implements OnInit {
   }
 
   private loadProductData( id: string ): void {
-    console.log( 'loadProductData' );
-    // this.productService.productDetail( id ).subscribe( response => {
+    // this.productService.productDetail( product._id ).subscribe( response => {
     //   this.productData = response;
     // } );
   }
 
-  updateProduct(): void {
-    this.productService.updateProduct( this.productData._id, this.productForm.value ).subscribe( response => {
-      this.alert.info( 'Producto actualizado correctamente' );
-      setTimeout( () => {
-        this.router.navigate( [ 'pages/products' ] );
-      }, 3200 );
-    } );
+  /**
+   * @description Valida que el nombre del producto no este en uso
+   */
+  validateName(): void {
+    if ( this.productData.name.length > 0 && this.productData.name.length < 4 ) {
+      this.alert.warning( 'El nombre debe tener un mínimo de 4 caracteres' );
+      return;
+    }
+    if ( this.productData.name ) {
+      this.productService.validateName( this.productData.name ).subscribe( resp => {
+        if ( resp.taken ) {
+          this.alert.warning( resp.message[ 0 ] );
+          this.disabled = true;
+          return;
+        }
+        this.alert.info( resp.message[ 0 ] );
+        this.disabled = false;
+
+      } );
+    }
   }
 
 }

@@ -64,37 +64,38 @@
             </div>
         </div>
         <div class="form-row flex-fill flex-column mt-5 px-1">
+            <h3 *ngIf="user.role == 'admin'">Pagos</h3>
             <div class="table-responsive-sm ">
                 <table class="table">
                     <thead>
                     <tr class="table-head">
-                        <th *ngFor="let field of fields" scope="col">{{field.name}}</th>
+                        <th class="text-center" *ngFor="let field of fields" scope="col">{{field.name}}</th>
                     </tr>
                     </thead>
                     <!--Store Admin-->
-                    <tbody *ngIf="typeUser=='merchant'">
+                    <tbody *ngIf="user.role =='merchant'">
                         <tr *ngFor="let order of orders">
-                            <td>
+                            <td class="text-center">
                                 {{order.name}}
                             </td>
-                            <td>
+                            <td class="text-center">
                                 {{order.status}}
                             </td>
-                            <td >
+                            <td class="text-center" >
                                 <p>{{order.description}}</p>
                             </td>
-                            <td><h4>{{order.price}}</h4></td>
+                            <td class="text-center"><strong>{{order.price}}</strong></td>
                         </tr>
                     </tbody>
                     <!--Store Admin ends-->
                     <!--Admin Marketplace-->
-                    <tbody *ngIf="typeUser=='admin'">
+                    <tbody *ngIf="user.role =='admin'">
                         <tr *ngFor="let store of shops">
-                            <td><h2>{{store.name}}</h2></td>
-                            <td >
+                            <td class="text-center"><p>{{store.name}}</p></td>
+                            <td class="text-center" >
                                 <p>{{store.amount}}</p>
                             </td>
-                            <td>
+                            <td class="text-center">
                                 <p>{{store.date}}</p>
                             </td>
                         </tr>
@@ -103,17 +104,17 @@
                 </table>
                 
             </div>
-            <app-custom-pagination *ngIf="typeUser=='merchant'" [items]="orders" [paginate]="paginate" (setPage)="setPage($event)">
+            <app-custom-pagination *ngIf="user.role =='merchant'" [items]="orders" [paginate]="paginate" (setPage)="setPage($event)">
             </app-custom-pagination>
-            <app-custom-pagination *ngIf="typeUser=='admin'" [items]="shops" [paginate]="paginate" (setPage)="setPage($event)">
+            <app-custom-pagination *ngIf="user.role =='admin'" [items]="shops" [paginate]="paginate" (setPage)="setPage($event)">
             </app-custom-pagination>
         </div>
-        <div class="form-row container " *ngIf="orders.length==0 && typeUser=='merchant'">
+        <div class="form-row container justify-content-center " *ngIf="orders.length==0 && user.role =='merchant'">
             <div class="col-md-5">
                 <div class="card text-center mx-auto mb-2">
                     <div class="card-body">
                         <p>Configura tu tienda</p>
-                        <button class="btn btn-solid">Configurar</button>
+                        <a [routerLink]="'/pages/shop/profile'" class="btn btn-solid">Configurar</a>
                     </div>
                 </div>
             </div>
@@ -121,7 +122,16 @@
                 <div class="card text-center mx-auto mb-2">
                     <div class="card-body">
                         <p>Agrega productos a tu tienda</p>
-                        <button class="btn btn-solid">Agregar</button>    
+                        <a [routerLink]="'/pages/products'" class="btn btn-solid">Agregar</a>    
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-row container justify-content-center " *ngIf="shops.length==0 && user.role =='admin'">
+            <div class="col-md-5">
+                <div class="card text-center mx-auto mb-2">
+                    <div class="card-body">
+                        <p>No hay pagos pendientes</p>
                     </div>
                 </div>
             </div>

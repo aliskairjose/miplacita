@@ -15,7 +15,7 @@ export class RegisterComponent implements OnInit {
   submitted: boolean;
   invalidEmail = environment.errorForm.invalidEmail;
   required = environment.errorForm.required;
-  matchError = environment.errorForm.required;
+  matchError = environment.errorForm.matchError;
   minlength = 'Debe tener mínimo 8 caracteres';
   onlyLetter = environment.errorForm.onlyLetter;
   user = {
