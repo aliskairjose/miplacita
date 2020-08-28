@@ -12,7 +12,7 @@ import { User } from '../../../shared/classes/user';
 } )
 export class DashboardComponent implements OnInit {
   public openDashboard = false;
-  public typeUser = 'merchant'; // type user
+  public user: User = new User();
   /** Table fields */
   public fields = [];
 
@@ -174,27 +174,29 @@ export class DashboardComponent implements OnInit {
     private alert: AlertService,
     private storage: StorageService,
     public productService: ProductService,
-  ) { }
+  ) {
+    this.user = this.storage.getItem( 'user' );
+  }
 
-  ngOnInit(): void {
-    this.auth.authObserver().subscribe( ( resp: boolean ) => {
+  async ngOnInit() {
+    await this.auth.authObserver().subscribe( async ( resp: boolean ) => {
       if ( resp ) {
-        const user: User = this.storage.getItem( 'user' );
-        this.alert.info( `Bienvenido ${user.fullname}` );
+        this.alert.info( `Bienvenido ${this.user.fullname}` );
       }
     } );
-    this.getTableInformation();
-    this.getChartInformation();
+    await this.getTableInformation();
+    await this.getChartInformation();
   }
 
   getTableInformation() {
     // ** carga de datos desde api */
-    if ( this.typeUser === 'merchant' ) {
+    console.log('table', this.user)
+    if ( this.user.role === 'merchant' ) {
       this.fields = this.storeFields;
       this.paginate = this.productService.getPager( this.allOrders.length, +this.pageNo, this.pageSize );
 
       this.orders = this.slicePage( this.allOrders );
-    } else if ( this.typeUser === 'admin' ) {
+    } else if ( this.user.role === 'admin' ) {
       this.fields = this.adminFields;
       this.paginate = this.productService.getPager( this.allshops.length, +this.pageNo, this.pageSize );
 
@@ -206,11 +208,11 @@ export class DashboardComponent implements OnInit {
     /** carga de datos para las estadisticas */
     this.barChartData = this.salesChart;
     this.barChartTitle = 'Ventas';
-    if ( this.typeUser === 'merchant' ) {
+    if ( this.user.role === 'merchant' ) {
       this.pieChartData = this.storePieChart;
       this.pieChartTitle = 'Más vendidos este mes';
 
-    } else if ( this.typeUser === 'admin' ) {
+    } else if ( this.user.role === 'admin' ) {
       this.pieChartData = this.adminPieChart;
       this.pieChartTitle = 'Ventas por tienda';
 
@@ -234,11 +236,11 @@ export class DashboardComponent implements OnInit {
       const end = event * this.paginate.pageSize;
       this.paginate.startIndex = end - this.paginate.pageSize;
 
-      if ( this.typeUser === 'merchant' ) {
+      if ( this.user.role === 'merchant' ) {
         this.orders = this.allOrders.slice( this.paginate.startIndex );
         this.paginate.endIndex = this.allOrders.length - 1;
 
-      } else if ( this.typeUser === 'admin' ) {
+      } else if ( this.user.role === 'admin' ) {
         this.shops = this.allshops.slice( this.paginate.startIndex );
         this.paginate.endIndex = this.allshops.length - 1;
 
@@ -248,9 +250,9 @@ export class DashboardComponent implements OnInit {
       this.paginate.startIndex = end - this.paginate.pageSize;
 
       this.paginate.endIndex = end - 1;
-      if ( this.typeUser === 'merchant' ) {
+      if ( this.user.role === 'merchant' ) {
         this.orders = this.allOrders.slice( this.paginate.startIndex, this.paginate.endIndex + 1 );
-      } else if ( this.typeUser === 'admin' ) {
+      } else if ( this.user.role === 'admin' ) {
         this.shops = this.allshops.slice( this.paginate.startIndex, this.paginate.endIndex + 1 );
       }
     }

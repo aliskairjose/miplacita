@@ -48,6 +48,10 @@ export class ProductsComponent implements OnInit {
     } );
   }
 
+  editProduct( product: Product ): void {
+    this.router.navigate( [ `pages/edit-product/${product._id}` ] );
+  }
+
   private loadData( page = 1 ): void {
     ( this.user.role === 'admin' ) ? this.loadAdminProducts( page ) : this.loadUserProducts( page );
   }

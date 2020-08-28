@@ -12,7 +12,8 @@ import { Response, Result } from '../classes/response';
 export class ProductService {
 
   $product: Subject<Product> = new Subject<Product>();
-  
+  selectedProduct: Product;
+
   constructor(
     private http: HttpService
   ) { }
@@ -75,11 +76,11 @@ export class ProductService {
    * @description Detalle de un producto
    * @param Id Id del producto a consultar
    */
-  productDetail( id: string ): Observable<Product> {
-    return this.http.get( `product/${id}` ).pipe(
-      map( response => {
+  productDetail( id: string ): Observable<Result<Product>> {
+    return this.http.get( `products?product=${id}` ).pipe(
+      map( ( response: Response<Product> ) => {
         if ( response.success ) {
-          return response.product;
+          return response.result;
         }
       } )
     );
@@ -93,6 +94,17 @@ export class ProductService {
   updateProduct( id, data: Product ): Observable<any> {
     return this.http.put( `products/${id}`, data );
   }
+
+  /**
+   * @description Valida que el nombre del producto este o no en usi
+   * @param name Nombre de la tienda a consultar
+   */
+  validateName( name: string ): Observable<any> {
+    // tslint:disable-next-line: prefer-const
+    let data: any;
+    return this.http.post( `products/validate?name=${name}`, data );
+  }
+
 
   // Product Photo ---------------------------------------------------------------
 
@@ -187,7 +199,6 @@ export class ProductService {
 
   /**
    * @description Genera el stream de eventos usando next() para crear el evento
-   * @param product
    */
   productSubject( product: Product ): void {
     this.$product.next( product );

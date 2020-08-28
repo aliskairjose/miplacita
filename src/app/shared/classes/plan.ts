@@ -10,5 +10,5 @@ export interface Plan {
   deliveryService?: boolean;
   inventoryService?: boolean;
   payRate?: string;
-  linkPay: boolean;
+  linkPay?: boolean;
 }
