@@ -13,7 +13,7 @@ export class ProductService {
 
   $product: Subject<Product> = new Subject<Product>();
   selectedProduct: Product;
-  
+
   constructor(
     private http: HttpService
   ) { }
@@ -199,7 +199,6 @@ export class ProductService {
 
   /**
    * @description Genera el stream de eventos usando next() para crear el evento
-   * @param product
    */
   productSubject( product: Product ): void {
     this.$product.next( product );
