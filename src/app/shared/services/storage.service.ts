@@ -7,12 +7,18 @@ export class StorageService {
 
   constructor() { }
 
+
+  setLoginData(key: string, value: any): void {
+    localStorage.setItem( 'user', JSON.stringify( value.user ) );
+    localStorage.setItem( 'token', JSON.stringify( value.token ) );
+  }
+
   /**
    * @description Almacena la data en el localStorage
    * @param key Identificador del valor a almacenar
    * @param value Valor a almacenar
    */
-  setItem( key: string, value: any ) {
+  setItem( key: string, value: any ): void {
     localStorage.setItem( key, JSON.stringify( value ) );
   }
 
@@ -30,14 +36,14 @@ export class StorageService {
    * @description Elimina la data almacenada según el identificador
    * @param key Identificador de la data que se desea eliminar
    */
-  removeItem( key: string ) {
+  removeItem( key: string ): void {
     localStorage.remove( key );
   }
 
   /**
    * @description Elimina toda la data almacenada en el localStorage
    */
-  clearAll() {
+  clearAll(): void {
     localStorage.clear();
   }
 

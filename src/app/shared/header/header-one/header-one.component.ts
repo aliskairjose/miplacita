@@ -45,14 +45,14 @@ export class HeaderOneComponent implements OnInit {
 
     if ( this.isLoggedIn ) {
       this.user = this.storage.getItem( 'user' );
-      this.role = this.storage.getItem( 'role' );
+      this.role = this.user.role;
     }
 
     this.auth.authObserver().subscribe( ( isAuth: boolean ) => {
       this.isLoggedIn = isAuth;
       if ( isAuth ) {
         this.user = this.storage.getItem( 'user' );
-        this.role = this.storage.getItem( 'role' );
+        this.role = this.user.role;
       }
       // tslint:disable-next-line: curly
       if ( !isAuth ) this.alert.info( 'Hasta luego...' );

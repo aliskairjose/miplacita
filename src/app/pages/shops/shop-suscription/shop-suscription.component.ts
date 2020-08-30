@@ -4,6 +4,7 @@ import { StorageService } from '../../../shared/services/storage.service';
 import { Store } from '../../../shared/classes/store';
 import { StoreService } from '../../../shared/services/store.service';
 import { Result } from '../../../shared/classes/response';
+import { User } from '../../../shared/classes/user';
 
 @Component( {
   selector: 'app-shop-suscription',
@@ -17,14 +18,16 @@ export class ShopSuscriptionComponent implements OnInit {
   uncheckIcon = 'bi bi-x';
 
   constructor(
-    private storage: StorageService,
+    private storageService: StorageService,
     private storeService: StoreService,
   ) { }
 
   ngOnInit(): void {
-    const stores: Store[] = this.storage.getItem( 'stores' );
+    const user: User = this.storageService.getItem( 'user' );
+    const stores: Store[] = user.stores;
+
     this.storeService.getStore( stores[ 0 ]._id ).subscribe( ( response: Result<Store> ) => {
-      this.plan = response.docs[0].plan;
+      this.plan = response.docs[ 0 ].plan;
     } );
   }
 
