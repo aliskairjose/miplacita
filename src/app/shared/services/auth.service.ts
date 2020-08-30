@@ -52,7 +52,6 @@ export class AuthService {
 
   /**
    * @description Genera el stream de eventos usando next() para crear el evento
-   * @param isAuth
    */
   authSubject( isAuth: boolean ): void {
     this.$auth.next( isAuth );

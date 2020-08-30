@@ -124,7 +124,7 @@ export class RegisterStoreComponent implements OnInit {
     this.productData = { ...this.productForm.value };
     if ( this.productForm.valid ) {
       if ( this.images.length === 0 ) {
-        this.alert.warning( 'Debe cargar un logo para la tienda!' );
+        this.alert.warning( 'Debe cargar una imagen para producto!' );
         return;
       }
       this.productService.uploadImages( { images: this.images } ).subscribe( result => {

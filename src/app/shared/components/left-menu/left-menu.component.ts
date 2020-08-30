@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NavService, Menu } from '../../services/nav.service';
 import { Router } from '@angular/router';
 import { StorageService } from '../../services/storage.service';
+import { User } from '../../classes/user';
 
 @Component( {
   selector: 'app-left-menu',
@@ -25,7 +26,9 @@ export class LeftMenuComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.role = this.storage.getItem('role');
+    const user: User = this.storage.getItem( 'user' );
+    this.role = user.role;
+
   }
 
   leftMenuToggle(): void {

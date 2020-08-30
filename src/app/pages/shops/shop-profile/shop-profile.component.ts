@@ -2,11 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AlertService } from 'ngx-alerts';
-import { StorageService } from '../../shared/services/storage.service';
-import { AuthService } from '../../shared/services/auth.service';
-import { StoreService } from '../../shared/services/store.service';
-import { Store } from '../../shared/classes/store';
-import { Result } from '../../shared/classes/response';
+import { StorageService } from '../../../shared/services/storage.service';
+import { AuthService } from '../../../shared/services/auth.service';
+import { StoreService } from '../../../shared/services/store.service';
+import { Store } from '../../../shared/classes/store';
+import { Result } from '../../../shared/classes/response';
+import { User } from '../../../shared/classes/user';
 
 @Component( {
   selector: 'app-shop-profile',
@@ -20,12 +21,12 @@ export class ShopProfileComponent implements OnInit {
   required = 'Campo obligatorio';
   invalidEmail = 'Email inválido';
   store: Store = {};
- 
+
   constructor(
     private router: Router,
     private auth: AuthService,
     private alert: AlertService,
-    private storage: StorageService,
+    private storageService: StorageService,
     private formBuilder: FormBuilder,
     private storeService: StoreService,
   ) {
@@ -37,9 +38,11 @@ export class ShopProfileComponent implements OnInit {
   get f() { return this.profileForm.controls; }
 
   ngOnInit(): void {
-    const stores: Store[] = this.storage.getItem( 'stores' );
+    const user: User = this.storageService.getItem( 'user' );
+    const stores: Store[] = user.stores;
+
     this.storeService.getStore( stores[ 0 ]._id ).subscribe( ( response: Result<Store> ) => {
-      this.store = { ...response.docs[0] };
+      this.store = { ...response.docs[ 0 ] };
     } );
   }
 

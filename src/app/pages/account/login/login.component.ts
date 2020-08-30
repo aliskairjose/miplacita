@@ -43,11 +43,7 @@ export class LoginComponent implements OnInit {
     if ( this.loginForm.valid ) {
       this.auth.login( this.loginForm.value ).subscribe( ( data: AuthResponse ) => {
         if ( data.success ) {
-          this.storage.setItem( 'token', data.token );
-          this.storage.setItem( 'role', data.user.role );
-          this.storage.setItem( 'user', data.user );
-          this.storage.setItem( 'stores', data.user.stores );
-
+          this.storage.setLoginData( 'data', data );
           this.auth.authSubject( data.success );
 
           // Redireccionamiento al dashboard

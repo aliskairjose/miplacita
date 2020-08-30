@@ -11,6 +11,7 @@ import { StorageService } from '../../shared/services/storage.service';
 import { Paginate } from '../../shared/classes/paginate';
 import { Result } from '../../shared/classes/response';
 import { environment } from '../../../environments/environment';
+import { User } from '../../shared/classes/user';
 
 @Component( {
   selector: 'app-orders',
@@ -39,7 +40,8 @@ export class OrdersComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.role = this.storageService.getItem( 'role' );
+    const user: User = this.storageService.getItem( 'user' );
+    this.role = user.role;
     // tslint:disable-next-line: curly
     if ( this.role === 'admin' ) this.fields.splice( 1, 0, 'Tienda' );
     this.loadData();
@@ -54,7 +56,8 @@ export class OrdersComponent implements OnInit {
   }
 
   private loadUserOrders( page = 1 ): void {
-    const store: Store[] = this.storageService.getItem( 'stores' );
+    const user: User = this.storageService.getItem( 'user' );
+    const store: Store[] = user.stores;
     this.orderService.orderList( store[ 0 ]._id, page ).subscribe( ( result: Result<Order> ) => {
       this.orders = [ ...result.docs ];
       this.paginate = { ...result };
@@ -66,7 +69,6 @@ export class OrdersComponent implements OnInit {
   }
 
   private loadAdminOrders( page = 1 ): void {
-    const store: Store[] = this.storageService.getItem( 'stores' );
     this.orderService.getAll( page ).subscribe( ( result: Result<Order> ) => {
       this.orders = [ ...result.docs ];
       this.paginate = { ...result };

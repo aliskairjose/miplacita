@@ -60,8 +60,11 @@
                 </thead>
                 <tbody>
                     <tr *ngFor="let product of products | filter: searchText">
-                        <td class="text-center">
+                        <td class="text-center" *ngIf="product.image.length > 0 ">
                             <img class="product-image" [src]="product.image[0]" />
+                        </td>
+                        <td class="text-center" *ngIf="product.image.length === 0 ">
+                            <img class="product-image" [src]="standardImage" />
                         </td>
                         <td>{{ product.name }}</td>
                         <td  *ngIf="user.role==='admin' "> {{ product.store ? product.store.name : 'Sin tienda' }}</td>
