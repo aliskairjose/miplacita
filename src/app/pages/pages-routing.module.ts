@@ -14,7 +14,7 @@ import { ContactComponent } from './account/contact/contact.component';
 import { ShopsComponent } from './shops/shops.component';
 import { OrdersComponent } from './orders/orders.component';
 import { ProductsComponent } from './products/products.component';
-import { CreateProductComponent } from './create-product/create-product/create-product.component';
+import { CreateProductComponent } from './products/create-product/create-product.component';
 import { MyShopComponent } from './account/my-shop/my-shop.component';
 import { ShopProfileComponent } from './shop-profile/shop-profile.component';
 import { ShopDesignComponent } from './shop-design/shop-design.component';

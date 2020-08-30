@@ -49,12 +49,12 @@ import { ColorPickerModule } from 'ngx-color-picker';
 import { ShopsComponent } from './shops/shops.component';
 import { OrdersComponent } from './orders/orders.component';
 import { ProductsComponent } from './products/products.component';
-import { CreateProductComponent } from './create-product/create-product/create-product.component';
 import { NgxCurrencyModule, CurrencyMaskInputMode } from 'ngx-currency';
 import { MyShopComponent } from './account/my-shop/my-shop.component';
 import { ShopWithdrawalComponent } from './shop-withdrawal/shop-withdrawal.component';
 import { ShopSuscriptionComponent } from './shop-suscription/shop-suscription.component';
 import { NgxMaskModule, IConfig } from 'ngx-mask';
+import { CreateProductComponent } from './products/create-product/create-product.component';
 
 // export let options: Partial<IConfig> | (() => Partial<IConfig>);
 const maskConfig: Partial<IConfig> = {
