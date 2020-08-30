@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Plan } from '../../shared/classes/plan';
-import { StorageService } from '../../shared/services/storage.service';
-import { Store } from '../../shared/classes/store';
-import { StoreService } from '../../shared/services/store.service';
-import { Result } from '../../shared/classes/response';
+import { Plan } from '../../../shared/classes/plan';
+import { StorageService } from '../../../shared/services/storage.service';
+import { Store } from '../../../shared/classes/store';
+import { StoreService } from '../../../shared/services/store.service';
+import { Result } from '../../../shared/classes/response';
 
 @Component( {
   selector: 'app-shop-suscription',

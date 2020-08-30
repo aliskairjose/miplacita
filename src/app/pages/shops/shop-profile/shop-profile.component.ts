@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AlertService } from 'ngx-alerts';
-import { StorageService } from '../../shared/services/storage.service';
-import { AuthService } from '../../shared/services/auth.service';
-import { StoreService } from '../../shared/services/store.service';
-import { Store } from '../../shared/classes/store';
-import { Result } from '../../shared/classes/response';
+import { StorageService } from '../../../shared/services/storage.service';
+import { AuthService } from '../../../shared/services/auth.service';
+import { StoreService } from '../../../shared/services/store.service';
+import { Store } from '../../../shared/classes/store';
+import { Result } from '../../../shared/classes/response';
 
 @Component( {
   selector: 'app-shop-profile',

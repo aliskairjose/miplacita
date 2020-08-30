@@ -1,26 +1,29 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
+
+import {
+  ShopDetailsComponent
+} from '../shared/custom-components/shop-details/shop-details.component';
+import { AuthGuard } from '../shared/guard/auth.guard';
+import { AboutUsComponent } from './about-us/about-us.component';
+import { CartComponent } from './account/cart/cart.component';
+import { ContactComponent } from './account/contact/contact.component';
+import { DashboardComponent } from './account/dashboard/dashboard.component';
+import { ForgetPasswordComponent } from './account/forget-password/forget-password.component';
 // MarkepPlace Routes
 import { LoginComponent } from './account/login/login.component';
+import { MyShopComponent } from './account/my-shop/my-shop.component';
 import { RegisterComponent } from './account/register/register.component';
-import { ForgetPasswordComponent } from './account/forget-password/forget-password.component';
-import { DashboardComponent } from './account/dashboard/dashboard.component';
-import { AboutUsComponent } from './about-us/about-us.component';
 import { ErrorComponent } from './error/error.component';
 import { FaqComponent } from './faq/faq.component';
-import { CartComponent } from './account/cart/cart.component';
-import { AuthGuard } from '../shared/guard/auth.guard';
-import { ContactComponent } from './account/contact/contact.component';
-import { ShopsComponent } from './shops/shops.component';
 import { OrdersComponent } from './orders/orders.component';
-import { ProductsComponent } from './products/products.component';
 import { CreateProductComponent } from './products/create-product/create-product.component';
-import { MyShopComponent } from './account/my-shop/my-shop.component';
-import { ShopProfileComponent } from './shop-profile/shop-profile.component';
-import { ShopDesignComponent } from './shop-design/shop-design.component';
-import { ShopDetailsComponent } from '../shared/custom-components/shop-details/shop-details.component';
-import { ShopWithdrawalComponent } from './shop-withdrawal/shop-withdrawal.component';
-import { ShopSuscriptionComponent } from './shop-suscription/shop-suscription.component';
+import { ProductsComponent } from './products/products.component';
+import { ShopDesignComponent } from './shops/shop-design/shop-design.component';
+import { ShopProfileComponent } from './shops/shop-profile/shop-profile.component';
+import { ShopSuscriptionComponent } from './shops/shop-suscription/shop-suscription.component';
+import { ShopWithdrawalComponent } from './shops/shop-withdrawal/shop-withdrawal.component';
+import { ShopsComponent } from './shops/shops.component';
 
 const routes: Routes = [
 
