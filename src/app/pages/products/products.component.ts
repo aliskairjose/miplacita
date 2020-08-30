@@ -7,6 +7,7 @@ import { Product } from '../../shared/classes/product';
 import { Result } from '../../shared/classes/response';
 import { Paginate } from '../../shared/classes/paginate';
 import { Router } from '@angular/router';
+import { environment } from '../../../environments/environment';
 
 @Component( {
   selector: 'app-products',
@@ -21,6 +22,7 @@ export class ProductsComponent implements OnInit {
   productTypes = []; // tipos de productos
   states = []; // tipos de productos
   paginate: Paginate;
+  standardImage = environment.standardImage;
   statuses = [
     { value: 'active', text: 'Activo' },
     { value: 'inactive', text: 'Inactivo' },
