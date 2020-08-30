@@ -72,6 +72,10 @@ export class CreateProductComponent implements OnInit {
   onSubmit(): void {
     this.submitted = true;
     if ( this.productForm.valid ) {
+      if(this.productImages.length === 0) {
+        this.alert.warning('Debe cargar al menos una imagen de producto');
+        return;
+      }
       this.productService.uploadImages( { images: this.productImages } ).subscribe( response => {
         if ( response.status === 'isOk' ) {
           const data: Product = { ...this.productForm.value };
