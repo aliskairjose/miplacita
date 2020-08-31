@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpService } from './http.service';
 import { Observable } from 'rxjs';
+import { Category } from '../classes/category';
 
 @Injectable( {
   providedIn: 'root'
@@ -23,8 +24,8 @@ export class CategoryService {
    * @description Actualiza la categoria
    * @param data Data de la categoria a actualizar
    */
-  updateCategory( data: any ): Observable<any> {
-    return this.http.put( 'categories', data );
+  updateCategory( id: string, data: Category ): Observable<any> {
+    return this.http.put( `categories/${id}`, data );
   }
 
   /**
