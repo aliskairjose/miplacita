@@ -76,7 +76,7 @@ export class OrderService {
 
   /**
    * @description Genera el stream de eventos usando next() para crear el evento
-   * @param order
+   * @param order Data de tipo Orden
    */
   orderSubject( order: Order ): void {
     this.$order.next( order );
