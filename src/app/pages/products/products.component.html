@@ -2,7 +2,7 @@
 <ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="ball-spin-clockwise" [fullScreen]="true">
     <p style="color: white"> Por favor espere... </p>
 </ngx-spinner>
-
+<ngx-alerts></ngx-alerts>
 <section class="section-b-space">
     <div class="container">
         <div class="d-flex">
@@ -74,10 +74,8 @@
                         <td class="text-center">{{ product.status }}</td>
 
                         <td class="d-flex flex-row" *ngIf="user.role==='merchant'">
-                            <!-- <a [routerLink]="[ '/pages/edit-product', product._id ]" class="btn btn-table-action">Editar</a>
-                            <button class="btn btn-table-action">Eliminar</button> -->
-                            <a (click)="editProduct(product)" class="btn btn-table-action">Editar</a>
-                            <button class="btn btn-table-action">Eliminar</button>
+                            <a [routerLink]="[ '/pages/edit-product', product._id ]" class="btn btn-table-action">Editar</a>
+                            <button class="btn btn-table-action" (click)="deleteItem(product._id)">Eliminar</button>
                         </td>
                         <td class="text-center" *ngIf="user.role==='admin'">
                             <button class="btn btn-table-action">Desactivar</button>

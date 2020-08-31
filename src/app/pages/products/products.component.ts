@@ -8,6 +8,7 @@ import { Result } from '../../shared/classes/response';
 import { Paginate } from '../../shared/classes/paginate';
 import { Router } from '@angular/router';
 import { environment } from '../../../environments/environment';
+import { AlertService } from 'ngx-alerts';
 
 @Component( {
   selector: 'app-products',
@@ -32,6 +33,7 @@ export class ProductsComponent implements OnInit {
 
   constructor(
     private router: Router,
+    private alert: AlertService,
     private formBuilder: FormBuilder,
     private productService: ProductService,
     private storageService: StorageService,
@@ -50,17 +52,25 @@ export class ProductsComponent implements OnInit {
     } );
   }
 
-  editProduct( product: Product ): void {
-    this.router.navigate( [ `pages/edit-product/${product._id}` ] );
+  deleteItem( id: string ): void {
+    this.productService.deleteProduct( id ).subscribe( response => {
+      if ( response.success ) {
+        this.alert.info( response.message[ 0 ] );
+      }
+      setTimeout( () => {
+        this.loadData();
+      }, 2000 );
+    } );
+  }
+
+  setPage( page: number ) {
+    this.loadData( page );
   }
 
   private loadData( page = 1 ): void {
     ( this.user.role === 'admin' ) ? this.loadAdminProducts( page ) : this.loadUserProducts( page );
   }
 
-  setPage( page: number ) {
-    this.loadData( page );
-  }
 
   private loadUserProducts( page: number ): void {
     this.productService.productList( this.user.stores[ 0 ]._id, page ).subscribe( ( result: Result<Product> ) => {
