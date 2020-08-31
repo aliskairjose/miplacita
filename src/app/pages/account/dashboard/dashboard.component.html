@@ -12,8 +12,8 @@
                         <p class="my-auto" *ngIf="!dashboardData.todayOrders">0 ventas hoy</p>
                     </div>
                     <div *ngIf="user.role=='admin'" class="d-flex flex-fill justify-content-center align-items-center ">
-                        <p class="my-auto" *ngIf="dashboardData.todayOrders">{{ dashboardData.todayOrders }} tiendas</p>
-                        <p class="my-auto" *ngIf="!dashboardData.todayOrders">0 tiendas</p>
+                        <p class="my-auto" *ngIf="dashboardData.totalStores">{{ dashboardData.totalStores }} tiendas</p>
+                        <p class="my-auto" *ngIf="!dashboardData.totalStores">0 tiendas</p>
                     </div>
                 </div>
             </div>
@@ -26,8 +26,8 @@
                             <p class="my-auto" *ngIf="!dashboardData.totalOrders">0 ventas totales</p>
                         </div>
                         <div *ngIf="user.role=='admin'" class="d-flex flex-fill justify-content-center align-items-center ">
-                            <p class="my-auto" *ngIf="dashboardData.totalOrders">{{ dashboardData.totalOrders }} ventas</p>
-                            <p class="my-auto" *ngIf="!dashboardData.totalOrders">0 ventas</p>
+                            <p class="my-auto" *ngIf="dashboardData.amountSales">{{ dashboardData.amountSales }} ventas</p>
+                            <p class="my-auto" *ngIf="!dashboardData.amountSales">0 ventas</p>
                         </div>
     
                     </div>
@@ -42,8 +42,8 @@
                             <p class="my-auto" *ngIf="!dashboardData.clients">0 clientes</p>
                         </div>
                         <div *ngIf="user.role=='admin'" class="d-flex flex-fill justify-content-center align-items-center ">
-                            <p class="my-auto" *ngIf="dashboardData.clients">{{ dashboardData.clients }} productos</p>
-                            <p class="my-auto" *ngIf="!dashboardData.clients">0 productos</p>
+                            <p class="my-auto" *ngIf="dashboardData.totalProducts">{{ dashboardData.totalProducts }} productos</p>
+                            <p class="my-auto" *ngIf="!dashboardData.totalProducts">0 productos</p>
                         </div>
                     </div>
                 </div>
@@ -57,8 +57,8 @@
                             <p class="my-auto" *ngIf="!dashboardData.products">0 productos</p>
                         </div>
                         <div *ngIf="user.role=='admin'" class="d-flex flex-fill justify-content-center align-items-center ">
-                            <p class="my-auto" *ngIf="dashboardData.products">{{ dashboardData.products }} retiros</p>
-                            <p class="my-auto" *ngIf="!dashboardData.products">0 retiros</p>
+                            <p class="my-auto" *ngIf="dashboardData.totalRetirement">{{ dashboardData.totalRetirement }} retiros</p>
+                            <p class="my-auto" *ngIf="!dashboardData.totalRetirement">0 retiros</p>
                         </div>
                     </div>
                 </div>

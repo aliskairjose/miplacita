@@ -3,4 +3,8 @@ export class Dashboard {
     todayOrders: number;
     totalOrders: number;
     products: number;
+    amountSales: number;
+    totalProducts: number;
+    totalRetirement: number;
+    totalStores: number;
 }
