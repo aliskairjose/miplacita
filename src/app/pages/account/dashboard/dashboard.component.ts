@@ -63,15 +63,13 @@ export class DashboardComponent implements OnInit {
         this.alert.info( `Bienvenido ${this.user.fullname}` );
       }
     } );
-    await this.getLabelsInformation();
-    await this.getTableInformation();
-    await this.getChartInformation();
+    this.getLabelsInformation();
+    this.getTableInformation();
+    this.getChartInformation();
   }
   getLabelsInformation() {
     this.dashboardService.dashboard().subscribe((data: any) => {
-      console.log(data);
       this.dashboardData = data.result;
-      console.log("labels", this.dashboardData);
     });
   }
 
