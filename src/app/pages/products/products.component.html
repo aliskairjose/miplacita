@@ -75,7 +75,7 @@
 
                         <td class="text-center" *ngIf="user.role==='merchant'">
                             <a [routerLink]="[ '/pages/edit-product', product._id ]" class="btn btn-table-action">Editar</a>
-                            <button class="btn btn-table-action" (click)="deleteItem(product._id)">Eliminar</button>
+                            <button class="btn btn-table-action" (click)="showModal(product._id)">Eliminar</button>
                         </td>
                         <td class="text-center" *ngIf="user.role==='admin'">
                             <button class="btn btn-table-action">Desactivar</button>

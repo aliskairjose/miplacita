@@ -9,6 +9,7 @@ import { Paginate } from '../../shared/classes/paginate';
 import { Router } from '@angular/router';
 import { environment } from '../../../environments/environment';
 import { AlertService } from 'ngx-alerts';
+import { ConfirmationDialogService } from '../../shared/services/confirmation-dialog.service';
 
 @Component( {
   selector: 'app-products',
@@ -37,6 +38,7 @@ export class ProductsComponent implements OnInit {
     private formBuilder: FormBuilder,
     private productService: ProductService,
     private storageService: StorageService,
+    private confirmationDialogService: ConfirmationDialogService,
   ) {
     this.user = this.storageService.getItem( 'user' );
     this.loadData();
@@ -52,19 +54,30 @@ export class ProductsComponent implements OnInit {
     } );
   }
 
-  deleteItem( id: string ): void {
+  showModal( id: string ): void {
+    this.confirmationDialogService
+      .confirm( 'Por favor confirme ..', '¿Realmente desea eliminar este producto?' )
+      .then( ( confirmed ) => {
+        // tslint:disable-next-line: curly
+        if ( confirmed ) this.deleteProduct( id );
+      } );
+
+  }
+
+
+  setPage( page: number ) {
+    this.loadData( page );
+  }
+
+  private deleteProduct( id: string ): void {
     this.productService.deleteProduct( id ).subscribe( response => {
       if ( response.success ) {
         this.alert.info( response.message[ 0 ] );
       }
       setTimeout( () => {
         this.loadData();
-      }, 2000 );
+      }, 1500 );
     } );
-  }
-
-  setPage( page: number ) {
-    this.loadData( page );
   }
 
   private loadData( page = 1 ): void {

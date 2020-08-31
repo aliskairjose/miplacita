@@ -68,6 +68,8 @@ import { ShopSubmenuComponent } from './custom-component/shop-submenu/shop-subme
 import { TimelineComponent } from './custom-component/timeline/timeline.component';
 
 import { NgxMaskModule, IConfig } from 'ngx-mask';
+import { ConfirmationDialogComponent } from './custom-components/confirmation-dialog/confirmation-dialog.component';
+import { ConfirmationDialogService } from './services/confirmation-dialog.service';
 
 // export let options: Partial<IConfig> | (() => Partial<IConfig>);
 const maskConfig: Partial<IConfig> = {
@@ -124,13 +126,14 @@ export const customCurrencyMaskConfig = {
     CustomPaginationComponent,
     SuccessModalComponent,
     ShopDetailsComponent,
+    ConfirmationDialogComponent,
     // Pipes
     DiscountPipe,
     FilterPipe,
     OrderDetailsComponent,
     UploadImageComponent,
     ShopSubmenuComponent,
-    TimelineComponent
+    TimelineComponent,
   ],
   imports: [
     NgxCurrencyModule.forRoot(customCurrencyMaskConfig),
@@ -190,6 +193,7 @@ export const customCurrencyMaskConfig = {
     CustomPaginationComponent,
     SuccessModalComponent,
     UploadImageComponent,
+    ConfirmationDialogComponent,
     // Pipes
     DiscountPipe,
     FilterPipe,
@@ -197,6 +201,7 @@ export const customCurrencyMaskConfig = {
     OrderDetailsComponent,
     ShopSubmenuComponent,
     TimelineComponent
-  ]
+  ],
+  providers: [ ConfirmationDialogService ],
 })
 export class SharedModule { }
