@@ -86,6 +86,10 @@ export class ProductService {
     );
   }
 
+  deleteProduct( id: string): Observable<any> {
+    return this.http.delete(`products/${id}`);
+  }
+
   /**
    * @description Actualizacion del producto
    * @param id Id del producto a actualizar

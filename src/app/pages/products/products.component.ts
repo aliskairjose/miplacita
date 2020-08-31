@@ -8,6 +8,8 @@ import { Result } from '../../shared/classes/response';
 import { Paginate } from '../../shared/classes/paginate';
 import { Router } from '@angular/router';
 import { environment } from '../../../environments/environment';
+import { AlertService } from 'ngx-alerts';
+import { ConfirmationDialogService } from '../../shared/services/confirmation-dialog.service';
 
 @Component( {
   selector: 'app-products',
@@ -32,9 +34,11 @@ export class ProductsComponent implements OnInit {
 
   constructor(
     private router: Router,
+    private alert: AlertService,
     private formBuilder: FormBuilder,
     private productService: ProductService,
     private storageService: StorageService,
+    private confirmationDialogService: ConfirmationDialogService,
   ) {
     this.user = this.storageService.getItem( 'user' );
     this.loadData();
@@ -50,17 +54,36 @@ export class ProductsComponent implements OnInit {
     } );
   }
 
-  editProduct( product: Product ): void {
-    this.router.navigate( [ `pages/edit-product/${product._id}` ] );
+  showModal( id: string ): void {
+    this.confirmationDialogService
+      .confirm( 'Por favor confirme ..', '¿Realmente desea eliminar este producto?' )
+      .then( ( confirmed ) => {
+        // tslint:disable-next-line: curly
+        if ( confirmed ) this.deleteProduct( id );
+      } );
+
+  }
+
+
+  setPage( page: number ) {
+    this.loadData( page );
+  }
+
+  private deleteProduct( id: string ): void {
+    this.productService.deleteProduct( id ).subscribe( response => {
+      if ( response.success ) {
+        this.alert.info( response.message[ 0 ] );
+      }
+      setTimeout( () => {
+        this.loadData();
+      }, 1500 );
+    } );
   }
 
   private loadData( page = 1 ): void {
     ( this.user.role === 'admin' ) ? this.loadAdminProducts( page ) : this.loadUserProducts( page );
   }
 
-  setPage( page: number ) {
-    this.loadData( page );
-  }
 
   private loadUserProducts( page: number ): void {
     this.productService.productList( this.user.stores[ 0 ]._id, page ).subscribe( ( result: Result<Product> ) => {
