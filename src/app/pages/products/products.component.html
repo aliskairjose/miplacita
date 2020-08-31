@@ -31,7 +31,7 @@
                             </select>
                         </div> -->
                         <div class="flex-fill">
-                            <select name="model" class="form-control">
+                            <select name="model" class="form-control" [(ngModel)]="searchText">
                                 <option value="">Estado</option>
                                 <option [value]="status.value" *ngFor="let status of statuses">{{status.text}}</option>
                             </select>
