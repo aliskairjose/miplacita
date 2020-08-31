@@ -70,6 +70,7 @@ export class DashboardComponent implements OnInit {
   getLabelsInformation() {
     this.dashboardService.dashboard().subscribe((data: any) => {
       this.dashboardData = data.result;
+      console.log('labels', this.dashboardData);
     });
   }
 
