@@ -95,7 +95,7 @@ export class ProductService {
    * @param id Id del producto a actualizar
    * @param data Data de producto
    */
-  updateProduct( id, data: Product ): Observable<any> {
+  updateProduct( id: string, data: Product ): Observable<any> {
     return this.http.put( `products/${id}`, data );
   }
 
