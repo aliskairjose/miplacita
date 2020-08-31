@@ -6,41 +6,60 @@
         <div class="form-row labels">
             <div class="col-md-3">
                 <div class="label card d-flex flex-row">
-                    <div class="col-1 d-flex align-items-stretch icon-label">
-                        
+                    <div class="col-1 d-flex align-items-stretch icon-label"></div>
+                    <div *ngIf="user.role=='merchant'" class="d-flex flex-fill justify-content-center align-items-center ">
+                        <p class="my-auto" *ngIf="dashboardData.todayOrders">{{ dashboardData.todayOrders }} ventas hoy</p>
+                        <p class="my-auto" *ngIf="!dashboardData.todayOrders">0 ventas hoy</p>
                     </div>
-                    <div class="d-flex flex-fill justify-content-center align-items-center ">
-                        {{ dailySale }}
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="label card d-flex flex-row">
-                    <div class="col-1 d-flex align-items-stretch icon-label">
-                        
-                    </div>
-                    <div class="d-flex flex-fill justify-content-center align-items-center ">
-                        {{ totalSale }}
+                    <div *ngIf="user.role=='admin'" class="d-flex flex-fill justify-content-center align-items-center ">
+                        <p class="my-auto" *ngIf="dashboardData.todayOrders">{{ dashboardData.todayOrders }} tiendas</p>
+                        <p class="my-auto" *ngIf="!dashboardData.todayOrders">0 tiendas</p>
                     </div>
                 </div>
             </div>
             <div class="col-md-3">
                 <div class="label card d-flex flex-row">
-                    <div class="col-1 d-flex align-items-stretch icon-label">
-                        
-                    </div>
+                    <div class="col-1 d-flex align-items-stretch icon-label"></div>
                     <div class="d-flex flex-fill justify-content-center align-items-center ">
-                        {{ totalClients }}
+                        <div *ngIf="user.role=='merchant'" class="d-flex flex-fill justify-content-center align-items-center ">
+                            <p class="my-auto" *ngIf="dashboardData.totalOrders">{{ dashboardData.totalOrders }} ventas totales</p>
+                            <p class="my-auto" *ngIf="!dashboardData.totalOrders">0 ventas totales</p>
+                        </div>
+                        <div *ngIf="user.role=='admin'" class="d-flex flex-fill justify-content-center align-items-center ">
+                            <p class="my-auto" *ngIf="dashboardData.totalOrders">{{ dashboardData.totalOrders }} ventas</p>
+                            <p class="my-auto" *ngIf="!dashboardData.totalOrders">0 ventas</p>
+                        </div>
+    
                     </div>
                 </div>
             </div>
             <div class="col-md-3">
                 <div class="label card d-flex flex-row">
-                    <div class="col-1 d-flex align-items-stretch icon-label">
-                        
-                    </div>
+                    <div class="col-1 d-flex align-items-stretch icon-label"></div>
                     <div class="d-flex flex-fill justify-content-center align-items-center ">
-                        {{ totalProducts }}
+                        <div *ngIf="user.role=='merchant'" class="d-flex flex-fill justify-content-center align-items-center ">
+                            <p class="my-auto" *ngIf="dashboardData.clients">{{ dashboardData.clients }} clientes</p>
+                            <p class="my-auto" *ngIf="!dashboardData.clients">0 clientes</p>
+                        </div>
+                        <div *ngIf="user.role=='admin'" class="d-flex flex-fill justify-content-center align-items-center ">
+                            <p class="my-auto" *ngIf="dashboardData.clients">{{ dashboardData.clients }} productos</p>
+                            <p class="my-auto" *ngIf="!dashboardData.clients">0 productos</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="label card d-flex flex-row">
+                    <div class="col-1 d-flex align-items-stretch icon-label"></div>
+                    <div class="d-flex flex-fill justify-content-center align-items-center ">
+                        <div *ngIf="user.role=='merchant'" class="d-flex flex-fill justify-content-center align-items-center ">
+                            <p class="my-auto" *ngIf="dashboardData.products">{{ dashboardData.products }} productos</p>
+                            <p class="my-auto" *ngIf="!dashboardData.products">0 productos</p>
+                        </div>
+                        <div *ngIf="user.role=='admin'" class="d-flex flex-fill justify-content-center align-items-center ">
+                            <p class="my-auto" *ngIf="dashboardData.products">{{ dashboardData.products }} retiros</p>
+                            <p class="my-auto" *ngIf="!dashboardData.products">0 retiros</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -61,6 +80,24 @@
                 [options]="" 
                 type="PieChart" 
                 [data]="pieChartData" ></google-chart>
+            </div>
+        </div>
+        <div class="form-row container justify-content-center " *ngIf="orders.length==0 && user.role =='merchant'">
+            <div class="col-md-5">
+                <div class="card text-center mx-auto mb-2">
+                    <div class="card-body">
+                        <p>Configura tu tienda</p>
+                        <a [routerLink]="'/pages/shop/profile'" class="btn btn-solid">Configurar</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-5" *ngIf="!dashboardData.products">
+                <div class="card text-center mx-auto mb-2">
+                    <div class="card-body">
+                        <p>Agrega productos a tu tienda</p>
+                        <a [routerLink]="'/pages/products'" class="btn btn-solid">Agregar</a>    
+                    </div>
+                </div>
             </div>
         </div>
         <div class="form-row flex-fill flex-column mt-5 px-1">
@@ -104,34 +141,26 @@
                 </table>
                 
             </div>
-            <app-custom-pagination *ngIf="user.role =='merchant'" [items]="orders" [paginate]="paginate" (setPage)="setPage($event)">
+            <app-custom-pagination *ngIf="user.role =='merchant' && orders.length>0" [items]="orders" [paginate]="paginate" (setPage)="setPage($event)">
             </app-custom-pagination>
-            <app-custom-pagination *ngIf="user.role =='admin'" [items]="shops" [paginate]="paginate" (setPage)="setPage($event)">
+            <app-custom-pagination *ngIf="user.role =='admin' && shops.length>0" [items]="shops" [paginate]="paginate" (setPage)="setPage($event)">
             </app-custom-pagination>
         </div>
-        <div class="form-row container justify-content-center " *ngIf="orders.length==0 && user.role =='merchant'">
-            <div class="col-md-5">
-                <div class="card text-center mx-auto mb-2">
-                    <div class="card-body">
-                        <p>Configura tu tienda</p>
-                        <a [routerLink]="'/pages/shop/profile'" class="btn btn-solid">Configurar</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-5">
-                <div class="card text-center mx-auto mb-2">
-                    <div class="card-body">
-                        <p>Agrega productos a tu tienda</p>
-                        <a [routerLink]="'/pages/products'" class="btn btn-solid">Agregar</a>    
-                    </div>
-                </div>
-            </div>
-        </div>
+        
         <div class="form-row container justify-content-center " *ngIf="shops.length==0 && user.role =='admin'">
             <div class="col-md-5">
                 <div class="card text-center mx-auto mb-2">
                     <div class="card-body">
                         <p>No hay pagos pendientes</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-row container justify-content-center " *ngIf="orders.length==0 && user.role =='merchant'">
+            <div class="col-md-5">
+                <div class="card text-center mx-auto mb-2">
+                    <div class="card-body">
+                        <p>No hay pedidos realizados</p>
                     </div>
                 </div>
             </div>
