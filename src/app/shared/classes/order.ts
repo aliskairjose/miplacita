@@ -15,7 +15,7 @@ export interface Order {
 export interface Item {
   _id?: string;
   product_id?: string;
-  product_name?: string
+  product_name?: string;
   quantity?: number;
   tax?: number;
   unit_price?: number;
