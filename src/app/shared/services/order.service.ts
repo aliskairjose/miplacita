@@ -66,8 +66,17 @@ export class OrderService {
   }
 
   /**
+   * @description Actualiza el estatus de la orden enviando el estatus y el id de la orden
+   * @param data Status a actualizar
+   * @param id Id de la orden a actualizar
+   */
+  updateStatus( data: any, id: string ): Observable<any> {
+    return this.http.put( `order/update-status/${id}`, data );
+  }
+
+  /**
    * @description Genera el stream de eventos usando next() para crear el evento
-   * @param order
+   * @param order Data de tipo Orden
    */
   orderSubject( order: Order ): void {
     this.$order.next( order );

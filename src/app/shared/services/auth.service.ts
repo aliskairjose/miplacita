@@ -9,7 +9,7 @@ import { User } from '../classes/user';
 export class AuthService {
   $auth: Subject<any> = new Subject<any>();
   selectedUSer: User;
-  
+
   constructor(
     private http: HttpService
   ) { }

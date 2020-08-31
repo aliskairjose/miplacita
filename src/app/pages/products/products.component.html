@@ -2,7 +2,7 @@
 <ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="ball-spin-clockwise" [fullScreen]="true">
     <p style="color: white"> Por favor espere... </p>
 </ngx-spinner>
-
+<ngx-alerts></ngx-alerts>
 <section class="section-b-space">
     <div class="container">
         <div class="d-flex">
@@ -31,7 +31,7 @@
                             </select>
                         </div> -->
                         <div class="flex-fill">
-                            <select name="model" class="form-control">
+                            <select name="model" class="form-control" [(ngModel)]="searchText">
                                 <option value="">Estado</option>
                                 <option [value]="status.value" *ngFor="let status of statuses">{{status.text}}</option>
                             </select>
@@ -73,11 +73,9 @@
                         <td class="text-center">{{ product.tax | currency }}</td>
                         <td class="text-center">{{ product.status }}</td>
 
-                        <td class="d-flex flex-row" *ngIf="user.role==='merchant'">
-                            <!-- <a [routerLink]="[ '/pages/edit-product', product._id ]" class="btn btn-table-action">Editar</a>
-                            <button class="btn btn-table-action">Eliminar</button> -->
-                            <a (click)="editProduct(product)" class="btn btn-table-action">Editar</a>
-                            <button class="btn btn-table-action">Eliminar</button>
+                        <td class="text-center" *ngIf="user.role==='merchant'">
+                            <a [routerLink]="[ '/pages/edit-product', product._id ]" class="btn btn-table-action">Editar</a>
+                            <button class="btn btn-table-action" (click)="showModal(product._id)">Eliminar</button>
                         </td>
                         <td class="text-center" *ngIf="user.role==='admin'">
                             <button class="btn btn-table-action">Desactivar</button>
