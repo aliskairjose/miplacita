@@ -35,7 +35,6 @@ export class ProductsComponent implements OnInit {
   constructor(
     private router: Router,
     private alert: AlertService,
-    private formBuilder: FormBuilder,
     private productService: ProductService,
     private storageService: StorageService,
     private confirmationDialogService: ConfirmationDialogService,
