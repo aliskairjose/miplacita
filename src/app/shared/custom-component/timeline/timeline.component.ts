@@ -9,8 +9,7 @@ export class TimelineComponent implements OnInit {
   listActive = [false, false, false, false];
   @Input() active: number;
 
-  constructor() { 
-  }
+  constructor() { }
 
   ngOnInit(): void {
     for (let i = 0; i < this.active; i++){

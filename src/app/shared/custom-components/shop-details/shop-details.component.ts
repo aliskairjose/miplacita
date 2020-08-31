@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
+import { Component, OnInit, ViewChild, TemplateRef, OnDestroy } from '@angular/core';
 import { NgbModal, ModalDismissReasons, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { StoreService } from '../../services/store.service';
 
@@ -7,7 +7,7 @@ import { StoreService } from '../../services/store.service';
   templateUrl: './shop-details.component.html',
   styleUrls: ['./shop-details.component.scss']
 })
-export class ShopDetailsComponent implements OnInit {
+export class ShopDetailsComponent implements OnInit, OnDestroy {
   @ViewChild('shopDetails', { static: false }) ShopDetails: TemplateRef<any>;
   public allBenefits = [
     ['Logo de la tienda',
@@ -76,7 +76,7 @@ export class ShopDetailsComponent implements OnInit {
   }
 
   ngOnDestroy() {
-    if(this.modalOpen){
+    if (this.modalOpen){
       this.modalService.dismissAll();
     }
   }

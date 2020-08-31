@@ -69,8 +69,8 @@ export class DashboardComponent implements OnInit {
   }
   getLabelsInformation() {
     this.dashboardService.dashboard().subscribe((data: any) => {
+      console.log(data);
       this.dashboardData = data.result;
-      console.log('labels', this.dashboardData);
     });
   }
 
