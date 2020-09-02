@@ -2512,12 +2512,14 @@ header {
                 font-size: 13px;
                 font-weight: 700;
                 position: absolute;
-                padding: 9px 4px;
+                //padding: 9px 4px;
                 text-transform: uppercase;
                 color: $white;
                 top: 7px;
                 left: 7px;
                 z-index: 1;
+                height: 4rem;
+                width: 4rem;
             }
             .lable4 {
                 position: absolute;
@@ -6137,7 +6139,7 @@ footer {
                 .img-wrapper {
                     .lable-block {
                         .lable3 {
-                            padding: 8px 4px;
+                            //padding: 8px 4px;
                             font-size: 12px;
                         }
                     }
