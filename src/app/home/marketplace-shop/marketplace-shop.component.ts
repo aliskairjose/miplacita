@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { ProductSlider } from '../../../shared/data/slider';
-import { Product } from '../../../shared/classes/tm.product';
-import { ProductService } from '../../../shared/services/tm.product.service';
+import { ProductSlider } from '../../shared/data/slider';
+import { ProductService } from '../../shared/services/tm.product.service';
+import { Product } from '../../shared/classes/tm.product';
 
 @Component({
-  selector: 'app-fashion-one',
-  templateUrl: './fashion-one.component.html',
-  styleUrls: ['./fashion-one.component.scss']
+  selector: 'app-marketplace-shop',
+  templateUrl: './marketplace-shop.component.html',
+  styleUrls: ['./marketplace-shop.component.scss']
 })
-export class FashionOneComponent implements OnInit {
+export class MarketplaceShopComponent implements OnInit {
 
   public products: Product[] = [];
   public productCollections: any[] = [];
@@ -18,7 +18,6 @@ export class FashionOneComponent implements OnInit {
       this.products = response.filter(item => item.type == 'fashion');
       // Get Product Collection
       this.products.filter((item) => {
-        console.log(item);
         item.collection.filter((collection) => {
           const index = this.productCollections.indexOf(collection);
           if (index === -1) this.productCollections.push(collection);

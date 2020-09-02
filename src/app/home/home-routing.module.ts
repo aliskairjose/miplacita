@@ -17,11 +17,17 @@ import { ShoesComponent } from './shoes/shoes.component';
 import { BagsComponent } from './bags/bags.component';
 import { MarijuanaComponent } from './marijuana/marijuana.component';
 import { MarketplaceComponent } from './marketplace/marketplace.component';
+import { MarketplaceShopComponent } from './marketplace-shop/marketplace-shop.component';
+
 
 const routes: Routes = [
   {
     path: '',
     component: MarketplaceComponent
+  },
+  {
+    path: 'shop/:name',
+    component: MarketplaceShopComponent
   }
 ];
 
