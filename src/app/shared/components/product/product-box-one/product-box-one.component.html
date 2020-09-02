@@ -2,7 +2,7 @@
   <div class="img-wrapper">
     <div class="lable-block">
       <span class="lable3 d-flex justify-content-center align-items-center" *ngIf="product.new">nuevo</span>
-      <span class="lable4" *ngIf="product.sale">on sale</span>
+      <span class="lable4" *ngIf="product.sale"><strong>on sale</strong></span>
     </div>
     <div class="front">
       <a [routerLink]="['/shop/product/left/sidebar/', product.title.replace(' ', '-')]">
@@ -47,7 +47,7 @@
   </div>
   <div class="product-detail">
     <div>
-      <bar-rating [rate]="5" [readOnly]="true"></bar-rating>
+      <!-- <bar-rating [rate]="5" [readOnly]="true"></bar-rating> -->
       <a [routerLink]="['/shop/product/left/sidebar/', product?.title.replace(' ', '-')]">
         <h6>{{ product?.title | titlecase }}</h6>
       </a>
