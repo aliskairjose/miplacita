@@ -16,6 +16,7 @@ $radius: 5px;
 // text
 .text-red { color: $mp-red; }
 .text-blue { color: $mp-blue; }
+.text-pink-light { color: $mp-pink-dark !important}
 .btn {
   border-radius: $radius;
 }
@@ -38,6 +39,10 @@ $radius: 5px;
   padding-right: 20%;
   padding-top: 10%;
 
+}
+
+.icon-service {
+  height: 80px;
 }
 /* ==============
     Alerts styles start
