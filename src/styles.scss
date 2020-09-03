@@ -6,6 +6,9 @@
 // Colors
 $mp-blue: #3d5afe;
 $mp-red: #eba39a;
+$mp-purple: #68396d;
+$mp-pink-dark: #e37d6f;
+$mp-pink-light: #eca89f;
 
 // radius
 $radius: 5px;
@@ -235,6 +238,21 @@ ngb-carousel img {
   display: flex;
   flex-direction: row;
 }
+/* ==============
+    Product - Box One start
+   ==============
+*/
+.lable4 {
+  color: $mp-purple !important;
+}
+.product-detail {
+  margin-top: 25px;
+  padding-left: 15px !important;
+}
+/* ==============
+    Product - Box One ends
+   ==============
+*/
 
 // Media Queries 
 /* Smartphones (portrait & landscape) */

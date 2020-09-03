@@ -27,6 +27,7 @@ import { InstagramComponent } from './widgets/instagram/instagram.component';
 import { ServicesComponent } from './widgets/services/services.component';
 import { CollectionComponent } from './widgets/collection/collection.component';
 import { MarketplaceComponent } from './marketplace/marketplace.component';
+import { MarketplaceShopComponent } from './marketplace-shop/marketplace-shop.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { AlertModule } from 'ngx-alerts';
 import { RegisterComponent } from './widgets/register/register.component';
@@ -49,6 +50,7 @@ import { RegisterComponent } from './widgets/register/register.component';
     BagsComponent,
     MarijuanaComponent,
     MarketplaceComponent,
+    MarketplaceShopComponent,
     // Widgest Components
     LogoComponent,
     BlogComponent,
