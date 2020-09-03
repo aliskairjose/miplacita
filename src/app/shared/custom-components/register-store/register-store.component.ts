@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
 import { User } from '../../classes/user';
 import { StorageService } from '../../services/storage.service';
 import { ProductService } from '../../services/product.service';
-import { StoreService } from '../../services/store.service';
+import { StoreService } from '../../services/sshop.service';
 import { Category } from '../../classes/category';
 import { Store } from '../../classes/store';
 import { Product } from '../../classes/product';

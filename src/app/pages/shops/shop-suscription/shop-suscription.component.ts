@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Plan } from '../../../shared/classes/plan';
 import { StorageService } from '../../../shared/services/storage.service';
 import { Store } from '../../../shared/classes/store';
-import { StoreService } from '../../../shared/services/store.service';
+import { StoreService } from '../../../shared/services/sshop.service';
 import { Result } from '../../../shared/classes/response';
 import { User } from '../../../shared/classes/user';
 

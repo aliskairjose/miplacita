@@ -5,7 +5,7 @@ import { ProductService } from '../../../shared/services/product.service';
 import { AlertService } from 'ngx-alerts';
 import { Product } from '../../../shared/classes/product';
 import { Router, ActivatedRoute } from '@angular/router';
-import { StoreService } from '../../../shared/services/store.service';
+import { StoreService } from '../../../shared/services/sshop.service';
 import { Category } from '../../../shared/classes/category';
 import { User } from '../../../shared/classes/user';
 import { environment } from '../../../../environments/environment';

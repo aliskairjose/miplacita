@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AlertService } from 'ngx-alerts';
 import { StorageService } from '../../../shared/services/storage.service';
 import { AuthService } from '../../../shared/services/auth.service';
-import { StoreService } from '../../../shared/services/store.service';
+import { StoreService } from '../../../shared/services/sshop.service';
 import { Store } from '../../../shared/classes/store';
 import { Result } from '../../../shared/classes/response';
 import { User } from '../../../shared/classes/user';

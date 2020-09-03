@@ -9,7 +9,7 @@ import { Response, Result } from '../classes/response';
 @Injectable( {
   providedIn: 'root'
 } )
-export class StoreService {
+export class shopService {
 
   $store: Subject<Store> = new Subject<Store>();
 

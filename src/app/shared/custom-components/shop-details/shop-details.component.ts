@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, TemplateRef, OnDestroy } from '@angular/core';
 import { NgbModal, ModalDismissReasons, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { StoreService } from '../../services/store.service';
+import { StoreService } from '../../services/sshop.service';
 
 @Component({
   selector: 'app-shop-details',

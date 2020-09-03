@@ -3,7 +3,7 @@ import { ProductService } from '../../shared/services/tm.product.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ShopDetailsComponent } from '../../shared/custom-components/shop-details/shop-details.component';
 import { Paginate } from '../../shared/classes/paginate';
-import { StoreService } from '../../shared/services/store.service';
+import { StoreService } from '../../shared/services/sshop.service';
 import { Store } from '../../shared/classes/store';
 import { Result } from '../../shared/classes/response';
 
