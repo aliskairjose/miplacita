@@ -19,14 +19,14 @@ export class ShopSuscriptionComponent implements OnInit {
 
   constructor(
     private storageService: StorageService,
-    private ShopService: ShopService,
+    private shopService: ShopService,
   ) { }
 
   ngOnInit(): void {
     const user: User = this.storageService.getItem( 'user' );
     const stores: Store[] = user.stores;
 
-    this.ShopService.getStore( stores[ 0 ]._id ).subscribe( ( response: Result<Store> ) => {
+    this.shopService.getStore( stores[ 0 ]._id ).subscribe( ( response: Result<Store> ) => {
       this.plan = response.docs[ 0 ].plan;
     } );
   }

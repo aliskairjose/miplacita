@@ -28,7 +28,7 @@ export class ShopProfileComponent implements OnInit {
     private alert: AlertService,
     private storageService: StorageService,
     private formBuilder: FormBuilder,
-    private ShopService: ShopService,
+    private shopService: ShopService,
   ) {
     this.createForm();
   }
@@ -41,7 +41,7 @@ export class ShopProfileComponent implements OnInit {
     const user: User = this.storageService.getItem( 'user' );
     const stores: Store[] = user.stores;
 
-    this.ShopService.getStore( stores[ 0 ]._id ).subscribe( ( response: Result<Store> ) => {
+    this.shopService.getStore( stores[ 0 ]._id ).subscribe( ( response: Result<Store> ) => {
       this.store = { ...response.docs[ 0 ] };
     } );
   }
@@ -50,7 +50,7 @@ export class ShopProfileComponent implements OnInit {
     this.submitted = true;
     console.log( this.profileForm.value );
     /* if ( this.profileForm.valid ) {
-      this.ShopService.updateStore( this.store._id, this.profileForm.value ).subscribe( () => {
+      this.shopService.updateStore( this.store._id, this.profileForm.value ).subscribe( () => {
         this.alert.info( 'La tienda se actualizó con exito' );
       } );
     } */

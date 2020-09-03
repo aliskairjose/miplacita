@@ -24,7 +24,7 @@ export class ShopsComponent implements OnInit {
 
   constructor(
     public productService: ProductService,
-    private ShopService: ShopService,
+    private shopService: ShopService,
   ) {
   }
 
@@ -37,7 +37,7 @@ export class ShopsComponent implements OnInit {
   }
 
   private loadData( page = 1 ): void {
-    this.ShopService.getAll( page ).subscribe( ( result: Result<Store> ) => {
+    this.shopService.getAll( page ).subscribe( ( result: Result<Store> ) => {
       this.shops = [ ...result.docs ];
       this.paginate = { ...result };
       this.paginate.pages = [];
