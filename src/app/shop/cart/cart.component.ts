@@ -13,7 +13,13 @@ export class CartComponent implements OnInit {
   public products: Product[] = [];
 
   constructor(public productService: ProductService) {
-    this.productService.cartItems.subscribe(response => this.products = response);
+    this.productService.cartItems.subscribe(response => {
+      this.products = response;
+      this.products.map((product) => {
+        product['shop'] = 'tienda';
+      });
+    });
+    console.log(this.products);
   }
 
   ngOnInit(): void {

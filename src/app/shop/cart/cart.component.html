@@ -12,11 +12,12 @@
             <table class="table cart-table table-responsive-xs">
                 <thead>
                     <tr class="table-head">
-                        <th scope="col">image</th>
-                        <th scope="col">product name</th>
-                        <th scope="col">price</th>
-                        <th scope="col">quantity</th>
-                        <th scope="col">action</th>
+                        <th scope="col">imagen</th>
+                        <th scope="col">nombre de producto</th>
+                        <th scope="col">tienda</th>
+                        <th scope="col">precio</th>
+                        <th scope="col">cantidad</th>
+                        <th scope="col">editar</th>
                         <th scope="col">total</th>
                     </tr>
                 </thead>
@@ -29,6 +30,8 @@
                         </td>
                         <td>
                             <a [routerLink]="['/shop/product/left/sidebar/', product.title.replace(' ', '-')]">{{ product.title | titlecase }}</a>
+                            
+                            
                             <div class="mobile-cart-content row">
                                 <div class="col-xs-3">
                                     <div class="qty-box">
@@ -50,6 +53,12 @@
                                     </h2>
                                 </div>
                             </div>
+                        </td>
+                        <td>
+                            <!-- enlace a tienda -->
+                            <a>
+                                {{ product.shop }}
+                            </a>
                         </td>
                         <td>
                             <h2>
@@ -89,7 +98,7 @@
             <table class="table cart-table table-responsive-md">
                 <tfoot>
                     <tr>
-                        <td>total price :</td>
+                        <td>precio total :</td>
                         <td>
                             <h2> {{ getTotal | async | currency:productService?.Currency.currency:'symbol'}}</h2>
                         </td>
@@ -98,12 +107,10 @@
             </table>
         </div>
         </div>
-        <div class="row cart-buttons" *ngIf='products.length'>
+        <div class="row cart-buttons justify-content-end" *ngIf='products.length'>
+            
             <div class="col-6">
-                <a [routerLink]="['/shop/collection/left/sidebar']" class="btn btn-solid">continue shopping</a>
-            </div>
-            <div class="col-6">
-                <a [routerLink]="['/shop/checkout']" class="btn btn-solid">check out</a>
+                <a [routerLink]="['/shop/checkout']" class="btn btn-solid">Finalizar</a>
             </div>
         </div>
     </div>
