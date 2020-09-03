@@ -13,7 +13,7 @@ import { AlertService } from 'ngx-alerts';
 } )
 export class MarketplaceComponent implements OnInit, OnDestroy {
 
-  themeLogo = 'assets/images/icon/logo-14.png'; // Change Logo
+  themeLogo = 'assets/images/marketplace/images/logo-m.png'; // Change Logo
   products: Product[] = [];
   productCollections: any[] = [];
   ProductSliderConfig: any = ProductSlider;
