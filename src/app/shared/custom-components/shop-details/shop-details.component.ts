@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, TemplateRef, OnDestroy } from '@angular/core';
 import { NgbModal, ModalDismissReasons, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { StoreService } from '../../services/sshop.service';
+import { ShopService } from '../../services/shop.service';
 
 @Component({
   selector: 'app-shop-details',
@@ -36,7 +36,7 @@ export class ShopDetailsComponent implements OnInit, OnDestroy {
 
   constructor(
     private modalService: NgbModal,
-    private storeService: StoreService) { }
+    private ShopService: ShopService) { }
 
   ngOnInit(): void {
   }
@@ -55,7 +55,7 @@ export class ShopDetailsComponent implements OnInit, OnDestroy {
 
   getPlanInformation(){
     // informacion de plan de la tienda
-    // this.storeService.getPlans().subscribe( ( plans: any ) => {
+    // this.ShopService.getPlans().subscribe( ( plans: any ) => {
     //   this.plan = plans.filter(plan => plan.id === this.shop.plan.id );
     //   console.log(this.plan);
 

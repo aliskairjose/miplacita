@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AlertService } from 'ngx-alerts';
 import { StorageService } from '../../../shared/services/storage.service';
 import { AuthService } from '../../../shared/services/auth.service';
-import { StoreService } from '../../../shared/services/sshop.service';
+import { ShopService } from '../../../shared/services/shop.service';
 import { Store } from '../../../shared/classes/store';
 import { Result } from '../../../shared/classes/response';
 import { User } from '../../../shared/classes/user';
@@ -28,7 +28,7 @@ export class ShopProfileComponent implements OnInit {
     private alert: AlertService,
     private storageService: StorageService,
     private formBuilder: FormBuilder,
-    private storeService: StoreService,
+    private ShopService: ShopService,
   ) {
     this.createForm();
   }
@@ -41,7 +41,7 @@ export class ShopProfileComponent implements OnInit {
     const user: User = this.storageService.getItem( 'user' );
     const stores: Store[] = user.stores;
 
-    this.storeService.getStore( stores[ 0 ]._id ).subscribe( ( response: Result<Store> ) => {
+    this.ShopService.getStore( stores[ 0 ]._id ).subscribe( ( response: Result<Store> ) => {
       this.store = { ...response.docs[ 0 ] };
     } );
   }
@@ -50,7 +50,7 @@ export class ShopProfileComponent implements OnInit {
     this.submitted = true;
     console.log( this.profileForm.value );
     /* if ( this.profileForm.valid ) {
-      this.storeService.updateStore( this.store._id, this.profileForm.value ).subscribe( () => {
+      this.ShopService.updateStore( this.store._id, this.profileForm.value ).subscribe( () => {
         this.alert.info( 'La tienda se actualizó con exito' );
       } );
     } */

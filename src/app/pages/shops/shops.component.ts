@@ -3,7 +3,7 @@ import { ProductService } from '../../shared/services/tm.product.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ShopDetailsComponent } from '../../shared/custom-components/shop-details/shop-details.component';
 import { Paginate } from '../../shared/classes/paginate';
-import { StoreService } from '../../shared/services/sshop.service';
+import { ShopService } from '../../shared/services/shop.service';
 import { Store } from '../../shared/classes/store';
 import { Result } from '../../shared/classes/response';
 
@@ -24,7 +24,7 @@ export class ShopsComponent implements OnInit {
 
   constructor(
     public productService: ProductService,
-    private storeService: StoreService,
+    private ShopService: ShopService,
   ) {
   }
 
@@ -37,7 +37,7 @@ export class ShopsComponent implements OnInit {
   }
 
   private loadData( page = 1 ): void {
-    this.storeService.getAll( page ).subscribe( ( result: Result<Store> ) => {
+    this.ShopService.getAll( page ).subscribe( ( result: Result<Store> ) => {
       this.shops = [ ...result.docs ];
       this.paginate = { ...result };
       this.paginate.pages = [];

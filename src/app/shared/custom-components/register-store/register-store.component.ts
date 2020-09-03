@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
 import { User } from '../../classes/user';
 import { StorageService } from '../../services/storage.service';
 import { ProductService } from '../../services/product.service';
-import { StoreService } from '../../services/sshop.service';
+import { ShopService } from '../../services/shop.service';
 import { Category } from '../../classes/category';
 import { Store } from '../../classes/store';
 import { Product } from '../../classes/product';
@@ -70,7 +70,7 @@ export class RegisterStoreComponent implements OnInit {
     private alert: AlertService,
     private storage: StorageService,
     private formBuilder: FormBuilder,
-    private storeService: StoreService,
+    private ShopService: ShopService,
     private productService: ProductService,
   ) { this.createForm(); }
 
@@ -82,7 +82,7 @@ export class RegisterStoreComponent implements OnInit {
   ngOnInit(): void {
     const userData = JSON.parse( sessionStorage.userForm );
 
-    this.storeService.getPlans().subscribe( ( plans: Plan[] ) => {
+    this.ShopService.getPlans().subscribe( ( plans: Plan[] ) => {
       this.plans = [ ...plans ];
       this.planSelected = this.plans[ 0 ]._id;
     } );
@@ -108,7 +108,7 @@ export class RegisterStoreComponent implements OnInit {
         this.alert.warning( 'Debe cargar un logo para la tienda!' );
         return;
       }
-      this.storeService.uploadImages( { images: this.images } ).subscribe( result => {
+      this.ShopService.uploadImages( { images: this.images } ).subscribe( result => {
         if ( result.status === 'isOk' ) {
           this.storeData.logo = result.images[ 0 ];
           this.step = 2;
@@ -154,7 +154,7 @@ export class RegisterStoreComponent implements OnInit {
       return;
     }
     if ( this.shop.name ) {
-      this.storeService.validateName( this.shop.name ).subscribe( resp => {
+      this.ShopService.validateName( this.shop.name ).subscribe( resp => {
         if ( resp.taken ) {
           this.alert.warning( resp.message[ 0 ] );
           this.disabled = true;
@@ -201,7 +201,7 @@ export class RegisterStoreComponent implements OnInit {
   }
 
   private createStore(): void {
-    this.storeService.addStore( this.storeData ).subscribe( ( store: Store ) => {
+    this.ShopService.addStore( this.storeData ).subscribe( ( store: Store ) => {
       this.store = { ...store };
       this.createProduct();
     } );

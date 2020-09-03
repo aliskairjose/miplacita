@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Plan } from '../../../shared/classes/plan';
 import { StorageService } from '../../../shared/services/storage.service';
 import { Store } from '../../../shared/classes/store';
-import { StoreService } from '../../../shared/services/sshop.service';
+import { ShopService } from '../../../shared/services/shop.service';
 import { Result } from '../../../shared/classes/response';
 import { User } from '../../../shared/classes/user';
 
@@ -19,14 +19,14 @@ export class ShopSuscriptionComponent implements OnInit {
 
   constructor(
     private storageService: StorageService,
-    private storeService: StoreService,
+    private ShopService: ShopService,
   ) { }
 
   ngOnInit(): void {
     const user: User = this.storageService.getItem( 'user' );
     const stores: Store[] = user.stores;
 
-    this.storeService.getStore( stores[ 0 ]._id ).subscribe( ( response: Result<Store> ) => {
+    this.ShopService.getStore( stores[ 0 ]._id ).subscribe( ( response: Result<Store> ) => {
       this.plan = response.docs[ 0 ].plan;
     } );
   }
