@@ -13,7 +13,7 @@ import { User } from '../../classes/user';
 export class HeaderOneComponent implements OnInit {
 
   @Input() class: string;
-  @Input() themeLogo = 'assets/images/icon/logo.png'; // Default Logo
+  @Input() themeLogo = 'assets/images/marketplace/images/logo-m.png'; // Default Logo
   @Input() topbar = true; // Default True
   @Input() sticky = false; // Default false
 
