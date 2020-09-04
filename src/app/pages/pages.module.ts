@@ -120,7 +120,6 @@ export const customCurrencyMaskConfig = {
     ShopsComponent,
     ShopWithdrawalComponent,
     ShopSuscriptionComponent
-
   ],
   imports: [
     SharedModule,
