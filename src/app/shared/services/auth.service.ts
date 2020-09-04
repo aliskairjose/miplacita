@@ -11,7 +11,7 @@ export class AuthService {
   selectedUSer: User;
 
   constructor(
-    private http: HttpService
+    private http: HttpService,
   ) { }
 
   /**
@@ -26,7 +26,7 @@ export class AuthService {
    * @description Cierre de sesion del usuario
    */
   logout(): void {
-    localStorage.removeItem('user');
+    localStorage.removeItem( 'user' );
   }
 
   /**
@@ -47,7 +47,7 @@ export class AuthService {
    */
   isAuthenticated(): boolean {
     const user = localStorage.getItem( 'user' );
-    return (user) ? true : false;
+    return ( user ) ? true : false;
   }
 
   /**

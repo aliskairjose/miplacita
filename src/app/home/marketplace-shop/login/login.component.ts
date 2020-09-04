@@ -5,7 +5,7 @@ import { AuthService } from '../../../shared/services/auth.service';
 import { AlertService } from 'ngx-alerts';
 import { StorageService } from '../../../shared/services/storage.service';
 import { AuthResponse } from '../../../shared/classes/auth-response';
-
+import { SocialAuthService, FacebookLoginProvider } from 'angularx-social-login';
 @Component( {
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -24,12 +24,15 @@ export class LoginComponent implements OnInit {
     private storage: StorageService,
     private auth: AuthService,
     private formBuilder: FormBuilder,
+    private socialService: SocialAuthService
   ) {
     this.createForm();
   }
 
   ngOnInit(): void {
-
+    this.socialService.authState.subscribe( ( user ) => {
+      console.log( user );
+    } );
   }
 
   // convenience getter for easy access to form fields
@@ -51,6 +54,12 @@ export class LoginComponent implements OnInit {
 
       } );
     }
+  }
+
+  loginFacebook(): void {
+    alert( 'Login Facebook' );
+    this.socialService.signIn( FacebookLoginProvider.PROVIDER_ID );
+
   }
 
   createForm(): void {

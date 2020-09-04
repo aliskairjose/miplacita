@@ -22,6 +22,10 @@ import { HttpInterceptor } from './shared/interceptor/http.interceptor';
 import { AuthGuard } from './shared/guard/auth.guard';
 import { NgxCurrencyModule, CurrencyMaskInputMode } from 'ngx-currency';
 import { NgxMaskModule, IConfig } from 'ngx-mask';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import { firebaseConfig } from '../environments/firebaseConfig';
+import { SocialLoginModule, SocialAuthServiceConfig, FacebookLoginProvider } from 'angularx-social-login';
 
 // export let options: Partial<IConfig> | (() => Partial<IConfig>);
 const maskConfig: Partial<IConfig> = {
@@ -32,6 +36,7 @@ const maskConfig: Partial<IConfig> = {
 export function HttpLoaderFactory( http: HttpClient ) {
   return new TranslateHttpLoader( http, './assets/i18n/', '.json' );
 }
+
 export const customCurrencyMaskConfig = {
   align: 'right',
   allowNegative: false,
@@ -46,6 +51,7 @@ export const customCurrencyMaskConfig = {
   max: null,
   inputMode: CurrencyMaskInputMode.FINANCIAL
 };
+
 @NgModule( {
   declarations: [
     AppComponent,
@@ -58,17 +64,32 @@ export const customCurrencyMaskConfig = {
     SharedModule,
     HttpClientModule,
     AppRoutingModule,
+    SocialLoginModule,
     LoadingBarRouterModule,
     BrowserAnimationsModule,
-    NgxMaskModule.forRoot(maskConfig),
+    AngularFireModule.initializeApp( firebaseConfig ),
+    AngularFireAuthModule,
+    NgxMaskModule.forRoot( maskConfig ),
     LoadingBarHttpClientModule,
-    NgxCurrencyModule.forRoot(customCurrencyMaskConfig),
+    NgxCurrencyModule.forRoot( customCurrencyMaskConfig ),
     BrowserModule.withServerTransition( { appId: 'serverApp' } ),
     ToastrModule.forRoot( { timeOut: 3000, progressBar: false, enableHtml: true, } ),
     TranslateModule.forRoot( { loader: { provide: TranslateLoader, useFactory: HttpLoaderFactory, deps: [ HttpClient ] } } ),
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: HttpInterceptor, multi: true },
+    {
+      provide: 'SocialAuthServiceConfig',
+      useValue: {
+        autoLogin: false,
+        providers: [
+          {
+            id: FacebookLoginProvider.PROVIDER_ID,
+            provider: new FacebookLoginProvider( '87393997889209807342' ),
+          }
+        ],
+      } as SocialAuthServiceConfig,
+    },
     AuthGuard
   ],
   bootstrap: [ AppComponent ]
