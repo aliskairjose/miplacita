@@ -1,5 +1,5 @@
 import { Injectable, HostListener } from '@angular/core';
-import { BehaviorSubject, from } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { default as menu } from '../../../assets/data/menu.json';
 
 export interface Menu {
