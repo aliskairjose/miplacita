@@ -24,8 +24,12 @@ export class ProductLeftSidebarComponent implements OnInit {
   public ProductDetailsThumbConfig: any = ProductDetailsThumbSlider;
 
   constructor(private route: ActivatedRoute, private router: Router,
-    public productService: ProductService) { 
-      this.route.data.subscribe(response => this.product = response.data );
+              public productService: ProductService) {
+      this.route.data.subscribe(response => {
+        this.product = response.data;
+        this.product['store'] = 'tienda';
+        console.log(this.product);
+      });
     }
 
   ngOnInit(): void {

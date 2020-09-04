@@ -16,7 +16,8 @@ $radius: 5px;
 // text
 .text-red { color: $mp-red; }
 .text-blue { color: $mp-blue; }
-.text-pink-light { color: $mp-pink-dark !important}
+.text-pink-light { color: $mp-pink-dark !important }
+.text-default-color {color : var(--theme-deafult) }
 
 // button white
 .btn-white {
@@ -33,7 +34,7 @@ $radius: 5px;
 
 .slider-contain {
   display: flex;
-  justify-content: end;
+  justify-content: flex-end;
   padding-right: 20%;
   padding-top: 10%;
 
@@ -41,6 +42,17 @@ $radius: 5px;
 
 .icon-service {
   height: 80px;
+}
+
+.icon-service2 {
+  height: 60px;
+}
+
+#icon-1 {
+  height: 100px;
+}
+#icon-2 {
+  height: 70px;
 }
 /* ==============
     Alerts styles start
@@ -279,6 +291,19 @@ ngb-carousel img {
     Product - Box One ends
    ==============
 */
+
+/* ==============
+    Product - left-sidebar start
+   ==============
+*/
+.product-right h2 {
+  margin-bottom: 5px;
+}
+/* ==============
+    Product - left-sidebar ends
+   ==============
+*/
+
 
 // Media Queries 
 /* Smartphones (portrait & landscape) */
