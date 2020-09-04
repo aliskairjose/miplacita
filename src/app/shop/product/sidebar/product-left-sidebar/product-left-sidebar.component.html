@@ -17,10 +17,10 @@
             <div class="collection-filter-block">
                 <app-services></app-services>
             </div>
-                <app-product-box-vertical-slider 
+                <!-- <app-product-box-vertical-slider 
                   [title]="'New product'" 
                   [type]="product?.type">
-                </app-product-box-vertical-slider>
+                </app-product-box-vertical-slider> -->
           </div>
         </div>
         <div class="col-lg-9 col-sm-12 col-xs-12">
@@ -65,25 +65,26 @@
                 </div>
               </div>
               <div class="col-lg-6 rtl-text">
-                <div class="product-right">
-                  <h2>{{ product?.title }}</h2>
-                  <h4>
+                <div class="product-right d-flex flex-column h-100">
+                  <h2 class="text-default-color">{{ product?.title }}</h2>
+                  <h4 class="mb-3"> Creado por tienda</h4>
+                  <!-- <h4>
                       <del *ngIf="product?.discount">{{ product?.price * productService.Currency?.price | currency: productService.Currency?.currency:'symbol' }}</del>
                       <span>{{ product?.discount }}% off</span>
-                  </h4>
+                  </h4> -->
                   <h3>
                       {{ (product?.price | discount:product) * productService.Currency?.price | currency: productService.Currency?.currency:'symbol' }}
                   </h3>
-                  <ul class="color-variant" *ngIf="Color(product?.variants).length">
+                  <!-- <ul class="color-variant" *ngIf="Color(product?.variants).length">
                     <li [class]="color" [class.active]="activeSlide == i.toString()" 
                         *ngFor="let color of Color(product?.variants); index as i" 
                         [ngStyle]="{'background-color': color}"
                         (click)="owlCar.to(activeSlide = i.toString())">
                     </li>
-                  </ul>
-                  <app-stock-inventory [stock]="product?.stock"></app-stock-inventory>
+                  </ul> -->
+                  <!-- <app-stock-inventory [stock]="product?.stock"></app-stock-inventory> -->
                   <div class="product-description border-product">
-                    <h6 class="product-title size-text" *ngIf="Size(product.variants).length">
+                    <!-- <h6 class="product-title size-text" *ngIf="Size(product.variants).length">
                         select size
                         <span>
                           <a href="javascrip:void(0)" (click)="SizeChart.openModal()">size chart</a>
@@ -98,10 +99,11 @@
                               </a>
                           </li>
                       </ul>
-                    </div>
-                    <h5 class="avalibility" *ngIf="counter <= product.stock"><span>In Stock</span></h5>
-                    <h5 class="avalibility" *ngIf="counter > product.stock"><span>Out of Stock</span></h5>
-                    <h6 class="product-title">quantity</h6>
+                    </div> -->
+                    <p>{{ product.description }}</p>
+                    <h5 class="avalibility" *ngIf="counter <= product.stock"><span>({{ product.stock }} unidades desponibles)</span></h5>
+                    <!-- <h5 class="avalibility" *ngIf="counter > product.stock"><span>Out of Stock</span></h5> -->
+                    <h6 class="product-title mt-5">Cantidad</h6>
                     <div class="qty-box">
                       <div class="input-group">
                         <span class="input-group-prepend">
@@ -119,33 +121,33 @@
                     </div>
                   </div>
                   <div class="product-buttons">
-                    <a href="javascrip:void(0)" class="btn btn-solid" [class.disabled]="counter > product.stock" (click)="addToCart(product)">add to cart</a>
-                    <a href="javascrip:void(0)" class="btn btn-solid" [class.disabled]="counter > product.stock" (click)="buyNow(product)">buy now</a>
+                    <a href="javascrip:void(0)" class="btn btn-solid" [class.disabled]="counter > product.stock" (click)="addToCart(product)">Agregar al carrito</a>
+                    <!-- <a href="javascrip:void(0)" class="btn btn-solid" [class.disabled]="counter > product.stock" (click)="buyNow(product)">buy now</a> -->
                   </div>
-                  <div class="border-product">
+                  <!-- <div class="border-product">
                     <h6 class="product-title">product details</h6>
                     <p>{{ product.description.substring(0, 200)+'...' }}</p>
-                  </div>
-                  <div class="border-product">
+                  </div> -->
+                  <div class="d-flex flex-column h-100 justify-content-end pb-3">
                     <h6 class="product-title">share it</h6>
                     <div class="product-icon">
                       <app-social></app-social>
-                      <form class="d-inline-block">
+                      <!-- <form class="d-inline-block">
                         <button class="wishlist-btn" (click)="addToWishlist(product)">
                           <i class="fa fa-heart"></i>
                           <span class="title-font">Add To WishList</span>
                         </button>
-                      </form>
+                      </form> -->
                     </div>
                   </div>
-                  <div class="border-product">
+                  <!-- <div class="border-product">
                     <app-countdown [date]="'Apr 21 2021'"></app-countdown>
-                  </div>
+                  </div> -->
                 </div>
               </div>
             </div>
           </div>
-          <section class="tab-product m-0">
+          <!-- <section class="tab-product m-0">
             <div class="row">
               <div class="col-sm-12 col-lg-12">
                 <ngb-tabset [type]="'tabs'" class="nav-material">
@@ -208,12 +210,12 @@
                 </ngb-tabset>
               </div>
             </div>
-          </section>
+          </section> -->
         </div>
       </div>
     </div>
   </div>
-  <app-related-product [type]="product?.type"></app-related-product>
+  <!-- <app-related-product [type]="product?.type"></app-related-product> -->
 </section>
 <app-size-modal #sizeChart [product]="product"></app-size-modal>
 <!-- Section ends -->
