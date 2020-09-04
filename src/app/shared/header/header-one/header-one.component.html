@@ -69,7 +69,7 @@
       <div class="col-sm-12">
         <div class="main-menu">
           <div class="menu-left">
-            <app-left-menu *ngIf="isLoggedIn"></app-left-menu>
+            <app-left-menu *ngIf="isLoggedIn || !isHidde"></app-left-menu>
             <div class="brand-logo">
               <a routerLink="/home" id="headerlogo">
                 <img [src]="themeLogo" class="img-fluid logo" alt="logo">
