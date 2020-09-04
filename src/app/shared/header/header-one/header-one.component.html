@@ -2,7 +2,7 @@
 
 <header class="sticky" [ngClass]="class" [class.fixed]="stick && sticky">
   <div class="mobile-fix-option"></div>
-  <div class="top-header" *ngIf="topbar">
+  <div class="top-header" [hidden]="!isHidde" *ngIf="topbar">
     <div class="container">
       <div class="row">
         <div class="col-lg-6">
@@ -78,7 +78,7 @@
           </div>
           <div class="menu-right pull-right">
             <div>
-              <app-menu></app-menu>
+              <app-menu [hidden]="!isHidde"></app-menu>
             </div>
             <div [hidden]="isHidde">
               <app-settings></app-settings>
