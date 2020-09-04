@@ -5,8 +5,8 @@
     <app-slider 
       [sliders]="sliders" 
       [textClass]="'text-center'"
-      [category]="'fashion'"
-      [buttonText]="'shop now'"> 
+      [category]="''"
+      [buttonText]="'Explora'"> 
     </app-slider>
   </section>
   <!-- Home slider End -->
@@ -15,15 +15,12 @@
   <section class="pb-0">
     <div class="container">
       <div class="row partition2">
-        <div class="col-md-6" *ngFor="let collection of collections">
+        <div class="col-md-6" *ngFor="let option of options">
           <a [routerLink]="['/shop/collection/left/sidebar']" [queryParams]="{ category: 'fashion'}">
             <div class="collection-banner p-right text-center">
-              <img [src]="collection.image" class="img-fluid" alt="collection-banner">
+              <img [src]="option.image" class="img-fluid" alt="collection-banner">
               <div class="contain-banner">
-                <div>
-                  <h4>{{collection.save}}</h4>
-                  <h2>{{collection.title}}</h2>
-                </div>
+                
               </div>
             </div>
           </a>
@@ -74,51 +71,53 @@
   <!-- Product slider End -->
 
   <!-- Parallax banner start-->
-  <section class="p-0">
-    <div class="full-banner parallax-banner1 parallax text-center p-left"
-      [ngStyle]="{'background-image': 'url(assets/images/parallax/1.jpg)'}">
+  <!-- <section class="p-0">
+    <div class="full-banner text-center p-left"
+      [ngStyle]="{'background-image': 'url(assets/images/marketplace/images/banner2.png)'}">
       <div class="container">
         <div class="row">
           <div class="col">
-            <div class="banner-contain">
-              <h2>2018</h2>
-              <h3>fashion trends</h3>
-              <h4>special offer</h4>
-            </div>
+            <button class="btn btn-white">Vender ahora</button>
           </div>
         </div>
       </div>
     </div>
-  </section>
+  </section> -->
   <!-- Parallax banner End -->
+  <section class="banner-mp p-0">
+    <div class="banner-img w-100">
+      <img class="w-100 h-100" src="assets/images/marketplace/images/banner2.png">
+    </div>
+    <div class="banner-mp-container">
+      <button class="btn btn-white w-100">Vender ahora</button>
+    </div>
+  </section>
 
   <!-- Tab product start-->
   <div class="title1 section-t-space">
     <h2 class="title-inner1">PRODUCTOS MÁS VENDIDOS</h2>
+    <div class="title2">
+      <h4 class="text-pink-light">ofertas especiales</h4>
+    </div>
   </div>
-  <section class="section-b-space p-t-0">
+  <section class="section-b-space p-t-0 mt-4">
     <div class="container">
       <div class="row">
         <div class="col theme-tab">
-          <ngb-tabset [justify]="'center'" [type]="'pills'" class="tabs tab-title">
-            <ngb-tab *ngFor="let collection of productCollections">
-              <ng-template ngbTabTitle>{{collection}}</ng-template>
-              <ng-template ngbTabContent>
-                <div class="no-slider row">
-                  <ng-container *ngFor="let product of getCollectionProducts(collection) | slice:0:8">
-                    <div class="product-box">
-                      <app-product-box-one 
-                        [product]="product" 
-                        [currency]="productService?.Currency"
-                        [thumbnail]="true"
-                        [cartModal]="true">
-                      </app-product-box-one>
-                    </div>
-                  </ng-container>
+          <div >
+            <div class="no-slider row">
+              <ng-container *ngFor="let product of products | slice:0:8">
+                <div class="product-box">
+                  <app-product-box-one 
+                    [product]="product" 
+                    [currency]="productService?.Currency"
+                    [thumbnail]="true"
+                    [cartModal]="true">
+                  </app-product-box-one>
                 </div>
-              </ng-template>
-            </ngb-tab>
-          </ngb-tabset>
+              </ng-container>
+            </div>
+          </div>
         </div>
       </div>
     </div>
