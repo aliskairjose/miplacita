@@ -8,11 +8,11 @@ import { MarketplaceShopComponent } from './marketplace-shop/marketplace-shop.co
 const routes: Routes = [
   {
     path: '',
-    component: MarketplaceComponent
+    component: MarketplaceShopComponent
   },
   {
-    path: 'shop/:name',
-    component: MarketplaceShopComponent
+    path: 'marketplace',
+    component: MarketplaceComponent
   }
 ];
 
