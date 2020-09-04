@@ -46,12 +46,13 @@ export class ProductService {
   }
 
   /**
-   * @description Listado de productos de la tienda
-   * @param id Id de la tienda
-   * @param page Numero de la pagina a mostrar
+   * @description Obtiene un listado de productos o informción del detalle de un producto o productos de tienda
+   * @param page Pagina que desea mostrar
+   * @param params Los filtros que seran enviados al api, si se envia vacio traera todos los productos
+   * Id store | id product
    */
-  productList( id: string, page = 1 ): Observable<Result<Product>> {
-    return this.http.get( `products?page=${page}&store=${id}` ).pipe(
+  productList( page = 1, params = '' ): Observable<Result<Product>> {
+    return this.http.get( `products?page=${page}&${params}` ).pipe(
       map( ( response: Response<Product> ) => {
         if ( response.success ) {
           return response.result;
@@ -59,18 +60,7 @@ export class ProductService {
       } )
     );
   }
-  /**
-   * @description Lista de todos los productos
-   */
-  getAll( page = 1 ): Observable<Result<Product>> {
-    return this.http.get( `products?page=${page}` ).pipe(
-      map( ( response: Response<Product> ) => {
-        if ( response.success ) {
-          return response.result;
-        }
-      } )
-    );
-  }
+
 
   /**
    * @description Detalle de un producto
@@ -86,8 +76,8 @@ export class ProductService {
     );
   }
 
-  deleteProduct( id: string): Observable<any> {
-    return this.http.delete(`products/${id}`);
+  deleteProduct( id: string ): Observable<any> {
+    return this.http.delete( `products/${id}` );
   }
 
   /**

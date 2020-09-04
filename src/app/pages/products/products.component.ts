@@ -31,6 +31,7 @@ export class ProductsComponent implements OnInit {
     { value: 'blocked', text: 'Bloqueado' },
   ];
   user: User;
+  params = '';
 
   constructor(
     private router: Router,
@@ -63,7 +64,6 @@ export class ProductsComponent implements OnInit {
 
   }
 
-
   setPage( page: number ) {
     this.loadData( page );
   }
@@ -80,22 +80,11 @@ export class ProductsComponent implements OnInit {
   }
 
   private loadData( page = 1 ): void {
-    ( this.user.role === 'admin' ) ? this.loadAdminProducts( page ) : this.loadUserProducts( page );
-  }
+    // tslint:disable-next-line: curly
+    if ( this.user.role === 'merchant' ) this.params = `store=${this.user.stores[ 0 ]._id}`;
 
-
-  private loadUserProducts( page: number ): void {
-    this.productService.productList( this.user.stores[ 0 ]._id, page ).subscribe( ( result: Result<Product> ) => {
-      this.products = [ ...result.docs ];
-      this.paginate = { ...result };
-      this.paginate.pages = [];
-      for ( let i = 1; i <= this.paginate.totalPages; i++ ) {
-        this.paginate.pages.push( i );
-      }
-    } );
-  }
-  private loadAdminProducts( page: number ): void {
-    this.productService.getAll( page ).subscribe( ( result: Result<Product> ) => {
+    this.productService.productList( page, this.params ).subscribe( ( result: Result<Product> ) => {
+      console.log( result );
       this.products = [ ...result.docs ];
       this.paginate = { ...result };
       this.paginate.pages = [];
