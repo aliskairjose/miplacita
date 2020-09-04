@@ -14,6 +14,7 @@ export class HeaderOneComponent implements OnInit {
 
   @Input() class: string;
   @Input() themeLogo = 'assets/images/marketplace/images/logo-m.png'; // Default Logo
+  @Input() isHidde = true;
   @Input() topbar = true; // Default True
   @Input() sticky = false; // Default false
 
