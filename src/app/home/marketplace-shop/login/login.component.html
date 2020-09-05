@@ -1,0 +1,56 @@
+<app-header-one [sticky]="true" [isHidde]="false"></app-header-one>
+
+<ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="ball-spin-clockwise" [fullScreen]="true">
+  <p style="color: white"> Por favor espere... </p>
+</ngx-spinner>
+
+<!-- section start -->
+<section class="login-page section-b-space">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-6">
+        <h3>Inicio de sesión</h3>
+        <div class="theme-card">
+          <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="theme-form">
+            <div class="form-group input-group">
+              <input type="email" formControlName="email" class="form-control" id="email"
+                placeholder="Correo electrónico" required [ngClass]="{ 'is-invalid': submitted && f.email.errors }">
+              <div class="input-group-prepend">
+                <span class="input-group-text">
+                  <img src="../../../../assets/images/marketplace/svg/email.svg" alt="">
+                </span>
+              </div>
+              <div *ngIf="submitted && f.email.errors" class="invalid-feedback d-block">
+                <div *ngIf="f.email.errors.required"> {{ required }} </div>
+                <div *ngIf="f.email.errors.email"> {{ invalidEmail }} </div>
+              </div>
+            </div>
+            <div class="form-group input-group">
+              <input type="password" formControlName="password" class="form-control" id="review"
+                placeholder="Ingrese su contraseña" required
+                [ngClass]="{ 'is-invalid': submitted && f.password.errors }">
+              <div class="input-group-prepend">
+                <span class="input-group-text">
+                  <img src="../../../../assets/images/marketplace/svg/key.svg" alt="">
+                </span>
+              </div>
+              <div *ngIf="submitted && f.password.errors" class="invalid-feedback d-block">
+                <div *ngIf="f.password.errors.required"> {{ required }}
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              Olvido su contraseña?, haga click <a [routerLink]="[ '/pages/forget/password' ]">aquí</a>
+            </div>
+            <div class="form-group text-center">
+              <button type="submit" class="btn btn-danger btn-lg btn-block">Inciar sesión</button>
+              <button type="button" class="btn btn-primary btn-lg btn-block" (click)="loginFacebook()">Continuar con Facebook</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!--Section ends-->
+<app-footer-one></app-footer-one>
