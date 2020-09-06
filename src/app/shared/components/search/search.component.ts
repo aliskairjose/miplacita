@@ -19,6 +19,10 @@ export class SearchComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  onSubmit(): void {
+    
+  }
+
   // convenience getter for easy access to form fields
   // tslint:disable-next-line: typedef
   get f() { return this.searchForm.controls; }
