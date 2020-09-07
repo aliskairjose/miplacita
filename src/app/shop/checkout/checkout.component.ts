@@ -52,11 +52,11 @@ export class CheckoutComponent implements OnInit {
     this.productService.cartItems.subscribe(response => this.products = response);
     this.getTotal.subscribe(amount => this.amount = amount);
     this.initConfig();
-    const fecha = new Date();
-    this.years.push(fecha.getFullYear());
-    const myInt = Number(new Date(fecha));
-    for (let i = myInt; i < myInt + 12 ; i++){
-      this.years.push(i);
+    const date = new Date();
+    this.years.push(date.getFullYear());
+    for (let i = 0; i < 12 ; i++){
+      date.setMonth(date.getMonth() + 12);
+      this.years.push(date.getFullYear());
     }
   }
 
