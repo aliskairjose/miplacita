@@ -70,6 +70,7 @@ import { TimelineComponent } from './custom-component/timeline/timeline.componen
 import { NgxMaskModule, IConfig } from 'ngx-mask';
 import { ConfirmationDialogComponent } from './custom-components/confirmation-dialog/confirmation-dialog.component';
 import { ConfirmationDialogService } from './services/confirmation-dialog.service';
+import { SearchComponent } from './components/search/search.component';
 
 // export let options: Partial<IConfig> | (() => Partial<IConfig>);
 const maskConfig: Partial<IConfig> = {
@@ -134,6 +135,7 @@ export const customCurrencyMaskConfig = {
     UploadImageComponent,
     ShopSubmenuComponent,
     TimelineComponent,
+    SearchComponent,
   ],
   imports: [
     NgxCurrencyModule.forRoot(customCurrencyMaskConfig),
@@ -200,7 +202,8 @@ export const customCurrencyMaskConfig = {
     ShopDetailsComponent,
     OrderDetailsComponent,
     ShopSubmenuComponent,
-    TimelineComponent
+    TimelineComponent,
+    SearchComponent
   ],
   providers: [ ConfirmationDialogService ],
 })

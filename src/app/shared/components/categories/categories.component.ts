@@ -3,19 +3,18 @@ import { Product } from '../../classes/product';
 import { ProductService } from '../../services/product.service';
 import { Category } from '../../classes/category';
 
-@Component({
+@Component( {
   selector: 'app-categories',
   templateUrl: './categories.component.html',
-  styleUrls: ['./categories.component.scss']
-})
+  styleUrls: [ './categories.component.scss' ]
+} )
 export class CategoriesComponent implements OnInit {
 
   public products: Product[] = [];
   public categories: Category[] = [];
-  public collapse: boolean = true;
+  public collapse = true;
 
-  constructor(public productService: ProductService) {
-    //this.productService.getProducts.subscribe(product => this.products = product);
+  constructor( public productService: ProductService ) {
     this.getCategories();
   }
 
@@ -23,10 +22,8 @@ export class CategoriesComponent implements OnInit {
   }
 
   getCategories() {
-    console.log("categories");
     this.productService.categoryList().subscribe( ( categories: Category[] ) => {
       this.categories = [ ...categories ];
-      console.log(categories);
     } );
   }
 

@@ -2,7 +2,7 @@
 
 <header class="sticky" [ngClass]="class" [class.fixed]="stick && sticky">
   <div class="mobile-fix-option"></div>
-  <div class="top-header" [hidden]="!isHidde" *ngIf="topbar">
+  <div class="top-header" *ngIf="topbar">
     <div class="container">
       <div class="row">
         <div class="col-lg-6">
@@ -75,6 +75,9 @@
                 <img [src]="themeLogo" class="img-fluid logo" alt="logo">
               </a>
             </div>
+          </div>
+          <div class="search-bar">
+            <app-search></app-search>
           </div>
           <div class="menu-right pull-right">
             <div>
