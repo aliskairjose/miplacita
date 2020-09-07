@@ -3,12 +3,12 @@
         <div class="checkout-page">
             <div class="checkout-form">
                 <form>
-                    <h3>Opciones de envío</h3>
-
+                    <h2>Total de compra</h2>
+                    <hr>
                     <div class="row">
                         <div class="col-lg-6 col-sm-12 col-xs-12">
                             <div class="checkout-details">
-                                <div class="billing-box">
+                                <div class="order-box">
                                     <ul class="qty" *ngIf='products.length'>
                                         <li *ngFor="let product of products">
                                         	 <strong> {{ product.title }} × {{ product.quantity }} </strong>
@@ -35,77 +35,68 @@
                             
                         </div>
                         <div class="col-lg-6 col-sm-12 col-xs-12">
-                            <div class="checkout-details">
-                                <div class="order-box">
-                                    <div class="title-box">
-                                        <div>Product <span> Total</span></div>
+                            <div class="">
+                                <div class="row">
+                                    <div class="form-group col-md-8 col-sm-8 col-xs-12">
+                                        <div class="field-label">Propietario</div>
+                                        <input type="text" name="owner"  value="" placeholder="" autocomplete="off">
+                                        
                                     </div>
-                                    <ul class="qty" *ngIf='products.length'>
-                                        <li *ngFor="let product of products">
-                                        	 {{ product.title }} × {{ product.quantity }}
-                                        	<span>
-                                                {{ (product.price | discount:product) * productService?.Currency.price | currency:productService?.Currency.currency:'symbol' }}
-                                            </span>
-                                        </li>
-                                    </ul>
-                                    <ul class="qty" *ngIf='!products.length'>
-                                        <li class="empty-checkout"> There are no products in cart </li>
-                                    </ul>
-                                    <ul class="sub-total">
-                                        <li>
-                                        	Subtotal <span class="count">{{ getTotal | async | currency:productService?.Currency.currency:'symbol'}}</span>
-                                        </li>
-                                        <li *ngIf='products.length'>
-                                        	Shipping
-                                         <div class="shipping">
-                                            <div class="shopping-option">
-                                                <input type="radio" name="shipping" checked="checked" id="free-shipping">
-                                                <label for="free-shipping">Shipping</label>
-                                            </div>
-                                            <div class="shopping-option">
-                                                <input type="radio"  name="shipping" id="local-pickup">
-                                                <label for="local-pickup">Local Pickup</label>
-                                            </div>
-                                         </div>
-                                        </li>
-                                    </ul>
-                                    <ul class="total">
-                                        <li>Total <span class="count">{{ getTotal | async | currency:productService?.Currency.currency:'symbol'}}</span></li>
-                                    </ul>
+                                    <div class="form-group col-md-4 col-sm-4 col-xs-12">
+                                        <div class="field-label">CVV</div>
+                                        <input type="text" name="cvv"  value="" placeholder="" autocomplete="off">
+                                        
+                                    </div>
                                 </div>
-
-                                <div class="payment-box" *ngIf='products.length'>
-                                    <div class="upper-box">
-                                        <div class="payment-options">
-                                            <ul>
-                                                <li>
-                                                    <div class="radio-option">
-                                                        <input type="radio" [(ngModel)]="payment" [value]="'Stripe'"  name="payment-group" id="payment-2">
-                                                        <label for="payment-2">Stripe
-                                                            <span class="small-text">Please send a check to Store Name, Store Street, Store Town, Store State / County, Store Postcode.</span></label>
-                                                    </div>
-                                                </li>
-                                                <li>
-                                                    <div class="radio-option paypal">
-                                                        <input type="radio" [(ngModel)]="payment" [value]="'Paypal'" name="payment-group" id="payment-3">
-                                                        <label for="payment-3">PayPal<span class="image"><img src="assets/images/paypal.png" alt="" /></span></label>
-                                                    </div>
-                                                </li>
-                                            </ul>
+                                <div class="row">
+                                    <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                        <div class="field-label">Número de tarjeta</div>
+                                        <input type="number" name="cardnumber"  value="" placeholder="" autocomplete="off">
+                                    </div>
+                                    
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                        
+                                        <div class="field-label">Fecha</div>
+                                        <div class="row">
+                                            <div class="form-group col-md-4 col-sm-4 col-xs-8">
+                                                <select class="form-control">
+                                                    <option *ngFor="let month of months"value="mount.value">{{ month.name}}</option>
+                                                   
+                                                </select>
+                                            </div>
+                                            <div class="form-group col-md-4 col-sm-4 col-xs-8">
+                                                <select class="form-control">
+                                                    <option *ngFor="let year of years"value="year">{{ year}}</option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group col-md-4 col-sm-4 col-xs-12 d-flex justify-content-end">
+                                                <ul>
+                                                    <li>
+                                                        <a><img src="assets/images/icon/visa.png" alt=""></a>
+                                                    </li>
+                                                    <li>
+                                                        <a><img src="assets/images/icon/mastercard.png" alt=""></a>
+                                                    </li>
+                                                </ul>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="text-right">
-                                        <button type="submit" class="btn-solid btn" [disabled]="!checkoutForm.valid" (click)="stripeCheckout()" *ngIf="payment == 'Stripe'">
-                                           Place Order
-                                        </button>
-                                        <ngx-paypal [config]="payPalConfig" *ngIf="payment == 'Paypal'"></ngx-paypal>
-                                    </div>
+                                    
                                 </div>
+                                        
+                                
                             </div>
                             
                         </div>
+                    </div>
+                    <div class="button-box h-100 d-flex justify-content-end">
+                        <div class="text-right">
                         
+                            <a [routerLink]="['/shop/success/1']" class="btn btn-solid">Continuar</a>
 
+                        </div>
                     </div>
                 </form>
             </div>
