@@ -1,13 +1,17 @@
 <div class="container-fluid">
   <form [formGroup]="searchForm" (ngSubmit)="onSubmit()" class="theme-form">
     <div class="form-group input-group">
-      <div ngbDropdown class="input-group-prepend">
-        <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>Explora</button>
-      <div ngbDropdownMenu aria-labelledby="dropdownBasic1" class="dropsown-search">
-        <button ngbDropdownItem  *ngFor="let item of categories">{{item.name}}</button>
+      <div class="input-group-prepend">
+        <select class="dropdown-primary" searchable="Search here.." formControlName="category">
+          <option value="" selected>Explora</option>
+          <option *ngFor="let item of categories" [value]="item._id">{{item.name}}</option>
+        </select>
+        <!-- <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle [(ngModel)]="seleted">Explora</button>
+        <div ngbDropdownMenu aria-labelledby="dropdownBasic1" class="dropsown-search">
+          <button ngbDropdownItem *ngFor="let item of categories">{{item.name}}</button>
+        </div> -->
       </div>
-      </div>
-      <input type="text" formControlName="search" class="form-control" id="search" placeholder="Buscar...">
+      <input type="text" formControlName="search" class="form-control" id="search" [placeholder]="selected">
     </div>
   </form>
 </div>

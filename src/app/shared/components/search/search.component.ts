@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, SimpleChanges, OnChanges } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { CategoryService } from '../../services/category.service';
 import { Category } from '../../classes/category';
@@ -8,10 +8,11 @@ import { Category } from '../../classes/category';
   templateUrl: './search.component.html',
   styleUrls: [ './search.component.scss' ]
 } )
-export class SearchComponent implements OnInit {
+export class SearchComponent implements OnInit, OnChanges {
 
   searchForm: FormGroup;
   categories: Category[];
+  selected = '';
 
   constructor(
     private formBuilder: FormBuilder,
@@ -26,9 +27,13 @@ export class SearchComponent implements OnInit {
     } );
   }
 
+  ngOnChanges( changes: SimpleChanges ): void {
+    // Called before any other lifecycle hook. Use it to inject dependencies, but avoid any serious work here.
+    // Add '${implements OnChanges}' to the class.
+  }
+
   onSubmit(): void {
     console.log( this.searchForm.value );
-    // Conecta con el api de busqueda
   }
 
   // convenience getter for easy access to form fields
@@ -37,7 +42,8 @@ export class SearchComponent implements OnInit {
 
   private createForm(): void {
     this.searchForm = this.formBuilder.group( {
-      search: [ '' ]
+      search: [ '' ],
+      category: [ '' ],
     } );
   }
 
