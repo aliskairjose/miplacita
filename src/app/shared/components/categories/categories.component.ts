@@ -10,13 +10,14 @@ import { Category } from '../../classes/category';
 } )
 export class CategoriesComponent implements OnInit {
 
-  public products: Product[] = [];
-  public collapse = true;
+  products: Product[] = [];
+  collapse = true;
 
   @Input() categories: Category[] = [];
 
-  constructor( public productService: ProductService ) {
-  }
+  constructor(
+    public productService: ProductService
+  ) {}
 
   ngOnInit(): void {
   }

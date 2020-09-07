@@ -5,6 +5,9 @@ import { ProductService } from '../../../shared/services/tm.product.service';
 import { Product } from '../../../shared/classes/tm.product';
 import { CategoryService } from '../../../shared/services/category.service';
 import { Category } from '../../../shared/classes/category';
+import { ShopService } from '../../../shared/services/shop.service';
+import { Result } from '../../../shared/classes/response';
+import { Store } from '../../../shared/classes/store';
 
 @Component( {
   selector: 'app-collection-left-sidebar',
@@ -17,6 +20,7 @@ export class CollectionLeftSidebarComponent implements OnInit {
   layoutView = 'grid-view';
   products: Product[] = [];
   categories: Category[] = [];
+  shops: Store[] = [];
   brands: any[] = [];
   colors: any[] = [];
   size: any[] = [];
@@ -33,6 +37,7 @@ export class CollectionLeftSidebarComponent implements OnInit {
   constructor(
     private router: Router,
     private route: ActivatedRoute,
+    private shopService: ShopService,
     public productService: ProductService,
     private viewScroller: ViewportScroller,
     private categoryService: CategoryService,
@@ -55,6 +60,10 @@ export class CollectionLeftSidebarComponent implements OnInit {
       this.categoryService.categoryList().subscribe( ( categories: Category[] ) => {
         this.categories = [ ...categories ];
       } );
+
+      // this.shopService.getAll().subscribe( ( result: Result<Store> ) => {
+      //   this.shops = [ ...result.docs ];
+      // } );
 
       // Get Filtered Products..
       this.productService.filterProducts( this.tags ).subscribe( response => {
