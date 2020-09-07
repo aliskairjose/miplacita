@@ -33,7 +33,7 @@ export class SearchComponent implements OnInit, OnChanges {
   }
 
   onSubmit(): void {
-    console.log( this.searchForm.value );
+    // Conexión con api
   }
 
   // convenience getter for easy access to form fields

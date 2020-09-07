@@ -7,10 +7,6 @@
           <option value="">Todas las categorias</option>
           <option *ngFor="let item of categories" [value]="item._id">{{item.name}}</option>
         </select>
-        <!-- <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle [(ngModel)]="seleted">Explora</button>
-        <div ngbDropdownMenu aria-labelledby="dropdownBasic1" class="dropsown-search">
-          <button ngbDropdownItem *ngFor="let item of categories">{{item.name}}</button>
-        </div> -->
       </div>
       <input type="text" formControlName="search" class="form-control" id="search" [placeholder]="selected">
     </div>
