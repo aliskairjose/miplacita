@@ -20,6 +20,7 @@ import { CheckoutComponent } from './checkout/checkout.component';
 import { SuccessComponent } from './checkout/success/success.component';
 
 import { Resolver } from '../shared/services/resolver.service';
+import { ShippingComponent } from './checkout/shipping/shipping.component';
 
 const routes: Routes = [
   {
@@ -98,6 +99,10 @@ const routes: Routes = [
   {
     path: 'checkout',
     component: CheckoutComponent
+  },
+  {
+    path: 'checkout/shipping',
+    component: ShippingComponent
   },
   {
     path: 'checkout/success/:id',

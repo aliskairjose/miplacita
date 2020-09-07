@@ -2,39 +2,27 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { IPayPalConfig, ICreateOrderRequest } from 'ngx-paypal';
-import { environment } from '../../../environments/environment';
-import { Product } from '../../shared/classes/tm.product';
-import { ProductService } from '../../shared/services/tm.product.service';
-import { OrderService } from '../../shared/services/tm.order.service';
+import { environment } from '../../../../environments/environment';
+import { Product } from '../../../shared/classes/tm.product';
+import { ProductService } from '../../../shared/services/tm.product.service';
+import { OrderService } from '../../../shared/services/tm.order.service';
 
 @Component({
-  selector: 'app-checkout',
-  templateUrl: './checkout.component.html',
-  styleUrls: ['./checkout.component.scss']
+  selector: 'app-shipping',
+  templateUrl: './shipping.component.html',
+  styleUrls: ['./shipping.component.scss']
 })
-export class CheckoutComponent implements OnInit {
+export class ShippingComponent implements OnInit {
 
-  public checkoutForm: FormGroup;
+  public checkoutForm:  FormGroup;
   public products: Product[] = [];
-  public payPalConfig ?: IPayPalConfig;
-  public payment = 'Stripe';
-  public amount: any;
-  public months = [ { value: 1, name: 'Enero' },
-                    { value: 2, name: 'Febreo' },
-                    { value: 3, name: 'Marzo' },
-                    { value: 4, name: 'Abril' },
-                    { value: 5, name: 'Mayo' },
-                    { value: 6, name: 'Junio' },
-                    { value: 7, name: 'Julio' },
-                    { value: 8, name: 'Agosto' },
-                    { value: 9, name: 'Septiembre' },
-                    { value: 10, name: 'Octubre' },
-                    { value: 11, name: 'Noviembre' },
-                    { value: 12, name: 'Diciembre' }];
-  public years = [];
+  public payPalConfig ? : IPayPalConfig;
+  public payment: string = 'Stripe';
+  public amount:  any;
+
   constructor(private fb: FormBuilder,
-              public productService: ProductService,
-              private orderService: OrderService) {
+    public productService: ProductService,
+    private orderService: OrderService) { 
     this.checkoutForm = this.fb.group({
       firstname: ['', [Validators.required, Validators.pattern('[a-zA-Z][a-zA-Z ]+[a-zA-Z]$')]],
       lastname: ['', [Validators.required, Validators.pattern('[a-zA-Z][a-zA-Z ]+[a-zA-Z]$')]],
@@ -45,19 +33,13 @@ export class CheckoutComponent implements OnInit {
       town: ['', Validators.required],
       state: ['', Validators.required],
       postalcode: ['', Validators.required]
-    });
+    })
   }
 
   ngOnInit(): void {
     this.productService.cartItems.subscribe(response => this.products = response);
     this.getTotal.subscribe(amount => this.amount = amount);
     this.initConfig();
-    const date = new Date();
-    this.years.push(date.getFullYear());
-    for (let i = 0; i < 12 ; i++){
-      date.setMonth(date.getMonth() + 12);
-      this.years.push(date.getFullYear());
-    }
   }
 
   public get getTotal(): Observable<number> {

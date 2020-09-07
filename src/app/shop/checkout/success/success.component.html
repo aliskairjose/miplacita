@@ -24,19 +24,20 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="success-text">
-                    <i class="fa fa-check-circle" aria-hidden="true"></i>
-                    <h2>thank you</h2>
-                    <p>Payment is has been received Order Placed Successfully</p>
-                    <p>Transaction ID:{{ orderDetails.orderId }}</p>
+                    <img src="assets/images/marketplace/images/successful_purchase.png" class="img-fluid mb-4">
+                    <h3><strong>Tu compra ha sido realizada con éxito</strong></h3>
+                    <a [routerLink]="" class="btn btn-solid">Ver recibo</a>
+
                 </div>
             </div>
         </div>
+        
     </div>
 </section>
 <!-- Section ends -->
 
 <!-- order-detail section start -->
-<section class="section-b-space" *ngIf="orderDetails">
+<!-- <section class="section-b-space" *ngIf="orderDetails">
     <div class="container">
         <div class="row">
             <div class="col-lg-6">
@@ -112,5 +113,5 @@
 
         </div>
     </div>
-</section>
+</section> -->
 <!-- Section ends -->

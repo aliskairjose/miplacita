@@ -40,10 +40,11 @@ import { CompareComponent } from './compare/compare.component';
 import { CheckoutComponent } from './checkout/checkout.component';
 import { SuccessComponent } from './checkout/success/success.component';
 import { ShopsComponent } from './collection/widgets/shops/shops.component';
+import { ShippingComponent } from './checkout/shipping/shipping.component';
 
 @NgModule({
   declarations: [
-    ProductLeftSidebarComponent, 
+    ProductLeftSidebarComponent,
     ProductRightSidebarComponent,
     ProductNoSidebarComponent,
     ThreeColumnComponent,
@@ -69,7 +70,8 @@ import { ShopsComponent } from './collection/widgets/shops/shops.component';
     CompareComponent,
     CheckoutComponent,
     SuccessComponent,
-    ShopsComponent
+    ShopsComponent,
+    ShippingComponent
   ],
   imports: [
     CommonModule,

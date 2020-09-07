@@ -304,6 +304,25 @@ ngb-carousel img {
    ==============
 */
 
+/**/
+.billing-box .qty li{
+  position: relative;
+  display: block;
+  font-size: 15px;
+  color: #444444;
+  line-height: 20px;
+  margin-bottom: 20px;
+
+  &span {
+    float: right;
+    font-size: 18px;
+    line-height: 20px;
+    color: #232323;
+    font-weight: 400;
+    width: 35%;
+  }
+}
+/**/
 
 // Media Queries 
 /* Smartphones (portrait & landscape) */
