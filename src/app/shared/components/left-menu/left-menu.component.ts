@@ -27,8 +27,9 @@ export class LeftMenuComponent implements OnInit {
 
   ngOnInit(): void {
     const user: User = this.storage.getItem( 'user' );
-    this.role = user.role;
-
+    if ( user ) {
+      this.role = user.role;
+    }
   }
 
   leftMenuToggle(): void {

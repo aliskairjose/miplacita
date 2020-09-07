@@ -17,6 +17,7 @@ export class HeaderOneComponent implements OnInit {
   @Input() isHidde = true;
   @Input() topbar = true; // Default True
   @Input() sticky = false; // Default false
+  @Input() hasSearchBar = false; // Default false
 
   stick = false;
   isLoggedIn: boolean;

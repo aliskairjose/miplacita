@@ -4,6 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { MarketplaceComponent } from './marketplace/marketplace.component';
 import { MarketplaceShopComponent } from './marketplace-shop/marketplace-shop.component';
 import { LoginComponent } from './marketplace-shop/login/login.component';
+import { RegisterComponent } from './marketplace-shop/register/register.component';
 
 
 const routes: Routes = [
@@ -14,6 +15,10 @@ const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent
+  },
+  {
+    path: 'register',
+    component: RegisterComponent
   },
   {
     path: 'marketplace',

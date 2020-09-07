@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpService } from './http.service';
 import { Observable } from 'rxjs';
 import { Category } from '../classes/category';
+import { map } from 'rxjs/operators';
 
 @Injectable( {
   providedIn: 'root'
@@ -37,9 +38,15 @@ export class CategoryService {
   }
  
   /**
-   * @description Lista las categorias existentes
+   * @description Retorna la lista de categorias!
    */
-  listCategory(): Observable<any> {
-    return this.http.get( `categories` );
+  categoryList(): Observable<Category[]> {
+    return this.http.get( 'categories' ).pipe(
+      map( ( response ) => {
+        if ( response.success ) {
+          return response.categories;
+        }
+      } )
+    );
   }
 }
