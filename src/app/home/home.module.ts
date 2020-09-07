@@ -30,7 +30,7 @@ import { MarketplaceComponent } from './marketplace/marketplace.component';
 import { MarketplaceShopComponent } from './marketplace-shop/marketplace-shop.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { AlertModule } from 'ngx-alerts';
-import { RegisterComponent } from './widgets/register/register.component';
+import { RegisterComponent } from './marketplace-shop/register/register.component';
 import { LoginComponent } from './marketplace-shop/login/login.component';
 
 @NgModule({
@@ -61,6 +61,7 @@ import { LoginComponent } from './marketplace-shop/login/login.component';
     InstagramComponent,
     CollectionComponent,
     LoginComponent,
+    RegisterComponent
   ],
   imports: [
     CommonModule,

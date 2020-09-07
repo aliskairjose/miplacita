@@ -49,7 +49,7 @@ export class LoginComponent implements OnInit {
           this.auth.authSubject( data.success );
 
           // Redireccionamiento al dashboard
-          this.router.navigate( [ 'pages/dashboard' ] );
+          // this.router.navigate( [ 'pages/dashboard' ] );
         }
 
       } );
@@ -57,9 +57,7 @@ export class LoginComponent implements OnInit {
   }
 
   loginFacebook(): void {
-    alert( 'Login Facebook' );
     this.socialService.signIn( FacebookLoginProvider.PROVIDER_ID );
-
   }
 
   createForm(): void {

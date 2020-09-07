@@ -80,7 +80,7 @@
       <div class="show-div setting">
         <div *ngIf="!isLoggedIn">
           <a [routerLink]="[ '/home/login']"><h6>Iniciar sesión</h6></a>
-          <a [routerLink]="[ '/pages/register']"> <h6>Registrese</h6></a>
+          <a [routerLink]="[ '/home/register']"> <h6>Registrese</h6></a>
         </div>
         <div *ngIf="isLoggedIn">
           <h6 href="javascript:void(0)" (click)="loggOut()">Cerrar sesión</h6>
