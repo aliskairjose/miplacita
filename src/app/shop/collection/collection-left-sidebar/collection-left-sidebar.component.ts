@@ -61,9 +61,9 @@ export class CollectionLeftSidebarComponent implements OnInit {
         this.categories = [ ...categories ];
       } );
 
-      // this.shopService.getAll().subscribe( ( result: Result<Store> ) => {
-      //   this.shops = [ ...result.docs ];
-      // } );
+      this.shopService.getAll().subscribe( ( result: Result<Store> ) => {
+        this.shops = [ ...result.docs ];
+      } );
 
       // Get Filtered Products..
       this.productService.filterProducts( this.tags ).subscribe( response => {
