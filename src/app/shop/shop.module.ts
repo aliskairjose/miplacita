@@ -39,6 +39,7 @@ import { WishlistComponent } from './wishlist/wishlist.component';
 import { CompareComponent } from './compare/compare.component';
 import { CheckoutComponent } from './checkout/checkout.component';
 import { SuccessComponent } from './checkout/success/success.component';
+import { ShippingComponent } from './checkout/shipping/shipping.component';
 
 @NgModule({
   declarations: [
@@ -67,7 +68,8 @@ import { SuccessComponent } from './checkout/success/success.component';
     WishlistComponent,
     CompareComponent,
     CheckoutComponent,
-    SuccessComponent
+    SuccessComponent,
+    ShippingComponent
   ],
   imports: [
     CommonModule,
