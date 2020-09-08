@@ -44,7 +44,7 @@ export class CollectionLeftSidebarComponent implements OnInit {
   ) {
     // Get Query params..
     this.route.queryParams.subscribe( params => {
-
+      console.log( params );  
       this.brands = params.brand ? params.brand.split( ',' ) : [];
       this.colors = params.color ? params.color.split( ',' ) : [];
       this.size = params.size ? params.size.split( ',' ) : [];

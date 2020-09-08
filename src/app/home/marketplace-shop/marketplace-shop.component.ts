@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ProductSlider } from '../../shared/data/slider';
 import { ProductService } from '../../shared/services/tm.product.service';
 import { Product } from '../../shared/classes/tm.product';
+import { Router } from '@angular/router';
 
 @Component( {
   selector: 'app-marketplace-shop',
@@ -23,7 +24,10 @@ export class MarketplaceShopComponent implements OnInit {
     }
   ];
 
-  constructor( public productService: ProductService ) {
+  constructor(
+    public productService: ProductService,
+    private router: Router
+  ) {
     this.productService.getProducts.subscribe( response => {
       this.products = response.filter( item => item.type === 'fashion' );
       // Get Product Collection
@@ -102,10 +106,6 @@ export class MarketplaceShopComponent implements OnInit {
   } ];
 
   ngOnInit(): void {
-  }
-
-  applyFilter( event ): void {
-    console.log( event );
   }
 
   // Product Tab collection

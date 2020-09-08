@@ -47,7 +47,6 @@ export class NavService {
 		private categoryService: CategoryService
 	) {
 		this.categoryService.categoryList().subscribe( ( result: Category[] ) => {
-			console.log( result );
 			for ( const iterator of result ) {
 				this.sideMenuItem = {};
 				this.sideMenuItem.title = iterator.name;

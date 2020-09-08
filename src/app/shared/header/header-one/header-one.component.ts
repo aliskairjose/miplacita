@@ -26,7 +26,6 @@ export class HeaderOneComponent implements OnInit {
   @Input() sticky = false; // Default false
   @Input() hasSearchBar = false; // Default false
   @Input() isSideMenu = false;
-  @Output() productsFilter: EventEmitter<any> = new EventEmitter<any>();
 
   // @HostListener Decorator
   @HostListener( 'window:scroll', [] )
@@ -68,11 +67,6 @@ export class HeaderOneComponent implements OnInit {
       // tslint:disable-next-line: curly
       if ( !isAuth ) this.alert.info( 'Hasta luego...' );
     } );
-  }
-
-  applyFilter( event ): void {
-    console.log( event );
-    this.productsFilter.emit( event );
   }
 
   /**
