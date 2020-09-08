@@ -13,20 +13,19 @@ import { Category } from '../../classes/category';
   styleUrls: [ './header-one.component.scss' ]
 } )
 export class HeaderOneComponent implements OnInit {
-
+  stick = false;
+  isLoggedIn: boolean;
+  role: string;
+  user: User;
+  categories: Category[] = [];
+  
   @Input() class: string;
   @Input() themeLogo = 'assets/images/marketplace/images/logo-m.png'; // Default Logo
   @Input() isHidde = true;
   @Input() topbar = true; // Default True
   @Input() sticky = false; // Default false
   @Input() hasSearchBar = false; // Default false
-
-  stick = false;
-  isLoggedIn: boolean;
-  role: string;
-  user: User;
-  categories: Category[] = [];
-
+  @Input() isSideMenu = false;
   @Output() productsFilter: EventEmitter<any> = new EventEmitter<any>();
 
   // @HostListener Decorator
