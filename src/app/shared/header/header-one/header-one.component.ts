@@ -78,8 +78,4 @@ export class HeaderOneComponent implements OnInit {
     this.auth.authSubject( false );
   }
 
-  applyFilter(event){
-
-  }
-
 }
