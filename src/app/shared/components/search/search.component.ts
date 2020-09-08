@@ -1,7 +1,8 @@
-import { Component, OnInit, SimpleChanges, OnChanges } from '@angular/core';
+import { Component, OnInit, SimpleChanges, OnChanges, Output, EventEmitter, Input } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { CategoryService } from '../../services/category.service';
 import { Category } from '../../classes/category';
+import { Product } from '../../classes/product';
 
 @Component( {
   selector: 'app-search',
@@ -11,20 +12,20 @@ import { Category } from '../../classes/category';
 export class SearchComponent implements OnInit, OnChanges {
 
   searchForm: FormGroup;
-  categories: Category[];
+  products: Product[] = [];
   selected = '';
+
+  @Input() categories: Category[];
+  @Output() productsFilter: EventEmitter<Product[]> = new EventEmitter<Product[]>();
 
   constructor(
     private formBuilder: FormBuilder,
-    private categoryService: CategoryService
   ) {
     this.createForm();
   }
 
   ngOnInit(): void {
-    this.categoryService.categoryList().subscribe( ( response: Category[] ) => {
-      this.categories = [ ...response ];
-    } );
+
   }
 
   ngOnChanges( changes: SimpleChanges ): void {
@@ -34,6 +35,7 @@ export class SearchComponent implements OnInit, OnChanges {
 
   onSubmit(): void {
     // Conexión con api
+    this.productsFilter.emit( this.products );
   }
 
   // convenience getter for easy access to form fields

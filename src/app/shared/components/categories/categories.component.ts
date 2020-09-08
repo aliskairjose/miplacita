@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Product } from '../../classes/product';
 import { ProductService } from '../../services/product.service';
 import { Category } from '../../classes/category';
@@ -10,21 +10,27 @@ import { Category } from '../../classes/category';
 } )
 export class CategoriesComponent implements OnInit {
 
-  public products: Product[] = [];
-  public categories: Category[] = [];
-  public collapse = true;
+  products: Product[] = [];
+  collapse = true;
 
-  constructor( public productService: ProductService ) {
-    this.getCategories();
-  }
+  @Input() categories: Category[] = [];
+
+  constructor(
+    public productService: ProductService
+  ) {}
 
   ngOnInit(): void {
   }
 
-  getCategories() {
-    this.productService.categoryList().subscribe( ( categories: Category[] ) => {
-      this.categories = [ ...categories ];
-    } );
+  appliedFilter( event ): void {
+
+  }
+
+  // check if the item are selected
+  checked( item ) {
+    // if ( this.categories.indexOf( item ) !== -1 ) {
+    //   return true;
+    // }
   }
 
   // get filterbyCategory() {

@@ -4,6 +4,8 @@ import { AlertService } from 'ngx-alerts';
 import { Router } from '@angular/router';
 import { StorageService } from '../../services/storage.service';
 import { User } from '../../classes/user';
+import { CategoryService } from '../../services/category.service';
+import { Category } from '../../classes/category';
 
 @Component( {
   selector: 'app-header-one',
@@ -23,11 +25,13 @@ export class HeaderOneComponent implements OnInit {
   isLoggedIn: boolean;
   role: string;
   user: User;
+  categories: Category[] = [];
 
   // @HostListener Decorator
   @HostListener( 'window:scroll', [] )
   onWindowScroll() {
-    let number = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+    // tslint:disable-next-line: variable-name
+    const number = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
     if ( number >= 300 && window.innerWidth > 400 ) {
       this.stick = true;
     } else {
@@ -40,10 +44,14 @@ export class HeaderOneComponent implements OnInit {
     private auth: AuthService,
     private alert: AlertService,
     private storage: StorageService,
+    private categoryService: CategoryService
   ) { }
 
   ngOnInit(): void {
     this.isLoggedIn = this.auth.isAuthenticated();
+    this.categoryService.categoryList().subscribe( ( response: Category[] ) => {
+      this.categories = [ ...response ];
+    } );
 
     if ( this.isLoggedIn ) {
       this.user = this.storage.getItem( 'user' );

@@ -1,0 +1,18 @@
+<div class="collection-collapse-block" [class.open]="collapse">
+  <h3 class="collapse-block-title" (click)="collapse = !collapse">Tiendas</h3>
+	<div class="collection-collapse-block-content">
+		<div class="collection-brand-filter">
+			<div class="custom-control custom-checkbox collection-filter-checkbox"
+				*ngFor="let shop of shops; let i = index">
+				<input
+					type="checkbox" 
+					[value]="shop" 
+					[checked]="checked(shop)" 
+					[id]="shop"
+					(change)="appliedFilter($event)" 
+					class="custom-control-input" />
+				<label class="custom-control-label" for="{{ shop._id }}">{{ shop.name }}</label>
+			</div>
+		</div>
+	</div>
+</div>

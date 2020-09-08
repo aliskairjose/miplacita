@@ -1,5 +1,5 @@
 <!-- price filter start here -->
-<div class="collection-collapse-block border-0" [class.open]="collapse">
+<!-- <div class="collection-collapse-block border-0" [class.open]="collapse">
     <h3 class="collapse-block-title" (click)="collapse = !collapse">price</h3>
     <div class="collection-collapse-block-content">
         <div class="collection-brand-filter">
@@ -13,4 +13,23 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->
+
+<div class="collection-collapse-block" [class.open]="collapse">
+    <h3 class="collapse-block-title" (click)="collapse = !collapse">Precios</h3>
+      <div class="collection-collapse-block-content">
+          <div class="collection-brand-filter">
+              <div class="custom-control custom-checkbox collection-filter-checkbox"
+                  *ngFor="let price of prices; let i = index">
+                  <input
+                      type="checkbox" 
+                      [value]="price" 
+                      [checked]="checked(price)" 
+                      [id]="price"
+                      (change)="appliedFilter($event)" 
+                      class="custom-control-input" />
+                  <label class="custom-control-label" for="{{ price.value    }}">{{ price.name }}</label>
+              </div>
+          </div>
+      </div>
+  </div>
