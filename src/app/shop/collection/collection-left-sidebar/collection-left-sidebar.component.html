@@ -69,7 +69,7 @@
                     <div class="page-main-content">
                         <div class="row">
                             <div class="col-sm-12">
-                                <div class="top-banner-wrapper">
+                                <!--<div class="top-banner-wrapper">
                                     <a [routerLink]="['/shop/collection/left/sidebar']">
                                         <img src="assets/images/collection-banner.jpg" class="img-fluid " alt="">
                                     </a>
@@ -89,7 +89,7 @@
                                             including versions of Lorem Ipsum.
                                         </p>
                                     </div>
-                                </div>
+                                </div>-->
                                 <div class="row">
                                     <div class="col-xl-12">
                                         <div class="filter-main-btn" (click)="toggleMobileSidebar()">
@@ -112,31 +112,33 @@
                                     </li>
                                 </ul>
                                 <div class="collection-product-wrapper" id="products">
-                                    <app-grid [products]="products" [paginate]="paginate" [layoutView]="layoutView"
+                                    <!-- <app-grid [products]="products" [paginate]="paginate" [layoutView]="layoutView"
                                         [sortBy]="sortBy" (setGrid)="updateGridLayout($event)"
                                         (setLayout)="updateLayoutView($event)" (sortedBy)="sortByFilter($event)">
-                                    </app-grid>
+                                    </app-grid> -->
                                     <div class="product-wrapper-grid" [ngClass]="layoutView">
                                         <div class="row">
                                             <div class="col-grid-box" [ngClass]="grid" *ngFor="let product of products">
                                                 <div class="product-box">
                                                     <app-product-box-one [product]="product"
                                                         [currency]="productService?.Currency" [thumbnail]="false"
-                                                        [cartModal]="true" [loader]="true">
+                                                        [cartModal]="true" [loader]="true" [search]="true">
                                                     </app-product-box-one>
                                                 </div>
+                                                <hr>
                                             </div>
                                             <div class="col-sm-12 text-center section-b-space mt-5 no-found"
                                                 *ngIf="!products.length">
                                                 <img src="assets/images/empty-search.jpg" class="img-fluid mb-4">
-                                                <h3>Sorry! Couldn't find the product you were looking For!!! </h3>
-                                                <p>Please check if you have misspelt something or try searching with
-                                                    other words.</p>
+                                                <h3>Lo sentimos! no hay resultados para tu búsqueda</h3>
+                                            
                                                 <a [routerLink]="['/shop/collection/left/sidebar']"
-                                                    class="btn btn-solid">continue shopping</a>
+                                                    class="btn btn-solid">Continuar comprando</a>
                                             </div>
                                         </div>
                                     </div>
+                                        
+
                                     <app-pagination [products]="products" [paginate]="paginate"
                                         (setPage)="setPage($event)">
                                     </app-pagination>
