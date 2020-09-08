@@ -71,6 +71,7 @@ import { NgxMaskModule, IConfig } from 'ngx-mask';
 import { ConfirmationDialogComponent } from './custom-components/confirmation-dialog/confirmation-dialog.component';
 import { ConfirmationDialogService } from './services/confirmation-dialog.service';
 import { SearchComponent } from './components/search/search.component';
+import { ShopCardComponent } from './components/search/shop-card/shop-card.component';
 
 // export let options: Partial<IConfig> | (() => Partial<IConfig>);
 const maskConfig: Partial<IConfig> = {
@@ -136,6 +137,7 @@ export const customCurrencyMaskConfig = {
     ShopSubmenuComponent,
     TimelineComponent,
     SearchComponent,
+    ShopCardComponent,
   ],
   imports: [
     NgxCurrencyModule.forRoot(customCurrencyMaskConfig),
@@ -203,7 +205,8 @@ export const customCurrencyMaskConfig = {
     OrderDetailsComponent,
     ShopSubmenuComponent,
     TimelineComponent,
-    SearchComponent
+    SearchComponent,
+    ShopCardComponent
   ],
   providers: [ ConfirmationDialogService ],
 })

@@ -24,6 +24,7 @@ import { ShopProfileComponent } from './shops/shop-profile/shop-profile.componen
 import { ShopSuscriptionComponent } from './shops/shop-suscription/shop-suscription.component';
 import { ShopWithdrawalComponent } from './shops/shop-withdrawal/shop-withdrawal.component';
 import { ShopsComponent } from './shops/shops.component';
+import { SearchComponent } from '../pages/search/search.component';
 
 const routes: Routes = [
 
@@ -118,6 +119,10 @@ const routes: Routes = [
     component: ShopWithdrawalComponent,
     canActivate: [ AuthGuard ]
 
+  },
+  {
+    path: 'search',
+    component: SearchComponent
   }
 ];
 
