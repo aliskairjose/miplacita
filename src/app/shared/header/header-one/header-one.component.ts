@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, HostListener } from '@angular/core';
+import { Component, OnInit, Input, HostListener, Output, EventEmitter } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { AlertService } from 'ngx-alerts';
 import { Router } from '@angular/router';
@@ -13,19 +13,19 @@ import { Category } from '../../classes/category';
   styleUrls: [ './header-one.component.scss' ]
 } )
 export class HeaderOneComponent implements OnInit {
-
+  stick = false;
+  isLoggedIn: boolean;
+  role: string;
+  user: User;
+  categories: Category[] = [];
+  
   @Input() class: string;
   @Input() themeLogo = 'assets/images/marketplace/images/logo-m.png'; // Default Logo
   @Input() isHidde = true;
   @Input() topbar = true; // Default True
   @Input() sticky = false; // Default false
   @Input() hasSearchBar = false; // Default false
-
-  stick = false;
-  isLoggedIn: boolean;
-  role: string;
-  user: User;
-  categories: Category[] = [];
+  @Input() isSideMenu = false;
 
   // @HostListener Decorator
   @HostListener( 'window:scroll', [] )
@@ -76,6 +76,10 @@ export class HeaderOneComponent implements OnInit {
     this.storage.clearAll();
     this.router.navigate( [ 'home' ] );
     this.auth.authSubject( false );
+  }
+
+  applyFilter(event){
+
   }
 
 }

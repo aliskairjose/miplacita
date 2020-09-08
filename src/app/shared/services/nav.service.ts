@@ -1,6 +1,8 @@
 import { Injectable, HostListener } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { default as menu } from '../../../assets/data/menu.json';
+import { CategoryService } from './category.service';
+import { Category } from '../classes/category';
 
 export interface Menu {
 	path?: string;
@@ -27,7 +29,9 @@ export class NavService {
 	mainMenuToggle = false;
 
 	MENUITEMS: Menu[] = menu.menuItems;
-	LEFTMENUITEMS: Menu[] = menu.leftMenuItems;
+	// LEFTMENUITEMS: Menu[] = menu.leftMenuItems;
+	LEFTMENUITEMS: Menu[] = [];
+	sideMenuItem: Menu = {};
 
 	// Array
 	items = new BehaviorSubject<Menu[]>( this.MENUITEMS );
@@ -39,6 +43,20 @@ export class NavService {
 		this.screenWidth = window.innerWidth;
 	}
 
-	constructor() { }
+	constructor(
+		private categoryService: CategoryService
+	) {
+		this.categoryService.categoryList().subscribe( ( result: Category[] ) => {
+			for ( const iterator of result ) {
+				this.sideMenuItem = {};
+				this.sideMenuItem.title = iterator.name;
+				this.sideMenuItem.type = 'link';
+				this.sideMenuItem.path = '#';
+				this.LEFTMENUITEMS.push( this.sideMenuItem );
+			}
+			
+		} );
+	}
+
 
 }

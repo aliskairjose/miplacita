@@ -1,18 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ProductSlider } from '../../shared/data/slider';
 import { ProductService } from '../../shared/services/tm.product.service';
 import { Product } from '../../shared/classes/tm.product';
+import { Router } from '@angular/router';
 
-@Component({
+@Component( {
   selector: 'app-marketplace-shop',
   templateUrl: './marketplace-shop.component.html',
-  styleUrls: ['./marketplace-shop.component.scss']
-})
+  styleUrls: [ './marketplace-shop.component.scss' ]
+} )
 export class MarketplaceShopComponent implements OnInit {
 
-  public products: Product[] = [];
-  public productCollections: any[] = [];
-  public options = [
+  products: Product[] = [];
+  productCollections: any[] = [];
+  options = [
     {
       id: 0,
       image: 'assets/images/marketplace/images/buy.png'
@@ -23,9 +24,12 @@ export class MarketplaceShopComponent implements OnInit {
     }
   ];
 
-  constructor(public productService: ProductService) {
-    this.productService.getProducts.subscribe(response => {
-      this.products = response.filter(item => item.type === 'fashion');
+  constructor(
+    public productService: ProductService,
+    private router: Router
+  ) {
+    this.productService.getProducts.subscribe( response => {
+      this.products = response.filter( item => item.type === 'fashion' );
       // Get Product Collection
       // this.products.filter((item) => {
       //   item.collection.filter((collection) => {
@@ -33,12 +37,12 @@ export class MarketplaceShopComponent implements OnInit {
       //     if (index === -1) this.productCollections.push(collection);
       //   });
       // });
-    });
+    } );
   }
 
-  public ProductSliderConfig: any = ProductSlider;
+  ProductSliderConfig: any = ProductSlider;
 
-  public sliders = [{
+  sliders = [ {
     title: '',
     subTitle: '',
     image: 'assets/images/marketplace/images/mainBanner.jpg'
@@ -46,10 +50,10 @@ export class MarketplaceShopComponent implements OnInit {
     title: '',
     subTitle: '',
     image: 'assets/images/marketplace/images/mainBanner.jpg'
-  }]
+  } ]
 
   // Collection banner
-  public collections = [{
+  collections = [ {
     image: 'assets/images/collection/fashion/1.jpg',
     save: 'save 50%',
     title: 'men'
@@ -57,10 +61,10 @@ export class MarketplaceShopComponent implements OnInit {
     image: 'assets/images/collection/fashion/2.jpg',
     save: 'save 50%',
     title: 'women'
-  }];
+  } ];
 
   // Blog
-  public blog = [{
+  blog = [ {
     image: 'assets/images/blog/1.jpg',
     date: '25 January 2018',
     title: 'Lorem ipsum dolor sit consectetur adipiscing elit,',
@@ -80,10 +84,10 @@ export class MarketplaceShopComponent implements OnInit {
     date: '28 January 2018',
     title: 'Lorem ipsum dolor sit consectetur adipiscing elit,',
     by: 'John Dio'
-  }];
+  } ];
 
   // Logo
-  public logo = [{
+  logo = [ {
     image: 'assets/images/logos/1.png',
   }, {
     image: 'assets/images/logos/2.png',
@@ -99,18 +103,20 @@ export class MarketplaceShopComponent implements OnInit {
     image: 'assets/images/logos/7.png',
   }, {
     image: 'assets/images/logos/8.png',
-  }];
+  } ];
 
   ngOnInit(): void {
   }
 
   // Product Tab collection
-  getCollectionProducts(collection) {
-    return this.products.filter((item) => {
-      if (item.collection.find(i => i === collection)) {
+  getCollectionProducts( collection ) {
+    return this.products.filter( ( item ) => {
+      if ( item.collection.find( i => i === collection ) ) {
         return item;
       }
-    });
+    } );
   }
+
+
 
 }

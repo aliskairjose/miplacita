@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 import { CategoryService } from '../../services/category.service';
 import { Category } from '../../classes/category';
 import { Product } from '../../classes/product';
+import { Router } from '@angular/router';
 
 @Component( {
   selector: 'app-search',
@@ -13,13 +14,14 @@ export class SearchComponent implements OnInit, OnChanges {
 
   searchForm: FormGroup;
   products: Product[] = [];
-  selected = '';
 
   @Input() categories: Category[];
-  @Output() productsFilter: EventEmitter<Product[]> = new EventEmitter<Product[]>();
+  // @Output() productsFilter: EventEmitter<Product[]> = new EventEmitter<Product[]>();
+  @Output() productsFilter: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(
     private formBuilder: FormBuilder,
+    private router: Router,
   ) {
     this.createForm();
   }
@@ -35,7 +37,7 @@ export class SearchComponent implements OnInit, OnChanges {
 
   onSubmit(): void {
     // Conexión con api
-    this.productsFilter.emit( this.products );
+    this.router.navigate( [ '/shop/collection/left/sidebar' ], { queryParams: this.searchForm.value } );
   }
 
   // convenience getter for easy access to form fields
@@ -44,7 +46,7 @@ export class SearchComponent implements OnInit, OnChanges {
 
   private createForm(): void {
     this.searchForm = this.formBuilder.group( {
-      search: [ '' ],
+      searchText: [ '' ],
       category: [ '' ],
     } );
   }
