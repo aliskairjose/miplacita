@@ -24,7 +24,6 @@ export class CategoriesComponent implements OnInit {
   }
 
   appliedFilter( event ): void {
-    console.log( event.target.value );
     this.categoryFilter.emit( { category: event.target.value } );
   }
 
