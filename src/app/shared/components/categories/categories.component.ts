@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { Product } from '../../classes/product';
 import { ProductService } from '../../services/product.service';
 import { Category } from '../../classes/category';
@@ -14,6 +14,7 @@ export class CategoriesComponent implements OnInit {
   collapse = true;
 
   @Input() categories: Category[] = [];
+  @Output() categoryFilter: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(
     public productService: ProductService
@@ -23,7 +24,8 @@ export class CategoriesComponent implements OnInit {
   }
 
   appliedFilter( event ): void {
-
+    console.log( event.target.value );
+    this.categoryFilter.emit( { category: event.target.value } );
   }
 
   // check if the item are selected

@@ -7,9 +7,9 @@
 				*ngFor="let category of categories; let i = index">
 				<input
 					type="checkbox" 
-					[value]="category" 
-					[checked]="checked(category)" 
-					[id]="category"
+					[value]="category._id" 
+					[checked]="checked(category.name)" 
+					[id]="category._id"
 					(change)="appliedFilter($event)" 
 					class="custom-control-input" />
 				<label class="custom-control-label" for="{{ category._id }}">{{ category.name }}</label>

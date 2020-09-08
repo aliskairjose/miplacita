@@ -35,7 +35,7 @@ export class CollectionLeftSidebarComponent implements OnInit {
   sortBy: string; // Sorting Order
   mobileSidebar = false;
   loader = true;
-  params = '';
+  params: string;
 
   constructor(
     private router: Router,
@@ -48,14 +48,14 @@ export class CollectionLeftSidebarComponent implements OnInit {
   ) {
     // Get Query params..
     this.route.queryParams.subscribe( params => {
-      
+      const p = window.location.href.split( '?' );
+      this.params = p[ 1 ];
       this.brands = params.brand ? params.brand.split( ',' ) : [];
       this.colors = params.color ? params.color.split( ',' ) : [];
       this.size = params.size ? params.size.split( ',' ) : [];
       this.minPrice = params.minPrice ? params.minPrice : this.minPrice;
       this.maxPrice = params.maxPrice ? params.maxPrice : this.maxPrice;
       this.tags = [ ...this.brands, ...this.colors, ...this.size ]; // All Tags Array
-
       this.category = params.category ? params.category : null;
       this.sortBy = params.sortBy ? params.sortBy : 'ascending';
       this.pageNo = params.page ? params.page : this.pageNo;
@@ -93,12 +93,13 @@ export class CollectionLeftSidebarComponent implements OnInit {
 
   loadProductList( page = 1 ): void {
     this.productServices.productList( page, this.params ).subscribe( ( result: Result<P> ) => {
-      // console.log( result );
+      console.log( result );
     } );
   }
 
   // Append filter value to Url
   updateFilter( tags: any ) {
+    console.log( tags );
     tags.page = null; // Reset Pagination
     this.router.navigate( [], {
       relativeTo: this.route,

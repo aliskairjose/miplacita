@@ -43,9 +43,8 @@ export class HttpInterceptor implements HttpInterceptor {
         return event;
       } ),
       catchError( ( response: HttpErrorResponse ) => {
-
         this.spinner.hide();
-        this.alert.danger( response.error.message );
+        this.alert.danger( response.error.message || response.statusText );
 
         switch ( response.status ) {
           case 401:

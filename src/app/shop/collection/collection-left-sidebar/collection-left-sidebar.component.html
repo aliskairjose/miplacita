@@ -14,7 +14,7 @@
                                 </span>
                             </div>
                             <!-- Category filter start -->
-                            <app-categories [categories]="categories"></app-categories>
+                            <app-categories [categories]="categories" (categoryFilter)="updateFilter($event)"></app-categories>
                         </div>
                         <div class="collection-filter-block">
                             <div class="collection-mobile-back" (click)="toggleMobileSidebar()">
@@ -23,7 +23,7 @@
                                 </span>
                             </div>
                             <!-- Category filter start -->
-                            <app-shops [shops]="shops"></app-shops>
+                            <app-shops [shops]="shops" (shopsFilter)="updateFilter($event)"></app-shops>
                         </div>
                         <div class="collection-filter-block">
                             <div class="collection-mobile-back" (click)="toggleMobileSidebar()">

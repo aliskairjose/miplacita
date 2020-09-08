@@ -1,16 +1,18 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { Store } from '../../../../shared/classes/store';
 
-@Component({
+@Component( {
   selector: 'app-shops',
   templateUrl: './shops.component.html',
-  styleUrls: ['./shops.component.scss']
-})
+  styleUrls: [ './shops.component.scss' ]
+} )
 export class ShopsComponent implements OnInit {
 
   collapse = true;
 
   @Input() shops: Store[] = [];
+  @Output() shopsFilter: EventEmitter<any> = new EventEmitter<any>();
+
 
   constructor() { }
 
@@ -18,13 +20,11 @@ export class ShopsComponent implements OnInit {
   }
 
   appliedFilter( event ): void {
-
+    this.shopsFilter.emit( { store: event.target.value } );
   }
 
   checked( item ) {
-    // if ( this.categories.indexOf( item ) !== -1 ) {
-    //   return true;
-    // }
+    // console.log( item );
   }
 
 }
