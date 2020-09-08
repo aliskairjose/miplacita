@@ -2,12 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ViewportScroller } from '@angular/common';
 import { ProductService } from '../../../shared/services/tm.product.service';
+import { ProductService as ProductServices } from '../../../shared/services/product.service';
 import { Product } from '../../../shared/classes/tm.product';
 import { CategoryService } from '../../../shared/services/category.service';
 import { Category } from '../../../shared/classes/category';
 import { ShopService } from '../../../shared/services/shop.service';
 import { Result } from '../../../shared/classes/response';
 import { Store } from '../../../shared/classes/store';
+import { Product as P } from '../../../shared/classes/product';
 
 @Component( {
   selector: 'app-collection-left-sidebar',
@@ -33,18 +35,20 @@ export class CollectionLeftSidebarComponent implements OnInit {
   sortBy: string; // Sorting Order
   mobileSidebar = false;
   loader = true;
+  params = '';
 
   constructor(
     private router: Router,
     private route: ActivatedRoute,
     private shopService: ShopService,
     public productService: ProductService,
+    private productServices: ProductServices,
     private viewScroller: ViewportScroller,
     private categoryService: CategoryService,
   ) {
     // Get Query params..
     this.route.queryParams.subscribe( params => {
-      console.log( params );  
+      
       this.brands = params.brand ? params.brand.split( ',' ) : [];
       this.colors = params.color ? params.color.split( ',' ) : [];
       this.size = params.size ? params.size.split( ',' ) : [];
@@ -64,6 +68,8 @@ export class CollectionLeftSidebarComponent implements OnInit {
       this.shopService.getAll().subscribe( ( result: Result<Store> ) => {
         this.shops = [ ...result.docs ];
       } );
+
+      this.loadProductList();
 
       // Get Filtered Products..
       this.productService.filterProducts( this.tags ).subscribe( response => {
@@ -85,6 +91,11 @@ export class CollectionLeftSidebarComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  loadProductList( page = 1 ): void {
+    this.productServices.productList( page, this.params ).subscribe( ( result: Result<P> ) => {
+      // console.log( result );
+    } );
+  }
 
   // Append filter value to Url
   updateFilter( tags: any ) {
