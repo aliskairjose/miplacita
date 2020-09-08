@@ -8,7 +8,7 @@
           <option *ngFor="let item of categories" [value]="item._id">{{item.name}}</option>
         </select>
       </div>
-      <input type="text" formControlName="search" class="form-control" id="search" [placeholder]="selected">
+      <input type="text" formControlName="searchText" class="form-control" id="search" placeholder="Buscar..." >
     </div>
   </form>
 </div>

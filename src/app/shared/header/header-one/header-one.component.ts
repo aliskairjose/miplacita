@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, HostListener } from '@angular/core';
+import { Component, OnInit, Input, HostListener, Output, EventEmitter } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { AlertService } from 'ngx-alerts';
 import { Router } from '@angular/router';
@@ -26,6 +26,8 @@ export class HeaderOneComponent implements OnInit {
   role: string;
   user: User;
   categories: Category[] = [];
+
+  @Output() productsFilter: EventEmitter<any> = new EventEmitter<any>();
 
   // @HostListener Decorator
   @HostListener( 'window:scroll', [] )
@@ -67,6 +69,11 @@ export class HeaderOneComponent implements OnInit {
       // tslint:disable-next-line: curly
       if ( !isAuth ) this.alert.info( 'Hasta luego...' );
     } );
+  }
+
+  applyFilter( event ): void {
+    console.log( event );
+    this.productsFilter.emit( event );
   }
 
   /**

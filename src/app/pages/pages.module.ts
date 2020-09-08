@@ -55,6 +55,7 @@ import { ShopWithdrawalComponent } from './shops/shop-withdrawal/shop-withdrawal
 import { ShopSuscriptionComponent } from './shops/shop-suscription/shop-suscription.component';
 import { NgxMaskModule, IConfig } from 'ngx-mask';
 import { CreateProductComponent } from './products/create-product/create-product.component';
+import { FormsModule } from '@angular/forms';
 
 // export let options: Partial<IConfig> | (() => Partial<IConfig>);
 const maskConfig: Partial<IConfig> = {
@@ -124,6 +125,7 @@ export const customCurrencyMaskConfig = {
   imports: [
     SharedModule,
     CommonModule,
+    FormsModule,
     PagesRoutingModule,
     NgxSpinnerModule,
     GalleryModule.forRoot(),

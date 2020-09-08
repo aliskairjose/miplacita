@@ -26,6 +26,7 @@ import { AngularFireModule } from '@angular/fire';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { firebaseConfig } from '../environments/firebaseConfig';
 import { SocialLoginModule, SocialAuthServiceConfig, FacebookLoginProvider } from 'angularx-social-login';
+import { FormsModule } from '@angular/forms';
 
 // export let options: Partial<IConfig> | (() => Partial<IConfig>);
 const maskConfig: Partial<IConfig> = {
@@ -61,6 +62,7 @@ export const customCurrencyMaskConfig = {
   ],
   imports: [
     NgbModule,
+    FormsModule,
     SharedModule,
     HttpClientModule,
     AppRoutingModule,

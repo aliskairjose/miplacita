@@ -13,10 +13,10 @@ export class SearchComponent implements OnInit, OnChanges {
 
   searchForm: FormGroup;
   products: Product[] = [];
-  selected = '';
 
   @Input() categories: Category[];
-  @Output() productsFilter: EventEmitter<Product[]> = new EventEmitter<Product[]>();
+  // @Output() productsFilter: EventEmitter<Product[]> = new EventEmitter<Product[]>();
+  @Output() productsFilter: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(
     private formBuilder: FormBuilder,
@@ -35,7 +35,7 @@ export class SearchComponent implements OnInit, OnChanges {
 
   onSubmit(): void {
     // Conexión con api
-    this.productsFilter.emit( this.products );
+    this.productsFilter.emit( this.searchForm.value );
   }
 
   // convenience getter for easy access to form fields
@@ -44,7 +44,7 @@ export class SearchComponent implements OnInit, OnChanges {
 
   private createForm(): void {
     this.searchForm = this.formBuilder.group( {
-      search: [ '' ],
+      searchText: [ '' ],
       category: [ '' ],
     } );
   }
