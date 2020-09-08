@@ -17,6 +17,8 @@ export class ProductBoxOneComponent implements OnInit {
   @Input() onHowerChangeImage: boolean = false; // Default False
   @Input() cartModal: boolean = false; // Default False
   @Input() loader: boolean = false;
+  @Input() search: boolean = false;
+
   
   @ViewChild("quickView") QuickView: QuickViewComponent;
   @ViewChild("cartModal") CartModal: CartModalComponent;
@@ -26,6 +28,7 @@ export class ProductBoxOneComponent implements OnInit {
   constructor(private productService: ProductService) { }
 
   ngOnInit(): void {
+    console.log(this.search);
     if(this.loader) {
       setTimeout(() => { this.loader = false; }, 2000); // Skeleton Loader
     }

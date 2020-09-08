@@ -45,11 +45,11 @@
       </a>
     </div>
   </div>
-  <div class="product-detail">
+  <div class="product-detail" *ngIf="!search">
     <div>
       <!-- <bar-rating [rate]="5" [readOnly]="true"></bar-rating> -->
       <a [routerLink]="['/shop/product/left/sidebar/', product?.title.replace(' ', '-')]">
-        <h6>{{ product?.title | titlecase }}</h6>
+        <h6 >{{ product?.title | titlecase }}</h6>
       </a>
       <p>{{ product?.description }}</p>
       <h4>
@@ -61,6 +61,25 @@
           (click)="ChangeVariants(color, product)">
         </li>
       </ul> -->
+    </div>
+  </div>
+  <div class="product-detail" *ngIf="search">
+    <div>
+      <a [routerLink]="['/shop/product/left/sidebar/', product?.title.replace(' ', '-')]">
+        <h6 class="text-default-color">{{ product?.title | titlecase }}</h6>
+        
+      </a>
+      <p>Creado por Tienda</p>
+      <p class="mt-2">{{ product?.description }}</p>
+      <div class="d-flex">
+        <h4>
+          {{ product?.price * currency?.price | discount:product | currency:currency?.currency:'symbol' }}
+          <del *ngIf="product?.discount"><span class="money"> {{ product?.price * currency?.price | currency:currency?.currency:'symbol' }}</span></del>
+        </h4>
+        <p class="text-default-color pl-2">(5 unidades disponibles)</p>
+      </div>
+      
+      
     </div>
   </div>
 </div>

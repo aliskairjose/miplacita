@@ -18,8 +18,8 @@ import { Product as P } from '../../../shared/classes/product';
 } )
 export class CollectionLeftSidebarComponent implements OnInit {
 
-  grid = 'col-xl-3 col-md-6';
-  layoutView = 'grid-view';
+  grid = 'col-lg-12';
+  layoutView = 'list-view';
   products: Product[] = [];
   categories: Category[] = [];
   shops: Store[] = [];
