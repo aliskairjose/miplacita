@@ -72,19 +72,19 @@ export class CollectionLeftSidebarComponent implements OnInit {
         this.loadProductList();
 
         // Get Filtered Products..
-        this.productService.filterProducts( this.tags ).subscribe( response => {
-          // Sorting Filter
-          this.products = this.productService.sortProducts( response, this.sortBy );
-          // Category Filter
-          if ( params.category ) {
-            this.products = this.products.filter( item => item.type === this.category );
-          }
-          // Price Filter
-          this.products = this.products.filter( item => item.price >= this.minPrice && item.price <= this.maxPrice );
-          // Paginate Products
-          this.paginate = this.productService.getPager( this.products.length, +this.pageNo );     // get paginate object from service
-          this.products = this.products.slice( this.paginate.startIndex, this.paginate.endIndex + 1 ); // get current page of items
-        } );
+        // this.productService.filterProducts( this.tags ).subscribe( response => {
+        //   // Sorting Filter
+        //   this.products = this.productService.sortProducts( response, this.sortBy );
+        //   // Category Filter
+        //   if ( params.category ) {
+        //     this.products = this.products.filter( item => item.type === this.category );
+        //   }
+        //   // Price Filter
+        //   this.products = this.products.filter( item => item.price >= this.minPrice && item.price <= this.maxPrice );
+        //   // Paginate Products
+        //   this.paginate = this.productService.getPager( this.products.length, +this.pageNo );     // get paginate object from service
+        //   this.products = this.products.slice( this.paginate.startIndex, this.paginate.endIndex + 1 ); // get current page of items
+        // } );
       } );
     } );
 
@@ -94,9 +94,9 @@ export class CollectionLeftSidebarComponent implements OnInit {
   }
 
   loadProductList( page = 1 ): void {
-    // this.productServices.productList( page, this.params ).subscribe( ( result: Result<P> ) => {
-    //   // console.log( result );
-    // } );
+    this.productServices.productList( page, this.params ).subscribe( ( result: Result<P> ) => {
+      console.log( result );
+    } );
   }
 
   // Append filter value to Url
