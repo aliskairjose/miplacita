@@ -9,3 +9,29 @@ hr {
 .search-bar {
   flex-grow: 1;
 }
+
+.logo-search {
+  display: flex;
+  flex-direction: row;
+}
+.lg-device {
+  display: none;
+}
+.small-device {
+  display: inline;
+}
+.mp-logo{
+  width: 100%;
+  text-align: center;
+}
+@media (min-width: 768px) { 
+  .small-device {
+    display: none;
+  }
+  .lg-device {
+    display: inline;
+  }
+  .mp-logo{
+    width: 30%;
+  }
+}

@@ -72,15 +72,22 @@
             <div [hidden]="!isSideMenu">
               <app-left-menu></app-left-menu>
             </div>
-            <div class="brand-logo">
+            
+          </div>
+          <div class="d-flex col-sm-8 col-md-8 col-lg-8 align-items-center">
+          
+            <div class="mp-logo">
               <a routerLink="/home" id="headerlogo">
                 <img [src]="themeLogo" class="img-fluid logo" alt="logo">
               </a>
             </div>
+            <div class="b pt-2 w-100 lg-device ">
+              <div class="search-bar" [hidden]="!hasSearchBar">
+                <app-search [categories]="categories" (productsFilter)="applyFilter($event)"></app-search>
+              </div>
+            </div>
           </div>
-          <div class="search-bar" [hidden]="!hasSearchBar">
-            <app-search [categories]="categories" (productsFilter)="applyFilter($event)"></app-search>
-          </div>
+          
           <div class="menu-right pull-right">
             <div>
               <app-menu [hidden]="!isHidde"></app-menu>
@@ -89,6 +96,13 @@
               <app-settings></app-settings>
             </div>
           </div>
+        </div>
+      </div>
+    </div>
+    <div class="w-100 small-device">
+      <div class="b pt-2 w-100">
+        <div class="search-bar" [hidden]="!hasSearchBar">
+          <app-search [categories]="categories" (productsFilter)="applyFilter($event)"></app-search>
         </div>
       </div>
     </div>
