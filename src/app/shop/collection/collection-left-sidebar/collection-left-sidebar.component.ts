@@ -46,60 +46,64 @@ export class CollectionLeftSidebarComponent implements OnInit {
     private viewScroller: ViewportScroller,
     private categoryService: CategoryService,
   ) {
-    // Get Query params..
-    this.route.queryParams.subscribe( params => {
-      const p = window.location.href.split( '?' );
-      this.params = p[ 1 ];
-      this.brands = params.brand ? params.brand.split( ',' ) : [];
-      this.colors = params.color ? params.color.split( ',' ) : [];
-      this.size = params.size ? params.size.split( ',' ) : [];
-      this.minPrice = params.minPrice ? params.minPrice : this.minPrice;
-      this.maxPrice = params.maxPrice ? params.maxPrice : this.maxPrice;
-      this.tags = [ ...this.brands, ...this.colors, ...this.size ]; // All Tags Array
-      this.category = params.category ? params.category : null;
-      this.sortBy = params.sortBy ? params.sortBy : 'ascending';
-      this.pageNo = params.page ? params.page : this.pageNo;
 
-      // Get Categories 
-      this.categoryService.categoryList().subscribe( ( categories: Category[] ) => {
-        this.categories = [ ...categories ];
-      } );
+    this.shopService.getAll().subscribe( ( result: Result<Store> ) => {
+      const shops = [ ...result.docs ];
 
-      this.shopService.getAll().subscribe( ( result: Result<Store> ) => {
-        this.shops = [ ...result.docs ];
-      } );
+      // Get Query params..
 
-      this.loadProductList();
+      this.route.queryParams.subscribe( params => {
 
-      // Get Filtered Products..
-      this.productService.filterProducts( this.tags ).subscribe( response => {
-        // Sorting Filter
-        this.products = this.productService.sortProducts( response, this.sortBy );
-        // Category Filter
-        if ( params.category ) {
-          this.products = this.products.filter( item => item.type === this.category );
-        }
-        // Price Filter
-        this.products = this.products.filter( item => item.price >= this.minPrice && item.price <= this.maxPrice );
-        // Paginate Products
-        this.paginate = this.productService.getPager( this.products.length, +this.pageNo );     // get paginate object from service
-        this.products = this.products.slice( this.paginate.startIndex, this.paginate.endIndex + 1 ); // get current page of items
+        const p = window.location.href.split( '?' );
+        this.params = p[ 1 ];
+        const storeID = params.store ? params.store.split( ',' ) : [];
+        console.log( storeID );
+        storeID.length > 0 ? this.shops = shops.filter( x => x._id === storeID[ 0 ] ) : this.shops = shops;
+
+        this.brands = params.brand ? params.brand.split( ',' ) : [];
+        this.tags = [ ...this.brands, ...this.colors, ...this.size ]; // All Tags Array
+        this.category = params.category ? params.category : null;
+        this.sortBy = params.sortBy ? params.sortBy : 'ascending';
+        this.pageNo = params.page ? params.page : this.pageNo;
+
+        // Get Categories 
+        this.categoryService.categoryList().subscribe( ( categories: Category[] ) => {
+          this.categories = [ ...categories ];
+        } );
+
+        this.loadProductList();
+
+        // Get Filtered Products..
+        this.productService.filterProducts( this.tags ).subscribe( response => {
+          // Sorting Filter
+          this.products = this.productService.sortProducts( response, this.sortBy );
+          // Category Filter
+          if ( params.category ) {
+            this.products = this.products.filter( item => item.type === this.category );
+          }
+          // Price Filter
+          this.products = this.products.filter( item => item.price >= this.minPrice && item.price <= this.maxPrice );
+          // Paginate Products
+          this.paginate = this.productService.getPager( this.products.length, +this.pageNo );     // get paginate object from service
+          this.products = this.products.slice( this.paginate.startIndex, this.paginate.endIndex + 1 ); // get current page of items
+        } );
       } );
     } );
+
   }
 
   ngOnInit(): void {
   }
 
   loadProductList( page = 1 ): void {
-    this.productServices.productList( page, this.params ).subscribe( ( result: Result<P> ) => {
-      console.log( result );
-    } );
+    // this.productServices.productList( page, this.params ).subscribe( ( result: Result<P> ) => {
+    //   // console.log( result );
+    // } );
   }
 
   // Append filter value to Url
   updateFilter( tags: any ) {
-    console.log( tags );
+    // console.log( tags );
     tags.page = null; // Reset Pagination
     this.router.navigate( [], {
       relativeTo: this.route,

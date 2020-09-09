@@ -9,22 +9,41 @@ import { Store } from '../../../../shared/classes/store';
 export class ShopsComponent implements OnInit {
 
   collapse = true;
+  private _shops: Store[] = [];
 
   @Input() shops: Store[] = [];
   @Output() shopsFilter: EventEmitter<any> = new EventEmitter<any>();
-
 
   constructor() { }
 
   ngOnInit(): void {
   }
 
+  // Llena el la lista de tiendas
+  get filterShop() {
+    let uniqueShops = [];
+    uniqueShops = this.shops;
+    return uniqueShops;
+  }
+
   appliedFilter( event ): void {
-    this.shopsFilter.emit( { store: event.target.value } );
+    const index = this._shops.indexOf( event.target.value );  // checked and unchecked value
+
+    if ( event.target.checked ) {
+      this._shops.push( event.target.value );
+    } else {
+      this._shops.splice( index, 1 );
+    }
+
+    const shops = this._shops.length ? { store: this._shops.join(',') } : { store: null };
+    this.shopsFilter.emit( shops );
   }
 
   checked( item ) {
-    // console.log( item );
+    const result = this._shops.filter( x => x._id === item );
+    if ( result.length > 0 ) {
+      return true;
+    }
   }
 
 }

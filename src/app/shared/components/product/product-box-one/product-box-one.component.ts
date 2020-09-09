@@ -28,7 +28,6 @@ export class ProductBoxOneComponent implements OnInit {
   constructor(private productService: ProductService) { }
 
   ngOnInit(): void {
-    console.log(this.search);
     if(this.loader) {
       setTimeout(() => { this.loader = false; }, 2000); // Skeleton Loader
     }

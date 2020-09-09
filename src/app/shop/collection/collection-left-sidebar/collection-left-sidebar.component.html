@@ -1,4 +1,3 @@
-<!-- <app-breadcrumb [title]="'Collection'" [breadcrumb]="'Collection'"></app-breadcrumb> -->
 <!-- section start -->
 <section class="section-b-space">
     <div class="collection-wrapper">
@@ -14,7 +13,8 @@
                                 </span>
                             </div>
                             <!-- Category filter start -->
-                            <app-categories [categories]="categories" (categoryFilter)="updateFilter($event)"></app-categories>
+                            <app-categories [categories]="categories" (categoryFilter)="updateFilter($event)">
+                            </app-categories>
                         </div>
                         <div class="collection-filter-block">
                             <div class="collection-mobile-back" (click)="toggleMobileSidebar()">
@@ -22,8 +22,9 @@
                                     <i class="fa fa-angle-left" aria-hidden="true"></i> back
                                 </span>
                             </div>
-                            <!-- Category filter start -->
-                            <app-shops [shops]="shops" (shopsFilter)="updateFilter($event)"></app-shops>
+                            <!-- Shops filter start -->
+                            <app-shops [shops]="shops" (shopsFilter)="updateFilter($event)">
+                            </app-shops>
                         </div>
                         <div class="collection-filter-block">
                             <div class="collection-mobile-back" (click)="toggleMobileSidebar()">
@@ -31,65 +32,19 @@
                                     <i class="fa fa-angle-left" aria-hidden="true"></i> back
                                 </span>
                             </div>
-                            <!-- price filter start here -->
+                            <!-- Price filter start here -->
                             <app-price (priceFilter)="updateFilter($event)">
                             </app-price>
                         </div>
-                        <!-- silde-bar colleps block end here -->
-                        <!-- side-bar colleps block stat -->
-                        <!-- <div class="collection-filter-block"> -->
-                            <!-- brand filter start -->
-                            <!-- <app-brands [products]="products" [brands]="brands" (brandsFilter)="updateFilter($event)">
-                            </app-brands> -->
-                            <!-- color filter start here -->
-                            <!-- <app-colors [products]="products" [colors]="colors" (colorsFilter)="updateFilter($event)">
-                            </app-colors> -->
-                            <!-- size filter start here -->
-                            <!-- <app-size [products]="products" [size]="size" (sizeFilter)="updateFilter($event)">
-                            </app-size> -->
-                            <!-- price filter start here -->
-                            <!-- <app-price [min]="minPrice" [max]="maxPrice" (priceFilter)="updateFilter($event)">
-                            </app-price> -->
-                        <!-- </div> -->
-                        <!-- silde-bar colleps block end here -->
-                        <!-- side-bar single product slider start -->
-                        <!-- <app-product-box-vertical-slider [title]="'New Products'">
-                        </app-product-box-vertical-slider> -->
-                        <!-- side-bar single product slider end -->
-                        <!-- side-bar banner start here -->
-                        <!-- <div class="collection-sidebar-banner">
-                            <a [routerLink]="['/shop/collection/left/sidebar']">
-                                <img src="assets/images/collection-sidebar-banner.png" class="img-fluid" alt="banner">
-                            </a>
-                        </div> -->
-                        <!-- side-bar banner end here -->
+                        <!-- brand filter start -->
+                        <app-brands [products]="products" [brands]="brands" (brandsFilter)="updateFilter($event)">
+                        </app-brands>
                     </div>
                 </div>
                 <div class="collection-content col">
                     <div class="page-main-content">
                         <div class="row">
                             <div class="col-sm-12">
-                                <!--<div class="top-banner-wrapper">
-                                    <a [routerLink]="['/shop/collection/left/sidebar']">
-                                        <img src="assets/images/collection-banner.jpg" class="img-fluid " alt="">
-                                    </a>
-                                    <div class="top-banner-content small-section">
-                                        <h4>fashion</h4>
-                                        <h5>Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                                        </h5>
-                                        <p>
-                                            Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                                            Lorem Ipsum has been the industry's standard dummy text ever since the
-                                            1500s, when an unknown printer took a galley of type and scrambled it to
-                                            make a type specimen book. It has
-                                            survived not only five centuries, but also the leap into electronic
-                                            typesetting, remaining essentially unchanged. It was popularised in the
-                                            1960s with the release of Letraset sheets containing Lorem Ipsum passages,
-                                            and more recently with desktop publishing software like Aldus PageMaker
-                                            including versions of Lorem Ipsum.
-                                        </p>
-                                    </div>
-                                </div>-->
                                 <div class="row">
                                     <div class="col-xl-12">
                                         <div class="filter-main-btn" (click)="toggleMobileSidebar()">
@@ -112,10 +67,6 @@
                                     </li>
                                 </ul>
                                 <div class="collection-product-wrapper" id="products">
-                                    <!-- <app-grid [products]="products" [paginate]="paginate" [layoutView]="layoutView"
-                                        [sortBy]="sortBy" (setGrid)="updateGridLayout($event)"
-                                        (setLayout)="updateLayoutView($event)" (sortedBy)="sortByFilter($event)">
-                                    </app-grid> -->
                                     <div class="product-wrapper-grid" [ngClass]="layoutView">
                                         <div class="row">
                                             <div class="col-grid-box" [ngClass]="grid" *ngFor="let product of products">
@@ -131,14 +82,11 @@
                                                 *ngIf="!products.length">
                                                 <img src="assets/images/empty-search.jpg" class="img-fluid mb-4">
                                                 <h3>Lo sentimos! no hay resultados para tu búsqueda</h3>
-                                            
                                                 <a [routerLink]="['/shop/collection/left/sidebar']"
                                                     class="btn btn-solid">Continuar comprando</a>
                                             </div>
                                         </div>
                                     </div>
-                                        
-
                                     <app-pagination [products]="products" [paginate]="paginate"
                                         (setPage)="setPage($event)">
                                     </app-pagination>
