@@ -1,10 +1,9 @@
-<!-- Start Categories List -->
-<div class="collection-collapse-block border-0" [class.open]="collapse">
+<div class="collection-collapse-block border-0" [class.open]="collapse" *ngIf="filterCategory.length">
 	<h3 class="collapse-block-title" (click)="collapse = !collapse">Categorías</h3>
 	<div class="collection-collapse-block-content">
 		<div class="collection-brand-filter">
 			<div class="custom-control custom-checkbox collection-filter-checkbox"
-				*ngFor="let category of categories; let i = index">
+				*ngFor="let category of filterCategory; let i = index">
 				<input
 					type="checkbox" 
 					[value]="category._id" 
@@ -17,4 +16,3 @@
 		</div>
 	</div>
 </div>
-<!-- End Categories List -->

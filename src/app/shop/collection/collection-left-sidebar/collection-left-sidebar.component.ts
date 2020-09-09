@@ -10,6 +10,7 @@ import { ShopService } from '../../../shared/services/shop.service';
 import { Result } from '../../../shared/classes/response';
 import { Store } from '../../../shared/classes/store';
 import { Product as P } from '../../../shared/classes/product';
+import { forkJoin } from 'rxjs';
 
 @Component( {
   selector: 'app-collection-left-sidebar',
@@ -47,29 +48,26 @@ export class CollectionLeftSidebarComponent implements OnInit {
     private categoryService: CategoryService,
   ) {
 
-    this.shopService.getAll().subscribe( ( result: Result<Store> ) => {
-      const shops = [ ...result.docs ];
-
+    // tslint:disable-next-line: max-line-length
+    forkJoin( [ this.shopService.getAll(), this.categoryService.categoryList() ] ).subscribe( ( [ shopsResult, categoriesResult ] ) => {
       // Get Query params..
-
       this.route.queryParams.subscribe( params => {
+        const shops = [ ...shopsResult.docs ];
+        const categories = [ ...categoriesResult ];
 
         const p = window.location.href.split( '?' );
         this.params = p[ 1 ];
+
         const storeID = params.store ? params.store.split( ',' ) : [];
-        console.log( storeID );
         storeID.length > 0 ? this.shops = shops.filter( x => x._id === storeID[ 0 ] ) : this.shops = shops;
+
+        const categoryID = params.category ? params.category.split( ',' ) : [];
+        categoryID.length > 0 ? this.categories = categories.filter( x => x._id === categoryID[ 0 ] ) : this.categories = categories;
 
         this.brands = params.brand ? params.brand.split( ',' ) : [];
         this.tags = [ ...this.brands, ...this.colors, ...this.size ]; // All Tags Array
-        this.category = params.category ? params.category : null;
         this.sortBy = params.sortBy ? params.sortBy : 'ascending';
         this.pageNo = params.page ? params.page : this.pageNo;
-
-        // Get Categories 
-        this.categoryService.categoryList().subscribe( ( categories: Category[] ) => {
-          this.categories = [ ...categories ];
-        } );
 
         this.loadProductList();
 
