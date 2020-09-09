@@ -46,7 +46,7 @@ export class SearchComponent implements OnInit, OnChanges {
 
   private createForm(): void {
     this.searchForm = this.formBuilder.group( {
-      searchText: [ '' ],
+      name: [ '' ],
       category: [ '' ],
     } );
   }
