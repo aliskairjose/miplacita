@@ -25,6 +25,7 @@ import { ShopSuscriptionComponent } from './shops/shop-suscription/shop-suscript
 import { ShopWithdrawalComponent } from './shops/shop-withdrawal/shop-withdrawal.component';
 import { ShopsComponent } from './shops/shops.component';
 import { SearchComponent } from '../pages/search/search.component';
+import { TermsAndConditionsComponent } from './terms-and-conditions/terms-and-conditions.component';
 
 const routes: Routes = [
 
@@ -123,6 +124,10 @@ const routes: Routes = [
   {
     path: 'search',
     component: SearchComponent
+  },
+  {
+    path: 'termsandconditions',
+    component: TermsAndConditionsComponent
   }
 ];
 
