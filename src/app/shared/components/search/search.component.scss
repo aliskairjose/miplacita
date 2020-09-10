@@ -32,5 +32,11 @@ input {
 .dropdown-menu.show {
   overflow: scroll;
   max-height: 50vh;
+  scrollbar-color: var(--theme-deafult) #ccc;
+}
 
+.dropdown-item:hover {
+  background-image: none;
+  background-color: var(--theme-deafult);
+  color: var(--white);
 }

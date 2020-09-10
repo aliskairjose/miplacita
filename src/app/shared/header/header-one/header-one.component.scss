@@ -9,7 +9,9 @@ hr {
 .search-bar {
   flex-grow: 1;
 }
-
+.no-show {
+  display: none !important;
+}
 .logo-search {
   display: flex;
   flex-direction: row;
