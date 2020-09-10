@@ -10,3 +10,21 @@
   // overflow: auto;
   // text-overflow: Ellipsis; // This is where the magic happens
 }
+.dropdown-toggle {
+  white-space: normal;
+  font-size: 0.7rem;
+}
+
+.searh-box-mp {
+  background-color: rgba(0,0,0,0.2);
+  border-radius: 20px;
+  padding: 0.2rem 0.2rem;
+}
+
+input {
+  border: none;
+  background-color: transparent;
+  padding-left: 2px;
+  padding-right: 2px;
+  width: 70%;
+}

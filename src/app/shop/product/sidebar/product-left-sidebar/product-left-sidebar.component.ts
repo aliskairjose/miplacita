@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProductDetailsMainSlider, ProductDetailsThumbSlider } from '../../../../shared/data/slider';
-import { Product } from '../../../../shared/classes/tm.product';
+import { Product } from '../../../../shared/classes/product';
 import { ProductService } from '../../../../shared/services/tm.product.service';
 import { SizeModalComponent } from "../../../../shared/components/modal/size-modal/size-modal.component";
 
@@ -26,9 +26,17 @@ export class ProductLeftSidebarComponent implements OnInit {
   constructor(private route: ActivatedRoute, private router: Router,
               public productService: ProductService) {
       this.route.data.subscribe(response => {
-        this.product = response.data;
-        this.product['store'] = 'tienda';
-        console.log(this.product);
+        this.product = { _id: '123',
+        name: 'Silla decoradora',
+        description: 'Green chair minimal design',
+        store: 'Tienda',
+        price: '150',
+        image: ['assets/images/marketplace/images/placeholder.png'],
+        stock: 5,
+        quantity: 1
+    
+      }
+       console.log(this.product);
       });
     }
 

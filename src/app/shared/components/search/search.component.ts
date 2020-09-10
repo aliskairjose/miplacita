@@ -14,6 +14,7 @@ export class SearchComponent implements OnInit, OnChanges {
 
   searchForm: FormGroup;
   products: Product[] = [];
+  textCategory = 'Explora';
 
   @Input() categories: Category[];
   // @Output() productsFilter: EventEmitter<Product[]> = new EventEmitter<Product[]>();
@@ -49,6 +50,10 @@ export class SearchComponent implements OnInit, OnChanges {
       name: [ '' ],
       category: [ '' ],
     } );
+  }
+
+  updateCategory(item){
+    this.textCategory = item.name;
   }
 
 

@@ -78,4 +78,5 @@ export class HeaderOneComponent implements OnInit {
     this.auth.authSubject( false );
   }
 
+
 }

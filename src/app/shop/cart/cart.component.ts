@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ProductService } from "../../shared/services/tm.product.service";
-import { Product } from "../../shared/classes/tm.product";
+import { Product } from "../../shared/classes/product";
 
 @Component({
   selector: 'app-cart',
@@ -10,15 +10,21 @@ import { Product } from "../../shared/classes/tm.product";
 })
 export class CartComponent implements OnInit {
 
-  public products: Product[] = [];
+  public products: Product[] = [
+    
+  ];
 
   constructor(public productService: ProductService) {
-    this.productService.cartItems.subscribe(response => {
-      this.products = response;
-      this.products.map((product) => {
-        product['shop'] = 'tienda';
-      });
-    });
+    
+    this.products.push({ _id: '123',
+    name: 'Silla decoradora',
+    store: 'Tienda',
+    price: '150',
+    image: ['assets/images/marketplace/images/placeholder.png'],
+    stock: 5,
+    quantity: 1
+
+  });
     console.log(this.products);
   }
 

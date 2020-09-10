@@ -9,3 +9,24 @@ hr {
 .search-bar {
   flex-grow: 1;
 }
+
+.logo-search {
+  display: flex;
+  flex-direction: row;
+}
+.lg-device {
+  display: none !important;
+}
+.small-device {
+  display: inline;
+}
+
+@media (min-width: 768px) { 
+  .small-device {
+    display: none;
+  }
+  .lg-device {
+    display: inline !important;
+  }
+
+}
