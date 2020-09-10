@@ -71,11 +71,10 @@
                                         <div class="row">
                                             <div class="col-grid-box" [ngClass]="grid" *ngFor="let product of products">
                                                 <div class="product-box">
-                                                    <li>{{product.name}} {{product.price | currency }}</li>
-                                                    <!-- <app-product-box-one [product]="product"
-                                                        [currency]="productService?.Currency" [thumbnail]="false"
+                                                    <app-product-box-one [product]="product"
+                                                        [thumbnail]="false"
                                                         [cartModal]="true" [loader]="true" [search]="true">
-                                                    </app-product-box-one> -->
+                                                    </app-product-box-one>
                                                 </div>
                                                 <hr>
                                             </div>
