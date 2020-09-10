@@ -10,7 +10,7 @@ export interface Product {
   category?: string;
   image?: [string];
   stock?: number;
-  store?: Store;
+  store?: any;
   tax?: string;
   marketplace?: boolean;
   featured?: boolean;

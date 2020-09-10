@@ -38,81 +38,79 @@ export class MarketplaceShopComponent implements OnInit {
     //   //   });
     //   // });
     // } );
-    this.products.push({ _id: '123',
-    name: 'Silla decoradora',
-    store: 'Tienda',
-    price: '150',
-    image: ['assets/images/marketplace/images/placeholder.png'],
-    stock: 5,
-    quantity: 1,
-    category: 'Decoración'
+    /* this.products.push( {
+      _id: '123',
+      name: 'Silla decoradora',
+      store: 'Tienda',
+      price: '150',
+      image: [ 'assets/images/marketplace/images/placeholder.png' ],
+      stock: 5,
+      category: 'Decoración'
 
-  },{ _id: '123',
-    name: 'Silla decoradora',
-    store: 'Tienda',
-    price: '150',
-    image: ['assets/images/marketplace/images/placeholder.png'],
-    stock: 5,
-    quantity: 1,
-    category: 'Decoración'
+    }, {
+      _id: '123',
+      name: 'Silla decoradora',
+      store: 'Tienda',
+      price: '150',
+      image: [ 'assets/images/marketplace/images/placeholder.png' ],
+      stock: 5,
+      category: 'Decoración'
 
-  },{ _id: '123',
-  name: 'Silla decoradora',
-  store: 'Tienda',
-  price: '150',
-  image: ['assets/images/marketplace/images/placeholder.png'],
-  stock: 5,
-  quantity: 1,
-  category: 'Decoración'
+    }, {
+      _id: '123',
+      name: 'Silla decoradora',
+      store: 'Tienda',
+      price: '150',
+      image: [ 'assets/images/marketplace/images/placeholder.png' ],
+      stock: 5,
+      category: 'Decoración'
 
-},{ _id: '123',
-name: 'Silla decoradora',
-store: 'Tienda',
-price: '150',
-new: true,
-image: ['assets/images/marketplace/images/placeholder.png'],
-stock: 5,
-quantity: 1,
-category: 'Decoración'
+    }, {
+      _id: '123',
+      name: 'Silla decoradora',
+      store: 'Tienda',
+      price: '150',
+      image: [ 'assets/images/marketplace/images/placeholder.png' ],
+      stock: 5,
+      category: 'Decoración'
 
-},{ _id: '123',
-name: 'Silla decoradora',
-store: 'Tienda',
-price: '150',
-image: ['assets/images/marketplace/images/placeholder.png'],
-stock: 5,
-quantity: 1,
-category: 'Decoración'
+    }, {
+      _id: '123',
+      name: 'Silla decoradora',
+      store: 'Tienda',
+      price: '150',
+      image: [ 'assets/images/marketplace/images/placeholder.png' ],
+      stock: 5,
+      category: 'Decoración'
 
-},{ _id: '123',
-name: 'Silla decoradora',
-store: 'Tienda',
-price: '150',
-image: ['assets/images/marketplace/images/placeholder.png'],
-stock: 5,
-quantity: 1,
-category: 'Decoración'
+    }, {
+      _id: '123',
+      name: 'Silla decoradora',
+      store: 'Tienda',
+      price: '150',
+      image: [ 'assets/images/marketplace/images/placeholder.png' ],
+      stock: 5,
+      category: 'Decoración'
 
-},{ _id: '123',
-name: 'Silla decoradora',
-store: 'Tienda',
-price: '150',
-image: ['assets/images/marketplace/images/placeholder.png'],
-stock: 5,
-quantity: 1,
-category: 'Decoración'
+    }, {
+      _id: '123',
+      name: 'Silla decoradora',
+      store: 'Tienda',
+      price: '150',
+      image: [ 'assets/images/marketplace/images/placeholder.png' ],
+      stock: 5,
+      category: 'Decoración'
 
-},{ _id: '123',
-name: 'Silla decoradora',
-store: 'Tienda',
-price: '150',
-new: true,
-image: ['assets/images/marketplace/images/placeholder.png'],
-stock: 5,
-quantity: 1,
-category: 'Decoración'
+    }, {
+      _id: '123',
+      name: 'Silla decoradora',
+      store: 'Tienda',
+      price: '150',
+      image: [ 'assets/images/marketplace/images/placeholder.png' ],
+      stock: 5,
+      category: 'Decoración'
 
-});
+    } ); */
   }
 
   ProductSliderConfig: any = ProductSlider;
@@ -125,7 +123,7 @@ category: 'Decoración'
     title: '',
     subTitle: '',
     image: 'assets/images/marketplace/images/mainBanner.jpg'
-  } ]
+  } ];
 
   // Collection banner
   collections = [ {

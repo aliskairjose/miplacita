@@ -16,16 +16,14 @@ export class CartComponent implements OnInit {
 
   constructor(public productService: ProductService) {
     
-    this.products.push({ _id: '123',
-    name: 'Silla decoradora',
-    store: 'Tienda',
-    price: '150',
-    image: ['assets/images/marketplace/images/placeholder.png'],
-    stock: 5,
-    quantity: 1
-
-  });
-    console.log(this.products);
+  //   this.products.push({ _id: '123',
+  //   name: 'Silla decoradora',
+  //   store: 'Tienda',
+  //   price: '150',
+  //   image: ['assets/images/marketplace/images/placeholder.png'],
+  //   stock: 5
+  // });
+  //   console.log(this.products);
   }
 
   ngOnInit(): void {
