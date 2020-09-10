@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ViewportScroller } from '@angular/common';
-import { ProductService } from '../../../shared/services/tm.product.service';
-import { ProductService as ProductServices } from '../../../shared/services/product.service';
-import { Product } from '../../../shared/classes/tm.product';
+// import { ProductService } from '../../../shared/services/tm.product.service';
+import { ProductService } from '../../../shared/services/product.service';
+// import { Product } from '../../../shared/classes/tm.product';
 import { CategoryService } from '../../../shared/services/category.service';
 import { Category } from '../../../shared/classes/category';
 import { ShopService } from '../../../shared/services/shop.service';
 import { Result } from '../../../shared/classes/response';
 import { Store } from '../../../shared/classes/store';
-import { Product as P } from '../../../shared/classes/product';
+import { Product } from '../../../shared/classes/product';
 import { forkJoin } from 'rxjs';
 
 @Component( {
@@ -39,8 +39,8 @@ export class CollectionLeftSidebarComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private shopService: ShopService,
-    public productService: ProductService,
-    private productServices: ProductServices,
+    // public productService: ProductService,
+    private productService: ProductService,
     private viewScroller: ViewportScroller,
     private categoryService: CategoryService,
   ) {
@@ -49,8 +49,8 @@ export class CollectionLeftSidebarComponent implements OnInit {
     forkJoin( [ this.shopService.getAll(), this.categoryService.categoryList() ] ).subscribe( ( [ shopsResult, categoriesResult ] ) => {
       // Get Query params..
       this.route.queryParams.subscribe( params => {
-        console.log(params);
-        
+        console.log( params );
+
         const shops = [ ...shopsResult.docs ];
         const categories = [ ...categoriesResult ];
         const prices = [
@@ -70,7 +70,6 @@ export class CollectionLeftSidebarComponent implements OnInit {
         const priceID = params.price ? params.price.split( ',' ) : [];
         priceID.length > 0 ? this.prices = prices.filter( x => x._id === priceID[ 0 ] ) : this.prices = prices;
 
-        this.brands = params.brand ? params.brand.split( ',' ) : [];
         // this.tags = [ ...this.brands, ...this.colors, ...this.size ]; // All Tags Array
         this.sortBy = params.sortBy ? params.sortBy : 'ascending';
         this.pageNo = params.page ? params.page : this.pageNo;
@@ -100,8 +99,9 @@ export class CollectionLeftSidebarComponent implements OnInit {
   }
 
   loadProductList( page = 1 ): void {
-    this.productServices.productList( page, this.params ).subscribe( ( result: Result<P> ) => {
+    this.productService.productList( page, this.params ).subscribe( ( result: Result<Product> ) => {
       console.log( result );
+      this.products = [ ...result.docs ];
     } );
   }
 
