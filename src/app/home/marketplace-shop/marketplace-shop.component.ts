@@ -38,13 +38,14 @@ export class MarketplaceShopComponent implements OnInit {
     //   //   });
     //   // });
     // } );
-    /* this.products.push( {
+    this.products.push( {
       _id: '123',
       name: 'Silla decoradora',
       store: 'Tienda',
       price: '150',
       image: [ 'assets/images/marketplace/images/placeholder.png' ],
       stock: 5,
+      quantity: 1,
       category: 'Decoración'
 
     }, {
@@ -54,6 +55,7 @@ export class MarketplaceShopComponent implements OnInit {
       price: '150',
       image: [ 'assets/images/marketplace/images/placeholder.png' ],
       stock: 5,
+      quantity: 1,
       category: 'Decoración'
 
     }, {
@@ -63,6 +65,7 @@ export class MarketplaceShopComponent implements OnInit {
       price: '150',
       image: [ 'assets/images/marketplace/images/placeholder.png' ],
       stock: 5,
+      quantity: 1,
       category: 'Decoración'
 
     }, {
@@ -72,6 +75,7 @@ export class MarketplaceShopComponent implements OnInit {
       price: '150',
       image: [ 'assets/images/marketplace/images/placeholder.png' ],
       stock: 5,
+      quantity: 1,
       category: 'Decoración'
 
     }, {
@@ -81,6 +85,7 @@ export class MarketplaceShopComponent implements OnInit {
       price: '150',
       image: [ 'assets/images/marketplace/images/placeholder.png' ],
       stock: 5,
+      quantity: 1,
       category: 'Decoración'
 
     }, {
@@ -90,6 +95,7 @@ export class MarketplaceShopComponent implements OnInit {
       price: '150',
       image: [ 'assets/images/marketplace/images/placeholder.png' ],
       stock: 5,
+      quantity: 1,
       category: 'Decoración'
 
     }, {
@@ -99,6 +105,7 @@ export class MarketplaceShopComponent implements OnInit {
       price: '150',
       image: [ 'assets/images/marketplace/images/placeholder.png' ],
       stock: 5,
+      quantity: 1,
       category: 'Decoración'
 
     }, {
@@ -108,9 +115,10 @@ export class MarketplaceShopComponent implements OnInit {
       price: '150',
       image: [ 'assets/images/marketplace/images/placeholder.png' ],
       stock: 5,
+      quantity: 1,
       category: 'Decoración'
 
-    } ); */
+    } );
   }
 
   ProductSliderConfig: any = ProductSlider;
@@ -123,7 +131,7 @@ export class MarketplaceShopComponent implements OnInit {
     title: '',
     subTitle: '',
     image: 'assets/images/marketplace/images/mainBanner.jpg'
-  } ];
+  } ]
 
   // Collection banner
   collections = [ {

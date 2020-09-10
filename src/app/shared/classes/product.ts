@@ -16,4 +16,5 @@ export interface Product {
   featured?: boolean;
   sold?: number;
   created_at?: string;
+  quantity?: number;
 }
