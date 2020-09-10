@@ -58,38 +58,41 @@ export class CollectionLeftSidebarComponent implements OnInit {
           { _id: 'desc', name: 'Desde el más alto' }
         ];
 
+        let shopTag = [];
+        let catTag = [];
         const p = window.location.href.split( '?' );
         this.params = p[ 1 ];
 
         const storeID = params.store ? params.store.split( ',' ) : [];
-        storeID.length > 0 ? this.shops = shops.filter( x => x._id === storeID[ 0 ] ) : this.shops = shops;
+        // storeID.length > 0 ? this.shops = shops.filter( x => x._id === storeID[ 0 ] ) : this.shops = shops;
+        if ( storeID.length > 0 ) {
+          this.shops = shops.filter( x => x._id === storeID[ 0 ] );
+          shopTag.push( this.shops[ 0 ].name );
+        } else {
+          this.shops = shops;
+          shopTag = [];
+        }
 
         const categoryID = params.category ? params.category.split( ',' ) : [];
-        categoryID.length > 0 ? this.categories = categories.filter( x => x._id === categoryID[ 0 ] ) : this.categories = categories;
+        // categoryID.length > 0 ? this.categories = categories.filter( x => x._id === categoryID[ 0 ] ) : this.categories = categories;
+        if ( categoryID.length > 0 ) {
+          this.categories = categories.filter( x => x._id === categoryID[ 0 ] );
+          catTag.push( this.categories[ 0 ].name );
+        } else {
+          this.categories = categories;
+          catTag = [];
+        }
 
-        const priceID = params.price ? params.price.split( ',' ) : [];
+        const priceID = params.price_order ? params.price_order.split( ',' ) : [];
         priceID.length > 0 ? this.prices = prices.filter( x => x._id === priceID[ 0 ] ) : this.prices = prices;
 
+        this.tags = [ ...shopTag, ...catTag ]; // All Tags Array
         // this.tags = [ ...this.brands, ...this.colors, ...this.size ]; // All Tags Array
         this.sortBy = params.sortBy ? params.sortBy : 'ascending';
         this.pageNo = params.page ? params.page : this.pageNo;
 
         this.loadProductList();
 
-        // Get Filtered Products..
-        // this.productService.filterProducts( this.tags ).subscribe( response => {
-        //   // Sorting Filter
-        //   this.products = this.productService.sortProducts( response, this.sortBy );
-        //   // Category Filter
-        //   if ( params.category ) {
-        //     this.products = this.products.filter( item => item.type === this.category );
-        //   }
-        //   // Price Filter
-        //   this.products = this.products.filter( item => item.price >= this.minPrice && item.price <= this.maxPrice );
-        //   // Paginate Products
-        //   this.paginate = this.productService.getPager( this.products.length, +this.pageNo );     // get paginate object from service
-        //   this.products = this.products.slice( this.paginate.startIndex, this.paginate.endIndex + 1 ); // get current page of items
-        // } );
       } );
     } );
 

@@ -19,14 +19,15 @@ export class PriceComponent implements OnInit {
 
   ngOnInit(): void { }
 
-   // Llena el la lista de tiendas
-   get filterPrice() {
+  // Llena el la lista de tiendas
+  get filterPrice() {
     let uniquePrices = [];
     uniquePrices = this.prices;
     return uniquePrices;
   }
 
   appliedFilter( event ) {
+    console.log(event)
     const index = this._prices.indexOf( event.target.value );  // checked and unchecked value
 
     if ( event.target.checked ) {
@@ -35,11 +36,11 @@ export class PriceComponent implements OnInit {
       this._prices.splice( index, 1 );
     }
 
-    const prices = this._prices.length ? { price: this._prices.join(',') } : { price: null };
+    const prices = this._prices.length ? { price_order: this._prices.join( ',' ) } : { price_order: null };
     this.priceFilter.emit( prices );
   }
 
-  checked(item){
+  checked( item ) {
     const result = this._prices.filter( x => x._id === item );
     if ( result.length > 0 ) {
       return true;
