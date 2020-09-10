@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ProductSlider } from '../../shared/data/slider';
 import { ProductService } from '../../shared/services/tm.product.service';
-import { Product } from '../../shared/classes/tm.product';
+import { Product } from '../../shared/classes/product';
 import { Router } from '@angular/router';
 
 @Component( {
@@ -28,16 +28,91 @@ export class MarketplaceShopComponent implements OnInit {
     public productService: ProductService,
     private router: Router
   ) {
-    this.productService.getProducts.subscribe( response => {
-      this.products = response.filter( item => item.type === 'fashion' );
-      // Get Product Collection
-      // this.products.filter((item) => {
-      //   item.collection.filter((collection) => {
-      //     const index = this.productCollections.indexOf(collection);
-      //     if (index === -1) this.productCollections.push(collection);
-      //   });
-      // });
-    } );
+    // this.productService.getProducts.subscribe( response => {
+    //   this.products = response.filter( item => item.type === 'fashion' );
+    //   // Get Product Collection
+    //   // this.products.filter((item) => {
+    //   //   item.collection.filter((collection) => {
+    //   //     const index = this.productCollections.indexOf(collection);
+    //   //     if (index === -1) this.productCollections.push(collection);
+    //   //   });
+    //   // });
+    // } );
+    this.products.push({ _id: '123',
+    name: 'Silla decoradora',
+    store: 'Tienda',
+    price: '150',
+    image: ['assets/images/marketplace/images/placeholder.png'],
+    stock: 5,
+    quantity: 1,
+    category: 'Decoración'
+
+  },{ _id: '123',
+    name: 'Silla decoradora',
+    store: 'Tienda',
+    price: '150',
+    image: ['assets/images/marketplace/images/placeholder.png'],
+    stock: 5,
+    quantity: 1,
+    category: 'Decoración'
+
+  },{ _id: '123',
+  name: 'Silla decoradora',
+  store: 'Tienda',
+  price: '150',
+  image: ['assets/images/marketplace/images/placeholder.png'],
+  stock: 5,
+  quantity: 1,
+  category: 'Decoración'
+
+},{ _id: '123',
+name: 'Silla decoradora',
+store: 'Tienda',
+price: '150',
+new: true,
+image: ['assets/images/marketplace/images/placeholder.png'],
+stock: 5,
+quantity: 1,
+category: 'Decoración'
+
+},{ _id: '123',
+name: 'Silla decoradora',
+store: 'Tienda',
+price: '150',
+image: ['assets/images/marketplace/images/placeholder.png'],
+stock: 5,
+quantity: 1,
+category: 'Decoración'
+
+},{ _id: '123',
+name: 'Silla decoradora',
+store: 'Tienda',
+price: '150',
+image: ['assets/images/marketplace/images/placeholder.png'],
+stock: 5,
+quantity: 1,
+category: 'Decoración'
+
+},{ _id: '123',
+name: 'Silla decoradora',
+store: 'Tienda',
+price: '150',
+image: ['assets/images/marketplace/images/placeholder.png'],
+stock: 5,
+quantity: 1,
+category: 'Decoración'
+
+},{ _id: '123',
+name: 'Silla decoradora',
+store: 'Tienda',
+price: '150',
+new: true,
+image: ['assets/images/marketplace/images/placeholder.png'],
+stock: 5,
+quantity: 1,
+category: 'Decoración'
+
+});
   }
 
   ProductSliderConfig: any = ProductSlider;
@@ -110,11 +185,11 @@ export class MarketplaceShopComponent implements OnInit {
 
   // Product Tab collection
   getCollectionProducts( collection ) {
-    return this.products.filter( ( item ) => {
-      if ( item.collection.find( i => i === collection ) ) {
-        return item;
-      }
-    } );
+    // return this.products.filter( ( item ) => {
+    //   if ( item.collection.find( i => i === collection ) ) {
+    //     return item;
+    //   }
+    // } );
   }
 
 
