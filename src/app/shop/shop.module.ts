@@ -42,6 +42,7 @@ import { SuccessComponent } from './checkout/success/success.component';
 import { ShopsComponent } from './collection/widgets/shops/shops.component';
 import { ShippingComponent } from './checkout/shipping/shipping.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { AlertModule } from 'ngx-alerts';
 
 @NgModule({
   declarations: [
@@ -80,7 +81,9 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     NgxPayPalModule,
     Ng5SliderModule,
     SharedModule,
-    ShopRoutingModule
+    ShopRoutingModule,
+    AlertModule.forRoot({maxMessages: 5, timeout: 3000, position: 'left'}),
+
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 

@@ -27,6 +27,7 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 import { firebaseConfig } from '../environments/firebaseConfig';
 import { SocialLoginModule, SocialAuthServiceConfig, FacebookLoginProvider } from 'angularx-social-login';
 import { FormsModule } from '@angular/forms';
+import { AlertModule } from 'ngx-alerts';
 
 // export let options: Partial<IConfig> | (() => Partial<IConfig>);
 const maskConfig: Partial<IConfig> = {
@@ -74,6 +75,7 @@ export const customCurrencyMaskConfig = {
     NgxMaskModule.forRoot( maskConfig ),
     LoadingBarHttpClientModule,
     NgxCurrencyModule.forRoot( customCurrencyMaskConfig ),
+    AlertModule.forRoot({maxMessages: 5, timeout: 3000, position: 'left'}),
     BrowserModule.withServerTransition( { appId: 'serverApp' } ),
     ToastrModule.forRoot( { timeOut: 3000, progressBar: false, enableHtml: true, } ),
     TranslateModule.forRoot( { loader: { provide: TranslateLoader, useFactory: HttpLoaderFactory, deps: [ HttpClient ] } } ),

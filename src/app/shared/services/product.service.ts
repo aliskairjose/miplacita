@@ -61,21 +61,6 @@ export class ProductService {
     );
   }
 
-
-  /**
-   * @description Detalle de un producto
-   * @param Id Id del producto a consultar
-   */
-  productDetail( id: string ): Observable<Result<Product>> {
-    return this.http.get( `products?product=${id}` ).pipe(
-      map( ( response: Response<Product> ) => {
-        if ( response.success ) {
-          return response.result;
-        }
-      } )
-    );
-  }
-
   deleteProduct( id: string ): Observable<any> {
     return this.http.delete( `products/${id}` );
   }

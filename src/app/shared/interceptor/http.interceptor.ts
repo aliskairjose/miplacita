@@ -44,8 +44,9 @@ export class HttpInterceptor implements HttpInterceptor {
       } ),
       catchError( ( response: HttpErrorResponse ) => {
         this.spinner.hide();
-        this.alert.danger( response.error.message || response.statusText );
-
+        this.alert.danger( response.error.message || response.error.message[0] || response.statusText  );
+        console.log(response);
+        
         switch ( response.status ) {
           case 401:
             this.router.navigate( [ 'login' ] );

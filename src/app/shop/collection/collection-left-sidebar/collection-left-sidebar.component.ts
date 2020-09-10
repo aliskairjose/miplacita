@@ -93,9 +93,6 @@ export class CollectionLeftSidebarComponent implements OnInit {
         }
 
         this.tags = [ ...shopTag, ...catTag, ...priceTag ]; // All Tags Array
-        // this.tags = [ ...this.brands, ...this.colors, ...this.size ]; // All Tags Array
-        this.sortBy = params.sortBy ? params.sortBy : 'ascending';
-        this.pageNo = params.page ? params.page : this.pageNo;
 
         this.loadProductList();
 
