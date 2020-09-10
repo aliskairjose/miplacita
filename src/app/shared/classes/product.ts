@@ -1,17 +1,19 @@
+import { Store } from './store';
 export interface Product {
   _id?: string;
   uuid?: string;
   name?: string;
   description?: string;
   price?: string;
-  quantity?: number;
-  stock_control?: boolean;
   store_id?: string;
   status?: string;
   category?: string;
   image?: [string];
   stock?: number;
-  store?: string;
+  store?: Store;
   tax?: string;
-  new?: boolean;
+  marketplace?: boolean;
+  featured?: boolean;
+  sold?: number;
+  created_at?: string;
 }
