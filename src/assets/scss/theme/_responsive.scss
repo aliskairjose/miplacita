@@ -3842,7 +3842,7 @@ background-color: $black;*/
         .cart-table {
             thead {
                 th {
-                    &:nth-last-child(-n+4) {
+                    &:nth-last-child(-n+5) {
                         display: none;
                     }
                 }
@@ -3851,7 +3851,7 @@ background-color: $black;*/
         tbody {
             tr {
                 td {
-                    &:nth-last-child(-n+4) {
+                    &:nth-last-child(-n+5) {
                         display: none;
                     }
                     .mobile-cart-content {

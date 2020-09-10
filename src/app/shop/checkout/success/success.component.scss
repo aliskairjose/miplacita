@@ -1,0 +1,10 @@
+
+
+// Medium devices (tablets, 768px and up)
+@media (max-width: 768px) { 
+    h3 {
+        & strong{
+            font-size: smaller;
+        }
+    }
+}

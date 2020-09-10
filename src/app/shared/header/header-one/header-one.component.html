@@ -1,6 +1,6 @@
 <ngx-alerts></ngx-alerts>
 
-<header class="sticky" [ngClass]="class" [class.fixed]="stick && sticky">
+<header class="sticky pb-2" [ngClass]="class" [class.fixed]="stick && sticky">
   <div class="mobile-fix-option"></div>
   <div class="top-header" *ngIf="topbar">
     <div class="container">
@@ -78,9 +78,14 @@
               </a>
             </div>
           </div>
-          <div class="search-bar" [hidden]="!hasSearchBar">
-            <app-search [categories]="categories"></app-search>
+          <div class="d-flex col-sm-8 col-md-8 col-lg-8 align-items-center lg-device ">
+            <div class="b pt-2 w-100 ">
+              <div class="search-bar" [hidden]="!hasSearchBar">
+                <app-search [categories]="categories" (productsFilter)="applyFilter($event)"></app-search>
+              </div>
+            </div>
           </div>
+          
           <div class="menu-right pull-right">
             <div>
               <app-menu [hidden]="!isHidde"></app-menu>
@@ -89,6 +94,13 @@
               <app-settings></app-settings>
             </div>
           </div>
+        </div>
+      </div>
+    </div>
+    <div class="w-100 small-device">
+      <div class="b pt-2 w-100">
+        <div class="search-bar" [hidden]="!hasSearchBar">
+          <app-search [categories]="categories" (productsFilter)="applyFilter($event)"></app-search>
         </div>
       </div>
     </div>
