@@ -13,4 +13,5 @@ export interface Product {
   stock?: number;
   store?: string;
   tax?: string;
+  new?: boolean;
 }
