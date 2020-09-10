@@ -11,6 +11,7 @@ import { Result } from '../../../shared/classes/response';
 import { Store } from '../../../shared/classes/store';
 import { Product } from '../../../shared/classes/product';
 import { forkJoin } from 'rxjs';
+import { Paginate } from '../../../shared/classes/paginate';
 
 @Component( {
   selector: 'app-collection-left-sidebar',
@@ -29,7 +30,7 @@ export class CollectionLeftSidebarComponent implements OnInit {
   tags: any[] = [];
   category: string;
   pageNo = 1;
-  paginate: any = {}; // Pagination use only
+  paginate: Paginate;
   sortBy: string; // Sorting Order
   mobileSidebar = false;
   loader = true;
@@ -101,6 +102,11 @@ export class CollectionLeftSidebarComponent implements OnInit {
     this.productService.productList( page, this.params ).subscribe( ( result: Result<Product> ) => {
       console.log( result );
       this.products = [ ...result.docs ];
+      this.paginate = { ...result };
+      this.paginate.pages = [];
+      for ( let i = 1; i <= this.paginate.totalPages; i++ ) {
+        this.paginate.pages.push( i );
+      }
     } );
   }
 
@@ -166,6 +172,7 @@ export class CollectionLeftSidebarComponent implements OnInit {
 
   // product Pagination
   setPage( page: number ) {
+    this.loadProductList( page );
     this.router.navigate( [], {
       relativeTo: this.route,
       queryParams: { page },
