@@ -40,8 +40,7 @@ export class ShopsComponent implements OnInit {
   }
 
   checked( item ) {
-    const result = this._shops.filter( x => x._id === item );
-    if ( result.length > 0 ) {
+    if ( this._shops.indexOf( item ) !== -1 ) {
       return true;
     }
   }

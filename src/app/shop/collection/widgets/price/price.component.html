@@ -7,7 +7,7 @@
                   <input
                       type="checkbox" 
                       [value]="price._id" 
-                      [checked]="checked(price.name)" 
+                      [checked]="checked(price._id)" 
                       [id]="price._id"
                       (change)="appliedFilter($event)" 
                       class="custom-control-input" />

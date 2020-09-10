@@ -27,7 +27,7 @@ export class PriceComponent implements OnInit {
   }
 
   appliedFilter( event ) {
-    console.log(event)
+    console.log( event )
     const index = this._prices.indexOf( event.target.value );  // checked and unchecked value
 
     if ( event.target.checked ) {
@@ -41,8 +41,7 @@ export class PriceComponent implements OnInit {
   }
 
   checked( item ) {
-    const result = this._prices.filter( x => x._id === item );
-    if ( result.length > 0 ) {
+    if ( this._prices.indexOf( item ) !== -1 ) {
       return true;
     }
   }

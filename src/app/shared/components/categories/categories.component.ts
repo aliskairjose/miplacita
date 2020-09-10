@@ -38,13 +38,13 @@ export class CategoriesComponent implements OnInit {
       this._categories.splice( index, 1 );
     }
 
-    const categories = this._categories.length ? { category: this._categories.join(',') } : { category: null };
-    this.categoryFilter.emit( categories );  }
+    const categories = this._categories.length ? { category: this._categories.join( ',' ) } : { category: null };
+    this.categoryFilter.emit( categories );
+  }
 
-  // check if the item are selected
+  // check if the item are selected al parecer no funciona
   checked( item ) {
-    const result = this._categories.filter( x => x._id === item );
-    if ( result.length > 0 ) {
+    if ( this._categories.indexOf( item ) !== -1 ) {
       return true;
     }
   }
