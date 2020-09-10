@@ -157,6 +157,7 @@ export const customCurrencyMaskConfig = {
     TranslateModule
   ],
   exports: [
+    NgxSpinnerModule,
     CommonModule,
     FormsModule,
     ReactiveFormsModule,

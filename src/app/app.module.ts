@@ -28,6 +28,7 @@ import { firebaseConfig } from '../environments/firebaseConfig';
 import { SocialLoginModule, SocialAuthServiceConfig, FacebookLoginProvider } from 'angularx-social-login';
 import { FormsModule } from '@angular/forms';
 import { AlertModule } from 'ngx-alerts';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 // export let options: Partial<IConfig> | (() => Partial<IConfig>);
 const maskConfig: Partial<IConfig> = {
@@ -66,6 +67,7 @@ export const customCurrencyMaskConfig = {
     FormsModule,
     SharedModule,
     HttpClientModule,
+    NgxSpinnerModule,
     AppRoutingModule,
     SocialLoginModule,
     LoadingBarRouterModule,

@@ -83,7 +83,6 @@ import { AlertModule } from 'ngx-alerts';
     SharedModule,
     ShopRoutingModule,
     AlertModule.forRoot({maxMessages: 5, timeout: 3000, position: 'left'}),
-
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 

@@ -5,6 +5,7 @@ import { Product } from '../../../../shared/classes/product';
 import { ProductService } from '../../../../shared/services/product.service';
 import { SizeModalComponent } from '../../../../shared/components/modal/size-modal/size-modal.component';
 import { Result } from '../../../../shared/classes/response';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component( {
   selector: 'app-product-left-sidebar',
@@ -25,32 +26,34 @@ export class ProductLeftSidebarComponent implements OnInit {
   public ProductDetailsThumbConfig: any = ProductDetailsThumbSlider;
 
   constructor(
-    private route: ActivatedRoute,
     private router: Router,
+    private route: ActivatedRoute,
+    private spinner: NgxSpinnerService,
     public productService: ProductService,
-
   ) {
 
+  }
+
+  ngOnInit(): void {
+    this.spinner.show();
     const id = this.route.snapshot.paramMap.get( 'id' );
     const params = `product=${id}`;
 
     this.productService.productList( 1, params ).subscribe( ( result: Result<Product> ) => {
+      this.spinner.hide();
       this.product = { ...result.docs[ 0 ] };
     } );
   }
 
-  ngOnInit(): void {
-  }
-
   // Get Product Color
   Color( variants ) {
-    const uniqColor = []
+    const uniqColor = [];
     for ( let i = 0; i < Object.keys( variants ).length; i++ ) {
       if ( uniqColor.indexOf( variants[ i ].color ) === -1 && variants[ i ].color ) {
-        uniqColor.push( variants[ i ].color )
+        uniqColor.push( variants[ i ].color );
       }
     }
-    return uniqColor
+    return uniqColor;
   }
 
   // Get Product Size
