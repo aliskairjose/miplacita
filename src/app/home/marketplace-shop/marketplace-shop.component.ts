@@ -187,12 +187,10 @@ export class MarketplaceShopComponent implements OnInit {
   // Product Tab collection
   private getCollectionProducts(): void {
     const params = `feature=true&marketplace=true`;
-    this.productService.productList(1, params).subscribe( ( result: Result<Product> ) => {
+    this.productService.productList(1 ).subscribe( ( result: Result<Product> ) => {
       this.products = [ ...result.docs ];
     } );
 
   }
-
-
 
 }
