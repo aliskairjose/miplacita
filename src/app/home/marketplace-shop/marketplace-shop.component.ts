@@ -186,7 +186,8 @@ export class MarketplaceShopComponent implements OnInit {
 
   // Product Tab collection
   private getCollectionProducts(): void {
-    this.productService.productList().subscribe( ( result: Result<Product> ) => {
+    const params = `feature=true&marketplace=true`;
+    this.productService.productList(1, params).subscribe( ( result: Result<Product> ) => {
       this.products = [ ...result.docs ];
     } );
 
