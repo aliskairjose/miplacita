@@ -33,7 +33,7 @@
                                 </span>
                             </div>
                             <!-- Price filter start here -->
-                            <app-price (priceFilter)="updateFilter($event)">
+                            <app-price [prices]="prices" (priceFilter)="updateFilter($event)">
                             </app-price>
                         </div>
                         <!-- brand filter start -->

@@ -25,10 +25,7 @@ export class CollectionLeftSidebarComponent implements OnInit {
   categories: Category[] = [];
   shops: Store[] = [];
   brands: any[] = [];
-  colors: any[] = [];
-  size: any[] = [];
-  minPrice = 0;
-  maxPrice = 1200;
+  prices: any[] = [];
   tags: any[] = [];
   category: string;
   pageNo = 1;
@@ -52,8 +49,14 @@ export class CollectionLeftSidebarComponent implements OnInit {
     forkJoin( [ this.shopService.getAll(), this.categoryService.categoryList() ] ).subscribe( ( [ shopsResult, categoriesResult ] ) => {
       // Get Query params..
       this.route.queryParams.subscribe( params => {
+        console.log(params);
+        
         const shops = [ ...shopsResult.docs ];
         const categories = [ ...categoriesResult ];
+        const prices = [
+          { _id: 'asc', name: 'Desde el más bajo' },
+          { _id: 'desc', name: 'Desde el más alto' }
+        ];
 
         const p = window.location.href.split( '?' );
         this.params = p[ 1 ];
@@ -64,8 +67,11 @@ export class CollectionLeftSidebarComponent implements OnInit {
         const categoryID = params.category ? params.category.split( ',' ) : [];
         categoryID.length > 0 ? this.categories = categories.filter( x => x._id === categoryID[ 0 ] ) : this.categories = categories;
 
+        const priceID = params.price ? params.price.split( ',' ) : [];
+        priceID.length > 0 ? this.prices = prices.filter( x => x._id === priceID[ 0 ] ) : this.prices = prices;
+
         this.brands = params.brand ? params.brand.split( ',' ) : [];
-        this.tags = [ ...this.brands, ...this.colors, ...this.size ]; // All Tags Array
+        // this.tags = [ ...this.brands, ...this.colors, ...this.size ]; // All Tags Array
         this.sortBy = params.sortBy ? params.sortBy : 'ascending';
         this.pageNo = params.page ? params.page : this.pageNo;
 
@@ -131,13 +137,9 @@ export class CollectionLeftSidebarComponent implements OnInit {
   removeTag( tag ) {
 
     this.brands = this.brands.filter( val => val !== tag );
-    this.colors = this.colors.filter( val => val !== tag );
-    this.size = this.size.filter( val => val !== tag );
 
     const params = {
       brand: this.brands.length ? this.brands.join( ',' ) : null,
-      color: this.colors.length ? this.colors.join( ',' ) : null,
-      size: this.size.length ? this.size.join( ',' ) : null
     };
 
     this.router.navigate( [], {
