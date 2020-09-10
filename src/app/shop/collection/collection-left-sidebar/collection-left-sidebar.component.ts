@@ -100,7 +100,6 @@ export class CollectionLeftSidebarComponent implements OnInit {
 
   loadProductList( page = 1 ): void {
     this.productService.productList( page, this.params ).subscribe( ( result: Result<Product> ) => {
-      console.log( result );
       this.products = [ ...result.docs ];
       this.paginate = { ...result };
       this.paginate.pages = [];
