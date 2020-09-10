@@ -69,6 +69,10 @@ export class HeaderOneComponent implements OnInit {
     } );
   }
 
+  applyFilter(event): void {
+    
+  }
+
   /**
    * @description Cierra sesión
    */
@@ -77,5 +81,6 @@ export class HeaderOneComponent implements OnInit {
     this.router.navigate( [ 'home' ] );
     this.auth.authSubject( false );
   }
+
 
 }
