@@ -1,0 +1,44 @@
+<div class="container">
+    <div class="d-flex account-page">
+        <div class="col-lg-3 col-md-3 col-sm-0">
+            <div class="d-flex account-menu justify-content-center" id="" role="tablist">
+                <div class="tab" (click)="updateTab('profile')" 
+                    [ngClass]="{'active': active=='profile','btn tab': active!='profile'}" >
+                    <button class="btn " id="profile-tab" >Mi perfil</button>
+                </div>
+                <div class="tab" (click)="updateTab('orders')"
+                    [ngClass]="{'active': active=='orders','btn tab': active!='orders'}">
+                    <button class="btn "  id="order-tab"   
+                       >Mis Pedidos</button>
+                </div>
+                <div class="tab" (click)="updateTab('shops')"
+                    [ngClass]="{'active': active=='shops','btn tab': active!='shops'}">
+                    <button class="btn "  id="contact-tab"  
+                        >Mis tiendas</button>
+                </div>
+                <div class="tab"  (click)="updateTab('logout')"
+                    [ngClass]="{'active': active=='logout','btn tab': active!='logout'}">
+                    <button class="btn " id="contact-tab"  
+                        >Cerrar Sesión</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-9 col-md-9 col-sm-12">
+            <div class="tab-content" id="myTabContent">
+                <div *ngIf="active=='profile'" class="" 
+                    id="profile" role="tabpanel" aria-labelledby="home-tab">
+                    <!-- <app-shop-profile></app-shop-profile> -->
+                    <app-profile></app-profile>
+                </div>
+                <div *ngIf="active=='orders'" class="" 
+                    id="order" role="tabpanel" aria-labelledby="order-tab">
+                    Mi pedidos</div>
+                <div *ngIf="active=='shops'" class="" 
+                    id="contact" role="tabpanel" aria-labelledby="contact-tab">...</div>
+            </div>
+        </div>
+    </div>
+    
+</div>
+
+  

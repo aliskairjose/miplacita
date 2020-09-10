@@ -1,34 +1,37 @@
-<app-breadcrumb [title]="'Profile'" [breadcrumb]="'Profile'"></app-breadcrumb>
+<!-- <app-breadcrumb [title]="'Profile'" [breadcrumb]="'Profile'"></app-breadcrumb> -->
 <!-- personal deatail section start -->
 <section class="contact-page register-page">
     <div class="container">
         <div class="row">
             <div class="col-sm-12">
                 <h3>PERSONAL DETAIL</h3>
-                <form class="theme-form">
-                    <div class="form-row">
-                        <div class="col-md-6">
-                            <label for="name">First Name</label>
-                            <input type="text" class="form-control" id="name" placeholder="Enter Your name" required="">
+                <div class="checkout-box">
+                    <form class="theme-form">
+                        <div class="form-row">
+                            <div class="col-md-6">
+                                <label for="name">First Name</label>
+                                <input type="text" class="form-control" id="name" placeholder="Enter Your name" required="">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="email">Last Name</label>
+                                <input type="text" class="form-control" id="last-name" placeholder="Email" required="">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="review">Phone number</label>
+                                <input type="text" class="form-control" id="review" placeholder="Enter your number" required="">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="email">Email</label>
+                                <input type="text" class="form-control" id="email" placeholder="Email" required="">
+                            </div>
+                            <div class="col-md-12">
+                                <label for="review">Write Your Message</label>
+                                <textarea class="form-control mb-0" placeholder="Write Your Message" id="exampleFormControlTextarea1" rows="6"></textarea>
+                            </div>
                         </div>
-                        <div class="col-md-6">
-                            <label for="email">Last Name</label>
-                            <input type="text" class="form-control" id="last-name" placeholder="Email" required="">
-                        </div>
-                        <div class="col-md-6">
-                            <label for="review">Phone number</label>
-                            <input type="text" class="form-control" id="review" placeholder="Enter your number" required="">
-                        </div>
-                        <div class="col-md-6">
-                            <label for="email">Email</label>
-                            <input type="text" class="form-control" id="email" placeholder="Email" required="">
-                        </div>
-                        <div class="col-md-12">
-                            <label for="review">Write Your Message</label>
-                            <textarea class="form-control mb-0" placeholder="Write Your Message" id="exampleFormControlTextarea1" rows="6"></textarea>
-                        </div>
-                    </div>
-                </form>
+                    </form>
+                </div>
+                
             </div>
         </div>
     </div>
