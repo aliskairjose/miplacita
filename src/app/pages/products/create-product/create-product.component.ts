@@ -129,7 +129,7 @@ export class CreateProductComponent implements OnInit {
   }
 
   private loadProductData( id: string ): void {
-    this.productService.productDetail( id ).subscribe( ( response: Result<Product> ) => {
+    this.productService.productList(1, `product=${id}` ).subscribe( ( response: Result<Product> ) => {
       this.productData = { ...response.docs[ 0 ] };
       this.selectedCategory = this.productData.category;
     } );

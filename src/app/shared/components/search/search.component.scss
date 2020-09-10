@@ -5,11 +5,8 @@
 .dropsown-search{
   width: 12vw;
   border-color: #ced4da;
-  // height: 80vh;
-  // white-space: nowrap;
-  // overflow: auto;
-  // text-overflow: Ellipsis; // This is where the magic happens
 }
+
 .dropdown-toggle {
   white-space: normal;
   font-size: 0.7rem;
@@ -30,8 +27,8 @@ input {
 }
 
 .dropdown-menu.show {
-  overflow: scroll;
-  max-height: 50vh;
+  overflow: auto;
+  max-height: 80vh;
   scrollbar-color: var(--theme-deafult) #ccc;
 }
 

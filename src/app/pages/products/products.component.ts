@@ -84,7 +84,6 @@ export class ProductsComponent implements OnInit {
     if ( this.user.role === 'merchant' ) this.params = `store=${this.user.stores[ 0 ]._id}`;
 
     this.productService.productList( page, this.params ).subscribe( ( result: Result<Product> ) => {
-      console.log( result );
       this.products = [ ...result.docs ];
       this.paginate = { ...result };
       this.paginate.pages = [];

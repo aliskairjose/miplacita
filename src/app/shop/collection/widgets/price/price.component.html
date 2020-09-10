@@ -1,34 +1,17 @@
-<!-- price filter start here -->
-<!-- <div class="collection-collapse-block border-0" [class.open]="collapse">
-    <h3 class="collapse-block-title" (click)="collapse = !collapse">price</h3>
-    <div class="collection-collapse-block-content">
-        <div class="collection-brand-filter">
-            <div class="mt-2">
-                <ng5-slider 
-                    [(value)]="min" 
-                    [(highValue)]="max" 
-                    [options]="options" 
-                    (userChangeEnd)="appliedFilter($event)">
-                </ng5-slider>
-            </div>
-        </div>
-    </div>
-</div> -->
-
-<div class="collection-collapse-block" [class.open]="collapse">
+<div class="collection-collapse-block" [class.open]="collapse" *ngIf="filterPrice.length">
     <h3 class="collapse-block-title" (click)="collapse = !collapse">Precios</h3>
       <div class="collection-collapse-block-content">
           <div class="collection-brand-filter">
               <div class="custom-control custom-checkbox collection-filter-checkbox"
-                  *ngFor="let price of prices; let i = index">
+                  *ngFor="let price of filterPrice; let i = index">
                   <input
                       type="checkbox" 
-                      [value]="price" 
-                      [checked]="checked(price)" 
-                      [id]="price"
+                      [value]="price._id" 
+                      [checked]="checked(price._id)" 
+                      [id]="price._id"
                       (change)="appliedFilter($event)" 
                       class="custom-control-input" />
-                  <label class="custom-control-label" for="{{ price.value    }}">{{ price.name }}</label>
+                  <label class="custom-control-label" for="{{ price._id }}">{{ price.name }}</label>
               </div>
           </div>
       </div>

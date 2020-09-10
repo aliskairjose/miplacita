@@ -25,10 +25,7 @@ import { ShippingComponent } from './checkout/shipping/shipping.component';
 const routes: Routes = [
   {
     path: 'product/:id',
-    component: ProductLeftSidebarComponent,
-    // resolve: {
-    //   data: Resolver
-    // }
+    component: ProductLeftSidebarComponent
   },
   {
     path: 'product/right/sidebar/:slug',

@@ -47,13 +47,14 @@ export class SearchComponent implements OnInit, OnChanges {
 
   private createForm(): void {
     this.searchForm = this.formBuilder.group( {
-      searchText: [ '' ],
+      name: [ '' ],
       category: [ '' ],
     } );
   }
 
-  updateCategory(item){
+  updateCategory( item: Category ) {
     this.textCategory = item.name;
+    this.searchForm.value.category = item._id;
   }
 
 

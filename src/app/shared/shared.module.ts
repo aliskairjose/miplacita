@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -71,6 +71,7 @@ import { NgxMaskModule, IConfig } from 'ngx-mask';
 import { ConfirmationDialogComponent } from './custom-components/confirmation-dialog/confirmation-dialog.component';
 import { ConfirmationDialogService } from './services/confirmation-dialog.service';
 import { SearchComponent } from './components/search/search.component';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 // export let options: Partial<IConfig> | (() => Partial<IConfig>);
 const maskConfig: Partial<IConfig> = {
@@ -145,6 +146,7 @@ export const customCurrencyMaskConfig = {
     ReactiveFormsModule,
     NgbModule,
     CarouselModule,
+    NgxSpinnerModule,
     BarRatingModule,
     NgxMaskModule.forRoot(maskConfig),
     AlertModule.forRoot({maxMessages: 5, timeout: 3000, position: 'left'}),
@@ -155,6 +157,7 @@ export const customCurrencyMaskConfig = {
     TranslateModule
   ],
   exports: [
+    NgxSpinnerModule,
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
@@ -206,5 +209,7 @@ export const customCurrencyMaskConfig = {
     SearchComponent,
   ],
   providers: [ ConfirmationDialogService ],
+  schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
+
 })
 export class SharedModule { }

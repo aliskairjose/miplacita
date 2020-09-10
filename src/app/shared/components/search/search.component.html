@@ -1,6 +1,5 @@
 <div class="container-fluid">
-  <form [formGroup]="searchForm" (ngSubmit)="onSubmit()" class="theme-form">
-    
+  <form [formGroup]="searchForm" (ngSubmit)="onSubmit()" class="theme-form">   
     <div class="d-flex w-100">
       <div class="searh-box-mp d-flex w-100">
         <div ngbDropdown class="">
@@ -9,7 +8,7 @@
             <button type="button" (click)="updateCategory(item)" *ngFor="let item of categories" [value]="item._id" ngbDropdownItem>{{item.name}}</button>
           </div>
         </div>
-        <input formControlName="searchText" type="text">
+        <input formControlName="name" type="text">
       </div>
       
       <button type="submit" class="btn">

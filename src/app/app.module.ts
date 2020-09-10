@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -27,6 +27,8 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 import { firebaseConfig } from '../environments/firebaseConfig';
 import { SocialLoginModule, SocialAuthServiceConfig, FacebookLoginProvider } from 'angularx-social-login';
 import { FormsModule } from '@angular/forms';
+import { AlertModule } from 'ngx-alerts';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 // export let options: Partial<IConfig> | (() => Partial<IConfig>);
 const maskConfig: Partial<IConfig> = {
@@ -65,6 +67,7 @@ export const customCurrencyMaskConfig = {
     FormsModule,
     SharedModule,
     HttpClientModule,
+    NgxSpinnerModule,
     AppRoutingModule,
     SocialLoginModule,
     LoadingBarRouterModule,
@@ -74,6 +77,7 @@ export const customCurrencyMaskConfig = {
     NgxMaskModule.forRoot( maskConfig ),
     LoadingBarHttpClientModule,
     NgxCurrencyModule.forRoot( customCurrencyMaskConfig ),
+    AlertModule.forRoot({maxMessages: 5, timeout: 3000, position: 'left'}),
     BrowserModule.withServerTransition( { appId: 'serverApp' } ),
     ToastrModule.forRoot( { timeOut: 3000, progressBar: false, enableHtml: true, } ),
     TranslateModule.forRoot( { loader: { provide: TranslateLoader, useFactory: HttpLoaderFactory, deps: [ HttpClient ] } } ),
@@ -94,7 +98,8 @@ export const customCurrencyMaskConfig = {
     },
     AuthGuard
   ],
-  bootstrap: [ AppComponent ]
+  bootstrap: [ AppComponent ],
+  schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 
 } )
 export class AppModule { }

@@ -2,102 +2,105 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProductDetailsMainSlider, ProductDetailsThumbSlider } from '../../../../shared/data/slider';
 import { Product } from '../../../../shared/classes/product';
-import { ProductService } from '../../../../shared/services/tm.product.service';
-import { SizeModalComponent } from "../../../../shared/components/modal/size-modal/size-modal.component";
+import { ProductService } from '../../../../shared/services/product.service';
+import { SizeModalComponent } from '../../../../shared/components/modal/size-modal/size-modal.component';
+import { Result } from '../../../../shared/classes/response';
+import { NgxSpinnerService } from 'ngx-spinner';
 
-@Component({
+@Component( {
   selector: 'app-product-left-sidebar',
   templateUrl: './product-left-sidebar.component.html',
-  styleUrls: ['./product-left-sidebar.component.scss']
-})
+  styleUrls: [ './product-left-sidebar.component.scss' ]
+} )
 export class ProductLeftSidebarComponent implements OnInit {
 
   public product: Product = {};
-  public counter: number = 1;
+  public counter = 1;
   public activeSlide: any = 0;
   public selectedSize: any;
-  public mobileSidebar: boolean = false;
+  public mobileSidebar = false;
 
-  @ViewChild("sizeChart") SizeChart: SizeModalComponent;
-  
+  @ViewChild( 'sizeChart' ) SizeChart: SizeModalComponent;
+
   public ProductDetailsMainSliderConfig: any = ProductDetailsMainSlider;
   public ProductDetailsThumbConfig: any = ProductDetailsThumbSlider;
 
-  constructor(private route: ActivatedRoute, private router: Router,
-              public productService: ProductService) {
-      this.route.data.subscribe(response => {
-        this.product = { _id: '123',
-        name: 'Silla decoradora',
-        description: 'Green chair minimal design',
-        store: 'Tienda',
-        price: '150',
-        image: ['assets/images/marketplace/images/placeholder.png'],
-        stock: 5,
-        quantity: 1
-    
-      }
-       console.log(this.product);
-      });
-    }
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute,
+    private spinner: NgxSpinnerService,
+    public productService: ProductService,
+  ) {
+
+  }
 
   ngOnInit(): void {
+    this.spinner.show();
+    const id = this.route.snapshot.paramMap.get( 'id' );
+    const params = `product=${id}`;
+
+    this.productService.productList( 1, params ).subscribe( ( result: Result<Product> ) => {
+      this.spinner.hide();
+      this.product = { ...result.docs[ 0 ] };
+    } );
   }
 
   // Get Product Color
-  Color(variants) {
-    const uniqColor = []
-    for (let i = 0; i < Object.keys(variants).length; i++) {
-      if (uniqColor.indexOf(variants[i].color) === -1 && variants[i].color) {
-        uniqColor.push(variants[i].color)
+  Color( variants ) {
+    const uniqColor = [];
+    for ( let i = 0; i < Object.keys( variants ).length; i++ ) {
+      if ( uniqColor.indexOf( variants[ i ].color ) === -1 && variants[ i ].color ) {
+        uniqColor.push( variants[ i ].color );
       }
     }
-    return uniqColor
+    return uniqColor;
   }
 
   // Get Product Size
-  Size(variants) {
+  Size( variants ) {
     const uniqSize = []
-    for (let i = 0; i < Object.keys(variants).length; i++) {
-      if (uniqSize.indexOf(variants[i].size) === -1 && variants[i].size) {
-        uniqSize.push(variants[i].size)
+    for ( let i = 0; i < Object.keys( variants ).length; i++ ) {
+      if ( uniqSize.indexOf( variants[ i ].size ) === -1 && variants[ i ].size ) {
+        uniqSize.push( variants[ i ].size )
       }
     }
     return uniqSize
   }
 
-  selectSize(size) {
+  selectSize( size ) {
     this.selectedSize = size;
   }
-  
+
   // Increament
   increment() {
-    this.counter++ ;
+    this.counter++;
   }
 
   // Decrement
   decrement() {
-    if (this.counter > 1) this.counter-- ;
+    // tslint:disable-next-line: curly
+    if ( this.counter > 1 ) this.counter--;
   }
 
   // Add to cart
-  async addToCart(product: any) {
-    product.quantity = this.counter || 1;
-    const status = await this.productService.addToCart(product);
-    if(status)
-      this.router.navigate(['/shop/cart']);
+  async addToCart( product: any ) {
+    // product.quantity = this.counter || 1;
+    // const status = await this.productService.addToCart( product );
+    // if ( status )
+    //   this.router.navigate( [ '/shop/cart' ] );
   }
 
   // Buy Now
-  async buyNow(product: any) {
-    product.quantity = this.counter || 1;
-    const status = await this.productService.addToCart(product);
-    if(status)
-      this.router.navigate(['/shop/checkout']);
+  async buyNow( product: any ) {
+    // product.quantity = this.counter || 1;
+    // const status = await this.productService.addToCart( product );
+    // if ( status )
+    //   this.router.navigate( [ '/shop/checkout' ] );
   }
 
   // Add to Wishlist
-  addToWishlist(product: any) {
-    this.productService.addToWishlist(product);
+  addToWishlist( product: any ) {
+    // this.productService.addToWishlist( product );
   }
 
   // Toggle Mobile Sidebar

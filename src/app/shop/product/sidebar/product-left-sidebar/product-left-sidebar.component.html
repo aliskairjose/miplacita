@@ -1,3 +1,6 @@
+<ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="ball-spin-clockwise" [fullScreen]="true">
+  <p style="color: white"> Por favor espere... </p>
+</ngx-spinner>
 <!-- section start -->
 <section class="section-b-space">
   <div class="collection-wrapper">
@@ -36,7 +39,7 @@
                         <ng-template carouselSlide [id]="i">
                             <div>
                               <img [defaultImage]="'assets/images/product/placeholder.jpg'" 
-                                   [lazyLoad]="image.src" 
+                                   [lazyLoad]="image" 
                                    [alt]="image.alt" class="img-fluid">
                             </div>
                         </ng-template>
@@ -49,7 +52,7 @@
                                 <ng-template carouselSlide [id]="i">
                                     <div class="owl-thumb" [class.active]="i == activeSlide">
                                       <img [defaultImage]="'assets/images/product/placeholder.jpg'" 
-                                           [lazyLoad]="image.src" 
+                                           [lazyLoad]="image" 
                                            [alt]="image.alt" class="img-fluid" 
                                            (click)="owlCar.to(activeSlide = i.toString())">
                                     </div>
@@ -62,9 +65,9 @@
               <div class="col-lg-6 rtl-text">
                 <div class="product-right d-flex flex-column h-100">
                   <h2 class="text-default-color">{{ product?.name }}</h2>
-                  <h4 class="mb-3"> Creado por tienda {{ product?.store }}</h4>
+                  <h4 class="mb-3"> Tienda: {{ product?.store.name }}</h4>
                   <h3>
-                      {{ product?.price | currency: productService.Currency?.currency:'symbol' }}
+                      {{ product?.price | currency }}
                   </h3>
                   <div class="product-description border-product">
                     <p>{{ product.description }}</p>

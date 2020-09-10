@@ -23,7 +23,6 @@ export class HttpInterceptor implements HttpInterceptor {
 
   intercept( request: HttpRequest<unknown>, next: HttpHandler ): Observable<HttpEvent<unknown>> {
     this.spinner.show();
-    // return next.handle(request);
     const token = JSON.parse( localStorage.getItem( 'token' ) );
     if ( token ) {
       request = request.clone( { headers: request.headers.set( 'Authorization', `JWT ${token}` ) } );
@@ -43,10 +42,10 @@ export class HttpInterceptor implements HttpInterceptor {
         return event;
       } ),
       catchError( ( response: HttpErrorResponse ) => {
-
         this.spinner.hide();
-        this.alert.danger( response.error.message );
-
+        this.alert.danger( response.error.message || response.error.message[0] || response.statusText  );
+        console.log(response);
+        
         switch ( response.status ) {
           case 401:
             this.router.navigate( [ 'login' ] );

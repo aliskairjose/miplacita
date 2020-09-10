@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NgxPayPalModule } from 'ngx-paypal';
 import { Ng5SliderModule } from 'ng5-slider';
@@ -41,6 +41,8 @@ import { CheckoutComponent } from './checkout/checkout.component';
 import { SuccessComponent } from './checkout/success/success.component';
 import { ShopsComponent } from './collection/widgets/shops/shops.component';
 import { ShippingComponent } from './checkout/shipping/shipping.component';
+import { NgxSpinnerModule } from 'ngx-spinner';
+import { AlertModule } from 'ngx-alerts';
 
 @NgModule({
   declarations: [
@@ -75,10 +77,14 @@ import { ShippingComponent } from './checkout/shipping/shipping.component';
   ],
   imports: [
     CommonModule,
+    NgxSpinnerModule,
     NgxPayPalModule,
     Ng5SliderModule,
     SharedModule,
-    ShopRoutingModule
-  ]
+    ShopRoutingModule,
+    AlertModule.forRoot({maxMessages: 5, timeout: 3000, position: 'left'}),
+  ],
+  schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
+
 })
 export class ShopModule { }
