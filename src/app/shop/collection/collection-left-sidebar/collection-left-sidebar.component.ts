@@ -60,11 +60,12 @@ export class CollectionLeftSidebarComponent implements OnInit {
 
         let shopTag = [];
         let catTag = [];
+        let priceTag = [];
+
         const p = window.location.href.split( '?' );
         this.params = p[ 1 ];
 
         const storeID = params.store ? params.store.split( ',' ) : [];
-        // storeID.length > 0 ? this.shops = shops.filter( x => x._id === storeID[ 0 ] ) : this.shops = shops;
         if ( storeID.length > 0 ) {
           this.shops = shops.filter( x => x._id === storeID[ 0 ] );
           shopTag.push( this.shops[ 0 ].name );
@@ -74,7 +75,6 @@ export class CollectionLeftSidebarComponent implements OnInit {
         }
 
         const categoryID = params.category ? params.category.split( ',' ) : [];
-        // categoryID.length > 0 ? this.categories = categories.filter( x => x._id === categoryID[ 0 ] ) : this.categories = categories;
         if ( categoryID.length > 0 ) {
           this.categories = categories.filter( x => x._id === categoryID[ 0 ] );
           catTag.push( this.categories[ 0 ].name );
@@ -84,9 +84,15 @@ export class CollectionLeftSidebarComponent implements OnInit {
         }
 
         const priceID = params.price_order ? params.price_order.split( ',' ) : [];
-        priceID.length > 0 ? this.prices = prices.filter( x => x._id === priceID[ 0 ] ) : this.prices = prices;
+        if ( priceID.length > 0 ) {
+          this.prices = prices.filter( x => x._id === priceID[ 0 ] );
+          priceTag.push( this.prices[ 0 ].name );
+        } else {
+          this.prices = prices;
+          priceTag = [];
+        }
 
-        this.tags = [ ...shopTag, ...catTag ]; // All Tags Array
+        this.tags = [ ...shopTag, ...catTag, ...priceTag ]; // All Tags Array
         // this.tags = [ ...this.brands, ...this.colors, ...this.size ]; // All Tags Array
         this.sortBy = params.sortBy ? params.sortBy : 'ascending';
         this.pageNo = params.page ? params.page : this.pageNo;
