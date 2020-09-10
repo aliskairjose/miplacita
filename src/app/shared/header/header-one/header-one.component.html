@@ -81,7 +81,7 @@
           <div class="d-flex col-sm-8 col-md-8 col-lg-8 align-items-center lg-device ">
             <div class="b pt-2 w-100 ">
               <div class="search-bar" [hidden]="!hasSearchBar">
-                <app-search [categories]="categories" (productsFilter)="applyFilter($event)"></app-search>
+                <app-search [categories]="categories"></app-search>
               </div>
             </div>
           </div>
@@ -100,7 +100,7 @@
     <div class="w-100 small-device">
       <div class="b pt-2 w-100">
         <div class="search-bar" [hidden]="!hasSearchBar">
-          <app-search [categories]="categories" (productsFilter)="applyFilter($event)"></app-search>
+          <app-search [categories]="categories"></app-search>
         </div>
       </div>
     </div>

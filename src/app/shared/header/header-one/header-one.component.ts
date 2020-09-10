@@ -69,10 +69,6 @@ export class HeaderOneComponent implements OnInit {
     } );
   }
 
-  applyFilter(event): void {
-    
-  }
-
   /**
    * @description Cierra sesión
    */
