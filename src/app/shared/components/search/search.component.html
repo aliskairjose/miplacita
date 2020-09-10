@@ -28,7 +28,7 @@
             <button type="button" (click)="updateCategory(item)" *ngFor="let item of categories" [value]="item._id" ngbDropdownItem>{{item.name}}</button>
           </div>
         </div>
-        <input formControlName="searchText" type="text">
+        <input formControlName="name" type="text">
       </div>
       
       <button type="submit" class="btn">

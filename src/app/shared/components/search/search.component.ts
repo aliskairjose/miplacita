@@ -52,8 +52,9 @@ export class SearchComponent implements OnInit, OnChanges {
     } );
   }
 
-  updateCategory(item){
+  updateCategory( item: Category ) {
     this.textCategory = item.name;
+    this.searchForm.value.category = item._id;
   }
 
 

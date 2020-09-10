@@ -49,7 +49,6 @@ export class CollectionLeftSidebarComponent implements OnInit {
     forkJoin( [ this.shopService.getAll(), this.categoryService.categoryList() ] ).subscribe( ( [ shopsResult, categoriesResult ] ) => {
       // Get Query params..
       this.route.queryParams.subscribe( params => {
-        console.log( params );
 
         const shops = [ ...shopsResult.docs ];
         const categories = [ ...categoriesResult ];
