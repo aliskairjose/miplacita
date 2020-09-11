@@ -18,7 +18,7 @@ const state = {
 export class ProductService {
 
   public Currency = { name: 'Dollar', currency: 'USD', price: 1 } // Default Currency
-  public OpenCart: boolean = false;
+  public OpenCart = false;
   public Products
 
   constructor( private http: HttpClient,

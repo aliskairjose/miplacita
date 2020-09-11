@@ -5,6 +5,7 @@ export interface Product {
   name?: string;
   description?: string;
   price?: string;
+  color?: string;
   store_id?: string;
   status?: string;
   category?: string;

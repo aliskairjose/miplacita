@@ -9,15 +9,34 @@
         <div class="col-sm-3">
           <div class="collection-filter" [class.openFilterbar]="mobileSidebar">
             <div class="collection-filter-block">
-                <div class="collection-mobile-back" (click)="toggleMobileSidebar()">
-                  <span class="filter-back">
-                    <i class="fa fa-angle-left" aria-hidden="true"></i> volver
-                  </span>
-                </div>
-                <app-categories></app-categories>
+              <div class="collection-mobile-back" (click)="toggleMobileSidebar()">
+                <span class="filter-back">
+                  <i class="fa fa-angle-left" aria-hidden="true"></i> volver
+                </span>
+              </div>
+              <app-categories [categories]="categories" (categoryFilter)="updateFilter($event)">
+              </app-categories>
             </div>
             <div class="collection-filter-block">
-                <app-services></app-services>
+              <div class="collection-mobile-back" (click)="toggleMobileSidebar()">
+                <span class="filter-back">
+                  <i class="fa fa-angle-left" aria-hidden="true"></i> volver
+                </span>
+              </div>
+              <app-shops [shops]="shops" (shopsFilter)="updateFilter($event)">
+              </app-shops>
+            </div>
+            <div class="collection-filter-block">
+              <div class="collection-mobile-back" (click)="toggleMobileSidebar()">
+                <span class="filter-back">
+                  <i class="fa fa-angle-left" aria-hidden="true"></i> volver
+                </span>
+              </div>
+              <app-price [prices]="prices" (priceFilter)="updateFilter($event)">
+              </app-price>
+            </div>
+            <div class="collection-filter-block">
+              <app-services></app-services>
             </div>
           </div>
         </div>
@@ -34,44 +53,42 @@
             </div>
             <div class="row">
               <div class="col-lg-6">
-                <owl-carousel-o [options]="ProductDetailsMainSliderConfig" #owlCar  class="product-slick">
-                    <ng-container *ngFor="let image of product?.image; index as i">
-                        <ng-template carouselSlide [id]="i">
-                            <div>
-                              <img [defaultImage]="'assets/images/product/placeholder.jpg'" 
-                                   [lazyLoad]="image" 
-                                   [alt]="image.alt" class="img-fluid">
-                            </div>
-                        </ng-template>
-                    </ng-container>
+                <owl-carousel-o [options]="ProductDetailsMainSliderConfig" #owlCar class="product-slick">
+                  <ng-container *ngFor="let image of product?.image; index as i">
+                    <ng-template carouselSlide [id]="i">
+                      <div>
+                        <img [defaultImage]="'assets/images/product/placeholder.jpg'" [lazyLoad]="image"
+                          [alt]="image.alt" class="img-fluid">
+                      </div>
+                    </ng-template>
+                  </ng-container>
                 </owl-carousel-o>
-                <div class="col-12 p-0" *ngIf="product?.image.length > 1">
-                    <div class="slider-nav">
-                        <owl-carousel-o [options]="ProductDetailsThumbConfig" class="product-slick">
-                            <ng-container *ngFor="let image of product?.image; index as i">
-                                <ng-template carouselSlide [id]="i">
-                                    <div class="owl-thumb" [class.active]="i == activeSlide">
-                                      <img [defaultImage]="'assets/images/product/placeholder.jpg'" 
-                                           [lazyLoad]="image" 
-                                           [alt]="image.alt" class="img-fluid" 
-                                           (click)="owlCar.to(activeSlide = i.toString())">
-                                    </div>
-                                </ng-template>
-                            </ng-container>
-                        </owl-carousel-o>
-                    </div>
+                <div class="col-12 p-0" *ngIf="product?.image?.length > 1">
+                  <div class="slider-nav">
+                    <owl-carousel-o [options]="ProductDetailsThumbConfig" class="product-slick">
+                      <ng-container *ngFor="let image of product?.image; index as i">
+                        <ng-template carouselSlide [id]="i">
+                          <div class="owl-thumb" [class.active]="i == activeSlide">
+                            <img [defaultImage]="'assets/images/product/placeholder.jpg'" [lazyLoad]="image"
+                              [alt]="image.alt" class="img-fluid" (click)="owlCar.to(activeSlide = i.toString())">
+                          </div>
+                        </ng-template>
+                      </ng-container>
+                    </owl-carousel-o>
+                  </div>
                 </div>
               </div>
               <div class="col-lg-6 rtl-text">
                 <div class="product-right d-flex flex-column h-100">
                   <h2 class="text-default-color">{{ product?.name }}</h2>
-                  <h4 class="mb-3"> Tienda: {{ product?.store.name }}</h4>
+                  <h4 class="mb-3"> Tienda: {{ product?.store?.name }}</h4>
                   <h3>
-                      {{ product?.price | currency }}
+                    {{ product?.price | currency }}
                   </h3>
                   <div class="product-description border-product">
                     <p>{{ product.description }}</p>
-                    <h5 class="avalibility" *ngIf="counter <= product.stock"><span>({{ product.stock }} unidades desponibles)</span></h5>
+                    <h5 class="avalibility" *ngIf="counter <= product.stock"><span>({{ product.stock }} unidades
+                        desponibles)</span></h5>
                     <!-- <h5 class="avalibility" *ngIf="counter > product.stock"><span>Out of Stock</span></h5> -->
                     <h6 class="product-title mt-5">Cantidad</h6>
                     <div class="qty-box">
@@ -81,7 +98,8 @@
                             <i class="ti-angle-left"></i>
                           </button>
                         </span>
-                        <input type="text" name="quantity" class="form-control input-number" [value]="counter" disabled/>
+                        <input type="text" name="quantity" class="form-control input-number" [value]="counter"
+                          disabled />
                         <span class="input-group-prepend">
                           <button type="button" class="btn quantity-right-plus" data-type="plus" (click)="increment()">
                             <i class="ti-angle-right"></i>
@@ -91,7 +109,8 @@
                     </div>
                   </div>
                   <div class="product-buttons">
-                    <a href="javascrip:void(0)" class="btn btn-solid" [class.disabled]="counter > product.stock" (click)="addToCart(product)">Agregar al carrito</a>
+                    <a href="javascrip:void(0)" class="btn btn-solid" [class.disabled]="counter > product.stock"
+                      (click)="addToCart(product)">Agregar al carrito</a>
                     <!-- <a href="javascrip:void(0)" class="btn btn-solid" [class.disabled]="counter > product.stock" (click)="buyNow(product)">buy now</a> -->
                   </div>
 

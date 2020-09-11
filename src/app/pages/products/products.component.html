@@ -12,14 +12,17 @@
                     <div class="form-group flex-fill">
                         <div class="input-group ">
                             <div class="input-group-append">
-                                <span class="input-group-text">
+                                <button type="buttont" class="btn btn-primary" (click)="search()"><i
+                                        class="fa fa-search"></i></button>
+                                <!-- <span class="input-group-text">
                                     <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-search" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                         <path fill-rule="evenodd" d="M10.442 10.442a1 1 0 0 1 1.415 0l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1 1 0 0 1 0-1.415z"/>
                                         <path fill-rule="evenodd" d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zM13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z"/>
                                     </svg>
-                                </span>
+                                </span> -->
                             </div>
-                            <input [(ngModel)]="searchText" [ngModelOptions]="{standalone: true}" class="form-control my-0 py-1" type="text" placeholder="Buscar...">
+                            <input [(ngModel)]="name" [ngModelOptions]="{standalone: true}"
+                                class="form-control my-0 py-1" type="text" placeholder="Buscar...">
                         </div>
                         <!-- <input class="form-control" placeholder="Buscar" (change)="search($event)" /> -->
                     </div>
@@ -31,15 +34,15 @@
                             </select>
                         </div> -->
                         <div class="flex-fill">
-                            <select name="model" class="form-control" [(ngModel)]="searchText">
+                            <select name="model" class="form-control" [(ngModel)]="status" (change)="selectStatus()">
                                 <option value="">Estado</option>
                                 <option [value]="status.value" *ngFor="let status of statuses">{{status.text}}</option>
                             </select>
                         </div>
                         <div class="flex-fill" *ngIf="user.role === 'admin'">
-                            <select name="model" class="form-control">
+                            <select name="model" class="form-control" [(ngModel)]="store" (change)="selectShop()">
                                 <option value="">Tienda</option>
-                                <option value="" *ngFor="let state of states"></option>
+                                <option [value]="shop._id" *ngFor="let shop of shops">{{ shop.name }}</option>
                             </select>
                         </div>
                     </div>
@@ -59,7 +62,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let product of products | filter: searchText">
+                    <tr *ngFor="let product of products">
                         <td class="text-center" *ngIf="product.image.length > 0 ">
                             <img class="product-image" [src]="product.image[0]" />
                         </td>
@@ -67,14 +70,15 @@
                             <img class="product-image" [src]="standardImage" />
                         </td>
                         <td>{{ product.name }}</td>
-                        <td  *ngIf="user.role==='admin' "> {{ product.store ? product.store.name : 'Sin tienda' }}</td>
+                        <td *ngIf="user.role==='admin' "> {{ product.store ? product.store.name : 'Sin tienda' }}</td>
                         <td>{{ product.description }}</td>
                         <td class="text-center">{{ product.price | currency }}</td>
                         <td class="text-center">{{ product.tax | currency }}</td>
                         <td class="text-center">{{ product.status }}</td>
 
                         <td class="text-center" *ngIf="user.role==='merchant'">
-                            <a [routerLink]="[ '/pages/edit-product', product._id ]" class="btn btn-table-action">Editar</a>
+                            <a [routerLink]="[ '/pages/edit-product', product._id ]"
+                                class="btn btn-table-action">Editar</a>
                             <button class="btn btn-table-action" (click)="showModal(product._id)">Eliminar</button>
                         </td>
                         <td class="text-center" *ngIf="user.role==='admin'">

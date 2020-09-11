@@ -10,6 +10,8 @@ import { Router } from '@angular/router';
 import { environment } from '../../../environments/environment';
 import { AlertService } from 'ngx-alerts';
 import { ConfirmationDialogService } from '../../shared/services/confirmation-dialog.service';
+import { ShopService } from '../../shared/services/shop.service';
+import { Store } from '../../shared/classes/store';
 
 @Component( {
   selector: 'app-products',
@@ -19,7 +21,10 @@ import { ConfirmationDialogService } from '../../shared/services/confirmation-di
 export class ProductsComponent implements OnInit {
   typeUser = 'admin';
   fields = [ '', 'Nombre', 'Descripción', 'Precio', 'ITBMS', 'Estado', 'Acción' ];
-  searchText = '';
+  name = '';
+  status = '';
+  store = '';
+  shops: Store[] = [];
   products: Product[] = [];
   productTypes = []; // tipos de productos
   states = []; // tipos de productos
@@ -36,6 +41,7 @@ export class ProductsComponent implements OnInit {
   constructor(
     private router: Router,
     private alert: AlertService,
+    private shopService: ShopService,
     private productService: ProductService,
     private storageService: StorageService,
     private confirmationDialogService: ConfirmationDialogService,
@@ -52,6 +58,22 @@ export class ProductsComponent implements OnInit {
     this.productService.productObserver().subscribe( ( product: Product ) => {
       this.loadData();
     } );
+
+    this.shopService.getAll().subscribe( ( result: Result<Store> ) => {
+      this.shops = [ ...result.docs ];
+    } );
+  }
+
+  search(): void {
+    this.loadData();
+  }
+
+  selectStatus(): void {
+    this.loadData();
+  }
+
+  selectShop(): void {
+    this.loadData();
   }
 
   showModal( id: string ): void {
@@ -80,8 +102,9 @@ export class ProductsComponent implements OnInit {
   }
 
   private loadData( page = 1 ): void {
-    // tslint:disable-next-line: curly
-    if ( this.user.role === 'merchant' ) this.params = `store=${this.user.stores[ 0 ]._id}`;
+    ( this.user.role === 'merchant' )
+      ? this.params = `store=${this.user.stores[ 0 ]._id}&name=${this.name}&status=${this.status}`
+      : this.params = `store=${this.store}&name=${this.name}&status=${this.status}`;
 
     this.productService.productList( page, this.params ).subscribe( ( result: Result<Product> ) => {
       this.products = [ ...result.docs ];

@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ViewportScroller } from '@angular/common';
-// import { ProductService } from '../../../shared/services/tm.product.service';
 import { ProductService } from '../../../shared/services/product.service';
-// import { Product } from '../../../shared/classes/tm.product';
 import { CategoryService } from '../../../shared/services/category.service';
 import { Category } from '../../../shared/classes/category';
 import { ShopService } from '../../../shared/services/shop.service';
@@ -40,7 +38,6 @@ export class CollectionLeftSidebarComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private shopService: ShopService,
-    // public productService: ProductService,
     private productService: ProductService,
     private viewScroller: ViewportScroller,
     private categoryService: CategoryService,
