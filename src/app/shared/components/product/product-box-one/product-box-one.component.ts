@@ -2,7 +2,7 @@ import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { QuickViewComponent } from '../../modal/quick-view/quick-view.component';
 import { CartModalComponent } from '../../modal/cart-modal/cart-modal.component';
 import { Product } from '../../../classes/product';
-import { ProductService } from '../../../services/tm.product.service';
+import { ProductService } from '../../../services/product.service';
 
 @Component( {
   selector: 'app-product-box-one',
@@ -12,7 +12,7 @@ import { ProductService } from '../../../services/tm.product.service';
 export class ProductBoxOneComponent implements OnInit {
 
   @Input() product: Product;
-  @Input() currency: any = this.productService.Currency; // Default Currency
+  // @Input() currency: any = this.productService.Currency; // Default Currency
   @Input() thumbnail = false; // Default False
   @Input() onHowerChangeImage = false; // Default False
   @Input() cartModal = false; // Default False
@@ -62,15 +62,15 @@ export class ProductBoxOneComponent implements OnInit {
     this.ImageSrc = src;
   }
 
-  addToCart( product: any ) {
+  addToCart( product: Product ) {
     this.productService.addToCart( product );
   }
 
-  addToWishlist( product: any ) {
+  addToWishlist( product: Product ) {
     this.productService.addToWishlist( product );
   }
 
-  addToCompare( product: any ) {
+  addToCompare( product: Product ) {
     this.productService.addToCompare( product );
   }
 

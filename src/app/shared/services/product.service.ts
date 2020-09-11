@@ -22,7 +22,7 @@ export class ProductService {
   $product: Subject<Product> = new Subject<Product>();
   selectedProduct: Product;
   OpenCart = false;
-  
+
   constructor(
     private http: HttpService,
     private toastrService: ToastrService
@@ -170,6 +170,42 @@ export class ProductService {
 
   /*
     ---------------------------------------------
+    -------------  Compare Product  -------------
+    ---------------------------------------------
+  */
+
+  // Get Compare Items
+  public get compareItems(): Observable<Product[]> {
+    const itemsStream = new Observable( observer => {
+      observer.next( state.compare );
+      observer.complete();
+    } );
+    return itemsStream as Observable<Product[]>;
+  }
+
+  // Add to Compare
+  public addToCompare( product: Product ): any {
+    const compareItem = state.compare.find( item => item._id === product._id );
+    if ( !compareItem ) {
+      state.compare.push( {
+        ...product
+      } );
+    }
+    this.toastrService.success( 'Product has been added in compare.' );
+    localStorage.setItem( 'compareItems', JSON.stringify( state.compare ) );
+    return true;
+  }
+
+  // Remove Compare items
+  public removeCompareItem( product: Product ): any {
+    const index = state.compare.indexOf( product );
+    state.compare.splice( index, 1 );
+    localStorage.setItem( 'compareItems', JSON.stringify( state.compare ) );
+    return true;
+  }
+
+  /*
+    ---------------------------------------------
     -----------------  Cart  --------------------
     ---------------------------------------------
   */
@@ -184,13 +220,13 @@ export class ProductService {
   }
 
   // Add to Cart
-  public addToCart( product ): any {
-    const cartItem = state.cart.find( item => item.id === product.id );
+  public addToCart( product: Product ): any {
+    const cartItem = state.cart.find( item => item._id === product._id );
     const qty = product.quantity ? product.quantity : 1;
     const items = cartItem ? cartItem : product;
     const stock = this.calculateStockCounts( items, qty );
 
-    if ( !stock ) { return false }
+    if ( !stock ) { return false; }
 
     if ( cartItem ) {
       cartItem.quantity += qty;
@@ -207,7 +243,7 @@ export class ProductService {
   }
 
   // Update Cart Quantity
-  public updateCartQuantity( product: Product, quantity: number ): Product | boolean {
+  updateCartQuantity( product: Product, quantity: number ): Product | boolean {
     return state.cart.find( ( items, index ) => {
       if ( items.id === product._id ) {
         const qty = state.cart[ index ].quantity + quantity;
@@ -222,11 +258,11 @@ export class ProductService {
   }
 
   // Calculate Stock Counts
-  public calculateStockCounts( product, quantity ) {
+  calculateStockCounts( product, quantity ) {
     const qty = product.quantity + quantity;
     const stock = product.stock;
     if ( stock < qty || stock === 0 ) {
-      this.toastrService.error( 'You can not add more items than available. In stock ' + stock + ' items.' );
+      this.toastrService.error( 'No puede agregar más elementos de los disponibles. En stock ' + stock + ' items.' );
       return false;
     }
     return true;
