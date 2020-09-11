@@ -8,12 +8,17 @@
 .tab {
     border-bottom: 1px solid #ccc;
     width: 100%;
+    & button {
+        font-size: 0.7rem;
+    }
 }
 .active {
     border: 1px solid #ccc;
     border-bottom: 1px transparent;
     & button {
         color: var(--theme-deafult);
+        font-size: 0.7rem;
+
     }
 
 }
