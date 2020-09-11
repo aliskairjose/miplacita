@@ -1,5 +1,6 @@
 import { Product } from './product';
 import { User } from './user';
+import { Store } from './store';
 export interface Order {
   _id?: string;
   status?: string;
@@ -8,6 +9,7 @@ export interface Order {
   created_at?: string;
   updated_at?: string;
   user?: User;
+  store?: Store;
   shipment_option?: ShipmentOptions;
   items?: Item[];
 }
