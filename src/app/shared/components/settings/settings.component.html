@@ -28,22 +28,22 @@
       </div>
       <span class="cart_qty_cls">{{ products.length }}</span>
       <ul class="show-div shopping-cart" *ngIf='!products.length'>
-        <h5>Your cart is currently empty.</h5>
+        <h5>Su carrito está vacío.</h5>
       </ul>
       <ul class="show-div shopping-cart" *ngIf='products.length'>
         <li *ngFor="let product of products">
           <div class="media">
-            <a [routerLink]="['/shop/product/left/sidebar/', product.title.replace(' ', '-')]">
-              <img class="mr-3" [src]="product?.images[0].src" [alt]="product?.images[0].alt">
+            <a [routerLink]="['/shop/product/left/sidebar/', product.name.replace(' ', '-')]">
+              <img class="mr-3" [src]="product?.image[0]" [alt]="product?.name">
             </a>
             <div class="media-body">
-              <a [routerLink]="['/shop/product/left/sidebar/', product.title.replace(' ', '-')]">
-                <h4>{{ product?.title }}</h4>
+              <a [routerLink]="['/shop/product/left/sidebar/', product.name.replace(' ', '-')]">
+                <h5>{{ product?.name }}</h5>
               </a>
               <h4>
                 <span>
                   {{ product?.quantity }} x
-                  {{ product?.price * productService?.Currency.price | discount:product | currency:productService?.Currency.currency:'symbol' }}
+                  {{ product?.price | discount:product | currency }}
                 </span>
               </h4>
             </div>
@@ -54,14 +54,14 @@
         </li>
         <li>
           <div class="total">
-            <h5>subtotal : <span>{{ getTotal | async | currency:productService?.Currency.currency:'symbol' }}</span>
+            <h5>subtotal : <span>{{ getTotal | async | currency }}</span>
             </h5>
           </div>
         </li>
         <li>
           <div class="buttons">
-            <a [routerLink]="['/shop/cart']" class="view-cart">view cart</a>
-            <a [routerLink]="['/shop/checkout']" class="checkout">checkout</a>
+            <a [routerLink]="['/shop/cart']" class="view-cart">Ver carrito</a>
+            <a [routerLink]="['/shop/checkout']" class="checkout">Revisa</a>
           </div>
         </li>
       </ul>

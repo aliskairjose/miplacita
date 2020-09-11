@@ -6,6 +6,7 @@ import { map } from 'rxjs/operators';
 import { Category } from '../classes/category';
 import { Response, Result } from '../classes/response';
 import { ToastrService } from 'ngx-toastr';
+import { StorageService } from './storage.service';
 
 const state = {
   products: JSON.parse( localStorage.products || '[]' ),
@@ -19,12 +20,14 @@ const state = {
 } )
 export class ProductService {
 
+  Currency = { name: 'Dollar', currency: 'USD', price: 1 }; // Default Currency
   $product: Subject<Product> = new Subject<Product>();
   selectedProduct: Product;
   OpenCart = false;
 
   constructor(
     private http: HttpService,
+    private storage: StorageService,
     private toastrService: ToastrService
   ) { }
 
@@ -95,8 +98,11 @@ export class ProductService {
   }
 
 
-  // Product Photo ---------------------------------------------------------------
-
+  /*
+      ---------------------------------------------
+      ---------------  Photod  --------------------
+      ---------------------------------------------
+    */
   /**
    * @description Agregar foto al producto
    * @param id Id del producto al cual se agrega photo
@@ -155,8 +161,8 @@ export class ProductService {
         ...product
       } );
     }
-    this.toastrService.success( 'Product has been added in wishlist.' );
-    localStorage.setItem( 'wishlistItems', JSON.stringify( state.wishlist ) );
+    this.toastrService.success( 'El producto se ha agregado a la lista de deseos.' );
+    this.storage.setItem( 'wishlistItems', state.wishlist );
     return true;
   }
 
@@ -164,7 +170,7 @@ export class ProductService {
   public removeWishlistItem( product: Product ): any {
     const index = state.wishlist.indexOf( product );
     state.wishlist.splice( index, 1 );
-    localStorage.setItem( 'wishlistItems', JSON.stringify( state.wishlist ) );
+    this.storage.setItem( 'wishlistItems', state.wishlist );
     return true;
   }
 
@@ -191,8 +197,8 @@ export class ProductService {
         ...product
       } );
     }
-    this.toastrService.success( 'Product has been added in compare.' );
-    localStorage.setItem( 'compareItems', JSON.stringify( state.compare ) );
+    this.toastrService.success( 'El producto ha sido agregado en comparar.' );
+    this.storage.setItem( 'compareItems', state.compare );
     return true;
   }
 
@@ -200,7 +206,7 @@ export class ProductService {
   public removeCompareItem( product: Product ): any {
     const index = state.compare.indexOf( product );
     state.compare.splice( index, 1 );
-    localStorage.setItem( 'compareItems', JSON.stringify( state.compare ) );
+    this.storage.setItem( 'compareItems', state.compare );
     return true;
   }
 
@@ -238,7 +244,7 @@ export class ProductService {
     }
 
     this.OpenCart = true; // If we use cart variation modal
-    localStorage.setItem( 'cartItems', JSON.stringify( state.cart ) );
+    this.storage.setItem( 'cartItems', state.cart );
     return true;
   }
 
@@ -251,14 +257,14 @@ export class ProductService {
         if ( qty !== 0 && stock ) {
           state.cart[ index ].quantity = qty;
         }
-        localStorage.setItem( 'cartItems', JSON.stringify( state.cart ) );
+        this.storage.setItem( 'cartItems', state.cart );
         return true;
       }
     } );
   }
 
   // Calculate Stock Counts
-  calculateStockCounts( product, quantity ) {
+  private calculateStockCounts( product: Product, quantity: number ) {
     const qty = product.quantity + quantity;
     const stock = product.stock;
     if ( stock < qty || stock === 0 ) {
@@ -272,76 +278,22 @@ export class ProductService {
   removeCartItem( product: Product ): any {
     const index = state.cart.indexOf( product );
     state.cart.splice( index, 1 );
-    localStorage.setItem( 'cartItems', JSON.stringify( state.cart ) );
+    this.storage.setItem( 'cartItems', state.cart );
     return true;
   }
 
   // Total amount
   cartTotalAmount(): Observable<number> {
     return this.cartItems.pipe( map( ( product: Product[] ) => {
-      return product.reduce( ( prev, curr: Product ) => {
-        // let price = curr.price;
+      return product.reduce( ( prev: number, curr: Product ) => {
+        const price = curr.price;
         // if ( curr.discount ) {
         //   price = curr.price - ( curr.price * curr.discount / 100 );
         // }
-        // return ( prev + price * curr.quantity ) * this.Currency.price;
+        return ( prev + price * curr.quantity ) * this.Currency.price;
         return 0;
       }, 0 );
     } ) );
-  }
-
-  /*
-   ---------------------------------------------
-   ------------- Product Pagination  -----------
-   ---------------------------------------------
- */
-  getPager( totalItems: number, currentPage: number = 1, pageSize: number = 16 ) {
-    // calculate total pages
-    const totalPages = Math.ceil( totalItems / pageSize );
-
-    // Paginate Range
-    const paginateRange = 3;
-
-    // ensure current page isn't out of range
-    if ( currentPage < 1 ) {
-      currentPage = 1;
-    } else if ( currentPage > totalPages ) {
-      currentPage = totalPages;
-    }
-
-    let startPage: number;
-    let endPage: number;
-
-    if ( totalPages <= 5 ) {
-      startPage = 1;
-      endPage = totalPages;
-    } else if ( currentPage < paginateRange - 1 ) {
-      startPage = 1;
-      endPage = startPage + paginateRange - 1;
-    } else {
-      startPage = currentPage - 1;
-      endPage = currentPage + 1;
-    }
-
-    // calculate start and end item indexes
-    const startIndex = ( currentPage - 1 ) * pageSize;
-    const endIndex = Math.min( startIndex + pageSize - 1, totalItems - 1 );
-
-    // create an array of pages to ng-repeat in the pager control
-    const pages = Array.from( Array( ( endPage + 1 ) - startPage ).keys() ).map( i => startPage + i );
-
-    // return object with all pager properties required by the view
-    return {
-      totalItems,
-      currentPage,
-      pageSize,
-      totalPages,
-      startPage,
-      endPage,
-      startIndex,
-      endIndex,
-      pages
-    };
   }
 
   /**

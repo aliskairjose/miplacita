@@ -9,21 +9,21 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                         <div class="media">
-                            <a [routerLink]="['/shop/product/left/sidebar/', product.title.replace(' ', '-')]">
-                                <img class="img-fluid pro-img" [src]="product.images[0].src" [alt]="product.images[0].alt">
+                            <a [routerLink]="['/shop/product/left/sidebar/', product.name.replace(' ', '-')]">
+                                <img class="img-fluid pro-img" [src]="product.image[0]" [alt]="product.name">
                             </a>
                             <div class="media-body align-self-center text-center">
-                                <a [routerLink]="['/shop/product/left/sidebar/', product.title.replace(' ', '-')]">
+                                <a [routerLink]="['/shop/product/left/sidebar/', product.name.replace(' ', '-')]">
                                     <h6>
                                         <i class="fa fa-check"></i>Item
-                                        <span>{{ product.title | titlecase }}</span>
-                                        <span> successfully added to your Cart</span>
+                                        <span>{{ product.name | titlecase }}</span>
+                                        <span> agregado exitosamente a su carrito</span>
                                     </h6>
                                 </a>
                                 <div class="buttons">
-                                    <a [routerLink]="['/shop/cart']" class="view-cart btn btn-solid">Your cart</a>
-                                    <a [routerLink]="['/shop/checkout']" class="checkout btn btn-solid">Check out</a>
-                                    <a [routerLink]="['/shop/collection/left/sidebar']" class="continue btn btn-solid">Continue shopping</a>
+                                    <a [routerLink]="['/shop/cart']" class="view-cart btn btn-solid">Tu carrito</a>
+                                    <a [routerLink]="['/shop/checkout']" class="checkout btn btn-solid">Revisa</a>
+                                    <a [routerLink]="['/shop/collection/left/sidebar']" class="continue btn btn-solid">Seguir comprando</a>
                                 </div>
 
                                 <div class="upsell_payment">
@@ -34,22 +34,22 @@
 
                         <div class="product-section">
                             <div class="col-12 product-upsell text-center">
-                                <h4>Customers who bought this item also.</h4>
+                                <h4>Clientes que compraron este artículo también.</h4>
                             </div>
                             <div class="row" id="upsell_product">
                                 <ng-container *ngFor="let product of products | slice:0:4">
                                     <div class="product-box col-sm-3 col-6">
                                         <div class="img-wrapper">
                                             <div class="front">
-                                                <a [routerLink]="['/shop/product/left/sidebar/', product.title.replace(' ', '-')]">
-                                                    <img [src]="product.images[0].src" class="img-fluid mb-1" alt="">
+                                                <a [routerLink]="['/shop/product/left/sidebar/', product.name.replace(' ', '-')]">
+                                                    <img [src]="product.image[0]" class="img-fluid mb-1" alt="">
                                                 </a>
                                             </div>
                                             <div class="product-detail">
                                                 <h6 class="mt-0">
-                                                    <a [routerLink]="['/shop/product/left/sidebar/', product.title.replace(' ', '-')]"><span>{{ product.title | titlecase }}</span></a>
+                                                    <a [routerLink]="['/shop/product/left/sidebar/', product.name.replace(' ', '-')]"><span>{{ product.name | titlecase }}</span></a>
                                                 </h6>
-                                                <h4><span>{{ product.price * currency?.price | discount:product | currency:currency?.currency:'symbol' }}</span></h4>
+                                                <h4><span>{{ product.price * currency?.price | discount:product | currency }}</span></h4>
                                             </div>
                                         </div>
                                     </div>

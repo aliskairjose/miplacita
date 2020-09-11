@@ -85,7 +85,7 @@ export class ProductService {
     const index = state.wishlist.indexOf( product );
     state.wishlist.splice( index, 1 );
     localStorage.setItem( "wishlistItems", JSON.stringify( state.wishlist ) );
-    return true
+    return true;
   }
 
   /*
