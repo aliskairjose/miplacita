@@ -57,6 +57,7 @@ import { NgxMaskModule, IConfig } from 'ngx-mask';
 import { CreateProductComponent } from './products/create-product/create-product.component';
 import { FormsModule } from '@angular/forms';
 import { TermsAndConditionsComponent } from './terms-and-conditions/terms-and-conditions.component';
+import { AccountManageComponent } from './account/account-manage/account-manage.component';
 
 // export let options: Partial<IConfig> | (() => Partial<IConfig>);
 const maskConfig: Partial<IConfig> = {
@@ -122,7 +123,8 @@ export const customCurrencyMaskConfig = {
     ShopsComponent,
     ShopWithdrawalComponent,
     ShopSuscriptionComponent,
-    TermsAndConditionsComponent
+    TermsAndConditionsComponent,
+    AccountManageComponent
   ],
   imports: [
     SharedModule,

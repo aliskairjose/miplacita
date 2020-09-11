@@ -1,4 +1,3 @@
-<app-breadcrumb [title]="'Perfil'" [breadcrumb]="'Tienda'"></app-breadcrumb>
 <ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="ball-spin-clockwise" [fullScreen]="true">
     <p style="color: white"> Por favor espere... </p>
 </ngx-spinner>
@@ -6,9 +5,9 @@
 <!-- section start -->
 <section class="section-b-space">
     <div class="container d-flex">
-        <div class="col-md-4 flex-column optional">
+        <!-- <div class="col-md-4 flex-column optional">
             <app-shop-submenu active="0"></app-shop-submenu>
-        </div>
+        </div> -->
         <div class="d-flex flex-column col-md-8 mx-auto">
             <form [formGroup]="profileForm" (ngSubmit)="onSubmit()" class="theme-form">
                 <div class="form-group d-flex justify-content-center">

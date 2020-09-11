@@ -1,0 +1,48 @@
+.account-page {
+    flex-direction: column;
+}
+
+.account-menu {
+    flex-direction: row;
+}
+.tab {
+    border-bottom: 1px solid #ccc;
+    width: 100%;
+    & button {
+        font-size: 0.7rem;
+    }
+}
+.active {
+    border: 1px solid #ccc;
+    border-bottom: 1px transparent;
+    & button {
+        color: var(--theme-deafult);
+        font-size: 0.7rem;
+
+    }
+
+}
+
+@media (min-width: 768px) { 
+    .account-page {
+        flex-direction: row;
+    }
+    
+    .tab {
+        border: 1px solid transparent;
+        border-right: 1px solid #ccc;
+        width: 100%;
+    }
+    .active {
+        border: 1px solid transparent;
+        border: 1px solid #ccc;
+        border-right: 1px transparent;
+        & button {
+            color: var(--theme-deafult);
+        }
+    }
+    .account-menu {
+      flex-direction: column;
+      //border-right: 1px solid #ccc
+    }
+}
