@@ -6,6 +6,12 @@ import { ProductService } from '../../../../shared/services/product.service';
 import { SizeModalComponent } from '../../../../shared/components/modal/size-modal/size-modal.component';
 import { Result } from '../../../../shared/classes/response';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { ShopService } from '../../../../shared/services/shop.service';
+import { CategoryService } from '../../../../shared/services/category.service';
+import { forkJoin } from 'rxjs';
+import { Store } from '../../../../shared/classes/store';
+import { Category } from '../../../../shared/classes/category';
+import { ViewportScroller } from '@angular/common';
 
 @Component( {
   selector: 'app-product-left-sidebar',
@@ -14,11 +20,14 @@ import { NgxSpinnerService } from 'ngx-spinner';
 } )
 export class ProductLeftSidebarComponent implements OnInit {
 
-  public product: Product = {};
-  public counter = 1;
-  public activeSlide: any = 0;
-  public selectedSize: any;
-  public mobileSidebar = false;
+  product: Product = {};
+  counter = 1;
+  activeSlide: any = 0;
+  selectedSize: any;
+  mobileSidebar = false;
+  shops: Store[] = [];
+  categories: Category[] = [];
+  prices: any[] = [];
 
   @ViewChild( 'sizeChart' ) SizeChart: SizeModalComponent;
 
@@ -28,20 +37,48 @@ export class ProductLeftSidebarComponent implements OnInit {
   constructor(
     private router: Router,
     private route: ActivatedRoute,
+    private shopService: ShopService,
     private spinner: NgxSpinnerService,
     public productService: ProductService,
+    private viewScroller: ViewportScroller,
+    private categoryService: CategoryService,
   ) {
 
   }
 
   ngOnInit(): void {
     this.spinner.show();
-    const id = this.route.snapshot.paramMap.get( 'id' );
-    const params = `product=${id}`;
+    forkJoin( [ this.shopService.getAll(), this.categoryService.categoryList() ] ).subscribe( ( [ shopsResult, categoriesResult ] ) => {
+      this.shops = [ ...shopsResult.docs ];
+      this.categories = [ ...categoriesResult ];
+      this.prices = [
+        { _id: 'asc', name: 'Desde el más bajo' },
+        { _id: 'desc', name: 'Desde el más alto' }
+      ];
 
-    this.productService.productList( 1, params ).subscribe( ( result: Result<Product> ) => {
-      this.spinner.hide();
-      this.product = { ...result.docs[ 0 ] };
+      const id = this.route.snapshot.paramMap.get( 'id' );
+      const params = `product=${id}`;
+
+      this.productService.productList( 1, params ).subscribe( ( result: Result<Product> ) => {
+        this.spinner.hide();
+        this.product = { ...result.docs[ 0 ] };
+      } );
+    } );
+
+  }
+
+  // Append filter value to Url
+  updateFilter( tags: any ) {
+    // console.log( tags );
+    tags.page = null; // Reset Pagination
+    this.router.navigate( [], {
+      relativeTo: this.route,
+      queryParams: tags,
+      queryParamsHandling: 'merge', // preserve the existing query params in the route
+      skipLocationChange: false  // do trigger navigation
+    } ).finally( () => {
+      this.viewScroller.setOffset( [ 120, 120 ] );
+      this.viewScroller.scrollToAnchor( 'products' ); // Anchore Link
     } );
   }
 
@@ -58,13 +95,13 @@ export class ProductLeftSidebarComponent implements OnInit {
 
   // Get Product Size
   Size( variants ) {
-    const uniqSize = []
+    const uniqSize = [];
     for ( let i = 0; i < Object.keys( variants ).length; i++ ) {
       if ( uniqSize.indexOf( variants[ i ].size ) === -1 && variants[ i ].size ) {
-        uniqSize.push( variants[ i ].size )
+        uniqSize.push( variants[ i ].size );
       }
     }
-    return uniqSize
+    return uniqSize;
   }
 
   selectSize( size ) {

@@ -38,7 +38,6 @@ export class CollectionLeftSidebarComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private shopService: ShopService,
-    // public productService: ProductService,
     private productService: ProductService,
     private viewScroller: ViewportScroller,
     private categoryService: CategoryService,
