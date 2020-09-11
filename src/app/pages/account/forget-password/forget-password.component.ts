@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { NgxSpinnerService } from 'ngx-spinner';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../../shared/services/auth.service';
-import { AlertService } from 'ngx-alerts';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component( {
   selector: 'app-forget-password',
@@ -20,9 +19,8 @@ export class ForgetPasswordComponent implements OnInit {
   constructor(
     private router: Router,
     private auth: AuthService,
-    private alert: AlertService,
     private formBuilder: FormBuilder,
-    private spinner: NgxSpinnerService,
+    private toastrService: ToastrService,
   ) { this.createForm(); }
 
   ngOnInit(): void {
@@ -38,7 +36,7 @@ export class ForgetPasswordComponent implements OnInit {
 
     if ( this.forgotForm.valid ) {
       this.auth.resetPassword( this.forgotForm.value ).subscribe( () => {
-        this.alert.info( 'Le hemos enviado un correo, revise su buzón! Gracias' );
+        this.toastrService.info( 'Le hemos enviado un correo, revise su buzón! Gracias' );
         setTimeout( () => {
           this.router.navigate( [ 'pages/login' ] );
         }, 2000 );

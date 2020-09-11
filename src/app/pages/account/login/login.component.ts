@@ -2,10 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../../shared/services/auth.service';
-import { AlertService } from 'ngx-alerts';
 import { StorageService } from '../../../shared/services/storage.service';
 import { AuthResponse } from '../../../shared/classes/auth-response';
-import { HttpErrorResponse } from '@angular/common/http';
 
 @Component( {
   selector: 'app-login',
@@ -21,7 +19,6 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private alert: AlertService,
     private storage: StorageService,
     private auth: AuthService,
     private formBuilder: FormBuilder,

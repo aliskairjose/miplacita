@@ -1,11 +1,11 @@
 import { Component, OnInit, Input, HostListener, Output, EventEmitter } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
-import { AlertService } from 'ngx-alerts';
 import { Router } from '@angular/router';
 import { StorageService } from '../../services/storage.service';
 import { User } from '../../classes/user';
 import { CategoryService } from '../../services/category.service';
 import { Category } from '../../classes/category';
+import { ToastrService } from 'ngx-toastr';
 
 @Component( {
   selector: 'app-header-one',
@@ -42,8 +42,8 @@ export class HeaderOneComponent implements OnInit {
   constructor(
     private router: Router,
     private auth: AuthService,
-    private alert: AlertService,
     private storage: StorageService,
+    private toastrService: ToastrService,
     private categoryService: CategoryService
   ) { }
 
@@ -65,7 +65,7 @@ export class HeaderOneComponent implements OnInit {
         this.role = this.user.role;
       }
       // tslint:disable-next-line: curly
-      if ( !isAuth ) this.alert.info( 'Hasta luego...' );
+      if ( !isAuth ) this.toastrService.info( 'Hasta luego...' );
     } );
   }
 

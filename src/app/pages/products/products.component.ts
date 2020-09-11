@@ -8,10 +8,10 @@ import { Result } from '../../shared/classes/response';
 import { Paginate } from '../../shared/classes/paginate';
 import { Router } from '@angular/router';
 import { environment } from '../../../environments/environment';
-import { AlertService } from 'ngx-alerts';
 import { ConfirmationDialogService } from '../../shared/services/confirmation-dialog.service';
 import { ShopService } from '../../shared/services/shop.service';
 import { Store } from '../../shared/classes/store';
+import { ToastrService } from 'ngx-toastr';
 
 @Component( {
   selector: 'app-products',
@@ -40,8 +40,8 @@ export class ProductsComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private alert: AlertService,
     private shopService: ShopService,
+    private toastrService: ToastrService,
     private productService: ProductService,
     private storageService: StorageService,
     private confirmationDialogService: ConfirmationDialogService,
@@ -93,7 +93,7 @@ export class ProductsComponent implements OnInit {
   private deleteProduct( id: string ): void {
     this.productService.deleteProduct( id ).subscribe( response => {
       if ( response.success ) {
-        this.alert.info( response.message[ 0 ] );
+        this.toastrService.info( response.message[ 0 ] );
       }
       setTimeout( () => {
         this.loadData();

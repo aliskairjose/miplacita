@@ -8,7 +8,6 @@ import {
 } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-import { AlertService } from 'ngx-alerts';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
@@ -18,7 +17,6 @@ export class HttpInterceptor implements HttpInterceptor {
 
   constructor(
     private router: Router,
-    private alert: AlertService,
     private spinner: NgxSpinnerService,
     private toastrService: ToastrService
   ) { }
@@ -45,10 +43,10 @@ export class HttpInterceptor implements HttpInterceptor {
       } ),
       catchError( ( response: HttpErrorResponse ) => {
         this.spinner.hide();
-        this.toastrService.error( response.error.message || response.error.message[0] || response.statusText);
+        this.toastrService.error( response.error.message || response.error.message[ 0 ] || response.statusText );
         // this.alert.danger( response.error.message || response.error.message[0] || response.statusText  );
-        console.log(response);
-        
+        console.log( response );
+
         switch ( response.status ) {
           case 401:
             this.router.navigate( [ 'login' ] );

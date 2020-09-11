@@ -1,10 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ProductService } from '../../shared/services/tm.product.service';
 import { NgbCalendar, NgbDateAdapter } from '@ng-bootstrap/ng-bootstrap';
 import { OrderDetailsComponent } from '../../shared/custom-components/order-details/order-details.component';
 import { Order } from '../../shared/classes/order';
-import { AlertService } from 'ngx-alerts';
 import { OrderService } from '../../shared/services/order.service';
 import { Store } from '../../shared/classes/store';
 import { StorageService } from '../../shared/services/storage.service';
@@ -33,10 +30,10 @@ export class OrdersComponent implements OnInit {
   /** variable provisional */
 
   constructor(
-    private alert: AlertService,
+    private ngbCalendar: NgbCalendar,
     private orderService: OrderService,
     private storageService: StorageService,
-    private ngbCalendar: NgbCalendar, private dateAdapter: NgbDateAdapter<string>
+    private dateAdapter: NgbDateAdapter<string>
   ) { }
 
   ngOnInit(): void {

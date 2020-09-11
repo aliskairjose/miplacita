@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { AlertService } from 'ngx-alerts';
+import { ToastrService } from 'ngx-toastr';
 
 @Component( {
   selector: 'app-upload-image',
@@ -14,7 +14,7 @@ export class UploadImageComponent implements OnInit {
   @Output() uploadImage: EventEmitter<Array<string>> = new EventEmitter<Array<string>>();
 
   constructor(
-    private alert: AlertService,
+    private toastrService: ToastrService,
   ) { }
 
   ngOnInit(): void {
@@ -26,12 +26,12 @@ export class UploadImageComponent implements OnInit {
     const mimeType = image.type;
 
     if( event.target.files.length > 3){
-      this.alert.warning( 'Máximo 3 imagenes' );
+      this.toastrService.warning( 'Máximo 3 imagenes' );
       return;
     }
 
     if ( mimeType.match( /image\/*/ ) == null ) {
-      this.alert.warning( 'Solo se permiten archivos de tipo imagen' );
+      this.toastrService.warning( 'Solo se permiten archivos de tipo imagen' );
       return;
     }
 

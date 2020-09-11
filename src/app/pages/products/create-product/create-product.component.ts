@@ -2,14 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { StorageService } from '../../../shared/services/storage.service';
 import { ProductService } from '../../../shared/services/product.service';
-import { AlertService } from 'ngx-alerts';
 import { Product } from '../../../shared/classes/product';
 import { Router, ActivatedRoute } from '@angular/router';
-import { ShopService } from '../../../shared/services/shop.service';
 import { Category } from '../../../shared/classes/category';
 import { User } from '../../../shared/classes/user';
 import { environment } from '../../../../environments/environment';
 import { Result } from '../../../shared/classes/response';
+import { ToastrService } from 'ngx-toastr';
 
 @Component( {
   selector: 'app-create-product',
@@ -42,9 +41,9 @@ export class CreateProductComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private alert: AlertService,
-    private formBuilder: FormBuilder,
     private route: ActivatedRoute,
+    private formBuilder: FormBuilder,
+    private toastrService: ToastrService,
     private storageService: StorageService,
     private productService: ProductService,
   ) {
@@ -72,8 +71,8 @@ export class CreateProductComponent implements OnInit {
   onSubmit(): void {
     this.submitted = true;
     if ( this.productForm.valid ) {
-      if(this.productImages.length === 0) {
-        this.alert.warning('Debe cargar al menos una imagen de producto');
+      if ( this.productImages.length === 0 ) {
+        this.toastrService.warning( 'Debe cargar al menos una imagen de producto' );
         return;
       }
       this.productService.uploadImages( { images: this.productImages } ).subscribe( response => {
@@ -88,7 +87,7 @@ export class CreateProductComponent implements OnInit {
 
   private updateProduct( data: Product ): void {
     this.productService.updateProduct( this.productData._id, data ).subscribe( response => {
-      this.alert.info( 'Producto actualizado correctamente' );
+      this.toastrService.info( 'Producto actualizado correctamente' );
       setTimeout( () => {
         this.router.navigate( [ 'pages/products' ] );
       }, 2000 );
@@ -101,7 +100,7 @@ export class CreateProductComponent implements OnInit {
    */
   private createProduct( data: Product ): void {
     this.productService.addProduct( data ).subscribe( ( product: Product ) => {
-      this.alert.info( 'El producto se ha creado con exito' );
+      this.toastrService.info( 'El producto se ha creado con exito' );
       this.productService.productSubject( product );
       setTimeout( () => {
         this.router.navigate( [ 'pages/products' ] );
@@ -129,7 +128,7 @@ export class CreateProductComponent implements OnInit {
   }
 
   private loadProductData( id: string ): void {
-    this.productService.productList(1, `product=${id}` ).subscribe( ( response: Result<Product> ) => {
+    this.productService.productList( 1, `product=${id}` ).subscribe( ( response: Result<Product> ) => {
       this.productData = { ...response.docs[ 0 ] };
       this.selectedCategory = this.productData.category;
     } );
@@ -140,17 +139,17 @@ export class CreateProductComponent implements OnInit {
    */
   validateName(): void {
     if ( this.productData.name.length > 0 && this.productData.name.length < 4 ) {
-      this.alert.warning( 'El nombre debe tener un mínimo de 4 caracteres' );
+      this.toastrService.warning( 'El nombre debe tener un mínimo de 4 caracteres' );
       return;
     }
     if ( this.productData.name ) {
       this.productService.validateName( this.productData.name ).subscribe( resp => {
         if ( resp.taken ) {
-          this.alert.warning( resp.message[ 0 ] );
+          this.toastrService.warning( resp.message[ 0 ] );
           this.disabled = true;
           return;
         }
-        this.alert.info( resp.message[ 0 ] );
+        this.toastrService.info( resp.message[ 0 ] );
         this.disabled = false;
 
       } );

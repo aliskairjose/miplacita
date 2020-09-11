@@ -3,8 +3,6 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { ProductSlider, CollectionSlider } from '../../shared/data/slider';
 import { Product } from '../../shared/classes/tm.product';
 import { ProductService } from '../../shared/services/tm.product.service';
-import { NgxSpinnerService } from 'ngx-spinner';
-import { AlertService } from 'ngx-alerts';
 
 @Component( {
   selector: 'app-marketplace',

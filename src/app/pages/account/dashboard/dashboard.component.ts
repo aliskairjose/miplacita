@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductService } from '../../../shared/services/tm.product.service';
 import { AuthService } from '../../../shared/services/auth.service';
-import { AlertService } from 'ngx-alerts';
 import { StorageService } from '../../../shared/services/storage.service';
 import { User } from '../../../shared/classes/user';
 import { DashboardService } from '../../../shared/services/dashboard.service';
 import { Dashboard } from '../../../shared/classes/dashboard';
+import { ToastrService } from 'ngx-toastr';
 
 @Component( {
   selector: 'app-dashboard',
@@ -49,8 +49,8 @@ export class DashboardComponent implements OnInit {
 
   constructor(
     private auth: AuthService,
-    private alert: AlertService,
     private storage: StorageService,
+    private toastrService: ToastrService,
     public productService: ProductService,
     public dashboardService: DashboardService
   ) {
@@ -60,7 +60,7 @@ export class DashboardComponent implements OnInit {
   async ngOnInit() {
     await this.auth.authObserver().subscribe( async ( resp: boolean ) => {
       if ( resp ) {
-        this.alert.info( `Bienvenido ${this.user.fullname}` );
+        this.toastrService.info( `Bienvenido ${this.user.fullname}` );
       }
     } );
     this.getLabelsInformation();

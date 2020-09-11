@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AlertService } from 'ngx-alerts';
 import { StorageService } from '../../../shared/services/storage.service';
 import { AuthService } from '../../../shared/services/auth.service';
 import { ShopService } from '../../../shared/services/shop.service';
 import { Store } from '../../../shared/classes/store';
 import { Result } from '../../../shared/classes/response';
 import { User } from '../../../shared/classes/user';
+import { ToastrService } from 'ngx-toastr';
 
 @Component( {
   selector: 'app-shop-profile',
@@ -25,10 +25,10 @@ export class ShopProfileComponent implements OnInit {
   constructor(
     private router: Router,
     private auth: AuthService,
-    private alert: AlertService,
-    private storageService: StorageService,
     private formBuilder: FormBuilder,
     private shopService: ShopService,
+    private toastrService: ToastrService,
+    private storageService: StorageService,
   ) {
     this.createForm();
   }

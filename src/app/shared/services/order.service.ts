@@ -5,6 +5,9 @@ import { Order } from '../classes/order';
 import { Response, Result } from '../classes/response';
 import { map } from 'rxjs/operators';
 
+const state = {
+  checkoutItems: JSON.parse(localStorage.checkoutItems || '[]')
+};
 @Injectable( {
   providedIn: 'root'
 } )
@@ -15,6 +18,29 @@ export class OrderService {
   constructor(
     private http: HttpService
   ) { }
+
+  // Get Checkout Items
+  public get checkoutItems(): Observable<any> {
+    const itemsStream = new Observable( observer => {
+      observer.next( state.checkoutItems );
+      observer.complete();
+    } );
+    return itemsStream as Observable<any>;
+  }
+
+  // Create order
+  public createOrder( product: any, details: any, orderId: any, amount: any ) {
+    const item = {
+      shippingDetails: details,
+      product,
+      orderId,
+      totalAmount: amount
+    };
+    state.checkoutItems = item;
+    localStorage.setItem( 'checkoutItems', JSON.stringify( item ) );
+    localStorage.removeItem( 'cartItems' );
+    this.router.navigate( [ '/shop/checkout/success', orderId ] );
+  }
 
   /**
    * @description Crea una nueva Orden

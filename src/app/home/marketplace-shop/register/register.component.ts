@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AlertService } from 'ngx-alerts';
-import { StorageService } from '../../../shared/services/storage.service';
 import { AuthService } from '../../../shared/services/auth.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthResponse } from '../../../shared/classes/auth-response';
@@ -25,8 +23,6 @@ export class RegisterComponent implements OnInit {
   minlength = 'Debe tener mínimo 8 caracteres';
 
   constructor(
-    private router: Router,
-    private alert: AlertService,
     private auth: AuthService,
     private formBuilder: FormBuilder,
     private socialService: SocialAuthService

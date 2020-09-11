@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../../shared/services/auth.service';
-import { AlertService } from 'ngx-alerts';
 import { StorageService } from '../../../shared/services/storage.service';
 import { AuthResponse } from '../../../shared/classes/auth-response';
 import { SocialAuthService, FacebookLoginProvider } from 'angularx-social-login';
@@ -20,9 +19,8 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private alert: AlertService,
-    private storage: StorageService,
     private auth: AuthService,
+    private storage: StorageService,
     private formBuilder: FormBuilder,
     private socialService: SocialAuthService
   ) {

@@ -1,6 +1,5 @@
 import { Component, OnInit, ViewChild, Output, EventEmitter } from '@angular/core';
 import { Validators, FormGroup, FormBuilder } from '@angular/forms';
-import { AlertService } from 'ngx-alerts';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { User } from '../../classes/user';
@@ -14,6 +13,7 @@ import { Plan } from '../../classes/plan';
 import { SuccessModalComponent } from '../../custom-component/success-modal/success-modal.component';
 import { AuthResponse } from '../../classes/auth-response';
 import { environment } from '../../../../environments/environment';
+import { ToastrService } from 'ngx-toastr';
 
 interface ShopForm {
   name?: string;
@@ -67,10 +67,10 @@ export class RegisterStoreComponent implements OnInit {
   constructor(
     private router: Router,
     private auth: AuthService,
-    private alert: AlertService,
     private storage: StorageService,
     private formBuilder: FormBuilder,
-    private ShopService: ShopService,
+    private shopService: ShopService,
+    private toastrService: ToastrService,
     private productService: ProductService,
   ) { this.createForm(); }
 
@@ -82,7 +82,7 @@ export class RegisterStoreComponent implements OnInit {
   ngOnInit(): void {
     const userData = JSON.parse( sessionStorage.userForm );
 
-    this.ShopService.getPlans().subscribe( ( plans: Plan[] ) => {
+    this.shopService.getPlans().subscribe( ( plans: Plan[] ) => {
       this.plans = [ ...plans ];
       this.planSelected = this.plans[ 0 ]._id;
     } );
@@ -105,10 +105,10 @@ export class RegisterStoreComponent implements OnInit {
 
     if ( this.storeForm.valid ) {
       if ( this.images.length === 0 ) {
-        this.alert.warning( 'Debe cargar un logo para la tienda!' );
+        this.toastrService.warning( 'Debe cargar un logo para la tienda!' );
         return;
       }
-      this.ShopService.uploadImages( { images: this.images } ).subscribe( result => {
+      this.shopService.uploadImages( { images: this.images } ).subscribe( result => {
         if ( result.status === 'isOk' ) {
           this.storeData.logo = result.images[ 0 ];
           this.step = 2;
@@ -124,7 +124,7 @@ export class RegisterStoreComponent implements OnInit {
     this.productData = { ...this.productForm.value };
     if ( this.productForm.valid ) {
       if ( this.images.length === 0 ) {
-        this.alert.warning( 'Debe cargar una imagen para producto!' );
+        this.toastrService.warning( 'Debe cargar una imagen para producto!' );
         return;
       }
       this.productService.uploadImages( { images: this.images } ).subscribe( result => {
@@ -150,17 +150,17 @@ export class RegisterStoreComponent implements OnInit {
    */
   validateName(): void {
     if ( this.shop.name.length > 0 && this.shop.name.length < 4 ) {
-      this.alert.warning( 'El nombre debe tener un mínimo de 4 caracteres' );
+      this.toastrService.warning( 'El nombre debe tener un mínimo de 4 caracteres' );
       return;
     }
     if ( this.shop.name ) {
-      this.ShopService.validateName( this.shop.name ).subscribe( resp => {
+      this.shopService.validateName( this.shop.name ).subscribe( resp => {
         if ( resp.taken ) {
-          this.alert.warning( resp.message[ 0 ] );
+          this.toastrService.warning( resp.message[ 0 ] );
           this.disabled = true;
           return;
         }
-        this.alert.info( resp.message[ 0 ] );
+        this.toastrService.info( resp.message[ 0 ] );
         this.disabled = false;
 
       } );
