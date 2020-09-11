@@ -19,7 +19,8 @@ import { ConfirmationDialogService } from '../../shared/services/confirmation-di
 export class ProductsComponent implements OnInit {
   typeUser = 'admin';
   fields = [ '', 'Nombre', 'Descripción', 'Precio', 'ITBMS', 'Estado', 'Acción' ];
-  searchText = '';
+  name = '';
+  status = '';
   products: Product[] = [];
   productTypes = []; // tipos de productos
   states = []; // tipos de productos
@@ -54,6 +55,14 @@ export class ProductsComponent implements OnInit {
     } );
   }
 
+  search(): void {
+    this.loadData();
+  }
+
+  selectStatus(): void {
+    this.loadData();
+  }
+
   showModal( id: string ): void {
     this.confirmationDialogService
       .confirm( 'Por favor confirme ..', '¿Realmente desea eliminar este producto?' )
@@ -81,7 +90,7 @@ export class ProductsComponent implements OnInit {
 
   private loadData( page = 1 ): void {
     // tslint:disable-next-line: curly
-    if ( this.user.role === 'merchant' ) this.params = `store=${this.user.stores[ 0 ]._id}`;
+    if ( this.user.role === 'merchant' ) this.params = `store=${this.user.stores[ 0 ]._id}&name=${this.name}&status=${this.status}`;
 
     this.productService.productList( page, this.params ).subscribe( ( result: Result<Product> ) => {
       this.products = [ ...result.docs ];
