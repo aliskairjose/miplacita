@@ -31,11 +31,15 @@ export class ShippingComponent implements OnInit {
     private toastrService: ToastrService,
     public productService: ProductService,
   ) {
+    this.user = this.storage.getItem( 'user' );
+
+    if ( !this.user ) { this.toastrService.warning( 'Debe iniciar sesión' ); }
+
     this.checkoutForm = this.fb.group( {
-      firstname: [ '', [ Validators.required, Validators.pattern( '[a-zA-Z][a-zA-Z ]+[a-zA-Z]$' ) ] ],
+      firstname: [ this.user ? this.user.fullname : '', [ Validators.required, Validators.pattern( '[a-zA-Z][a-zA-Z ]+[a-zA-Z]$' ) ] ],
       lastname: [ '', [ Validators.required, Validators.pattern( '[a-zA-Z][a-zA-Z ]+[a-zA-Z]$' ) ] ],
       phone: [ '', [ Validators.required, Validators.pattern( '[0-9]+' ) ] ],
-      email: [ '', [ Validators.required, Validators.email ] ],
+      email: [ this.user ? this.user.email : '', [ Validators.required, Validators.email ] ],
       address: [ '', [ Validators.required, Validators.maxLength( 50 ) ] ],
       country: [ '', Validators.required ],
       town: [ '', Validators.required ],
@@ -43,9 +47,7 @@ export class ShippingComponent implements OnInit {
       postalcode: [ '', Validators.required ]
     } );
 
-    this.user = this.storage.getItem( 'user' );
-
-    if ( !this.user ) { this.toastrService.warning( 'Debe iniciar sesión' ); }
+    
 
   }
 
