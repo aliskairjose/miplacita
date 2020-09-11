@@ -1,0 +1,29 @@
+<section>
+    <div class="container">
+        <div class="store-card">
+            <div class="img">
+                <img class="w-100 h-100" src="assets/images/marketplace/images/placeholder.jpg" alt="">
+            </div>
+            <div class="info-card px-2">
+                <div >
+                    <p class="text-default-color">{{ store.name }}</p>
+                </div>
+                <div class="d-flex">
+                    <div class="d-flex">
+                        <img class="w-100 h-100" src="assets/images/marketplace/icon/store.ppg" alt="">
+                        <p>Órdenes</p>
+                    </div>
+                    <div class="d-flex">
+                        <img class="w-100 h-100" src="assets/images/marketplace/icon/orders.ppg" alt="">
+                        <p>Pedidos</p>
+                    </div>
+
+                </div>
+                <hr>
+                <div class="text-center">
+                    <p>Creada: {{ store.created_at }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

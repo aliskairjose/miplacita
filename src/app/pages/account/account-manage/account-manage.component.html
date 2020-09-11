@@ -4,37 +4,70 @@
             <div class="d-flex account-menu justify-content-center" id="" role="tablist">
                 <div class="tab" (click)="updateTab('profile')" 
                     [ngClass]="{'active': active=='profile','btn tab': active!='profile'}" >
-                    <button class="btn " id="profile-tab" >Mi perfil</button>
+                    <button class="btn " id="profile-tab" >
+                        <img src="assets/images/marketplace/images/profile.png" alt="">
+                        Mi perfil</button>
                 </div>
                 <div class="tab" (click)="updateTab('orders')"
                     [ngClass]="{'active': active=='orders','btn tab': active!='orders'}">
-                    <button class="btn "  id="order-tab"   
-                       >Mis Pedidos</button>
+                    <button class="btn "  id="order-tab">
+                        <img src="assets/images/marketplace/images/orders.png" alt="">
+                        Mis Pedidos</button>
                 </div>
                 <div class="tab" (click)="updateTab('shops')"
                     [ngClass]="{'active': active=='shops','btn tab': active!='shops'}">
                     <button class="btn "  id="contact-tab"  
-                        >Mis tiendas</button>
+                        >
+                        <img src="assets/images/marketplace/images/store.png" alt="">
+                        Mis tiendas</button>
                 </div>
                 <div class="tab"  (click)="updateTab('logout')"
                     [ngClass]="{'active': active=='logout','btn tab': active!='logout'}">
                     <button class="btn " id="contact-tab"  
-                        >Cerrar Sesión</button>
+                        >
+                        <img src="assets/images/marketplace/images/logout.png" alt="">
+                        Cerrar Sesión</button>
                 </div>
             </div>
         </div>
         <div class="col-lg-9 col-md-9 col-sm-12">
             <div class="tab-content" id="myTabContent">
                 <div *ngIf="active=='profile'" class="" 
-                    id="profile" role="tabpanel" aria-labelledby="home-tab">
+                    id="profile" role="tabpanel" >
                     <!-- <app-shop-profile></app-shop-profile> -->
                     <app-profile></app-profile>
                 </div>
                 <div *ngIf="active=='orders'" class="" 
-                    id="order" role="tabpanel" aria-labelledby="order-tab">
-                    Mi pedidos</div>
+                    id="order" role="tabpanel" >
+                    <app-user-orders></app-user-orders>
+                </div>
                 <div *ngIf="active=='shops'" class="" 
-                    id="contact" role="tabpanel" aria-labelledby="contact-tab">...</div>
+                    id="contact" role="tabpanel" aria-labelledby="contact-tab">
+                    <h3>
+                        <span>Mis tiendas</span>
+                    </h3>
+                    <div class="container">
+                       
+                        <div class="row">
+                            <div class="col theme-tab">
+                                <div >
+                                    <div class="no-slider row">
+                                        
+                                        <ng-container *ngFor="let store of stores | slice:0:8">
+                                        
+                                            <div class="product-box">
+                                                <app-shop-card
+                                                    [store]="store">
+                                                </app-shop-card>
+                                        
+                                            </div>
+                                        </ng-container>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
