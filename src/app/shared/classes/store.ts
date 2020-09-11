@@ -12,4 +12,5 @@ export interface Store {
   owner_id?: string | User;
   plan?: Plan | string;
   active?: boolean;
+  created_at?: string;
 }

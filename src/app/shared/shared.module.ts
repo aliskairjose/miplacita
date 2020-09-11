@@ -72,6 +72,7 @@ import { ConfirmationDialogComponent } from './custom-components/confirmation-di
 import { ConfirmationDialogService } from './services/confirmation-dialog.service';
 import { SearchComponent } from './components/search/search.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { ShopCardComponent } from './components/shop-card/shop-card.component';
 
 // export let options: Partial<IConfig> | (() => Partial<IConfig>);
 const maskConfig: Partial<IConfig> = {
@@ -137,6 +138,7 @@ export const customCurrencyMaskConfig = {
     ShopSubmenuComponent,
     TimelineComponent,
     SearchComponent,
+    ShopCardComponent,
   ],
   imports: [
     NgxCurrencyModule.forRoot(customCurrencyMaskConfig),
@@ -207,6 +209,7 @@ export const customCurrencyMaskConfig = {
     ShopSubmenuComponent,
     TimelineComponent,
     SearchComponent,
+    ShopCardComponent
   ],
   providers: [ ConfirmationDialogService ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
