@@ -1,0 +1,64 @@
+<section class="">
+    <div class="container">
+
+        <div class="row" >
+            <div class="col-sm-12 px-1">
+                <div class="page-title">
+                    <h3>
+                       <span> <strong> Mis pedidos </strong>  </span> 
+                    </h3>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-responsive-xs">
+                        <thead>
+                            <tr class="table-head">
+                                <th scope="col">pedido nro</th>
+                                <th scope="col">tienda</th>
+                                <th id="small-col" scope="col">total</th>
+                                <th scope="col">fecha de emisión</th>
+                                <th scope="col">estatus de entrega</th>
+                            </tr>
+                        </thead>
+                        <tbody *ngFor="let order of orders">
+                            <tr>
+                                <td>
+                                   <p>ID: {{ order._id }}</p> 
+                                </td>
+                                <td>
+                                    <strong>tienda</strong>
+                                    <div class="mobile-order-content row">
+                                        <!-- <div class="col-xs-3">
+                                            tienda 2
+                                        </div> -->
+                                        <div class="col-xs-3 text-center">
+                                            <p class="td-color">
+                                                {{ order.amount | currency }}
+                                            </p>
+                                        </div>
+                                        <div class="col-xs-3 text-center">
+                                            {{order.status}}
+                                        </div>
+                                    </div>
+                                </td>
+                                
+                                <td>
+                                    <p class="td-color">
+                                        {{ order.amount | currency }}
+                                    </p>
+                                </td>
+                                
+                                <td>
+                                    <p>{{ order.created_at }}</p>
+                                </td>
+                                <td>
+                                    
+                                    <strong>{{ order.status }}</strong>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

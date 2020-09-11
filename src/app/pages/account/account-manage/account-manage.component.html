@@ -8,8 +8,7 @@
                 </div>
                 <div class="tab" (click)="updateTab('orders')"
                     [ngClass]="{'active': active=='orders','btn tab': active!='orders'}">
-                    <button class="btn "  id="order-tab"   
-                       >Mis Pedidos</button>
+                    <button class="btn "  id="order-tab">Mis Pedidos</button>
                 </div>
                 <div class="tab" (click)="updateTab('shops')"
                     [ngClass]="{'active': active=='shops','btn tab': active!='shops'}">
@@ -26,13 +25,14 @@
         <div class="col-lg-9 col-md-9 col-sm-12">
             <div class="tab-content" id="myTabContent">
                 <div *ngIf="active=='profile'" class="" 
-                    id="profile" role="tabpanel" aria-labelledby="home-tab">
+                    id="profile" role="tabpanel" >
                     <!-- <app-shop-profile></app-shop-profile> -->
                     <app-profile></app-profile>
                 </div>
                 <div *ngIf="active=='orders'" class="" 
-                    id="order" role="tabpanel" aria-labelledby="order-tab">
-                    Mi pedidos</div>
+                    id="order" role="tabpanel" >
+                    <app-user-orders></app-user-orders>
+                </div>
                 <div *ngIf="active=='shops'" class="" 
                     id="contact" role="tabpanel" aria-labelledby="contact-tab">...</div>
             </div>
