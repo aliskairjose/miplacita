@@ -25,11 +25,8 @@
                                    <p>ID: {{ order._id }}</p> 
                                 </td>
                                 <td>
-                                    <strong>tienda</strong>
+                                    <strong>{{ order.store.name }}</strong>
                                     <div class="mobile-order-content row">
-                                        <!-- <div class="col-xs-3">
-                                            tienda 2
-                                        </div> -->
                                         <div class="col-xs-3 text-center">
                                             <p class="td-color">
                                                 {{ order.amount | currency }}

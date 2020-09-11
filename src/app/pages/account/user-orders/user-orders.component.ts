@@ -13,12 +13,14 @@ export class UserOrdersComponent implements OnInit {
       _id: '123',
       amount: 1000,
       status: 'Entregado',
-      created_at: '02-02-2020'
+      created_at: '02-02-2020',
+      store: {name: 'tienda2'}
     },{
       _id: '123',
       amount: 1000,
       status: 'Entregado',
-      created_at: '02-02-2020'
+      created_at: '02-02-2020',
+      store: {name: 'tienda2'}
     });
    }
 
