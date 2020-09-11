@@ -19,6 +19,7 @@ export class CartComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.productService.cartItems.subscribe( products => this.products = [ ...products ] );
   }
 
   public get getTotal(): Observable<number> {
@@ -31,7 +32,7 @@ export class CartComponent implements OnInit {
   }
 
   // Decrement
-  decrement( product, qty = -1 ) {
+  decrement( product: Product, qty = -1 ) {
     this.productService.updateCartQuantity( product, qty );
   }
 

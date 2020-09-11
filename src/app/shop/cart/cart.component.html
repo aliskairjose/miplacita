@@ -12,7 +12,7 @@
                     <table class="table cart-table table-responsive-xs">
                         <thead>
                             <tr class="table-head">
-                                <th scope="col">imagen</th>
+                                <th scope="col"></th>
                                 <th scope="col">nombre de producto</th>
                                 <th id="small-col" scope="col">tienda</th>
                                 <th scope="col">precio</th>
@@ -43,7 +43,7 @@
                                         </div>
                                         <div class="col-xs-3">
                                             <h2 class="td-color">
-                                                {{ product.price  | currency:productService?.Currency.currency:'symbol' }}
+                                                {{ product.price  | currency }}
                                             </h2>
                                         </div>
                                         <div class="col-xs-3">
@@ -58,12 +58,12 @@
                                 <td>
                                     <!-- enlace a tienda -->
                                     <a>
-                                        {{ product.store }}
+                                        {{ product.store.name }}
                                     </a>
                                 </td>
                                 <td>
                                     <h2>
-                                        {{ product.price | currency:productService?.Currency.currency:'symbol' }}
+                                        {{ product.price | currency }}
                                     </h2>
                                 </td>
                                 <td>
