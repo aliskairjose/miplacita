@@ -12,7 +12,7 @@ import { ProductService } from '../../../services/product.service';
 export class ProductBoxOneComponent implements OnInit {
 
   @Input() product: Product;
-  // @Input() currency: any = this.productService.Currency; // Default Currency
+  @Input() currency: any = this.productService.Currency; // Default Currency
   @Input() thumbnail = false; // Default False
   @Input() onHowerChangeImage = false; // Default False
   @Input() cartModal = false; // Default False
