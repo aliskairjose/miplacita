@@ -285,13 +285,13 @@ export class ProductService {
   // Total amount
   cartTotalAmount(): Observable<number> {
     return this.cartItems.pipe( map( ( product: Product[] ) => {
-      return product.reduce( ( prev: number, curr: Product ) => {
+      return product.reduce( ( prev, curr: Product ) => {
         const price = curr.price;
         // if ( curr.discount ) {
         //   price = curr.price - ( curr.price * curr.discount / 100 );
         // }
-        return ( prev + price * curr.quantity ) * this.Currency.price;
-        return 0;
+        // return ( prev + price * curr.quantity ) * this.Currency.price;
+        return this.Currency.price;
       }, 0 );
     } ) );
   }

@@ -47,8 +47,6 @@ export class ShippingComponent implements OnInit {
       postalcode: [ '', Validators.required ]
     } );
 
-    
-
   }
 
   ngOnInit(): void {

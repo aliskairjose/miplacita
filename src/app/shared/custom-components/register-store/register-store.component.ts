@@ -169,7 +169,7 @@ export class RegisterStoreComponent implements OnInit {
 
   private createForm(): void {
     const reg = '(https?://)?(www\.)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?';
-    
+
     // Formulario de tienda
     this.storeForm = this.formBuilder.group( {
       name: [ '', [ Validators.required ] ],
@@ -201,7 +201,7 @@ export class RegisterStoreComponent implements OnInit {
   }
 
   private createStore(): void {
-    this.ShopService.addStore( this.storeData ).subscribe( ( store: Store ) => {
+    this.shopService.addStore( this.storeData ).subscribe( ( store: Store ) => {
       this.store = { ...store };
       this.createProduct();
     } );

@@ -4,6 +4,8 @@ import { Observable, Subject } from 'rxjs';
 import { Order } from '../classes/order';
 import { Response, Result } from '../classes/response';
 import { map } from 'rxjs/operators';
+import { Router } from '@angular/router';
+import { StorageService } from './storage.service';
 
 const state = {
   checkoutItems: JSON.parse(localStorage.checkoutItems || '[]')
@@ -16,7 +18,9 @@ export class OrderService {
   $order: Subject<Order> = new Subject<Order>();
 
   constructor(
-    private http: HttpService
+    private router: Router,
+    private http: HttpService,
+    private storage: StorageService,
   ) { }
 
   // Get Checkout Items
@@ -37,8 +41,8 @@ export class OrderService {
       totalAmount: amount
     };
     state.checkoutItems = item;
-    localStorage.setItem( 'checkoutItems', JSON.stringify( item ) );
-    localStorage.removeItem( 'cartItems' );
+    this.storage.setItem( 'checkoutItems', item );
+    this.storage.removeItem( 'cartItems' );
     this.router.navigate( [ '/shop/checkout/success', orderId ] );
   }
 
