@@ -1,7 +1,7 @@
 import { Product } from './product';
 import { User } from './user';
 import { Store } from './store';
-import { ShipmentOptions } from './shipment-options';
+import { ShipmentOption } from './shipment-option';
 export interface Order {
   _id?: string;
   status?: string;
@@ -11,7 +11,7 @@ export interface Order {
   updated_at?: string;
   user?: User;
   store?: Store;
-  shipment_option?: ShipmentOptions;
+  shipment_option?: ShipmentOption;
   items?: Item[];
 }
 

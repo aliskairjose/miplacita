@@ -5,7 +5,7 @@ import { Store } from '../classes/store';
 import { map } from 'rxjs/operators';
 import { Plan } from '../classes/plan';
 import { Response, Result } from '../classes/response';
-import { ShipmentOptions } from '../classes/shipment-options';
+import { ShipmentOption } from '../classes/shipment-option';
 
 @Injectable( {
   providedIn: 'root'
@@ -136,7 +136,7 @@ export class ShopService {
    * @description Busca las opciones de envío por tienda
    * @param id Id de la Tienda a consultar las opciones de envio
    */
-  findShipmentOptionByShop( id: string ): Observable<ShipmentOptions[]> {
+  findShipmentOptionByShop( id: string ): Observable<ShipmentOption[]> {
     return this.http.get( `shipment?store=${id}` ).pipe(
       map( result => {
         // tslint:disable-next-line: curly
@@ -150,7 +150,7 @@ export class ShopService {
    * @param id Id de la opcion de envio
    * @param data Data actualizada
    */
-  updateShipmetOptions( id: string, data: any ): Observable<any> {
+  updateShipmetOptions( id: string, data: any ): Observable<ShipmentOption> {
     return this.http.put( `shipment/${id}`, data ).pipe(
       map( result => {
         // tslint:disable-next-line: curly

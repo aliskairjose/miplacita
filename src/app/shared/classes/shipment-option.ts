@@ -1,4 +1,4 @@
-export interface ShipmentOptions {
+export interface ShipmentOption {
   _id?: string;
   name?: string;
   active?: boolean;
