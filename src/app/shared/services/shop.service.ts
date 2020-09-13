@@ -5,6 +5,7 @@ import { Store } from '../classes/store';
 import { map } from 'rxjs/operators';
 import { Plan } from '../classes/plan';
 import { Response, Result } from '../classes/response';
+import { ShipmentOptions } from '../classes/shipment-options';
 
 @Injectable( {
   providedIn: 'root'
@@ -110,6 +111,60 @@ export class ShopService {
     // tslint:disable-next-line: prefer-const
     let data: any;
     return this.http.post( `stores/validate?name=${name}`, data );
+  }
+
+  /*
+    ---------------------------------------------
+    --------------  ShipmentOptions  ------------
+    ---------------------------------------------
+  */
+
+  /**
+   * @description Crea una nueva opcion de envio para la tienda
+   * @param data Datos de Opciones de envio
+   */
+  addShipmetZone( data: any ): Observable<any> {
+    return this.http.post( 'shipment', data ).pipe(
+      map( result => {
+        // tslint:disable-next-line: curly
+        if ( result.status === 'isOk' ) return result.shipment_option;
+      } )
+    );
+  }
+
+  /**
+   * @description Busca las opciones de envío por tienda
+   * @param id Id de la Tienda a consultar las opciones de envio
+   */
+  findShipmentOptionByShop( id: string ): Observable<ShipmentOptions[]> {
+    return this.http.get( `shipment?store=${id}` ).pipe(
+      map( result => {
+        // tslint:disable-next-line: curly
+        if ( result.status === 'isOk' ) return result.shipments;
+      } )
+    );
+  }
+
+  /**
+   * @description Actualiza la opción de envío
+   * @param id Id de la opcion de envio
+   * @param data Data actualizada
+   */
+  updateShipmetOptions( id: string, data: any ): Observable<any> {
+    return this.http.put( `shipment/${id}`, data ).pipe(
+      map( result => {
+        // tslint:disable-next-line: curly
+        if ( result.status === 'isOk' ) return result.shipment_option;
+      } )
+    );
+  }
+
+  /**
+   * @description Elimina la opción de envío solicitada por ID
+   * @param id Id de la opción de envío a eliminar
+   */
+  deleteShipmentOptions( id: string ): Observable<any> {
+    return this.http.delete( `shipment/${id}` );
   }
 
   /**

@@ -1,6 +1,7 @@
 import { Product } from './product';
 import { User } from './user';
 import { Store } from './store';
+import { ShipmentOptions } from './shipment-options';
 export interface Order {
   _id?: string;
   status?: string;
@@ -24,11 +25,4 @@ export interface Item {
   total_price?: number; // unit_price   x quantity
 }
 
-export interface ShipmentOptions {
-  _id?: string;
-  name?: string;
-  active?: boolean;
-  deleted?: boolean;
-  price?: number;
-  store_id?: string;
-}
+

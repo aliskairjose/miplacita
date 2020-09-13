@@ -142,11 +142,13 @@ export class CollectionLeftSidebarComponent implements OnInit {
 
   // Remove Tag
   removeTag( tag ) {
-
+    console.log( tag );
     this.brands = this.brands.filter( val => val !== tag );
+    // this.categories = this.categories.filter( val => val.name !== tag );
 
     const params = {
       brand: this.brands.length ? this.brands.join( ',' ) : null,
+      categories: this.categories.length ? this.categories.join( ',' ) : null
     };
 
     this.router.navigate( [], {
