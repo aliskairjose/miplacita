@@ -173,7 +173,7 @@ export class ShippingComponent implements OnInit, OnDestroy {
     this.checkoutForm.value.address = address.formatted_address;
   }
 
-  markerDragEnd( $event: MouseEvent ) {
+  markerDragEnd( $event ) {
     this.latitude = $event.latLng.lat();
     this.longitude = $event.latLng.lng();
 
