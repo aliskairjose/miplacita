@@ -1,10 +1,10 @@
 <div *ngIf="!loader">
-  <div class="img-wrapper">
+  <div class="img-wrapper d-flex align-items-center">
     <!-- <div class="lable-block">
       <span class="lable3 d-flex justify-content-center align-items-center" *ngIf="product.new">nuevo</span>
       <span class="lable4" *ngIf="product.category"><strong>{{product.category}}</strong></span>
     </div> -->
-    <div class="front">
+    <div class="front my-auto">
       <a [routerLink]="['/shop/product/', product._id]">
         <img 
           [defaultImage]="ImageSrc ? ImageSrc : 'assets/images/product/placeholder.jpg'" 
