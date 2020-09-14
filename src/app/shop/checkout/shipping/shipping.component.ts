@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, ElementRef, NgZone } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { IPayPalConfig, ICreateOrderRequest } from 'ngx-paypal';
@@ -13,6 +13,9 @@ import { ShopService } from '../../../shared/services/shop.service';
 import { ShipmentOption } from '../../../shared/classes/shipment-option';
 import { GooglePlaceDirective } from 'ngx-google-places-autocomplete';
 import { Router } from '@angular/router';
+import { MapsAPILoader } from '@agm/core';
+import { NgxSpinnerService } from 'ngx-spinner';
+
 
 
 export interface ShippingAddress {
@@ -40,16 +43,25 @@ export class ShippingComponent implements OnInit, OnDestroy {
   shippingAddress: ShippingAddress;
   shipmentOptions: ShipmentOption[] = [];
   autocompleteInput: string;
-
+  title = 'My first AGM project';
+  latitude = 10.4683841;
+  longitude = -66.9604066;
+  zoom: number;
+  address: string;
+  private geoCoder;
 
   @ViewChild( 'placesRef' ) placesRef: GooglePlaceDirective;
+  @ViewChild( 'placesRef' ) public searchElementRef: ElementRef;
 
   constructor(
-    private fb: FormBuilder,
+    private ngZone: NgZone,
     private router: Router,
+    private fb: FormBuilder,
     private storage: StorageService,
     private shopService: ShopService,
     private orderService: OrderService,
+    private spinner: NgxSpinnerService,
+    private mapsAPILoader: MapsAPILoader,
     private toastrService: ToastrService,
     public productService: ProductService,
   ) {
@@ -82,6 +94,30 @@ export class ShippingComponent implements OnInit, OnDestroy {
     this.productService.cartItems.subscribe( response => this.products = response );
     this.getTotal.subscribe( amount => this.amount = amount );
     this.initConfig();
+    this.setCurrentLocation();
+    this.mapsAPILoader.load().then( () => {
+      this.setCurrentLocation();
+      // tslint:disable-next-line: new-parens
+      this.geoCoder = new google.maps.Geocoder;
+
+      const autocomplete = new google.maps.places.Autocomplete( this.searchElementRef.nativeElement );
+      autocomplete.addListener( 'place_changed', () => {
+        this.ngZone.run( () => {
+          // get the place result
+          const place: google.maps.places.PlaceResult = autocomplete.getPlace();
+
+          // verify result
+          if ( place.geometry === undefined || place.geometry === null ) {
+            return;
+          }
+
+          // set latitude, longitude and zoom
+          this.latitude = place.geometry.location.lat();
+          this.longitude = place.geometry.location.lng();
+          this.zoom = 12;
+        } );
+      } );
+    } );
   }
 
   public get getTotal(): Observable<number> {
@@ -132,8 +168,16 @@ export class ShippingComponent implements OnInit, OnDestroy {
   }
 
   handleAddressChange( address: any ): void {
-    console.log( address.formatted_address );
+    this.latitude = address.geometry.location.lat();
+    this.longitude = address.geometry.location.lng();
     this.checkoutForm.value.address = address.formatted_address;
+  }
+
+  markerDragEnd( $event: MouseEvent ) {
+    this.latitude = $event.latLng.lat();
+    this.longitude = $event.latLng.lng();
+
+    this.getAddress( this.latitude, this.longitude );
   }
 
   private initConfig(): void {
@@ -184,6 +228,35 @@ export class ShippingComponent implements OnInit, OnDestroy {
         console.log( 'onClick', data, actions );
       }
     };
+  }
+
+  // Get Current Location Coordinates
+  private setCurrentLocation() {
+    if ( 'geolocation' in navigator ) {
+      navigator.geolocation.getCurrentPosition( ( position ) => {
+        this.latitude = position.coords.latitude;
+        this.longitude = position.coords.longitude;
+        this.zoom = 15;
+      } );
+    }
+  }
+
+  getAddress( latitude, longitude ) {
+    // this.spinner.show();
+    this.geoCoder.geocode( { location: { lat: latitude, lng: longitude } }, ( results, status ) => {
+      // this.spinner.hide();
+      if ( status === 'OK' ) {
+        if ( results[ 0 ] ) {
+          this.zoom = 12;
+          this.address = results[ 0 ].formatted_address;
+        } else {
+          this.toastrService.warning( 'No results found' );
+        }
+      } else {
+        this.toastrService.warning( `Geocoder failed due to: ${status}` );
+      }
+
+    } );
   }
 
   ngOnDestroy(): void {
