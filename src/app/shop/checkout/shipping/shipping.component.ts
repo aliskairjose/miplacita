@@ -55,9 +55,7 @@ export class ShippingComponent implements OnInit, OnDestroy {
       if ( !response ) { state.shippingAddress = null; }
     }
 
-    console.log( state.user );
     const store = state.user.stores[ 0 ];
-    console.log( store );
 
     this.shopService.findShipmentOptionByShop( store._id ).subscribe( shipmentOptions => {
       this.shipmentOptions = [ ...shipmentOptions ];
