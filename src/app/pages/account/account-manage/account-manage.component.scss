@@ -8,9 +8,12 @@
 .tab {
     border-bottom: 1px solid #ccc;
     width: 100%;
+    display: flex;
+    justify-content: start;
     & button {
         font-size: 0.7rem;
     }
+    
 }
 .active {
     border: 1px solid #ccc;
@@ -22,7 +25,17 @@
     }
 
 }
-
+.no-slider {
+    .store-box {
+        width: 100%;
+        flex: 0 0 100%;
+        max-width: calc(100% - 30px);
+        margin: 0 15px 30px;
+        &:nth-last-child(-n+4) {
+            margin: 0 15px 0;
+        }
+    }
+}
 @media (min-width: 768px) { 
     .account-page {
         flex-direction: row;
@@ -43,6 +56,45 @@
     }
     .account-menu {
       flex-direction: column;
-      //border-right: 1px solid #ccc
+      //border-
+      right: 1px solid #ccc
+    }
+    .no-slider {
+        .store-box {
+            flex: 0 0 50%;
+            max-width: calc(50% - 30px);
+            margin: 0 1px 30px;
+            &:nth-last-child(-n+4) {
+                margin: 0 1px 0;
+            }
+        }
     }
 }
+
+@media (min-width: 992px) {
+    .no-slider {
+        .store-box {
+            flex: 0 0 50%;
+            max-width: calc(50% - 30px);
+            margin: 0 1px 30px;
+            &:nth-last-child(-n+4) {
+                margin: 0 1px 0;
+            }
+        }
+    }
+}
+
+@media (min-width: 1200px) { 
+    .no-slider {
+        .store-box {
+            flex: 0 0 30%;
+            max-width: calc(30% - 30px);
+            margin: 0 1px 30px;
+            &:nth-last-child(-n+4) {
+                margin: 0 1px 0;
+            }
+        }
+    }
+}
+
+

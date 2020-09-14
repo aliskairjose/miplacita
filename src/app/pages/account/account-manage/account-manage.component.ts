@@ -14,8 +14,15 @@ export class AccountManageComponent implements OnInit {
     this.stores.push({
       name:'tienda 1',
       created_at: '02-02-2020'
+    },
+      {
+        name:'tienda 2',
+        created_at: '02-02-2020'
+      },{
+      name:'tienda 3',
+      created_at: '02-02-2020'
     },{
-      name:'tienda 2',
+      name:'tienda 4',
       created_at: '02-02-2020'
     });
     console.log(this.stores);
