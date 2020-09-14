@@ -2,6 +2,9 @@
     <div class="d-flex account-page">
         <div class="col-lg-3 col-md-3 col-sm-0">
             <div class="d-flex account-menu justify-content-center" id="" role="tablist">
+                <div class="tab" >
+                    <button class="btn " ></button>
+                </div>
                 <div class="tab" (click)="updateTab('profile')" 
                     [ngClass]="{'active': active=='profile','btn tab': active!='profile'}" >
                     <button class="btn " id="profile-tab" >
@@ -14,8 +17,8 @@
                         <img src="assets/images/marketplace/images/orders.png" alt="">
                         Mis Pedidos</button>
                 </div>
-                <div class="tab" (click)="updateTab('shops')"
-                    [ngClass]="{'active': active=='shops','btn tab': active!='shops'}">
+                <div class="tab" (click)="updateTab('stores')"
+                    [ngClass]="{'active': active=='stores','btn tab': active!='stores'}">
                     <button class="btn "  id="contact-tab"  
                         >
                         <img src="assets/images/marketplace/images/store.png" alt="">
@@ -41,25 +44,24 @@
                     id="order" role="tabpanel" >
                     <app-user-orders></app-user-orders>
                 </div>
-                <div *ngIf="active=='shops'" class="" 
+                <div *ngIf="active=='stores'" class="" 
                     id="contact" role="tabpanel" aria-labelledby="contact-tab">
-                    <h3>
-                        <span>Mis tiendas</span>
-                    </h3>
+                    <div class="page-title">
+                        <h2 class="mp-title">
+                            <span>Mis tiendas</span>
+                        </h2>
+                    </div>
+                    
                     <div class="container">
-                       
                         <div class="row">
                             <div class="col theme-tab">
                                 <div >
                                     <div class="no-slider row">
-                                        
                                         <ng-container *ngFor="let store of stores | slice:0:8">
-                                        
-                                            <div class="product-box">
+                                            <div class="store-box">
                                                 <app-shop-card
                                                     [store]="store">
                                                 </app-shop-card>
-                                        
                                             </div>
                                         </ng-container>
                                     </div>
