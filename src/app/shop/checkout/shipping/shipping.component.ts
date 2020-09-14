@@ -55,20 +55,19 @@ export class ShippingComponent implements OnInit, OnDestroy {
   ) {
 
     this.user = this.storage.getItem( 'user' );
-    const shippingAddress: ShippingAddress = this.storage.getItem( `shippingAddress${this.user._id}` );
-
-    if ( shippingAddress && ( shippingAddress.userId === this.user._id ) ) {
-      const response = confirm( 'Ya existe una dirección, ¿Desea usarla?' );
-      ( response ) ? this.shippingAddress = shippingAddress : this.shippingAddress = {};
-    }
 
     this.createForm();
 
     if ( this.user ) {
       const store = this.user.stores[ 0 ];
+      const shippingAddress: ShippingAddress = this.storage.getItem( `shippingAddress${this.user._id}` );
       this.shopService.findShipmentOptionByShop( store._id ).subscribe( shipmentOptions => {
         this.shipmentOptions = [ ...shipmentOptions ];
       } );
+      if ( shippingAddress && ( shippingAddress.userId === this.user._id ) ) {
+        const response = confirm( 'Ya existe una dirección, ¿Desea usarla?' );
+        ( response ) ? this.shippingAddress = shippingAddress : this.shippingAddress = {};
+      }
     } else {
       this.toastrService.warning( 'Debe iniciar sesión' );
     }
