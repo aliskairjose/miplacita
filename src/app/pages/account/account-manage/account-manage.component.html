@@ -17,8 +17,8 @@
                         <img src="assets/images/marketplace/images/orders.png" alt="">
                         Mis Pedidos</button>
                 </div>
-                <div class="tab" (click)="updateTab('shops')"
-                    [ngClass]="{'active': active=='shops','btn tab': active!='shops'}">
+                <div class="tab" (click)="updateTab('stores')"
+                    [ngClass]="{'active': active=='stores','btn tab': active!='stores'}">
                     <button class="btn "  id="contact-tab"  
                         >
                         <img src="assets/images/marketplace/images/store.png" alt="">
@@ -44,7 +44,7 @@
                     id="order" role="tabpanel" >
                     <app-user-orders></app-user-orders>
                 </div>
-                <div *ngIf="active=='shops'" class="" 
+                <div *ngIf="active=='stores'" class="" 
                     id="contact" role="tabpanel" aria-labelledby="contact-tab">
                     <div class="page-title">
                         <h2 class="mp-title">
