@@ -29,6 +29,8 @@ import { SocialLoginModule, SocialAuthServiceConfig, FacebookLoginProvider } fro
 import { FormsModule } from '@angular/forms';
 import { AlertModule } from 'ngx-alerts';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { GooglePlaceModule } from 'ngx-google-places-autocomplete';
+import { AgmCoreModule } from '@agm/core';
 
 // export let options: Partial<IConfig> | (() => Partial<IConfig>);
 const maskConfig: Partial<IConfig> = {
@@ -69,6 +71,7 @@ export const customCurrencyMaskConfig = {
     HttpClientModule,
     NgxSpinnerModule,
     AppRoutingModule,
+    GooglePlaceModule,
     SocialLoginModule,
     LoadingBarRouterModule,
     BrowserAnimationsModule,
@@ -76,6 +79,7 @@ export const customCurrencyMaskConfig = {
     AngularFireAuthModule,
     NgxMaskModule.forRoot( maskConfig ),
     LoadingBarHttpClientModule,
+    AgmCoreModule.forRoot({apiKey: 'AIzaSyC7YdhqPz4rB-D8U7F4qxVokWDb8EWYOB4'}),
     NgxCurrencyModule.forRoot( customCurrencyMaskConfig ),
     AlertModule.forRoot( { maxMessages: 5, timeout: 3000, position: 'left' } ),
     BrowserModule.withServerTransition( { appId: 'serverApp' } ),

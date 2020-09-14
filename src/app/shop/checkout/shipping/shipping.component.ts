@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, ElementRef, NgZone } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { IPayPalConfig, ICreateOrderRequest } from 'ngx-paypal';
@@ -11,11 +11,12 @@ import { User } from '../../../shared/classes/user';
 import { ToastrService } from 'ngx-toastr';
 import { ShopService } from '../../../shared/services/shop.service';
 import { ShipmentOption } from '../../../shared/classes/shipment-option';
+import { GooglePlaceDirective } from 'ngx-google-places-autocomplete';
+import { Router } from '@angular/router';
+import { MapsAPILoader } from '@agm/core';
+import { NgxSpinnerService } from 'ngx-spinner';
 
-const state = {
-  shippingAddress: JSON.parse( localStorage.shippingAddress || '{}' ),
-  user: JSON.parse( localStorage.user || null )
-};
+
 
 export interface ShippingAddress {
   firstname?: string;
@@ -33,6 +34,7 @@ export interface ShippingAddress {
 export class ShippingComponent implements OnInit, OnDestroy {
 
   checkoutForm: FormGroup;
+  submitted: boolean;
   products: Product[] = [];
   payPalConfig?: IPayPalConfig;
   payment = 'Stripe';
@@ -40,51 +42,111 @@ export class ShippingComponent implements OnInit, OnDestroy {
   user: User = {};
   shippingAddress: ShippingAddress;
   shipmentOptions: ShipmentOption[] = [];
+  autocompleteInput: string;
+  title = 'My first AGM project';
+  latitude = 10.4683841;
+  longitude = -66.9604066;
+  zoom: number;
+  address: string;
+  private geoCoder;
+
+  @ViewChild( 'placesRef' ) placesRef: GooglePlaceDirective;
+  @ViewChild( 'placesRef' ) public searchElementRef: ElementRef;
 
   constructor(
+    private ngZone: NgZone,
+    private router: Router,
     private fb: FormBuilder,
     private storage: StorageService,
     private shopService: ShopService,
     private orderService: OrderService,
+    private spinner: NgxSpinnerService,
+    private mapsAPILoader: MapsAPILoader,
     private toastrService: ToastrService,
     public productService: ProductService,
   ) {
 
-    if ( Object.keys( state.shippingAddress ).length !== 0 && ( state.shippingAddress._id === state.user._id ) ) {
-      const response = confirm( 'Ya existe una dirección, ¿Desea usarla?' );
-      if ( !response ) { state.shippingAddress = null; }
+    this.user = this.storage.getItem( 'user' );
+
+    this.createForm();
+
+    if ( this.user ) {
+      const store = this.user.stores[ 0 ];
+      const shippingAddress: ShippingAddress = this.storage.getItem( `shippingAddress${this.user._id}` );
+      this.shopService.findShipmentOptionByShop( store._id ).subscribe( shipmentOptions => {
+        this.shipmentOptions = [ ...shipmentOptions ];
+      } );
+      if ( shippingAddress && ( shippingAddress.userId === this.user._id ) ) {
+        const response = confirm( 'Ya existe una dirección, ¿Desea usarla?' );
+        ( response ) ? this.shippingAddress = shippingAddress : this.shippingAddress = {};
+      }
+    } else {
+      this.toastrService.warning( 'Debe iniciar sesión' );
     }
 
-    const store = state.user.stores[ 0 ];
-
-    this.shopService.findShipmentOptionByShop( store._id ).subscribe( shipmentOptions => {
-      this.shipmentOptions = [ ...shipmentOptions ];
-    } );
-
-    if ( !state.user ) { this.toastrService.warning( 'Debe iniciar sesión' ); }
-
-    this.checkoutForm = this.fb.group( {
-      firstname: [ state.shippingAddress ? state.shippingAddress.firstname : '', [ Validators.required, Validators.pattern( '[a-zA-Z][a-zA-Z ]+[a-zA-Z]$' ) ] ],
-      lastname: [ state.shippingAddress ? state.shippingAddress.lastname : '', [ Validators.required, Validators.pattern( '[a-zA-Z][a-zA-Z ]+[a-zA-Z]$' ) ] ],
-      phone: [ state.shippingAddress ? state.shippingAddress.phone : '', [ Validators.required, Validators.pattern( '[0-9]+' ) ] ],
-      email: [ state.shippingAddress ? state.shippingAddress.email : '', [ Validators.required, Validators.email ] ],
-      address: [ state.shippingAddress ? state.shippingAddress.address : '', [ Validators.required, Validators.maxLength( 50 ) ] ],
-      country: [ '', Validators.required ],
-      town: [ '', Validators.required ],
-      state: [ '', Validators.required ],
-      postalcode: [ '', Validators.required ]
-    } );
-
   }
+
+  // convenience getter for easy access to form fields
+  // tslint:disable-next-line: typedef
+  get f() { return this.checkoutForm.controls; }
 
   ngOnInit(): void {
     this.productService.cartItems.subscribe( response => this.products = response );
     this.getTotal.subscribe( amount => this.amount = amount );
     this.initConfig();
+    this.setCurrentLocation();
+    this.mapsAPILoader.load().then( () => {
+      this.setCurrentLocation();
+      // tslint:disable-next-line: new-parens
+      this.geoCoder = new google.maps.Geocoder;
+
+      const autocomplete = new google.maps.places.Autocomplete( this.searchElementRef.nativeElement );
+      autocomplete.addListener( 'place_changed', () => {
+        this.ngZone.run( () => {
+          // get the place result
+          const place: google.maps.places.PlaceResult = autocomplete.getPlace();
+
+          // verify result
+          if ( place.geometry === undefined || place.geometry === null ) {
+            return;
+          }
+
+          // set latitude, longitude and zoom
+          this.latitude = place.geometry.location.lat();
+          this.longitude = place.geometry.location.lng();
+          this.zoom = 12;
+        } );
+      } );
+    } );
   }
 
   public get getTotal(): Observable<number> {
     return this.productService.cartTotalAmount();
+  }
+
+  createForm(): void {
+    this.checkoutForm = this.fb.group( {
+      firstname: [ this.shippingAddress ? this.shippingAddress.firstname : '', [ Validators.required, Validators.pattern( '[a-zA-Z][a-zA-Z ]+[a-zA-Z]$' ) ] ],
+      lastname: [ this.shippingAddress ? this.shippingAddress.lastname : '', [ Validators.required, Validators.pattern( '[a-zA-Z][a-zA-Z ]+[a-zA-Z]$' ) ] ],
+      phone: [ this.shippingAddress ? this.shippingAddress.phone : '', [ Validators.required, Validators.pattern( '[0-9]+' ) ] ],
+      email: [ this.shippingAddress ? this.shippingAddress.email : '', [ Validators.required, Validators.email ] ],
+      address: [ this.shippingAddress ? this.shippingAddress.address : '', [ Validators.required, Validators.maxLength( 50 ) ] ],
+      // country: [ '', Validators.required ],
+      // town: [ '', Validators.required ],
+      // state: [ '', Validators.required ],
+      // postalcode: [ '', Validators.required ]
+    } );
+  }
+
+  checkout(): void {
+    this.submitted = true;
+    if ( this.checkoutForm.valid ) {
+      const shippingAddress = { ...this.checkoutForm.value };
+      shippingAddress.userId = this.user._id;
+      this.storage.setItem( `shippingAddress${this.user._id}`, shippingAddress );
+      this.router.navigate( [ 'shop/checkout' ] );
+    }
+
   }
 
   // Stripe Payment Gateway
@@ -103,6 +165,19 @@ export class ShippingComponent implements OnInit, OnDestroy {
       description: 'Online Fashion Store',
       amount: this.amount * 100
     } );
+  }
+
+  handleAddressChange( address: any ): void {
+    this.latitude = address.geometry.location.lat();
+    this.longitude = address.geometry.location.lng();
+    this.checkoutForm.value.address = address.formatted_address;
+  }
+
+  markerDragEnd( $event: MouseEvent ) {
+    this.latitude = $event.latLng.lat();
+    this.longitude = $event.latLng.lng();
+
+    this.getAddress( this.latitude, this.longitude );
   }
 
   private initConfig(): void {
@@ -155,13 +230,44 @@ export class ShippingComponent implements OnInit, OnDestroy {
     };
   }
 
+  // Get Current Location Coordinates
+  private setCurrentLocation() {
+    if ( 'geolocation' in navigator ) {
+      navigator.geolocation.getCurrentPosition( ( position ) => {
+        this.latitude = position.coords.latitude;
+        this.longitude = position.coords.longitude;
+        this.zoom = 15;
+      } );
+    }
+  }
+
+  private getAddress( latitude, longitude ) {
+    // this.spinner.show();
+    this.geoCoder.geocode( { location: { lat: latitude, lng: longitude } }, ( results, status ) => {
+      // this.spinner.hide();
+      if ( status === 'OK' ) {
+        if ( results[ 0 ] ) {
+          this.zoom = 12;
+          this.address = results[ 0 ].formatted_address;
+          // const length = this.address.length;
+          // const index = this.address.lastIndexOf( ',' );
+          // const address = this.address.substring( 0, index );
+          // const country = this.address.substring( index + 2, length );
+          // console.log( { address, country } );
+        } else {
+          this.toastrService.warning( 'No results found' );
+        }
+      } else {
+        this.toastrService.warning( `Geocoder failed due to: ${status}` );
+      }
+
+    } );
+  }
+
   ngOnDestroy(): void {
     // Called once, before the instance is destroyed.
     // Add 'implements OnDestroy' to the class.
-    const shippingAddress = { ...this.checkoutForm.value };
-    shippingAddress._id = state.user._id;
 
-    this.storage.setItem( 'shippingAddress', shippingAddress );
   }
 
 }

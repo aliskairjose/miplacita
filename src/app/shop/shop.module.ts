@@ -43,6 +43,8 @@ import { ShopsComponent } from './collection/widgets/shops/shops.component';
 import { ShippingComponent } from './checkout/shipping/shipping.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { AlertModule } from 'ngx-alerts';
+import { GooglePlaceModule } from 'ngx-google-places-autocomplete';
+import { AgmCoreModule } from '@agm/core';
 
 @NgModule({
   declarations: [
@@ -77,11 +79,13 @@ import { AlertModule } from 'ngx-alerts';
   ],
   imports: [
     CommonModule,
+    GooglePlaceModule,
     NgxSpinnerModule,
     NgxPayPalModule,
     Ng5SliderModule,
     SharedModule,
     ShopRoutingModule,
+    AgmCoreModule.forRoot({apiKey: 'AIzaSyC7YdhqPz4rB-D8U7F4qxVokWDb8EWYOB4'}),
     AlertModule.forRoot({maxMessages: 5, timeout: 3000, position: 'left'}),
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
