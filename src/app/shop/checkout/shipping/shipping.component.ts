@@ -15,6 +15,7 @@ import { GooglePlaceDirective } from 'ngx-google-places-autocomplete';
 import { Router } from '@angular/router';
 import { MapsAPILoader } from '@agm/core';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { AuthService } from '../../../shared/services/auth.service';
 
 
 
@@ -57,6 +58,7 @@ export class ShippingComponent implements OnInit, OnDestroy {
     private ngZone: NgZone,
     private router: Router,
     private fb: FormBuilder,
+    private auth: AuthService,
     private storage: StorageService,
     private shopService: ShopService,
     private orderService: OrderService,
@@ -66,11 +68,10 @@ export class ShippingComponent implements OnInit, OnDestroy {
     public productService: ProductService,
   ) {
 
-    this.user = this.storage.getItem( 'user' );
-
     this.createForm();
 
-    if ( this.user ) {
+    if ( this.auth.isAuthenticated()) {
+      this.user = this.storage.getItem( 'user' );
       const store = this.user.stores[ 0 ];
       const shippingAddress: ShippingAddress = this.storage.getItem( `shippingAddress${this.user._id}` );
       this.shopService.findShipmentOptionByShop( store._id ).subscribe( shipmentOptions => {

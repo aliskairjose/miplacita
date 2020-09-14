@@ -29,90 +29,6 @@ export class MarketplaceShopComponent implements OnInit {
     private router: Router,
     public productService: ProductService,
   ) {
-    /* 
-      this.products.push(
-        {
-          _id: '123',
-          name: 'Silla decoradora',
-          store: 'Tienda',
-          price: '150',
-          image: [ 'assets/images/marketplace/images/placeholder.png' ],
-          stock: 5,
-          quantity: 1,
-          category: 'Decoración'
-        },
-        {
-          _id: '123',
-          name: 'Silla decoradora',
-          store: 'Tienda',
-          price: '150',
-          image: [ 'assets/images/marketplace/images/placeholder.png' ],
-          stock: 5,
-          quantity: 1,
-          category: 'Decoración'
-        },
-        {
-          _id: '123',
-          name: 'Silla decoradora',
-          store: 'Tienda',
-          price: '150',
-          image: [ 'assets/images/marketplace/images/placeholder.png' ],
-          stock: 5,
-          quantity: 1,
-          category: 'Decoración'
-        },
-        {
-          _id: '123',
-          name: 'Silla decoradora',
-          store: 'Tienda',
-          price: '150',
-          image: [ 'assets/images/marketplace/images/placeholder.png' ],
-          stock: 5,
-          quantity: 1,
-          category: 'Decoración'
-        },
-        {
-          _id: '123',
-          name: 'Silla decoradora',
-          store: 'Tienda',
-          price: '150',
-          image: [ 'assets/images/marketplace/images/placeholder.png' ],
-          stock: 5,
-          quantity: 1,
-          category: 'Decoración'
-        },
-        {
-          _id: '123',
-          name: 'Silla decoradora',
-          store: 'Tienda',
-          price: '150',
-          image: [ 'assets/images/marketplace/images/placeholder.png' ],
-          stock: 5,
-          quantity: 1,
-          category: 'Decoración'
-        },
-        {
-          _id: '123',
-          name: 'Silla decoradora',
-          store: 'Tienda',
-          price: '150',
-          image: [ 'assets/images/marketplace/images/placeholder.png' ],
-          stock: 5,
-          quantity: 1,
-          category: 'Decoración'
-        },
-        {
-          _id: '123',
-          name: 'Silla decoradora',
-          store: 'Tienda',
-          price: '150',
-          image: [ 'assets/images/marketplace/images/placeholder.png' ],
-          stock: 5,
-          quantity: 1,
-          category: 'Decoración'
-        }
-      ); 
-    */
     this.getCollectionProducts();
   } // Fin del constructor
 
@@ -186,8 +102,8 @@ export class MarketplaceShopComponent implements OnInit {
 
   // Product Tab collection
   private getCollectionProducts(): void {
-    const params = `feature=true&marketplace=true`;
-    this.productService.productList(1 ).subscribe( ( result: Result<Product> ) => {
+    const params = `feature=true`;
+    this.productService.productList(1, params ).subscribe( ( result: Result<Product> ) => {
       this.products = [ ...result.docs ];
     } );
 

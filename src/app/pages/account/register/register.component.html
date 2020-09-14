@@ -20,8 +20,6 @@
                     <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="theme-form">
                         <!-- FullName -->
                         <div class="form-group input-group">
-                            <!-- <input mask="S{60}" type="text" formControlName="fullname" class="form-control" id="fullname"
-                                placeholder="Nombre completo" required="" [(ngModel)]="user.fullname"> -->
                             <input type="text" formControlName="fullname" class="form-control" id="fullname"
                                 placeholder="Nombre completo" required="" [(ngModel)]="user.fullname" pattern="[a-zA-Z ]*">
                             <div class="input-group-prepend">

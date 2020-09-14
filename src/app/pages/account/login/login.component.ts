@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../../shared/services/auth.service';
 import { StorageService } from '../../../shared/services/storage.service';
 import { AuthResponse } from '../../../shared/classes/auth-response';
+import { environment } from '../../../../environments/environment.prod';
 
 @Component( {
   selector: 'app-login',
@@ -14,8 +15,8 @@ export class LoginComponent implements OnInit {
 
   loginForm: FormGroup;
   submitted: boolean;
-  required = 'Campo obligatorio';
-  invalidEmail = 'Email inválido';
+  required = environment.errorForm.required;
+  invalidEmail = environment.errorForm.invalidEmail;
 
   constructor(
     private router: Router,
