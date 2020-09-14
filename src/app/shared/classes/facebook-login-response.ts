@@ -7,10 +7,10 @@ export interface FacebookLoginResponse {
   name: string;
   photoUrl: string;
   provider: string;
-  response: any;
+  response: FacebookResponse;
 }
 
-export interface FacebookResponse {
+interface FacebookResponse {
   email: string;
   first_name: string;
   id: string;
@@ -19,11 +19,11 @@ export interface FacebookResponse {
   picture: Picture;
 }
 
-export interface Picture {
+interface Picture {
   data: Data;
 }
 
-export interface Data {
+interface Data {
   height: number;
   width: number;
   is_silhouette: boolean;

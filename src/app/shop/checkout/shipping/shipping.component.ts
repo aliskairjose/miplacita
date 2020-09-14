@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { IPayPalConfig, ICreateOrderRequest } from 'ngx-paypal';
@@ -9,38 +9,68 @@ import { OrderService } from '../../../shared/services/order.service';
 import { StorageService } from '../../../shared/services/storage.service';
 import { User } from '../../../shared/classes/user';
 import { ToastrService } from 'ngx-toastr';
+import { ShopService } from '../../../shared/services/shop.service';
+import { ShipmentOption } from '../../../shared/classes/shipment-option';
 
+const state = {
+  shippingAddress: JSON.parse( localStorage.shippingAddress || '{}' ),
+  user: JSON.parse( localStorage.user || null )
+};
+
+export interface ShippingAddress {
+  firstname?: string;
+  lastname?: string;
+  phone?: string;
+  email?: string;
+  address?: string;
+  userId?: string;
+}
 @Component( {
   selector: 'app-shipping',
   templateUrl: './shipping.component.html',
   styleUrls: [ './shipping.component.scss' ]
 } )
-export class ShippingComponent implements OnInit {
+export class ShippingComponent implements OnInit, OnDestroy {
 
   checkoutForm: FormGroup;
   products: Product[] = [];
   payPalConfig?: IPayPalConfig;
   payment = 'Stripe';
   amount: any;
-  user: User;
+  user: User = {};
+  shippingAddress: ShippingAddress;
+  shipmentOptions: ShipmentOption[] = [];
 
   constructor(
     private fb: FormBuilder,
     private storage: StorageService,
+    private shopService: ShopService,
     private orderService: OrderService,
     private toastrService: ToastrService,
     public productService: ProductService,
   ) {
-    this.user = this.storage.getItem( 'user' );
 
-    if ( !this.user ) { this.toastrService.warning( 'Debe iniciar sesión' ); }
+    if ( Object.keys( state.shippingAddress ).length !== 0 && ( state.shippingAddress._id === state.user._id ) ) {
+      const response = confirm( 'Ya existe una dirección, ¿Desea usarla?' );
+      if ( !response ) { state.shippingAddress = null; }
+    }
+
+    console.log( state.user );
+    const store = state.user.stores[ 0 ];
+    console.log( store );
+
+    this.shopService.findShipmentOptionByShop( store._id ).subscribe( shipmentOptions => {
+      this.shipmentOptions = [ ...shipmentOptions ];
+    } );
+
+    if ( !state.user ) { this.toastrService.warning( 'Debe iniciar sesión' ); }
 
     this.checkoutForm = this.fb.group( {
-      firstname: [ this.user ? this.user.fullname : '', [ Validators.required, Validators.pattern( '[a-zA-Z][a-zA-Z ]+[a-zA-Z]$' ) ] ],
-      lastname: [ '', [ Validators.required, Validators.pattern( '[a-zA-Z][a-zA-Z ]+[a-zA-Z]$' ) ] ],
-      phone: [ '', [ Validators.required, Validators.pattern( '[0-9]+' ) ] ],
-      email: [ this.user ? this.user.email : '', [ Validators.required, Validators.email ] ],
-      address: [ '', [ Validators.required, Validators.maxLength( 50 ) ] ],
+      firstname: [ state.shippingAddress ? state.shippingAddress.firstname : '', [ Validators.required, Validators.pattern( '[a-zA-Z][a-zA-Z ]+[a-zA-Z]$' ) ] ],
+      lastname: [ state.shippingAddress ? state.shippingAddress.lastname : '', [ Validators.required, Validators.pattern( '[a-zA-Z][a-zA-Z ]+[a-zA-Z]$' ) ] ],
+      phone: [ state.shippingAddress ? state.shippingAddress.phone : '', [ Validators.required, Validators.pattern( '[0-9]+' ) ] ],
+      email: [ state.shippingAddress ? state.shippingAddress.email : '', [ Validators.required, Validators.email ] ],
+      address: [ state.shippingAddress ? state.shippingAddress.address : '', [ Validators.required, Validators.maxLength( 50 ) ] ],
       country: [ '', Validators.required ],
       town: [ '', Validators.required ],
       state: [ '', Validators.required ],
@@ -125,6 +155,15 @@ export class ShippingComponent implements OnInit {
         console.log( 'onClick', data, actions );
       }
     };
+  }
+
+  ngOnDestroy(): void {
+    // Called once, before the instance is destroyed.
+    // Add 'implements OnDestroy' to the class.
+    const shippingAddress = { ...this.checkoutForm.value };
+    shippingAddress._id = state.user._id;
+
+    this.storage.setItem( 'shippingAddress', shippingAddress );
   }
 
 }
