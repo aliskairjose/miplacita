@@ -3,10 +3,8 @@ import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { MustMatch } from '../../../shared/helper/must-match.validator';
 import { AuthService } from '../../../shared/services/auth.service';
 import { environment } from '../../../../environments/environment.prod';
-import { StorageService } from '../../../shared/services/storage.service';
 import { User } from '../../../shared/classes/user';
 import { ToastrService } from 'ngx-toastr';
-import { NgxSpinnerService } from 'ngx-spinner';
 
 const state = {
   user: JSON.parse( localStorage.user || null ),
@@ -29,9 +27,7 @@ export class ProfileComponent implements OnInit {
 
   constructor(
     private auth: AuthService,
-    private storage: StorageService,
     private formBuilder: FormBuilder,
-    private spinner: NgxSpinnerService,
     private toatsrService: ToastrService,
   ) {
 
@@ -54,7 +50,6 @@ export class ProfileComponent implements OnInit {
         if ( response.success ) {
           this.toatsrService.info( response.message[ 0 ] );
           this.user = response.user;
-          this.storage.setItem( 'user', this.user );
         }
       } );
     }
