@@ -1,4 +1,4 @@
-<app-header-one [sticky]="true" [isHidde]="false" [topbar]="false"></app-header-one>
+<app-header-one [sticky]="true" [isHidde]="false" [topbar]="false" [isSideMenu]="true" [hasSearchBar]="true"></app-header-one>
 
 <ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="ball-spin-clockwise" [fullScreen]="true">
   <p style="color: white"> Por favor espere... </p>
@@ -7,73 +7,75 @@
 <!-- section start -->
 <section class="login-page section-b-space">
   <div class="container">
+     <!-- TIMELINE -->
+     <div class="d-flex mb-3 timeline" >
+      <app-timeline class="mx-auto" [active]="1"></app-timeline>   
+    </div>
+    <!-- TIMELINE-->
     <div class="row justify-content-center">
-      <div class="col-lg-6">
-        <h3>Inicio de sesión</h3>
+      <div class="col-lg-5">
+        <h3>Registro</h3>
         <div class="theme-card">
           <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="theme-form">
-            <div class="form-group input-group">
+            <div class="form-group ">
+              <label for="name">Nombre completo</label>
               <input type="text" formControlName="fullName" class="form-control" id="email"
-                placeholder="Nombre completo" required [ngClass]="{ 'is-invalid': submitted && f.email.errors }">
-              <div class="input-group-prepend">
-                <span class="input-group-text">
-                  <img src="../../../../assets/images/marketplace/svg/user.svg" alt="">
-                </span>
-              </div>
+                 required [ngClass]="{ 'is-invalid': submitted && f.email.errors }">
+              
               <div *ngIf="submitted && f.fullName.errors" class="invalid-feedback d-block">
                 <div *ngIf="f.email.errors.required"> {{ required }} </div>
                 <div *ngIf="f.email.errors.pattern"> {{ invalidEmail }} </div>
               </div>
             </div>
-            <div class="form-group input-group">
+            <div class="form-group">
+              <label for="name">Correo electrónico</label>
               <input type="email" formControlName="email" class="form-control" id="email"
-                placeholder="Correo electrónico" required [ngClass]="{ 'is-invalid': submitted && f.email.errors }">
-              <div class="input-group-prepend">
-                <span class="input-group-text">
-                  <img src="../../../../assets/images/marketplace/svg/email.svg" alt="">
-                </span>
-              </div>
+                 required [ngClass]="{ 'is-invalid': submitted && f.email.errors }">
+              
               <div *ngIf="submitted && f.email.errors" class="invalid-feedback d-block">
                 <div *ngIf="f.email.errors.required"> {{ required }} </div>
                 <div *ngIf="f.email.errors.email"> {{ invalidEmail }} </div>
               </div>
             </div>
              <!-- Password -->
-             <div class="form-group input-group">
+             <div class="form-group">
+              <label for="name">Ingrese su contraseña</label>
               <input type="password" formControlName="password" class="form-control" id="password"
-                  placeholder="Ingrese su contraseña" required=""
-                  [ngClass]="{ 'is-invalid': submitted && f.password.errors }">
-              <div class="input-group-prepend">
-                  <span class="input-group-text">
-                      <img src="../../../../assets/images/marketplace/svg/key.svg" alt="">
-                  </span>
-              </div>
+                  required="" [ngClass]="{ 'is-invalid': submitted && f.password.errors }">
+              
               <div *ngIf="submitted && f.password.errors" class="invalid-feedback d-block">
                   <div *ngIf="f.password.errors.required"> {{ required }}</div>
                   <div *ngIf="f.password.errors.minlength"> {{ minlength }}</div>
               </div>
           </div>
           <!-- Confirm Password -->
-          <div class="form-group input-group">
+          <div class="form-group ">
+              <label for="name">Confirmar contraseña</label>
               <input type="password" formControlName="passwordConfirmation" class="form-control"
-                  id="passwordConfirmation" placeholder="Ingrese su contraseña nuevamente" required=""
+                  id="passwordConfirmation" required=""
                   [ngClass]="{ 'is-invalid': submitted && f.passwordConfirmation.errors }">
-              <div class="input-group-prepend">
-                  <span class="input-group-text">
-                      <img src="../../../../assets/images/marketplace/svg/key.svg" alt="">
-                  </span>
-              </div>
+              
               <div *ngIf="submitted && f.passwordConfirmation.errors" class="invalid-feedback">
                   <div *ngIf="f.passwordConfirmation.errors.required">{{ required }}</div>
                   <div *ngIf="f.passwordConfirmation.errors.mustMatch">{{ matchError }}</div>
               </div>
           </div>
-            <div class="form-group">
-              Olvido su contraseña?, haga click <a href="#">aquí</a>
+            <div class="form-group d-flex justify-content-end">
+              <p>¿Tienes una cuenta?, haga click <a href="#">aquí</a></p>
             </div>
             <div class="form-group text-center">
-              <button type="submit" class="btn btn-danger btn-lg btn-block">Inciar sesión</button>
-              <button type="button" class="btn btn-primary btn-lg btn-block" (click)="registerFacebook()">Continuar con Facebook</button>
+              <button type="submit" class="btn btn-login btn-lg btn-block">Regístrate ahora</button>
+              <div class="row mt-1 mb-1 align-items-center separador" >
+                <hr>
+                0
+                <hr>
+              </div>
+              <div class="btn btn-fb btn-lg btn-block" (click)="registerFacebook()">
+                <div class="row">
+                  <div class="col-md-1"> <i class="fa fa-facebook-square"></i> </div>
+                  <div class="col justify-content-center">Continuar con Facebook</div>
+                </div>
+              </div>
             </div>
           </form>
         </div>
