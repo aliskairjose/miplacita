@@ -29,6 +29,7 @@ import { SocialLoginModule, SocialAuthServiceConfig, FacebookLoginProvider } fro
 import { FormsModule } from '@angular/forms';
 import { AlertModule } from 'ngx-alerts';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { GooglePlaceModule } from 'ngx-google-places-autocomplete';
 
 // export let options: Partial<IConfig> | (() => Partial<IConfig>);
 const maskConfig: Partial<IConfig> = {
@@ -69,6 +70,7 @@ export const customCurrencyMaskConfig = {
     HttpClientModule,
     NgxSpinnerModule,
     AppRoutingModule,
+    GooglePlaceModule,
     SocialLoginModule,
     LoadingBarRouterModule,
     BrowserAnimationsModule,
