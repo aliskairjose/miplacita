@@ -241,7 +241,7 @@ export class ShippingComponent implements OnInit, OnDestroy {
     }
   }
 
-  getAddress( latitude, longitude ) {
+  private getAddress( latitude, longitude ) {
     // this.spinner.show();
     this.geoCoder.geocode( { location: { lat: latitude, lng: longitude } }, ( results, status ) => {
       // this.spinner.hide();
@@ -249,6 +249,11 @@ export class ShippingComponent implements OnInit, OnDestroy {
         if ( results[ 0 ] ) {
           this.zoom = 12;
           this.address = results[ 0 ].formatted_address;
+          // const length = this.address.length;
+          // const index = this.address.lastIndexOf( ',' );
+          // const address = this.address.substring( 0, index );
+          // const country = this.address.substring( index + 2, length );
+          // console.log( { address, country } );
         } else {
           this.toastrService.warning( 'No results found' );
         }
