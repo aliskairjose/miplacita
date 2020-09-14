@@ -40,7 +40,6 @@ export class ProfileComponent implements OnInit {
   ngOnInit(): void {
     this.user = state.user;
     this.createForm();
-    this.spinner.show();
   }
 
   // convenience getter for easy access to form fields
@@ -49,11 +48,9 @@ export class ProfileComponent implements OnInit {
 
   onSubmit(): void {
     this.submitted = true;
-    console.log( this.updateUserForm.value );
 
     if ( this.updateUserForm.valid ) {
       this.auth.updateUser( this.updateUserForm.value ).subscribe( response => {
-        console.log( response );
         if ( response.success ) {
           this.toatsrService.info( response.message[ 0 ] );
           this.user = response.user;
