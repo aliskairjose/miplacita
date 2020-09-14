@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { HttpService } from './http.service';
 import { User } from '../classes/user';
+import { FacebookLoginResponse } from '../classes/facebook-login-response';
+import { AuthResponse } from '../classes/auth-response';
 
 @Injectable( {
   providedIn: 'root'
@@ -18,8 +20,12 @@ export class AuthService {
    * @description Login de usuario
    * @param data Email y Password
    */
-  login( data: any ): Observable<any> {
+  login( data: any ): Observable<AuthResponse> {
     return this.http.post( 'users/login', data );
+  }
+
+  socialLogin( data: any ): Observable<AuthResponse> {
+    return this.http.post( 'users/login/rrss', data );
   }
 
   /**
