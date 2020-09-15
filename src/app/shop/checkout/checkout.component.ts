@@ -50,8 +50,8 @@ export class CheckoutComponent implements OnInit {
   ) {
     this.paymentForm = this.fb.group( {
       owner: [ '', [ Validators.required, Validators.pattern( '[a-zA-Z][a-zA-Z ]+[a-zA-Z]$' ) ] ],
-      cvv: [ '', [ Validators.required, Validators.pattern( '[a-zA-Z][a-zA-Z ]+[a-zA-Z]$' ) ] ],
-      cardnumber: [ '', [ Validators.required, Validators.pattern( '[0-9]$' ) ] ],
+      cvv: [ '', [ Validators.required, Validators.pattern( '[0-9]+' ) ] ],
+      cardnumber: [ '', [ Validators.required ] ],
     } );
 
     this.checkoutForm = this.fb.group( {
@@ -107,6 +107,8 @@ export class CheckoutComponent implements OnInit {
   }
 
   onSubmit(): void {
+    console.log(this.paymentForm);
+    
     this.submitted = true;
     const order = JSON.parse( sessionStorage.order );
     order.products = this.products;

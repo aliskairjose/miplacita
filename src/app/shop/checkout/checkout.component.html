@@ -41,12 +41,18 @@
 										<div *ngIf="submitted && paymentForm.controls.owner.errors?.required" class="text text-danger">
 											Campo requerido
 										</div>
+										<div *ngIf="submitted && paymentForm.controls.owner.errors?.pattern" class="text text-danger">
+											Sólo catacteres
+										</div>
 									</div>
 									<div class="form-group col-md-4 col-sm-4 col-xs-12">
 										<div class="field-label">CVV</div>
 										<input type="text" formControlName="cvv" name="cvv" value="" placeholder="" autocomplete="off">
 										<div *ngIf="submitted && paymentForm.controls.cvv.errors?.required" class="text text-danger">
 											Campo requerido
+										</div>
+										<div *ngIf="submitted && paymentForm.controls.cvv.errors?.pattern" class="text text-danger">
+											Sólo dígitos
 										</div>
 									</div>
 								</div>
