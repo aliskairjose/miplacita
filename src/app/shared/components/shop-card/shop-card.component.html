@@ -1,26 +1,30 @@
 <section>
     <div class="container">
         <div class="store-card">
-            <div class="img">
-                <img class="w-100 h-100" src="assets/images/marketplace/images/placeholder.jpg" alt="">
+            <div class="row">
+                <div>
+                    <img class="img mx-auto d-block" src="assets/images/marketplace/images/placeholder_.jpg" alt="">
+                </div>
             </div>
-            <div class="info-card pt-2 px-2">
-                <div >
-                    <p class="text-default-color">{{ store.name }}</p>
-                </div>
-                <div class="d-flex">
-                    <div class="d-flex icon-orders">
-                        <img class="w-100 h-100 mx-auto" src="assets/images/marketplace/images/store.png" alt="">
-                        <p class="mx-auto my-auto">Órdenes</p>
+            <div class="row d-flex justify-content-center">
+                <div class="p-2">
+                    <div class="mb-4">
+                        <p class="text-default-color">{{ store.name }}</p>
                     </div>
-                    <div class="d-flex icon-orders">
-                        <img class="w-100 h-100 mx-auto" src="assets/images/marketplace/images/orders.png" alt="">
-                        <p class="mx-auto my-auto">Pedidos</p>
+                    <div class="d-flex">
+                        <div class="d-flex icon-orders">
+                            <img class="mx-auto" src="assets/images/marketplace/images/store.png" alt="">
+                            <p class="mx-auto my-auto">Órdenes</p>
+                        </div>
+                        <div class="d-flex icon-orders">
+                            <img class="mx-auto" src="assets/images/marketplace/images/orders.png" alt="">
+                            <p class="mx-auto my-auto">Pedidos</p>
+                        </div>
                     </div>
-                </div>
-                <hr>
-                <div class="text-center pb-2">
-                    <p>Creada: {{ store.created_at }}</p>
+                    <hr>
+                    <div class="text-center pb-2">
+                        <p>Creada: {{ store.created_at | date:'dd/MM/yyyy' }}</p>
+                    </div>
                 </div>
             </div>
         </div>

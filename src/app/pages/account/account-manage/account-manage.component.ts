@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from 'src/app/shared/classes/store';
 
+const state = {
+  user: JSON.parse( localStorage.user || null )
+};
 @Component( {
   selector: 'app-account-manage',
   templateUrl: './account-manage.component.html',
@@ -11,24 +14,7 @@ export class AccountManageComponent implements OnInit {
   active = 'profile';
 
   constructor() {
-    this.stores.push(
-      {
-        name: 'tienda 1',
-        created_at: '02-02-2020'
-      },
-      {
-        name: 'tienda 2',
-        created_at: '02-02-2020'
-      },
-      {
-        name: 'tienda 3',
-        created_at: '02-02-2020'
-      },
-      {
-        name: 'tienda 4',
-        created_at: '02-02-2020'
-      }
-    );
+    this.stores = [ ...state.user.stores ];
   }
 
   ngOnInit(): void {
