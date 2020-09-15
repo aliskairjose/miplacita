@@ -3,9 +3,16 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { IPayPalConfig, ICreateOrderRequest } from 'ngx-paypal';
 import { environment } from '../../../environments/environment';
-import { Product } from '../../shared/classes/tm.product';
-import { ProductService } from '../../shared/services/tm.product.service';
-import { OrderService } from '../../shared/services/tm.order.service';
+// import { Product } from '../../shared/classes/tm.product';
+import { Product } from '../../shared/classes/product';
+// import { ProductService } from '../../shared/services/tm.product.service';
+import { ProductService } from '../../shared/services/product.service';
+import { OrderService } from '../../shared/services/order.service';
+import { Router } from '@angular/router';
+
+const state = {
+  user: JSON.parse( localStorage.getItem( 'user' ) || null )
+};
 
 @Component( {
   selector: 'app-checkout',
@@ -15,7 +22,9 @@ import { OrderService } from '../../shared/services/tm.order.service';
 export class CheckoutComponent implements OnInit {
 
   checkoutForm: FormGroup;
+  paymentForm: FormGroup;
   products: Product[] = [];
+  submitted: boolean;
   payPalConfig?: IPayPalConfig;
   payment = 'Stripe';
   amount: any;
@@ -34,10 +43,17 @@ export class CheckoutComponent implements OnInit {
   years = [];
 
   constructor(
+    private router: Router,
     private fb: FormBuilder,
     public productService: ProductService,
     private orderService: OrderService
   ) {
+    this.paymentForm = this.fb.group( {
+      owner: [ '', [ Validators.required, Validators.pattern( '[a-zA-Z][a-zA-Z ]+[a-zA-Z]$' ) ] ],
+      cvv: [ '', [ Validators.required, Validators.pattern( '[a-zA-Z][a-zA-Z ]+[a-zA-Z]$' ) ] ],
+      cardnumber: [ '', [ Validators.required, Validators.pattern( '[0-9]$' ) ] ],
+    } );
+
     this.checkoutForm = this.fb.group( {
       firstname: [ '', [ Validators.required, Validators.pattern( '[a-zA-Z][a-zA-Z ]+[a-zA-Z]$' ) ] ],
       lastname: [ '', [ Validators.required, Validators.pattern( '[a-zA-Z][a-zA-Z ]+[a-zA-Z]$' ) ] ],
@@ -63,26 +79,47 @@ export class CheckoutComponent implements OnInit {
     }
   }
 
+  // convenience getter for easy access to form fields
+  // tslint:disable-next-line: typedef
+  get f() { return this.paymentForm.controls; }
+
+
   public get getTotal(): Observable<number> {
     return this.productService.cartTotalAmount();
   }
 
   // Stripe Payment Gateway
   stripeCheckout() {
-    var handler = ( <any> window ).StripeCheckout.configure( {
+    const handler = ( <any> window ).StripeCheckout.configure( {
       key: environment.stripe_token, // publishble key
       locale: 'auto',
       token: ( token: any ) => {
         // You can access the token ID with `token.id`.
         // Get the token ID to your server-side code for use.
-        this.orderService.createOrder( this.products, this.checkoutForm.value, token.id, this.amount );
+        // this.orderService.createOrder( this.products, this.checkoutForm.value, token.id, this.amount );
       }
     } );
     handler.open( {
       name: 'Multikart',
       description: 'Online Fashion Store',
       amount: this.amount * 100
-    } )
+    } );
+  }
+
+  onSubmit(): void {
+    this.submitted = true;
+    const order = JSON.parse( sessionStorage.order );
+    order.products = this.products;
+    order.store = this.products[ 0 ].store._id;
+    order.user = state.user._id;
+    if ( this.paymentForm.valid ) {
+      this.orderService.createOrder( order ).subscribe( response => {
+        if ( response.success ) {
+          this.router.navigate( [ '/shop/checkout/success', response.order._id ] );
+        }
+      } );
+    }
+
   }
 
   // Paypal Payment Gateway

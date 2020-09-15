@@ -35,6 +35,7 @@ export interface ShippingAddress {
 export class ShippingComponent implements OnInit, OnDestroy {
 
   checkoutForm: FormGroup;
+  shipmentOptionsForm: FormGroup;
   submitted: boolean;
   products: Product[] = [];
   payPalConfig?: IPayPalConfig;
@@ -49,6 +50,17 @@ export class ShippingComponent implements OnInit, OnDestroy {
   longitude = -66.9604066;
   zoom: number;
   address: string;
+  order = {
+    products: [],
+    store: '',
+    shipment_option: '',
+    address: {
+      address: '',
+      landMark: '',
+      location: [],
+      phone: ''
+    }
+  };
   private geoCoder;
 
   @ViewChild( 'placesRef' ) placesRef: GooglePlaceDirective;
@@ -75,7 +87,6 @@ export class ShippingComponent implements OnInit, OnDestroy {
         this.shipmentOptions = [ ...shipmentOptions ];
       } );
       if ( shippingAddress && ( shippingAddress.userId === this.user._id ) ) {
-        console.log( shippingAddress );
         const response = confirm( 'Ya existe una dirección, ¿Desea usarla?' );
         ( response ) ? this.shippingAddress = shippingAddress : this.shippingAddress = {};
       }
@@ -83,13 +94,12 @@ export class ShippingComponent implements OnInit, OnDestroy {
       this.toastrService.warning( 'Debe iniciar sesión' );
     }
     this.createForm();
-
-
   }
 
   // convenience getter for easy access to form fields
   // tslint:disable-next-line: typedef
   get f() { return this.checkoutForm.controls; }
+  get o() { return this.shipmentOptionsForm.controls; }
 
   ngOnInit(): void {
     this.productService.cartItems.subscribe( response => this.products = response );
@@ -126,6 +136,11 @@ export class ShippingComponent implements OnInit, OnDestroy {
   }
 
   createForm(): void {
+
+    this.shipmentOptionsForm = this.fb.group( {
+      shipment_option: [ '', [ Validators.required ] ],
+    } );
+
     this.checkoutForm = this.fb.group( {
       firstname: [ this.shippingAddress ? this.shippingAddress.firstname : '', [ Validators.required, Validators.pattern( '[a-zA-Z][a-zA-Z ]+[a-zA-Z]$' ) ] ],
       lastname: [ this.shippingAddress ? this.shippingAddress.lastname : '', [ Validators.required, Validators.pattern( '[a-zA-Z][a-zA-Z ]+[a-zA-Z]$' ) ] ],
@@ -141,11 +156,17 @@ export class ShippingComponent implements OnInit, OnDestroy {
   }
 
   checkout(): void {
+
+    this.order.address.address = this.checkoutForm.value.address;
+    this.order.address.phone = this.checkoutForm.value.phone;
+    this.order.shipment_option = this.shipmentOptionsForm.get( 'shipment_option' ).value;
+
     this.submitted = true;
     if ( this.checkoutForm.valid ) {
       const shippingAddress = { ...this.checkoutForm.value };
       shippingAddress.userId = this.user._id;
       this.storage.setItem( `shippingAddress${this.user._id}`, shippingAddress );
+      sessionStorage.setItem( 'order', JSON.stringify( this.order ) );
       this.router.navigate( [ 'shop/checkout' ] );
     }
 

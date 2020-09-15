@@ -1,26 +1,31 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
-import { Order } from '../../../shared/classes/tm.order';
-import { OrderService } from '../../../shared/services/tm.order.service';
-import { ProductService } from '../../../shared/services/tm.product.service';
+import { Order } from '../../../shared/classes/order';
+import { OrderService } from '../../../shared/services/order.service';
+import { ProductService } from '../../../shared/services/product.service';
 
-@Component({
+@Component( {
   selector: 'app-success',
   templateUrl: './success.component.html',
-  styleUrls: ['./success.component.scss']
-})
-export class SuccessComponent implements OnInit, AfterViewInit{
+  styleUrls: [ './success.component.scss' ]
+} )
+export class SuccessComponent implements OnInit, AfterViewInit {
 
-  public orderDetails : Order = {};
+  public orderDetails: Order = {};
 
-  constructor(public productService: ProductService,
-    private orderService: OrderService) { }
+  constructor(
+    public productService: ProductService,
+    private orderService: OrderService
+  ) { }
 
-  ngOnInit(): void {	
-    this.orderService.checkoutItems.subscribe(response => this.orderDetails = response);
+  ngOnInit(): void {
+    this.orderService.checkoutItems.subscribe( response => {
+      console.log( response );
+      this.orderDetails = response;
+    } );
   }
 
   ngAfterViewInit() {
-    
+
   }
 
 }
