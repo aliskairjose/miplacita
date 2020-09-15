@@ -35,7 +35,7 @@
       <!-- <a href="javascript:void(0)" title="Agregar a la lista de deseo" (click)="addToWishlist(product)">
         <i class="ti-heart" aria-hidden="true"></i>
       </a> -->
-      <a href="javascript:void(0)" title="Vista rápida" (click)="QuickView.openModal()">
+      <a href="javascript:void(0)" title="Detalle del producto" (click)="QuickView.openModal()">
         <i class="ti-search" aria-hidden="true"></i>
       </a>
       <!-- <a href="javascript:void(0)" title="Comprarar" (click)="addToCompare(product)">
@@ -64,20 +64,17 @@
   <div class="product-detail" *ngIf="search">
     <div>
       <a [routerLink]="['/shop/product/', product._id]">
-        <h6 class="text-default-color">{{ product?.name | titlecase }}</h6>
-        
+        <h6 class="text-default-color">{{ product?.name | titlecase }}</h6>   
       </a>
       <p>Tienda: {{ product.store.name }}</p>
       <p class="mt-2">{{ product?.description }}</p>
       <div class="d-flex">
         <h4>
-          {{ product?.price | currency:currency?.currency:'symbol' }}
+          {{ product?.price | currency  }}
           <!-- <del *ngIf="product?.discount"><span class="money"> {{ product?.price | currency:currency?.currency:'symbol' }}</span></del> -->
         </h4>
         <p class="text-default-color pl-2">({{ product.stock }} unidades disponibles)</p>
       </div>
-      
-      
     </div>
   </div>
 </div>
