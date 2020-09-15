@@ -212,6 +212,7 @@ export class RegisterStoreComponent implements OnInit {
   private createProduct(): void {
     this.productData.store = this.store._id;
     this.productService.addProduct( this.productData ).subscribe( ( product: Product ) => {
+      sessionStorage.clear();
       this.openModal();
     } );
   }

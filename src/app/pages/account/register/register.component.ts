@@ -53,14 +53,13 @@ export class RegisterComponent implements OnInit {
       data.email = response.email;
       data.fullname = response.name;
       data.token = response.authToken;
-
+      this.registerFB( data );
     } );
   }
 
   listen( r: boolean ) {
     this.registerSuccess = false;
     this.user = JSON.parse( sessionStorage.userForm );
-
   }
 
   onSubmit() {
@@ -90,6 +89,17 @@ export class RegisterComponent implements OnInit {
       email: [ '', [ Validators.required, Validators.email ] ],
     }, {
       validator: MustMatch( 'password', 'passwordConfirmation' )
+    } );
+  }
+
+  private registerFB( data: any ): void {
+    this.auth.socialLogin( data ).subscribe( ( result: AuthResponse ) => {
+      console.log( result );
+
+      if ( result.success ) {
+        sessionStorage.setItem( 'userForm', JSON.stringify( result.user ) );
+        this.registerSuccess = true;
+      }
     } );
   }
 

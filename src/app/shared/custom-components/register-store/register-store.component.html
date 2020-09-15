@@ -81,7 +81,7 @@
 										<div class="row mb-3" *ngFor="let plan of plans; let i=index">
 											<div class="option-box d-flex mx-auto py-3">
 												<div class="col-md-6">
-													<p class="my-auto">{{plan.name}} - {{plan.price | currency }}</p>
+													<p class="my-auto">{{plan.name}} - {{ plan.price | currency }}</p>
 												</div>
 												<div class="col offset-xl-4 text-center">
 													<input class="my-auto" (change)="updatePlan(plan._id)" type="radio">
