@@ -1,4 +1,3 @@
-<app-breadcrumb [title]="'Productos'" [breadcrumb]="'Productos'"></app-breadcrumb>
 <ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="ball-spin-clockwise" [fullScreen]="true">
     <p style="color: white"> Por favor espere... </p>
 </ngx-spinner>
@@ -12,7 +11,7 @@
                     <div class="form-group flex-fill">
                         <div class="input-group ">
                             <div class="input-group-append">
-                                <button type="buttont" class="btn btn-primary" (click)="search()"><i
+                                <button type="buttont" class="btn" (click)="search()"><i
                                         class="fa fa-search"></i></button>
                                 <!-- <span class="input-group-text">
                                     <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-search" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -47,7 +46,7 @@
                         </div>
                     </div>
                     <div class="d-flex flex-fill h-100 justify-content-end" *ngIf="user.role==='merchant'">
-                        <a [routerLink]="[ '/pages/create-product' ]" class="btn btn-solid">
+                        <a [routerLink]="[ '/pages/create-product' ]" class="btn btn-solid-purple">
                             Crear Producto
                         </a>
                     </div>
