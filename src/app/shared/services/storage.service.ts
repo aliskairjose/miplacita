@@ -37,8 +37,7 @@ export class StorageService {
    * @param key Identificador de la data que se desea eliminar
    */
   removeItem( key: string ): void {
-    //localStorage.remove( key );
-    localStorage.removeItem(key);
+    localStorage.removeItem( key );
   }
 
   /**

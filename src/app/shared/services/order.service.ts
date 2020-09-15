@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
 import { StorageService } from './storage.service';
 
 const state = {
-  checkoutItems: JSON.parse(localStorage.checkoutItems || '[]')
+  checkoutItems: JSON.parse( localStorage.checkoutItems || '[]' )
 };
 @Injectable( {
   providedIn: 'root'
@@ -32,18 +32,16 @@ export class OrderService {
     return itemsStream as Observable<any>;
   }
 
-  // Create order
-  public createOrder( product: any, details: any, orderId: any, amount: any ) {
-    const item = {
-      shippingDetails: details,
-      product,
-      orderId,
-      totalAmount: amount
-    };
-    state.checkoutItems = item;
-    this.storage.setItem( 'checkoutItems', item );
+  /**
+   * @description Crea una nueva Orden
+   * @param data Data de tipo Order
+   */
+  createOrder( data: any ) {
+    state.checkoutItems = data;
+    this.storage.setItem( 'checkoutItems', data );
     this.storage.removeItem( 'cartItems' );
-    this.router.navigate( [ '/shop/checkout/success', orderId ] );
+    return this.http.post( 'order', data );
+    // this.router.navigate( [ '/shop/checkout/success', orderId ] );
   }
 
   /**

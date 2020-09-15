@@ -43,8 +43,8 @@
 										</div>
 										<div class="form-group col-md-6 col-sm-6 col-xs-12">
 											<div class="field-label">Teléfono</div>
-											<input type="text" name="phone" [formControl]="checkoutForm.controls['phone']" value=""
-												placeholder="" autocomplete="off">
+											<input mask="(+000) 000-00-00" type="tel" name="phone"
+												[formControl]="checkoutForm.controls['phone']" value="" placeholder="" autocomplete="off">
 											<div *ngIf="submitted && checkoutForm.controls.phone.errors?.required" class="text text-danger">
 												Teléfono es requerido.
 											</div>
@@ -66,8 +66,8 @@
 										<div class="form-group col-md-12 col-sm-12 col-xs-12">
 											<div class="field-label">Dirección</div>
 											<textarea id="exampleFormControlTextarea1" type="text" name="address"
-												[formControl]="checkoutForm.controls['address']" [value]="address" placeholder="" autocomplete="off"
-												ngx-google-places-autocomplete #placesRef="ngx-places"
+												[formControl]="checkoutForm.controls['address']" [value]="address" placeholder=""
+												autocomplete="off" ngx-google-places-autocomplete #placesRef="ngx-places"
 												(onAddressChange)="handleAddressChange($event)"></textarea>
 											<div *ngIf="submitted && checkoutForm.controls.address.errors?.required" class="text text-danger">
 												Dirección requerida
@@ -79,8 +79,8 @@
 										</div>
 										<div class="form-group col-md-12 col-sm-12 col-xs-12">
 											<div class="field-label">Punto de referencia</div>
-											<textarea id="exampleFormControlTextarea1" type="text" name="address"
-												[formControl]="checkoutForm.controls['address']" value="" placeholder=""
+											<textarea id="exampleFormControlTextarea1" type="text" name="reference"
+												[formControl]="checkoutForm.controls['reference']" value="" placeholder=""
 												autocomplete="off"></textarea>
 										</div>
 									</div>
@@ -96,18 +96,25 @@
 										<p> Completa estos datos para que tu vendedor sepa donde te encuentras ubicado
 										</p>
 									</div>
-									<div class="shipping-option" *ngIf="shipmentOptions.length">
-										<div class="row mb-3" *ngFor="let item of shipmentOptions">
-											<div class="option-box d-flex mx-auto py-3">
-												<div class="col-md-6">
-													<p class="my-auto">{{item.name}} - {{item.price | currency }}</p>
+									<form [formGroup]="shipmentOptionsForm" class="theme-form">
+										<div class="shipping-option" *ngIf="shipmentOptions.length">
+											<div class="row mb-3" *ngFor="let item of shipmentOptions">
+												<div class="option-box d-flex mx-auto py-3">
+													<div class="col-md-6">
+														<p class="my-auto">{{item.name}} - {{item.price | currency }}</p>
+													</div>
+													<div class="col offset-xl-4 text-center">
+														<input class="my-auto" formControlName="shipment_option" type="radio" [value]="item._id"
+															name="shipment_option">
+													</div>
 												</div>
-												<div class="col offset-xl-4 text-center">
-													<input class="my-auto" type="radio">
+												<div *ngIf="submitted && shipmentOptionsForm.controls.shipment_option.errors?.required"
+													class="text text-danger">
+													Campo requerido
 												</div>
 											</div>
 										</div>
-									</div>
+									</form>
 									<div class="shipping-option" *ngIf="!shipmentOptions.length">
 										<div class="row mb-3">
 											<div class="option-box d-flex mx-auto py-3">
@@ -118,9 +125,9 @@
 										</div>
 									</div>
 
-									<agm-map [latitude]="latitude" [longitude]="longitude" [zoom]="zoom"> 
-										<agm-marker [latitude]="latitude" [longitude]="longitude"  [markerDraggable]="true"
-										(dragEnd)="markerDragEnd($event)"></agm-marker>
+									<agm-map [latitude]="latitude" [longitude]="longitude" [zoom]="zoom">
+										<agm-marker [latitude]="latitude" [longitude]="longitude" [markerDraggable]="true"
+											(dragEnd)="markerDragEnd($event)"></agm-marker>
 									</agm-map>
 
 									<div class="button-box h-100 d-flex justify-content-end align-items-end">

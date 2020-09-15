@@ -18,15 +18,15 @@ export class SettingsComponent implements OnInit {
   products: Product[] = [];
   isLoggedIn: boolean;
 
-   public languages = [{
-     name: 'English',
-     code: 'en'
-   }, {
-     name: 'French',
-     code: 'fr'
-   }];
+  public languages = [ {
+    name: 'English',
+    code: 'en'
+  }, {
+    name: 'French',
+    code: 'fr'
+  } ];
 
-  public currencies = [{
+  public currencies = [ {
     name: 'Euro',
     currency: 'EUR',
     price: 0.90 // price of euro
@@ -42,7 +42,7 @@ export class SettingsComponent implements OnInit {
     name: 'Dollar',
     currency: 'USD',
     price: 1 // price of usd
-  }];
+  } ];
 
   constructor(
     @Inject( PLATFORM_ID ) private platformId: Object,
@@ -86,14 +86,11 @@ export class SettingsComponent implements OnInit {
    * @description Cierra sesión
    */
   loggOut(): void {
-    // this.storage.clearAll();
-    this.storage.removeItem('user');
-    this.storage.removeItem('token');
-    this.storage.removeItem('products');
-    this.storage.removeItem('wishlistItems');
-    this.storage.removeItem('compareItems');
-    
-    this.router.navigate( [ 'home' ] );
+    this.storage.removeItem( 'user' );
+    this.storage.removeItem( 'token' );
+    this.storage.removeItem( 'products' );
+
+    this.router.navigate( [ '/home' ] );
     this.auth.authSubject( false );
   }
 

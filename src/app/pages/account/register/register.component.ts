@@ -59,7 +59,7 @@ export class RegisterComponent implements OnInit {
   registerFacebook(): void {
     this.socialService.signIn( FacebookLoginProvider.PROVIDER_ID );
   }
-  
+
   private createForm(): void {
 
     this.registerForm = this.formBuilder.group( {

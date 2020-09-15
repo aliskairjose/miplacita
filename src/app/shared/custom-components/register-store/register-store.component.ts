@@ -53,7 +53,7 @@ export class RegisterStoreComponent implements OnInit {
   store: Store = {};
   categoryId = '';
   user: User = {};
-  plans: Plan[]= [];
+  plans: Plan[] = [];
   productData: Product = {};
   storeData: Store = {};
   selectedCategory = '';
@@ -61,6 +61,8 @@ export class RegisterStoreComponent implements OnInit {
   shop: ShopForm = {};
   product: ProductForm = {};
   disabled = true;
+  storeName = '';
+  urlStore = '';
 
   @Output() setBack: EventEmitter<any> = new EventEmitter<any>();
 
@@ -107,7 +109,6 @@ export class RegisterStoreComponent implements OnInit {
         return;
       }
       this.shopService.uploadImages( { images: this.images } ).subscribe( result => {
-        console.log("servicio",result);
         if ( result.status === 'isOk' ) {
           this.storeData.logo = result.images[ 0 ];
           this.step = 2;
@@ -172,8 +173,8 @@ export class RegisterStoreComponent implements OnInit {
     // Formulario de tienda
     this.storeForm = this.formBuilder.group( {
       name: [ '', [ Validators.required ] ],
-      description: [ '', [ ] ],
-      url_store: [ '', [ Validators.required, Validators.pattern( reg ) ] ],
+      description: [ '', [] ],
+      url_store: [ '', [ Validators.required ] ],
       phone: [ '', [ Validators.required ] ],
       email: [ '', [ Validators.required, Validators.email ] ],
     } );
@@ -186,6 +187,10 @@ export class RegisterStoreComponent implements OnInit {
       tax: [ '', [ Validators.required ] ],
       category: [ this.selectedCategory, [ Validators.required ] ],
     } );
+  }
+
+  makeUrl(valor: string): void {
+    this.urlStore = valor.toLocaleLowerCase().replace(/\s/g, '-');
   }
 
   private createUser(): void {

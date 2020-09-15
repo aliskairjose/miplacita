@@ -35,6 +35,7 @@ export interface ShippingAddress {
 export class ShippingComponent implements OnInit, OnDestroy {
 
   checkoutForm: FormGroup;
+  shipmentOptionsForm: FormGroup;
   submitted: boolean;
   products: Product[] = [];
   payPalConfig?: IPayPalConfig;
@@ -49,6 +50,17 @@ export class ShippingComponent implements OnInit, OnDestroy {
   longitude = -66.9604066;
   zoom: number;
   address: string;
+  order = {
+    products: [],
+    store: '',
+    shipment_option: '',
+    address: {
+      address: '',
+      landMark: '',
+      location: [],
+      phone: ''
+    }
+  };
   private geoCoder;
 
   @ViewChild( 'placesRef' ) placesRef: GooglePlaceDirective;
@@ -62,15 +74,12 @@ export class ShippingComponent implements OnInit, OnDestroy {
     private storage: StorageService,
     private shopService: ShopService,
     private orderService: OrderService,
-    private spinner: NgxSpinnerService,
     private mapsAPILoader: MapsAPILoader,
     private toastrService: ToastrService,
     public productService: ProductService,
   ) {
 
-    this.createForm();
-
-    if ( this.auth.isAuthenticated()) {
+    if ( this.auth.isAuthenticated() ) {
       this.user = this.storage.getItem( 'user' );
       const store = this.user.stores[ 0 ];
       const shippingAddress: ShippingAddress = this.storage.getItem( `shippingAddress${this.user._id}` );
@@ -84,12 +93,13 @@ export class ShippingComponent implements OnInit, OnDestroy {
     } else {
       this.toastrService.warning( 'Debe iniciar sesión' );
     }
-
+    this.createForm();
   }
 
   // convenience getter for easy access to form fields
   // tslint:disable-next-line: typedef
   get f() { return this.checkoutForm.controls; }
+  get o() { return this.shipmentOptionsForm.controls; }
 
   ngOnInit(): void {
     this.productService.cartItems.subscribe( response => this.products = response );
@@ -126,12 +136,18 @@ export class ShippingComponent implements OnInit, OnDestroy {
   }
 
   createForm(): void {
+
+    this.shipmentOptionsForm = this.fb.group( {
+      shipment_option: [ '', [ Validators.required ] ],
+    } );
+
     this.checkoutForm = this.fb.group( {
       firstname: [ this.shippingAddress ? this.shippingAddress.firstname : '', [ Validators.required, Validators.pattern( '[a-zA-Z][a-zA-Z ]+[a-zA-Z]$' ) ] ],
       lastname: [ this.shippingAddress ? this.shippingAddress.lastname : '', [ Validators.required, Validators.pattern( '[a-zA-Z][a-zA-Z ]+[a-zA-Z]$' ) ] ],
       phone: [ this.shippingAddress ? this.shippingAddress.phone : '', [ Validators.required, Validators.pattern( '[0-9]+' ) ] ],
       email: [ this.shippingAddress ? this.shippingAddress.email : '', [ Validators.required, Validators.email ] ],
       address: [ this.shippingAddress ? this.shippingAddress.address : '', [ Validators.required, Validators.maxLength( 50 ) ] ],
+      reference: [ '' ],
       // country: [ '', Validators.required ],
       // town: [ '', Validators.required ],
       // state: [ '', Validators.required ],
@@ -140,11 +156,17 @@ export class ShippingComponent implements OnInit, OnDestroy {
   }
 
   checkout(): void {
+
+    this.order.address.address = this.checkoutForm.value.address;
+    this.order.address.phone = this.checkoutForm.value.phone;
+    this.order.shipment_option = this.shipmentOptionsForm.get( 'shipment_option' ).value;
+
     this.submitted = true;
     if ( this.checkoutForm.valid ) {
       const shippingAddress = { ...this.checkoutForm.value };
       shippingAddress.userId = this.user._id;
       this.storage.setItem( `shippingAddress${this.user._id}`, shippingAddress );
+      sessionStorage.setItem( 'order', JSON.stringify( this.order ) );
       this.router.navigate( [ 'shop/checkout' ] );
     }
 
@@ -243,13 +265,12 @@ export class ShippingComponent implements OnInit, OnDestroy {
   }
 
   private getAddress( latitude, longitude ) {
-    // this.spinner.show();
     this.geoCoder.geocode( { location: { lat: latitude, lng: longitude } }, ( results, status ) => {
-      // this.spinner.hide();
       if ( status === 'OK' ) {
         if ( results[ 0 ] ) {
           this.zoom = 12;
           this.address = results[ 0 ].formatted_address;
+          this.checkoutForm.value.address = this.address;
           // const length = this.address.length;
           // const index = this.address.lastIndexOf( ',' );
           // const address = this.address.substring( 0, index );
