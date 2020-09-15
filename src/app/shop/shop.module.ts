@@ -45,7 +45,12 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { AlertModule } from 'ngx-alerts';
 import { GooglePlaceModule } from 'ngx-google-places-autocomplete';
 import { AgmCoreModule } from '@agm/core';
+import { NgxMaskModule, IConfig } from 'ngx-mask';
 
+// export let options: Partial<IConfig> | (() => Partial<IConfig>);
+const maskConfig: Partial<IConfig> = {
+  validation: false,
+};
 @NgModule({
   declarations: [
     ProductLeftSidebarComponent,
@@ -85,6 +90,7 @@ import { AgmCoreModule } from '@agm/core';
     Ng5SliderModule,
     SharedModule,
     ShopRoutingModule,
+    NgxMaskModule.forRoot(maskConfig),
     AgmCoreModule.forRoot({apiKey: 'AIzaSyC7YdhqPz4rB-D8U7F4qxVokWDb8EWYOB4'}),
     AlertModule.forRoot({maxMessages: 5, timeout: 3000, position: 'left'}),
   ],

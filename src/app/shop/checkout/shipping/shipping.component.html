@@ -43,7 +43,7 @@
 										</div>
 										<div class="form-group col-md-6 col-sm-6 col-xs-12">
 											<div class="field-label">Teléfono</div>
-											<input type="text" name="phone" [formControl]="checkoutForm.controls['phone']" value=""
+											<input mask="(+000) 000-00-00" type="tel" name="phone" [formControl]="checkoutForm.controls['phone']" value=""
 												placeholder="" autocomplete="off">
 											<div *ngIf="submitted && checkoutForm.controls.phone.errors?.required" class="text text-danger">
 												Teléfono es requerido.
