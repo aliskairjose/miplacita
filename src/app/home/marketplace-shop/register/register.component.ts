@@ -6,12 +6,13 @@ import { AuthResponse } from '../../../shared/classes/auth-response';
 import { SocialAuthService, FacebookLoginProvider } from 'angularx-social-login';
 import { environment } from '../../../../environments/environment.prod';
 import { MustMatch } from '../../../shared/helper/must-match.validator';
+import { FacebookLoginResponse } from '../../../shared/classes/facebook-login-response';
 
-@Component({
+@Component( {
   selector: 'app-register',
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.scss']
-})
+  styleUrls: [ './register.component.scss' ]
+} )
 export class RegisterComponent implements OnInit {
 
   registerForm: FormGroup;
@@ -31,7 +32,14 @@ export class RegisterComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.socialService.authState.subscribe( ( response: FacebookLoginResponse ) => {
+      const data = { fullname: '', token: '', email: '' };
+      data.email = response.email;
+      data.fullname = response.name;
+      data.token = response.authToken;
 
+      this.loginFB( data );
+    } );
   }
 
   // convenience getter for easy access to form fields

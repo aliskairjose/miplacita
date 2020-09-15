@@ -19,10 +19,9 @@
           <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="theme-form">
             <div class="form-group ">
               <label for="name">Nombre completo</label>
-              <input type="text" formControlName="fullName" class="form-control" id="email"
+              <input type="text" formControlName="fullname" class="form-control" id="email"
                  required [ngClass]="{ 'is-invalid': submitted && f.email.errors }">
-              
-              <div *ngIf="submitted && f.fullName.errors" class="invalid-feedback d-block">
+              <div *ngIf="submitted && f.fullname.errors" class="invalid-feedback d-block">
                 <div *ngIf="f.email.errors.required"> {{ required }} </div>
                 <div *ngIf="f.email.errors.pattern"> {{ invalidEmail }} </div>
               </div>

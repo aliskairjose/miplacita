@@ -30,7 +30,6 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.socialService.authState.subscribe( ( response: FacebookLoginResponse ) => {
-      console.log( response );
       const data = { fullname: '', token: '', email: '' };
       data.email = response.email;
       data.fullname = response.name;

@@ -5,6 +5,7 @@ import { RegisterStoreComponent } from '../../../shared/custom-components/regist
 import { environment } from '../../../../environments/environment';
 import { SocialAuthService, FacebookLoginProvider } from 'angularx-social-login';
 import { AuthService } from 'src/app/shared/services/auth.service';
+import { FacebookLoginResponse } from '../../../shared/classes/facebook-login-response';
 
 @Component( {
   selector: 'app-register',
@@ -40,7 +41,17 @@ export class RegisterComponent implements OnInit {
   // tslint:disable-next-line: typedef
   get f() { return this.registerForm.controls; }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    this.socialService.authState.subscribe( ( response: FacebookLoginResponse ) => {
+      console.log( response );
+
+      const data = { fullname: '', token: '', email: '' };
+      data.email = response.email;
+      data.fullname = response.name;
+      data.token = response.authToken;
+
+    } );
+  }
 
   listen( r: boolean ) {
     this.registerSuccess = false;
