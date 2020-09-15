@@ -18,13 +18,7 @@ export class MarketplaceComponent implements OnInit, OnDestroy {
   CollectionSliderConfig: any = CollectionSlider;
   sliders = [
     {
-      title: 'every time',
-      subTitle: 'mittnalier',
-      image: 'assets/images/slider/9.jpg'
-    }, {
-      title: 'welcome to fashion',
-      subTitle: 'Men Watch',
-      image: 'assets/images/slider/10.jpg'
+      image: 'assets/images/marketplace/images/banners/banner_rosa.jpg'
     }
   ];
 
@@ -114,6 +108,58 @@ export class MarketplaceComponent implements OnInit, OnDestroy {
     }
   ];
 
+  // preguntas frecuentes 
+  questions = [
+    { id:1,
+      isCollapsed: true,
+      question: '¿Cómo Empiezo?',
+      answer: 'Muy fácil! Descarga el app, Crea tu Tienda Online en sólo 3 pasos y empieza a vender.'+
+              'Sólo te toma 3 minutos!' + 'Agrega tus primeros productos, empieza a compartir tu catálogo y a Vender.' 
+    },
+    { id:2,
+      isCollapsed: true,
+      question: '¿Cómo puedo cobrar a mi cliente?',
+      answer: 'Muy fácil! Descarga el app, Crea tu Tienda Online en sólo 3 pasos y empieza a vender.'+
+              'Sólo te toma 3 minutos!' + 'Agrega tus primeros productos, empieza a compartir tu catálogo y a Vender.' 
+    },
+    { id:3,
+      isCollapsed: true,
+      question: '¿Cómo cuesta la aplicación?',
+      answer: 'Muy fácil! Descarga el app, Crea tu Tienda Online en sólo 3 pasos y empieza a vender.'+
+              'Sólo te toma 3 minutos!' + 'Agrega tus primeros productos, empieza a compartir tu catálogo y a Vender.' 
+    },
+    { id:4,
+      isCollapsed: true,
+      question: '¿Hay alguna comisión adicional?',
+      answer: 'Muy fácil! Descarga el app, Crea tu Tienda Online en sólo 3 pasos y empieza a vender.'+
+              'Sólo te toma 3 minutos!' + 'Agrega tus primeros productos, empieza a compartir tu catálogo y a Vender.' 
+    },
+    { id:5,
+      isCollapsed: true,
+      question: '¿Cómo puedo crear y compartir mi catálogo?',
+      answer: 'Muy fácil! Descarga el app, Crea tu Tienda Online en sólo 3 pasos y empieza a vender.'+
+              'Sólo te toma 3 minutos!' + 'Agrega tus primeros productos, empieza a compartir tu catálogo y a Vender.' 
+    },
+    { id:6,
+      isCollapsed: true,
+      question: '¿Puedo tener tenderos propios?',
+      answer: 'Muy fácil! Descarga el app, Crea tu Tienda Online en sólo 3 pasos y empieza a vender.'+
+              'Sólo te toma 3 minutos!' + 'Agrega tus primeros productos, empieza a compartir tu catálogo y a Vender.' 
+    },
+    { id:7,
+      isCollapsed: true,
+      question: '¿Cómo puedo generar más ingresos?',
+      answer: 'Muy fácil! Descarga el app, Crea tu Tienda Online en sólo 3 pasos y empieza a vender.'+
+              'Sólo te toma 3 minutos!' + 'Agrega tus primeros productos, empieza a compartir tu catálogo y a Vender.' 
+    },
+    { id:8,
+      isCollapsed: true,
+      question: '¿Tengo algún soporte, si necesito ayuda?',
+      answer: 'Muy fácil! Descarga el app, Crea tu Tienda Online en sólo 3 pasos y empieza a vender.'+
+              'Sólo te toma 3 minutos!' + 'Agrega tus primeros productos, empieza a compartir tu catálogo y a Vender.' 
+    }
+  ]
+  isCollapsed =false;
   constructor(
     private _sanitizer: DomSanitizer,
     public productService: ProductService,
