@@ -153,7 +153,7 @@ export class CheckoutComponent implements OnInit {
         shape: 'rect', // pill | rect
       },
       onApprove: ( data, actions ) => {
-        this.orderService.createOrder( this.products, this.checkoutForm.value, data.orderID, this.getTotal );
+        // this.orderService.createOrder( this.products, this.checkoutForm.value, data.orderID, this.getTotal );
         console.log( 'onApprove - transaction was approved, but not authorized', data, actions );
         actions.order.get().then( details => {
           console.log( 'onApprove - you can get full order details inside onApprove: ', details );

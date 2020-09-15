@@ -38,7 +38,6 @@ export class RegisterComponent implements OnInit {
       data.fullname = response.name;
       data.token = response.authToken;
 
-      this.loginFB( data );
     } );
   }
 
