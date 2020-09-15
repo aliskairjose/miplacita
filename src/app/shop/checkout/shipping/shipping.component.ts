@@ -62,15 +62,12 @@ export class ShippingComponent implements OnInit, OnDestroy {
     private storage: StorageService,
     private shopService: ShopService,
     private orderService: OrderService,
-    private spinner: NgxSpinnerService,
     private mapsAPILoader: MapsAPILoader,
     private toastrService: ToastrService,
     public productService: ProductService,
   ) {
 
-    this.createForm();
-
-    if ( this.auth.isAuthenticated()) {
+    if ( this.auth.isAuthenticated() ) {
       this.user = this.storage.getItem( 'user' );
       const store = this.user.stores[ 0 ];
       const shippingAddress: ShippingAddress = this.storage.getItem( `shippingAddress${this.user._id}` );
@@ -78,12 +75,15 @@ export class ShippingComponent implements OnInit, OnDestroy {
         this.shipmentOptions = [ ...shipmentOptions ];
       } );
       if ( shippingAddress && ( shippingAddress.userId === this.user._id ) ) {
+        console.log( shippingAddress );
         const response = confirm( 'Ya existe una dirección, ¿Desea usarla?' );
         ( response ) ? this.shippingAddress = shippingAddress : this.shippingAddress = {};
       }
     } else {
       this.toastrService.warning( 'Debe iniciar sesión' );
     }
+    this.createForm();
+
 
   }
 
@@ -132,6 +132,7 @@ export class ShippingComponent implements OnInit, OnDestroy {
       phone: [ this.shippingAddress ? this.shippingAddress.phone : '', [ Validators.required, Validators.pattern( '[0-9]+' ) ] ],
       email: [ this.shippingAddress ? this.shippingAddress.email : '', [ Validators.required, Validators.email ] ],
       address: [ this.shippingAddress ? this.shippingAddress.address : '', [ Validators.required, Validators.maxLength( 50 ) ] ],
+      reference: [ '' ],
       // country: [ '', Validators.required ],
       // town: [ '', Validators.required ],
       // state: [ '', Validators.required ],
@@ -243,13 +244,12 @@ export class ShippingComponent implements OnInit, OnDestroy {
   }
 
   private getAddress( latitude, longitude ) {
-    // this.spinner.show();
     this.geoCoder.geocode( { location: { lat: latitude, lng: longitude } }, ( results, status ) => {
-      // this.spinner.hide();
       if ( status === 'OK' ) {
         if ( results[ 0 ] ) {
           this.zoom = 12;
           this.address = results[ 0 ].formatted_address;
+          this.checkoutForm.value.address = this.address;
           // const length = this.address.length;
           // const index = this.address.lastIndexOf( ',' );
           // const address = this.address.substring( 0, index );
