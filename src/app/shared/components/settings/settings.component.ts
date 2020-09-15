@@ -86,8 +86,14 @@ export class SettingsComponent implements OnInit {
    * @description Cierra sesión
    */
   loggOut(): void {
-    this.storage.clearAll();
-    this.router.navigate( [ 'home/marketplace' ] );
+    // this.storage.clearAll();
+    this.storage.removeItem('user');
+    this.storage.removeItem('token');
+    this.storage.removeItem('products');
+    this.storage.removeItem('wishlistItems');
+    this.storage.removeItem('compareItems');
+    
+    this.router.navigate( [ 'home' ] );
     this.auth.authSubject( false );
   }
 

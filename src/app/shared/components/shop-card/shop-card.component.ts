@@ -7,9 +7,9 @@ import { Store } from '../../classes/store';
   styleUrls: ['./shop-card.component.scss']
 })
 export class ShopCardComponent implements OnInit {
-  @Input() store: Store ;
+  @Input() store: Store;
+
   constructor() {
-    console.log(this.store);
   }
 
   ngOnInit(): void {

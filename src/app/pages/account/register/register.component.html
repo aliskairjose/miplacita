@@ -19,9 +19,7 @@
                     <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="theme-form">
                         <!-- FullName -->
                         <div class="form-group ">
-                            <!-- <input mask="S{60}" type="text" formControlName="fullname" class="form-control" id="fullname"
-                                placeholder="Nombre completo" required="" [(ngModel)]="user.fullname"> -->
-                            <label for="name">Nombre completo</label>
+                           <label for="name">Nombre completo</label>
                             <input type="text" formControlName="fullname" class="form-control" id="fullname"
                                 required="" [(ngModel)]="user.fullname" pattern="[a-zA-Z ]*">
                             

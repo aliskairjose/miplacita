@@ -1,3 +1,4 @@
+
 <!-- personal deatail section start -->
 <section class="">
     <div class="container">
@@ -9,38 +10,56 @@
                     </h2>
                 </div>
                 <div class="border-box px-2">
-                    <form class="theme-form">
+                    <form [formGroup]="updateUserForm" (ngSubmit)="onSubmit()" class="theme-form">
                         <div class="row mb-2">
                             <div class="col-md-6">
                                 <label for="name">Nombre completo</label>
-                                <input type="text" class="form-control" id="name" placeholder="Luis Rodriguez" required="">
+                                <input type="text" formControlName="fullname" class="form-control" id="fullname"
+                                    placeholder="Luis Rodriguez" required="">
+                                <div *ngIf="submitted && f.fullname.errors" class="invalid-feedback d-block">
+                                    <div *ngIf="f.fullname.errors.required"> {{ required }} </div>
+                                    <div *ngIf="f.fullname.errors.pattern"> {{ onlyLetter }} </div>
+                                </div>
                             </div>
                         </div>
                         <div class="row mb-2">
                             <div class="col-md-6">
                                 <label for="email">Correo Electrónico</label>
-                                <input type="email" class="form-control" id="last-name" placeholder="lrodriguez@gmail.com" required="">
+                                <input type="email" formControlName="email" class="form-control" id="last-name"
+                                    placeholder="lrodriguez@gmail.com" required="">
+                                <div *ngIf="submitted && f.email.errors" class="invalid-feedback d-block">
+                                    <div *ngIf="f.email.errors.required"> {{ required }} </div>
+                                    <div *ngIf="f.email.errors.email"> {{ invalidEmail }} </div>
+                                </div>
                             </div>
                         </div>
                         <div class="row mb-2">
                             <div class="col-md-6">
                                 <label for="review">Ingrese su contraseña</label>
-                                <input type="password" class="form-control" id="review" placeholder="********" required="">
+                                <input type="password" formControlName="password" class="form-control" id="review"
+                                    placeholder="********" required="">
+                                <div *ngIf="submitted && f.password.errors" class="invalid-feedback d-block">
+                                    <div *ngIf="f.password.errors.minlength"> {{ minlength }}</div>
+                                </div>
                             </div>
                         </div>
                         <div class="row mb-2">
                             <div class="col-md-6">
                                 <label for="email">Confirmar contraseña</label>
-                                <input type="password" class="form-control" id="email" placeholder="********" required="">
+                                <input type="password" formControlName="passwordConfirmation" class="form-control"
+                                    id="email" placeholder="********" required="">
+                                <div *ngIf="submitted && f.passwordConfirmation.errors" class="invalid-feedback">
+                                    <div *ngIf="f.passwordConfirmation.errors.mustMatch">{{ matchError }}</div>
+                                </div>
                             </div>
                         </div>
                         <div class="row w-100 justify-content-end mb-2">
-                            <a class="btn btn-solid">Editar</a>
+                            <button class="btn btn-solid" type="submit">Editar</button>
                         </div>
-                        
+
                     </form>
                 </div>
-                
+
             </div>
         </div>
     </div>

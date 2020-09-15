@@ -36,6 +36,14 @@ export class AuthService {
   }
 
   /**
+   * @description Actualización de la perfil del usuario
+   * @param data Data del usuario que actualiza
+   */
+  updateUser( data: any ): Observable<any> {
+    return this.http.put(`users`, data);
+  }
+
+  /**
    * @description Registro de dueño de tienda
    * @param params Datos del registro
    */
