@@ -1,5 +1,5 @@
 <div *ngIf="!loader">
-  <div class="img-wrapper d-flex align-items-center">
+  <div class="img-wrapper d-flex align-items-center" [ngClass]="{ 'img-wrapper-fix': horizontal }">
     <!-- <div class="lable-block">
       <span class="lable3 d-flex justify-content-center align-items-center" *ngIf="product.new">nuevo</span>
       <span class="lable4" *ngIf="product.category"><strong>{{product.category}}</strong></span>
