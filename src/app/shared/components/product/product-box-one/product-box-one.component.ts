@@ -18,6 +18,7 @@ export class ProductBoxOneComponent implements OnInit {
   @Input() cartModal = false; // Default False
   @Input() loader = false;
   @Input() search = false;
+  @Input() horizontal = false; 
 
 
   @ViewChild( 'quickView' ) QuickView: QuickViewComponent;
