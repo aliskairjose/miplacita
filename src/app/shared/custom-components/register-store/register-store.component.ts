@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, Output, EventEmitter } from '@angular/core';
-import { Validators, FormGroup, FormBuilder } from '@angular/forms';
+import { Validators, FormGroup, FormBuilder, ValidationErrors } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { User } from '../../classes/user';
@@ -53,7 +53,7 @@ export class RegisterStoreComponent implements OnInit {
   store: Store = {};
   categoryId = '';
   user: User = {};
-  plans: Plan[];
+  plans: Plan[]= [];
   productData: Product = {};
   storeData: Store = {};
   selectedCategory = '';
@@ -101,14 +101,13 @@ export class RegisterStoreComponent implements OnInit {
     this.submitted = true;
     this.storeData = { ...this.storeForm.value };
     this.storeData.plan = this.planSelected;
-
-
     if ( this.storeForm.valid ) {
       if ( this.images.length === 0 ) {
         this.toastrService.warning( 'Debe cargar un logo para la tienda!' );
         return;
       }
       this.shopService.uploadImages( { images: this.images } ).subscribe( result => {
+        console.log("servicio",result);
         if ( result.status === 'isOk' ) {
           this.storeData.logo = result.images[ 0 ];
           this.step = 2;
@@ -173,7 +172,7 @@ export class RegisterStoreComponent implements OnInit {
     // Formulario de tienda
     this.storeForm = this.formBuilder.group( {
       name: [ '', [ Validators.required ] ],
-      description: [ '', [ Validators.required ] ],
+      description: [ '', [ ] ],
       url_store: [ '', [ Validators.required, Validators.pattern( reg ) ] ],
       phone: [ '', [ Validators.required ] ],
       email: [ '', [ Validators.required, Validators.email ] ],

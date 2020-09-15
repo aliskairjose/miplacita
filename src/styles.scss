@@ -58,10 +58,30 @@ $radius: 5px;
     color: var(--white);
   }
 }
+.btn-solid-purple {
+  background-color: #68396d;
+  color: #fff;
+  padding: 13px 13px;
+  letter-spacing: 0.05em;
+  border: 2px solid $mp-purple;
+  &:hover{
+    color: $mp-purple;
+    background-position: 100%;
+    background-color: $mp-white;
+  }
+
+}
 
 .mp-title {
   font-size: 24px;
   text-transform: capitalize                      ;
+}
+.title-purple {
+  & h2{
+    color: $mp-purple;
+    font-weight: 700;
+    text-transform: inherit;
+  }
 }
 .slider-contain {
   display: flex;
@@ -352,6 +372,11 @@ ngb-carousel img {
     font-weight: 400;
     width: 35%;
   }
+}
+
+.option-box {
+  width: 90%;
+  border: 1px solid #dedede;
 }
 /**/
 
