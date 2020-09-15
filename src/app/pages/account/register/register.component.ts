@@ -12,7 +12,7 @@ import { AuthService } from 'src/app/shared/services/auth.service';
   styleUrls: [ './register.component.scss' ]
 } )
 export class RegisterComponent implements OnInit {
-  registerSuccess = false;
+  registerSuccess = true;
   registerForm: FormGroup;
   submitted: boolean;
   invalidEmail = environment.errorForm.invalidEmail;
@@ -59,7 +59,7 @@ export class RegisterComponent implements OnInit {
   registerFacebook(): void {
     this.socialService.signIn( FacebookLoginProvider.PROVIDER_ID );
   }
-  
+
   private createForm(): void {
 
     this.registerForm = this.formBuilder.group( {
