@@ -23,8 +23,8 @@
 								<!-- Shop name -->
 								<div class="form-group">
 									<div class="field-label" for="name">Nombre de la tienda</div>
-									<input type="text" class="form-control" id="name" formControlName="name"
-										(blur)="validateName()" (ngModelChange)="makeUrl($event)">
+									<input type="text" class="form-control" id="name" formControlName="name" (blur)="validateName()"
+										(ngModelChange)="makeUrl($event)">
 									<div *ngIf="submitted && f.name.errors" class="invalid-feedback d-block">
 										<div *ngIf="f.name.errors.required"> {{ required }} </div>
 									</div>
@@ -32,8 +32,8 @@
 								<!-- Shop name -->
 								<div class="form-group">
 									<div class="field-label" for="name">Descripción</div>
-									<textarea type="text" class="form-control" id="description" formControlName="description"
-										cols="30" rows="10"></textarea>
+									<textarea type="text" class="form-control" id="description" formControlName="description" cols="30"
+										rows="10"></textarea>
 									<div *ngIf="submitted && f.description.errors" class="invalid-feedback d-block">
 										<div *ngIf="f.description.errors.required"> {{ required }} </div>
 									</div>
@@ -41,8 +41,7 @@
 								<!-- Phone -->
 								<div class="form-group">
 									<div class="field-label" for="name">Teléfono de la tienda</div>
-									<input mask="(+000) 000-00-00" type="tel" class="form-control" id="review"
-										formControlName="phone">
+									<input mask="(+000) 000-00-00" type="tel" class="form-control" id="review" formControlName="phone">
 									<div *ngIf="submitted && f.phone.errors" class="invalid-feedback d-block">
 										<div *ngIf="f.phone.errors.required"> {{ required }} </div>
 									</div>
@@ -65,7 +64,6 @@
 										<div *ngIf="f.url_store.errors.required"> {{ required }} </div>
 									</div>
 								</div>
-
 							</div>
 						</div>
 						<div class="col-lg-6 col-sm-12 col-xs-12">
@@ -84,8 +82,8 @@
 													<p class="my-auto">{{plan.name}} - {{ plan.price | currency }}</p>
 												</div>
 												<div class="col offset-xl-4 text-center">
-													<input class="my-auto" formControlName="plan" type="radio" [value]="plan._id"
-													name="plan" [(ngModel)]="planSelected">
+													<input class="my-auto" formControlName="plan" type="radio" [value]="plan._id" name="plan"
+														[(ngModel)]="planSelected">
 												</div>
 											</div>
 										</div>
@@ -98,11 +96,9 @@
 											Regístrate
 										</button>
 									</div>
-
 								</div>
 							</div>
 						</div>
-
 					</div>
 				</form>
 			</div>
@@ -143,8 +139,8 @@
 								<!-- Product Price -->
 								<div class="form-group ">
 									<div class="field-label" for="name">Precio del producto</div>
-									<input currencyMask formControlName="price" type="text" class="form-control" id="price" placeholder=""
-									>
+									<input currencyMask formControlName="price" type="text" class="form-control" id="price"
+										placeholder="">
 									<div *ngIf="submitted && p.price.errors" class="invalid-feedback d-block">
 										<div *ngIf="p.price.errors.required"> {{ required }} </div>
 									</div>
@@ -160,8 +156,7 @@
 								<!-- Categoria -->
 								<div class="mx-auto form-group">
 									<div class="field-label" for="name">Categoría del producto</div>
-									<select formControlName="category" class="form-control" name="category"
-										[(ngModel)]="selectedCategory">
+									<select formControlName="category" class="form-control" name="category">
 										<option value="" selected>Seleccione una categoría</option>
 										<option *ngFor="let category of categories" [value]="category._id">
 											{{category.name}}</option>
@@ -173,8 +168,8 @@
 								<!-- Descripcion del producto -->
 								<div class="form-group mx-auto mb-2">
 									<div class="field-label" for="name">Descripción del producto</div>
-									<textarea formControlName="description" type="text" class="form-control" id="descriptionProduct"
-									></textarea>
+									<textarea formControlName="description" type="text" class="form-control"
+										id="descriptionProduct"></textarea>
 									<div *ngIf="submitted && p.description.errors" class="invalid-feedback d-block">
 										<div *ngIf="p.description.errors.required"> {{ required }} </div>
 									</div>

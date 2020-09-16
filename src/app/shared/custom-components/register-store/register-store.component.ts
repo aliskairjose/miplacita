@@ -37,8 +37,6 @@ export class RegisterStoreComponent implements OnInit {
   categories: Category[] = [];
   store: Store = {};
   plans: Plan[] = [];
-  productData: Product = {};
-  selectedCategory = '';
   images: Array<string> = [];
   disabled = true;
   urlStore = '';
@@ -84,9 +82,6 @@ export class RegisterStoreComponent implements OnInit {
   storeRegister() {
     this.submitted = true;
     this.storeForm.value.owner_id = this.user._id;
-    console.log( this.storeForm.valid );
-    console.log( this.storeForm.value );
-    console.log( this.storeForm );
     if ( this.storeForm.valid ) {
       if ( this.images.length === 0 ) {
         this.toastrService.warning( 'Debe cargar un logo para la tienda!' );
@@ -105,7 +100,6 @@ export class RegisterStoreComponent implements OnInit {
 
   productRegister() {
     this.submitted = true;
-    this.productData = { ...this.productForm.value };
     if ( this.productForm.valid ) {
       if ( this.images.length === 0 ) {
         this.toastrService.warning( 'Debe cargar una imagen para producto!' );
@@ -113,7 +107,7 @@ export class RegisterStoreComponent implements OnInit {
       }
       this.productService.uploadImages( { images: this.images } ).subscribe( result => {
         if ( result.status === 'isOk' ) {
-          this.productData.image = result.images[ 0 ];
+          this.productForm.value.image = result.images[ 0 ];
           this.createProduct();
         }
       } );
@@ -162,8 +156,8 @@ export class RegisterStoreComponent implements OnInit {
       phone: [ '', [ Validators.required ] ],
       email: [ '', [ Validators.required, Validators.email ] ],
       plan: [ '', [ Validators.required ] ],
-      owner_id: [ '', [ Validators.required ] ],
-      logo: [ '' ]
+      owner_id: [ '', [ Validators.nullValidator ] ],
+      logo: [ '', [ Validators.nullValidator ] ]
 
     } );
 
@@ -173,7 +167,9 @@ export class RegisterStoreComponent implements OnInit {
       description: [ '', [ Validators.required ] ],
       price: [ '', [ Validators.required ] ],
       tax: [ '', [ Validators.required ] ],
-      category: [ this.selectedCategory, [ Validators.required ] ],
+      category: [ '', [ Validators.required ] ],
+      image: [ '', [ Validators.nullValidator ] ],
+      store: [ '', [ Validators.nullValidator ] ],
     } );
   }
 
@@ -190,8 +186,8 @@ export class RegisterStoreComponent implements OnInit {
   }
 
   private createProduct(): void {
-    this.productData.store = this.store._id;
-    this.productService.addProduct( this.productData ).subscribe( ( product: Product ) => {
+    this.productForm.value.store = this.store._id;
+    this.productService.addProduct( this.productForm.value ).subscribe( ( product: Product ) => {
       sessionStorage.clear();
       this.openModal();
     } );
