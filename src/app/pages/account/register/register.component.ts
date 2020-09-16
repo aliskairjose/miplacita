@@ -94,8 +94,6 @@ export class RegisterComponent implements OnInit {
 
   private registerFB( data: any ): void {
     this.auth.socialLogin( data ).subscribe( ( result: AuthResponse ) => {
-      console.log( result );
-
       if ( result.success ) {
         sessionStorage.setItem( 'userForm', JSON.stringify( result.user ) );
         this.registerSuccess = true;

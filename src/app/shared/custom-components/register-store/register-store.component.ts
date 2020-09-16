@@ -14,24 +14,7 @@ import { SuccessModalComponent } from '../../custom-component/success-modal/succ
 import { environment } from '../../../../environments/environment';
 import { ToastrService } from 'ngx-toastr';
 
-const state = {
-  user: JSON.parse( sessionStorage.userForm || null ),
-  registerStore: JSON.parse( sessionStorage.registerStore || null ),
-};
-interface ShopForm {
-  name?: string;
-  url?: string;
-  description?: string;
-  phone?: string;
-  email?: string;
-}
-interface ProductForm {
-  name?: string;
-  price?: string;
-  tax?: string;
-  category?: string;
-  description?: string;
-}
+
 @Component( {
   selector: 'app-register-store',
   templateUrl: './register-store.component.html',
@@ -51,20 +34,15 @@ export class RegisterStoreComponent implements OnInit {
   invalidEmail = environment.errorForm.invalidEmail;
   required = environment.errorForm.required;
   invalidUrl = environment.errorForm.invalidUrl;
-  userId = '';
   categories: Category[] = [];
   store: Store = {};
-  categoryId = '';
   plans: Plan[] = [];
   productData: Product = {};
-  storeData: Store = {};
   selectedCategory = '';
   images: Array<string> = [];
-  shop: ShopForm = {};
-  product: ProductForm = {};
   disabled = true;
-  storeName = '';
   urlStore = '';
+  private user: User = {};
 
   @Output() setBack: EventEmitter<any> = new EventEmitter<any>();
 
@@ -76,7 +54,9 @@ export class RegisterStoreComponent implements OnInit {
     private shopService: ShopService,
     private toastrService: ToastrService,
     private productService: ProductService,
-  ) { this.createForm(); }
+  ) {
+    this.createForm();
+  }
 
   // convenience getter for easy access to form fields
   // tslint:disable-next-line: typedef
@@ -84,8 +64,10 @@ export class RegisterStoreComponent implements OnInit {
   get p() { return this.productForm.controls; }
 
   ngOnInit(): void {
-    if ( state.registerStore ) {
-      this.store = state.registerStore;
+    this.user = JSON.parse( sessionStorage.userForm );
+
+    if ( sessionStorage.registerStore ) {
+      this.store = JSON.parse( sessionStorage.registerStore );
       this.step = 2;
     }
 
@@ -99,17 +81,12 @@ export class RegisterStoreComponent implements OnInit {
     } );
   }
 
-  updatePlan( plan: string ) {
-    this.planSelected = plan;
-  }
-
   storeRegister() {
     this.submitted = true;
-
-    this.storeData = { ...this.storeForm.value };
-    this.storeData.plan = this.planSelected;
-    this.storeData.owner_id = state.user._id;
-
+    this.storeForm.value.owner_id = this.user._id;
+    console.log( this.storeForm.valid );
+    console.log( this.storeForm.value );
+    console.log( this.storeForm );
     if ( this.storeForm.valid ) {
       if ( this.images.length === 0 ) {
         this.toastrService.warning( 'Debe cargar un logo para la tienda!' );
@@ -117,8 +94,7 @@ export class RegisterStoreComponent implements OnInit {
       }
       this.shopService.uploadImages( { images: this.images } ).subscribe( result => {
         if ( result.status === 'isOk' ) {
-          this.storeData.logo = result.images[ 0 ];
-          this.step = 2;
+          this.storeForm.value.logo = result.images[ 0 ];
           this.images.length = 0;
           this.submitted = false;
           this.createStore();
@@ -128,7 +104,6 @@ export class RegisterStoreComponent implements OnInit {
   }
 
   productRegister() {
-    console.log('productRegister', this.productForm.valid )
     this.submitted = true;
     this.productData = { ...this.productForm.value };
     if ( this.productForm.valid ) {
@@ -186,6 +161,10 @@ export class RegisterStoreComponent implements OnInit {
       url_store: [ '', [ Validators.required ] ],
       phone: [ '', [ Validators.required ] ],
       email: [ '', [ Validators.required, Validators.email ] ],
+      plan: [ '', [ Validators.required ] ],
+      owner_id: [ '', [ Validators.required ] ],
+      logo: [ '' ]
+
     } );
 
     // Formulario de Producto
@@ -203,8 +182,9 @@ export class RegisterStoreComponent implements OnInit {
   }
 
   private createStore(): void {
-    this.shopService.addStore( this.storeData ).subscribe( ( store: Store ) => {
+    this.shopService.addStore( this.storeForm.value ).subscribe( ( store: Store ) => {
       this.store = { ...store };
+      this.step = 2;
       sessionStorage.setItem( 'registerStore', JSON.stringify( this.store ) );
     } );
   }
