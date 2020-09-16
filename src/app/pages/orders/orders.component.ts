@@ -44,29 +44,20 @@ export class OrdersComponent implements OnInit {
     this.loadData();
   }
 
-  private loadData( page = 1 ): void {
-    ( this.role === 'admin' ) ? this.loadAdminOrders( page ) : this.loadUserOrders( page );
-  }
-
   setPage( page: number ) {
+    console.log( page );
+
     this.loadData( page );
   }
 
-  private loadUserOrders( page = 1 ): void {
+  private loadData( page = 1 ): void {
+    let params = '';
+
     const user: User = this.storageService.getItem( 'user' );
     const store: Store[] = user.stores;
-    this.orderService.orderList( store[ 0 ]._id, page ).subscribe( ( result: Result<Order> ) => {
-      this.orders = [ ...result.docs ];
-      this.paginate = { ...result };
-      this.paginate.pages = [];
-      for ( let i = 1; i <= this.paginate.totalPages; i++ ) {
-        this.paginate.pages.push( i );
-      }
-    } );
-  }
+    if ( this.role === 'merchant' ) { params = `store=${store[ 0 ]._id}`; }
 
-  private loadAdminOrders( page = 1 ): void {
-    this.orderService.getAll( page ).subscribe( ( result: Result<Order> ) => {
+    this.orderService.orderList( page, params ).subscribe( ( result: Result<Order> ) => {
       this.orders = [ ...result.docs ];
       this.paginate = { ...result };
       this.paginate.pages = [];

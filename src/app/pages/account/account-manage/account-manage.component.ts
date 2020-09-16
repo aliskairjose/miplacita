@@ -16,7 +16,7 @@ export class AccountManageComponent implements OnInit {
   stores: Store[] = [];
   active = 'profile';
   user: User = new User();
-  constructor(       
+  constructor(
     private storage: StorageService,
   ) {
     this.user = this.storage.getItem( 'user' );
