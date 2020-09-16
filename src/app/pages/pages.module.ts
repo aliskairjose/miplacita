@@ -59,7 +59,7 @@ import { FormsModule } from '@angular/forms';
 import { TermsAndConditionsComponent } from './terms-and-conditions/terms-and-conditions.component';
 import { AccountManageComponent } from './account/account-manage/account-manage.component';
 import { UserOrdersComponent } from './account/user-orders/user-orders.component';
-
+import { ChartsModule } from 'ng2-charts';
 // export let options: Partial<IConfig> | (() => Partial<IConfig>);
 const maskConfig: Partial<IConfig> = {
   validation: false,
@@ -140,7 +140,8 @@ export const customCurrencyMaskConfig = {
     GoogleChartsModule.forRoot(),
     NgxCurrencyModule.forRoot(customCurrencyMaskConfig),
     ColorPickerModule,
-    AlertModule.forRoot({maxMessages: 5, timeout: 3000, position: 'left'})
+    AlertModule.forRoot({maxMessages: 5, timeout: 3000, position: 'left'}),
+    ChartsModule
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 
