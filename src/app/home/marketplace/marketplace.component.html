@@ -1,8 +1,9 @@
-<app-header-one [themeLogo]="themeLogo" [isSideMenu]="true" [hasSearchBar]="false"></app-header-one>
+<!-- <app-header-one [themeLogo]="themeLogo" [isSideMenu]="true" [hasSearchBar]="true"></app-header-one> -->
+<app-header-one [sticky]="true"[isHidde]="false" [topbar]="false" [isSideMenu]="true" [hasSearchBar]="true"></app-header-one>
 
 <!-- Home slider start-->
 <section class="p-0">
-    <app-slider [sliders]="sliders" [textClass]="'text-center'" [category]="'watch'" [buttonText]="'shop now'">
+    <app-slider [sliders]="sliders" [textClass]="'text-center'" [category]="'watch'" [buttonText]="''">
     </app-slider>
 </section>
 <!-- Home slider End -->
@@ -15,85 +16,255 @@
 </div>
 <!-- services End -->
 
-<!-- Beneficio de vinculación start -->
+<!-- Pasos de registro start -->
 <section class="section-b-space">
     <div class="container">
         <div class="row">
             <div class="col">
-                <div class="title1">
-                    <h2>Beneficio de vinculación</h2>
-                    <h3>Al formar parte de nuestra familia te <br> otorgaremos estos beneficios</h3>
+                <div class="title-purple text-center">
+                    <h2>¿Cómo me registro?</h2>
+                    <p>Empecemos</p>
                 </div>
             </div>
         </div>
         <div class="row mt-3 d-flex justify-content-center">
-            <div class="col-md-12 col-lg-8 info-benefit">
-                <div class="left-benefit">
-                    <img class="mx-auto d-block" src="assets/images/marketplace/svg/undraw_Gift_box_re_vau4.svg" alt="">
+            <div class="row justify-content-center">
+                <div class="d-flex">
+                    <div class="col service-block">
+                        <div class="media">
+                            <img class="icon-service" id="icon-1" src="../../../../assets/images/marketplace/images/icons/logo-landing.png"/>
+                            
+                        </div>
+                    </div>
+                    <div class="col service-block">
+                    <div class="media">
+                        <img class="icon-service" id="icon-1" src="../../../../assets/images/marketplace/images/icons/register.png"/>
+                        <div class="media-body">
+                        <h4>Regístrate</h4>
+                        </div>
+                    </div>
+                    </div>
+                    <div class="col service-block">
+                      <div class="media">
+                        <img class="icon-service" id="icon-1" src="../../../../assets/images/marketplace/images/icons/select-plan.png"/>
+                        <div class="media-body">
+                          <h4>Selecciona tu plan</h4>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+                <div class="d-flex">
+                    <div class="col service-block">
+                        <div class="media">
+                            <img class="icon-service" src="../../../../assets/images/marketplace/images/icons/create.png" />
+                            <div class="media-body">
+                            <h4>Crea tu tienda</h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col service-block">
+                        <div class="media">
+                            <img class="icon-service" src="../../../../assets/images/marketplace/images/icons/upload.png" />
+                            <div class="media-body">
+                            <h4>sube productos y vende</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                
+              </div>
+            
+        </div>
+    </div>
+</section>
+<!-- Pasos de registro end -->
+<!-- Banner verticales start -->
+<section class="section-b-space">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="title-purple text-center">
+                    <h2>Crea tu tienda</h2>
+                    
                 </div>
             </div>
-            <div class="col-md-12 col-lg-4 d-flex info-benefit">
-                <div class="rigth-benefit">
-                    <h3>Beneficio</h3>
-                    <h4>Descripción del beneficio</h4>
-                    <h4>Descripción del beneficio</h4>
-                    <h3>Beneficio</h3>
-                    <h4>Descripción del beneficio</h4>
-                    <h4>Descripción del beneficio</h4>
-                    <h3>Beneficio</h3>
-                    <h4>Descripción del beneficio</h4>
-                    <h4>Descripción del beneficio</h4>
+        </div>
+        <div class="row mt-3 d-flex justify-content-center">
+            <div class="row justify-content-center">
+                <div class="col-3">
+                    <div class="media">
+                        <img class="" id="" src="../../../../assets/images/marketplace/images/banners/recibe.png"/>
+                        
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="media">
+                        <img class="" id="" src="../../../../assets/images/marketplace/images/banners/administra.png"/>
+                        
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="media">
+                        <img class="" id="" src="../../../../assets/images/marketplace/images/banners/envia.png"/>
+                        
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </section>
-<!-- Beneficio de vinculación end -->
+<!-- Banner verticales end -->
 
 <!-- Cuanto me cuesta start -->
 <section class="section-b-space">
     <div class="container">
         <div class="row">
             <div class="col">
-                <div class="title1">
-                    <h2>Beneficio de vinculación</h2>
-                    <h3>Al formar parte de nuestra familia te <br> otorgaremos estos beneficios</h3>
+                <div class="title-purple text-center">
+                    <h2>¿Cuánto me cuesta?</h2>
+                    <p>Seleccionaa el tipo de plan que requiere tu negocio</p>
                 </div>
             </div>
         </div>
         <div class="row mt-3 d-flex justify-content-center">
             <div class="col-lg-12 d-flex justify-content-center info-plan">
                 <div class="left-info">
-                    <h4 class="text-center">Gratis</h4>
+                    <h3 class="lable4 text-center font-weight-bold">Básico</h3>
                     <hr>
-                    <h2 class="text-center">$00.00</h2>
-                    <h4 class="text-center">Por mes</h4>
-                    <hr>
-                    <h5>- Enlace de pago</h5>
-                    <h5>- Sin cargo inicial, sin mensualidad, sin cargos ocultos</h5>
-                    <h5>- Retiro a tu banco gratis</h5>
-                    <h5>- Ver términos y condiciones aquí</h5>
-                    <hr>
-                    <div class="d-flex justify-content-around">
-                        <button type="button" class="btn btn-outline-primary">Primary</button>
-                        <button type="button" class="btn btn-outline-primary">Primary</button>
+                    <h2 class="text-default-color text-center font-weight-bold">¡Gratis!</h2>
+                    <div class="info-body mx-auto mt-5">
+                        <div class="row d-flex align-items-center">
+                            <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-check-circle text-default-color" fill="#d0260f" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                            <path fill-rule="evenodd" d="M10.97 4.97a.75.75 0 0 1 1.071 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.236.236 0 0 1 .02-.022z"/>
+                            </svg> 
+                            <h5 class="pl-2">Tu tienda online</h5>
+                        </div>
+                        <div class="row d-flex align-items-center">
+                            <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-check-circle text-default-color" fill="#d0260f" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                            <path fill-rule="evenodd" d="M10.97 4.97a.75.75 0 0 1 1.071 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.236.236 0 0 1 .02-.022z"/>
+                            </svg> 
+                            <h5 class="pl-2">Creación del Catálogo</h5>
+                        </div>
+                        <div class="row d-flex align-items-center">
+                            <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-check-circle text-default-color" fill="#d0260f" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                            <path fill-rule="evenodd" d="M10.97 4.97a.75.75 0 0 1 1.071 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.236.236 0 0 1 .02-.022z"/>
+                            </svg> 
+                            <h5 class="pl-2">Enlace a Redes Sociales</h5>
+                        </div>
+                        <div class="row d-flex align-items-center">
+                            <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-check-circle text-default-color" fill="#d0260f" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                            <path fill-rule="evenodd" d="M10.97 4.97a.75.75 0 0 1 1.071 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.236.236 0 0 1 .02-.022z"/>
+                            </svg> 
+                            <h5 class="pl-2">Chat integrado</h5>
+                        </div>
+                        <div class="row d-flex align-items-center">
+                            <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-check-circle text-default-color" fill="#d0260f" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                            <path fill-rule="evenodd" d="M10.97 4.97a.75.75 0 0 1 1.071 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.236.236 0 0 1 .02-.022z"/>
+                            </svg> 
+                            <h5 class="pl-2">Pagos contra entrega</h5>
+                        </div>
+                        <div class="row d-flex align-items-center">
+                            <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-check-circle text-default-color" fill="#d0260f" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                            <path fill-rule="evenodd" d="M10.97 4.97a.75.75 0 0 1 1.071 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.236.236 0 0 1 .02-.022z"/>
+                            </svg> 
+                            <h5 class="pl-2">Manejo de Tenderos*</h5>
+                        </div>
+                        <div class="row d-flex align-items-center">
+                            <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-check-circle text-default-color" fill="#d0260f" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                            <path fill-rule="evenodd" d="M10.97 4.97a.75.75 0 0 1 1.071 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.236.236 0 0 1 .02-.022z"/>
+                            </svg> 
+                            <h5 class="pl-2">Pasarela de pago</h5>
+                        </div>
+                       
+                    </div>
+                    <div class="plan-btns d-flex flex-column">
+                        <div class="row justify-content-center mt-4">
+                            <h5 class="lable4 font-weight-bold"><a routerLink="/pages/termsandconditions">Ver Términos y Condiciones</a></h5>
+                        </div>
+                        <hr>
+                        <div class="d-flex justify-content-around">
+                            <button type="button" class="btn btn-solid">Iniciar ahora</button>
+                        </div>
                     </div>
                 </div>
                 <div class="rigth-info">
-                    <h4 class="text-center">Pago</h4>
+                    <h3 class="lablel4 text-center font-weight-bold">Profesional</h3>
                     <hr>
-                    <h2 class="text-center">$8.88</h2>
-                    <h4 class="text-center">Por mes</h4>
-                    <hr>
-                    <h5>- 3.5% + $0.35 por transacción</h5>
-                    <h5>- Tienda en línea</h5>
-                    <h5>- Manejo de entregas</h5>
-                    <h5>- Manejo de inventario</h5>
-                    <h5>- Todo lo de pago por uso</h5>
-                    <hr>
-                    <div class="d-flex justify-content-around">
-                        <button type="button" class="btn btn-outline-light">Light</button>
-                        <button type="button" class="btn btn-outline-light">Light</button>
+                    <h2  class="text-default-color text-center">$8.88</h2>
+                    <h4  class="text-default-color text-center">Mensual</h4>
+                    <div class="info-body mx-auto mt-5">
+                        <div class="row d-flex align-items-center">
+                            <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-check-circle text-default-color" fill="#d0260f" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                            <path fill-rule="evenodd" d="M10.97 4.97a.75.75 0 0 1 1.071 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.236.236 0 0 1 .02-.022z"/>
+                            </svg> 
+                            <h5 class="pl-2">Todo el Plan Básico</h5>
+                        </div>
+                        <div class="row d-flex align-items-center justify-content-center">
+                            <svg width="3.5em" height="3.5em" viewBox="0 0 16 16" class="bi bi-plus" fill="#d0260f" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                              </svg>
+                        </div>
+                        <div class="row d-flex align-items-center">
+                            <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-check-circle text-default-color" fill="#d0260f" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                            <path fill-rule="evenodd" d="M10.97 4.97a.75.75 0 0 1 1.071 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.236.236 0 0 1 .02-.022z"/>
+                            </svg> 
+                            <h5 class="pl-2">Control de Inventario</h5>
+                        </div>
+                        <div class="row d-flex align-items-center">
+                            <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-check-circle text-default-color" fill="#d0260f" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                            <path fill-rule="evenodd" d="M10.97 4.97a.75.75 0 0 1 1.071 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.236.236 0 0 1 .02-.022z"/>
+                            </svg> 
+                            <h5 class="pl-2">Gestión de clientess</h5>
+                        </div>
+                        <div class="row d-flex align-items-center">
+                            <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-check-circle text-default-color" fill="#d0260f" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                            <path fill-rule="evenodd" d="M10.97 4.97a.75.75 0 0 1 1.071 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.236.236 0 0 1 .02-.022z"/>
+                            </svg> 
+                            <h5 class="pl-2">Transacciones ilimitadas</h5>
+                        </div>
+                        <div class="row d-flex align-items-center">
+                            <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-check-circle text-default-color" fill="#d0260f" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                            <path fill-rule="evenodd" d="M10.97 4.97a.75.75 0 0 1 1.071 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.236.236 0 0 1 .02-.022z"/>
+                            </svg> 
+                            <h5 class="pl-2">integración con Nequi | Mercado Pago</h5>
+                        </div>
+                        <div class="row d-flex align-items-center">
+                            <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-check-circle text-default-color" fill="#d0260f" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                            <path fill-rule="evenodd" d="M10.97 4.97a.75.75 0 0 1 1.071 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.236.236 0 0 1 .02-.022z"/>
+                            </svg> 
+                            <h5 class="pl-2">Manejo de Tenderos*</h5>
+                        </div>
+                        <div class="row d-flex align-items-center">
+                            <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-check-circle text-default-color" fill="#d0260f" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                            <path fill-rule="evenodd" d="M10.97 4.97a.75.75 0 0 1 1.071 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.236.236 0 0 1 .02-.022z"/>
+                            </svg> 
+                            <h5 class="pl-2">Pasarela de pago</h5>
+                        </div>
+                        
+                    </div>
+                    <div class="plan-btns d-flex flex-column">
+                        <div class="row mt-4">
+                            <h5 class="lable4 mx-auto font-weight-bold"><a routerLink="/pages/termsandconditions">Ver Términos y Condiciones</a></h5>
+                        </div>
+                        <hr>
+                        <div class="d-flex justify-content-around">
+                            <button type="button" class="btn btn-solid-purple">Iniciar ahora</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -104,30 +275,26 @@
 
 <!-- Preguntas frecuentes start -->
 <section class="section-b-space">
-    <div class="tab-bg">
+    <div class="">
         <div class="container">
-            <div class="row">
+            <div class="row mb-3">
                 <div class="col">
-                    <div class="title1">
+                    <div class="title-purple text-center">
                         <h2>Preguntas frecuentes</h2>
                     </div>
                 </div>
             </div>
-            <div class="row mt-3 d-flex justify-content-center">
-                <div class="col-md-6 d-flex justify-content-center">
-                    <div>
-                        <h3>Qué es lorem ipsum?</h3>
-                        <h5>Es un texto de pruebas de impresión</h5>
-                        <h3>De donde viene?</h3>
-                        <h5>Es un texto de pruebas de impresión</h5>
-                    </div>
+            <div class="row d-flex justify-content-center questions" *ngFor="let q of questions">
+                 <div class="question" (click)="q.isCollapsed = !q.isCollapsed"
+                    [attr.aria-expanded]="!q.isCollapsed" aria-controls="collapseExample">
+                     <p>- {{q.question}}</p> 
+                    
                 </div>
-                <div class="col-md-6 d-flex justify-content-center">
-                    <div>
-                        <h3>Qué es lorem ipsum?</h3>
-                        <h5>Es un texto de pruebas de impresión</h5>
-                        <h3>De donde viene?</h3>
-                        <h5>Es un texto de pruebas de impresión</h5>
+                <div class="answer" id="collapseExample" [ngbCollapse]="q.isCollapsed">
+                    <div class="">
+                        <div class="card-body">
+                        {{q.answer}}
+                        </div>
                     </div>
                 </div>
             </div>
