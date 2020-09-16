@@ -9,6 +9,7 @@ import { Paginate } from '../../shared/classes/paginate';
 import { Result } from '../../shared/classes/response';
 import { environment } from '../../../environments/environment';
 import { User } from '../../shared/classes/user';
+import { log } from 'console';
 
 @Component( {
   selector: 'app-orders',
@@ -24,7 +25,10 @@ export class OrdersComponent implements OnInit {
   paginate: Paginate;
   orderStatus = environment.orderStatus;
   role: string;
-  searchText = '';
+  status = '';
+  fechaIni = '';
+  fechaFin = '';
+  private storeId = '';
 
   @ViewChild( 'orderDetails' ) OrderDetails: OrderDetailsComponent;
   /** variable provisional */
@@ -50,12 +54,23 @@ export class OrdersComponent implements OnInit {
     this.loadData( page );
   }
 
+  changeStatus(): void {
+    console.log( this.status );
+    this.loadData();
+  }
+
+  filtrar(): void {
+    console.log( this.fechaIni, this.fechaFin );
+  }
+
   private loadData( page = 1 ): void {
     let params = '';
 
     const user: User = this.storageService.getItem( 'user' );
     const store: Store[] = user.stores;
-    if ( this.role === 'merchant' ) { params = `store=${store[ 0 ]._id}`; }
+    if ( store.length > 0 ) { this.storeId = store[ 0 ]._id; }
+
+    params = `store=${this.storeId}&status=${this.status}$from=${this.fechaIni}&to=${this.fechaIni}`;
 
     this.orderService.orderList( page, params ).subscribe( ( result: Result<Order> ) => {
       this.orders = [ ...result.docs ];

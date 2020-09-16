@@ -9,6 +9,8 @@ import { Product } from '../../shared/classes/product';
 import { ProductService } from '../../shared/services/product.service';
 import { OrderService } from '../../shared/services/order.service';
 import { Router } from '@angular/router';
+import { StorageService } from '../../shared/services/storage.service';
+import { timeStamp, log } from 'console';
 
 const state = {
   user: JSON.parse( localStorage.getItem( 'user' ) || null )
@@ -28,6 +30,8 @@ export class CheckoutComponent implements OnInit {
   payPalConfig?: IPayPalConfig;
   payment = 'Stripe';
   amount: any;
+  shipmentPrice = 0;
+  totalPrice = 0;
   months = [ { value: 1, name: 'Enero' },
   { value: 2, name: 'Febreo' },
   { value: 3, name: 'Marzo' },
@@ -45,8 +49,9 @@ export class CheckoutComponent implements OnInit {
   constructor(
     private router: Router,
     private fb: FormBuilder,
+    private storage: StorageService,
+    private orderService: OrderService,
     public productService: ProductService,
-    private orderService: OrderService
   ) {
     this.paymentForm = this.fb.group( {
       owner: [ '', [ Validators.required, Validators.pattern( '[a-zA-Z][a-zA-Z ]+[a-zA-Z]$' ) ] ],
@@ -68,11 +73,20 @@ export class CheckoutComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.productService.cartItems.subscribe( response => this.products = response );
-    this.getTotal.subscribe( amount => this.amount = amount );
-    this.initConfig();
     const date = new Date();
+    const shipment = JSON.parse( sessionStorage.order );
+
+    this.shipmentPrice = shipment.shipment_price;
+    this.productService.cartItems.subscribe( response => this.products = response );
+
+    this.subTotal.subscribe( amount => {
+      this.amount = amount;
+      this.totalPrice = amount + this.shipmentPrice;
+    } );
+
+    this.initConfig();
     this.years.push( date.getFullYear() );
+
     for ( let i = 0; i < 12; i++ ) {
       date.setMonth( date.getMonth() + 12 );
       this.years.push( date.getFullYear() );
@@ -84,9 +98,15 @@ export class CheckoutComponent implements OnInit {
   get f() { return this.paymentForm.controls; }
 
 
-  public get getTotal(): Observable<number> {
+  public get subTotal(): Observable<number> {
     return this.productService.cartTotalAmount();
   }
+
+  public get total(): Observable<number> {
+    return this.productService.cartTotalAmount();
+  }
+
+
 
   // Stripe Payment Gateway
   stripeCheckout() {
@@ -107,8 +127,6 @@ export class CheckoutComponent implements OnInit {
   }
 
   onSubmit(): void {
-    console.log(this.paymentForm);
-    
     this.submitted = true;
     const order = JSON.parse( sessionStorage.order );
     order.products = this.products;

@@ -1,14 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from 'src/app/shared/classes/store';
-import { AuthService } from 'src/app/shared/services/auth.service';
 import { StorageService } from 'src/app/shared/services/storage.service';
-import { User } from 'src/app/shared/classes/user';
 import { ActivatedRoute, Router } from '@angular/router';
-import { log } from 'console';
+import { User } from '../../../shared/classes/user';
 
-const state = {
-  user: JSON.parse( localStorage.user || null )
-};
 @Component( {
   selector: 'app-account-manage',
   templateUrl: './account-manage.component.html',
@@ -16,9 +11,10 @@ const state = {
 } )
 
 export class AccountManageComponent implements OnInit {
+
   stores: Store[] = [];
   active = 'profile';
-  user: User = new User();
+  user: User = {};
   subtab = 'store-profile';
 
   constructor(
@@ -27,8 +23,7 @@ export class AccountManageComponent implements OnInit {
     private storage: StorageService,
   ) {
     this.user = this.storage.getItem( 'user' );
-    console.log(this.user);
-    this.stores = [ ...state.user.stores ];
+    this.stores = [ ...this.user.stores ];
   }
 
   ngOnInit(): void {
@@ -37,11 +32,10 @@ export class AccountManageComponent implements OnInit {
 
   updateTab( tab: string ) {
     this.active = tab;
-    this.router.navigateByUrl( `pages/account/user/${tab}`,  { skipLocationChange: false } );
+    this.router.navigateByUrl( `pages/account/user/${tab}`, { skipLocationChange: false } );
   }
 
   updateSubtab( tab ) {
-    console.log(tab);
-    this.subtab = tab
+    this.subtab = tab;
   }
 }

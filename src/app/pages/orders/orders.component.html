@@ -7,7 +7,7 @@
 		<form class="theme-form">
 			<div class="d-flex search">
 				<div class="form-group flex-fill" id="state">
-					<select name="model" class="form-control" [(ngModel)]="searchText">
+					<select name="model" class="form-control" [(ngModel)]="status" (change)="changeStatus()">
 						<option value="">Estado</option>
 						<option [value]="status" *ngFor="let status of orderStatus" class="text-capitalize">{{ status }}
 						</option>
@@ -17,7 +17,7 @@
 					<div class="form-group flex-fill mr-1">
 						<div class="input-group">
 							<input class="form-control lighten-3" placeholder="dd/mm/yyyy" name="d2" ngbDatepicker
-								#d1="ngbDatepicker">
+								#d1="ngbDatepicker" [(ngModel)]="fechaIni">
 							<div class="input-group-append">
 								<button class="btn btn-outline-secondary calendar" (click)="d1.toggle()" type="button">
 									<svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-calendar-week-fill"
@@ -32,7 +32,7 @@
 					<div class="form-group flex-fill">
 						<div class="input-group">
 							<input class="form-control lighten-3" placeholder="dd/mm/yyyy" name="d2" ngbDatepicker
-								#d2="ngbDatepicker">
+								#d2="ngbDatepicker" [(ngModel)]="fechaFin">
 							<div class="input-group-append">
 								<button class="btn btn-outline-secondary calendar" (click)="d2.toggle()" type="button">
 									<svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-calendar-week-fill"
@@ -47,7 +47,7 @@
 
 				</div>
 				<div class="d-flex flex-fill justify-content-end h-100">
-					<button class="btn btn-solid-purple btn-find" type="submit">Filtrar</button>
+					<button class="btn btn-solid-purple btn-find" (click)="filtrar()">Filtrar</button>
 				</div>
 			</div>
 		</form>
@@ -61,7 +61,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr *ngFor="let order of orders | filter: searchText">
+					<tr *ngFor="let order of orders">
 						<td class="text-center">{{order.user.fullname}}</td>
 						<td *ngIf="role === 'admin' " class="text-center">{{order.store.name}}</td>
 						<td>
