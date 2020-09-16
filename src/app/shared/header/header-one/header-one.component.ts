@@ -72,9 +72,7 @@ export class HeaderOneComponent implements OnInit {
    * @description Cierra sesión
    */
   loggOut(): void {
-    this.storage.clearAll();
-    this.router.navigate( [ 'home' ] );
-    this.auth.authSubject( false );
+    this.auth.logout();
   }
 
 

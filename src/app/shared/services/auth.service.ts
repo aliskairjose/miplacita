@@ -4,6 +4,7 @@ import { HttpService } from './http.service';
 import { User } from '../classes/user';
 import { AuthResponse } from '../classes/auth-response';
 import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 @Injectable( {
   providedIn: 'root'
@@ -13,6 +14,7 @@ export class AuthService {
   selectedUSer: User;
 
   constructor(
+    private router: Router,
     private http: HttpService,
     private toastrService: ToastrService,
   ) { }
@@ -34,6 +36,10 @@ export class AuthService {
    */
   logout(): void {
     localStorage.removeItem( 'user' );
+    localStorage.removeItem( 'token' );
+    localStorage.removeItem( 'products' );
+    this.router.navigate( [ '/home' ] );
+    this.authSubject( false );
   }
 
   /**

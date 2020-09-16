@@ -84,12 +84,7 @@ export class SettingsComponent implements OnInit {
    * @description Cierra sesión
    */
   loggOut(): void {
-    this.storage.removeItem( 'user' );
-    this.storage.removeItem( 'token' );
-    this.storage.removeItem( 'products' );
-
-    this.router.navigate( [ '/home' ] );
-    this.auth.authSubject( false );
+    this.auth.logout();
   }
 
 }
