@@ -18,7 +18,7 @@ export class HeaderOneComponent implements OnInit {
   role: string;
   user: User;
   categories: Category[] = [];
-  
+
   @Input() class: string;
   @Input() themeLogo = 'assets/images/marketplace/images/logo-m.png'; // Default Logo
   @Input() isHidde = true;
@@ -48,7 +48,9 @@ export class HeaderOneComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    let cont = 1;
     this.isLoggedIn = this.auth.isAuthenticated();
+
     this.categoryService.categoryList().subscribe( ( response: Category[] ) => {
       this.categories = [ ...response ];
     } );
@@ -64,8 +66,6 @@ export class HeaderOneComponent implements OnInit {
         this.user = this.storage.getItem( 'user' );
         this.role = this.user.role;
       }
-      // tslint:disable-next-line: curly
-      if ( !isAuth ) this.toastrService.info( 'Hasta luego...' );
     } );
   }
 

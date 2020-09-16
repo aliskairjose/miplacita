@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { HttpService } from './http.service';
 import { User } from '../classes/user';
-import { FacebookLoginResponse } from '../classes/facebook-login-response';
 import { AuthResponse } from '../classes/auth-response';
+import { ToastrService } from 'ngx-toastr';
 
 @Injectable( {
   providedIn: 'root'
@@ -14,6 +14,7 @@ export class AuthService {
 
   constructor(
     private http: HttpService,
+    private toastrService: ToastrService,
   ) { }
 
   /**
@@ -40,7 +41,7 @@ export class AuthService {
    * @param data Data del usuario que actualiza
    */
   updateUser( data: any ): Observable<any> {
-    return this.http.put(`users`, data);
+    return this.http.put( `users`, data );
   }
 
   /**
@@ -68,6 +69,7 @@ export class AuthService {
    * @description Genera el stream de eventos usando next() para crear el evento
    */
   authSubject( isAuth: boolean ): void {
+    if ( !isAuth ) { this.toastrService.info( 'Hasta luego...' ); }
     this.$auth.next( isAuth );
   }
 
