@@ -16,10 +16,12 @@ export class AccountManageComponent implements OnInit {
   stores: Store[] = [];
   active = 'profile';
   user: User = new User();
+  subtab = 'store-profile';
   constructor(       
     private storage: StorageService,
   ) {
     this.user = this.storage.getItem( 'user' );
+    console.log(this.user);
     this.stores = [ ...state.user.stores ];
   }
 
@@ -29,5 +31,10 @@ export class AccountManageComponent implements OnInit {
 
   updateTab( tab ) {
     this.active = tab;
+  }
+
+  updateSubtab( tab ) {
+    console.log(tab);
+    this.subtab = tab
   }
 }

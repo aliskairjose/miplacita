@@ -27,6 +27,7 @@ export class ShopSuscriptionComponent implements OnInit {
     const stores: Store[] = user.stores;
 
     this.shopService.getStore( stores[ 0 ]._id ).subscribe( ( response: Result<Store> ) => {
+      console.log(response);
       this.plan = response.docs[ 0 ].plan;
     } );
   }
