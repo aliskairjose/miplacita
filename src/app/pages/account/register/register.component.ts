@@ -6,6 +6,10 @@ import { environment } from '../../../../environments/environment';
 import { SocialAuthService, FacebookLoginProvider } from 'angularx-social-login';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { FacebookLoginResponse } from '../../../shared/classes/facebook-login-response';
+import { AuthResponse } from '../../../shared/classes/auth-response';
+import { StorageService } from 'src/app/shared/services/storage.service';
+
+const state = { user: JSON.parse( sessionStorage.userForm || null ) };
 
 @Component( {
   selector: 'app-register',
@@ -30,6 +34,7 @@ export class RegisterComponent implements OnInit {
 
   constructor(
     private auth: AuthService,
+    private storage: StorageService,
     private formBuilder: FormBuilder,
     private socialService: SocialAuthService
 
@@ -42,28 +47,31 @@ export class RegisterComponent implements OnInit {
   get f() { return this.registerForm.controls; }
 
   ngOnInit(): void {
+    if ( state.user ) { this.registerSuccess = true; }
     this.socialService.authState.subscribe( ( response: FacebookLoginResponse ) => {
-      console.log( response );
-
       const data = { fullname: '', token: '', email: '' };
       data.email = response.email;
       data.fullname = response.name;
       data.token = response.authToken;
-
+      this.registerFB( data );
     } );
   }
 
   listen( r: boolean ) {
     this.registerSuccess = false;
     this.user = JSON.parse( sessionStorage.userForm );
-
   }
 
   onSubmit() {
     this.submitted = true;
     if ( this.registerForm.valid ) {
-      sessionStorage.setItem( 'userForm', JSON.stringify( this.registerForm.value ) );
-      this.registerSuccess = true;
+      this.auth.register( this.registerForm.value ).subscribe( ( data: AuthResponse ) => {
+        if ( data.success ) {
+          sessionStorage.setItem( 'userForm', JSON.stringify( data.user ) );
+          this.storage.setItem( 'token', data.token );
+          this.registerSuccess = true;
+        }
+      } );
     }
   }
 
@@ -81,6 +89,15 @@ export class RegisterComponent implements OnInit {
       email: [ '', [ Validators.required, Validators.email ] ],
     }, {
       validator: MustMatch( 'password', 'passwordConfirmation' )
+    } );
+  }
+
+  private registerFB( data: any ): void {
+    this.auth.socialLogin( data ).subscribe( ( result: AuthResponse ) => {
+      if ( result.success ) {
+        sessionStorage.setItem( 'userForm', JSON.stringify( result.user ) );
+        this.registerSuccess = true;
+      }
     } );
   }
 

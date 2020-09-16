@@ -7,32 +7,32 @@
             <div class="row">
                 <div class="col-lg-6  col-xs-12">
                     <div class="quick-view-img">
-                        <img [src]="ImageSrc ? ImageSrc : product.images[0].src" [alt]="product.images[0].alt" class="img-fluid">
+                        <img [src]="ImageSrc ? ImageSrc : product.image[0]" [alt]="product.name" class="img-fluid">
                     </div>
                 </div>
                 <div class="col-lg-6 rtl-text">
                     <div class="product-right">
-                        <h2>{{ product.title | titlecase }}</h2>
-                        <h3>{{ product.price * currency?.price | discount:product | currency:currency?.currency:'symbol' }}
-                            <del *ngIf="product?.discount"><span class="money">{{ product.price * currency?.price | currency:currency?.currency:'symbol' }}</span></del>
+                        <h2>{{ product.name | titlecase }}</h2>
+                        <h3>{{ product.price | currency }}
+                            <!-- <del *ngIf="product?.discount"><span class="money">{{ product.price  }}</span></del> -->
                         </h3>
-                        <ul class="color-variant" *ngIf="Color(product.variants).length">
+                        <!-- <ul class="color-variant" *ngIf="Color(product.variants).length">
                             <li [class]="color" *ngFor="let color of Color(product.variants)"
                                 [ngStyle]="{'background-color': color}" (click)="ChangeVariants(color, product)">
                             </li>
-                        </ul>
-                        <div class="border-product">
+                        </ul> -->
+                        <!-- <div class="border-product">
                             <h6 class="product-title">product details</h6>
                             <p>{{ product.description.substring(0, 200)+'...' }}</p>
-                        </div>
+                        </div> -->
                         <div class="product-description border-product">
-                            <div class="size-box" *ngIf="Size(product.variants).length">
+                            <!-- <div class="size-box" *ngIf="Size(product.variants).length">
                                 <ul>
                                     <li *ngFor="let size of Size(product.variants)">
                                         <a href="javascript:void(0)">{{ size | titlecase }}</a>
                                     </li>
                                 </ul>
-                            </div>
+                            </div> -->
                             <h5 class="avalibility" *ngIf="counter <= product.stock"><span>In Stock</span></h5>
                             <h5 class="avalibility" *ngIf="counter > product.stock"><span>Out of Stock</span></h5>
                             <h6 class="product-title">quantity</h6>
@@ -54,7 +54,7 @@
                         </div>
                         <div class="product-buttons">
                             <a href="javascript:void(0)" class="btn btn-solid" [class.disabled]="counter > product.stock" (click)="addToCart(product)">add to cart</a>
-                            <a [routerLink]="['/shop/product/left/sidebar/', product.title.replace(' ', '-')]" class="btn btn-solid">view detail</a>
+                            <a [routerLink]="['/shop/product/left/sidebar/', product.name.replace(' ', '-')]" class="btn btn-solid">view detail</a>
                         </div>
                     </div>
                 </div>
