@@ -49,6 +49,7 @@ export class ShippingComponent implements OnInit, OnDestroy {
   longitude = -66.9604066;
   zoom: number;
   address: string;
+  hideMessage = false;
   order = {
     products: [],
     store: '',
@@ -80,6 +81,7 @@ export class ShippingComponent implements OnInit, OnDestroy {
   ) {
 
     if ( this.auth.isAuthenticated() ) {
+      this.hideMessage = true;
       this.user = this.storage.getItem( 'user' );
       const store = this.user.stores[ 0 ];
       const shippingAddress: ShippingAddress = this.storage.getItem( `shippingAddress${this.user._id}` );
@@ -90,9 +92,8 @@ export class ShippingComponent implements OnInit, OnDestroy {
         const response = confirm( 'Ya existe una dirección, ¿Desea usarla?' );
         ( response ) ? this.shippingAddress = shippingAddress : this.shippingAddress = {};
       }
-    } else {
-      this.toastrService.warning( 'Debe iniciar sesión' );
     }
+
     this.createForm();
   }
 
