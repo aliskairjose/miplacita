@@ -14,7 +14,6 @@ import { ShipmentOption } from '../../../shared/classes/shipment-option';
 import { GooglePlaceDirective } from 'ngx-google-places-autocomplete';
 import { Router } from '@angular/router';
 import { MapsAPILoader } from '@agm/core';
-import { NgxSpinnerService } from 'ngx-spinner';
 import { AuthService } from '../../../shared/services/auth.service';
 
 
@@ -54,6 +53,7 @@ export class ShippingComponent implements OnInit, OnDestroy {
     products: [],
     store: '',
     shipment_option: '',
+    shipment_price: 0,
     address: {
       address: '',
       landMark: '',
@@ -160,6 +160,8 @@ export class ShippingComponent implements OnInit, OnDestroy {
     this.order.address.address = this.checkoutForm.value.address;
     this.order.address.phone = this.checkoutForm.value.phone;
     this.order.shipment_option = this.shipmentOptionsForm.get( 'shipment_option' ).value;
+    const ship = this.shipmentOptions.filter( val => val._id === this.order.shipment_option );
+    this.order.shipment_price = ship[0].price;
 
     this.submitted = true;
     if ( this.checkoutForm.valid ) {
