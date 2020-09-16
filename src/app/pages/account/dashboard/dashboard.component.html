@@ -5,17 +5,23 @@
         <div class="form-row labels" *ngIf="user.role === 'admin'">
             <div class="col-md-3">
                 <div class="label card d-flex flex-row">
-                    <div class="col-1 d-flex align-items-stretch icon-label"></div>
-                    <div *ngIf="user.role=='admin'" class="d-flex flex-fill justify-content-center align-items-center ">
-                        <p class="my-auto" *ngIf="dashboardData.totalStores">{{ dashboardData.totalStores }} tiendas</p>
-                        <p class="my-auto" *ngIf="!dashboardData.totalStores">0 tiendas</p>
+                    <div class="d-flex flex-fill justify-content-center align-items-center ">
+                        <div class="col d-flex ">
+                            <img src="assets/images/marketplace/images/icons/stats.png"/>
+                        </div>
+                        <div *ngIf="user.role=='admin'" class="d-flex flex-fill justify-content-center align-items-center ">
+                            <p class="my-auto" *ngIf="dashboardData.totalStores">{{ dashboardData.totalStores }} tiendas</p>
+                            <p class="my-auto" *ngIf="!dashboardData.totalStores">0 tiendas</p>
+                        </div>
                     </div>
                 </div>
             </div>
             <div class="col-md-3">
                 <div class="label card d-flex flex-row">
-                    <div class="col-1 d-flex align-items-stretch icon-label"></div>
                     <div class="d-flex flex-fill justify-content-center align-items-center ">
+                        <div class="col d-flex ">
+                            <img src="assets/images/marketplace/images/icons/stats.png"/>
+                        </div>
                         <div *ngIf="user.role=='admin'" class="d-flex flex-fill justify-content-center align-items-center ">
                             <p class="my-auto" *ngIf="dashboardData.amountSales">{{ dashboardData.amountSales | currency }} ventas</p>
                             <p class="my-auto" *ngIf="!dashboardData.amountSales">0 ventas</p>
@@ -26,8 +32,10 @@
             </div>
             <div class="col-md-3">
                 <div class="label card d-flex flex-row">
-                    <div class="col-1 d-flex align-items-stretch icon-label"></div>
                     <div class="d-flex flex-fill justify-content-center align-items-center ">
+                        <div class="col d-flex ">
+                            <img src="assets/images/marketplace/images/icons/productos.png"/>
+                        </div>
                         <div *ngIf="user.role=='admin'" class="d-flex flex-fill justify-content-center align-items-center ">
                             <p class="my-auto" *ngIf="dashboardData.totalProducts">{{ dashboardData.totalProducts }} productos</p>
                             <p class="my-auto" *ngIf="!dashboardData.totalProducts">0 productos</p>
@@ -37,8 +45,10 @@
             </div>
             <div class="col-md-3">
                 <div class="label card d-flex flex-row">
-                    <div class="col-1 d-flex align-items-stretch icon-label"></div>
                     <div class="d-flex flex-fill justify-content-center align-items-center ">
+                        <div class="col d-flex ">
+                            <img src="assets/images/marketplace/images/icons/stats.png"/>
+                        </div>
                         <div *ngIf="user.role=='admin'" class="d-flex flex-fill justify-content-center align-items-center ">
                             <p class="my-auto" *ngIf="dashboardData.totalRetirement">{{ dashboardData.totalRetirement }} retiros</p>
                             <p class="my-auto" *ngIf="!dashboardData.totalRetirement">0 retiros</p>
@@ -100,62 +110,56 @@
             </div>
         </div>
         <div class="form-row charts">
-            <div class="col-md-6" *ngIf="barChartData.length>0">
-                <google-chart class="chart"
-                [title]="barChartTitle"
-                [options]="barChartOptions"
-                width="100%"
-                height="100%" 
-                type="BarChart" 
-                [data]="barChartData" ></google-chart>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+                <h5 class="text-center">Ventas</h5>
+                <canvas baseChart
+                        [datasets]="barChartData"
+                        [labels]="barChartLabels"
+                        [options]="barChartOptions"
+                        [colors]="barChartColors"
+                        [legend]="false"
+                        [chartType]="barChartType">
+                </canvas>
             </div>
-            <div class="col-md-6" *ngIf="pieChartData.length>0">
-                <google-chart class="chart"
-                [title]="pieChartTitle"
-                [options]="" 
-                type="PieChart" 
-                [data]="pieChartData" ></google-chart>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+                <h5 class="text-center">Más vendidos de este mes</h5>
+                <canvas baseChart
+                        [colors]="doughnutColors"
+                        [data]="doughnutChartData"
+                        [labels]="doughnutChartLabels"
+                        [chartType]="doughnutChartType">
+                </canvas>
+
             </div>
+            
         </div>
-        <div class="form-row container justify-content-center " *ngIf="orders.length==0 && user.role =='merchant'">
-            <div class="col-md-5">
-                <div class="card text-center mx-auto mb-2">
-                    <div class="card-body">
-                        <p>Configura tu tienda</p>
-                        <a [routerLink]="'/pages/shop/profile'" class="btn btn-solid">Configurar</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-5" *ngIf="!dashboardData.products">
-                <div class="card text-center mx-auto mb-2">
-                    <div class="card-body">
-                        <p>Agrega productos a tu tienda</p>
-                        <a [routerLink]="'/pages/products'" class="btn btn-solid">Agregar</a>    
-                    </div>
-                </div>
-            </div>
-        </div>
+        
         <div class="form-row flex-fill flex-column mt-5 px-1">
             <h3 *ngIf="user.role == 'admin'">Pagos</h3>
-            <div class="table-responsive-sm ">
-                <table class="table">
+            <h3 *ngIf="user.role == 'merchant'">Pedidos</h3>
+            <div class="table-responsive">
+                <table class="table table-responsive-sm">
                     <thead>
-                    <tr class="table-head">
-                        <th class="text-center" *ngFor="let field of fields" scope="col">{{field.name}}</th>
-                    </tr>
+                        <tr class="table-head">
+                            <th class="text-center text-uppercase" *ngFor="let field of fields" scope="col">{{field.name}}</th>
+                        </tr>
                     </thead>
                     <!--Store Admin-->
                     <tbody *ngIf="user.role =='merchant'">
                         <tr *ngFor="let order of orders">
                             <td class="text-center">
-                                {{order.name}}
-                            </td>
-                            <td class="text-center">
-                                {{order.status}}
+                                ID: {{order._id}}
                             </td>
                             <td class="text-center" >
                                 <p>{{order.description}}</p>
                             </td>
+                            <td class="text-center" >
+                                <p>{{order.created_at}}</p>
+                            </td>
+                            <td class="text-center">
+                                {{order.status}}
+                            </td>
+                            
                             <td class="text-center"><strong>{{order.price}}</strong></td>
                         </tr>
                     </tbody>

@@ -6,7 +6,8 @@ import { User } from '../../../shared/classes/user';
 import { DashboardService } from '../../../shared/services/dashboard.service';
 import { Dashboard } from '../../../shared/classes/dashboard';
 import { ToastrService } from 'ngx-toastr';
-
+import { ChartType, ChartDataSets } from 'chart.js';
+import { SingleDataSet, Color, Label } from 'ng2-charts';
 @Component( {
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -21,26 +22,39 @@ export class DashboardComponent implements OnInit {
   public fields = [];
 
   /** table fields by type user */
-  public storeFields = [ { name: 'Pedidos' },
-  { name: 'Status' },
-  { name: 'Descripción' },
-  { name: 'Precio' } ];
-  public adminFields = [ { name: 'Tienda' },
-  { name: 'Monto' },
-  { name: 'Fecha' } ];
+  public storeFields = [  { name: 'Pedidos nro' },
+                          { name: 'Descripción' },
+                          { name: 'Fecha de emisión' },
+                          { name: 'Estatus de entrega' } ];
+  public adminFields = [  { name: 'Tienda' },
+                          { name: 'Monto' },
+                          { name: 'Fecha' } ];
   public paginate: any = {};
   public pageNo = 1;
   public pageSize = 5;
   public shops = [];
   public orders = [];
   /** Google Chart information */
-  public barChartOptions = { legend: 'none', colors: [ '#ff4c3b' ] };
   public barChartColumns = [ 'Mayo', 'Junio', 'Julio', 'Agosto' ];
-  public barChartTitle = '';
-  public pieChartTitle = '';
-  public barChartData = [];
-  public pieChartData = [];
+  public barChartOptions = {
+    scaleShowVerticalLines: false,
+    responsive: true,
+    legend: 'none'
+  };
+  public barChartColors: Color[] = [{backgroundColor: '#68396d'}];
 
+  public barChartLabels: Label[] = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio'];
+  public barChartType: ChartType = 'bar';
+
+  barChartData: ChartDataSets[] = [
+    { data: [0.3, 37, 60, 70, 46, 33]}
+  ];
+  public doughnutChartLabels: Label[] = ['Producto 1', 'Producto 2'];
+
+  public doughnutChartData: SingleDataSet = [50, 50];
+
+  public doughnutChartType: ChartType = 'doughnut';
+  public doughnutColors: Color[] = [{backgroundColor: ['#d0260f','#eca89e']}];
   public salesChart = [];
 
   public adminPieChart = [];
@@ -90,17 +104,7 @@ export class DashboardComponent implements OnInit {
 
   getChartInformation() {
     /** carga de datos para las estadisticas */
-    this.barChartData = this.salesChart;
-    this.barChartTitle = 'Ventas';
-    if ( this.user.role === 'merchant' ) {
-      this.pieChartData = this.storePieChart;
-      this.pieChartTitle = 'Más vendidos este mes';
-
-    } else if ( this.user.role === 'admin' ) {
-      this.pieChartData = this.adminPieChart;
-      this.pieChartTitle = 'Ventas por tienda';
-
-    }
+    
   }
 
   slicePage( items ) {

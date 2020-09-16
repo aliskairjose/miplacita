@@ -8,21 +8,28 @@
                 <div class="user-menu" >
                     <div class="tab" (click)="updateTab('profile')" 
                     [ngClass]="{'active': active=='profile','btn tab': active!='profile'}" >
-                    <button class="btn " id="profile-tab" >
-                        <img src="assets/images/marketplace/images/icons/profile.png" alt="">
-                        Mi perfil</button>
+                        <button class="btn " id="profile-tab" >
+                            <img src="assets/images/marketplace/images/icons/profile.png" alt="">
+                            Mi perfil
+                        </button>
                     </div>
                     <div class="tab" (click)="updateTab('orders')"
                         [ngClass]="{'active': active=='orders','btn tab': active!='orders'}">
                         <button class="btn "  id="order-tab">
                             <img src="assets/images/marketplace/images/icons/orders.png" alt="">
-                            Mis Pedidos</button>
+                            Mis Pedidos
+                        </button>
                     </div>
                     <div class="tab" (click)="updateTab('stores')"
                         [ngClass]="{'active': active==='stores','btn tab': active!=='stores'}">
-                        <button class="btn">
+                        <button class="btn" *ngIf="user.role=='merchant'">
                             <img src="assets/images/marketplace/images/icons/store.png" alt="">
-                            Mis tiendas</button>
+                            Mis tiendas
+                        </button>
+                        <button class="btn" *ngIf="user.role=='admin'">
+                            <img src="assets/images/marketplace/images/icons/store.png" alt="">
+                            Tiendas
+                        </button>
                     </div>
                 </div>
 
@@ -81,29 +88,31 @@
                 <div *ngIf="active==='orders'" class="" id="order" role="tabpanel">
                     <app-user-orders></app-user-orders>
                 </div>
-                <div *ngIf="active==='stores'" class="" id="contact" role="tabpanel" 
-                    aria-labelledby="contact-tab">
-                    <div class="page-title">
-                        <h2 class="mp-title">
-                            <span>Mis tiendas</span>
-                        </h2>
-                    </div>
-                    <div class="container">
-                        <div class="row">
-                            <div class="col theme-tab">
-                                <div>
-                                    <div class="no-slider row">
-                                        <ng-container *ngFor="let store of stores | slice:0:8">
-                                            <div class="store-box">
-                                                <app-shop-card [store]="store">
-                                                </app-shop-card>
-                                            </div>
-                                        </ng-container>
+                <div *ngIf="active==='stores'" class="" id="contact" role="tabpanel">
+                    <div *ngIf="user.role==='merchant'" >
+                        <div class="page-title">
+                            <h2 class="mp-title">
+                                <span >Mis tiendas</span>
+                            </h2>
+                        </div>
+                        <div class="container">
+                            <div class="row">
+                                <div class="col theme-tab">
+                                    <div>
+                                        <div class="no-slider row">
+                                            <ng-container *ngFor="let store of stores | slice:0:8">
+                                                <div class="store-box">
+                                                    <app-shop-card [store]="store">
+                                                    </app-shop-card>
+                                                </div>
+                                            </ng-container>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    <app-shops *ngIf="user.role==='admin'"></app-shops>
                 </div>
                 <div *ngIf="active==='dashboard'" class="" id="dashboard" role="tabpanel">
                     <app-dashboard></app-dashboard>
