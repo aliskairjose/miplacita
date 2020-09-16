@@ -33,8 +33,8 @@
                                     </li>
                                 </ul>
                             </div> -->
-                            <h5 class="avalibility" *ngIf="counter <= product.stock"><span>In Stock</span></h5>
-                            <h5 class="avalibility" *ngIf="counter > product.stock"><span>Out of Stock</span></h5>
+                            <h5 class="avalibility" *ngIf="counter <= product.stock"><span>En stock</span></h5>
+                            <h5 class="avalibility" *ngIf="counter > product.stock"><span>Agotado</span></h5>
                             <h6 class="product-title">quantity</h6>
                             <div class="qty-box">
                                 <div class="input-group">
@@ -53,8 +53,9 @@
                             </div>
                         </div>
                         <div class="product-buttons">
-                            <a href="javascript:void(0)" class="btn btn-solid" [class.disabled]="counter > product.stock" (click)="addToCart(product)">add to cart</a>
-                            <a [routerLink]="['/shop/product/left/sidebar/', product.name.replace(' ', '-')]" class="btn btn-solid">view detail</a>
+                            <a href="javascript:void(0)" class="btn btn-solid" [class.disabled]="counter > product.stock" (click)="addToCart(product)">al carrito</a>
+                            <a [routerLink]="['/shop/product/', product._id]" class="btn btn-solid">ver detalle</a>
+                            <!-- <a [routerLink]="['/shop/product/left/sidebar/', product.name.replace(' ', '-')]" class="btn btn-solid">ver detalle</a> -->
                         </div>
                     </div>
                 </div>
