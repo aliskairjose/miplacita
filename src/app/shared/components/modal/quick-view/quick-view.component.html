@@ -21,10 +21,10 @@
                                 [ngStyle]="{'background-color': color}" (click)="ChangeVariants(color, product)">
                             </li>
                         </ul> -->
-                        <!-- <div class="border-product">
-                            <h6 class="product-title">product details</h6>
+                        <div class="border-product">
+                            <h6 class="product-title">Detalle de producto</h6>
                             <p>{{ product.description.substring(0, 200)+'...' }}</p>
-                        </div> -->
+                        </div>
                         <div class="product-description border-product">
                             <!-- <div class="size-box" *ngIf="Size(product.variants).length">
                                 <ul>
@@ -55,7 +55,6 @@
                         <div class="product-buttons">
                             <a href="javascript:void(0)" class="btn btn-solid" [class.disabled]="counter > product.stock" (click)="addToCart(product)">al carrito</a>
                             <a [routerLink]="['/shop/product/', product._id]" class="btn btn-solid">ver detalle</a>
-                            <!-- <a [routerLink]="['/shop/product/left/sidebar/', product.name.replace(' ', '-')]" class="btn btn-solid">ver detalle</a> -->
                         </div>
                     </div>
                 </div>
