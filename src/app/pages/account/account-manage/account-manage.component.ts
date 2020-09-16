@@ -3,6 +3,8 @@ import { Store } from 'src/app/shared/classes/store';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { StorageService } from 'src/app/shared/services/storage.service';
 import { User } from 'src/app/shared/classes/user';
+import { ActivatedRoute, Router } from '@angular/router';
+import { log } from 'console';
 
 const state = {
   user: JSON.parse( localStorage.user || null )
@@ -12,11 +14,14 @@ const state = {
   templateUrl: './account-manage.component.html',
   styleUrls: [ './account-manage.component.scss' ]
 } )
+
 export class AccountManageComponent implements OnInit {
   stores: Store[] = [];
   active = 'profile';
   user: User = new User();
   constructor(
+    private router: Router,
+    private route: ActivatedRoute,
     private storage: StorageService,
   ) {
     this.user = this.storage.getItem( 'user' );
@@ -24,8 +29,10 @@ export class AccountManageComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
+    this.active = this.route.snapshot.params.page;
+    this.route.url.subscribe( url => this.active = url[ 2 ].path );
   }
+
 
   updateTab( tab ) {
     this.active = tab;
