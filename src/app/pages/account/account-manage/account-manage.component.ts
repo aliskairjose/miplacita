@@ -32,7 +32,7 @@ export class AccountManageComponent implements OnInit {
 
   updateTab( tab: string ) {
     this.active = tab;
-    this.router.navigateByUrl( `pages/account/user/${tab}`,  { skipLocationChange: true } );
+    this.router.navigateByUrl( `pages/account/user/${tab}`,  { skipLocationChange: false } );
   }
 
   updateSubtab( tab ) {
