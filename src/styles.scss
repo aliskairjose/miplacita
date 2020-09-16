@@ -128,6 +128,9 @@ $radius: 5px;
     Alerts styles ends
    ==============
 */
+.section-b-space {
+  padding-top: 25px
+}
 // Landing Page 
 
 .info-plan {
@@ -218,6 +221,15 @@ form {
       width: 18px;
     }
   }
+}
+
+.label {
+    padding: 13px 13px;
+    margin-bottom: 3%;
+}
+.labels {
+    
+    margin-bottom: 3%;
 }
 
 #exampleFormControlTextarea1{

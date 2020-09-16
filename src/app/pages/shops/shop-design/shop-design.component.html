@@ -1,11 +1,7 @@
-<app-breadcrumb [title]="'Diseño'" [breadcrumb]="'Tienda'"></app-breadcrumb>
-
 <section class="section-b-space">
     <div class="container d-flex">
-      <div class="col-md-4 flex-column pl-3 optional">
-        <app-shop-submenu active="1"></app-shop-submenu>
-      </div>  
-      <div class="theme-form col-md-8 mx-auto" >
+
+      <div class="theme-form col mx-auto" >
           <div class="form-row mb-3">
             <label class="label mr-2 my-auto" for="color">Color de la tienda</label>
             <input  class="form-control col-md-3" id="color" [(colorPicker)]="color" [style.background]="color"/>

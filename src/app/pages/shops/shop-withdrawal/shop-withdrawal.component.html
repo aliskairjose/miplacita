@@ -1,21 +1,17 @@
-<app-breadcrumb [title]="'Retiro de dinero'" [breadcrumb]="'Tienda'"></app-breadcrumb>
-
 <section class="section-b-space">
     <div class="container d-flex">
-        <div class="col-md-4 flex-column optional">
-            <app-shop-submenu active="3"></app-shop-submenu>
-        </div>
-        <div class="d-flex flex-column col-md-8 mx-auto">
+        
+        <div class="d-flex flex-column col-lg-9 col-md-9 col-sm-12 border-box">
             <div class="card form-group text-center p-4">
-                <h3>Monto de ventas </h3>
+                <h3 class="font-weight-bold">Monto en ventas </h3>
                 <h3><strong>8.88$</strong></h3>
-                <p>Te pagaremos el día {{ paymentDay }}</p>
+                <h4>Te pagaremos el día <strong>{{ paymentDay }}</strong></h4>
             </div>
-            <p>Cuéntanos cuál es tu banco</p>
             <form [formGroup]="form" (ngSubmit)="onSubmit()" class="theme-form">
                 <div class="form-group">
+                    <div class="field-label font-weight-bold">Banco</div>
                     <select formControlName="bank" class="form-control">
-                        <option>Banco</option>
+                        <option>Selecciona uno</option>
                         <option *ngFor="let bank of banks"></option>
                     </select>
                     <div *ngIf="submitted && f.bank.errors">
@@ -23,47 +19,35 @@
                         </div>
                     </div>
                 </div>
-                <div class="form-group input-group">
-                    <input formControlName="titular" type="text" class="form-control" id="titular" placeholder="Titular de la cuenta" required="">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text">
-                            <img src="../../../../assets/images/marketplace/svg/home.svg" alt="">
-                        </span>
-                    </div>
+                <div class="form-group ">
+                    <div class="field-label font-weight-bold">Titular de la cuenta</div>
+                    <input formControlName="titular" type="text" class="form-control" id="titular" required="">
+                    
                     <div *ngIf="submitted && f.titular.errors" class="invalid-feedback d-block">
                         <div *ngIf="f.titular.errors.required"> {{ required }}
                         </div>
                     </div>
                 </div>
                 <!-- Acccount -->
-                <div class="form-group input-group ">
-                    <input formControlName="account" type="text" class="form-control" id="bank-account" placeholder="Número de la cuenta"
-                        required="">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text">
-                            <img src="../../../../assets/images/marketplace/svg/home.svg" alt="">
-                        </span>
-                    </div>
+                <div class="form-group">
+                    <div class="field-label font-weight-bold">Número de la cuenta</div>
+                    <input formControlName="account" type="text" class="form-control" id="bank-account" required="">
                     <div *ngIf="submitted && f.account.errors" class="invalid-feedback d-block">
                         <div *ngIf="f.account.errors.required"> {{ required }}
                         </div>
                     </div>
                 </div>
                 <!-- Tipo de cuenta -->
-                <div class="form-group input-group">
-                    <input formControlName="type" type="text" class="form-control" id="titular" placeholder="Tipo de cuenta" required="">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text">
-                            <img src="../../../../assets/images/marketplace/svg/home.svg" alt="">
-                        </span>
-                    </div>
+                <div class="form-group">
+                    <div class="field-label font-weight-bold">Tipo de cuenta</div>
+                    <input formControlName="type" type="text" class="form-control" id="titular"required="">
                     <div *ngIf="submitted && f.type.errors" class="invalid-feedback d-block">
                         <div *ngIf="f.type.errors.required"> {{ required }}
                         </div>
                     </div>
                 </div>
                 <div class="form-group text-center">
-                    <button class="btn btn-solid flex-fill">Actualizar banco</button>
+                    <button class="btn btn-solid-purple flex-fill">Actualizar banco</button>
                 </div>
             </form>
 

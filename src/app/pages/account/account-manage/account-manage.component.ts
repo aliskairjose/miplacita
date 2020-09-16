@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from 'src/app/shared/classes/store';
 import { StorageService } from 'src/app/shared/services/storage.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { User } from '../../../shared/classes/user';
 
 @Component( {
   selector: 'app-account-manage',
@@ -10,8 +11,11 @@ import { ActivatedRoute, Router } from '@angular/router';
 } )
 
 export class AccountManageComponent implements OnInit {
+  
   stores: Store[] = [];
   active = 'profile';
+  user: User = {};
+  subtab = 'store-profile';
 
   constructor(
     private router: Router,
@@ -29,5 +33,10 @@ export class AccountManageComponent implements OnInit {
   updateTab( tab: string ) {
     this.active = tab;
     this.router.navigateByUrl( `pages/account/user/${tab}`,  { skipLocationChange: true } );
+  }
+
+  updateSubtab( tab ) {
+    console.log(tab);
+    this.subtab = tab;
   }
 }
