@@ -58,9 +58,7 @@ export class SettingsComponent implements OnInit {
   ngOnInit(): void {
     this.isLoggedIn = this.auth.isAuthenticated();
     this.auth.authObserver().subscribe( ( isAuth: boolean ) => {
-      if ( isAuth ) {
-        this.isLoggedIn = isAuth;
-      }
+      this.isLoggedIn = isAuth;
     } );
   }
 
