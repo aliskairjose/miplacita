@@ -15,10 +15,10 @@
               <a [routerLink]="menuItem.path" *ngIf="menuItem.type === 'sub' && (menuItem.role === role || menuItem.role === null)" 
                   (click)="toggletNavActive(menuItem)">
                  {{menuItem.title}}
-                 <span class="sub-arrow optional"  *ngIf="menuItem.children" ></span>
+                 <span class="sub-arrow optional" *ngIf="menuItem.children" ></span>
               </a>
               <!-- Link -->
-              <a [routerLink]="menuItem.path" *ngIf="menuItem.type === 'link' && (menuItem.role === role || menuItem.role === null)" (click)="leftMenuToggle()">
+              <a (click)="routerTo(menuItem.path)" if="menuItem.type === 'link' && (menuItem.role === role || menuItem.role === null)" (click)="leftMenuToggle()">
                  {{menuItem.title}}
                  <span class="sub-arrow" *ngIf="menuItem.children"></span>
               </a>
