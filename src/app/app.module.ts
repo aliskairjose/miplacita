@@ -95,8 +95,8 @@ export const customCurrencyMaskConfig = {
         providers: [
           {
             id: FacebookLoginProvider.PROVIDER_ID,
-            provider: new FacebookLoginProvider( '657082578248389' ), // Id Kervin
-            // provider: new FacebookLoginProvider( '1067702780312136' ), // ID Alfredo
+            // provider: new FacebookLoginProvider( '657082578248389' ), // Id Kervin
+            provider: new FacebookLoginProvider( '1067702780312136' ), // ID Alfredo
           }
         ],
       } as SocialAuthServiceConfig,
