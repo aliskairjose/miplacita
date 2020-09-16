@@ -13,6 +13,7 @@ export class LeftMenuComponent implements OnInit {
 
   menuItems: Menu[];
   role: string;
+  path = '/shop/collection/left/sidebar?name=&category=';
 
   constructor(
     private router: Router,
@@ -39,6 +40,10 @@ export class LeftMenuComponent implements OnInit {
   // Click Toggle menu (Mobile)
   toggletNavActive( item ) {
     item.active = !item.active;
+  }
+
+  routerTo( id: string ): void {
+    this.router.navigateByUrl(`${this.path}${id}`);
   }
 
 }

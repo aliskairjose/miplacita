@@ -65,9 +65,10 @@
                 </div>
                 <div class="tab" (click)="updateTab('logout')"
                     [ngClass]="{'active': active==='logout','btn tab': active!=='logout'}">
-                    <button class="btn">
+                    <button class="btn" (click)="loggOut()">
                         <img src="assets/images/marketplace/images/icons/logout.png" alt="">
-                        Cerrar Sesión</button>
+                        Cerrar Sesión
+                    </button>
                 </div>
             </div>
         </div>

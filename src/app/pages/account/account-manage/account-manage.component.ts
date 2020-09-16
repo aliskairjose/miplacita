@@ -3,6 +3,7 @@ import { Store } from 'src/app/shared/classes/store';
 import { StorageService } from 'src/app/shared/services/storage.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { User } from '../../../shared/classes/user';
+import { AuthService } from '../../../shared/services/auth.service';
 
 @Component( {
   selector: 'app-account-manage',
@@ -19,6 +20,7 @@ export class AccountManageComponent implements OnInit {
 
   constructor(
     private router: Router,
+    private auth: AuthService,
     private route: ActivatedRoute,
     private storage: StorageService,
   ) {
@@ -38,4 +40,9 @@ export class AccountManageComponent implements OnInit {
   updateSubtab( tab ) {
     this.subtab = tab;
   }
+
+  loggOut(): void {
+    this.auth.logout();
+  }
+
 }

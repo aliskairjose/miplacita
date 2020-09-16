@@ -51,7 +51,7 @@ export class NavService {
 				this.sideMenuItem = {};
 				this.sideMenuItem.title = iterator.name;
 				this.sideMenuItem.type = 'link';
-				this.sideMenuItem.path = '#';
+				this.sideMenuItem.path = iterator._id;
 				this.LEFTMENUITEMS.push( this.sideMenuItem );
 			}
 			
