@@ -36,7 +36,6 @@ export class AccountManageComponent implements OnInit {
   }
 
   updateSubtab( tab ) {
-    console.log(tab);
     this.subtab = tab;
   }
 }
