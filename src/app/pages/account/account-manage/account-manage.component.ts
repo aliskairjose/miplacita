@@ -1,10 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from 'src/app/shared/classes/store';
-import { AuthService } from 'src/app/shared/services/auth.service';
 import { StorageService } from 'src/app/shared/services/storage.service';
-import { User } from 'src/app/shared/classes/user';
 import { ActivatedRoute, Router } from '@angular/router';
-import { log } from 'console';
 
 @Component( {
   selector: 'app-account-manage',

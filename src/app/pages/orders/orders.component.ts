@@ -70,7 +70,7 @@ export class OrdersComponent implements OnInit {
     const store: Store[] = user.stores;
     if ( store.length > 0 ) { this.storeId = store[ 0 ]._id; }
 
-    params = `store=${this.storeId}&status=${this.status}$fecha_ini=${this.fechaIni}&fecha_fin=${this.fechaIni}`;
+    params = `store=${this.storeId}&status=${this.status}$from=${this.fechaIni}&to=${this.fechaIni}`;
 
     this.orderService.orderList( page, params ).subscribe( ( result: Result<Order> ) => {
       this.orders = [ ...result.docs ];
