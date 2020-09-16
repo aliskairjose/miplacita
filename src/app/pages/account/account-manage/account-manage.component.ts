@@ -29,12 +29,12 @@ export class AccountManageComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.active = this.route.snapshot.params.page;
     this.route.url.subscribe( url => this.active = url[ 2 ].path );
   }
 
 
   updateTab( tab ) {
     this.active = tab;
+    this.router.navigateByUrl( `pages/account/user/${tab}`,  { skipLocationChange: false } );
   }
 }
