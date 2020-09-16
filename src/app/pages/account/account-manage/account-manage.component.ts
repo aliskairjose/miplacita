@@ -11,7 +11,7 @@ import { User } from '../../../shared/classes/user';
 } )
 
 export class AccountManageComponent implements OnInit {
-  
+
   stores: Store[] = [];
   active = 'profile';
   user: User = {};
@@ -22,8 +22,8 @@ export class AccountManageComponent implements OnInit {
     private route: ActivatedRoute,
     private storage: StorageService,
   ) {
-    const user = this.storage.getItem('user');
-    this.stores = [ ...user.stores ];
+    this.user = this.storage.getItem( 'user' );
+    this.stores = [ ...this.user.stores ];
   }
 
   ngOnInit(): void {
@@ -32,7 +32,7 @@ export class AccountManageComponent implements OnInit {
 
   updateTab( tab: string ) {
     this.active = tab;
-    this.router.navigateByUrl( `pages/account/user/${tab}`,  { skipLocationChange: false } );
+    this.router.navigateByUrl( `pages/account/user/${tab}`, { skipLocationChange: false } );
   }
 
   updateSubtab( tab ) {
