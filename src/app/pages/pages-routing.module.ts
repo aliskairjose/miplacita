@@ -132,7 +132,8 @@ const routes: Routes = [
   },
   {
     path: 'account/user/:page',
-    component: AccountManageComponent
+    component: AccountManageComponent,
+    canActivate: [ AuthGuard ]
   }
 ];
 

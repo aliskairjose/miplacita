@@ -1,3 +1,9 @@
+.border-box .card {
+	background-color: var(--theme-deafult);
+	h3,h4 {
+		color: var(--white);
+	}
+}
 @media(max-width: 768px){
     .optional{
         display: none !important;

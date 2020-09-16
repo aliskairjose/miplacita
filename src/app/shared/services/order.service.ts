@@ -61,30 +61,18 @@ export class OrderService {
   }
 
   /**
-   * @description Retorna la lista de ordenes de una tienda es específico
-   * @param id ID de la tienda a consultar las ordenes
-   * @returns Observable de array de ordenes
+   * @description Lista las ordenes segun los parametros, si params esta vacio lista todas las ordenes (admin)
+   * @param page Pagina a consultar
+   * @param params order?store=IDTIENDA&status=cancelado|en proceso|aprobado|por aprobar|pagado|entregado|devuelto
+   * &orderBy=status|amount|tax|created_at
    */
-  orderList( id: string, page = 1 ): Observable<Result<Order>> {
-    return this.http.get( `order?store=${id}` ).pipe(
+  orderList( page = 1, params = '' ): Observable<Result<Order>> {
+    return this.http.get( `order?page=${page}&${params}`  ).pipe(
       map( ( response: Response<Order> ) => {
         return response.result;
       } )
     );
   }
-
-  /**
-   * @description Retorna todas las ordenes de la tienda
-   * @param id Id de la tienda
-   */
-  getAll( page = 1 ): Observable<Result<Order>> {
-    return this.http.get( `order?page=${page}` ).pipe(
-      map( ( response: Response<Order> ) => {
-        return response.result;
-      } )
-    );
-  }
-
 
   /**
    * @description Retorna el listado de clientes del usuario logueado
