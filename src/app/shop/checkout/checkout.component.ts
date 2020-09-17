@@ -97,7 +97,6 @@ export class CheckoutComponent implements OnInit {
   // tslint:disable-next-line: typedef
   get f() { return this.paymentForm.controls; }
 
-
   public get subTotal(): Observable<number> {
     return this.productService.cartTotalAmount();
   }
@@ -105,8 +104,6 @@ export class CheckoutComponent implements OnInit {
   public get total(): Observable<number> {
     return this.productService.cartTotalAmount();
   }
-
-
 
   // Stripe Payment Gateway
   stripeCheckout() {
