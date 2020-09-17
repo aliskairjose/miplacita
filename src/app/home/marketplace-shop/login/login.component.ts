@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, NavigationEnd } from '@angular/router';
+import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../../shared/services/auth.service';
 import { StorageService } from '../../../shared/services/storage.service';
@@ -18,23 +18,19 @@ export class LoginComponent implements OnInit {
   submitted: boolean;
   required = 'Campo obligatorio';
   invalidEmail = 'Email inválido';
-  private previousUrl: string;
 
   constructor(
     private router: Router,
     private auth: AuthService,
+    private route: ActivatedRoute,
     private storage: StorageService,
     private formBuilder: FormBuilder,
     private socialService: SocialAuthService,
-    private previousRouteService: PreviousRouteService
   ) {
     this.createForm();
   }
 
   ngOnInit(): void {
-    if ( this.previousRouteService.getPreviousUrl() === '/shop/checkout/shipping' ) {
-      this.previousUrl = '/shop/checkout/shipping';
-    }
 
     this.socialService.authState.subscribe( ( response: FacebookLoginResponse ) => {
       const data = { fullname: '', token: '', email: '' };
@@ -58,11 +54,8 @@ export class LoginComponent implements OnInit {
         if ( data.success ) {
           this.storage.setLoginData( 'data', data );
           this.auth.authSubject( data.success );
-
-          if ( this.previousUrl ) {
-            this.router.navigate( [ '/shop/checkout/shipping' ] );
-            return;
-          }
+          
+          // this.router.navigate( [ '/shop/checkout/shipping' ] );
           // Redireccionamiento al dashboard
           this.redirectAfterLogin();
         }
