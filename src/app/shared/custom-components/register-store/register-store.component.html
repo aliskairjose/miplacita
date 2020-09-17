@@ -88,10 +88,11 @@
 											</div>
 										</div>
 									</div>
-									<div class="form-group text-center">
+									<div class="form-group">
+										<div class="field-label" for="name">Agregar logo</div>
 										<app-upload-image (uploadImage)="uploadImage($event)"></app-upload-image>
 									</div>
-									<div class="form-gruop text-right">
+									<div class="form-group text-right">
 										<button class="btn btn-solid-purple" (click)="storeRegister()" [disabled]="disabled">
 											Regístrate
 										</button>

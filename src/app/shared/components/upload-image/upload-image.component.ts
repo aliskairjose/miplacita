@@ -8,7 +8,7 @@ import { ToastrService } from 'ngx-toastr';
 } )
 export class UploadImageComponent implements OnInit {
 
-  fakeImage = '../../../../assets/images/marketplace/svg/upload-image.svg';
+  fakeImage = '../../../../assets/images/marketplace/svg/plus-circle.svg';
   images: Array<string> = [];
   @Input() multiple = false;
   @Output() uploadImage: EventEmitter<Array<string>> = new EventEmitter<Array<string>>();
