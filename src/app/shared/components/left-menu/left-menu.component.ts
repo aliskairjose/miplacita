@@ -23,11 +23,9 @@ export class LeftMenuComponent implements OnInit {
   ) {
     this.navServices.leftMenuItems.subscribe( menuItems => {
       this.menuItems = menuItems
-      console.log("menu",menuItems);
     } );
     this.navServices.leftMenuItemsResponsive.subscribe( menuItems => {
       this.menuItemsResponsive = menuItems
-      console.log("menu",menuItems);
     } );
     this.router.events.subscribe( ( event ) => {
       this.navServices.mainMenuToggle = false;
@@ -38,7 +36,6 @@ export class LeftMenuComponent implements OnInit {
     const user: User = this.storage.getItem( 'user' );
     if ( user ) {
       this.role = user.role;
-      console.log("role",this.role)
     }
   }
 
