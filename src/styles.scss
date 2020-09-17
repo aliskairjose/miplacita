@@ -431,10 +431,17 @@ ngb-carousel img {
 // Media Queries 
 /* Smartphones (portrait & landscape) */
 @media (min-width : 320px) and (max-width : 575px) {
-  
-  
   .search {
     height: 100%;
+    padding-left: 1px !important;
+    padding-right: 1px !important;
+  }
+}
+@media (max-width : 320px) {
+  .search {
+    height: 100%;
+    padding-left: 1px !important;
+    padding-right: 1px !important;
   }
   .mp-setting {
     top: unset !important;

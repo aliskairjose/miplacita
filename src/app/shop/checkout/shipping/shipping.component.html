@@ -14,7 +14,7 @@
 									<h3>Mis datos/ Dirección</h3>
 									<p> Completa estos datos para que tu vendedor sepa donde te encuentras ubicado</p>
 									<div class="alert alert-primary" role="alert" [hidden]="hideMessage">
-										¿Desea continuar como invitado o <a [routerLink]="['/home/login']"><b>iniciar sesión</b></a> ?
+										¿Desea continuar como invitado o <a [routerLink]="['/home/login', {projectTeam: true}]"><b>iniciar sesión</b></a> ?
 									</div>
 								</div>
 								<form [formGroup]="checkoutForm" class="theme-form">
