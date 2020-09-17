@@ -13,7 +13,7 @@ import { User } from '../../../shared/classes/user';
 } )
 export class ShopSuscriptionComponent implements OnInit {
   shop: any;
-  plan: any;
+  plan: any = {};
   checkIcon = 'bi bi-check2';
   uncheckIcon = 'bi bi-x';
 
@@ -27,7 +27,6 @@ export class ShopSuscriptionComponent implements OnInit {
     const stores: Store[] = user.stores;
 
     this.shopService.getStore( stores[ 0 ]._id ).subscribe( ( response: Result<Store> ) => {
-      console.log(response);
       this.plan = response.docs[ 0 ].plan;
     } );
   }

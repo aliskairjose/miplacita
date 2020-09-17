@@ -115,6 +115,21 @@ export class ShopService {
 
   /*
     ---------------------------------------------
+    -------------  Perfil de tienfa  ------------
+    ---------------------------------------------
+  */
+
+  /**
+   * @description Retiro de dinero de ventas de tienda
+   * @param data Datos para el retiro de dinero
+   * @param id Id de la tienda
+   */
+  withdrawals( data: any, id: string ): Observable<any> {
+    return this.http.put( `stores/${id}/bank`, data );
+  }
+
+  /*
+    ---------------------------------------------
     --------------  ShipmentOptions  ------------
     ---------------------------------------------
   */
