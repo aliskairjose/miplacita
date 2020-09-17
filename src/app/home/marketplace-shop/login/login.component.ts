@@ -54,7 +54,7 @@ export class LoginComponent implements OnInit {
         if ( data.success ) {
           this.storage.setLoginData( 'data', data );
           this.auth.authSubject( data.success );
-          
+
           // this.router.navigate( [ '/shop/checkout/shipping' ] );
           // Redireccionamiento al dashboard
           this.redirectAfterLogin();
