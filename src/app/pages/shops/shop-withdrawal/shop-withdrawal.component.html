@@ -1,6 +1,6 @@
 <section class="section-b-space">
     <div class="container d-flex">
-        
+
         <div class="d-flex flex-column col-lg-9 col-md-9 col-sm-12 border-box">
             <div class="card form-group text-center p-4">
                 <h3 class="font-weight-bold">Monto en ventas </h3>
@@ -11,39 +11,40 @@
                 <div class="form-group">
                     <div class="field-label font-weight-bold">Banco</div>
                     <select formControlName="bank" class="form-control">
-                        <option>Selecciona uno</option>
-                        <option *ngFor="let bank of banks"></option>
+                        <option value="" selected>Selecciona uno</option>
+                        <option *ngFor="let bank of banks" [value]="bank.name">{{bank.name}}</option>
                     </select>
-                    <div *ngIf="submitted && f.bank.errors">
-                        <div *ngIf="f.bank.errors.required" class="invalid-feedback d-block"> {{ required }}
-                        </div>
+                    <div *ngIf="submitted && f.bank.errors?.required" class="invalid-feedback d-block">
+                        {{ required }}
                     </div>
                 </div>
                 <div class="form-group ">
                     <div class="field-label font-weight-bold">Titular de la cuenta</div>
-                    <input formControlName="titular" type="text" class="form-control" id="titular" required="">
-                    
-                    <div *ngIf="submitted && f.titular.errors" class="invalid-feedback d-block">
-                        <div *ngIf="f.titular.errors.required"> {{ required }}
-                        </div>
+                    <input formControlName="name_holder" type="text" class="form-control" id="name_holder" required="">
+                    <div *ngIf="submitted && f.name_holder.errors?.required" class="invalid-feedback d-block">
+                        {{ required }}
                     </div>
                 </div>
                 <!-- Acccount -->
                 <div class="form-group">
                     <div class="field-label font-weight-bold">Número de la cuenta</div>
-                    <input formControlName="account" type="text" class="form-control" id="bank-account" required="">
-                    <div *ngIf="submitted && f.account.errors" class="invalid-feedback d-block">
-                        <div *ngIf="f.account.errors.required"> {{ required }}
-                        </div>
+                    <input formControlName="account" type="text" class="form-control" id="bank-account" 
+                    mask="0000-0000" required="">
+                    <div *ngIf="submitted && f.account.errors?.required" class="invalid-feedback d-block">
+                        {{ required }}
                     </div>
+                    <div *ngIf="submitted && f.account.errors?.minlength" class="invalid-feedback d-block">
+                        El campo debe contener todos los dígitos
+                    </div>
+
+                    
                 </div>
                 <!-- Tipo de cuenta -->
                 <div class="form-group">
                     <div class="field-label font-weight-bold">Tipo de cuenta</div>
-                    <input formControlName="type" type="text" class="form-control" id="titular"required="">
-                    <div *ngIf="submitted && f.type.errors" class="invalid-feedback d-block">
-                        <div *ngIf="f.type.errors.required"> {{ required }}
-                        </div>
+                    <input formControlName="type" type="text" class="form-control" id="titular" required="">
+                    <div *ngIf="submitted && f.type.errors?.required" class="invalid-feedback d-block">
+                        {{ required }}
                     </div>
                 </div>
                 <div class="form-group text-center">
