@@ -15,6 +15,7 @@ import { GooglePlaceDirective } from 'ngx-google-places-autocomplete';
 import { Router } from '@angular/router';
 import { MapsAPILoader } from '@agm/core';
 import { AuthService } from '../../../shared/services/auth.service';
+import { log } from 'console';
 
 
 
@@ -36,7 +37,6 @@ export class ShippingComponent implements OnInit, OnDestroy {
   checkoutForm: FormGroup;
   shipmentOptionsForm: FormGroup;
   submitted: boolean;
-  products: Product[] = [];
   payPalConfig?: IPayPalConfig;
   payment = 'Stripe';
   amount: any;
@@ -64,6 +64,7 @@ export class ShippingComponent implements OnInit, OnDestroy {
     }
   };
   private geoCoder;
+  private _products: Product[] = [];
 
   @ViewChild( 'placesRef' ) placesRef: GooglePlaceDirective;
   @ViewChild( 'placesRef' ) public searchElementRef: ElementRef;
@@ -81,20 +82,28 @@ export class ShippingComponent implements OnInit, OnDestroy {
     public productService: ProductService,
   ) {
 
+    this.productService.cartItems.subscribe( products => this._products = [ ...products ] );
+
     if ( this.auth.isAuthenticated() ) {
       this.hideMessage = true;
       this.user = this.storage.getItem( 'user' );
       const store = this.user.stores[ 0 ];
       const shippingAddress: ShippingAddress = this.storage.getItem( `shippingAddress${this.user._id}` );
-      this.shopService.findShipmentOptionByShop( store._id ).subscribe( shipmentOptions => {
-        this.shipmentOptions = [ ...shipmentOptions ];
-        this.selectedOption = this.shipmentOptions[0]._id;
-      } );
       if ( shippingAddress && ( shippingAddress.userId === this.user._id ) ) {
         const response = confirm( 'Ya existe una dirección, ¿Desea usarla?' );
         ( response ) ? this.shippingAddress = shippingAddress : this.shippingAddress = {};
       }
     }
+
+    this.getStoresId().then( shops => {
+      console.log( shops )
+      this.shopService.findShipmentOptionByShop( shops[0].id ).subscribe( shipmentOptions => {
+        this.shipmentOptions = [ ...shipmentOptions ];
+        this.selectedOption = this.shipmentOptions[ 0 ]._id;
+      } );
+    } );
+
+
 
     this.createForm();
   }
@@ -105,7 +114,7 @@ export class ShippingComponent implements OnInit, OnDestroy {
   get o() { return this.shipmentOptionsForm.controls; }
 
   ngOnInit(): void {
-    this.productService.cartItems.subscribe( response => this.products = response );
+    // this.productService.cartItems.subscribe( response => this.products = response );
     this.getTotal.subscribe( amount => this.amount = amount );
     this.initConfig();
     this.setCurrentLocation();
@@ -164,7 +173,7 @@ export class ShippingComponent implements OnInit, OnDestroy {
     this.order.address.phone = this.checkoutForm.value.phone;
     this.order.shipment_option = this.shipmentOptionsForm.get( 'shipment_option' ).value;
     const ship = this.shipmentOptions.filter( val => val._id === this.order.shipment_option );
-    this.order.shipment_price = ship[0].price;
+    this.order.shipment_price = ship[ 0 ].price;
 
     this.submitted = true;
     if ( this.checkoutForm.valid ) {
@@ -288,6 +297,31 @@ export class ShippingComponent implements OnInit, OnDestroy {
         this.toastrService.warning( `Geocoder failed due to: ${status}` );
       }
 
+    } );
+  }
+
+
+  private async getStoresId() {
+    return await this.filterByStoreID();
+  }
+
+  /**
+   * @description Retorna un array de id de tiendas unicos
+   */
+  private filterByStoreID() {
+    return new Promise( resolve => {
+      const uniqueStore = [];
+
+      this._products.filter( ( product ) => {
+        const index = uniqueStore.indexOf( product.store._id );
+        if ( index === -1 ) {
+          const shop = { id: '', name: '' };
+          shop.id = product.store._id;
+          shop.name = product.store.name;
+          uniqueStore.push( shop );
+        }
+      } );
+      resolve( uniqueStore );
     } );
   }
 
