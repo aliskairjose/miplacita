@@ -428,7 +428,12 @@ ngb-carousel img {
     height: 42px;
   }
 }
-
+.mp-side-menu {
+  display: none !important;
+}
+.mp-side-menu-responsive {
+  display: inline !important;
+}
 // Media Queries 
 /* Smartphones (portrait & landscape) */
 @media (min-width : 320px) and (max-width : 575px) {
@@ -514,7 +519,12 @@ ngb-carousel img {
     }
   
   } 
-  
+  .mp-side-menu {
+    display: inline !important;
+  }
+  .mp-side-menu-responsive {
+    display: none !important;
+  }
 }
 
 // Large devices (desktops, 992px and up)
