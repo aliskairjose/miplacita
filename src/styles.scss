@@ -83,6 +83,20 @@ $radius: 5px;
     text-transform: inherit;
   }
 }
+
+.field-label {
+  line-height: 24px;
+  text-transform: capitalize;
+  color: #333333;
+  margin-bottom: 10px;
+  font-weight: 700;
+  span {
+      font-size: 16px;
+      color: var(--dark-font);
+      font-weight: 600;
+  }
+}
+
 .slider-contain {
   display: flex;
   justify-content: flex-end;
@@ -422,6 +436,12 @@ ngb-carousel img {
   .search {
     height: 100%;
   }
+  .mp-setting {
+    top: unset !important;
+    bottom: 42px !important;
+    left: 0 !important;
+  }
+  
 }
 
 // Small devices (landscape phones, 576px and up)
