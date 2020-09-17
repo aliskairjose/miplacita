@@ -19,7 +19,6 @@ export class SuccessComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.orderService.checkoutItems.subscribe( response => {
-      console.log( response );
       this.orderDetails = response;
     } );
   }

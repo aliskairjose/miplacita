@@ -12,6 +12,7 @@ import { User } from '../../classes/user';
 export class LeftMenuComponent implements OnInit {
 
   menuItems: Menu[];
+  menuItemsResponsive: Menu[];
   role: string;
   path = '/shop/collection/left/sidebar?name=&category=';
 
@@ -20,7 +21,12 @@ export class LeftMenuComponent implements OnInit {
     public navServices: NavService,
     private storage: StorageService,
   ) {
-    this.navServices.leftMenuItems.subscribe( menuItems => this.menuItems = menuItems );
+    this.navServices.leftMenuItems.subscribe( menuItems => {
+      this.menuItems = menuItems
+    } );
+    this.navServices.leftMenuItemsResponsive.subscribe( menuItems => {
+      this.menuItemsResponsive = menuItems
+    } );
     this.router.events.subscribe( ( event ) => {
       this.navServices.mainMenuToggle = false;
     } );

@@ -42,7 +42,6 @@ export class ShopDetailsComponent implements OnInit, OnDestroy {
   }
 
   openModal(shop) {
-    console.log(shop);
     this.shop = shop;
     this.getPlanInformation();
     this.modalOpen = true;

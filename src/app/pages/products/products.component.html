@@ -45,8 +45,8 @@
                             </select>
                         </div>
                     </div>
-                    <div class="d-flex flex-fill h-100 justify-content-end" *ngIf="user.role==='merchant'">
-                        <a [routerLink]="[ '/pages/create-product' ]" class="btn btn-solid-purple">
+                    <div class="d-flex  h-100 " *ngIf="user.role==='merchant'">
+                        <a [routerLink]="[ '/pages/create-product' ]" class="btn btn-solid-purple flex-fill">
                             Crear Producto
                         </a>
                     </div>
