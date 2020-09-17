@@ -29,7 +29,7 @@
               <!-- Mi cuenta -->
               <ul class="onhover-show-div">
                 <!-- Cuando no ha iniciado sesión -->
-                <div *ngIf="!isLoggedIn">
+                <div >
                   <li>
                     <!-- <i class="fa fa-sign-in" aria-hidden="true"></i>  -->
                     <a [routerLink]="[ '/pages/login' ]">Iniciar sesión</a>
@@ -43,11 +43,11 @@
                 <div *ngIf="isLoggedIn">
                   <li>
                     <!-- <i class="fa fa-sliders" aria-hidden="true"></i> -->
-                    <a [routerLink]="[ '/pages/dashboard' ]">Inicio</a>
+                    <a [routerLink]="[ '/home' ]">Inicio</a>
                   </li>
                   <li *ngIf="role === 'merchant'">
                     <!-- <i class="fa fa-sliders" aria-hidden="true"></i> -->
-                    <a [routerLink]="[ '/pages/shop/profile' ]">Tienda</a>
+                    <a [routerLink]="[ '/pages/account/user/profile' ]">Mi Perfil</a>
                   </li>
                   <hr>
                   <li>
