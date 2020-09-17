@@ -6,7 +6,7 @@ import { StorageService } from '../../../shared/services/storage.service';
 import { AuthResponse } from '../../../shared/classes/auth-response';
 import { SocialAuthService, FacebookLoginProvider } from 'angularx-social-login';
 import { FacebookLoginResponse } from 'src/app/shared/classes/facebook-login-response';
-import { PreviousRouteService } from '../../../shared/services/previous-route.service';
+// import { PreviousRoutesService } from '../../../shared/services/previous-route.service';
 @Component( {
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -80,10 +80,7 @@ export class LoginComponent implements OnInit {
       if ( result.success ) {
         this.storage.setLoginData( 'data', result );
         this.auth.authSubject( result.success );
-        if ( this.previousUrl ) {
-          this.router.navigate( [ '/shop/checkout/shipping' ] );
-          return;
-        }
+        this.router.navigate( [ '/shop/checkout/shipping' ] );
         this.redirectAfterLogin();
 
       }
