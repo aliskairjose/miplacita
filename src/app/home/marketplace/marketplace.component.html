@@ -3,8 +3,13 @@
 
 <!-- Home slider start-->
 <section class="p-0">
-    <app-slider [sliders]="sliders" [textClass]="'text-center'" [category]="'watch'" [buttonText]="''">
-    </app-slider>
+    <ngb-carousel *ngIf="sliders.length>0" #ngcarousel>
+        <ng-template *ngFor="let image of sliders" ngbSlide >
+          <div class="picsum-img-wrapper w-100">
+            <img class="img-main-banner" [src]="image.image" alt="Angular Carousel 1">
+          </div>
+        </ng-template>
+    </ngb-carousel>
 </section>
 <!-- Home slider End -->
 
@@ -32,13 +37,13 @@
                 <div class="d-flex">
                     <div class="col service-block">
                         <div class="media">
-                            <img class="icon-service" id="icon-1" src="../../../../assets/images/marketplace/images/icons/logo-landing.png"/>
+                            <img class="icon-service" id="icon-2" src="../../../../assets/images/marketplace/images/icons/logo-landing.png"/>
                             
                         </div>
                     </div>
                     <div class="col service-block">
                     <div class="media">
-                        <img class="icon-service" id="icon-1" src="../../../../assets/images/marketplace/images/icons/register.png"/>
+                        <img class="icon-service" id="icon-2" src="../../../../assets/images/marketplace/images/icons/register.png"/>
                         <div class="media-body">
                         <h4>Regístrate</h4>
                         </div>
@@ -46,7 +51,7 @@
                     </div>
                     <div class="col service-block">
                       <div class="media">
-                        <img class="icon-service" id="icon-1" src="../../../../assets/images/marketplace/images/icons/select-plan.png"/>
+                        <img class="icon-service" id="icon-2" src="../../../../assets/images/marketplace/images/icons/select-plan.png"/>
                         <div class="media-body">
                           <h4>Selecciona tu plan</h4>
                         </div>
@@ -56,7 +61,7 @@
                 <div class="d-flex">
                     <div class="col service-block">
                         <div class="media">
-                            <img class="icon-service" src="../../../../assets/images/marketplace/images/icons/create.png" />
+                            <img class="icon-service"  id="icon-2" src="../../../../assets/images/marketplace/images/icons/create.png" />
                             <div class="media-body">
                             <h4>Crea tu tienda</h4>
                             </div>
@@ -64,7 +69,7 @@
                     </div>
                     <div class="col service-block">
                         <div class="media">
-                            <img class="icon-service" src="../../../../assets/images/marketplace/images/icons/upload.png" />
+                            <img class="icon-service"  id="icon-2" src="../../../../assets/images/marketplace/images/icons/upload.png" />
                             <div class="media-body">
                             <h4>sube productos y vende</h4>
                             </div>
@@ -90,28 +95,23 @@
                 </div>
             </div>
         </div>
-        <div class="row mt-3 d-flex justify-content-center">
+        <div class="row mt-3 d-flex justify-content-center vertical-banners" >
             <div class="row justify-content-center">
-                <div class="col-3">
-                    <div class="media">
-                        <img class="" id="" src="../../../../assets/images/marketplace/images/banners/recibe.png"/>
-                        
-                    </div>
-                </div>
-                <div class="col-3">
-                    <div class="media">
-                        <img class="" id="" src="../../../../assets/images/marketplace/images/banners/administra.png"/>
-                        
-                    </div>
-                </div>
-                <div class="col-3">
-                    <div class="media">
-                        <img class="" id="" src="../../../../assets/images/marketplace/images/banners/envia.png"/>
+                <div class="col-md-3 " *ngFor="let image of verticalBanners"  >
+                    <div class="media ">
+                        <img class="h-100 w-100" id="" [src]="image"/>
                         
                     </div>
                 </div>
             </div>
         </div>
+        <ngb-carousel class="vertical-banners-carousel" *ngIf="verticalBanners.length>0" #ngcarousel>
+            <ng-template *ngFor="let image of verticalBanners" ngbSlide >
+              <div class="picsum-img-wrapper w-100">
+                <img [src]="image" class="vertical-banner-img ">
+              </div>
+            </ng-template>
+        </ngb-carousel>
     </div>
 </section>
 <!-- Banner verticales end -->

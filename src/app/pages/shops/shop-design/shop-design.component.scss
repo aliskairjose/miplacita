@@ -42,6 +42,11 @@
     } 
 }
 
+ngb-carousel {
+    height: 45vh;
+    margin-bottom: 50px;
+}
+
 @media(max-width: 768px){
     .optional{
         display: none !important;

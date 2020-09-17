@@ -160,6 +160,12 @@ export class MarketplaceComponent implements OnInit, OnDestroy {
     }
   ]
   isCollapsed =false;
+  // banners 
+  verticalBanners = [
+    '../../../../assets/images/marketplace/images/banners/recibe.png',
+    '../../../../assets/images/marketplace/images/banners/administra.png',
+    '../../../../assets/images/marketplace/images/banners/envia.png'
+  ];
   constructor(
     private _sanitizer: DomSanitizer,
     public productService: ProductService,
