@@ -18,7 +18,6 @@ export class ShopWithdrawalComponent implements OnInit {
   form: FormGroup;
   submitted: boolean;
   required = environment.errorForm.required;
-  onlyDigits = environment.errorForm.onlyDigits;
   storeId = '';
 
   constructor(
@@ -53,7 +52,7 @@ export class ShopWithdrawalComponent implements OnInit {
   private createForm(): void {
     this.form = this.formBuilder.group( {
       bank: [ '', [ Validators.required ] ],
-      account: [ '', [ Validators.required, Validators.pattern( '[0-9]+' ) ] ],
+      account: [ '', [ Validators.required, Validators.minLength(9) ] ],
       name_holder: [ '', [ Validators.required ] ],
       type: [ '', [ Validators.required ] ],
     } );

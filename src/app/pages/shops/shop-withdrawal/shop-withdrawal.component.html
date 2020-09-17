@@ -28,13 +28,16 @@
                 <!-- Acccount -->
                 <div class="form-group">
                     <div class="field-label font-weight-bold">Número de la cuenta</div>
-                    <input formControlName="account" type="text" class="form-control" id="bank-account" required="">
+                    <input formControlName="account" type="text" class="form-control" id="bank-account" 
+                    mask="0000-0000" required="">
                     <div *ngIf="submitted && f.account.errors?.required" class="invalid-feedback d-block">
                         {{ required }}
                     </div>
-                    <div *ngIf="submitted && f.account.errors?.pattern" class="invalid-feedback d-block">
-                        {{ onlyDigits }}
+                    <div *ngIf="submitted && f.account.errors?.minlength" class="invalid-feedback d-block">
+                        El campo debe contener todos los dígitos
                     </div>
+
+                    
                 </div>
                 <!-- Tipo de cuenta -->
                 <div class="form-group">
