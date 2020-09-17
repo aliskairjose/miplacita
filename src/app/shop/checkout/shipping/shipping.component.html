@@ -107,7 +107,7 @@
 													</div>
 													<div class="col offset-xl-4 text-center">
 														<input class="my-auto" formControlName="shipment_option" type="radio" [value]="item._id"
-															name="shipment_option">
+															name="shipment_option" [(ngModel)]="selectedOption">
 													</div>
 												</div>
 												<div *ngIf="submitted && shipmentOptionsForm.controls.shipment_option.errors?.required"

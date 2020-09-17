@@ -50,6 +50,7 @@ export class ShippingComponent implements OnInit, OnDestroy {
   zoom: number;
   address: string;
   hideMessage = false;
+  selectedOption = '';
   order = {
     products: [],
     store: '',
@@ -87,6 +88,7 @@ export class ShippingComponent implements OnInit, OnDestroy {
       const shippingAddress: ShippingAddress = this.storage.getItem( `shippingAddress${this.user._id}` );
       this.shopService.findShipmentOptionByShop( store._id ).subscribe( shipmentOptions => {
         this.shipmentOptions = [ ...shipmentOptions ];
+        this.selectedOption = this.shipmentOptions[0]._id;
       } );
       if ( shippingAddress && ( shippingAddress.userId === this.user._id ) ) {
         const response = confirm( 'Ya existe una dirección, ¿Desea usarla?' );
