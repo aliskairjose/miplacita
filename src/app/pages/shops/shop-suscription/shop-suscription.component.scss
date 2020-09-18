@@ -2,6 +2,16 @@
 	background-color: #f2f2f2 ;
 	padding: 17px 13px;
 }
+.info-plan {
+    flex-direction: column;
+    .left-info, .rigth-info {
+        width: 100%;
+    }
+}
+.container{
+    padding-left: 0;
+    padding-right: 0;
+}
 
 hr {
 	width: 70%;
@@ -19,4 +29,16 @@ h5 {
         display: none !important;
     }
     
+}
+
+@media(min-width: 992px){
+    .optional{
+        display: none !important;
+    }
+    .info-plan {
+        flex-direction: row;
+        .left-info, .rigth-info {
+            width: 50%;
+        }
+    }
 }

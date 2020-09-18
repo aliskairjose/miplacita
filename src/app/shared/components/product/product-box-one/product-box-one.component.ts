@@ -68,6 +68,7 @@ export class ProductBoxOneComponent implements OnInit {
 
   addToCart( product: Product ) {
     this.productService.addToCart( product );
+    this.showMessage('Producto agregado al carrito')
   }
 
   addToWishlist( product: Product ) {
@@ -79,6 +80,6 @@ export class ProductBoxOneComponent implements OnInit {
   }
 
   showMessage( message ){
-    this.toastrService.info( 'Hasta luego...' );
+    this.toastrService.info( message );
   }
 }

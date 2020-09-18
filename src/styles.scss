@@ -19,6 +19,7 @@ $radius: 5px;
 .text-blue { color: $mp-blue; }
 .text-pink-light { color: $mp-pink-dark !important }
 .text-default-color {color : var(--theme-deafult) }
+.text-purple { color : $mp-purple }
 .border-box {
   padding: 13px 13px;
   border: 1px solid #dedede;
@@ -168,6 +169,9 @@ $radius: 5px;
     hr {
       width: 50%;
     }
+    .info-header {
+      padding: 0px 40px;
+    }
     .info-body{
       width: 60%;
       h3 {
@@ -194,6 +198,9 @@ $radius: 5px;
     background-color: $mp-rosa;
     hr {
       width: 50%;
+    }
+    .info-header {
+      padding: 0px 40px;
     }
     .info-body{
       width: 60%;
