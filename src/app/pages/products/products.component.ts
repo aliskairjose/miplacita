@@ -1,17 +1,17 @@
-import { Component, OnChanges, OnInit } from '@angular/core';
-import { ProductService } from '../../shared/services/product.service';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { StorageService } from '../../shared/services/storage.service';
-import { User } from '../../shared/classes/user';
+import { ToastrService } from 'ngx-toastr';
+
+import { Component, OnInit } from '@angular/core';
+
+import { environment } from '../../../environments/environment';
+import { Paginate } from '../../shared/classes/paginate';
 import { Product } from '../../shared/classes/product';
 import { Result } from '../../shared/classes/response';
-import { Paginate } from '../../shared/classes/paginate';
-import { Router } from '@angular/router';
-import { environment } from '../../../environments/environment';
-import { ConfirmationDialogService } from '../../shared/services/confirmation-dialog.service';
-import { ShopService } from '../../shared/services/shop.service';
 import { Store } from '../../shared/classes/store';
-import { ToastrService } from 'ngx-toastr';
+import { User } from '../../shared/classes/user';
+import { ConfirmationDialogService } from '../../shared/services/confirmation-dialog.service';
+import { ProductService } from '../../shared/services/product.service';
+import { ShopService } from '../../shared/services/shop.service';
+import { StorageService } from '../../shared/services/storage.service';
 
 @Component( {
   selector: 'app-products',
@@ -39,7 +39,6 @@ export class ProductsComponent implements OnInit {
   params = '';
 
   constructor(
-    private router: Router,
     private shopService: ShopService,
     private toastrService: ToastrService,
     private productService: ProductService,
