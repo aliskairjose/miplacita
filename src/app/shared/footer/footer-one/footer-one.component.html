@@ -51,13 +51,10 @@
 						</div>
 						<div class="footer-contant">
 							<ul>
-								<li><a href="javascript:void(0)">Ropa</a></li>
-								<li><a href="javascript:void(0)">Tecnología</a></li>
-								<li><a href="javascript:void(0)">Accesorios</a></li>
-								<li><a href="javascript:void(0)">Belleza</a></li>
-								<li><a href="javascript:void(0)">Mascotas</a></li>
-								<li><a href="javascript:void(0)">Deportes</a></li>
-								<li><a href="javascript:void(0)">Perfumería</a></li>
+								<li *ngFor="let category of menuItems">
+									<a (click)='routerTo(category._id)'>{{category.name}}</a>
+								</li>
+								
 							</ul>
 						</div>
 					</div>

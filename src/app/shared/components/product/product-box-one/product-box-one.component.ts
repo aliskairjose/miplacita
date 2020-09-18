@@ -3,6 +3,7 @@ import { QuickViewComponent } from '../../modal/quick-view/quick-view.component'
 import { CartModalComponent } from '../../modal/cart-modal/cart-modal.component';
 import { Product } from '../../../classes/product';
 import { ProductService } from '../../../services/product.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component( {
   selector: 'app-product-box-one',
@@ -26,7 +27,9 @@ export class ProductBoxOneComponent implements OnInit {
 
   ImageSrc: string;
 
-  constructor( private productService: ProductService ) { }
+  constructor( private productService: ProductService,    
+                private toastrService: ToastrService,
+    ) { }
 
   ngOnInit(): void {
     if ( this.loader ) {
@@ -75,4 +78,7 @@ export class ProductBoxOneComponent implements OnInit {
     this.productService.addToCompare( product );
   }
 
+  showMessage( message ){
+    this.toastrService.info( 'Hasta luego...' );
+  }
 }
