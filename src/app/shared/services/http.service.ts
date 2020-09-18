@@ -22,7 +22,7 @@ export class HttpService {
     return this.http.get( url );
   }
 
-  put( endpoint: string, data: any ): Observable<any> {
+  put( endpoint: string, data?: any ): Observable<any> {
     const url = environment.apiUrl + endpoint;
     return this.http.put( url, data );
   }
