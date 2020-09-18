@@ -1,4 +1,4 @@
-import { Component, OnChanges, OnInit } from '@angular/core';
+import { Component, OnChanges, OnInit, ViewChild } from '@angular/core';
 import { ProductService } from '../../shared/services/product.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { StorageService } from '../../shared/services/storage.service';
@@ -12,6 +12,7 @@ import { ConfirmationDialogService } from '../../shared/services/confirmation-di
 import { ShopService } from '../../shared/services/shop.service';
 import { Store } from '../../shared/classes/store';
 import { ToastrService } from 'ngx-toastr';
+import { CreateProductComponent } from './create-product/create-product.component';
 
 @Component( {
   selector: 'app-products',
@@ -19,6 +20,8 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: [ './products.component.scss' ]
 } )
 export class ProductsComponent implements OnInit {
+  @ViewChild( 'createProduct' ) CreateProduct: CreateProductComponent;
+
   typeUser = 'admin';
   fields = [ '', 'Nombre', 'Descripción', 'Precio', 'ITBMS', 'Estado', 'Acción' ];
   name = '';

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, TemplateRef, Input, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { StorageService } from '../../../shared/services/storage.service';
 import { ProductService } from '../../../shared/services/product.service';
@@ -9,6 +9,7 @@ import { User } from '../../../shared/classes/user';
 import { environment } from '../../../../environments/environment';
 import { Result } from '../../../shared/classes/response';
 import { ToastrService } from 'ngx-toastr';
+import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 
 @Component( {
   selector: 'app-create-product',
@@ -16,7 +17,11 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: [ './create-product.component.scss' ]
 } )
 export class CreateProductComponent implements OnInit {
-
+  @ViewChild( 'createProduct', { static: false } ) CreateProduct: TemplateRef<any>;
+  modal: any;
+  modalOpen = false;
+  modalOption: NgbModalOptions = {}; // not null!
+  create: boolean = true;
   typesProduct = [];
   states = [];
   categoryId = '';
@@ -46,6 +51,7 @@ export class CreateProductComponent implements OnInit {
     private toastrService: ToastrService,
     private storageService: StorageService,
     private productService: ProductService,
+    public modalService: NgbModal,
   ) {
     this.createForm();
   }
@@ -55,19 +61,19 @@ export class CreateProductComponent implements OnInit {
   get f() { return this.productForm.controls; }
 
   ngOnInit(): void {
-    const param = this.route.snapshot.params.id;
-    if ( param ) {
-      this.selectedCategory = this.productData.category;
-      this.status = 'edit';
-      this.disabled = false;
-      this.title = 'Editar producto';
-      this.loadProductData( param );
-    }
+    // const param = this.route.snapshot.params.id;
+    // if ( param ) {
+    //   this.selectedCategory = this.productData.category;
+    //   this.status = 'edit';
+    //   this.disabled = false;
+    //   this.title = 'Editar producto';
+    //   this.loadProductData( param );
+    // }
     this.productService.categoryList().subscribe( ( categories: Category[] ) => {
       this.categories = [ ...categories ];
     } );
   }
-
+  
   onSubmit(): void {
     this.submitted = true;
     if ( this.productForm.valid ) {
@@ -155,6 +161,40 @@ export class CreateProductComponent implements OnInit {
         this.disabled = false;
 
       } );
+    }
+  }
+  choiceOptions(productId: string){
+    if(!this.create){
+      this.status = 'edit';
+      this.disabled = false;
+      this.title = 'Editar producto';
+      this.loadProductData( productId );
+    } else {
+      this.title = 'Crear producto';
+    }
+    
+  }
+  openModal(option:boolean, id: string){
+    this.create = option;
+    this.choiceOptions(id);
+    this.modalOpen = true;
+    this.modalOption.backdrop = 'static';
+    this.modalOption.keyboard = false;
+    this.modalOption.windowClass = "createProductModal";
+    this.modalOption.centered = true;
+    this.modal = this.modalService.open(this.CreateProduct, this.modalOption);
+    this.modal.result.then((result) => {
+      console.log(result);
+    });
+  }
+
+  close(){
+    this.modal.close();
+  }
+
+  ngOnDestroy() {
+    if (this.modalOpen){
+      this.modalService.dismissAll();
     }
   }
 

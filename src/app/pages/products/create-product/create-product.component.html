@@ -1,102 +1,122 @@
-<ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="ball-spin-clockwise" [fullScreen]="true">
-    <p style="color: white"> Por favor espere... </p>
-</ngx-spinner>
-<ngx-alerts></ngx-alerts>
-<!-- section start -->
-<section class="section-b-space">
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-lg-12 ">
-                <div class="theme-card">
-                    <form class="theme-form" [formGroup]="productForm" (ngSubmit)="onSubmit()">
-                        <div class="create-product-form">
-                            <div class="first-column">
-                                <!-- Nombre -->
-                                <div class="form-group ">
-                                    <div class="field-label">Nombre</div>
-                                    <input formControlName="name" type="text" class="form-control" 
-                                    id="name"required="" [(ngModel)]="productData.name" (blur)="validateName()">
-                                    <div *ngIf="submitted && f.name.errors" class="invalid-feedback d-block">
-                                        <div *ngIf="f.name.errors.required"> {{ required }} </div>
+<ng-template #createProduct let-modal  >
+    <ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="ball-spin-clockwise" [fullScreen]="true">
+        <p style="color: white"> Por favor espere... </p>
+    </ngx-spinner>
+    <ngx-alerts></ngx-alerts>
+    <!-- section start -->
+    <section class="section-b-space">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-12 ">
+                    <div class="theme-card">
+                        <div class="row justify-content-end">
+                            
+                            <div class="col-2">
+                                <i class="ti-close" (click)="close()"></i>
+                            </div>
+                        </div>
+                        <hr>
+                        <form class="theme-form" [formGroup]="productForm" (ngSubmit)="onSubmit()">
+                            <div class="create-product-form">
+                                <div class="first-column">
+                                    <div class="page-title row">
+                                        <h4 class="col-10">
+                                           <span> <strong>{{ title }} </strong>  </span> 
+                                        </h4>
+                                    </div>
+                                    <!-- Nombre -->
+                                    <div class="form-group ">
+                                        <div class="field-label">Nombre del producto</div>
+                                        <input formControlName="name" type="text" class="form-control" 
+                                        id="name"required="" [(ngModel)]="productData.name" (blur)="validateName()">
+                                        <div *ngIf="submitted && f.name.errors" class="invalid-feedback d-block">
+                                            <div *ngIf="f.name.errors.required"> {{ required }} </div>
+                                        </div>
+                                    </div>
+                                    <!-- Price -->
+                                    <div class="form-group ">
+                                        <div class="field-label">Precio</div>
+                                        <input formControlName="price" currencyMask type="text" class="form-control"
+                                            id="price" required="" [(ngModel)]="productData.price">
+                                        <div *ngIf="submitted && f.price.errors" class="invalid-feedback d-block">
+                                            <div *ngIf="f.price.errors.required"> {{ required }} </div>
+                                        </div>
+                                    </div>
+                                    <!-- Tax -->
+                                    <div class="form-group ">
+                                        <div class="field-label">Impuesto del producto</div>
+                                        <input formControlName="tax" currencyMask type="text" 
+                                            class="form-control" id="itbms"  required="" [(ngModel)]="productData.tax">
+                                       
+                                        <div *ngIf="submitted && f.tax.errors" 
+                                                class="invalid-feedback d-block">
+                                            <div *ngIf="f.tax.errors.required"> {{ required }} </div>
+                                        </div>
+                                    </div>
+                                    <!-- Categoria -->
+                                    <div class="form-group ">
+                                        <div class="field-label">Categoría</div>
+                                        <select formControlName="category" class="form-control" 
+                                            name="category"
+                                            [(ngModel)]="selectedCategory">
+                                            <option value="" selected>Seleccione una categoría</option>
+                                            <option *ngFor="let category of categories" [value]="category._id">
+                                                {{category.name}}</option>
+                                        </select>
+                                        
+                                        <div *ngIf="submitted && f.category.errors" class="invalid-feedback d-block">
+                                            <div *ngIf="f.category.errors.required"> {{ required }} </div>
+                                        </div>
+                                    </div>
+                                    <!-- Descripcion -->
+                                    <div class="form-group">
+                                        <div class="field-label">Descripción del producto</div>
+                                        <textarea formControlName="description" type="text" class="form-control"
+                                            id="exampleFormControlTextarea1" placeholder="Descripción"
+                                            required="" [(ngModel)]="productData.description"></textarea>
+                                        <div *ngIf="submitted && f.description.errors" class="invalid-feedback d-block">
+                                            <div *ngIf="f.description.errors.required"> {{ required }} </div>
+                                        </div>
+                                    </div>
+                                    <!-- Status -->
+                                    <div class="form-group ">
+                                        <div class="field-label">Estado(Activo e Inactivo)</div>
+                                        <select formControlName="status" class="form-control" name="status"
+                                            [(ngModel)]="statusSelected">
+                                            <!-- <option value="" selected>Seleccione un estado</option> -->
+                                            <option *ngFor="let status of statuses" [value]="status.value">{{status.text}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                    <!-- Cantidad disponible -->
+                                    <div class="form-group">
+                                        <div class="field-label">Cantidad disponible</div>
+                                        <input formControlName="stock" type="number" class="form-control" id="available" required="" [(ngModel)]="productData.stock">
+                                        <div *ngIf="submitted && f.stock.errors" class="invalid-feedback d-block">
+                                            <div *ngIf="f.stock.errors.required"> {{ required }} </div>
+                                        </div>
                                     </div>
                                 </div>
-                                <!-- Categoria -->
-                                <div class="form-group ">
-                                    <div class="field-label">Categoría</div>
-                                    <select formControlName="category" class="form-control" 
-                                        name="category"
-                                        [(ngModel)]="selectedCategory">
-                                        <option value="" selected>Seleccione una categoría</option>
-                                        <option *ngFor="let category of categories" [value]="category._id">
-                                            {{category.name}}</option>
-                                    </select>
-                                    
-                                    <div *ngIf="submitted && f.category.errors" class="invalid-feedback d-block">
-                                        <div *ngIf="f.category.errors.required"> {{ required }} </div>
+                                <div class="second-column pl-5">
+                                    <div class="page-title row">
+                                        <h4 class="col-10">
+                                           <span> <strong>{{ title }} </strong>  </span> 
+                                        </h4>
+                                        <p>Selecciona uan foto de tu producto para que tus clientes puedan ver el detalle del mismo</p>
                                     </div>
-                                </div>
-                                <!-- Price -->
-                                <div class="form-group ">
-                                    <div class="field-label">Precio</div>
-                                    <input formControlName="price" currencyMask type="text" class="form-control"
-                                        id="price" required="" [(ngModel)]="productData.price">
-                                    <div *ngIf="submitted && f.price.errors" class="invalid-feedback d-block">
-                                        <div *ngIf="f.price.errors.required"> {{ required }} </div>
-                                    </div>
-                                </div>
-                                <!-- Tax -->
-                                <div class="form-group ">
-                                    <div class="field-label">Itbms</div>
-                                    <input formControlName="tax" currencyMask type="text" 
-                                        class="form-control" id="itbms"  required="" [(ngModel)]="productData.tax">
-                                   
-                                    <div *ngIf="submitted && f.tax.errors" 
-                                            class="invalid-feedback d-block">
-                                        <div *ngIf="f.tax.errors.required"> {{ required }} </div>
-                                    </div>
-                                </div>
-                                <!-- Descripcion -->
-                                <div class="form-group">
-                                    <div class="field-label">Descripción</div>
-                                    <textarea formControlName="description" type="text" class="form-control"
-                                        id="exampleFormControlTextarea1" placeholder="Descripción"
-                                        required="" [(ngModel)]="productData.description"></textarea>
-                                    <div *ngIf="submitted && f.description.errors" class="invalid-feedback d-block">
-                                        <div *ngIf="f.description.errors.required"> {{ required }} </div>
-                                    </div>
-                                </div>
-                                <!-- Status -->
-                                <div class="form-group ">
-                                    <div class="field-label">Estatus</div>
-                                    <select formControlName="status" class="form-control" name="status"
-                                        [(ngModel)]="statusSelected">
-                                        <!-- <option value="" selected>Seleccione un estado</option> -->
-                                        <option *ngFor="let status of statuses" [value]="status.value">{{status.text}}
-                                        </option>
-                                    </select>
-                                </div>
-                                <!-- Cantidad disponible -->
-                                <div class="form-group">
-                                    <div class="field-label">Cantidad disponible</div>
-                                    <input formControlName="stock" type="number" class="form-control" id="available" required="" [(ngModel)]="productData.stock">
-                                    <div *ngIf="submitted && f.stock.errors" class="invalid-feedback d-block">
-                                        <div *ngIf="f.stock.errors.required"> {{ required }} </div>
+                                    <div class="form-group d-flex justify-content-center">
+                                        <app-upload-image [multiple]="true" (uploadImage)="upload($event)"></app-upload-image>
                                     </div>
                                 </div>
                             </div>
-                            <div class="second-column">
-                                <div class="form-group d-flex justify-content-center">
-                                    <app-upload-image [multiple]="true" (uploadImage)="upload($event)"></app-upload-image>
-                                </div>
+                            <div class="save text-center p-3">
+                                <button class="btn btn-solid-purple" type="submit" [disabled]="disabled">Guardar Producto</button>
                             </div>
-                        </div>
-                        <div class="save text-center p-3">
-                            <button class="btn btn-solid" type="submit" [disabled]="disabled">Guardar Producto</button>
-                        </div>
-                    </form>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</section>
-<!--Section ends-->
+    </section>
+    <!--Section ends-->
+</ng-template>
