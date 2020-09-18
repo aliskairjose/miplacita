@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { NgbCalendar, NgbDateAdapter } from '@ng-bootstrap/ng-bootstrap';
+import { NgbCalendar, NgbDate, NgbDateAdapter } from '@ng-bootstrap/ng-bootstrap';
 import { OrderDetailsComponent } from '../../shared/custom-components/order-details/order-details.component';
 import { Order } from '../../shared/classes/order';
 import { OrderService } from '../../shared/services/order.service';
@@ -10,6 +10,7 @@ import { Result } from '../../shared/classes/response';
 import { environment } from '../../../environments/environment';
 import { User } from '../../shared/classes/user';
 import { log } from 'console';
+import { CustomDateParserFormatterService } from '../../shared/adapter/custom-date-parser-formatter.service';
 
 @Component( {
   selector: 'app-orders',
@@ -37,7 +38,8 @@ export class OrdersComponent implements OnInit {
     private ngbCalendar: NgbCalendar,
     private orderService: OrderService,
     private storageService: StorageService,
-    private dateAdapter: NgbDateAdapter<string>
+    private dateAdapter: NgbDateAdapter<string>,
+    private parseDate: CustomDateParserFormatterService,
   ) { }
 
   ngOnInit(): void {
@@ -60,7 +62,11 @@ export class OrdersComponent implements OnInit {
   }
 
   filtrar(): void {
-    console.log( this.fechaIni, this.fechaFin );
+    this.loadData();
+  }
+
+  onDateSelect( date: NgbDate, type: string ): void {
+    ( type === 'from' ) ? this.fechaIni = this.parseDate.format( date ) : this.fechaFin = this.parseDate.format( date );
   }
 
   private loadData( page = 1 ): void {
@@ -70,7 +76,7 @@ export class OrdersComponent implements OnInit {
     const store: Store[] = user.stores;
     if ( store.length > 0 ) { this.storeId = store[ 0 ]._id; }
 
-    params = `store=${this.storeId}&status=${this.status}&from=${this.fechaIni}&to=${this.fechaIni}`;
+    params = `store=${this.storeId}&status=${this.status}&from=${this.fechaIni}&to=${this.fechaFin}`;
 
     this.orderService.orderList( page, params ).subscribe( ( result: Result<Order> ) => {
       console.log( result );
