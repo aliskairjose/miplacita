@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { NgbCalendar, NgbDate, NgbDateAdapter } from '@ng-bootstrap/ng-bootstrap';
+import { NgbCalendar, NgbDate, NgbDateAdapter, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { OrderDetailsComponent } from '../../shared/custom-components/order-details/order-details.component';
 import { Order } from '../../shared/classes/order';
 import { OrderService } from '../../shared/services/order.service';
@@ -29,6 +29,8 @@ export class OrdersComponent implements OnInit {
   status = '';
   fechaIni = '';
   fechaFin = '';
+  modelTo: NgbDateStruct;
+  modelFrom: NgbDateStruct;
   private storeId = '';
 
   @ViewChild( 'orderDetails' ) OrderDetails: OrderDetailsComponent;
@@ -43,6 +45,7 @@ export class OrdersComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.modelFrom = this.modelTo = this.ngbCalendar.getToday();
     const user: User = this.storageService.getItem( 'user' );
     this.role = user.role;
     // tslint:disable-next-line: curly
@@ -62,12 +65,14 @@ export class OrdersComponent implements OnInit {
   }
 
   filtrar(): void {
+    this.fechaIni = this.parseDate.format(this.modelFrom);
+    this.fechaFin = this.parseDate.format(this.modelTo);
     this.loadData();
   }
 
-  onDateSelect( date: NgbDate, type: string ): void {
-    ( type === 'from' ) ? this.fechaIni = this.parseDate.format( date ) : this.fechaFin = this.parseDate.format( date );
-  }
+  // onDateSelect( date: NgbDate, type: string ): void {
+  //   ( type === 'from' ) ? this.fechaIni = this.parseDate.format( date ) : this.fechaFin = this.parseDate.format( date );
+  // }
 
   private loadData( page = 1 ): void {
     let params = '';
