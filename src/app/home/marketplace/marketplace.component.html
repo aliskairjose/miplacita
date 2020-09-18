@@ -408,11 +408,11 @@
                 <div class="question" (click)="q.isCollapsed = !q.isCollapsed" [attr.aria-expanded]="!q.isCollapsed"
                     aria-controls="collapseExample">
                     <p> {{q.isCollapsed ? "+" : "-" }} {{q.question}}</p>
-                </div>
-                <div class="answer" id="collapseExample" [ngbCollapse]="q.isCollapsed">
-                    <div class="">
-                        <div class="card-body">
-                            {{q.answer}}
+                    <div class="answer" id="collapseExample" [ngbCollapse]="q.isCollapsed">
+                        <div class="">
+                            <div class="card-body">
+                                {{q.answer}}
+                            </div>
                         </div>
                     </div>
                 </div>
