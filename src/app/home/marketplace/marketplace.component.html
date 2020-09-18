@@ -407,8 +407,7 @@
             <div class="row d-flex justify-content-center questions" *ngFor="let q of questions">
                 <div class="question" (click)="q.isCollapsed = !q.isCollapsed" [attr.aria-expanded]="!q.isCollapsed"
                     aria-controls="collapseExample">
-                    <p>- {{q.question}}</p>
-
+                    <p> {{q.isCollapsed ? "+" : "-" }} {{q.question}}</p>
                 </div>
                 <div class="answer" id="collapseExample" [ngbCollapse]="q.isCollapsed">
                     <div class="">
