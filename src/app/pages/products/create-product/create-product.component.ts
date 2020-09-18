@@ -111,7 +111,7 @@ export class CreateProductComponent implements OnInit {
       this.toastrService.info( 'El producto se ha creado con exito' );
       this.productService.productSubject( product );
       setTimeout( () => {
-        this.router.navigate( [ 'pages/products' ] );
+        this.router.navigate( [ 'pages/account/user/products' ] );
       }, 2000 );
     } );
   }
@@ -181,7 +181,6 @@ export class CreateProductComponent implements OnInit {
     this.modalOption.backdrop = 'static';
     this.modalOption.keyboard = false;
     this.modalOption.windowClass = "createProductModal";
-    this.modalOption.centered = true;
     this.modal = this.modalService.open(this.CreateProduct, this.modalOption);
     this.modal.result.then((result) => {
       console.log(result);
