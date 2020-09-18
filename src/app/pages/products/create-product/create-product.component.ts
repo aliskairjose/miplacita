@@ -32,7 +32,7 @@ export class CreateProductComponent implements OnInit {
   ];
   statusSelected = 'active';
   selectedCategory = '';
-  productImages: string[] = [];
+  productImages: Array<string> = [];
   images = [];
   productData: Product = {};
   title = 'Crear producto';
@@ -80,7 +80,11 @@ export class CreateProductComponent implements OnInit {
       this.productService.uploadImages( { images: this.productImages } ).subscribe( response => {
         if ( response.status === 'isOk' ) {
           const data: Product = { ...this.productForm.value };
-          data.image = [ ...response.images ] as [ string ];
+          // data.image = [ ...response.images ] as [ string ];
+          response.images.forEach( url => {
+            const image = { url, principal: false };
+            data.images.push( image );
+          } );
           ( this.status === 'add' ) ? this.createProduct( data ) : this.updateProduct( data );
         }
       } );

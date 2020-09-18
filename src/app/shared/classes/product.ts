@@ -9,7 +9,7 @@ export interface Product {
   status?: string;
   category?: string;
   image?: [ string ];
-  images?: Images;
+  images?: Images[];
   stock?: number;
   store?: any;
   tax?: string;
