@@ -452,7 +452,13 @@ ngb-carousel {
 	height: 100%;
 	padding-left: 1px !important;
 	padding-right: 1px !important;
-	}
+  }
+  
+  .mp-setting {
+    top: unset !important;
+    bottom: 42px !important;
+    left: 0 !important;
+  }
 }
 
 @media (max-width : 320px) {
@@ -461,11 +467,7 @@ ngb-carousel {
     padding-left: 1px !important;
     padding-right: 1px !important;
   }
-  .mp-setting {
-    top: unset !important;
-    bottom: 42px !important;
-    left: 0 !important;
-  }
+
   
 }
 
