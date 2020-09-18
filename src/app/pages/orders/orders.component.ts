@@ -11,6 +11,7 @@ import { environment } from '../../../environments/environment';
 import { User } from '../../shared/classes/user';
 import { log } from 'console';
 import { CustomDateParserFormatterService } from '../../shared/adapter/custom-date-parser-formatter.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component( {
   selector: 'app-orders',
@@ -37,10 +38,10 @@ export class OrdersComponent implements OnInit {
   /** variable provisional */
 
   constructor(
+    private toastr: ToastrService,
     private ngbCalendar: NgbCalendar,
     private orderService: OrderService,
     private storageService: StorageService,
-    private dateAdapter: NgbDateAdapter<string>,
     private parseDate: CustomDateParserFormatterService,
   ) { }
 
@@ -60,19 +61,22 @@ export class OrdersComponent implements OnInit {
   }
 
   changeStatus(): void {
-    console.log( this.status );
     this.loadData();
   }
 
   filtrar(): void {
-    this.fechaIni = this.parseDate.format(this.modelFrom);
-    this.fechaFin = this.parseDate.format(this.modelTo);
+    this.fechaIni = this.parseDate.format( this.modelFrom );
+    this.fechaFin = this.parseDate.format( this.modelTo );
+    const from = new Date( this.fechaIni );
+    const to = new Date( this.fechaFin );
+
+    if ( from > to ) {
+      this.toastr.warning( 'La fecha inicial no debe ser menor a la final' );
+      return;
+    }
+
     this.loadData();
   }
-
-  // onDateSelect( date: NgbDate, type: string ): void {
-  //   ( type === 'from' ) ? this.fechaIni = this.parseDate.format( date ) : this.fechaFin = this.parseDate.format( date );
-  // }
 
   private loadData( page = 1 ): void {
     let params = '';
@@ -84,7 +88,6 @@ export class OrdersComponent implements OnInit {
     params = `store=${this.storeId}&status=${this.status}&from=${this.fechaIni}&to=${this.fechaFin}`;
 
     this.orderService.orderList( page, params ).subscribe( ( result: Result<Order> ) => {
-      console.log( result );
       this.orders = [ ...result.docs ];
       this.paginate = { ...result };
       this.paginate.pages = [];
