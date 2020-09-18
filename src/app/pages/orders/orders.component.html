@@ -17,7 +17,7 @@
 					<div class="form-group flex-fill mr-1">
 						<div class="input-group">
 							<input class="form-control lighten-3" placeholder="dd/mm/yyyy" name="d2" ngbDatepicker
-								#d1="ngbDatepicker" [(ngModel)]="fechaIni">
+								#d1="ngbDatepicker" [(ngModel)]="modelFrom">
 							<div class="input-group-append">
 								<button class="btn btn-outline-secondary calendar" (click)="d1.toggle()" type="button">
 									<svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-calendar-week-fill"
@@ -32,7 +32,7 @@
 					<div class="form-group flex-fill">
 						<div class="input-group">
 							<input class="form-control lighten-3" placeholder="dd/mm/yyyy" name="d2" ngbDatepicker
-								#d2="ngbDatepicker" [(ngModel)]="fechaFin">
+								#d2="ngbDatepicker" [(ngModel)]="modelTo">
 							<div class="input-group-append">
 								<button class="btn btn-outline-secondary calendar" (click)="d2.toggle()" type="button">
 									<svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-calendar-week-fill"

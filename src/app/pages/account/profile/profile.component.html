@@ -26,7 +26,7 @@
                             <div class="col-md-6">
                                 <label for="email">Correo Electrónico</label>
                                 <input type="email" formControlName="email" class="form-control" id="last-name"
-                                    placeholder="lrodriguez@gmail.com" required="">
+                                    placeholder="lrodriguez@gmail.com" required="" disabled>
                                 <div *ngIf="submitted && f.email.errors" class="invalid-feedback d-block">
                                     <div *ngIf="f.email.errors.required"> {{ required }} </div>
                                     <div *ngIf="f.email.errors.email"> {{ invalidEmail }} </div>
