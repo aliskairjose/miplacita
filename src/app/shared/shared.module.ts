@@ -73,6 +73,7 @@ import { ConfirmationDialogService } from './services/confirmation-dialog.servic
 import { SearchComponent } from './components/search/search.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { ShopCardComponent } from './components/shop-card/shop-card.component';
+import { PaymentComponent } from './components/payment/payment.component';
 
 // export let options: Partial<IConfig> | (() => Partial<IConfig>);
 const maskConfig: Partial<IConfig> = {
@@ -127,6 +128,7 @@ export const customCurrencyMaskConfig = {
     TapToTopComponent,
     RegisterStoreComponent,
     CustomPaginationComponent,
+    PaymentComponent,
     SuccessModalComponent,
     ShopDetailsComponent,
     ConfirmationDialogComponent,
@@ -139,6 +141,7 @@ export const customCurrencyMaskConfig = {
     TimelineComponent,
     SearchComponent,
     ShopCardComponent,
+    PaymentComponent,
   ],
   imports: [
     NgxCurrencyModule.forRoot(customCurrencyMaskConfig),
@@ -198,6 +201,7 @@ export const customCurrencyMaskConfig = {
     TapToTopComponent,
     RegisterStoreComponent,
     CustomPaginationComponent,
+    PaymentComponent,
     SuccessModalComponent,
     UploadImageComponent,
     ConfirmationDialogComponent,

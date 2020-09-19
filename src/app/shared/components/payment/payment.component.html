@@ -1,0 +1,71 @@
+<div class="m-3">
+  <div class="checkout-title">
+    <h3>Formulario de pago</h3>
+  </div>
+  <div class="border-box h-100">
+    <div class="d-flex flex-column h-100">
+      <form [formGroup]="paymentForm" (ngSubmit)="onSubmit()" class="theme-form">
+        <div class="row">
+          <div class="form-group col-md-8 col-sm-8 col-xs-12">
+            <div class="field-label">Propietario</div>
+            <input type="text" formControlName="owner" name="owner" value="" placeholder="" autocomplete="off">
+            <div *ngIf="submitted && paymentForm.controls.owner.errors?.required" class="text text-danger">
+              Campo requerido
+            </div>
+            <div *ngIf="submitted && paymentForm.controls.owner.errors?.pattern" class="text text-danger">
+              Sólo catacteres
+            </div>
+          </div>
+          <div class="form-group col-md-4 col-sm-4 col-xs-12">
+            <div class="field-label">CVV</div>
+            <input type="text" formControlName="cvv" name="cvv" value="" placeholder="" autocomplete="off">
+            <div *ngIf="submitted && paymentForm.controls.cvv.errors?.required" class="text text-danger">
+              Campo requerido
+            </div>
+            <div *ngIf="submitted && paymentForm.controls.cvv.errors?.pattern" class="text text-danger">
+              Sólo dígitos
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group col-md-12 col-sm-12 col-xs-12">
+            <div class="field-label">Número de tarjeta</div>
+            <input type="number" formControlName="cardnumber" name="cardnumber" value="" placeholder=""
+              autocomplete="off">
+            <div *ngIf="submitted && paymentForm.controls.cardnumber.errors?.required" class="text text-danger">
+              Campo requerido
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group col-md-12 col-sm-12 col-xs-12">
+            <div class="field-label">Fecha</div>
+            <div class="row">
+              <div class="form-group col-md-4 col-sm-4 col-xs-8">
+                <select class="form-control">
+                  <option *ngFor="let month of months" value="mount.value">
+                    {{ month.name}}</option>
+                </select>
+              </div>
+              <div class="form-group col-md-4 col-sm-4 col-xs-8">
+                <select class="form-control">
+                  <option *ngFor="let year of years" value="year">{{ year}}</option>
+                </select>
+              </div>
+              <div class="form-group col-md-4 col-sm-4 col-xs-12 d-flex justify-content-end">
+                <ul>
+                  <li>
+                    <a><img src="assets/images/icon/visa.png" alt=""></a>
+                  </li>
+                  <li>
+                    <a><img src="assets/images/icon/mastercard.png" alt=""></a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
