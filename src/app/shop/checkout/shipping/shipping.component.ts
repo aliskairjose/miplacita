@@ -5,7 +5,6 @@ import { IPayPalConfig, ICreateOrderRequest } from 'ngx-paypal';
 import { environment } from '../../../../environments/environment';
 import { Product } from '../../../shared/classes/product';
 import { ProductService } from '../../../shared/services/product.service';
-import { OrderService } from '../../../shared/services/order.service';
 import { StorageService } from '../../../shared/services/storage.service';
 import { User } from '../../../shared/classes/user';
 import { ToastrService } from 'ngx-toastr';
@@ -75,7 +74,6 @@ export class ShippingComponent implements OnInit, OnDestroy {
     private auth: AuthService,
     private storage: StorageService,
     private shopService: ShopService,
-    private orderService: OrderService,
     private mapsAPILoader: MapsAPILoader,
     private toastrService: ToastrService,
     public productService: ProductService,
