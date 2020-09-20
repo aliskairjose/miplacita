@@ -88,9 +88,13 @@
 											</div>
 										</div>
 									</div>
-
-									<app-payment></app-payment>
-
+									<!-- Payment Component -->
+									<div>
+										<div class="checkout-title">
+											<h3>Formulario de pago</h3>
+										</div>
+										<app-payment #payment></app-payment>
+									</div>
 									<div class="form-group">
 										<div class="field-label" for="name">Agregar logo</div>
 										<app-upload-image (uploadImage)="uploadImage($event)"></app-upload-image>
