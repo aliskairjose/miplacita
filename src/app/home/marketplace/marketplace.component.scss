@@ -6,8 +6,10 @@
     font-weight: 500;
     font-size: 16px;
 }
-
-#icon-1 {
-    height: 70px;
+ngb-carousel {
+    max-height: none;
 }
-
+.vertical-banner-img {
+    height: 100%;
+    max-height: none;
+}

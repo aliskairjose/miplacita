@@ -11,27 +11,14 @@
                     <div class="form-group flex-fill">
                         <div class="input-group ">
                             <div class="input-group-append">
-                                <button type="buttont" class="btn" (click)="search()"><i
-                                        class="fa fa-search"></i></button>
-                                <!-- <span class="input-group-text">
-                                    <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-search" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                        <path fill-rule="evenodd" d="M10.442 10.442a1 1 0 0 1 1.415 0l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1 1 0 0 1 0-1.415z"/>
-                                        <path fill-rule="evenodd" d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zM13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z"/>
-                                    </svg>
-                                </span> -->
+                                <button type="buttont" class="btn" (click)="search()">
+                                    <i class="fa fa-search"></i></button>
                             </div>
                             <input [(ngModel)]="name" [ngModelOptions]="{standalone: true}"
                                 class="form-control my-0 py-1" type="text" placeholder="Buscar...">
                         </div>
-                        <!-- <input class="form-control" placeholder="Buscar" (change)="search($event)" /> -->
                     </div>
                     <div class="filters pb-2">
-                        <!-- <div class="flex-fill mr-1">
-                            <select class="form-control" formControlName="typeProduct">
-                                <option value="">Tipo de producto</option>
-                                <option value="" *ngFor="let type of productTypes"></option>
-                            </select>
-                        </div> -->
                         <div class="flex-fill">
                             <select name="model" class="form-control" [(ngModel)]="status" (change)="selectStatus()">
                                 <option value="">Estado</option>
@@ -45,10 +32,10 @@
                             </select>
                         </div>
                     </div>
-                    <div class="d-flex flex-fill h-100 justify-content-end" *ngIf="user.role==='merchant'">
-                        <a [routerLink]="[ '/pages/create-product' ]" class="btn btn-solid-purple">
+                    <div class="d-flex  h-100 " *ngIf="user.role==='merchant'">
+                        <button type="button" (click)="CreateProduct.openModal(true,null)" class="btn btn-solid-purple flex-fill">
                             Crear Producto
-                        </a>
+                        </button>
                     </div>
                 </div>
             </form>
@@ -77,8 +64,12 @@
 
                         <td class="text-center" *ngIf="user.role==='merchant'">
                             <a [routerLink]="[ '/pages/edit-product', product._id ]"
-                                class="btn btn-table-action">Editar</a>
-                            <button class="btn btn-table-action" (click)="showModal(product._id)">Eliminar</button>
+                                class="btn btn-table-action">
+                                <i class="fa fa-edit fa-lg" style="color: Dodgerblue"></i>
+                            </a>
+                            <button class="btn btn-table-action" (click)="showModal(product._id)">
+                                <i class="fa fa-close fa-lg" style="color: Tomato"></i>
+                            </button>
                         </td>
                         <td class="text-center" *ngIf="user.role==='admin'">
                             <button class="btn btn-table-action">Desactivar</button>
@@ -91,3 +82,4 @@
         </app-custom-pagination>
     </div>
 </section>
+<app-create-product #createProduct ></app-create-product>

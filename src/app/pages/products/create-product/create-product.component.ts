@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, TemplateRef, Input, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { StorageService } from '../../../shared/services/storage.service';
 import { ProductService } from '../../../shared/services/product.service';
@@ -9,14 +9,20 @@ import { User } from '../../../shared/classes/user';
 import { environment } from '../../../../environments/environment';
 import { Result } from '../../../shared/classes/response';
 import { ToastrService } from 'ngx-toastr';
+import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
+import { log } from 'console';
 
 @Component( {
   selector: 'app-create-product',
   templateUrl: './create-product.component.html',
   styleUrls: [ './create-product.component.scss' ]
 } )
-export class CreateProductComponent implements OnInit {
-
+export class CreateProductComponent implements OnInit, OnDestroy {
+  @ViewChild( 'createProduct', { static: false } ) CreateProduct: TemplateRef<any>;
+  modal: any;
+  modalOpen = false;
+  modalOption: NgbModalOptions = {}; // not null!
+  create = true;
   typesProduct = [];
   states = [];
   categoryId = '';
@@ -32,7 +38,7 @@ export class CreateProductComponent implements OnInit {
   ];
   statusSelected = 'active';
   selectedCategory = '';
-  productImages: string[] = [];
+  productImages: Array<string> = [];
   images = [];
   productData: Product = {};
   title = 'Crear producto';
@@ -46,8 +52,10 @@ export class CreateProductComponent implements OnInit {
     private toastrService: ToastrService,
     private storageService: StorageService,
     private productService: ProductService,
+    public modalService: NgbModal,
   ) {
     this.createForm();
+    this.productData.name = '';
   }
 
   // convenience getter for easy access to form fields
@@ -55,14 +63,14 @@ export class CreateProductComponent implements OnInit {
   get f() { return this.productForm.controls; }
 
   ngOnInit(): void {
-    const param = this.route.snapshot.params.id;
-    if ( param ) {
-      this.selectedCategory = this.productData.category;
-      this.status = 'edit';
-      this.disabled = false;
-      this.title = 'Editar producto';
-      this.loadProductData( param );
-    }
+    // const param = this.route.snapshot.params.id;
+    // if ( param ) {
+    //   this.selectedCategory = this.productData.category;
+    //   this.status = 'edit';
+    //   this.disabled = false;
+    //   this.title = 'Editar producto';
+    //   this.loadProductData( param );
+    // }
     this.productService.categoryList().subscribe( ( categories: Category[] ) => {
       this.categories = [ ...categories ];
     } );
@@ -71,14 +79,23 @@ export class CreateProductComponent implements OnInit {
   onSubmit(): void {
     this.submitted = true;
     if ( this.productForm.valid ) {
-      if ( this.productImages.length === 0 ) {
-        this.toastrService.warning( 'Debe cargar al menos una imagen de producto' );
-        return;
+      if ( this.status === 'add' ) {
+        if ( this.productImages.length === 0 ) {
+          this.toastrService.warning( 'Debe cargar al menos una imagen de producto' );
+          return;
+        }
       }
       this.productService.uploadImages( { images: this.productImages } ).subscribe( response => {
         if ( response.status === 'isOk' ) {
           const data: Product = { ...this.productForm.value };
-          data.image = [ ...response.images ] as [ string ];
+          // data.image = [ ...response.images ] as [ string ];
+          data.images = [];
+          response.images.forEach( ( url: string ) => {
+            const image = { url: '', principal: false };
+            image.url = url;
+            image.principal = false;
+            data.images.push( image );
+          } );
           ( this.status === 'add' ) ? this.createProduct( data ) : this.updateProduct( data );
         }
       } );
@@ -102,9 +119,7 @@ export class CreateProductComponent implements OnInit {
     this.productService.addProduct( data ).subscribe( ( product: Product ) => {
       this.toastrService.info( 'El producto se ha creado con exito' );
       this.productService.productSubject( product );
-      setTimeout( () => {
-        this.router.navigate( [ 'pages/products' ] );
-      }, 2000 );
+      this.close();
     } );
   }
 
@@ -153,6 +168,37 @@ export class CreateProductComponent implements OnInit {
         this.disabled = false;
 
       } );
+    }
+  }
+  choiceOptions( productId: string ) {
+    if ( !this.create ) {
+      this.status = 'edit';
+      this.disabled = false;
+      this.title = 'Editar producto';
+      this.loadProductData( productId );
+    } else {
+      this.title = 'Crear producto';
+    }
+
+  }
+  openModal( option: boolean, id: string ) {
+    this.create = option;
+    this.choiceOptions( id );
+    this.modalOpen = true;
+    this.modalOption.backdrop = 'static';
+    this.modalOption.keyboard = false;
+    this.modalOption.windowClass = 'createProductModal';
+    this.modal = this.modalService.open( this.CreateProduct, this.modalOption );
+    this.modal.result.then( ( result ) => console.log( result ) );
+  }
+
+  close() {
+    this.modal.close();
+  }
+
+  ngOnDestroy(): void {
+    if ( this.modalOpen ) {
+      this.modalService.dismissAll();
     }
   }
 

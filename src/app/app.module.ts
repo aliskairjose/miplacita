@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule, NgbDateAdapter, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
 import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
 import { LoadingBarRouterModule } from '@ngx-loading-bar/router';
 import { ToastrModule } from 'ngx-toastr';
@@ -79,7 +79,7 @@ export const customCurrencyMaskConfig = {
     AngularFireAuthModule,
     NgxMaskModule.forRoot( maskConfig ),
     LoadingBarHttpClientModule,
-    AgmCoreModule.forRoot({apiKey: 'AIzaSyC7YdhqPz4rB-D8U7F4qxVokWDb8EWYOB4'}),
+    AgmCoreModule.forRoot( { apiKey: 'AIzaSyC7YdhqPz4rB-D8U7F4qxVokWDb8EWYOB4' } ),
     NgxCurrencyModule.forRoot( customCurrencyMaskConfig ),
     AlertModule.forRoot( { maxMessages: 5, timeout: 3000, position: 'left' } ),
     BrowserModule.withServerTransition( { appId: 'serverApp' } ),

@@ -10,7 +10,7 @@
           </div>
         </div>
         <ul id="sub-menu" class="sidebar-menu">
-          <li *ngFor="let menuItem of menuItems">
+          <li class="mp-side-menu" *ngFor="let menuItem of menuItems">
               <!-- Sub -->
               <a [routerLink]="menuItem.path" *ngIf="menuItem.type === 'sub' && (menuItem.role === role || menuItem.role === null)" 
                   (click)="toggletNavActive(menuItem)">
@@ -138,7 +138,13 @@
                 </ng-container>
                 <!-- Mega Menu End-->
               </ul>
-            </li>
+          </li>
+          <li class="mp-side-menu-responsive" *ngFor="let menuItem of menuItemsResponsive">
+            <!-- Link -->
+            <a [routerLink]="menuItem.path" *ngIf="menuItem.type === 'link' && (menuItem.role === role || menuItem.role === null)" (click)="leftMenuToggle()">
+                {{menuItem.title}}
+            </a>
+          </li>
         </ul>
       </nav>
     </div>

@@ -1,13 +1,28 @@
+section {
+  padding-top: 10px;
+}
+
 .preview {
   max-width: 50% !important;
   height: auto;
 }
+
 .img-thumbnail {
   border: none;
 }
+
 .fakeImage {
   width: 35%;
   max-width: 35%;
+}
+
+.image-upload {
+  input {
+    display: none;
+  }
+  img {
+    height: fit-content;
+  }
 }
 
 @media (min-width:768px){

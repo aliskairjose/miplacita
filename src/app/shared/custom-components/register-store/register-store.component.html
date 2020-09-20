@@ -88,10 +88,18 @@
 											</div>
 										</div>
 									</div>
-									<div class="form-group text-center">
+									<!-- Payment Component -->
+									<div>
+										<div class="checkout-title">
+											<h3>Formulario de pago</h3>
+										</div>
+										<app-payment #payment></app-payment>
+									</div>
+									<div class="form-group">
+										<div class="field-label" for="name">Agregar logo</div>
 										<app-upload-image (uploadImage)="uploadImage($event)"></app-upload-image>
 									</div>
-									<div class="form-gruop text-right">
+									<div class="form-group text-right">
 										<button class="btn btn-solid-purple" (click)="storeRegister()" [disabled]="disabled">
 											Regístrate
 										</button>

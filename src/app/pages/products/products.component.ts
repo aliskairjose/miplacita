@@ -1,17 +1,19 @@
-import { Component, OnChanges, OnInit } from '@angular/core';
-import { ProductService } from '../../shared/services/product.service';
+
+
+import { environment } from '../../../environments/environment';
+import { Paginate } from '../../shared/classes/paginate';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { StorageService } from '../../shared/services/storage.service';
 import { User } from '../../shared/classes/user';
 import { Product } from '../../shared/classes/product';
 import { Result } from '../../shared/classes/response';
-import { Paginate } from '../../shared/classes/paginate';
-import { Router } from '@angular/router';
-import { environment } from '../../../environments/environment';
-import { ConfirmationDialogService } from '../../shared/services/confirmation-dialog.service';
-import { ShopService } from '../../shared/services/shop.service';
 import { Store } from '../../shared/classes/store';
+import { ConfirmationDialogService } from '../../shared/services/confirmation-dialog.service';
+import { ProductService } from '../../shared/services/product.service';
+import { ShopService } from '../../shared/services/shop.service';
 import { ToastrService } from 'ngx-toastr';
+import { CreateProductComponent } from './create-product/create-product.component';
 
 @Component( {
   selector: 'app-products',
@@ -19,6 +21,8 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: [ './products.component.scss' ]
 } )
 export class ProductsComponent implements OnInit {
+  @ViewChild( 'createProduct' ) CreateProduct: CreateProductComponent;
+
   typeUser = 'admin';
   fields = [ '', 'Nombre', 'Descripción', 'Precio', 'ITBMS', 'Estado', 'Acción' ];
   name = '';
@@ -39,7 +43,6 @@ export class ProductsComponent implements OnInit {
   params = '';
 
   constructor(
-    private router: Router,
     private shopService: ShopService,
     private toastrService: ToastrService,
     private productService: ProductService,

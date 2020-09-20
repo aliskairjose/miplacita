@@ -31,11 +31,23 @@ export class NavService {
 	MENUITEMS: Menu[] = menu.menuItems;
 	// LEFTMENUITEMS: Menu[] = menu.leftMenuItems;
 	LEFTMENUITEMS: Menu[] = [];
+	LEFTMENUITEMSRESPONSIVE: Menu[] = [
+		{ path: "/pages/account/user/profile", title: "mi perfil", type: "link", logged: true, role: null },
+		{ path: "/pages/account/user/orders", title: "mis pedidos", type: "link", logged: true, role: 'merchant' },
+		{ path: "/pages/account/user/stores", title: "mis tiendas", type: "link", logged: true, role: 'merchant' },
+		{ path: "/pages/account/user/stores", title: "tiendas", type: "link", logged: true, role: 'admin' },
+		{ path: "/pages/account/user/dashboard", title: "tablero", type: "link", logged: true, role: null },
+		{ path: "/pages/account/user/products", title: "productos", type: "link", logged: true, role: null },
+		{ path: "/pages/account/user/admin-orders", title: "órdenes", type: "link", logged: true, role: null },
+		{ path: "/pages/account/user/admin-store", title: "tienda", type: "link", logged: true, role: 'merchant' },
+		{ path: "/pages/account/user/reposrt", title: "reportes", type: "link", logged: true, role: null },
+	];
 	sideMenuItem: Menu = {};
 
 	// Array
 	items = new BehaviorSubject<Menu[]>( this.MENUITEMS );
 	leftMenuItems = new BehaviorSubject<Menu[]>( this.LEFTMENUITEMS );
+	leftMenuItemsResponsive = new BehaviorSubject<Menu[]>( this.LEFTMENUITEMSRESPONSIVE );
 
 	// Windows width
 	@HostListener( 'window:resize', [ '$event' ] )
@@ -56,6 +68,8 @@ export class NavService {
 			}
 			
 		} );
+
+
 	}
 
 
