@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output, OnChanges, SimpleChanges, AfterViewChecked } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 
 @Component( {
@@ -22,13 +22,16 @@ export class PaymentComponent implements OnInit {
   { value: 11, name: 'Noviembre' },
   { value: 12, name: 'Diciembre' } ];
   years = [];
-  submitted: boolean;
+
+  @Input() submitted: boolean;
+  @Output() enviado: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   constructor(
     private _formBuilder: FormBuilder
   ) {
     this.createForm();
   }
+
 
   ngOnInit(): void {
     const date = new Date();
@@ -40,6 +43,7 @@ export class PaymentComponent implements OnInit {
       this.years.push( date.getFullYear() );
     }
   }
+
 
   private createForm(): void {
     this.paymentForm = this._formBuilder.group( {
