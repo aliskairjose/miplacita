@@ -8,7 +8,7 @@ export interface Product {
   store_id?: string;
   status?: string;
   category?: string;
-  image?: [ string ];
+  image?: [string];
   images?: Images[];
   stock?: number;
   store?: any;
@@ -21,6 +21,6 @@ export interface Product {
 }
 
 interface Images {
-  url: string;
+  url?: string;
   principal: boolean;
 }

@@ -19,6 +19,7 @@ $radius: 5px;
 .text-blue { color: $mp-blue; }
 .text-pink-light { color: $mp-pink-dark !important }
 .text-default-color {color : var(--theme-deafult) }
+.text-purple { color : $mp-purple }
 .border-box {
   padding: 13px 13px;
   border: 1px solid #dedede;
@@ -142,6 +143,25 @@ $radius: 5px;
     Alerts styles ends
    ==============
 */
+/* ==============
+    Productos -Create/Edit Modal styles 
+   ==============
+*/
+.createProductModal{
+  display: flex !important;
+  justify-content: center;
+  .modal-dialog {
+    max-width: 80% !important;
+  }
+}
+/* ==============
+    Productos -Create/Edit Modal styles ends 
+   ==============
+*/
+/* ==============
+    Alerts styles ends
+   ==============
+*/
 .section-b-space {
   padding-top: 25px;
   border-bottom: 1px solid #ccc;
@@ -167,6 +187,9 @@ $radius: 5px;
     margin-bottom: 10px;
     hr {
       width: 50%;
+    }
+    .info-header {
+      padding: 0px 40px;
     }
     .info-body{
       width: 60%;
@@ -194,6 +217,9 @@ $radius: 5px;
     background-color: $mp-rosa;
     hr {
       width: 50%;
+    }
+    .info-header {
+      padding: 0px 40px;
     }
     .info-body{
       width: 60%;
@@ -566,4 +592,3 @@ ngb-carousel {
 
 // Extra large devices (large desktops, 1200px and up)
 @media (min-width: 1200px) {  }
-

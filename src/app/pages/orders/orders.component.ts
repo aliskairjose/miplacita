@@ -55,8 +55,6 @@ export class OrdersComponent implements OnInit {
   }
 
   setPage( page: number ) {
-    console.log( page );
-
     this.loadData( page );
   }
 

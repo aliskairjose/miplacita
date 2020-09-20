@@ -56,7 +56,7 @@
                   <app-product-box-one 
                     [product]="product" 
                     [thumbnail]="false"
-                    [cartModal]="true"
+                    [cartModal]="false"
                     [horizontal]="true">
                   </app-product-box-one>
                 </div>
@@ -73,7 +73,7 @@
       <img class="w-100 h-100" src="assets/images/marketplace/images/banner2_.png">
     </div>
     <div class="banner-mp-container">
-      <button class="btn btn-white w-100">Vender ahora</button>
+      <a [routerLink]="['/home/register']" class="btn btn-white w-100">Vender ahora</a>
     </div>
   </section>
 
@@ -95,7 +95,7 @@
                   <app-product-box-one 
                     [product]="product" 
                     [thumbnail]="false"
-                    [cartModal]="true"
+                    [cartModal]="false"
                     [horizontal]="true">
                   </app-product-box-one>
                 </div>

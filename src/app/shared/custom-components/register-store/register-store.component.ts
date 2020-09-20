@@ -13,6 +13,7 @@ import { Plan } from '../../classes/plan';
 import { SuccessModalComponent } from '../../custom-component/success-modal/success-modal.component';
 import { environment } from '../../../../environments/environment';
 import { ToastrService } from 'ngx-toastr';
+import { PaymentComponent } from '../../components/payment/payment.component';
 
 
 @Component( {
@@ -23,6 +24,7 @@ import { ToastrService } from 'ngx-toastr';
 export class RegisterStoreComponent implements OnInit {
   @Output() emitEvent: EventEmitter<boolean> = new EventEmitter<boolean>();
   @ViewChild( 'successModal' ) SuccessModal: SuccessModalComponent;
+  @ViewChild( 'payment' ) payment: PaymentComponent;
 
   planSelected = '';
   step = 1;
@@ -81,8 +83,9 @@ export class RegisterStoreComponent implements OnInit {
 
   storeRegister() {
     this.submitted = true;
+    
     this.storeForm.value.owner_id = this.user._id;
-    if ( this.storeForm.valid ) {
+    if ( this.storeForm.valid && this.payment.onSubmit() ) {
       if ( this.images.length === 0 ) {
         this.toastrService.warning( 'Debe cargar un logo para la tienda!' );
         return;
