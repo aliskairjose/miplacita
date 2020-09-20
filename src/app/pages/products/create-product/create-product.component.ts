@@ -90,9 +90,9 @@ export class CreateProductComponent implements OnInit, OnDestroy {
           const data: Product = { ...this.productForm.value };
           // data.image = [ ...response.images ] as [ string ];
           data.images = [];
-          response.images.forEach( element => {
+          response.images.forEach( ( url: string ) => {
             const image = { url: '', principal: false };
-            image.url = element;
+            image.url = url;
             image.principal = false;
             data.images.push( image );
           } );
