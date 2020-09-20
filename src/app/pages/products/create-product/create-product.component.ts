@@ -111,9 +111,7 @@ export class CreateProductComponent implements OnInit, OnDestroy {
     this.productService.addProduct( data ).subscribe( ( product: Product ) => {
       this.toastrService.info( 'El producto se ha creado con exito' );
       this.productService.productSubject( product );
-      setTimeout( () => {
-        this.router.navigate( [ 'pages/account/user/products' ] );
-      }, 2000 );
+      this.close();
     } );
   }
 
