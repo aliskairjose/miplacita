@@ -1,4 +1,5 @@
 import { Store } from './store';
+import { BlogLeftSidebarComponent } from '../../pages/blog/blog-left-sidebar/blog-left-sidebar.component';
 export interface Product {
   _id?: string;
   uuid?: string;
@@ -10,6 +11,7 @@ export interface Product {
   status?: string;
   category?: string;
   image?: [string];
+  images?: Images[];
   stock?: number;
   store?: any;
   tax?: string;
@@ -18,4 +20,9 @@ export interface Product {
   sold?: number;
   created_at?: string;
   quantity?: number;
+}
+
+interface Images {
+  url?: string;
+  principal: boolean;
 }

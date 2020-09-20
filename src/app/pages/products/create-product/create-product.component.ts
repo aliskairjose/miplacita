@@ -10,6 +10,7 @@ import { environment } from '../../../../environments/environment';
 import { Result } from '../../../shared/classes/response';
 import { ToastrService } from 'ngx-toastr';
 import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
+import { log } from 'console';
 
 @Component( {
   selector: 'app-create-product',
@@ -87,7 +88,14 @@ export class CreateProductComponent implements OnInit, OnDestroy {
       this.productService.uploadImages( { images: this.productImages } ).subscribe( response => {
         if ( response.status === 'isOk' ) {
           const data: Product = { ...this.productForm.value };
-          data.image = [ ...response.images ] as [ string ];
+          // data.image = [ ...response.images ] as [ string ];
+          data.images = [];
+          response.images.forEach( element => {
+            const image = { url: '', principal: false };
+            image.url = element;
+            image.principal = false;
+            data.images.push( image );
+          } );
           ( this.status === 'add' ) ? this.createProduct( data ) : this.updateProduct( data );
         }
       } );
