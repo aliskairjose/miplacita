@@ -44,6 +44,10 @@ export class PaymentComponent implements OnInit {
     }
   }
 
+  onSubmit(): boolean {
+    this.submitted = true;
+    return this.paymentForm.valid;
+  }
 
   private createForm(): void {
     this.paymentForm = this._formBuilder.group( {
