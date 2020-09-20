@@ -16,12 +16,12 @@ import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
   templateUrl: './create-product.component.html',
   styleUrls: [ './create-product.component.scss' ]
 } )
-export class CreateProductComponent implements OnInit {
+export class CreateProductComponent implements OnInit, OnDestroy {
   @ViewChild( 'createProduct', { static: false } ) CreateProduct: TemplateRef<any>;
   modal: any;
   modalOpen = false;
   modalOption: NgbModalOptions = {}; // not null!
-  create: boolean = true;
+  create = true;
   typesProduct = [];
   states = [];
   categoryId = '';
@@ -54,6 +54,7 @@ export class CreateProductComponent implements OnInit {
     public modalService: NgbModal,
   ) {
     this.createForm();
+    this.productData.name = '';
   }
 
   // convenience getter for easy access to form fields
@@ -73,7 +74,7 @@ export class CreateProductComponent implements OnInit {
       this.categories = [ ...categories ];
     } );
   }
-  
+
   onSubmit(): void {
     this.submitted = true;
     if ( this.productForm.valid ) {
@@ -163,8 +164,8 @@ export class CreateProductComponent implements OnInit {
       } );
     }
   }
-  choiceOptions(productId: string){
-    if(!this.create){
+  choiceOptions( productId: string ) {
+    if ( !this.create ) {
       this.status = 'edit';
       this.disabled = false;
       this.title = 'Editar producto';
@@ -172,27 +173,25 @@ export class CreateProductComponent implements OnInit {
     } else {
       this.title = 'Crear producto';
     }
-    
+
   }
-  openModal(option:boolean, id: string){
+  openModal( option: boolean, id: string ) {
     this.create = option;
-    this.choiceOptions(id);
+    this.choiceOptions( id );
     this.modalOpen = true;
     this.modalOption.backdrop = 'static';
     this.modalOption.keyboard = false;
-    this.modalOption.windowClass = "createProductModal";
-    this.modal = this.modalService.open(this.CreateProduct, this.modalOption);
-    this.modal.result.then((result) => {
-      console.log(result);
-    });
+    this.modalOption.windowClass = 'createProductModal';
+    this.modal = this.modalService.open( this.CreateProduct, this.modalOption );
+    this.modal.result.then( ( result ) => console.log( result ) );
   }
 
-  close(){
+  close() {
     this.modal.close();
   }
 
-  ngOnDestroy() {
-    if (this.modalOpen){
+  ngOnDestroy(): void {
+    if ( this.modalOpen ) {
       this.modalService.dismissAll();
     }
   }
