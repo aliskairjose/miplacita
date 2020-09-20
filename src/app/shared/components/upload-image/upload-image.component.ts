@@ -25,7 +25,7 @@ export class UploadImageComponent implements OnInit {
     const image = event.target.files[ 0 ];
     const mimeType = image.type;
 
-    if( event.target.files.length > 3){
+    if ( event.target.files.length > 3 ) {
       this.toastrService.warning( 'Máximo 3 imagenes' );
       return;
     }
