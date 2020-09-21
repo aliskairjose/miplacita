@@ -63,7 +63,7 @@ export class OrderService {
   /**
    * @description Lista las ordenes segun los parametros, si params esta vacio lista todas las ordenes (admin)
    * @param page Pagina a consultar
-   * @param params order?store=IDTIENDA&status=cancelado|en proceso|aprobado|por aprobar|pagado|entregado|devuelto
+   * @param params order?store=IDTIENDA&status=cancelado|en proceso|aprobado|por aprobar|pagado|entregado|devuelto$user=ID
    * 
    */
   orderList( page = 1, params = '' ): Observable<Result<Order>> {
