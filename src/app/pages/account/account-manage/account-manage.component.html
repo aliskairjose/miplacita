@@ -21,14 +21,10 @@
                         </button>
                     </div>
                     <div class="tab" (click)="updateTab('stores')"
-                        [ngClass]="{'active': active==='stores','btn tab': active!=='stores'}">
-                        <button class="btn" *ngIf="user.role=='merchant'">
+                        [ngClass]="{'active': active==='stores','btn tab': active!=='stores'}" *ngIf="user.role=='merchant'">
+                        <button class="btn" >
                             <img src="assets/images/marketplace/images/icons/store.png" alt="">
                             Mis tiendas
-                        </button>
-                        <button class="btn" *ngIf="user.role=='admin'">
-                            <img src="assets/images/marketplace/images/icons/store.png" alt="">
-                            Tiendas
                         </button>
                     </div>
                 </div>
@@ -53,6 +49,13 @@
                         <button class="btn">
                             <img src="assets/images/marketplace/images/icons/orders.png" alt="">
                             Órdenes
+                        </button>
+                    </div>
+                    <div class="tab" (click)="updateTab('orders')" *ngIf="user.role=='admin'"
+                        [ngClass]="{'active': active=='orders','btn tab': active!='orders'}">
+                        <button class="btn">
+                            <img src="assets/images/marketplace/images/icons/store.png" alt="">
+                            Tiendas
                         </button>
                     </div>
                     <div class="tab" *ngIf="user.role=='merchant'" (click)="updateTab('admin-store')"
