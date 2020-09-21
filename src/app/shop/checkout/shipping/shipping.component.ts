@@ -94,9 +94,7 @@ export class ShippingComponent implements OnInit {
     }
 
     this.getStoresId().then( ( shops ) => {
-      console.log( shops );
       this.shipmentOptions = shops;
-      console.log( this.shipmentOptions[ 0 ] );
     } );
     this.createForm();
   }
@@ -278,11 +276,6 @@ export class ShippingComponent implements OnInit {
           this.zoom = 12;
           this.address = results[ 0 ].formatted_address;
           this.checkoutForm.value.address = this.address;
-          // const length = this.address.length;
-          // const index = this.address.lastIndexOf( ',' );
-          // const address = this.address.substring( 0, index );
-          // const country = this.address.substring( index + 2, length );
-          // console.log( { address, country } );
         } else {
           this.toastrService.warning( 'No results found' );
         }
