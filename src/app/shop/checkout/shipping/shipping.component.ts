@@ -96,6 +96,7 @@ export class ShippingComponent implements OnInit {
     this.getStoresId().then( ( shops ) => {
       this.shipmentOptions = shops;
     } );
+
     this.createForm();
   }
 
@@ -304,6 +305,7 @@ export class ShippingComponent implements OnInit {
           shop.id = product.store._id;
           shop.name = product.store.name;
           const val = await this.getOptions( shop.id );
+          shop.selectedOption = val[0]._id;
           shop.shopOptions = val;
 
           uniqueStore.push( shop );
