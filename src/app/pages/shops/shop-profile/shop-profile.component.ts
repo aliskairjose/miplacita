@@ -46,7 +46,6 @@ export class ShopProfileComponent implements OnInit {
 
     this.shopService.getStore( stores[ 0 ]._id ).subscribe( ( response: Result<Store> ) => {
       this.store = { ...response.docs[ 0 ] };
-      console.log('store',this.store.plan);
       this.plan = this.store.plan;
     } );
   }
@@ -54,11 +53,11 @@ export class ShopProfileComponent implements OnInit {
   onSubmit(): void {
     this.submitted = true;
     console.log( this.profileForm.value );
-    /* if ( this.profileForm.valid ) {
+     if ( this.profileForm.valid ) {
       this.shopService.updateStore( this.store._id, this.profileForm.value ).subscribe( () => {
         this.alert.info( 'La tienda se actualizó con exito' );
       } );
-    } */
+    } 
   }
 
   private createForm(): void {
