@@ -16,7 +16,8 @@ export class ShopSuscriptionComponent implements OnInit {
   plan: any = {};
   checkIcon = 'bi bi-check2';
   uncheckIcon = 'bi bi-x';
-
+  planPro: any;
+  plans = [];
   constructor(
     private storageService: StorageService,
     private shopService: ShopService,
@@ -29,13 +30,18 @@ export class ShopSuscriptionComponent implements OnInit {
     this.shopService.getStore( stores[ 0 ]._id ).subscribe( ( response: Result<Store> ) => {
       this.plan = response.docs[ 0 ].plan;
     } );
+
+    this.shopService.getPlans().subscribe( plans => {
+      this.plans = [ ...plans ];
+    } );
   }
 
-  cancelPlan() {
+  cancelPlan(): void {
 
   }
 
-  changePlan() {
+  changePlan( id: string ): void {
+    console.log( 'changePlan', id );
 
   }
 }

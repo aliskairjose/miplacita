@@ -54,7 +54,7 @@
                         </td>
                         <td class="text-center" *ngIf="product.image.length === 0 && product.images.length">
                             <div *ngFor="let image of product.images">
-                                <img class="product-image" *ngIf="product.image.principal" [src]="product.image.url" />
+                                <img class="product-image" *ngIf="image.principal" [src]="image.url" />
                             </div>
                         </td>`
                         <td class="text-center" *ngIf="product.image.length === 0 && product.images.length === 0">
