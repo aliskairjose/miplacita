@@ -30,13 +30,15 @@ export class ShopSuscriptionComponent implements OnInit {
   ngOnInit(): void {
     const user: User = this.storageService.getItem( 'user' );
     this._stores = [ ...user.stores ];
-
-    this.shopService.getStore( this._stores[ 0 ]._id ).subscribe( ( response: Result<Store> ) => {
-      this.plan = response.docs[ 0 ].plan;
-    } );
-
+    this.getShopPlan();
     this.shopService.getPlans().subscribe( plans => {
       this.plans = [ ...plans ];
+    } );
+  }
+
+  getShopPlan(): void {
+    this.shopService.getStore( this._stores[ 0 ]._id ).subscribe( ( response: Result<Store> ) => {
+      this.plan = response.docs[ 0 ].plan;
     } );
   }
 
@@ -45,9 +47,13 @@ export class ShopSuscriptionComponent implements OnInit {
   }
 
   changePlan( planId: string ): void {
-    this.shopService.updateStorePlan( this._stores[ 0 ]._id, { plan: planId } ).subscribe( result => {
-      if ( result.success ) {
-        this.toastrService.info( result.message[ 0 ] );
+    this.shopService.updateStorePlan( this._stores[ 0 ]._id, { plan: planId } ).subscribe( response => {
+      const plan = response.result.plan;
+      if ( response.success ) {
+        // const val = this.plans.filter( value => value._id = plan );
+        // this.plan = val[ 0 ];
+        this.toastrService.info( response.message[ 0 ] );
+        this.getShopPlan();
       }
     } );
   }
