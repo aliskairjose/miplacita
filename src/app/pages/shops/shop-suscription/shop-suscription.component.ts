@@ -50,8 +50,6 @@ export class ShopSuscriptionComponent implements OnInit {
     this.shopService.updateStorePlan( this._stores[ 0 ]._id, { plan: planId } ).subscribe( response => {
       const plan = response.result.plan;
       if ( response.success ) {
-        // const val = this.plans.filter( value => value._id = plan );
-        // this.plan = val[ 0 ];
         this.toastrService.info( response.message[ 0 ] );
         this.getShopPlan();
       }
