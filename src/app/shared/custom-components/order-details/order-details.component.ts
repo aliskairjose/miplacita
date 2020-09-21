@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy, ViewChild, TemplateRef } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { environment } from '../../../../environments/environment';
 
 
 @Component({
@@ -11,7 +12,7 @@ import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 export class OrderDetailsComponent implements OnInit {
   public modalOpen = false;
   public closeResult: string;
-  public states = ['Entregado'];
+  public states = environment.orderStatus;
   public products = [];
   public fields = ['Producto', 'Precio','Itbms'];
   public order: any;
@@ -25,6 +26,7 @@ export class OrderDetailsComponent implements OnInit {
   }
 
   openModal(order){
+    console.log(order);
     this.modalOpen = true;
     this.order = order;
     this.products = order.products;
