@@ -88,4 +88,4 @@
         </app-custom-pagination>
     </div>
 </section>
-<app-create-product #createProduct ></app-create-product>
+<app-create-product #createProduct *ngIf="user.role!='admin'"></app-create-product>
