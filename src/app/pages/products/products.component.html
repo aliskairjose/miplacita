@@ -49,12 +49,18 @@
                 </thead>
                 <tbody>
                     <tr *ngFor="let product of products">
-                        <td class="text-center" *ngIf="product.image.length > 0 ">
+                        <td class="text-center" *ngIf="product.image.length">
                             <img class="product-image" [src]="product.image[0]" />
                         </td>
-                        <td class="text-center" *ngIf="product.image.length === 0 ">
+                        <td class="text-center" *ngIf="product.image.length === 0 && product.images.length">
+                            <div *ngFor="let image of product.images">
+                                <img class="product-image" *ngIf="product.image.principal" [src]="product.image.url" />
+                            </div>
+                        </td>`
+                        <td class="text-center" *ngIf="product.image.length === 0 && product.images.length === 0">
                             <img class="product-image" [src]="standardImage" />
                         </td>
+                      
                         <td>{{ product.name }}</td>
                         <td *ngIf="user.role==='admin' "> {{ product.store ? product.store.name : 'Sin tienda' }}</td>
                         <td>{{ product.description }}</td>
