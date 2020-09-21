@@ -31,7 +31,7 @@ export interface ShippingAddress {
   templateUrl: './shipping.component.html',
   styleUrls: [ './shipping.component.scss' ]
 } )
-export class ShippingComponent implements OnInit, OnDestroy {
+export class ShippingComponent implements OnInit {
 
   checkoutForm: FormGroup;
   shipmentOptionsForm: FormGroup;
@@ -41,7 +41,7 @@ export class ShippingComponent implements OnInit, OnDestroy {
   amount: any;
   user: User = {};
   shippingAddress: ShippingAddress;
-  shipmentOptions: ShipmentOption[] = [];
+  shipmentOptions: any = [];
   autocompleteInput: string;
   title = 'My first AGM project';
   latitude = 10.4683841;
@@ -93,16 +93,11 @@ export class ShippingComponent implements OnInit, OnDestroy {
       }
     }
 
-    this.getStoresId().then( shops => {
-      console.log( shops )
-      this.shopService.findShipmentOptionByShop( shops[0].id ).subscribe( shipmentOptions => {
-        this.shipmentOptions = [ ...shipmentOptions ];
-        this.selectedOption = this.shipmentOptions[ 0 ]._id;
-      } );
+    this.getStoresId().then( ( shops ) => {
+      console.log( shops );
+      this.shipmentOptions = shops;
+      console.log( this.shipmentOptions[ 0 ] );
     } );
-
-
-
     this.createForm();
   }
 
@@ -298,7 +293,6 @@ export class ShippingComponent implements OnInit, OnDestroy {
     } );
   }
 
-
   private async getStoresId() {
     return await this.filterByStoreID();
   }
@@ -310,12 +304,16 @@ export class ShippingComponent implements OnInit, OnDestroy {
     return new Promise( resolve => {
       const uniqueStore = [];
 
-      this._products.filter( ( product ) => {
+      this._products.filter( async ( product ) => {
         const index = uniqueStore.indexOf( product.store._id );
         if ( index === -1 ) {
-          const shop = { id: '', name: '' };
+          const shop: any = {};
           shop.id = product.store._id;
           shop.name = product.store.name;
+          const val = await this.getOptions( shop.id );
+          shop.shopOptions = [...val];
+          console.log( shop );
+
           uniqueStore.push( shop );
         }
       } );
@@ -323,10 +321,12 @@ export class ShippingComponent implements OnInit, OnDestroy {
     } );
   }
 
-  ngOnDestroy(): void {
-    // Called once, before the instance is destroyed.
-    // Add 'implements OnDestroy' to the class.
-
+  private getOptions( id: string ) {
+    return new Promise( resolve => {
+      this.shopService.findShipmentOptionByShop( id ).subscribe( shipmentOptions => {
+        resolve( shipmentOptions );
+      } );
+    } );
   }
 
 }
