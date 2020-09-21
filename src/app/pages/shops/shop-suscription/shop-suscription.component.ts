@@ -5,6 +5,7 @@ import { Store } from '../../../shared/classes/store';
 import { ShopService } from '../../../shared/services/shop.service';
 import { Result } from '../../../shared/classes/response';
 import { User } from '../../../shared/classes/user';
+import { ToastrService } from 'ngx-toastr';
 
 @Component( {
   selector: 'app-shop-suscription',
@@ -18,16 +19,19 @@ export class ShopSuscriptionComponent implements OnInit {
   uncheckIcon = 'bi bi-x';
   planPro: any;
   plans = [];
+  private _stores: Store[] = [];
+
   constructor(
-    private storageService: StorageService,
     private shopService: ShopService,
+    private toastrService: ToastrService,
+    private storageService: StorageService,
   ) { }
 
   ngOnInit(): void {
     const user: User = this.storageService.getItem( 'user' );
-    const stores: Store[] = user.stores;
+    this._stores = [ ...user.stores ];
 
-    this.shopService.getStore( stores[ 0 ]._id ).subscribe( ( response: Result<Store> ) => {
+    this.shopService.getStore( this._stores[ 0 ]._id ).subscribe( ( response: Result<Store> ) => {
       this.plan = response.docs[ 0 ].plan;
     } );
 
@@ -40,8 +44,11 @@ export class ShopSuscriptionComponent implements OnInit {
 
   }
 
-  changePlan( id: string ): void {
-    console.log( 'changePlan', id );
-
+  changePlan( planId: string ): void {
+    this.shopService.updateStorePlan( this._stores[ 0 ]._id, { plan: planId } ).subscribe( result => {
+      if ( result.success ) {
+        this.toastrService.info( result.message[ 0 ] );
+      }
+    } );
   }
 }
