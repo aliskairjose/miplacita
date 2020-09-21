@@ -1,44 +1,64 @@
 import { Component, OnInit, OnDestroy, ViewChild, TemplateRef } from '@angular/core';
-import { isPlatformBrowser } from '@angular/common';
-import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { environment } from '../../../../environments/environment';
+import { Order } from '../../classes/order';
+import { OrderService } from '../../services/order.service';
+import { ToastrService } from 'ngx-toastr';
 
 
-@Component({
+@Component( {
   selector: 'app-order-details',
   templateUrl: './order-details.component.html',
-  styleUrls: ['./order-details.component.scss']
-})
-export class OrderDetailsComponent implements OnInit {
-  public modalOpen = false;
-  public closeResult: string;
-  public states = environment.orderStatus;
-  public products = [];
-  public fields = ['Producto', 'Precio','Itbms'];
-  public order: any;
-  public modal: any;
-  @ViewChild('orderDetails', { static: false }) OrderDetails: TemplateRef<any>;
+  styleUrls: [ './order-details.component.scss' ]
+} )
+export class OrderDetailsComponent implements OnInit, OnDestroy {
 
-  constructor(private modalService: NgbModal) {
-   }
+  modalOpen = false;
+  closeResult: string;
+  states = environment.orderStatus;
+  products = [];
+  fields = [ 'Producto', 'Precio', 'Itbms' ];
+  order: Order;
+  detail: Order;
+  modal: any;
+
+  @ViewChild( 'orderDetails', { static: false } ) OrderDetails: TemplateRef<any>;
+
+  constructor(
+    private modalService: NgbModal,
+    private orderService: OrderService,
+    private toastrService: ToastrService,
+  ) {
+
+  }
 
   ngOnInit(): void {
   }
 
-  openModal(order){
-    console.log(order);
-    this.modalOpen = true;
-    this.order = order;
-    this.products = order.products;
-    this.modal = this.modalService.open(this.OrderDetails);
+  updateStatus(): void {
+    this.orderService.updateStatus( { status: this.order.status }, this.order._id ).subscribe( response => {
+      if ( response.success ) {
+        this.detail.status = this.order.status;
+        this.toastrService.info( response.message[ 0 ] );
+        this.close();
+      }
+    } );
   }
 
-  close(reason){
-    console.log(reason);
+  openModal( order: Order ) {
+    this.modalOpen = true;
+    this.detail = order;
+    this.order = { ...order };
+    this.products = this.order.items;
+    this.modal = this.modalService.open( this.OrderDetails );
+  }
+
+  close() {
     this.modal.close();
   }
+
   ngOnDestroy() {
-    if (this.modalOpen){
+    if ( this.modalOpen ) {
       this.modalService.dismissAll();
     }
   }
