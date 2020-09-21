@@ -311,8 +311,7 @@ export class ShippingComponent implements OnInit {
           shop.id = product.store._id;
           shop.name = product.store.name;
           const val = await this.getOptions( shop.id );
-          shop.shopOptions = [...val];
-          console.log( shop );
+          shop.shopOptions = val;
 
           uniqueStore.push( shop );
         }
