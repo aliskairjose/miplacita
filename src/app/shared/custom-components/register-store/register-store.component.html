@@ -83,13 +83,13 @@
 												</div>
 												<div class="col offset-xl-4 text-center">
 													<input class="my-auto" formControlName="plan" type="radio" [value]="plan._id" name="plan"
-														[(ngModel)]="planSelected">
+														[(ngModel)]="planSelected" (change)="isShow=changePlan(plan.price)">
 												</div>
 											</div>
 										</div>
 									</div>
 									<!-- Payment Component -->
-									<div>
+									<div *ngIf="isShow">
 										<div class="checkout-title">
 											<h3>Formulario de pago</h3>
 										</div>
