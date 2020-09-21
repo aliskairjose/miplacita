@@ -20,7 +20,7 @@ export interface Product {
   quantity?: number;
 }
 
-interface Images {
+export interface Images {
   url?: string;
-  principal: boolean;
+  principal?: boolean;
 }

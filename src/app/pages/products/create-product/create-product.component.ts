@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild, TemplateRef, Input, OnDestroy } from '@an
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { StorageService } from '../../../shared/services/storage.service';
 import { ProductService } from '../../../shared/services/product.service';
-import { Product } from '../../../shared/classes/product';
+import { Product, Images } from '../../../shared/classes/product';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Category } from '../../../shared/classes/category';
 import { User } from '../../../shared/classes/user';
@@ -10,7 +10,6 @@ import { environment } from '../../../../environments/environment';
 import { Result } from '../../../shared/classes/response';
 import { ToastrService } from 'ngx-toastr';
 import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
-import { log } from 'console';
 
 @Component( {
   selector: 'app-create-product',
@@ -63,14 +62,6 @@ export class CreateProductComponent implements OnInit, OnDestroy {
   get f() { return this.productForm.controls; }
 
   ngOnInit(): void {
-    // const param = this.route.snapshot.params.id;
-    // if ( param ) {
-    //   this.selectedCategory = this.productData.category;
-    //   this.status = 'edit';
-    //   this.disabled = false;
-    //   this.title = 'Editar producto';
-    //   this.loadProductData( param );
-    // }
     this.productService.categoryList().subscribe( ( categories: Category[] ) => {
       this.categories = [ ...categories ];
     } );
@@ -91,9 +82,9 @@ export class CreateProductComponent implements OnInit, OnDestroy {
           // data.image = [ ...response.images ] as [ string ];
           data.images = [];
           response.images.forEach( ( url: string ) => {
-            const image = { url: '', principal: false };
+            const image: Images = {};
             image.url = url;
-            image.principal = false;
+            image.principal = true;
             data.images.push( image );
           } );
           ( this.status === 'add' ) ? this.createProduct( data ) : this.updateProduct( data );
@@ -116,6 +107,8 @@ export class CreateProductComponent implements OnInit, OnDestroy {
    * @description Crea el producto via api
    */
   private createProduct( data: Product ): void {
+    console.log( data );
+
     this.productService.addProduct( data ).subscribe( ( product: Product ) => {
       this.toastrService.info( 'El producto se ha creado con exito' );
       this.productService.productSubject( product );
