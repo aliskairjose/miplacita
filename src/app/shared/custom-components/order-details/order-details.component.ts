@@ -36,8 +36,9 @@ export class OrderDetailsComponent implements OnInit, OnDestroy {
   }
 
   updateStatus(): void {
-    this.orderService.updateStatus( { status: this.detail.status }, this.detail._id ).subscribe( response => {
+    this.orderService.updateStatus( { status: this.order.status }, this.order._id ).subscribe( response => {
       if ( response.success ) {
+        this.detail.status = this.order.status;
         this.toastrService.info( response.message[ 0 ] );
         this.close();
       }
@@ -45,15 +46,14 @@ export class OrderDetailsComponent implements OnInit, OnDestroy {
   }
 
   openModal( order: Order ) {
-    this.detail = { ...order };
     this.modalOpen = true;
+    this.detail = order;
     this.order = { ...order };
-    this.products = this.detail.items;
+    this.products = this.order.items;
     this.modal = this.modalService.open( this.OrderDetails );
   }
 
   close() {
-    this.order.status = this.detail.status;
     this.modal.close();
   }
 
