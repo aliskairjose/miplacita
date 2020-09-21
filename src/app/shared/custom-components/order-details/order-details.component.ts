@@ -1,9 +1,7 @@
 import { Component, OnInit, OnDestroy, ViewChild, TemplateRef } from '@angular/core';
-import { isPlatformBrowser } from '@angular/common';
-import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { environment } from '../../../../environments/environment';
 import { Order } from '../../classes/order';
-import { log } from 'console';
 import { OrderService } from '../../services/order.service';
 import { ToastrService } from 'ngx-toastr';
 
@@ -21,6 +19,7 @@ export class OrderDetailsComponent implements OnInit, OnDestroy {
   products = [];
   fields = [ 'Producto', 'Precio', 'Itbms' ];
   order: Order;
+  detail: Order;
   modal: any;
 
   @ViewChild( 'orderDetails', { static: false } ) OrderDetails: TemplateRef<any>;
@@ -37,7 +36,7 @@ export class OrderDetailsComponent implements OnInit, OnDestroy {
   }
 
   updateStatus(): void {
-    this.orderService.updateStatus( { status: this.order.status }, this.order._id ).subscribe( response => {
+    this.orderService.updateStatus( { status: this.detail.status }, this.detail._id ).subscribe( response => {
       if ( response.success ) {
         this.toastrService.info( response.message[ 0 ] );
         this.close();
@@ -46,14 +45,15 @@ export class OrderDetailsComponent implements OnInit, OnDestroy {
   }
 
   openModal( order: Order ) {
-    const detail = { ...order };
+    this.detail = { ...order };
     this.modalOpen = true;
-    this.order = detail;
-    this.products = detail.items;
+    this.order = { ...order };
+    this.products = this.detail.items;
     this.modal = this.modalService.open( this.OrderDetails );
   }
 
   close() {
+    this.order.status = this.detail.status;
     this.modal.close();
   }
 

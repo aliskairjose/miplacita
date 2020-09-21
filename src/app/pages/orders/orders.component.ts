@@ -18,7 +18,7 @@ import { ToastrService } from 'ngx-toastr';
   templateUrl: './orders.component.html',
   styleUrls: [ './orders.component.scss' ]
 } )
-export class OrdersComponent implements OnInit, OnChanges {
+export class OrdersComponent implements OnInit {
 
   fields = [ 'Cliente', 'Productos', 'Monto', 'Fecha', 'Zona de Entrega',
     'Estado', 'Acción' ];
@@ -52,14 +52,6 @@ export class OrdersComponent implements OnInit, OnChanges {
     // tslint:disable-next-line: curly
     if ( this.role === 'admin' ) this.fields.splice( 1, 0, 'Tienda' );
     this.loadData();
-  }
-
-  ngOnChanges( changes: SimpleChanges ): void {
-    console.log( 'oncghanges' );
-
-    //Called before any other lifecycle hook. Use it to inject dependencies, but avoid any serious work here.
-    //Add '${implements OnChanges}' to the class.
-
   }
 
   setPage( page: number ) {

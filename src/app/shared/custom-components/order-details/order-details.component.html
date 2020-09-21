@@ -4,7 +4,7 @@
       <div class="modal-header">
         <div class="page-title row">
           <h4 class="px-3">
-             <span> <strong>Order #1 </strong>  </span> 
+             <span> <strong>detail #1 </strong>  </span> 
           </h4>
         </div>
         <button type="button" class="close" (click)="close()" >
@@ -15,19 +15,19 @@
         <div class="theme-form">
           <form>
             <div class="form-group">
-              <h4>Cliente: {{order.user.fullname}}</h4>
+              <h4>Cliente: {{detail.user.fullname}}</h4>
             </div>
             <div class="form-group">
-              <h4>Entrega: {{order.shipment_option.name}}</h4>
+              <h4>Entrega: {{detail.shipment_option.name}}</h4>
             </div>
             <div class="form-group">
               <h4>Dirección:</h4>
             </div>
             <div class="form-group">
-              <h4>Estado: {{order.status}}</h4>
+              <h4>Estado: {{detail.status}}</h4>
             </div>
             <div class="col-md-6">
-              <select name="model" class="form-control" [(ngModel)]="order.status">
+              <select name="model" class="form-control" [(ngModel)]="detail.status">
                 <option [value]="state" *ngFor="let state of states">{{state}}</option>
             </select>
             </div>
@@ -37,7 +37,7 @@
                   <th *ngFor="let field of fields" scope="col">{{field}}</th>
                 </thead>
                 <tbody>
-                  <tr *ngFor="let product of order.items">
+                  <tr *ngFor="let product of detail.items">
                     <td>{{product.product_name}}</td>
                     <td>{{product.total_price}}</td>
                     <td>{{product.tax}}</td>
