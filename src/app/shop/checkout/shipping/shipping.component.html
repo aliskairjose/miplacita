@@ -101,7 +101,7 @@
 									<form [formGroup]="shipmentOptionsForm" class="theme-form">
 										<div class="shipping-option" *ngIf="shipmentOptions.length">
 											<div *ngFor="let shipmentOption of shipmentOptions">
-												{{shipmentOption.name}}
+												<p class="h5">{{shipmentOption.name}}</p>
 												<div *ngFor="let item of shipmentOption.shopOptions">
 													<div class="row mb-3">
 														<div class="option-box d-flex mx-auto py-3">
