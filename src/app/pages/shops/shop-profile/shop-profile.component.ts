@@ -55,7 +55,7 @@ export class ShopProfileComponent implements OnInit {
     console.log( this.profileForm.value );
      if ( this.profileForm.valid ) {
       this.shopService.updateStore( this.store._id, this.profileForm.value ).subscribe( () => {
-        this.alert.info( 'La tienda se actualizó con exito' );
+        this.toastrService.info( 'Tienda actualizada con éxito' );
       } );
     } 
   }
