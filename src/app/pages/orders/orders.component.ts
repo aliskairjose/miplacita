@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, SimpleChanges, OnChanges } from '@angular/core';
 import { NgbCalendar, NgbDate, NgbDateAdapter, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { OrderDetailsComponent } from '../../shared/custom-components/order-details/order-details.component';
 import { Order } from '../../shared/classes/order';
@@ -18,7 +18,7 @@ import { ToastrService } from 'ngx-toastr';
   templateUrl: './orders.component.html',
   styleUrls: [ './orders.component.scss' ]
 } )
-export class OrdersComponent implements OnInit {
+export class OrdersComponent implements OnInit, OnChanges {
 
   fields = [ 'Cliente', 'Productos', 'Monto', 'Fecha', 'Zona de Entrega',
     'Estado', 'Acción' ];
@@ -52,6 +52,14 @@ export class OrdersComponent implements OnInit {
     // tslint:disable-next-line: curly
     if ( this.role === 'admin' ) this.fields.splice( 1, 0, 'Tienda' );
     this.loadData();
+  }
+
+  ngOnChanges( changes: SimpleChanges ): void {
+    console.log( 'oncghanges' );
+
+    //Called before any other lifecycle hook. Use it to inject dependencies, but avoid any serious work here.
+    //Add '${implements OnChanges}' to the class.
+
   }
 
   setPage( page: number ) {
