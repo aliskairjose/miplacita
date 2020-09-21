@@ -2,7 +2,11 @@
  
     <div class="modal-content">
       <div class="modal-header">
-        <h3 class="modal-title">Orden #1</h3>
+        <div class="page-title row">
+          <h4 class="px-3">
+             <span> <strong>Order #1 </strong>  </span> 
+          </h4>
+        </div>
         <button type="button" class="close" (click)="close('Cross click')" >
           <span aria-hidden="true">&times;</span>
         </button>
@@ -11,16 +15,16 @@
         <div class="theme-form">
           <form action="">
             <div class="form-group">
-              <h3>Cliente: {{order.client}}</h3>
+              <h4>Cliente: {{order.user.fullname}}</h4>
             </div>
             <div class="form-group">
-              <h4>Entrega: </h4>
+              <h4>Entrega: {{order.shipment_option.name}}</h4>
             </div>
             <div class="form-group">
               <h4>Dirección:</h4>
             </div>
             <div class="form-group">
-              <h4>Estado: {{order.state}}</h4>
+              <h4>Estado: {{order.status}}</h4>
             </div>
             <div class="col-md-6">
               <select name="model" class="form-control">
@@ -33,16 +37,16 @@
                   <th *ngFor="let field of fields" scope="col">{{field}}</th>
                 </thead>
                 <tbody>
-                  <tr *ngFor="let product of products">
-                    <td>{{product}}</td>
-                    <td>{{product}}</td>
-                    <td>{{product}}</td>
+                  <tr *ngFor="let product of order.items">
+                    <td>{{product.product_name}}</td>
+                    <td>{{product.total_price}}</td>
+                    <td>{{product.tax}}</td>
                   </tr>
                 </tbody>
               </table>
             </div>
             <div class="form-group d-flex justify-content-end">
-              <button class="btn btn-solid">Cambiar estado</button>
+              <button class="btn btn-solid-purple">Cambiar estado</button>
             </div>
           </form>
         </div>
