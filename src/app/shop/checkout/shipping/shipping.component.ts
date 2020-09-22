@@ -1,22 +1,20 @@
-import { Component, OnInit, OnDestroy, ViewChild, ElementRef, NgZone } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { GooglePlaceDirective } from 'ngx-google-places-autocomplete';
+import { ICreateOrderRequest, IPayPalConfig } from 'ngx-paypal';
+import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs';
-import { IPayPalConfig, ICreateOrderRequest } from 'ngx-paypal';
+
+import { MapsAPILoader } from '@agm/core';
+import { Component, ElementRef, NgZone, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+
 import { environment } from '../../../../environments/environment';
 import { Product } from '../../../shared/classes/product';
-import { ProductService } from '../../../shared/services/product.service';
-import { StorageService } from '../../../shared/services/storage.service';
 import { User } from '../../../shared/classes/user';
-import { ToastrService } from 'ngx-toastr';
-import { ShopService } from '../../../shared/services/shop.service';
-import { ShipmentOption } from '../../../shared/classes/shipment-option';
-import { GooglePlaceDirective } from 'ngx-google-places-autocomplete';
-import { Router } from '@angular/router';
-import { MapsAPILoader } from '@agm/core';
 import { AuthService } from '../../../shared/services/auth.service';
-import { log } from 'console';
-
-
+import { ProductService } from '../../../shared/services/product.service';
+import { ShopService } from '../../../shared/services/shop.service';
+import { StorageService } from '../../../shared/services/storage.service';
 
 export interface ShippingAddress {
   firstname?: string;
@@ -62,6 +60,11 @@ export class ShippingComponent implements OnInit {
       phone: ''
     }
   };
+  options = {
+    types: [],
+    componentRestrictions: { country: 'PA' }
+  };
+  
   private geoCoder;
   private _products: Product[] = [];
 
@@ -305,7 +308,7 @@ export class ShippingComponent implements OnInit {
           shop.id = product.store._id;
           shop.name = product.store.name;
           const val = await this.getOptions( shop.id );
-          shop.selectedOption = val[0]._id;
+          shop.selectedOption = val[ 0 ]._id;
           shop.shopOptions = val;
 
           uniqueStore.push( shop );
