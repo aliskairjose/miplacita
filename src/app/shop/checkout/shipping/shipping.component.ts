@@ -62,6 +62,11 @@ export class ShippingComponent implements OnInit, OnDestroy {
       phone: ''
     }
   };
+  options = {
+    types: [],
+    componentRestrictions: { country: 'PA' }
+  };
+
   private geoCoder;
 
   @ViewChild( 'placesRef' ) placesRef: GooglePlaceDirective;
@@ -86,7 +91,7 @@ export class ShippingComponent implements OnInit, OnDestroy {
       const shippingAddress: ShippingAddress = this.storage.getItem( `shippingAddress${this.user._id}` );
       this.shopService.findShipmentOptionByShop( store._id ).subscribe( shipmentOptions => {
         this.shipmentOptions = [ ...shipmentOptions ];
-        this.selectedOption = this.shipmentOptions[0]._id;
+        this.selectedOption = this.shipmentOptions[ 0 ]._id;
       } );
       if ( shippingAddress && ( shippingAddress.userId === this.user._id ) ) {
         const response = confirm( 'Ya existe una dirección, ¿Desea usarla?' );
@@ -162,7 +167,7 @@ export class ShippingComponent implements OnInit, OnDestroy {
     this.order.address.phone = this.checkoutForm.value.phone;
     this.order.shipment_option = this.shipmentOptionsForm.get( 'shipment_option' ).value;
     const ship = this.shipmentOptions.filter( val => val._id === this.order.shipment_option );
-    this.order.shipment_price = ship[0].price;
+    this.order.shipment_price = ship[ 0 ].price;
 
     this.submitted = true;
     if ( this.checkoutForm.valid ) {
