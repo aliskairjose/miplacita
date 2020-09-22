@@ -50,8 +50,11 @@ export class ProductsComponent implements OnInit {
     private confirmationDialogService: ConfirmationDialogService,
   ) {
     this.user = this.storageService.getItem( 'user' );
-    this.loadData();
 
+    if ( this.user.stores.length ) {
+      this.loadData();
+    }
+    
     // tslint:disable-next-line: curly
     if ( this.user.role === 'admin' ) this.fields.splice( 2, 0, 'Tienda' );
   }

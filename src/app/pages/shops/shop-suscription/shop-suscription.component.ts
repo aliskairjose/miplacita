@@ -30,7 +30,9 @@ export class ShopSuscriptionComponent implements OnInit {
   ngOnInit(): void {
     const user: User = this.storageService.getItem( 'user' );
     this._stores = [ ...user.stores ];
-    this.getShopPlan();
+
+    if ( this._stores.length ) { this.getShopPlan(); }
+
     this.shopService.getPlans().subscribe( plans => {
       this.plans = [ ...plans ];
     } );

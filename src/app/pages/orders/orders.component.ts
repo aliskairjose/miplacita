@@ -22,6 +22,7 @@ export class OrdersComponent implements OnInit {
   fields = [ 'Cliente', 'Productos', 'Monto', 'Fecha', 'Zona de Entrega',
     'Estado', 'Acción' ];
 
+  user: User = {};
   orders: Order[] = [];
   paginate: Paginate;
   orderStatus = environment.orderStatus;
@@ -46,11 +47,13 @@ export class OrdersComponent implements OnInit {
 
   ngOnInit(): void {
     this.modelFrom = this.modelTo = this.ngbCalendar.getToday();
-    const user: User = this.storageService.getItem( 'user' );
-    this.role = user.role;
+    this.user = this.storageService.getItem( 'user' );
+    this.role = this.user.role;
     // tslint:disable-next-line: curly
     if ( this.role === 'admin' ) this.fields.splice( 1, 0, 'Tienda' );
-    this.loadData();
+    if ( this.user.stores.length ) {
+      this.loadData();
+    }
   }
 
   setPage( page: number ) {
