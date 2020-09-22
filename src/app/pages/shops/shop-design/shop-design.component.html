@@ -36,15 +36,8 @@
 
           </div>
         </div>
-
-        <!--Image con el simbolo + -->
-        <img class="preview px-5" src="../../../assets/images/marketplace/svg/upload-image.svg" />
-
       </div>
-      <div class="d-fle flex-column" *ngIf="images.length==0">
-        <img class="preview px-5" src="../../../assets/images/marketplace/svg/upload-image.svg" />
-        <input type="file">
-      </div>
+      <app-upload-image mulltiple="true" (uploadImage)="uploadImage($event)"></app-upload-image>
     </div>
   </div>
 </section>

@@ -22,13 +22,8 @@ export class DashboardComponent implements OnInit {
   public fields = [];
 
   /** table fields by type user */
-  public storeFields = [  { name: 'Pedidos nro' },
-                          { name: 'Descripción' },
-                          { name: 'Fecha de emisión' },
-                          { name: 'Estatus de entrega' } ];
-  public adminFields = [  { name: 'Tienda' },
-                          { name: 'Monto' },
-                          { name: 'Fecha' } ];
+  public storeFields = [ ];
+  public adminFields = [  ];
   public paginate: any = {};
   public pageNo = 1;
   public pageSize = 5;
@@ -84,6 +79,7 @@ export class DashboardComponent implements OnInit {
   getLabelsInformation() {
     this.dashboardService.dashboard().subscribe((data: any) => {
       this.dashboardData = data.result;
+      console.log(this.dashboardData);
     });
   }
 

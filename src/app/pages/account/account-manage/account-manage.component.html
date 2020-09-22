@@ -30,21 +30,21 @@
                 </div>
 
                 <div class="admin-menu">
-                    <div class="tab" (click)="updateTab('dashboard')"
+                    <div class="tab" (click)="updateTab('dashboard')" *ngIf="user.role=='merchant' || user.role=='admin'"
                         [ngClass]="{'active': active==='dashboard','btn tab': active!=='dashboard'}">
                         <button class="btn">
                             <img src="assets/images/marketplace/images/icons/tablero.png" alt="">
                             Tablero
                         </button>
                     </div>
-                    <div class="tab" (click)="updateTab('products')"
+                    <div class="tab" (click)="updateTab('products')" *ngIf="user.role=='merchant' || user.role=='admin'"
                         [ngClass]="{'active': active==='products','btn tab': active!=='products'}">
                         <button class="btn">
                             <img src="assets/images/marketplace/images/icons/productos.png" alt="">
                             Productos
                         </button>
                     </div>
-                    <div class="tab" (click)="updateTab('admin-orders')"
+                    <div class="tab" (click)="updateTab('admin-orders')" *ngIf="user.role=='merchant' || user.role=='admin'"
                         [ngClass]="{'active': active==='admin-orders','btn tab': active!=='admin-orders'}">
                         <button class="btn">
                             <img src="assets/images/marketplace/images/icons/orders.png" alt="">
@@ -65,7 +65,7 @@
                             Tienda
                         </button>
                     </div>
-                    <div class="tab" (click)="updateTab('report')"
+                    <div class="tab" (click)="updateTab('report')" *ngIf="user.role=='merchant' || user.role=='admin'"
                         [ngClass]="{'active': active==='report','btn tab': active!=='report'}">
                         <button class="btn">
                             <img src="assets/images/marketplace/images/icons/report.png" alt="">
@@ -110,6 +110,21 @@
                                                 </div>
                                             </ng-container>
                                         </div>
+                                        <div class="form-row container justify-content-center " *ngIf="stores.length==0">
+                                            <div class="col-md-5">
+                                                <div class="card text-center mx-auto mb-2">
+                                                    <div class="card-body">
+                                                        <p>
+                                                            Aún no has creado tu primera tienda.
+                                                            Configura una tienda y empieza a vender!
+                                                        </p>
+                                                        <a  class="btn btn-solid-purple" [routerLink]="['/pages/account/user/admin-store']">
+                                                            Configurar tienda
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -130,7 +145,7 @@
                     id="admin-store" role="tabpanel" >
                     <div class="form-row labels" >
                         <div class="col-md-3">
-                            <div class="label card d-flex flex-row" (click)="updateSubtab('store-profile')">
+                            <div class="label card d-flex flex-row h-100" (click)="updateSubtab('store-profile')">
                                 <div class="d-flex flex-fill justify-content-center align-items-center " >
                                     <p class="my-auto" 
                                         [ngClass]="{'text-default-color': subtab=='store-profile'}">
@@ -140,7 +155,7 @@
                             </div>
                         </div>
                         <div class="col-md-3">
-                            <div class="label card d-flex flex-row" (click)="updateSubtab('design')">
+                            <div class="label card d-flex flex-row h-100" (click)="updateSubtab('design')">
                                 <div class="d-flex flex-fill justify-content-center align-items-center" >
                                     <div class="d-flex flex-fill justify-content-center align-items-center">
                                         <p class="my-auto" 
@@ -152,7 +167,7 @@
                             </div>
                         </div>
                         <div class="col-md-3">
-                            <div class="label card d-flex flex-row" (click)="updateSubtab('suscription')">
+                            <div class="label card d-flex flex-row h-100" (click)="updateSubtab('suscription')">
                                 <div class="d-flex flex-fill justify-content-center align-items-center">
                                     <div class="d-flex flex-fill  justify-content-center align-items-center">
                                         <p class="my-auto"
@@ -164,7 +179,7 @@
                             </div>
                         </div>
                         <div class="col-md-3">
-                            <div class="label card d-flex flex-row" (click)="updateSubtab('withdrawal')">
+                            <div class="label card d-flex flex-row h-100" (click)="updateSubtab('withdrawal')">
                                 <div class="d-flex flex-fill justify-content-center align-items-center">
                                     <div class="d-flex flex-fill justify-content-center align-items-center">
                                         <p class="my-auto"
