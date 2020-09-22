@@ -40,7 +40,8 @@
                 </div>
             </form>
         </div>
-        <div class="table-responsive-sm mt-3">
+
+        <ng-container class="table-responsive-sm mt-3" *ngIf="user.stores.length; else elseTemplate">
             <table class="table">
                 <thead>
                     <tr class="table-head text-center">
@@ -83,7 +84,12 @@
                     </tr>
                 </tbody>
             </table>
-        </div>
+        </ng-container>
+        <ng-template #elseTemplate>
+            <h4>No hay tienda configurada</h4>
+        </ng-template>
+        
+
         <app-custom-pagination [items]="products" [paginate]="paginate" (setPage)="setPage($event)">
         </app-custom-pagination>
     </div>

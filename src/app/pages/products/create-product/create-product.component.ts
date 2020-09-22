@@ -120,7 +120,7 @@ export class CreateProductComponent implements OnInit, OnDestroy {
     const user: User = this.storageService.getItem( 'user' );
 
     this.productForm = this.formBuilder.group( {
-      store: [ user.stores[ 0 ]._id, [ Validators.required ] ],
+      store: [ user.stores.length ? user.stores[ 0 ]._id : '', [ Validators.required ] ],
       name: [ '', [ Validators.required ] ],
       description: [ '', [ Validators.required ] ],
       price: [ '', [ Validators.required ] ],
