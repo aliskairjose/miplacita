@@ -1,11 +1,13 @@
-import { Component, OnInit, Input, HostListener, Output, EventEmitter } from '@angular/core';
-import { AuthService } from '../../services/auth.service';
-import { Router } from '@angular/router';
-import { StorageService } from '../../services/storage.service';
-import { User } from '../../classes/user';
-import { CategoryService } from '../../services/category.service';
-import { Category } from '../../classes/category';
 import { ToastrService } from 'ngx-toastr';
+
+import { Component, HostListener, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+
+import { Category } from '../../classes/category';
+import { User } from '../../classes/user';
+import { AuthService } from '../../services/auth.service';
+import { CategoryService } from '../../services/category.service';
+import { StorageService } from '../../services/storage.service';
 
 @Component( {
   selector: 'app-header-one',
@@ -40,10 +42,8 @@ export class HeaderOneComponent implements OnInit {
   }
 
   constructor(
-    private router: Router,
     private auth: AuthService,
     private storage: StorageService,
-    private toastrService: ToastrService,
     private categoryService: CategoryService
   ) { }
 
@@ -73,6 +73,5 @@ export class HeaderOneComponent implements OnInit {
   loggOut(): void {
     this.auth.logout();
   }
-
 
 }

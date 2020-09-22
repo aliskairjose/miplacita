@@ -16,8 +16,8 @@
 				<div class="filters">
 					<div class="form-group flex-fill mr-1">
 						<div class="input-group">
-							<input class="form-control lighten-3" placeholder="dd/mm/yyyy" name="d2" ngbDatepicker
-								#d1="ngbDatepicker" [(ngModel)]="modelFrom">
+							<input class="form-control lighten-3" placeholder="dd/mm/yyyy" name="d2" ngbDatepicker #d1="ngbDatepicker"
+								[(ngModel)]="modelFrom">
 							<div class="input-group-append">
 								<button class="btn btn-outline-secondary calendar" (click)="d1.toggle()" type="button">
 									<svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-calendar-week-fill"
@@ -31,8 +31,8 @@
 					</div>
 					<div class="form-group flex-fill">
 						<div class="input-group">
-							<input class="form-control lighten-3" placeholder="dd/mm/yyyy" name="d2" ngbDatepicker
-								#d2="ngbDatepicker" [(ngModel)]="modelTo">
+							<input class="form-control lighten-3" placeholder="dd/mm/yyyy" name="d2" ngbDatepicker #d2="ngbDatepicker"
+								[(ngModel)]="modelTo">
 							<div class="input-group-append">
 								<button class="btn btn-outline-secondary calendar" (click)="d2.toggle()" type="button">
 									<svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-calendar-week-fill"
@@ -74,7 +74,10 @@
 						<td class="text-center">{{ order.shipment_option.name }}</td>
 						<td class="text-center text-capitalize">{{order.status }}</td>
 						<td class="text-center">
-							<button class="btn btn-table-action" (click)="OrderDetails.openModal(order)">Editar</button>
+							<!-- <button class="btn btn-table-action" (click)="OrderDetails.openModal(order)">Editar</button> -->
+							<a (click)="OrderDetails.openModal(order)" class="btn btn-table-action">
+								<i class="fa fa-edit fa-lg" style="color: Dodgerblue"></i>
+							</a>
 						</td>
 					</tr>
 				</tbody>

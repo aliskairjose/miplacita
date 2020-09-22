@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, SimpleChanges, OnChanges } from '@angular/core';
 import { NgbCalendar, NgbDate, NgbDateAdapter, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { OrderDetailsComponent } from '../../shared/custom-components/order-details/order-details.component';
 import { Order } from '../../shared/classes/order';
@@ -9,7 +9,6 @@ import { Paginate } from '../../shared/classes/paginate';
 import { Result } from '../../shared/classes/response';
 import { environment } from '../../../environments/environment';
 import { User } from '../../shared/classes/user';
-import { log } from 'console';
 import { CustomDateParserFormatterService } from '../../shared/adapter/custom-date-parser-formatter.service';
 import { ToastrService } from 'ngx-toastr';
 

@@ -8,6 +8,7 @@ import { Store } from '../../../shared/classes/store';
 import { Result } from '../../../shared/classes/response';
 import { User } from '../../../shared/classes/user';
 import { ToastrService } from 'ngx-toastr';
+import { Plan } from '../../../shared/classes/plan';
 
 @Component( {
   selector: 'app-shop-profile',
@@ -21,6 +22,8 @@ export class ShopProfileComponent implements OnInit {
   required = 'Campo obligatorio';
   invalidEmail = 'Email inválido';
   store: Store = {};
+  plan: any = {};
+  images: Array<string> = [];
 
   constructor(
     private router: Router,
@@ -43,17 +46,17 @@ export class ShopProfileComponent implements OnInit {
 
     this.shopService.getStore( stores[ 0 ]._id ).subscribe( ( response: Result<Store> ) => {
       this.store = { ...response.docs[ 0 ] };
+      this.plan = this.store.plan;
     } );
   }
 
   onSubmit(): void {
     this.submitted = true;
-    console.log( this.profileForm.value );
-    /* if ( this.profileForm.valid ) {
+    if ( this.profileForm.valid ) {
       this.shopService.updateStore( this.store._id, this.profileForm.value ).subscribe( () => {
-        this.alert.info( 'La tienda se actualizó con exito' );
+        this.toastrService.info( 'Tienda actualizada con éxito' );
       } );
-    } */
+    }
   }
 
   private createForm(): void {
@@ -63,6 +66,10 @@ export class ShopProfileComponent implements OnInit {
       description: [ '', [ Validators.required ] ],
       email: [ '', [ Validators.required, Validators.email ] ]
     } );
+  }
+
+  uploadImage( images: string[] ): void {
+    this.images = [ ...images ];
   }
 
 }

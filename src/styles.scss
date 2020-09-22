@@ -309,6 +309,9 @@ ngb-carousel {
   max-height: 50vh;
   & .carousel-inner{
       height: 100%;
+      .carousel-item.active {
+        z-index: 8;
+      }
   }
 }
 

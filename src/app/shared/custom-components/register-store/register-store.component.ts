@@ -42,6 +42,7 @@ export class RegisterStoreComponent implements OnInit {
   images: Array<string> = [];
   disabled = true;
   urlStore = '';
+  isShow = true;
   private user: User = {};
 
   @Output() setBack: EventEmitter<any> = new EventEmitter<any>();
@@ -81,9 +82,14 @@ export class RegisterStoreComponent implements OnInit {
     } );
   }
 
+  changePlan( planPrice: number ): boolean {
+    return ( planPrice !== 0 );
+  }
+
   storeRegister() {
+
     this.submitted = true;
-    
+
     this.storeForm.value.owner_id = this.user._id;
     if ( this.storeForm.valid && this.payment.onSubmit() ) {
       if ( this.images.length === 0 ) {

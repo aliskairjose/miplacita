@@ -70,7 +70,7 @@
             <div class="left-info">
                 <div class="info-header">
                     <div class="d-flex">
-                        <h4 *ngIf="plan.price==0" class="font-weight-bold">Plan actual: </h4>
+                        <h4 *ngIf="plan.price===0" class="font-weight-bold">Plan actual: </h4>
                         <h4 class="text-default-color pl-2">Plan Básico</h4>
                     </div>
                     <hr>
@@ -81,7 +81,7 @@
                         <h4 class="text-default-color font-weight-bold">Beneficios:</h4>
                     </div>
                 </div>
-                
+
                 <div class="info-body mx-auto mt-5">
                     <div class="row d-flex align-items-center">
                         <div class="col-1">
@@ -198,14 +198,14 @@
                     </div>
                     <hr>
                     <div class="d-flex justify-content-around">
-                        <button type="button" class="btn btn-solid">Seleccionar este plan</button>
+                        <button type="button" class="btn btn-solid" [disabled]="plan.price===0" (click)="changePlan(plans[1]._id)">Seleccionar este plan</button>
                     </div>
                 </div>
             </div>
             <div class="rigth-info">
                 <div class="info-header">
                     <div class="d-flex">
-                        <h4 *ngIf="plan.price>0" class="font-weight-bold">Plan actual: </h4>
+                        <h4 *ngIf="plan.price > 0" class="font-weight-bold">Plan actual: </h4>
                         <h4 class="text-default-color pl-2">Plan profesional</h4>
                     </div>
                     <hr>
@@ -216,7 +216,6 @@
                         <h4 class="text-purple font-weight-bold">Beneficios:</h4>
                     </div>
                 </div>
-                
                 <div class="info-body mx-auto mt-5">
                     <div class="row d-flex align-items-center">
                         <div class="col-1">
@@ -336,12 +335,13 @@
                 </div>
                 <div class="plan-btns d-flex flex-column">
                     <div class="row mt-4">
-                        <h5 class="lable4 mx-auto font-weight-bold"><a routerLink="/pages/termsandconditions">Ver
-                                Términos y Condiciones</a></h5>
+                        <h5 class="lable4 mx-auto font-weight-bold">
+                            <a routerLink="/pages/termsandconditions">Ver Términos y Condiciones</a>
+                        </h5>
                     </div>
                     <hr>
                     <div class="d-flex justify-content-around">
-                        <a [routerLink]="['/home/register']"  class="btn btn-solid-purple">Seleccionar este plan</a>
+                        <button class="btn btn-solid-purple" [disabled]="plan.price>0" (click)="changePlan(plans[0]._id)">Seleccionar este plan</button>
                     </div>
                 </div>
             </div>
