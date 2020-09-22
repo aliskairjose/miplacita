@@ -23,6 +23,7 @@ export class ShopProfileComponent implements OnInit {
   store: Store = {};
   plan: any = {};
   images: Array<string> = [];
+  enabled = false;
 
   constructor(
     private router: Router,
@@ -44,6 +45,7 @@ export class ShopProfileComponent implements OnInit {
     const stores: Store[] = user.stores;
 
     if ( stores.length ) {
+      this.enabled = true;
       this.loadStoreData( stores[ 0 ]._id );
     }
   }
