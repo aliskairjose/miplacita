@@ -193,7 +193,8 @@
                     </div>
                 </div>
                 <div class="container">
-                    <app-shop-profile *ngIf="active=='admin-store' && subtab=='store-profile'"></app-shop-profile>
+                    <app-shop-profile *ngIf="active=='admin-store' && subtab=='store-profile' && stores.length > 0"></app-shop-profile>
+                    <app-register-store register="false" *ngIf="active=='admin-store' && subtab=='store-profile' && stores.length == 0"></app-register-store>
                     <app-shop-design *ngIf="active=='admin-store' && subtab=='design'"></app-shop-design>
                     <app-shop-suscription *ngIf="active=='admin-store' && subtab=='suscription'"></app-shop-suscription>
                     <app-shop-withdrawal *ngIf="active=='admin-store' && subtab=='withdrawal'"></app-shop-withdrawal>

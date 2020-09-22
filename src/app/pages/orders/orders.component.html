@@ -86,7 +86,22 @@
 		</ng-container>
 
 		<ng-template #elseTemplate>
-			<h4>No hay tienda configurada</h4>
+			<div class="form-row container justify-content-center " *ngIf="orders.length==0 ">
+                <div class="col-md-5">
+                    <div class="card text-center mx-auto mb-2">
+                        <div class="card-body">
+                            <p *ngIf="orders.length==0 && user.stores.length == 0">
+                                Aún no has configurado tu tienda
+                                <a  class="btn btn-solid-purple mt-3" [routerLink]="['/pages/account/user/admin-store']">
+                                    Configurar tienda
+                                </a>
+                            </p>
+                            <p *ngIf="orders.length==0 && user.stores.length > 0">Aún no has agregado productos a tu tienda</p>
+                        
+                        </div>
+                    </div>
+                </div>
+            </div>   
 		</ng-template>
 
 		<app-custom-pagination [items]="orders" [paginate]="paginate" (setPage)="setPage($event)">
