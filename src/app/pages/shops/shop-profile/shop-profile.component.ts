@@ -8,7 +8,6 @@ import { Store } from '../../../shared/classes/store';
 import { Result } from '../../../shared/classes/response';
 import { User } from '../../../shared/classes/user';
 import { ToastrService } from 'ngx-toastr';
-import { Plan } from '../../../shared/classes/plan';
 
 @Component( {
   selector: 'app-shop-profile',
@@ -44,10 +43,9 @@ export class ShopProfileComponent implements OnInit {
     const user: User = this.storageService.getItem( 'user' );
     const stores: Store[] = user.stores;
 
-    this.shopService.getStore( stores[ 0 ]._id ).subscribe( ( response: Result<Store> ) => {
-      this.store = { ...response.docs[ 0 ] };
-      this.plan = this.store.plan;
-    } );
+    if ( stores.length ) {
+      this.loadStoreData( stores[ 0 ]._id );
+    }
   }
 
   onSubmit(): void {
@@ -57,6 +55,13 @@ export class ShopProfileComponent implements OnInit {
         this.toastrService.info( 'Tienda actualizada con éxito' );
       } );
     }
+  }
+
+  loadStoreData( id: string ): void {
+    this.shopService.getStore( id ).subscribe( ( response: Result<Store> ) => {
+      this.store = { ...response.docs[ 0 ] };
+      this.plan = this.store.plan;
+    } );
   }
 
   private createForm(): void {
