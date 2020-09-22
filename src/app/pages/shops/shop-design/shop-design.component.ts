@@ -14,7 +14,7 @@ export class ShopDesignComponent implements OnInit {
   @ViewChild( 'ngcarousel', { static: true } ) ngCarousel: NgbCarousel;
 
   color = '';
-  font = ''
+  font = '';
   images = [
     { id: 0, url: '../../../assets/images/dog.png' },
     { id: 1, url: '../../../assets/images/lookbook.jpg' },
