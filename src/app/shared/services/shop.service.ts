@@ -94,8 +94,17 @@ export class ShopService {
     return this.http.put( `stores/${id}`, data );
   }
 
-  updateStorePlan(storeId: string, planId: any): Observable<any>{
-    return this.http.put(`stores/${storeId}/plan`, planId);
+  updateStorePlan( storeId: string, planId: any ): Observable<any> {
+    return this.http.put( `stores/${storeId}/plan`, planId );
+  }
+
+  /**
+   * @description Configuración de la tienda
+   * @param id Id de la tienda
+   * @param data Configuracón de la tienda, Color | Font
+   */
+  config( id: string, data: any ): Observable<any> {
+    return this.http.put( `stores/${id}/config`, data );
   }
 
   /**

@@ -7,6 +7,7 @@ import { Product } from '../../classes/product';
 import { AuthService } from '../../services/auth.service';
 import { StorageService } from '../../services/storage.service';
 import { Router } from '@angular/router';
+import { User } from '../../classes/user';
 
 @Component( {
   selector: 'app-settings',
@@ -46,9 +47,7 @@ export class SettingsComponent implements OnInit {
 
   constructor(
     @Inject( PLATFORM_ID ) private platformId: Object,
-    private router: Router,
     private auth: AuthService,
-    private storage: StorageService,
     private translate: TranslateService,
     public productService: ProductService,
   ) {

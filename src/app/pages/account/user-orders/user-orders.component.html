@@ -1,11 +1,11 @@
 <section class="">
     <div class="container">
 
-        <div class="row" >
+        <div class="row">
             <div class="col-sm-12 px-1">
                 <div class="page-title mb-5">
                     <h2 class="mp-title">
-                        Mis pedidos  
+                        Mis pedidos
                     </h2>
                 </div>
                 <div class="table-responsive">
@@ -22,7 +22,7 @@
                         <tbody *ngFor="let order of orders">
                             <tr>
                                 <td>
-                                   <p>ID: {{ order._id }}</p> 
+                                    <p>ID: {{ order._id }}</p>
                                 </td>
                                 <td>
                                     <strong>{{ order.store.name }}</strong>
@@ -37,19 +37,17 @@
                                         </div>
                                     </div>
                                 </td>
-                                
+
                                 <td>
                                     <p class="td-color">
                                         {{ order.amount | currency }}
                                     </p>
                                 </td>
-                                
                                 <td>
-                                    <p>{{ order.created_at }}</p>
+                                    <p>{{ order.created_at | date }}</p>
                                 </td>
                                 <td>
-                                    
-                                    <strong>{{ order.status }}</strong>
+                                    <strong class="text-capitalize">{{ order.status }}</strong>
                                 </td>
                             </tr>
                         </tbody>
