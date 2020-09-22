@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { StorageService } from '../../../shared/services/storage.service';
-import { AuthService } from '../../../shared/services/auth.service';
 import { ShopService } from '../../../shared/services/shop.service';
 import { Store } from '../../../shared/classes/store';
 import { Result } from '../../../shared/classes/response';
@@ -23,8 +21,6 @@ export class ShopProfileComponent implements OnInit {
   store: Store = {};
 
   constructor(
-    private router: Router,
-    private auth: AuthService,
     private formBuilder: FormBuilder,
     private shopService: ShopService,
     private toastrService: ToastrService,
@@ -49,11 +45,13 @@ export class ShopProfileComponent implements OnInit {
   onSubmit(): void {
     this.submitted = true;
     console.log( this.profileForm.value );
-    /* if ( this.profileForm.valid ) {
-      this.shopService.updateStore( this.store._id, this.profileForm.value ).subscribe( () => {
-        this.alert.info( 'La tienda se actualizó con exito' );
+    if ( this.profileForm.valid ) {
+      this.shopService.updateStore( this.store._id, this.profileForm.value ).subscribe( ( response ) => {
+        console.log( response );
+
+        this.toastrService.info( 'La tienda se actualizó con exito' );
       } );
-    } */
+    }
   }
 
   private createForm(): void {
