@@ -56,9 +56,8 @@
       </div>
       <div class="show-div setting mp-setting">
         <div *ngIf="!isLoggedIn">
-          <a [routerLink]="[ '/home/login']"><h6>Iniciar sesión</h6></a>
+          <a [routerLink]="[ '/pages/login']"><h6>Iniciar sesión</h6></a>
           <a [routerLink]="[ '/pages/register']"> <h6>Registrese</h6></a>
-          <!-- <a [routerLink]="[ '/home/register']"> <h6>Registrese</h6></a> -->
         </div>
         <div *ngIf="isLoggedIn">
           <a [routerLink]="[ '/pages/account/user/profile' ]"> <h6>Perfil</h6></a>
