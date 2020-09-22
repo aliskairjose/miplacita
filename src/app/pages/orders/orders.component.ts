@@ -9,7 +9,6 @@ import { Paginate } from '../../shared/classes/paginate';
 import { Result } from '../../shared/classes/response';
 import { environment } from '../../../environments/environment';
 import { User } from '../../shared/classes/user';
-import { log } from 'console';
 import { CustomDateParserFormatterService } from '../../shared/adapter/custom-date-parser-formatter.service';
 import { ToastrService } from 'ngx-toastr';
 
