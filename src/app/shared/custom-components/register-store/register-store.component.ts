@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, ViewChild, Output, EventEmitter, Input } from '@angular/core';
 import { Validators, FormGroup, FormBuilder, ValidationErrors } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
@@ -22,6 +22,7 @@ import { PaymentComponent } from '../../components/payment/payment.component';
   styleUrls: [ './register-store.component.scss' ]
 } )
 export class RegisterStoreComponent implements OnInit {
+  @Input() register = true;
   @Output() emitEvent: EventEmitter<boolean> = new EventEmitter<boolean>();
   @ViewChild( 'successModal' ) SuccessModal: SuccessModalComponent;
   @ViewChild( 'payment' ) payment: PaymentComponent;
@@ -65,6 +66,8 @@ export class RegisterStoreComponent implements OnInit {
   get p() { return this.productForm.controls; }
 
   ngOnInit(): void {
+    console.log(this.register);
+
     // this.user = JSON.parse( sessionStorage.userForm );
 
     if ( sessionStorage.registerStore ) {
