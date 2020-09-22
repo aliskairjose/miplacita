@@ -24,7 +24,7 @@ export class ShopProfileComponent implements OnInit {
   store: Store = {};
   plan: any = {};
   images: Array<string> = [];
-  
+
   constructor(
     private router: Router,
     private auth: AuthService,
@@ -52,12 +52,11 @@ export class ShopProfileComponent implements OnInit {
 
   onSubmit(): void {
     this.submitted = true;
-    console.log( this.profileForm.value );
-     if ( this.profileForm.valid ) {
+    if ( this.profileForm.valid ) {
       this.shopService.updateStore( this.store._id, this.profileForm.value ).subscribe( () => {
         this.toastrService.info( 'Tienda actualizada con éxito' );
       } );
-    } 
+    }
   }
 
   private createForm(): void {
