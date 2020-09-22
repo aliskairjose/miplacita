@@ -94,6 +94,10 @@ export class ShopService {
     return this.http.put( `stores/${id}`, data );
   }
 
+  updateStorePlan(storeId: string, planId: any): Observable<any>{
+    return this.http.put(`stores/${storeId}/plan`, planId);
+  }
+
   /**
    * @description Carga las imagenes en Cloudinary
    * @returns Retorna un listado de url de imagenes

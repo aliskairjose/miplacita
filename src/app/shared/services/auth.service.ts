@@ -38,7 +38,7 @@ export class AuthService {
     localStorage.removeItem( 'user' );
     localStorage.removeItem( 'token' );
     localStorage.removeItem( 'products' );
-    this.router.navigate( [ '/home' ] );
+    this.router.navigate( [ '/home/login' ] );
     this.authSubject( false );
   }
 

@@ -115,18 +115,17 @@ export class ProductService {
   /**
    * @description Eliminando photo de producto
    */
-  deletePhoto( id: string, ): Observable<any> {
-    return this.http.delete( `products/photo/${id}` );
+  deletePhoto( productId: string, photoId: string, ): Observable<any> {
+    return this.http.delete( `products/${productId}/photo/${photoId}` );
   }
 
   /**
    * @description Coloca la foto como principal
-   * @param id Id del producto
-   * @param idPhoto id de la foto
-   * @param data Data vacia
+   * @param productI Id del producto a la cual se colocara la imagen principal
+   * @param photoId id de la foto que sera principal
    */
-  setMainPhoto( id: string, idPhoto, data = '' ): Observable<any> {
-    return this.http.put( `products/${id}/photo/${idPhoto}`, data );
+  setMainPhoto( productId: string, photoId: string ): Observable<any> {
+    return this.http.put( `products/${productId}/photo/${photoId}` );
   }
 
   /**
