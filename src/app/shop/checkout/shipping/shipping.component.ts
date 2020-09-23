@@ -64,8 +64,6 @@ export class ShippingComponent implements OnInit {
     componentRestrictions: { country: 'PA' }
   };
 
-  selectedOptions = [];
-
   private geoCoder;
   private _products: Product[] = [];
 
@@ -150,22 +148,18 @@ export class ShippingComponent implements OnInit {
       phone: [ this.shippingAddress ? this.shippingAddress.phone : '', [ Validators.required, Validators.pattern( '[0-9]+' ) ] ],
       email: [ this.shippingAddress ? this.shippingAddress.email : '', [ Validators.required, Validators.email ] ],
       address: [ this.shippingAddress ? this.shippingAddress.address : '', [ Validators.required, Validators.maxLength( 50 ) ] ],
-      reference: [ '' ],
-      // country: [ '', Validators.required ],
-      // town: [ '', Validators.required ],
-      // state: [ '', Validators.required ],
-      // postalcode: [ '', Validators.required ]
+      reference: [ '' ]
     } );
   }
 
   checkout(): void {
+    console.log( this.checkoutForm.value );
 
     this.order.address.address = this.checkoutForm.value.address;
     this.order.address.phone = this.checkoutForm.value.phone;
     this.order.shipment_option = '';
-    // this.order.shipment_option = this.shipmentOptionsForm.get( 'shipment_option' ).value;
-    const ship = this.shipmentOptions.filter( val => val._id === this.order.shipment_option );
-    this.order.shipment_price = ship[ 0 ].price;
+    // const ship = this.shipmentOptions.filter( val => val._id === this.order.shipment_option );
+    // this.order.shipment_price = ship[ 0 ].price;
 
     this.submitted = true;
     if ( this.checkoutForm.valid ) {
@@ -179,8 +173,14 @@ export class ShippingComponent implements OnInit {
   }
 
   selectOption( shopId: string, optionId: string ): void {
-    console.log( shopId, optionId );
+    const shopOptions = [];
+    for ( const i of this.shipmentOptions ) {
+      shopOptions.push( ...i.shopOptions );
+    }
+    const ship = shopOptions.filter( val => val._id === optionId );
+    console.log( ship );
 
+    this.order.shipment_price = ship[ 0 ].price;
   }
 
   // Stripe Payment Gateway
@@ -300,23 +300,16 @@ export class ShippingComponent implements OnInit {
    * @description Retorna un array de id de tiendas unicos
    */
   private filterByStoreID() {
-    return new Promise( resolve => {
-      const uniqueStore = [];
+    return new Promise( async ( resolve ) => {
+      const shops = [];
+      const val = this.getUniqueStoreId();
+      for ( const v of val ) {
+        const options = await this.getOptions( v.id );
+        v.shopOptions = options;
+        shops.push( v );
+      }
 
-      this._products.filter( async ( product ) => {
-        const index = uniqueStore.indexOf( product.store._id );
-        if ( index === -1 ) {
-          const shop: any = {};
-          shop.id = product.store._id;
-          shop.name = product.store.name;
-          const val = await this.getOptions( shop.id );
-          shop.selectedOption = val[ 0 ]._id;
-          shop.shopOptions = val;
-
-          uniqueStore.push( shop );
-        }
-      } );
-      resolve( uniqueStore );
+      resolve( shops );
     } );
   }
 
@@ -326,6 +319,23 @@ export class ShippingComponent implements OnInit {
         resolve( shipmentOptions );
       } );
     } );
+  }
+
+  private getUniqueStoreId() {
+    const uniqueStore = [];
+    this._products.filter( ( product ) => {
+      const index = uniqueStore.indexOf( product.store._id );
+      if ( index === -1 ) {
+        const shop: any = {};
+        shop.id = product.store._id;
+        shop.name = product.store.name;
+        // shop.shopOptions = await this.getOptions( shop.id );
+        // console.log( shop.shopOptions );
+
+        uniqueStore.push( shop );
+      }
+    } );
+    return uniqueStore;
   }
 
 }
