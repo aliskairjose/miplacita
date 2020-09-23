@@ -51,10 +51,10 @@ export class ProductsComponent implements OnInit {
   ) {
     this.user = this.storageService.getItem( 'user' );
 
-    if ( this.user.stores.length ) {
+    if ( this.user.stores.length || this.user.role === 'admin' ) {
       this.loadData();
     }
-    
+
     // tslint:disable-next-line: curly
     if ( this.user.role === 'admin' ) this.fields.splice( 2, 0, 'Tienda' );
   }

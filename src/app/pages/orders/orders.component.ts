@@ -49,9 +49,10 @@ export class OrdersComponent implements OnInit {
     this.modelFrom = this.modelTo = this.ngbCalendar.getToday();
     this.user = this.storageService.getItem( 'user' );
     this.role = this.user.role;
-    // tslint:disable-next-line: curly
-    if ( this.role === 'admin' ) this.fields.splice( 1, 0, 'Tienda' );
-    if ( this.user.stores.length ) {
+
+    if ( this.role === 'admin' ) { this.fields.splice( 1, 0, 'Tienda' ); }
+
+    if ( this.user.stores.length || this.role === 'admin' ) {
       this.loadData();
     }
   }

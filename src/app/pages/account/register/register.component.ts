@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { MustMatch } from '../../../shared/helper/must-match.validator';
-import { RegisterStoreComponent } from '../../../shared/custom-components/register-store/register-store.component';
 import { environment } from '../../../../environments/environment';
 import { SocialAuthService, FacebookLoginProvider } from 'angularx-social-login';
 import { AuthService } from 'src/app/shared/services/auth.service';
