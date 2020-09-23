@@ -66,9 +66,8 @@ export class RegisterStoreComponent implements OnInit {
   get p() { return this.productForm.controls; }
 
   ngOnInit(): void {
-    console.log(this.register);
 
-    // this.user = JSON.parse( sessionStorage.userForm );
+    this.user = JSON.parse( sessionStorage.userForm );
 
     if ( sessionStorage.registerStore ) {
       this.store = JSON.parse( sessionStorage.registerStore );

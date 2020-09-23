@@ -48,7 +48,7 @@ export class RegisterComponent implements OnInit {
   get f() { return this.registerForm.controls; }
 
   ngOnInit(): void {
-    
+
     if ( state.user ) { this.registerSuccess = true; }
     this.socialService.authState.subscribe( ( response: FacebookLoginResponse ) => {
       const data = { fullname: '', token: '', email: '' };

@@ -16,7 +16,7 @@
                     <img [src]="fakeImage" />
                   </div>
                 </label>
-                <input multiple id="file-input" type="file" (change)="upload($event)" />
+                <input multiple id="file-input" type="file" (change)="upload($event.target.files)" />
               </div>
             </div>
           </ng-container>
@@ -32,7 +32,7 @@
                   <img [src]="fakeImage" />
                 </div>
               </label>
-              <input id="file-input" type="file" (change)="upload($event)" />
+              <input id="file-input" type="file" (change)="upload($event.target.files)" />
             </div>
           </ng-template>
         </div>
