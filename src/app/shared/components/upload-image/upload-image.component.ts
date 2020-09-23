@@ -36,7 +36,6 @@ export class UploadImageComponent implements OnInit {
     }
 
     this.images = [];
-    // const image = event.target.files[ 0 ];
     const image = files[ 0 ];
     const mimeType = image.type;
 
