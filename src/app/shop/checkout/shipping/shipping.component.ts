@@ -64,7 +64,6 @@ export class ShippingComponent implements OnInit {
     types: [],
     componentRestrictions: { country: 'PA' }
   };
-  
   private geoCoder;
   private _products: Product[] = [];
 
@@ -90,6 +89,10 @@ export class ShippingComponent implements OnInit {
       this.user = this.storage.getItem( 'user' );
       const store = this.user.stores[ 0 ];
       const shippingAddress: ShippingAddress = this.storage.getItem( `shippingAddress${this.user._id}` );
+      this.shopService.findShipmentOptionByShop( store._id ).subscribe( shipmentOptions => {
+        this.shipmentOptions = [ ...shipmentOptions ];
+        this.selectedOption = this.shipmentOptions[ 0 ]._id;
+      } );
       if ( shippingAddress && ( shippingAddress.userId === this.user._id ) ) {
         const response = confirm( 'Ya existe una dirección, ¿Desea usarla?' );
         ( response ) ? this.shippingAddress = shippingAddress : this.shippingAddress = {};

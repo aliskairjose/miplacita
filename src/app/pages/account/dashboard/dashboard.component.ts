@@ -22,13 +22,8 @@ export class DashboardComponent implements OnInit {
   public fields = [];
 
   /** table fields by type user */
-  public storeFields = [  { name: 'Pedidos nro' },
-                          { name: 'Descripción' },
-                          { name: 'Fecha de emisión' },
-                          { name: 'Estatus de entrega' } ];
-  public adminFields = [  { name: 'Tienda' },
-                          { name: 'Monto' },
-                          { name: 'Fecha' } ];
+  public storeFields = [ ];
+  public adminFields = [  ];
   public paginate: any = {};
   public pageNo = 1;
   public pageSize = 5;
@@ -43,15 +38,13 @@ export class DashboardComponent implements OnInit {
   };
   public barChartColors: Color[] = [{backgroundColor: '#68396d'}];
 
-  public barChartLabels: Label[] = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio'];
+  public barChartLabels: Label[] = [];
   public barChartType: ChartType = 'bar';
 
-  barChartData: ChartDataSets[] = [
-    { data: [0.3, 37, 60, 70, 46, 33]}
-  ];
-  public doughnutChartLabels: Label[] = ['Producto 1', 'Producto 2'];
+  barChartData: ChartDataSets[] = [ ];
+  public doughnutChartLabels: Label[] = [];
 
-  public doughnutChartData: SingleDataSet = [50, 50];
+  public doughnutChartData: SingleDataSet = [ ];
 
   public doughnutChartType: ChartType = 'doughnut';
   public doughnutColors: Color[] = [{backgroundColor: ['#d0260f','#eca89e']}];
@@ -84,6 +77,7 @@ export class DashboardComponent implements OnInit {
   getLabelsInformation() {
     this.dashboardService.dashboard().subscribe((data: any) => {
       this.dashboardData = data.result;
+      console.log(this.dashboardData);
     });
   }
 

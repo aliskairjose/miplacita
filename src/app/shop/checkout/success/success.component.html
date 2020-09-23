@@ -23,10 +23,15 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-md-12">
-				<div class="success-text">
-					<img src="assets/images/marketplace/images/successful_purchase.png" class="img-fluid mb-4">
-					<h3><strong>Tu compra ha sido realizada con éxito</strong></h3>
-					<a [routerLink]="" class="btn btn-solid">Ver órdenes</a>
+				<div class="success-text" *ngIf="url !== '/shop/register/success'">
+					<img  src="assets/images/marketplace/images/successful_purchase.png" class="img-fluid mb-4">
+                    <h3><strong>Tu compra ha sido realizada con éxito</strong></h3>
+					<a [routerLink]="['/pages/account/user/orders']" class="btn btn-solid">Ver órdenes</a>
+                </div>
+                <div class="success-text" *ngIf="url === '/shop/register/success'">
+					<img  src="assets/images/marketplace/images/successful_purchase.png" class="img-fluid mb-4">
+                    <h3><strong>Tu perfil ha sido registrado con éxito</strong></h3>
+					<a [routerLink]="['/pages/account/user/profile']" class="btn btn-solid">Ir a mi perfil</a>
 				</div>
 			</div>
 		</div>

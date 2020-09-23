@@ -6,6 +6,7 @@ import { ShopService } from '../../../shared/services/shop.service';
 import { StorageService } from '../../../shared/services/storage.service';
 import { log } from 'console';
 import { ToastrService } from 'ngx-toastr';
+import { User } from '../../../shared/classes/user';
 
 @Component( {
   selector: 'app-shop-withdrawal',
@@ -33,8 +34,8 @@ export class ShopWithdrawalComponent implements OnInit {
   get f() { return this.form.controls; }
 
   ngOnInit(): void {
-    const user = this.storage.getItem( 'user' );
-    this.storeId = user.stores[ 0 ]._id;
+    const user: User = this.storage.getItem( 'user' );
+    if ( user.stores.length ) { this.storeId = user.stores[ 0 ]._id; }
   }
 
   onSubmit(): void {
@@ -52,7 +53,7 @@ export class ShopWithdrawalComponent implements OnInit {
   private createForm(): void {
     this.form = this.formBuilder.group( {
       bank: [ '', [ Validators.required ] ],
-      account: [ '', [ Validators.required, Validators.minLength(9) ] ],
+      account: [ '', [ Validators.required, Validators.minLength( 9 ) ] ],
       name_holder: [ '', [ Validators.required ] ],
       type: [ '', [ Validators.required ] ],
     } );

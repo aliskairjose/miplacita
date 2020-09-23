@@ -15,17 +15,30 @@ export class UploadImageComponent implements OnInit {
 
   constructor(
     private toastrService: ToastrService,
+    private toast: ToastrService,
   ) { }
 
   ngOnInit(): void {
   }
 
-  upload( event ): void {
+  upload( files ): void {
+    const limit = 102400;
+
+    for ( const key in files ) {
+      if ( Object.prototype.hasOwnProperty.call( files, key ) ) {
+        const file = files[ key ];
+        if ( file.size > limit ) {
+          this.toast.warning( 'La imagen es demasiado grande' );
+          return;
+        }
+      }
+    }
+
     this.images = [];
-    const image = event.target.files[ 0 ];
+    const image = files[ 0 ];
     const mimeType = image.type;
 
-    if ( event.target.files.length > 3 ) {
+    if ( files.length > 3 ) {
       this.toastrService.warning( 'Máximo 3 imagenes' );
       return;
     }
@@ -35,13 +48,13 @@ export class UploadImageComponent implements OnInit {
       return;
     }
 
-    if ( event.target.files && event.target.files.length ) {
-      for ( const file of event.target.files ) {
+    if ( files && files.length ) {
+      for ( const file of files ) {
         const reader = new FileReader();
         reader.readAsDataURL( file );
         reader.onload = () => {
           const imageBase64 = reader.result as string;
-          this.imageBase( imageBase64, event.target.files.length );
+          this.imageBase( imageBase64, files.length );
         };
       }
     }
