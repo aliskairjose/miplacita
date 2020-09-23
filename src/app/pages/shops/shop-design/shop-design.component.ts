@@ -16,6 +16,11 @@ export class ShopDesignComponent implements OnInit {
   color = '';
   font = '';
   images = [];
+  fonts = [
+    {name: 'Raleway Bold'},
+    {name: 'Roboto Bold'},
+    {name: 'Source Sans Pro'}
+  ]
   private _shop: Store = {};
 
   constructor(

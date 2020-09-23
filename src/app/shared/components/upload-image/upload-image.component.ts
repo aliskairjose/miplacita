@@ -1,5 +1,6 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ViewChild } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
+import { NgbCarousel } from '@ng-bootstrap/ng-bootstrap';
 
 @Component( {
   selector: 'app-upload-image',
@@ -10,6 +11,8 @@ export class UploadImageComponent implements OnInit {
 
   fakeImage = '../../../../assets/images/marketplace/svg/plus-circle.svg';
   images: Array<string> = [];
+  @ViewChild( 'ngcarousel', { static: true } ) ngCarousel: NgbCarousel;
+
   @Input() multiple = false;
   @Output() uploadImage: EventEmitter<Array<string>> = new EventEmitter<Array<string>>();
 
@@ -67,6 +70,15 @@ export class UploadImageComponent implements OnInit {
     if ( this.images.length === length ) {
       this.uploadImage.emit( this.images );
     }
+  }
+
+  update( item ) {
+    console.log(item);
+    this.ngCarousel.select( item );
+  }
+
+  delete( idItem ) {
+    this.images.splice( idItem, 1 );
   }
 
 }
