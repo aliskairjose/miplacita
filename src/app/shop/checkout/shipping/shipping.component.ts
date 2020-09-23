@@ -32,7 +32,6 @@ export interface ShippingAddress {
 export class ShippingComponent implements OnInit {
 
   checkoutForm: FormGroup;
-  shipmentOptionsForm: FormGroup;
   submitted: boolean;
   payPalConfig?: IPayPalConfig;
   payment = 'Stripe';
@@ -64,6 +63,8 @@ export class ShippingComponent implements OnInit {
     types: [],
     componentRestrictions: { country: 'PA' }
   };
+
+  selectedOptions = [];
 
   private geoCoder;
   private _products: Product[] = [];
@@ -106,7 +107,6 @@ export class ShippingComponent implements OnInit {
   // convenience getter for easy access to form fields
   // tslint:disable-next-line: typedef
   get f() { return this.checkoutForm.controls; }
-  get o() { return this.shipmentOptionsForm.controls; }
 
   ngOnInit(): void {
     // this.productService.cartItems.subscribe( response => this.products = response );
@@ -144,10 +144,6 @@ export class ShippingComponent implements OnInit {
 
   createForm(): void {
 
-    this.shipmentOptionsForm = this.fb.group( {
-      shipment_option: [ '', [ Validators.required ] ],
-    } );
-
     this.checkoutForm = this.fb.group( {
       firstname: [ this.shippingAddress ? this.shippingAddress.firstname : '', [ Validators.required, Validators.pattern( '[a-zA-Z][a-zA-Z ]+[a-zA-Z]$' ) ] ],
       lastname: [ this.shippingAddress ? this.shippingAddress.lastname : '', [ Validators.required, Validators.pattern( '[a-zA-Z][a-zA-Z ]+[a-zA-Z]$' ) ] ],
@@ -166,7 +162,8 @@ export class ShippingComponent implements OnInit {
 
     this.order.address.address = this.checkoutForm.value.address;
     this.order.address.phone = this.checkoutForm.value.phone;
-    this.order.shipment_option = this.shipmentOptionsForm.get( 'shipment_option' ).value;
+    this.order.shipment_option = '';
+    // this.order.shipment_option = this.shipmentOptionsForm.get( 'shipment_option' ).value;
     const ship = this.shipmentOptions.filter( val => val._id === this.order.shipment_option );
     this.order.shipment_price = ship[ 0 ].price;
 
@@ -178,6 +175,11 @@ export class ShippingComponent implements OnInit {
       sessionStorage.setItem( 'order', JSON.stringify( this.order ) );
       this.router.navigate( [ 'shop/checkout' ] );
     }
+
+  }
+
+  selectOption( shopId: string, optionId: string ): void {
+    console.log( shopId, optionId );
 
   }
 
