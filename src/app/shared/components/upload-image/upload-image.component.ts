@@ -22,7 +22,6 @@ export class UploadImageComponent implements OnInit {
   }
 
   upload( files ): void {
-    console.log( files );
     const limit = 102400;
 
     for ( const key in files ) {
