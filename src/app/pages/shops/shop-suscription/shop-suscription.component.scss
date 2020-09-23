@@ -28,9 +28,23 @@ h5 {
     .optional{
         display: none !important;
     }
+
     
 }
-
+@media(min-width: 768px) {
+    .info-plan{
+        .left-info {
+            .info-body {
+                width: 80% !important;
+            }
+        }
+        .rigth-info {
+            .info-body{
+                width: 80% !important;
+            }
+        }
+    }
+}
 @media(min-width: 992px){
     .optional{
         display: none !important;
@@ -39,6 +53,7 @@ h5 {
         flex-direction: row;
         .left-info, .rigth-info {
             width: 50%;
+            
         }
     }
 }
