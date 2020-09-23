@@ -19,11 +19,9 @@ export class SuccessComponent implements OnInit, AfterViewInit {
     private router: Router
   ) { 
     this.url = this.router.url;
-    console.log("--->", this.url);
   }
 
   ngOnInit(): void {
-    console.log("*****", this.url);
     this.orderService.checkoutItems.subscribe( response => {
       this.orderDetails = response;
     } );

@@ -24,7 +24,6 @@ import { PaymentComponent } from '../../components/payment/payment.component';
 export class RegisterStoreComponent implements OnInit {
   @Input() register = true;
   @Output() emitEvent: EventEmitter<boolean> = new EventEmitter<boolean>();
-  @ViewChild( 'successModal' ) SuccessModal: SuccessModalComponent;
   @ViewChild( 'payment' ) payment: PaymentComponent;
 
   planSelected = '';
@@ -201,12 +200,9 @@ export class RegisterStoreComponent implements OnInit {
     this.productForm.value.store = this.store._id;
     this.productService.addProduct( this.productForm.value ).subscribe( ( product: Product ) => {
       sessionStorage.clear();
-      this.openModal();
-    } );
-  }
+      this.router.navigate( [ '/register/success' ] );
 
-  private openModal() {
-    this.SuccessModal.openModal();
+    } );
   }
 
   public back( option: number ) {
