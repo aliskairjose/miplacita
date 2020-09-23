@@ -7,6 +7,7 @@ import { AuthService } from 'src/app/shared/services/auth.service';
 import { FacebookLoginResponse } from '../../../shared/classes/facebook-login-response';
 import { AuthResponse } from '../../../shared/classes/auth-response';
 import { StorageService } from 'src/app/shared/services/storage.service';
+import { PreviousRouteService } from '../../../shared/services/previous-route.service';
 
 const state = { user: JSON.parse( sessionStorage.userForm || null ) };
 
@@ -35,7 +36,8 @@ export class RegisterComponent implements OnInit {
     private auth: AuthService,
     private storage: StorageService,
     private formBuilder: FormBuilder,
-    private socialService: SocialAuthService
+    private socialService: SocialAuthService,
+    private previousRoute: PreviousRouteService,
 
   ) {
     this.createForm();
@@ -46,6 +48,8 @@ export class RegisterComponent implements OnInit {
   get f() { return this.registerForm.controls; }
 
   ngOnInit(): void {
+    console.log(this.previousRoute.getPreviousUrl());
+    
     if ( state.user ) { this.registerSuccess = true; }
     this.socialService.authState.subscribe( ( response: FacebookLoginResponse ) => {
       const data = { fullname: '', token: '', email: '' };
