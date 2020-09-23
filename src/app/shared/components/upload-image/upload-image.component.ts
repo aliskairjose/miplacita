@@ -83,7 +83,7 @@ export class UploadImageComponent implements OnInit, AfterViewInit {
 
   update( item ) {
     console.log(item);
-    this.ngCarousel.select( item );
+    //this.ngCarousel.select( item );
   }
 
   delete( idItem ) {
