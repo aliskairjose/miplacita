@@ -104,6 +104,10 @@ const routes: Routes = [
   {
     path: 'checkout/success/:id',
     component: SuccessComponent
+  },
+  {
+    path: 'register/success',
+    component: SuccessComponent
   }
 ];
 
