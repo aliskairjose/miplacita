@@ -1,17 +1,18 @@
-import { Component, OnInit, Input, Output, EventEmitter, ViewChild } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ViewChild, ViewChildren, QueryList, AfterViewInit,ElementRef } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { NgbCarousel } from '@ng-bootstrap/ng-bootstrap';
+import { Container } from '@angular/compiler/src/i18n/i18n_ast';
 
 @Component( {
   selector: 'app-upload-image',
   templateUrl: './upload-image.component.html',
   styleUrls: [ './upload-image.component.scss' ]
 } )
-export class UploadImageComponent implements OnInit {
+export class UploadImageComponent implements OnInit, AfterViewInit {
 
   fakeImage = '../../../../assets/images/marketplace/svg/plus-circle.svg';
   images: Array<string> = [];
-  @ViewChild( 'ngcarousel', { static: true } ) ngCarousel: NgbCarousel;
+  @ViewChild( 'ngcarousel' ) ngCarousel: ElementRef;
 
   @Input() multiple = false;
   @Output() uploadImage: EventEmitter<Array<string>> = new EventEmitter<Array<string>>();
@@ -22,6 +23,13 @@ export class UploadImageComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+  }
+
+  ngAfterViewInit(){
+
+    console.log("ngcarousel",this.ngCarousel);
+    //this.ngCarousel.nativeElement.innerHTML = "Hello Angular 10!";
+
   }
 
   upload( files ): void {
