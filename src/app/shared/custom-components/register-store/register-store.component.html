@@ -64,6 +64,10 @@
 										<div *ngIf="f.url_store.errors.required"> {{ required }} </div>
 									</div>
 								</div>
+								<div class="form-group">
+									<div class="field-label" for="name">Agregar logo</div>
+									<app-upload-image (uploadImage)="uploadImage($event)"></app-upload-image>
+								</div>
 							</div>
 						</div>
 						<div class="col-lg-6 col-sm-12 col-xs-12">
@@ -94,10 +98,6 @@
 											<h3>Formulario de pago</h3>
 										</div>
 										<app-payment #payment></app-payment>
-									</div>
-									<div class="form-group">
-										<div class="field-label" for="name">Agregar logo</div>
-										<app-upload-image (uploadImage)="uploadImage($event)"></app-upload-image>
 									</div>
 									<div class="form-group text-right">
 										<button class="btn btn-solid-purple" (click)="storeRegister()" [disabled]="disabled">

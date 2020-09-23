@@ -17,7 +17,7 @@ const state = { user: JSON.parse( sessionStorage.userForm || null ) };
   styleUrls: [ './register.component.scss' ]
 } )
 export class RegisterComponent implements OnInit {
-  registerSuccess = false;
+  registerSuccess = true;
   registerForm: FormGroup;
   submitted: boolean;
   invalidEmail = environment.errorForm.invalidEmail;
