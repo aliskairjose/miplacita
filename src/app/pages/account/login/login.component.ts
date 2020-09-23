@@ -6,7 +6,8 @@ import { StorageService } from '../../../shared/services/storage.service';
 import { AuthResponse } from '../../../shared/classes/auth-response';
 import { SocialAuthService, FacebookLoginProvider } from 'angularx-social-login';
 import { FacebookLoginResponse } from 'src/app/shared/classes/facebook-login-response';
-// import { PreviousRoutesService } from '../../../shared/services/previous-route.service';
+import { PreviousRouteService } from '../../../shared/services/previous-route.service';
+
 @Component( {
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -26,11 +27,13 @@ export class LoginComponent implements OnInit {
     private storage: StorageService,
     private formBuilder: FormBuilder,
     private socialService: SocialAuthService,
+    private previousRoute: PreviousRouteService,
   ) {
     this.createForm();
   }
 
   ngOnInit(): void {
+    console.log( this.previousRoute.getPreviousUrl() );
 
     this.socialService.authState.subscribe( ( response: FacebookLoginResponse ) => {
       const data = { fullname: '', token: '', email: '' };
