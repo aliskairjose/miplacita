@@ -1,23 +1,5 @@
 <div class="icon-nav">
   <ul>
-    <!-- <li class="onhover-div mobile-setting">
-      <div><img src="assets/images/icon/setting.png" class="img-fluid" alt="settong">
-        <i class="ti-settings"></i></div>
-      <div class="show-div setting">
-        <h6>language</h6>
-        <ul>
-          <li *ngFor="let language of languages">
-            <a href="javascript:void(0)" (click)="changeLanguage(language.code)">{{ language.name }}</a>
-          </li>
-        </ul>
-        <h6>currency</h6>
-        <ul class="list-inline">
-          <li *ngFor="let currency of currencies">
-            <a href="javascript:void(0)" (click)="changeCurrency(currency)">{{ currency.name }}</a>
-          </li>
-        </ul>
-      </div>
-    </li> -->
     <!-- Cart -->
     <li class="onhover-div mobile-cart">
       <div>
@@ -27,7 +9,7 @@
         </a>
       </div>
       <span class="cart_qty_cls">{{ products.length }}</span>
-      <ul class="show-div shopping-cart" *ngIf='!products.length'>
+      <ul class="show-div shopping-cart " *ngIf='!products.length'>
         <h5>Su carrito está vacío.</h5>
       </ul>
       <ul class="show-div shopping-cart" *ngIf='products.length'>
@@ -69,20 +51,13 @@
     <!-- User -->
     <li class="onhover-div mobile-search search-widgets" id="search-widgets">
       <div>
-        <img src="assets/images/marketplace/images/icons/profile.png" class="img-fluid" id="user-icon" alt="">
+        <img src="assets/images/marketplace/images/icons/profile.png" class="img-fluid" id="user-icon-header" alt="">
         <i class="fa fa-user-o" aria-hidden="true"></i>
-        <!-- <svg width="2.5em" height="2.5em" viewBox="0 0 16 16" class="bi bi-person" fill="#fff"
-          xmlns="http://www.w3.org/2000/svg">
-          <path fill-rule="evenodd"
-            d="M10 5a2 2 0 1 1-4 0 2 2 0 0 1 4 0zM8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm6 5c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z" />
-        </svg> -->
-
       </div>
       <div class="show-div setting mp-setting">
         <div *ngIf="!isLoggedIn">
-          <a [routerLink]="[ '/home/login']"><h6>Iniciar sesión</h6></a>
+          <a [routerLink]="[ '/pages/login']"><h6>Iniciar sesión</h6></a>
           <a [routerLink]="[ '/pages/register']"> <h6>Registrese</h6></a>
-          <!-- <a [routerLink]="[ '/home/register']"> <h6>Registrese</h6></a> -->
         </div>
         <div *ngIf="isLoggedIn">
           <a [routerLink]="[ '/pages/account/user/profile' ]"> <h6>Perfil</h6></a>

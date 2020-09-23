@@ -31,7 +31,6 @@ import { MarketplaceShopComponent } from './marketplace-shop/marketplace-shop.co
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { AlertModule } from 'ngx-alerts';
 import { RegisterComponent } from './marketplace-shop/register/register.component';
-import { LoginComponent } from './marketplace-shop/login/login.component';
 
 @NgModule({
   declarations: [
@@ -60,7 +59,6 @@ import { LoginComponent } from './marketplace-shop/login/login.component';
     ServicesComponent,
     InstagramComponent,
     CollectionComponent,
-    LoginComponent,
     RegisterComponent
   ],
   imports: [

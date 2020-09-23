@@ -1,12 +1,12 @@
 <!-- Register Store Section -->
 <section class="section-b-space" *ngIf="step==1">
 	<div class="container padding-cls">
-		<div class="title-purple text-center">
-			<h2>Gracias por registrarte</h2>
+		<div class="title-purple text-center" *ngIf="register">
+			<h2>Registra tus datos de tienda</h2>
 			<p>Configura tu tienda</p>
 		</div>
 		<!-- TIMELINE -->
-		<div class="d-flex mb-3" style="height: 10vh;">
+		<div class="d-flex mb-3" style="height: 10vh;" *ngIf="register">
 			<app-timeline *ngIf="step==1" class="mx-auto" [active]="step+1"></app-timeline>
 		</div>
 		<!-- TIMELINE-->
@@ -118,11 +118,11 @@
 <section class="section-b-space" *ngIf="step==2">
 	<div class="container padding-cls">
 		<div class="title-purple text-center">
-			<h2>Gracias por registrarte</h2>
+			<h2>Registra tus datos de tienda</h2>
 			<p>Configura tu primer producto</p>
 		</div>
 		<!-- TIMELINE -->
-		<div class="d-flex mb-3" style="height: 10vh;">
+		<div class="d-flex mb-3" style="height: 10vh;" *ngIf="register">
 			<app-timeline *ngIf="step==2" class="mx-auto" [active]="step+1"></app-timeline>
 		</div>
 		<!-- TIMELINE-->
@@ -210,5 +210,3 @@
 		</div>
 	</div>
 </section>
-
-<app-success-modal #successModal></app-success-modal>

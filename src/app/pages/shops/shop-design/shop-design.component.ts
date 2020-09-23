@@ -15,11 +15,7 @@ export class ShopDesignComponent implements OnInit {
 
   color = '';
   font = '';
-  images = [
-    { id: 0, url: '../../../assets/images/dog.png' },
-    { id: 1, url: '../../../assets/images/lookbook.jpg' },
-    { id: 2, url: '../../../assets/images/dog.png' }
-  ];
+  images = [];
   private _shop: Store = {};
 
   constructor(
@@ -35,13 +31,18 @@ export class ShopDesignComponent implements OnInit {
     this._shop = user.stores[ 0 ];
   }
 
-  updateCongif(): void {
+  updateConfig(): void {
     const data = { color: this.color, font: this.font };
     this.shopService.config( this._shop._id, data ).subscribe( response => {
       if ( response.success ) {
         this.toastrService.info( response.message[ 0 ] );
       }
     } );
+  }
+
+  uploadImage( images: string[] ): void {
+    this.images = [ ...images ];
+    console.log(this.images);
   }
 
   update( item ) {

@@ -19,6 +19,7 @@ export class ShopSuscriptionComponent implements OnInit {
   uncheckIcon = 'bi bi-x';
   planPro: any;
   plans = [];
+  enabled = false;
   private _stores: Store[] = [];
 
   constructor(
@@ -30,7 +31,12 @@ export class ShopSuscriptionComponent implements OnInit {
   ngOnInit(): void {
     const user: User = this.storageService.getItem( 'user' );
     this._stores = [ ...user.stores ];
-    this.getShopPlan();
+
+    if ( this._stores.length ) {
+      this.enabled = true;
+      this.getShopPlan();
+    }
+
     this.shopService.getPlans().subscribe( plans => {
       this.plans = [ ...plans ];
     } );
