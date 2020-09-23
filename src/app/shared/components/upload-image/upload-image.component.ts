@@ -21,11 +21,18 @@ export class UploadImageComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  upload( files: FileList ): void {
+  upload( files ): void {
+    console.log( files );
     const limit = 102400;
-    if ( files[ 0 ].size > limit ) {
-      this.toast.warning( 'La imagen es demasiado grande' );
-      return;
+
+    for ( const key in files ) {
+      if ( Object.prototype.hasOwnProperty.call( files, key ) ) {
+        const file = files[ key ];
+        if ( file.size > limit ) {
+          this.toast.warning( 'La imagen es demasiado grande' );
+          return;
+        }
+      }
     }
 
     this.images = [];
