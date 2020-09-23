@@ -38,15 +38,13 @@ export class DashboardComponent implements OnInit {
   };
   public barChartColors: Color[] = [{backgroundColor: '#68396d'}];
 
-  public barChartLabels: Label[] = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio'];
+  public barChartLabels: Label[] = [];
   public barChartType: ChartType = 'bar';
 
-  barChartData: ChartDataSets[] = [
-    { data: [0.3, 37, 60, 70, 46, 33]}
-  ];
-  public doughnutChartLabels: Label[] = ['Producto 1', 'Producto 2'];
+  barChartData: ChartDataSets[] = [ ];
+  public doughnutChartLabels: Label[] = [];
 
-  public doughnutChartData: SingleDataSet = [50, 50];
+  public doughnutChartData: SingleDataSet = [ ];
 
   public doughnutChartType: ChartType = 'doughnut';
   public doughnutColors: Color[] = [{backgroundColor: ['#d0260f','#eca89e']}];
