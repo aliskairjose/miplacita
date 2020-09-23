@@ -1,110 +1,114 @@
 <ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="ball-spin-clockwise" [fullScreen]="true">
-    <p style="color: white"> Por favor espere... </p>
+	<p style="color: white"> Por favor espere... </p>
 </ngx-spinner>
 <ngx-alerts></ngx-alerts>
 <section class="section-b-space">
-    <div class="container">
-        <div class="d-flex">
-            <!-- <form [formGroup]="searchForm" class="flex-fill theme-form"> -->
-            <form class="flex-fill theme-form">
-                <div class="d-flex search">
-                    <div class="form-group flex-fill">
-                        <div class="input-group ">
-                            <div class="input-group-append">
-                                <button type="buttont" class="btn" (click)="search()">
-                                    <i class="fa fa-search"></i></button>
-                            </div>
-                            <input [(ngModel)]="name" [ngModelOptions]="{standalone: true}"
-                                class="form-control my-0 py-1" type="text" placeholder="Buscar...">
-                        </div>
-                    </div>
-                    <div class="filters pb-2">
-                        <div class="flex-fill">
-                            <select name="model" class="form-control" [(ngModel)]="status" (change)="selectStatus()">
-                                <option value="">Estado</option>
-                                <option [value]="status.value" *ngFor="let status of statuses">{{status.text}}</option>
-                            </select>
-                        </div>
-                        <div class="flex-fill" *ngIf="user.role === 'admin'">
-                            <select name="model" class="form-control" [(ngModel)]="store" (change)="selectShop()">
-                                <option value="">Tienda</option>
-                                <option [value]="shop._id" *ngFor="let shop of shops">{{ shop.name }}</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="d-flex  h-100 " *ngIf="user.role==='merchant' && user.stores.length > 0 ">
-                        <button type="button" (click)="CreateProduct.openModal(true,null)" class="btn btn-solid-purple flex-fill">
-                            Crear Producto
-                        </button>
-                    </div>
-                </div>
-            </form>
-        </div>
+	<div class="container">
+		<div class="d-flex">
+			<!-- <form [formGroup]="searchForm" class="flex-fill theme-form"> -->
+			<form class="flex-fill theme-form">
+				<div class="d-flex search">
+					<div class="form-group flex-fill">
+						<div class="input-group ">
+							<div class="input-group-append">
+								<button type="buttont" class="btn" (click)="search()">
+									<i class="fa fa-search"></i></button>
+							</div>
+							<input [(ngModel)]="name" [ngModelOptions]="{standalone: true}" class="form-control my-0 py-1" type="text"
+								placeholder="Buscar...">
+						</div>
+					</div>
+					<div class="filters pb-2">
+						<div class="flex-fill">
+							<select name="model" class="form-control" [(ngModel)]="status" (change)="selectStatus()">
+								<option value="">Estado</option>
+								<option [value]="status.value" *ngFor="let status of statuses">{{status.text}}</option>
+							</select>
+						</div>
+						<div class="flex-fill" *ngIf="user.role === 'admin'">
+							<select name="model" class="form-control" [(ngModel)]="store" (change)="selectShop()">
+								<option value="">Tienda</option>
+								<option [value]="shop._id" *ngFor="let shop of shops">{{ shop.name }}</option>
+							</select>
+						</div>
+					</div>
+					<div class="d-flex  h-100 " *ngIf="user.role==='merchant' && user.stores.length > 0 ">
+						<button type="button" (click)="CreateProduct.openModal(true,null)" class="btn btn-solid-purple flex-fill">
+							Crear Producto
+						</button>
+					</div>
+				</div>
+			</form>
+		</div>
 
-        <ng-container class="table-responsive-sm mt-3" *ngIf="user.stores.length || user.role === 'admin'; else elseTemplate">
-            <table class="table">
-                <thead>
-                    <tr class="table-head text-center">
-                        <th *ngFor="let field of fields" scope="col">{{field}}</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let product of products">
-                        <td class="text-center" *ngIf="product.image.length">
-                            <img class="product-image" [src]="product.image[0]" />
-                        </td>
-                        <td class="text-center" *ngIf="product.image.length === 0 && product.images.length">
-                            <div *ngFor="let image of product.images">
-                                <img class="product-image" *ngIf="image.principal" [src]="image.url" />
-                            </div>
-                        </td>`
-                        <td class="text-center" *ngIf="product.image.length === 0 && product.images.length === 0">
-                            <img class="product-image" [src]="standardImage" />
-                        </td>
-                      
-                        <td>{{ product.name }}</td>
-                        <td *ngIf="user.role==='admin' "> {{ product.store ? product.store.name : 'Sin tienda' }}</td>
-                        <td>{{ product.description }}</td>
-                        <td class="text-center">{{ product.price | currency }}</td>
-                        <td class="text-center">{{ product.tax | currency }}</td>
-                        <td class="text-center">{{ product.status }}</td>
+		<ng-container class="table-responsive-sm mt-3"
+			*ngIf="user.stores.length || user.role === 'admin'; else elseTemplate">
+			<table class="table">
+				<thead>
+					<tr class="table-head text-center">
+						<th *ngFor="let field of fields" scope="col">{{field}}</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr *ngFor="let product of products">
 
-                        <td class="text-center" *ngIf="user.role==='merchant'">
-                            <a [routerLink]="[ '/pages/edit-product', product._id ]"
-                                class="btn btn-table-action">
-                                <i class="fa fa-edit fa-lg" style="color: Dodgerblue"></i>
-                            </a>
-                            <button class="btn btn-table-action" (click)="showModal(product._id)">
-                                <i class="fa fa-close fa-lg" style="color: Tomato"></i>
-                            </button>
-                        </td>
-                        <td class="text-center" *ngIf="user.role==='admin'">
-                            <button class="btn btn-table-action">Desactivar</button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </ng-container>
-        <ng-template #elseTemplate>
-            <div class="form-row container justify-content-center " *ngIf="products.length==0 ">
-                <div class="col-md-5">
-                    <div class="card text-center mx-auto mb-2">
-                        <div class="card-body">
-                            <p *ngIf="products.length==0 && user.stores.length == 0">
-                                Aún no has configurado tu tienda
-                                <a  class="btn btn-solid-purple mt-3" [routerLink]="['/pages/account/user/admin-store']">
-                                    Configurar tienda
-                                </a>
-                            </p>
-                            <p *ngIf="products.length==0 && user.stores.length > 0">Aún no has agregado productos a tu tienda</p>
-                        
-                        </div>
-                    </div>
-                </div>
-            </div>        
-        </ng-template>
-        <app-custom-pagination [items]="products" [paginate]="paginate" (setPage)="setPage($event)">
-        </app-custom-pagination>
-    </div>
+						<td class="text-center" *ngIf="product.image.length">
+							<img class="product-image" [src]="product.image[0]" />
+						</td>
+
+						<td class="text-center" *ngIf="product.image.length === 0 && product.images.length">
+							<div *ngFor="let image of product.images">
+								<img class="product-image" *ngIf="image.principal" [src]="image.url" />
+							</div>
+						</td>
+
+						<td class="text-center" *ngIf="!product.image.length && !product.images.length">
+							<img class="product-image" [src]="standardImage" />
+						</td>
+
+						<td>{{ product.name }}</td>
+						<td *ngIf="user.role==='admin' "> {{ product.store ? product.store.name : 'Sin tienda' }}</td>
+						<td>{{ product.description }}</td>
+						<td class="text-center">{{ product.price | currency }}</td>
+						<td class="text-center">{{ product.tax | currency }}</td>
+						<td class="text-center">{{ product.status }}</td>
+
+						<td class="text-center" *ngIf="user.role==='merchant'">
+							<a [routerLink]="[ '/pages/edit-product', product._id ]" class="btn btn-table-action">
+								<i class="fa fa-edit fa-lg" style="color: Dodgerblue"></i>
+							</a>
+							<button class="btn btn-table-action" (click)="showModal(product._id)">
+								<i class="fa fa-close fa-lg" style="color: Tomato"></i>
+							</button>
+						</td>
+						<td class="text-center" *ngIf="user.role==='admin'">
+							<button class="btn btn-table-action">Desactivar</button>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</ng-container>
+		<ng-template #elseTemplate>
+			<div class="form-row container justify-content-center " *ngIf="products.length==0 ">
+				<div class="col-md-5">
+					<div class="card text-center mx-auto mb-2">
+						<div class="card-body">
+							<p *ngIf="products.length==0 && user.stores.length == 0">
+								Aún no has configurado tu tienda
+								<a class="btn btn-solid-purple mt-3" [routerLink]="['/pages/account/user/admin-store']">
+									Configurar tienda
+								</a>
+							</p>
+							<p *ngIf="products.length==0 && user.stores.length > 0">Aún no has agregado productos a tu
+								tienda</p>
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</ng-template>
+		<app-custom-pagination [items]="products" [paginate]="paginate" (setPage)="setPage($event)">
+		</app-custom-pagination>
+	</div>
 </section>
 <app-create-product #createProduct *ngIf="user.role!='admin'"></app-create-product>
