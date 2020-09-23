@@ -48,7 +48,6 @@ export class RegisterComponent implements OnInit {
   get f() { return this.registerForm.controls; }
 
   ngOnInit(): void {
-    console.log(this.previousRoute.getPreviousUrl());
     
     if ( state.user ) { this.registerSuccess = true; }
     this.socialService.authState.subscribe( ( response: FacebookLoginResponse ) => {

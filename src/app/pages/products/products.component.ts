@@ -119,6 +119,9 @@ export class ProductsComponent implements OnInit {
       for ( let i = 1; i <= this.paginate.totalPages; i++ ) {
         this.paginate.pages.push( i );
       }
+
+      console.log( this.products );
+
     } );
   }
 
