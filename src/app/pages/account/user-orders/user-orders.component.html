@@ -22,7 +22,7 @@
                         <tbody *ngFor="let order of orders">
                             <tr>
                                 <td>
-                                    <p>ID: {{ order._id }}</p>
+                                    <p>ID: {{ order._id.slice(0,10) }}</p>
                                 </td>
                                 <td>
                                     <strong>{{ order.store.name }}</strong>
