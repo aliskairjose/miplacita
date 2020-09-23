@@ -41,7 +41,7 @@
             </form>
         </div>
 
-        <ng-container class="table-responsive-sm mt-3" *ngIf="user.stores.length; else elseTemplate">
+        <ng-container class="table-responsive-sm mt-3" *ngIf="user.stores.length || user.role === 'admin'; else elseTemplate">
             <table class="table">
                 <thead>
                     <tr class="table-head text-center">
