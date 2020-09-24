@@ -28,6 +28,11 @@ $radius: 5px;
   padding: 13px 13px;
   border: 1px solid #dedede;
 }
+
+.btn {
+  text-transform: none;
+  border-radius: $radius;
+}
 .btn-fb{
   
     background-color: #4867aa;
