@@ -40,7 +40,6 @@ export class ShippingComponent implements OnInit {
   shippingAddress: ShippingAddress;
   shipmentOptions: any = [];
   autocompleteInput: string;
-  title = 'My first AGM project';
   latitude = 10.4683841;
   longitude = -66.9604066;
   zoom: number;
@@ -48,16 +47,21 @@ export class ShippingComponent implements OnInit {
   hideMessage = false;
   selectedOption = '';
   order = {
-    products: [],
-    store: '',
-    shipment_option: '',
-    shipment_price: 0,
+    details: [],
+    user: '',
     address: {
       address: '',
       landMark: '',
       location: [],
       phone: ''
     }
+  };
+  details = [];
+  detail = {
+    products: [],
+    store: '',
+    shipment_option: '',
+    shipment_price: 0,
   };
   options = {
     types: [],
@@ -87,8 +91,10 @@ export class ShippingComponent implements OnInit {
     if ( this.auth.isAuthenticated() ) {
       this.hideMessage = true;
       this.user = this.storage.getItem( 'user' );
+
       const store = this.user.stores[ 0 ];
       const shippingAddress: ShippingAddress = this.storage.getItem( `shippingAddress${this.user._id}` );
+
       if ( shippingAddress && ( shippingAddress.userId === this.user._id ) ) {
         const response = confirm( 'Ya existe una dirección, ¿Desea usarla?' );
         ( response ) ? this.shippingAddress = shippingAddress : this.shippingAddress = {};
@@ -96,9 +102,19 @@ export class ShippingComponent implements OnInit {
     }
 
     this.getStoresId().then( ( shops ) => {
+      for ( const shop of shops as any ) {
+        const detail = { ...this.detail };
+        detail.store = shop.id;
+        const products = this._products.filter( value => value.store._id === shop.id );
+        detail.products = products;
+        detail.shipment_option = shop.shopOptions[ 0 ]._id;
+        detail.shipment_price = shop.shopOptions[ 0 ].price;
+        this.details.push( detail );
+      }
       this.shipmentOptions = shops;
+      this.order.details = this.details;
+      this.order.user = this.user._id;
     } );
-
     this.createForm();
   }
 
@@ -153,17 +169,15 @@ export class ShippingComponent implements OnInit {
   }
 
   checkout(): void {
-    console.log( this.checkoutForm.value );
-
-    this.order.address.address = this.checkoutForm.value.address;
-    this.order.address.phone = this.checkoutForm.value.phone;
-    this.order.shipment_option = '';
-    // const ship = this.shipmentOptions.filter( val => val._id === this.order.shipment_option );
-    // this.order.shipment_price = ship[ 0 ].price;
 
     this.submitted = true;
     if ( this.checkoutForm.valid ) {
       const shippingAddress = { ...this.checkoutForm.value };
+      this.order.address.address = this.checkoutForm.value.address;
+      this.order.address.phone = this.checkoutForm.value.phone;
+      this.order.address.location = [ this.latitude, this.longitude ];
+
+      // // se agrega id a la dirección para cuando se cargue desde storage comparar con el usuario activo
       shippingAddress.userId = this.user._id;
       this.storage.setItem( `shippingAddress${this.user._id}`, shippingAddress );
       sessionStorage.setItem( 'order', JSON.stringify( this.order ) );
@@ -173,14 +187,24 @@ export class ShippingComponent implements OnInit {
   }
 
   selectOption( shopId: string, optionId: string ): void {
+
     const shopOptions = [];
+
+    // Obtenemos un array con todas las opciones de envío en pantalla
     for ( const i of this.shipmentOptions ) {
       shopOptions.push( ...i.shopOptions );
     }
-    const ship = shopOptions.filter( val => val._id === optionId );
-    console.log( ship );
 
-    this.order.shipment_price = ship[ 0 ].price;
+    // Obtenemos la información de la opción de envíp seleccionada
+    const shipOption = shopOptions.filter( val => val._id === optionId );
+
+    this.order.details.map( res => {
+      if ( res.store === shopId ) {
+        res.shipment_option = optionId;
+        res.shipment_price = shipOption[ 0 ].price;
+      }
+    } );
+
   }
 
   // Stripe Payment Gateway
@@ -303,6 +327,7 @@ export class ShippingComponent implements OnInit {
     return new Promise( async ( resolve ) => {
       const shops = [];
       const val = this.getUniqueStoreId();
+
       for ( const v of val ) {
         const options = await this.getOptions( v.id );
         v.shopOptions = options;
@@ -323,16 +348,15 @@ export class ShippingComponent implements OnInit {
 
   private getUniqueStoreId() {
     const uniqueStore = [];
-    this._products.filter( ( product ) => {
-      const index = uniqueStore.indexOf( product.store._id );
+    const uniqueStoreID = [];
+    this._products.filter( ( product: Product ) => {
+      const index = uniqueStoreID.indexOf( product.store._id );
       if ( index === -1 ) {
         const shop: any = {};
         shop.id = product.store._id;
         shop.name = product.store.name;
-        // shop.shopOptions = await this.getOptions( shop.id );
-        // console.log( shop.shopOptions );
-
         uniqueStore.push( shop );
+        uniqueStoreID.push( product.store._id );
       }
     } );
     return uniqueStore;

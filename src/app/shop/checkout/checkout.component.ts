@@ -100,9 +100,7 @@ export class CheckoutComponent implements OnInit {
   onSubmit(): void {
     this.submitted = true;
     const order = JSON.parse( sessionStorage.order );
-    order.products = this.products;
-    order.store = this.products[ 0 ].store._id;
-    order.user = state.user._id;
+    
     if ( this.payment.onSubmit() ) {
       this.orderService.createOrder( order ).subscribe( response => {
         if ( response.success ) {
