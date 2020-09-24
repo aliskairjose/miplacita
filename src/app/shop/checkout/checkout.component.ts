@@ -59,7 +59,9 @@ export class CheckoutComponent implements OnInit {
     const date = new Date();
     const shipment = JSON.parse( sessionStorage.order );
 
-    this.shipmentPrice = shipment.shipment_price;
+    shipment.details.forEach( detail => {
+      this.shipmentPrice += detail.shipment_price;
+    } );
     this.productService.cartItems.subscribe( response => this.products = response );
 
     this.subTotal.subscribe( amount => {
@@ -100,7 +102,7 @@ export class CheckoutComponent implements OnInit {
   onSubmit(): void {
     this.submitted = true;
     const order = JSON.parse( sessionStorage.order );
-    
+
     if ( this.payment.onSubmit() ) {
       this.orderService.createOrder( order ).subscribe( response => {
         if ( response.success ) {

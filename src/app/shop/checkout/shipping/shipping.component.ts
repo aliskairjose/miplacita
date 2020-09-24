@@ -177,7 +177,7 @@ export class ShippingComponent implements OnInit {
       this.order.address.phone = this.checkoutForm.value.phone;
       this.order.address.location = [ this.latitude, this.longitude ];
 
-      // // se agrega id a la dirección para cuando se cargue desde storage comparar con el usuario activo
+      // se agrega id a la dirección para cuando se cargue desde storage comparar con el usuario activo
       shippingAddress.userId = this.user._id;
       this.storage.setItem( `shippingAddress${this.user._id}`, shippingAddress );
       sessionStorage.setItem( 'order', JSON.stringify( this.order ) );
