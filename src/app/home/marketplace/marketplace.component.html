@@ -22,7 +22,7 @@
 
 <!-- Pasos de registro start -->
 <section class="section-b-space">
-    <div class="container">
+    <div class="container-fill">
         <div class="row">
             <div class="col">
                 <div class="title-purple text-center">
@@ -31,8 +31,8 @@
                 </div>
             </div>
         </div>
-        <div class="row mt-3 d-flex justify-content-center">
-            <div class="row justify-content-center">
+        <div class="row mt-3 d-flex justify-content-center background-gray">
+            <div class="d-flex justify-content-center">
                 <div class="d-flex">
                     <div class="col service-block">
                         <div class="media">
@@ -248,7 +248,7 @@
                         </div>
                         <hr>
                         <div class="d-flex justify-content-around">
-                            <button type="button" class="btn btn-solid">Iniciar ahora</button>
+                            <a  [routerLink]="['/home/register']" class="btn btn-solid">Iniciar ahora</a>
                         </div>
                     </div>
                 </div>
@@ -394,7 +394,7 @@
 <!-- Preguntas frecuentes start -->
 <section class="section-b-space">
     <div class="">
-        <div class="container">
+        <div class="container-fill">
             <div class="row mb-3">
                 <div class="col">
                     <div class="title-purple text-center">
@@ -402,14 +402,16 @@
                     </div>
                 </div>
             </div>
-            <div class="row d-flex justify-content-center questions" *ngFor="let q of questions">
-                <div class="question" (click)="q.isCollapsed = !q.isCollapsed" [attr.aria-expanded]="!q.isCollapsed"
-                    aria-controls="collapseExample">
-                    <p> {{q.isCollapsed ? "+" : "-" }} {{q.question}}</p>
-                    <div class="answer" id="collapseExample" [ngbCollapse]="q.isCollapsed">
-                        <div class="">
-                            <div class="card-body">
-                                {{q.answer}}
+            <div class="w-100 background-gray">
+                <div class="row d-flex justify-content-center questions " *ngFor="let q of questions">
+                    <div class="question" (click)="q.isCollapsed = !q.isCollapsed" [attr.aria-expanded]="!q.isCollapsed"
+                        aria-controls="collapseExample">
+                        <p> {{q.isCollapsed ? "+" : "-" }} {{q.question}}</p>
+                        <div class="answer" id="collapseExample" [ngbCollapse]="q.isCollapsed">
+                            <div class="">
+                                <div class="card-body">
+                                    {{q.answer}}
+                                </div>
                             </div>
                         </div>
                     </div>

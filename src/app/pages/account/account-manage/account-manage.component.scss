@@ -11,16 +11,18 @@
     display: flex;
     justify-content: flex-start;
     & button {
-        font-size: 0.7rem;
+        font-size: 0.6rem;
     }
     
 }
 .active {
     border: 1px solid #ccc;
     border-bottom: 1px transparent;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
     & button {
         color: var(--theme-deafult);
-        font-size: 0.7rem;
+        font-size: 0.6rem;
 
     }
 
@@ -51,6 +53,8 @@
         border: 1px solid transparent;
         border: 1px solid #ccc;
         border-right: 1px transparent;
+        border-bottom-left-radius: 5px;
+        border-top-left-radius: 5px;
         & button {
             color: var(--theme-deafult);
         }

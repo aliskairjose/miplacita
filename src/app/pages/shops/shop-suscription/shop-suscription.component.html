@@ -4,22 +4,22 @@
             <div class="left-info">
                 <div class="info-header">
                     <div class="d-flex">
-                        <h4 *ngIf="plan.price===0" class="font-weight-bold">Plan actual: </h4>
-                        <h4 class="text-default-color pl-2">Plan Básico</h4>
+                        <h5 *ngIf="plan.price===0" class="font-weight-bold">Plan actual: </h5>
+                        <h5 class="text-default-color pl-2">Plan Básico</h5>
                     </div>
                     <hr>
                     <div class="form-group">
-                        <h4 class="font-weight-bold">Monto del plan: $0</h4>
+                        <h5 class="font-weight-bold">Monto del plan: $0</h5>
                     </div>
                     <div class="form-group  mt-3">
-                        <h4 class="text-default-color font-weight-bold">Beneficios:</h4>
+                        <h5 class="text-default-color font-weight-bold">Beneficios:</h5>
                     </div>
                 </div>
 
                 <div class="info-body mx-auto" *ngFor="let benefit of basicBenefits">
                     <div class="row d-flex align-items-center">
                         <div class="col-1">
-                            <svg width="2em" height="2em" viewBox="0 0 16 16"
+                            <svg width="1.7em" height="1.7em" viewBox="0 0 16 16"
                                 class="bi bi-check-circle text-default-color" fill="#d0260f"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <path fill-rule="evenodd"
@@ -50,15 +50,15 @@
             <div class="rigth-info">
                 <div class="info-header">
                     <div class="d-flex">
-                        <h4 *ngIf="plan.price > 0" class="font-weight-bold">Plan actual: </h4>
-                        <h4 class="pl-2">Plan profesional</h4>
+                        <h5 *ngIf="plan.price > 0" class="font-weight-bold">Plan actual: </h5>
+                        <h5 class="pl-2">Plan profesional</h5>
                     </div>
                     <hr>
                     <div class="form-group">
-                        <h4>Monto del plan: $8.88 mensual</h4>
+                        <h5>Monto del plan: $8.88 mensual</h5>
                     </div>
                     <div class="form-group  mt-3">
-                        <h4 class="text-purple font-weight-bold">Beneficios:</h4>
+                        <h5 class="text-purple font-weight-bold">Beneficios:</h5>
                     </div>
                 </div>
                 <div class="info-body mx-auto mt-5">
@@ -117,21 +117,21 @@
             <div class="rigth-info">
                 <div class="info-header">
                     <div class="d-flex">
-                        <h4 *ngIf="plan.price > 0" class="font-weight-bold">Plan actual: </h4>
-                        <h4 class="pl-2">Plan profesional anual</h4>
+                        <h5 *ngIf="plan.price > 0" class="font-weight-bold">Plan actual: </h5>
+                        <h5 class="pl-2">Plan profesional anual</h5>
                     </div>
                     <hr>
                     <div class="form-group">
-                        <h4>Monto del plan: $88.88 mensual</h4>
+                        <h5>Monto del plan: $88.88 mensual</h5>
                     </div>
                     <div class="form-group  mt-3">
-                        <h4 class="text-purple font-weight-bold">Beneficios:</h4>
+                        <h5 class="text-purple font-weight-bold">Beneficios:</h5>
                     </div>
                 </div>
                 <div class="info-body mx-auto mt-5">
                     <div class="row d-flex align-items-center">
                         <div class="col-1">
-                            <svg width="2em" height="2em" viewBox="0 0 16 16"
+                            <svg width="1.7em" height="1.7em" viewBox="0 0 16 16"
                                 class="bi bi-check-circle text-default-color" fill="#d0260f"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <path fill-rule="evenodd"
@@ -154,7 +154,7 @@
                     </div>
                     <div class="row d-flex align-items-center"  *ngFor="let benefit of benefits">
                         <div class="col-1">
-                            <svg width="2em" height="2em" viewBox="0 0 16 16"
+                            <svg width="1.7em" height="1.7em" viewBox="0 0 16 16"
                                 class="bi bi-check-circle text-default-color" fill="#d0260f"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <path fill-rule="evenodd"

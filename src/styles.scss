@@ -11,6 +11,7 @@ $mp-pink-dark: #e37d6f;
 $mp-pink-light: #eca89f;
 $mp-rosa: #fed3c3;
 $mp-white: #fff;
+$mp-gray: #f7f7f7;
 // radius
 $radius: 5px;
 
@@ -20,6 +21,9 @@ $radius: 5px;
 .text-pink-light { color: $mp-pink-dark !important }
 .text-default-color {color : var(--theme-deafult) }
 .text-purple { color : $mp-purple }
+.background-gray { 
+  background-color: $mp-gray;
+  padding: 10% 10% }
 .border-box {
   padding: 13px 13px;
   border: 1px solid #dedede;
@@ -164,7 +168,10 @@ $radius: 5px;
 */
 .section-b-space {
   padding-top: 25px;
-  border-bottom: 1px solid #ccc;
+  //border-bottom: 1px solid #ccc;
+}
+.container-fill {
+  width: 100%;
 }
 // Landing Page 
 .img-main-banner {
