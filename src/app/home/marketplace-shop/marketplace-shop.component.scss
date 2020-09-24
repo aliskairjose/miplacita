@@ -1,6 +1,9 @@
 .explore-btn {
     position: fixed;
 }
+ngb-carousel {
+    max-height: none;
+}
 .banner-mp {
     width: 100%;
     height: 25vh;
@@ -35,7 +38,8 @@
 }
 
 @media (min-width: 768px) { 
-    
+
+
     .banner-mp {
         height: 42vh;
         max-height: 42vh;
@@ -63,6 +67,7 @@
 }
 
 @media (min-width: 992px) { 
+
     .banner-mp {
         height: 70vh;
         max-height: 70vh;

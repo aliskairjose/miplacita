@@ -182,6 +182,15 @@ $radius: 5px;
   width: 100%;
 }
 // Landing Page 
+.btn-inside-slider {
+  position: initial;
+  width: 60%;
+  margin: 0 auto;
+  margin-top: 5%;
+  text-align: center;
+  z-index: 9;
+}
+
 .img-main-banner {
   width: 100% !important;
 }
@@ -527,11 +536,21 @@ ngb-carousel {
 
 // Small devices (landscape phones, 576px and up)
 @media (min-width: 576px) { 
-  
+  .btn-inside-slider{
+    position: relative;
+    bottom: 20vh;
+    left: 50px;
+}
 }
 
 // Medium devices (tablets, 768px and up)
 @media (min-width: 768px) {
+  .btn-inside-slider{
+    position: relative;
+    bottom: 28vh;
+    left: 80px;
+  }
+
   .info-plan {
     flex-direction: row;
     .left-info {
@@ -605,7 +624,13 @@ ngb-carousel {
 
 // Large devices (desktops, 992px and up)
 @media (min-width: 992px) { 
-
+  
+  .btn-inside-slider{
+    position: relative;
+    bottom: 30vh;
+    left: 150px;
+  }
+  
   .info-plan {
     .rigth-info{
       width: 40%;
@@ -619,4 +644,11 @@ ngb-carousel {
  }
 
 // Extra large devices (large desktops, 1200px and up)
-@media (min-width: 1200px) {  }
+@media (min-width: 1200px) {  
+
+  .btn-inside-slider{
+    position: relative;
+    bottom: 40vh;
+    left: 200px;
+  }
+}
