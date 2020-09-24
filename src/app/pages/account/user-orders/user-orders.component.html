@@ -12,7 +12,7 @@
                     <table class="table table-responsive-xs">
                         <thead>
                             <tr class="table-head">
-                                <th scope="col">pedido nro</th>
+                                <!-- <th scope="col">pedido nro</th> -->
                                 <th scope="col">tienda</th>
                                 <th id="small-col" scope="col">total</th>
                                 <th scope="col">fecha de emisión</th>
@@ -21,9 +21,9 @@
                         </thead>
                         <tbody *ngFor="let order of orders">
                             <tr>
-                                <td>
+                                <!-- <td>
                                     <p>ID: {{ order._id.slice(0,10) }}</p>
-                                </td>
+                                </td> -->
                                 <td>
                                     <strong>{{ order.store.name }}</strong>
                                     <div class="mobile-order-content row">
