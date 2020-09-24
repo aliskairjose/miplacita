@@ -17,9 +17,9 @@ export class ShopDesignComponent implements OnInit {
   font = '';
   images = [];
   fonts = [
-    {name: 'Raleway Bold'},
-    {name: 'Roboto Bold'},
-    {name: 'Source Sans Pro'}
+    { name: 'Raleway Bold' },
+    { name: 'Roboto Bold' },
+    { name: 'Source Sans Pro' }
   ]
   private _shop: Store = {};
 
@@ -45,9 +45,19 @@ export class ShopDesignComponent implements OnInit {
     } );
   }
 
+  sendImageToCloud(): void {
+    this.shopService.uploadImages( { images: this.images } ).subscribe( result => {
+      if ( result.status === 'isOk' ) {
+        // result.images[ 0 ];
+        this.shopService.addBanner( this._shop._id, result.images[ 0 ] ).subscribe( _result => {
+          console.log( _result );
+        } );
+      }
+    } );
+  }
+
   uploadImage( images: string[] ): void {
     this.images = [ ...images ];
-    console.log(this.images);
   }
 
   update( item ) {
