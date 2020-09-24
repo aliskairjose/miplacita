@@ -13,11 +13,11 @@
                             Mi perfil
                         </button>
                     </div>
-                    <div class="tab" (click)="updateTab('orders')" *ngIf="user.role=='merchant'"
+                    <div class="tab" (click)="updateTab('orders')" *ngIf="user.role!=='merchant' && user.role!=='admin'"
                         [ngClass]="{'active': active=='orders','btn tab': active!='orders'}">
                         <button class="btn "  id="order-tab">
                             <img src="assets/images/marketplace/images/icons/orders.png" alt="">
-                            Mis Pedidos
+                            Mis Órdenes
                         </button>
                     </div>
                     <div class="tab" (click)="updateTab('stores')"

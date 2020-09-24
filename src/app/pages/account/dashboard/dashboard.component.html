@@ -109,7 +109,7 @@
                 </div>
             </div>
         </div>
-        <div class="form-row charts">
+        <div class="form-row charts" *ngIf="barChartData.length > 0">
             <div class="col-lg-6 col-md-6 col-sm-6">
                 <h5 class="text-center">Ventas</h5>
                 <canvas baseChart
