@@ -181,6 +181,10 @@ $radius: 5px;
 .container-fill {
   width: 100%;
 }
+.container {
+  padding-left: 0px;
+  padding-right: 0px;
+}
 // Landing Page 
 .btn-inside-slider {
   position: initial;
@@ -380,6 +384,10 @@ ngb-carousel {
 .carousel-indicators{
   z-index: 20;
 }
+
+.preview-box {
+  visibility: hidden;
+}
 /* ==============
     ShopDesign -Carousel ends
    ==============
@@ -540,7 +548,14 @@ ngb-carousel {
     position: relative;
     bottom: 20vh;
     left: 50px;
-}
+  }
+  .container {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+  .preview-box {
+    visibility: visible;
+  }
 }
 
 // Medium devices (tablets, 768px and up)

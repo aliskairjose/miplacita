@@ -1,9 +1,9 @@
 <section class="section-b-space">
   <div class="container d-flex">
     <div class="theme-form col mx-auto">
-      <div class="d-flex">
+      <div class="d-flex color-fonts">
         <div class="label card col-lg-3 col-md-4 col-sm-6 mr-3 text-center"
-        id="color" [(colorPicker)]="color"   >
+        id="color" [(colorPicker)]="color" [cpPosition]="'bottom'"  >
         <button class="btn" id="dropdownManual"  >
           Color de tienda
         </button>
@@ -11,7 +11,7 @@
           
         </div>
         </div>
-        <div class="label card col-lg-3 col-md-4 col-sm-6 mr-3 text-center"  ngbDropdown #myDrop="ngbDropdown" >
+        <div class="label card col-lg-3 col-md-5 col-sm-6 mr-3 text-center"  ngbDropdown #myDrop="ngbDropdown" >
           <button class="btn" id="dropdownManual" ngbDropdownAnchor (focus)="myDrop.open()">
             Tipografía de tienda
           </button>

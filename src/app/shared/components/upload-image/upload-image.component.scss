@@ -70,9 +70,17 @@ ngb-carousel {
   height: 45vh;
   margin-bottom: 50px;
 }
+
 .store-design-img {
-  width: auto;
+  width: 100%;
 }
+
+@media (min-width: 576px){
+  .store-design-img {
+    width: auto;
+  }
+}
+
 /*=============*/
 @media (min-width:768px){
   .preview-box {
