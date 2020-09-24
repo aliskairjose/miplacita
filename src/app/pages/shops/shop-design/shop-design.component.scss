@@ -1,52 +1,34 @@
-.preview {
-    height: 8rem;
-    width: 10rem;
-    max-width: 10rem;
+.border-box {
+    padding: 2px 2px;
 }
 
-.preview-box {
-    overflow-y: hidden;
-    overflow-x: scroll;
-    height: 15vh;
-    padding-bottom: 1.5rem;
-}
-
-.preview{
-    & img{
-        
-        transform:scale(1);
-        -ms-transform:scale(1); // IE 9 
-        -moz-transform:scale(1); // Firefox 
-        -webkit-transform:scale(1); // Safari and Chrome 
-        -o-transform:scale(1); // Opera 
-        -webkit-transition: all 500ms ease-in-out; // IE 9
-        -moz-transition: all 500ms ease-in-out; // Firefox
-        -ms-transition: all 500ms ease-in-out; // Safari and Chrome 
-        -o-transition: all 500ms ease-in-out; // Opera       
-    }      
-    .img-btn {
-        opacity: 0;
+#item {
+    width: 90%;
+    margin: 0 auto;
+    &:active {
+        background-color: var(--theme-deafult);
+        color: white
     }
-    &:hover{
-        img{
-            transform:scale(0.8);
-            -ms-transform:scale(0.8); // IE 9 
-            -moz-transform:scale(0.8); // Firefox 
-            -webkit-transform:scale(0.8); // Safari and Chrome 
-            -o-transform:scale(0.8); // Opera
-        }
-        .img-btn{
-            transform:translate(0px,-20px);
-            opacity: 1;
-        }
-    } 
 }
 
-ngb-carousel {
-    height: 45vh;
-    margin-bottom: 50px;
+#dropdownManual {
+    text-transform: none;
+    color: #777;
+    font-weight: 400;
 }
 
+.color {
+    width: 100%;
+    height: 0.7rem;
+}
+
+.dropdown-toggle {
+    white-space: none;
+}
+.dropdown-menu .show {
+    background-color: yellow;
+    transform: translate(0px, 50px) !important;
+}
 @media(max-width: 768px){
     .optional{
         display: none !important;
