@@ -94,8 +94,21 @@ export class ShopService {
     return this.http.put( `stores/${id}`, data );
   }
 
+  /**
+   * @description Actualización de plan de tienda
+   * @param storeId Id de la tianda que actualiza el plan
+   * @param planId Id de nuevo plan que se aplica
+   */
   updateStorePlan( storeId: string, planId: any ): Observable<any> {
     return this.http.put( `stores/${storeId}/plan`, planId );
+  }
+
+  /**
+   * @description Actualiza el status de la tienda Active true|false
+   * @param shopId Id de la tienda a activar/desactivar
+   */
+  updateStoreStatus( shopId: string, data: any ): Observable<any> {
+    return this.http.put( `stores/${shopId}/status`, data );
   }
 
   /**
@@ -128,7 +141,7 @@ export class ShopService {
 
   /*
     ---------------------------------------------
-    -------------  Perfil de tienfa  ------------
+    -------------  Perfil de tienda  ------------
     ---------------------------------------------
   */
 
@@ -139,6 +152,15 @@ export class ShopService {
    */
   withdrawals( data: any, id: string ): Observable<any> {
     return this.http.put( `stores/${id}/bank`, data );
+  }
+
+  /**
+   * @description Carga de imagen al banner
+   * @param shopId Id de la tienda a la que se coloca el banner
+   * @param data Banner
+   */
+  addBanner( shopId: string, data: any ): Observable<any> {
+    return this.http.post( `stores/${shopId}/config/photo`, data );
   }
 
   /*

@@ -56,8 +56,6 @@ export class ShopSuscriptionComponent implements OnInit {
 
     this.shopService.getPlans().subscribe( plans => {
       this.plans = [ ...plans ];
-
-      console.log(plans);
     } );
   }
 

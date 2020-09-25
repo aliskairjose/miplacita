@@ -3,7 +3,6 @@
 import { environment } from '../../../environments/environment';
 import { Paginate } from '../../shared/classes/paginate';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { StorageService } from '../../shared/services/storage.service';
 import { User } from '../../shared/classes/user';
 import { Product } from '../../shared/classes/product';
@@ -82,12 +81,18 @@ export class ProductsComponent implements OnInit {
     this.loadData();
   }
 
-  showModal( id: string ): void {
+  deleteItem( product: Product ): void {
     this.confirmationDialogService
-      .confirm( 'Por favor confirme ..', '¿Realmente desea eliminar este producto?' )
+      .confirm(
+        'Por favor confirme...',
+        `¿Realmente desea borrar <b>${product.name}</b>?`,
+        'Si, borrar!',
+        'No borrar',
+        'lg'
+      )
       .then( ( confirmed ) => {
         // tslint:disable-next-line: curly
-        if ( confirmed ) this.deleteProduct( id );
+        if ( confirmed ) this.deleteProduct( product._id );
       } );
 
   }
@@ -119,9 +124,6 @@ export class ProductsComponent implements OnInit {
       for ( let i = 1; i <= this.paginate.totalPages; i++ ) {
         this.paginate.pages.push( i );
       }
-
-      console.log( this.products );
-
     } );
   }
 
