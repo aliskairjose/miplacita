@@ -5,9 +5,6 @@ import { TranslateService } from '@ngx-translate/core';
 import { ProductService } from '../../services/product.service';
 import { Product } from '../../classes/product';
 import { AuthService } from '../../services/auth.service';
-import { StorageService } from '../../services/storage.service';
-import { Router } from '@angular/router';
-import { User } from '../../classes/user';
 
 @Component( {
   selector: 'app-settings',
@@ -45,9 +42,11 @@ export class SettingsComponent implements OnInit {
     price: 1 // price of usd
   } ];
 
+  role: string;
+
   constructor(
     @Inject( PLATFORM_ID ) private platformId: Object,
-    private auth: AuthService,
+    public auth: AuthService,
     private translate: TranslateService,
     public productService: ProductService,
   ) {
@@ -55,6 +54,7 @@ export class SettingsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.role = this.auth.getUserRol();    
     this.isLoggedIn = this.auth.isAuthenticated();
     this.auth.authObserver().subscribe( ( isAuth: boolean ) => {
       this.isLoggedIn = isAuth;
