@@ -4,7 +4,7 @@
 <ngx-alerts></ngx-alerts>
 <section class="section-b-space">
 	<div class="container">
-		<div class="alert alert-warning" role="alert">
+		<div class="alert alert-warning" role="alert" *ngIf="(plan.price === 0) && (maxProducts >= 10)">
 			Debe adquirir un plan pago para poder agregar más productos a su catálogo
 		</div>
 		<div class="d-flex">
@@ -36,7 +36,7 @@
 					</div>
 					<div class="d-flex  h-100 " *ngIf="user.role==='merchant' && user.stores.length > 0 ">
 						<button 
-							[disabled]="(plan.price === 0) && (maxProducts >= 10) "
+							[disabled]="(plan.price === 0) && (maxProducts >= 10)"
 							type="button" 
 							class="btn btn-solid-purple flex-fill"
 							(click)="CreateProduct.openModal(true,null)">
