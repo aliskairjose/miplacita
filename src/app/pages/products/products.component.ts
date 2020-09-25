@@ -3,7 +3,6 @@
 import { environment } from '../../../environments/environment';
 import { Paginate } from '../../shared/classes/paginate';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { StorageService } from '../../shared/services/storage.service';
 import { User } from '../../shared/classes/user';
 import { Product } from '../../shared/classes/product';
@@ -14,6 +13,7 @@ import { ProductService } from '../../shared/services/product.service';
 import { ShopService } from '../../shared/services/shop.service';
 import { ToastrService } from 'ngx-toastr';
 import { CreateProductComponent } from './create-product/create-product.component';
+import * as bootbox from 'bootbox';
 
 @Component( {
   selector: 'app-products',
@@ -82,7 +82,7 @@ export class ProductsComponent implements OnInit {
     this.loadData();
   }
 
-  showModal( id: string ): void {
+  deleteItem( id: string ): void {
     this.confirmationDialogService
       .confirm( 'Por favor confirme ..', '¿Realmente desea eliminar este producto?' )
       .then( ( confirmed ) => {
@@ -119,9 +119,6 @@ export class ProductsComponent implements OnInit {
       for ( let i = 1; i <= this.paginate.totalPages; i++ ) {
         this.paginate.pages.push( i );
       }
-
-      console.log( this.products );
-
     } );
   }
 
