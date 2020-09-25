@@ -70,10 +70,12 @@ export class CreateProductComponent implements OnInit, OnDestroy {
     const user: User = this.storageService.getItem( 'user' );
 
     // tslint:disable-next-line: max-line-length
-    forkJoin( [ this.shopService.getStore( user.stores[ 0 ]._id ), this.productService.categoryList() ] ).subscribe( ( [ response, categories ] ) => {
-      this.plan = response.docs[ 0 ].plan;
-      this.categories = [ ...categories ];
-    } );
+    forkJoin(
+      [ this.shopService.getStore( user.stores[ 0 ]._id ), this.productService.categoryList() ] )
+      .subscribe( ( [ response, categories ] ) => {
+        this.plan = response.docs[ 0 ].plan;
+        this.categories = [ ...categories ];
+      } );
 
   }
 

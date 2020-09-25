@@ -2,7 +2,7 @@
 
 import { environment } from '../../../environments/environment';
 import { Paginate } from '../../shared/classes/paginate';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewChecked, AfterViewInit } from '@angular/core';
 import { StorageService } from '../../shared/services/storage.service';
 import { User } from '../../shared/classes/user';
 import { Product } from '../../shared/classes/product';
@@ -13,13 +13,15 @@ import { ProductService } from '../../shared/services/product.service';
 import { ShopService } from '../../shared/services/shop.service';
 import { ToastrService } from 'ngx-toastr';
 import { CreateProductComponent } from './create-product/create-product.component';
+import { forkJoin } from 'rxjs';
+import { Plan } from '../../shared/classes/plan';
 
 @Component( {
   selector: 'app-products',
   templateUrl: './products.component.html',
   styleUrls: [ './products.component.scss' ]
 } )
-export class ProductsComponent implements OnInit {
+export class ProductsComponent implements OnInit, AfterViewInit {
   @ViewChild( 'createProduct' ) CreateProduct: CreateProductComponent;
 
   typeUser = 'admin';
@@ -40,6 +42,8 @@ export class ProductsComponent implements OnInit {
   ];
   user: User;
   params = '';
+  maxProducts = 0;
+  plan: Plan;
 
   constructor(
     private shopService: ShopService,
@@ -55,18 +59,38 @@ export class ProductsComponent implements OnInit {
     }
 
     // tslint:disable-next-line: curly
-    if ( this.user.role === 'admin' ) this.fields.splice( 2, 0, 'Tienda' );
+    // if ( this.user.role === 'admin' ) this.fields.splice( 2, 0, 'Tienda' );
   }
 
   ngOnInit(): void {
+    const params = `store=${this.user.stores[ 0 ]._id}`;
 
-    this.productService.productObserver().subscribe( ( product: Product ) => {
+    this.productService.productObserver().subscribe( () => {
       this.loadData();
     } );
 
-    this.shopService.getAll().subscribe( ( result: Result<Store> ) => {
-      this.shops = [ ...result.docs ];
-    } );
+    forkJoin(
+      [ this.shopService.getStore( this.user.stores[ 0 ]._id ), this.productService.productList( 1, params ) ] )
+      .subscribe( ( [ storeResponse, productsResponse ] ) => {
+
+        this.plan = storeResponse.docs[ 0 ].plan;
+        this.maxProducts = productsResponse.totalDocs;
+
+      } );
+
+    if ( this.user.role === 'admin' ) {
+      this.fields.splice( 2, 0, 'Tienda' );
+      this.shopService.getAll().subscribe( result => {
+        this.shops = [ ...result.docs ];
+      } );
+    }
+
+  }
+
+  ngAfterViewInit(): void {
+    if ( ( this.plan.price === 0 ) && this.maxProducts >= 10 ) {
+      alert( 'Debe cambiar de plan si quiere mas productos' );
+    }
   }
 
   search(): void {

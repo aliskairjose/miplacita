@@ -4,8 +4,10 @@
 <ngx-alerts></ngx-alerts>
 <section class="section-b-space">
 	<div class="container">
+		<div class="alert alert-warning" role="alert">
+			Debe adquirir un plan pago para poder agregar más productos a su catálogo
+		</div>
 		<div class="d-flex">
-			<!-- <form [formGroup]="searchForm" class="flex-fill theme-form"> -->
 			<form class="flex-fill theme-form">
 				<div class="d-flex search">
 					<div class="form-group flex-fill">
@@ -33,7 +35,11 @@
 						</div>
 					</div>
 					<div class="d-flex  h-100 " *ngIf="user.role==='merchant' && user.stores.length > 0 ">
-						<button type="button" (click)="CreateProduct.openModal(true,null)" class="btn btn-solid-purple flex-fill">
+						<button 
+							[disabled]="(plan.price === 0) && (maxProducts >= 10) "
+							type="button" 
+							class="btn btn-solid-purple flex-fill"
+							(click)="CreateProduct.openModal(true,null)">
 							Crear Producto
 						</button>
 					</div>
