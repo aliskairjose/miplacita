@@ -11,6 +11,7 @@ $mp-pink-dark: #e37d6f;
 $mp-pink-light: #eca89f;
 $mp-rosa: #fed3c3;
 $mp-white: #fff;
+$mp-gray: #f7f7f7;
 // radius
 $radius: 5px;
 
@@ -20,9 +21,20 @@ $radius: 5px;
 .text-pink-light { color: $mp-pink-dark !important }
 .text-default-color {color : var(--theme-deafult) }
 .text-purple { color : $mp-purple }
+.background-gray { 
+  background-color: $mp-gray;
+  padding: 10% 10% }
 .border-box {
   padding: 13px 13px;
   border: 1px solid #dedede;
+}
+
+.btn {
+  text-transform: none;
+}
+
+.btn-solid, .btn-solid-purple {
+  border-radius: $radius;
 }
 .btn-fb{
   
@@ -164,9 +176,25 @@ $radius: 5px;
 */
 .section-b-space {
   padding-top: 25px;
-  border-bottom: 1px solid #ccc;
+  //border-bottom: 1px solid #ccc;
+}
+.container-fill {
+  width: 100%;
+}
+.container {
+  padding-left: 0px;
+  padding-right: 0px;
 }
 // Landing Page 
+.btn-inside-slider {
+  position: initial;
+  width: 60%;
+  margin: 0 auto;
+  margin-top: 5%;
+  text-align: center;
+  z-index: 9;
+}
+
 .img-main-banner {
   width: 100% !important;
 }
@@ -356,6 +384,10 @@ ngb-carousel {
 .carousel-indicators{
   z-index: 20;
 }
+
+.preview-box {
+  visibility: hidden;
+}
 /* ==============
     ShopDesign -Carousel ends
    ==============
@@ -512,11 +544,28 @@ ngb-carousel {
 
 // Small devices (landscape phones, 576px and up)
 @media (min-width: 576px) { 
-  
+  .btn-inside-slider{
+    position: relative;
+    bottom: 20vh;
+    left: 50px;
+  }
+  .container {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+  .preview-box {
+    visibility: visible;
+  }
 }
 
 // Medium devices (tablets, 768px and up)
 @media (min-width: 768px) {
+  .btn-inside-slider{
+    position: relative;
+    bottom: 28vh;
+    left: 80px;
+  }
+
   .info-plan {
     flex-direction: row;
     .left-info {
@@ -590,7 +639,13 @@ ngb-carousel {
 
 // Large devices (desktops, 992px and up)
 @media (min-width: 992px) { 
-
+  
+  .btn-inside-slider{
+    position: relative;
+    bottom: 30vh;
+    left: 150px;
+  }
+  
   .info-plan {
     .rigth-info{
       width: 40%;
@@ -604,4 +659,11 @@ ngb-carousel {
  }
 
 // Extra large devices (large desktops, 1200px and up)
-@media (min-width: 1200px) {  }
+@media (min-width: 1200px) {  
+
+  .btn-inside-slider{
+    position: relative;
+    bottom: 40vh;
+    left: 200px;
+  }
+}

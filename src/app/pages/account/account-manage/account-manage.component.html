@@ -1,6 +1,6 @@
 <div class="container">
     <div class="d-flex account-page">
-        <div class="col-lg-3 col-md-3 col-sm-0 mp-side-menu">
+        <div class="col-lg-2 col-md-2 col-sm-0 mp-side-menu">
             <div class="d-flex account-menu justify-content-center" id="" role="tablist">
                 <div class="tab">
                     <button class="btn "></button>
@@ -13,11 +13,11 @@
                             Mi perfil
                         </button>
                     </div>
-                    <div class="tab" (click)="updateTab('orders')" *ngIf="user.role=='merchant'"
+                    <div class="tab" (click)="updateTab('orders')" *ngIf="user.role!=='merchant' && user.role!=='admin'"
                         [ngClass]="{'active': active=='orders','btn tab': active!='orders'}">
                         <button class="btn "  id="order-tab">
                             <img src="assets/images/marketplace/images/icons/orders.png" alt="">
-                            Mis Pedidos
+                            Mis Órdenes
                         </button>
                     </div>
                     <div class="tab" (click)="updateTab('stores')"
@@ -82,7 +82,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-lg-9 col-md-9 col-sm-12">
+        <div class="col-lg-10 col-md-10 col-sm-12">
             <div class="tab-content" id="myTabContent">
                 <div *ngIf="active=='profile'" class="" 
                     id="profile" role="tabpanel" >

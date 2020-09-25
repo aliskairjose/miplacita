@@ -1,21 +1,20 @@
-import { Component, OnInit, OnDestroy, ViewChild, ElementRef, NgZone } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { GooglePlaceDirective } from 'ngx-google-places-autocomplete';
+import { ICreateOrderRequest, IPayPalConfig } from 'ngx-paypal';
+import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs';
-import { IPayPalConfig, ICreateOrderRequest } from 'ngx-paypal';
+
+import { MapsAPILoader } from '@agm/core';
+import { Component, ElementRef, NgZone, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+
 import { environment } from '../../../../environments/environment';
 import { Product } from '../../../shared/classes/product';
-import { ProductService } from '../../../shared/services/product.service';
-import { StorageService } from '../../../shared/services/storage.service';
 import { User } from '../../../shared/classes/user';
-import { ToastrService } from 'ngx-toastr';
-import { ShopService } from '../../../shared/services/shop.service';
-import { ShipmentOption } from '../../../shared/classes/shipment-option';
-import { GooglePlaceDirective } from 'ngx-google-places-autocomplete';
-import { Router } from '@angular/router';
-import { MapsAPILoader } from '@agm/core';
 import { AuthService } from '../../../shared/services/auth.service';
-
-
+import { ProductService } from '../../../shared/services/product.service';
+import { ShopService } from '../../../shared/services/shop.service';
+import { StorageService } from '../../../shared/services/storage.service';
 
 export interface ShippingAddress {
   firstname?: string;
@@ -30,20 +29,17 @@ export interface ShippingAddress {
   templateUrl: './shipping.component.html',
   styleUrls: [ './shipping.component.scss' ]
 } )
-export class ShippingComponent implements OnInit, OnDestroy {
+export class ShippingComponent implements OnInit {
 
   checkoutForm: FormGroup;
-  shipmentOptionsForm: FormGroup;
   submitted: boolean;
-  products: Product[] = [];
   payPalConfig?: IPayPalConfig;
   payment = 'Stripe';
   amount: any;
   user: User = {};
   shippingAddress: ShippingAddress;
-  shipmentOptions: ShipmentOption[] = [];
+  shipmentOptions: any = [];
   autocompleteInput: string;
-  title = 'My first AGM project';
   latitude = 10.4683841;
   longitude = -66.9604066;
   zoom: number;
@@ -51,10 +47,8 @@ export class ShippingComponent implements OnInit, OnDestroy {
   hideMessage = false;
   selectedOption = '';
   order = {
-    products: [],
-    store: '',
-    shipment_option: '',
-    shipment_price: 0,
+    details: [],
+    user: '',
     address: {
       address: '',
       landMark: '',
@@ -62,12 +56,20 @@ export class ShippingComponent implements OnInit, OnDestroy {
       phone: ''
     }
   };
+  details = [];
+  detail = {
+    products: [],
+    store: '',
+    shipment_option: '',
+    shipment_price: 0,
+  };
   options = {
     types: [],
     componentRestrictions: { country: 'PA' }
   };
 
   private geoCoder;
+  private _products: Product[] = [];
 
   @ViewChild( 'placesRef' ) placesRef: GooglePlaceDirective;
   @ViewChild( 'placesRef' ) public searchElementRef: ElementRef;
@@ -84,31 +86,44 @@ export class ShippingComponent implements OnInit, OnDestroy {
     public productService: ProductService,
   ) {
 
+    this.productService.cartItems.subscribe( products => this._products = [ ...products ] );
+
     if ( this.auth.isAuthenticated() ) {
       this.hideMessage = true;
       this.user = this.storage.getItem( 'user' );
+
       const store = this.user.stores[ 0 ];
       const shippingAddress: ShippingAddress = this.storage.getItem( `shippingAddress${this.user._id}` );
-      this.shopService.findShipmentOptionByShop( store._id ).subscribe( shipmentOptions => {
-        this.shipmentOptions = [ ...shipmentOptions ];
-        this.selectedOption = this.shipmentOptions[ 0 ]._id;
-      } );
+
       if ( shippingAddress && ( shippingAddress.userId === this.user._id ) ) {
         const response = confirm( 'Ya existe una dirección, ¿Desea usarla?' );
         ( response ) ? this.shippingAddress = shippingAddress : this.shippingAddress = {};
       }
     }
 
+    this.getStoresId().then( ( shops ) => {
+      for ( const shop of shops as any ) {
+        const detail = { ...this.detail };
+        detail.store = shop.id;
+        const products = this._products.filter( value => value.store._id === shop.id );
+        detail.products = products;
+        detail.shipment_option = shop.shopOptions[ 0 ]._id;
+        detail.shipment_price = shop.shopOptions[ 0 ].price;
+        this.details.push( detail );
+      }
+      this.shipmentOptions = shops;
+      this.order.details = this.details;
+      this.order.user = this.user._id;
+    } );
     this.createForm();
   }
 
   // convenience getter for easy access to form fields
   // tslint:disable-next-line: typedef
   get f() { return this.checkoutForm.controls; }
-  get o() { return this.shipmentOptionsForm.controls; }
 
   ngOnInit(): void {
-    this.productService.cartItems.subscribe( response => this.products = response );
+    // this.productService.cartItems.subscribe( response => this.products = response );
     this.getTotal.subscribe( amount => this.amount = amount );
     this.initConfig();
     this.setCurrentLocation();
@@ -143,40 +158,52 @@ export class ShippingComponent implements OnInit, OnDestroy {
 
   createForm(): void {
 
-    this.shipmentOptionsForm = this.fb.group( {
-      shipment_option: [ '', [ Validators.required ] ],
-    } );
-
     this.checkoutForm = this.fb.group( {
       firstname: [ this.shippingAddress ? this.shippingAddress.firstname : '', [ Validators.required, Validators.pattern( '[a-zA-Z][a-zA-Z ]+[a-zA-Z]$' ) ] ],
       lastname: [ this.shippingAddress ? this.shippingAddress.lastname : '', [ Validators.required, Validators.pattern( '[a-zA-Z][a-zA-Z ]+[a-zA-Z]$' ) ] ],
       phone: [ this.shippingAddress ? this.shippingAddress.phone : '', [ Validators.required, Validators.pattern( '[0-9]+' ) ] ],
       email: [ this.shippingAddress ? this.shippingAddress.email : '', [ Validators.required, Validators.email ] ],
       address: [ this.shippingAddress ? this.shippingAddress.address : '', [ Validators.required, Validators.maxLength( 50 ) ] ],
-      reference: [ '' ],
-      // country: [ '', Validators.required ],
-      // town: [ '', Validators.required ],
-      // state: [ '', Validators.required ],
-      // postalcode: [ '', Validators.required ]
+      reference: [ '' ]
     } );
   }
 
   checkout(): void {
 
-    this.order.address.address = this.checkoutForm.value.address;
-    this.order.address.phone = this.checkoutForm.value.phone;
-    this.order.shipment_option = this.shipmentOptionsForm.get( 'shipment_option' ).value;
-    const ship = this.shipmentOptions.filter( val => val._id === this.order.shipment_option );
-    this.order.shipment_price = ship[ 0 ].price;
-
     this.submitted = true;
     if ( this.checkoutForm.valid ) {
       const shippingAddress = { ...this.checkoutForm.value };
+      this.order.address.address = this.checkoutForm.value.address;
+      this.order.address.phone = this.checkoutForm.value.phone;
+      this.order.address.location = [ this.latitude, this.longitude ];
+
+      // se agrega id a la dirección para cuando se cargue desde storage comparar con el usuario activo
       shippingAddress.userId = this.user._id;
       this.storage.setItem( `shippingAddress${this.user._id}`, shippingAddress );
       sessionStorage.setItem( 'order', JSON.stringify( this.order ) );
       this.router.navigate( [ 'shop/checkout' ] );
     }
+
+  }
+
+  selectOption( shopId: string, optionId: string ): void {
+
+    const shopOptions = [];
+
+    // Obtenemos un array con todas las opciones de envío en pantalla
+    for ( const i of this.shipmentOptions ) {
+      shopOptions.push( ...i.shopOptions );
+    }
+
+    // Obtenemos la información de la opción de envíp seleccionada
+    const shipOption = shopOptions.filter( val => val._id === optionId );
+
+    this.order.details.map( res => {
+      if ( res.store === shopId ) {
+        res.shipment_option = optionId;
+        res.shipment_price = shipOption[ 0 ].price;
+      }
+    } );
 
   }
 
@@ -279,11 +306,6 @@ export class ShippingComponent implements OnInit, OnDestroy {
           this.zoom = 12;
           this.address = results[ 0 ].formatted_address;
           this.checkoutForm.value.address = this.address;
-          // const length = this.address.length;
-          // const index = this.address.lastIndexOf( ',' );
-          // const address = this.address.substring( 0, index );
-          // const country = this.address.substring( index + 2, length );
-          // console.log( { address, country } );
         } else {
           this.toastrService.warning( 'No results found' );
         }
@@ -294,10 +316,50 @@ export class ShippingComponent implements OnInit, OnDestroy {
     } );
   }
 
-  ngOnDestroy(): void {
-    // Called once, before the instance is destroyed.
-    // Add 'implements OnDestroy' to the class.
+  private async getStoresId() {
+    return await this.filterByStoreID();
+  }
 
+  /**
+   * @description Retorna un array de id de tiendas unicos
+   */
+  private filterByStoreID() {
+    return new Promise( async ( resolve ) => {
+      const shops = [];
+      const val = this.getUniqueStoreId();
+
+      for ( const v of val ) {
+        const options = await this.getOptions( v.id );
+        v.shopOptions = options;
+        shops.push( v );
+      }
+
+      resolve( shops );
+    } );
+  }
+
+  private getOptions( id: string ) {
+    return new Promise( resolve => {
+      this.shopService.findShipmentOptionByShop( id ).subscribe( shipmentOptions => {
+        resolve( shipmentOptions );
+      } );
+    } );
+  }
+
+  private getUniqueStoreId() {
+    const uniqueStore = [];
+    const uniqueStoreID = [];
+    this._products.filter( ( product: Product ) => {
+      const index = uniqueStoreID.indexOf( product.store._id );
+      if ( index === -1 ) {
+        const shop: any = {};
+        shop.id = product.store._id;
+        shop.name = product.store.name;
+        uniqueStore.push( shop );
+        uniqueStoreID.push( product.store._id );
+      }
+    } );
+    return uniqueStore;
   }
 
 }

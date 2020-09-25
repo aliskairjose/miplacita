@@ -7,6 +7,11 @@
     .left-info, .rigth-info {
         width: 100%;
     }
+    .rigth-info .info-header {
+        hr {
+            background-color: white;
+        }
+    }
 }
 .container{
     padding-left: 0;
@@ -18,7 +23,7 @@ hr {
 }
 
 h5 {
-	font-size: 14px;
+	font-size: 0.7rem;
 }
 .check {
     width: 1.3rem;
@@ -28,9 +33,23 @@ h5 {
     .optional{
         display: none !important;
     }
+
     
 }
-
+@media(min-width: 768px) {
+    .info-plan{
+        .left-info {
+            .info-body {
+                width: 80% !important;
+            }
+        }
+        .rigth-info {
+            .info-body{
+                width: 80% !important;
+            }
+        }
+    }
+}
 @media(min-width: 992px){
     .optional{
         display: none !important;
@@ -39,6 +58,7 @@ h5 {
         flex-direction: row;
         .left-info, .rigth-info {
             width: 50%;
+            
         }
     }
 }

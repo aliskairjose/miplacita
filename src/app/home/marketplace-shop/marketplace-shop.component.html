@@ -1,14 +1,18 @@
 <app-header-one [sticky]="true" [isHidde]="false" [topbar]="false" [isSideMenu]="true" [hasSearchBar]="true"></app-header-one>
 
 <div class="pb-5">
-  <!-- Home slider start-->
   <section class="p-0">
-    <app-slider 
-      [sliders]="sliders" 
-      [textClass]="'text-center'"
-      [category]="''"
-      [buttonText]="'Explora'"> 
-    </app-slider>
+    <ngb-carousel *ngIf="sliders.length>0" #ngcarousel>
+        <ng-template *ngFor="let image of sliders" ngbSlide>
+            <div class="picsum-img-wrapper w-100">
+                <img class="img-main-banner" [src]="image.image" alt="Angular Carousel 1">
+            </div>
+        </ng-template>
+        
+    </ngb-carousel>
+    <div class="btn-inside-slider">
+      <a class="btn btn-solid" [routerLink]="['/shop/collection/left/sidebar']">Explora</a>
+    </div>
   </section>
   <!-- Home slider End -->
 

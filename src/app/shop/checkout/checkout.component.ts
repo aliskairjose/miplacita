@@ -1,11 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
-import { IPayPalConfig, ICreateOrderRequest } from 'ngx-paypal';
+import { IPayPalConfig } from 'ngx-paypal';
 import { environment } from '../../../environments/environment';
-// import { Product } from '../../shared/classes/tm.product';
 import { Product } from '../../shared/classes/product';
-// import { ProductService } from '../../shared/services/tm.product.service';
 import { ProductService } from '../../shared/services/product.service';
 import { OrderService } from '../../shared/services/order.service';
 import { Router } from '@angular/router';
@@ -61,7 +59,9 @@ export class CheckoutComponent implements OnInit {
     const date = new Date();
     const shipment = JSON.parse( sessionStorage.order );
 
-    this.shipmentPrice = shipment.shipment_price;
+    shipment.details.forEach( detail => {
+      this.shipmentPrice += detail.shipment_price;
+    } );
     this.productService.cartItems.subscribe( response => this.products = response );
 
     this.subTotal.subscribe( amount => {
@@ -102,9 +102,7 @@ export class CheckoutComponent implements OnInit {
   onSubmit(): void {
     this.submitted = true;
     const order = JSON.parse( sessionStorage.order );
-    order.products = this.products;
-    order.store = this.products[ 0 ].store._id;
-    order.user = state.user._id;
+
     if ( this.payment.onSubmit() ) {
       this.orderService.createOrder( order ).subscribe( response => {
         if ( response.success ) {

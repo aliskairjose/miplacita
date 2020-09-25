@@ -159,6 +159,25 @@ export class MarketplaceComponent implements OnInit, OnDestroy {
               'Sólo te toma 3 minutos!' + 'Agrega tus primeros productos, empieza a compartir tu catálogo y a Vender.' 
     }
   ]
+
+  // beneficios
+  basicBenefits = [
+    'Catálogo limitado a 10 productos',
+    'Inventario de 10 productos',
+    'Chat integrado',
+    'Url para redes sociales',
+    'Edición de tienda',
+    'Gestión de clientes'
+  ]
+  benefits = [
+    'Control de inventario',
+    'Gestión de clientes',
+    'Transaciones ilimitadas',
+    'Pasarela de Pago TDC',
+    'Gestión de imagen de tienda',
+    'Plan de compensaciones a clientes referidos',
+    'Cupones de descuentos'
+  ]
   isCollapsed =false;
   // banners 
   verticalBanners = [

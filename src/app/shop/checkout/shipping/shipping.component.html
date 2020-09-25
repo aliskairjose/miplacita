@@ -14,7 +14,8 @@
 									<h3>Mis datos/ Dirección</h3>
 									<p> Completa estos datos para que tu vendedor sepa donde te encuentras ubicado</p>
 									<div class="alert alert-primary" role="alert" [hidden]="hideMessage">
-										¿Desea continuar como invitado o <a [routerLink]="['/home/login']"><b>iniciar sesión</b></a> ?
+										¿Desea continuar como invitado o <a [routerLink]="['/home/login', {projectTeam: true}]"><b>iniciar
+												sesión</b></a> ?
 									</div>
 								</div>
 								<form [formGroup]="checkoutForm" class="theme-form">
@@ -98,37 +99,28 @@
 										<p> Completa estos datos para que tu vendedor sepa donde te encuentras ubicado
 										</p>
 									</div>
-									<form [formGroup]="shipmentOptionsForm" class="theme-form">
+									<form class="theme-form">
 										<div class="shipping-option" *ngIf="shipmentOptions.length">
-											<div class="row mb-3" *ngFor="let item of shipmentOptions">
-												<div class="option-box d-flex mx-auto py-3">
-													<div class="col-md-6">
-														<p class="my-auto">{{item.name}} - {{item.price | currency }}</p>
+											<div *ngFor="let shipmentOption of shipmentOptions">
+												<p class="h5">{{shipmentOption.name}}</p>
+												<div *ngFor="let item of shipmentOption.shopOptions; let i=index">
+													<div class="row mb-3">
+														<div class="option-box d-flex mx-auto py-3">
+															<div class="col-md-6">
+																<p class="my-auto">{{item.name}} - {{item.price | currency }}</p>
+															</div>
+															<div class="col offset-xl-4 text-center">
+																<input class="my-auto" type="radio" [checked]="i === 0" [value]="item._id" [name]="shipmentOption.name"
+																	(change)="selectOption(shipmentOption.id, $event.target.value )">
+															</div>
+														</div>
 													</div>
-													<div class="col offset-xl-4 text-center">
-														<input class="my-auto" formControlName="shipment_option" type="radio" [value]="item._id"
-															name="shipment_option" [(ngModel)]="selectedOption">
-													</div>
-												</div>
-												<div *ngIf="submitted && shipmentOptionsForm.controls.shipment_option.errors?.required"
-													class="text text-danger">
-													Campo requerido
 												</div>
 											</div>
 										</div>
 									</form>
-									<div class="shipping-option" *ngIf="!shipmentOptions.length">
-										<div class="row mb-3">
-											<div class="option-box d-flex mx-auto py-3">
-												<div class="col-md-12">
-													<p class="my-auto">No hay opciones disponibles</p>
-												</div>
-											</div>
-										</div>
-									</div>
 									<div class="button-box h-100 d-flex justify-content-end align-items-end">
 										<div class="text-right">
-											<!-- <a [routerLink]="['/shop/checkout']" class="btn btn-solid">Finalizar</a> -->
 											<a (click)="checkout()" class="btn btn-solid">Finalizar</a>
 										</div>
 									</div>

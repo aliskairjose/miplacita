@@ -128,7 +128,7 @@ export class ShopService {
 
   /*
     ---------------------------------------------
-    -------------  Perfil de tienfa  ------------
+    -------------  Perfil de tienda  ------------
     ---------------------------------------------
   */
 
@@ -139,6 +139,15 @@ export class ShopService {
    */
   withdrawals( data: any, id: string ): Observable<any> {
     return this.http.put( `stores/${id}/bank`, data );
+  }
+
+  /**
+   * @description Carga de imagen al banner
+   * @param shopId Id de la tienda a la que se coloca el banner
+   * @param data Banner
+   */
+  addBanner( shopId: string, data: any ): Observable<any> {
+    return this.http.post( `stores/${shopId}/config/photo`, data );
   }
 
   /*
