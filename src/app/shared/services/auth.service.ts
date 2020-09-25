@@ -71,6 +71,15 @@ export class AuthService {
     return ( user ) ? true : false;
   }
 
+  getUserRol(): string {
+    const user: User = JSON.parse( localStorage.getItem( 'user' ) );
+    if ( user ) {
+      return user.role;
+    } else {
+      return '';
+    }
+  }
+
   /**
    * @description Genera el stream de eventos usando next() para crear el evento
    */

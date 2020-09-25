@@ -26,7 +26,7 @@ export class ShopSuscriptionComponent implements OnInit {
     'Url para redes sociales',
     'Edición de tienda',
     'Gestión de clientes'
-  ]
+  ];
   benefits = [
     'Control de inventario',
     'Gestión de clientes',
@@ -35,7 +35,7 @@ export class ShopSuscriptionComponent implements OnInit {
     'Gestión de imagen de tienda',
     'Plan de compensaciones a clientes referidos',
     'Cupones de descuentos'
-  ]
+  ];
   enabled = false;
   private _stores: Store[] = [];
 
