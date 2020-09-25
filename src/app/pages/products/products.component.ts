@@ -63,20 +63,23 @@ export class ProductsComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-    const params = `store=${this.user.stores[ 0 ]._id}`;
 
     this.productService.productObserver().subscribe( () => {
       this.loadData();
     } );
 
-    forkJoin(
-      [ this.shopService.getStore( this.user.stores[ 0 ]._id ), this.productService.productList( 1, params ) ] )
-      .subscribe( ( [ storeResponse, productsResponse ] ) => {
+    if ( this.user.stores.length ) {
+      const params = `store=${this.user.stores[ 0 ]._id}`;
 
-        this.plan = storeResponse.docs[ 0 ].plan;
-        this.maxProducts = productsResponse.totalDocs;
+      forkJoin(
+        [ this.shopService.getStore( this.user.stores[ 0 ]._id ), this.productService.productList( 1, params ) ] )
+        .subscribe( ( [ storeResponse, productsResponse ] ) => {
 
-      } );
+          this.plan = storeResponse.docs[ 0 ].plan;
+          this.maxProducts = productsResponse.totalDocs;
+
+        } );
+    }
 
     if ( this.user.role === 'admin' ) {
       this.fields.splice( 2, 0, 'Tienda' );
@@ -88,7 +91,7 @@ export class ProductsComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    if ( ( this.plan.price === 0 ) && this.maxProducts >= 10 ) {
+    if ( ( this.plan?.price === 0 ) && this.maxProducts >= 10 ) {
       alert( 'Debe cambiar de plan si quiere mas productos' );
     }
   }
