@@ -29,6 +29,18 @@
     background-color: yellow;
     transform: translate(0px, 50px) !important;
 }
+.color-fonts {
+    display: flex;
+    flex-direction: column;
+}
+
+@media(min-width: 576px){
+    .color-fonts {
+        display: flex;
+        flex-direction: row;
+    }
+
+}
 @media(max-width: 768px){
     .optional{
         display: none !important;
@@ -39,4 +51,5 @@
         margin: 0 auto;
         height: 10vh;
     }
+
 }
