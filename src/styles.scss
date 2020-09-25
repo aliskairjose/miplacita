@@ -343,7 +343,7 @@ ngb-carousel {
   width: 100%;
   max-width: 100%;
   max-height: 50vh;
-  margin-top: 20px;
+  margin-top: 2%;
   & .carousel-inner{
       height: 100%;
       .carousel-item.active {
@@ -376,7 +376,6 @@ ngb-carousel {
 .carousel-item.active{
   opacity: 1;
   visibility: visible;
-  z-index: 10;
   height: 100%;
 }
 
