@@ -13,7 +13,6 @@ import { ProductService } from '../../shared/services/product.service';
 import { ShopService } from '../../shared/services/shop.service';
 import { ToastrService } from 'ngx-toastr';
 import { CreateProductComponent } from './create-product/create-product.component';
-import * as bootbox from 'bootbox';
 
 @Component( {
   selector: 'app-products',
@@ -82,12 +81,18 @@ export class ProductsComponent implements OnInit {
     this.loadData();
   }
 
-  deleteItem( id: string ): void {
+  deleteItem( product: Product ): void {
     this.confirmationDialogService
-      .confirm( 'Por favor confirme ..', '¿Realmente desea eliminar este producto?' )
+      .confirm(
+        'Por favor confirme...',
+        `¿Realmente desea borrar <b>${product.name}</b>?`,
+        'Si, borrar!',
+        'No borrar',
+        'lg'
+      )
       .then( ( confirmed ) => {
         // tslint:disable-next-line: curly
-        if ( confirmed ) this.deleteProduct( id );
+        if ( confirmed ) this.deleteProduct( product._id );
       } );
 
   }
