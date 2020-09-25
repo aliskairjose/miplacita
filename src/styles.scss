@@ -36,7 +36,7 @@ $radius: 5px;
 .btn-solid, .btn-solid-purple {
   border-radius: $radius;
 }
-.btn-fb{
+.btn-fb {
   
     background-color: #4867aa;
     color: var(--white);
@@ -44,9 +44,15 @@ $radius: 5px;
       color: var(--white) !important;
     }
 }
+
+.btn-tab {
+  padding: 10px 10px;
+}
+
 .separador {
   color: var(--mp-gray);
 }
+
 .timeline {
   height: 10vh;
 }
@@ -182,8 +188,8 @@ $radius: 5px;
   width: 100%;
 }
 .container {
-  padding-left: 0px;
-  padding-right: 0px;
+  padding-left: 2px;
+  padding-right: 2px;
 }
 // Landing Page 
 .btn-inside-slider {
@@ -304,9 +310,11 @@ form {
 .label {
     padding: 13px 13px;
     margin-bottom: 3%;
+    margin-left: 3px;
+    margin-right: 3px;
 }
 .labels {
-    
+    flex-direction: column;
     margin-bottom: 3%;
 }
 
@@ -550,8 +558,8 @@ ngb-carousel {
     left: 50px;
   }
   .container {
-    padding-left: 15px;
-    padding-right: 15px;
+    padding-left: 10px;
+    padding-right: 10px;
   }
   .preview-box {
     visibility: visible;
@@ -560,6 +568,9 @@ ngb-carousel {
 
 // Medium devices (tablets, 768px and up)
 @media (min-width: 768px) {
+  .labels {
+    flex-direction: row;
+  }
   .btn-inside-slider{
     position: relative;
     bottom: 28vh;
