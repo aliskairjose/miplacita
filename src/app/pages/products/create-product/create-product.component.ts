@@ -10,6 +10,10 @@ import { environment } from '../../../../environments/environment';
 import { Result } from '../../../shared/classes/response';
 import { ToastrService } from 'ngx-toastr';
 import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
+import { ShopService } from '../../../shared/services/shop.service';
+import { Plan } from '../../../shared/classes/plan';
+import { Store } from '../../../shared/classes/store';
+import { forkJoin } from 'rxjs';
 
 @Component( {
   selector: 'app-create-product',
@@ -42,16 +46,17 @@ export class CreateProductComponent implements OnInit, OnDestroy {
   productData: Product = {};
   title = 'Crear producto';
   disabled = true;
-
+  plan: Plan;
 
   constructor(
     private router: Router,
     private route: ActivatedRoute,
+    public modalService: NgbModal,
+    private shopService: ShopService,
     private formBuilder: FormBuilder,
     private toastrService: ToastrService,
     private storageService: StorageService,
     private productService: ProductService,
-    public modalService: NgbModal,
   ) {
     this.createForm();
     this.productData.name = '';
@@ -62,13 +67,25 @@ export class CreateProductComponent implements OnInit, OnDestroy {
   get f() { return this.productForm.controls; }
 
   ngOnInit(): void {
-    this.productService.categoryList().subscribe( ( categories: Category[] ) => {
+    const user: User = this.storageService.getItem( 'user' );
+
+    // tslint:disable-next-line: max-line-length
+    forkJoin( [ this.shopService.getStore( user.stores[ 0 ]._id ), this.productService.categoryList() ] ).subscribe( ( [ response, categories ] ) => {
+      this.plan = response.docs[ 0 ].plan;
       this.categories = [ ...categories ];
     } );
+
   }
 
   onSubmit(): void {
     this.submitted = true;
+
+    // Elimina la validación de máximo de stock cuando el plan no es gratuito
+    if ( this.plan.price > 0 ) {
+      this.productForm.controls.stock.clearValidators();
+      this.productForm.controls.stock.updateValueAndValidity();
+    }
+
     if ( this.productForm.valid ) {
       if ( this.status === 'add' ) {
         if ( this.productImages.length === 0 ) {
@@ -106,8 +123,6 @@ export class CreateProductComponent implements OnInit, OnDestroy {
    * @description Crea el producto via api
    */
   private createProduct( data: Product ): void {
-    console.log( data );
-
     this.productService.addProduct( data ).subscribe( ( product: Product ) => {
       this.toastrService.info( 'El producto se ha creado con exito' );
       this.productService.productSubject( product );
@@ -126,7 +141,7 @@ export class CreateProductComponent implements OnInit, OnDestroy {
       tax: [ '', [ Validators.required ] ],
       category: [ '', [ Validators.required ] ],
       status: [ this.statusSelected, [ Validators.required ] ],
-      stock: [ '', [ Validators.required ] ],
+      stock: [ '', [ Validators.required, Validators.max( 10 ) ] ],
     } );
   }
 
