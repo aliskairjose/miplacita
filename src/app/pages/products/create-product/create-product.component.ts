@@ -79,7 +79,6 @@ export class CreateProductComponent implements OnInit, OnDestroy {
       this.productService.uploadImages( { images: this.productImages } ).subscribe( response => {
         if ( response.status === 'isOk' ) {
           const data: Product = { ...this.productForm.value };
-          // data.image = [ ...response.images ] as [ string ];
           data.images = [];
           response.images.forEach( ( url: string ) => {
             const image: Images = {};
@@ -182,7 +181,7 @@ export class CreateProductComponent implements OnInit, OnDestroy {
     this.modalOption.keyboard = false;
     this.modalOption.windowClass = 'createProductModal';
     this.modal = this.modalService.open( this.CreateProduct, this.modalOption );
-    this.modal.result.then( ( result ) => console.log( result ) );
+    // this.modal.result.then( ( result ) => console.log( result ) );
   }
 
   close() {
