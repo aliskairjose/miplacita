@@ -21,7 +21,7 @@
                         </button>
                     </div>
                     <div class="tab" (click)="updateTab('stores')"
-                        [ngClass]="{'active': active==='stores','btn tab': active!=='stores'}" *ngIf="user.role=='merchant' && user.role=='buyer'">
+                        [ngClass]="{'active': active==='stores','btn tab': active!=='stores'}" *ngIf="user.role !== 'admin'">
                         <button class="btn btn-tab" >
                             <img src="assets/images/marketplace/images/icons/store.png" alt="">
                             Mis tiendas
