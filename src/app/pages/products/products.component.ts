@@ -2,7 +2,7 @@
 
 import { environment } from '../../../environments/environment';
 import { Paginate } from '../../shared/classes/paginate';
-import { Component, OnInit, ViewChild, AfterViewChecked, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { StorageService } from '../../shared/services/storage.service';
 import { User } from '../../shared/classes/user';
 import { Product } from '../../shared/classes/product';
@@ -15,20 +15,20 @@ import { ToastrService } from 'ngx-toastr';
 import { CreateProductComponent } from './create-product/create-product.component';
 import { forkJoin } from 'rxjs';
 import { Plan } from '../../shared/classes/plan';
+import { AuthService } from '../../shared/services/auth.service';
 
 @Component( {
   selector: 'app-products',
   templateUrl: './products.component.html',
   styleUrls: [ './products.component.scss' ]
 } )
-export class ProductsComponent implements OnInit, AfterViewInit {
+export class ProductsComponent implements OnInit, OnChanges, AfterViewInit {
   @ViewChild( 'createProduct' ) CreateProduct: CreateProductComponent;
 
   typeUser = 'admin';
   fields = [ '', 'Nombre', 'Descripción', 'Precio', 'ITBMS', 'Estado', 'Acción' ];
   name = '';
   status = '';
-  store = '';
   shops: Store[] = [];
   products: Product[] = [];
   productTypes = []; // tipos de productos
@@ -43,36 +43,43 @@ export class ProductsComponent implements OnInit, AfterViewInit {
   user: User;
   params = '';
   maxProducts = 0;
-  plan: Plan;
+  plan: Plan = {};
+  role: string;
+  storeSelected = '';
+
+  @Input() store: Store;
 
   constructor(
+    private auth: AuthService,
     private shopService: ShopService,
     private toastrService: ToastrService,
     private productService: ProductService,
     private storageService: StorageService,
     private confirmationDialogService: ConfirmationDialogService,
   ) {
-    this.user = this.storageService.getItem( 'user' );
+    this.role = this.auth.getUserRol();
+  }
 
-    if ( this.user.stores.length || this.user.role === 'admin' ) {
+  ngOnChanges( changes: SimpleChanges ): void {
+    if ( this.store || this.role === 'admin' ) {
       this.loadData();
     }
-
-    // tslint:disable-next-line: curly
-    // if ( this.user.role === 'admin' ) this.fields.splice( 2, 0, 'Tienda' );
   }
 
   ngOnInit(): void {
+    if ( this.store || this.role === 'admin' ) {
+      this.loadData();
+    }
 
     this.productService.productObserver().subscribe( () => {
       this.loadData();
     } );
 
-    if ( this.user.stores.length ) {
-      const params = `store=${this.user.stores[ 0 ]._id}`;
+    if ( this.store ) {
+      const params = `store=${this.store._id}`;
 
       forkJoin(
-        [ this.shopService.getStore( this.user.stores[ 0 ]._id ), this.productService.productList( 1, params ) ] )
+        [ this.shopService.storeList( 1, params ), this.productService.productList( 1, params ) ] )
         .subscribe( ( [ storeResponse, productsResponse ] ) => {
 
           this.plan = storeResponse.docs[ 0 ].plan;
@@ -81,9 +88,9 @@ export class ProductsComponent implements OnInit, AfterViewInit {
         } );
     }
 
-    if ( this.user.role === 'admin' ) {
+    if ( this.role === 'admin' ) {
       this.fields.splice( 2, 0, 'Tienda' );
-      this.shopService.getAll().subscribe( result => {
+      this.shopService.storeList().subscribe( result => {
         this.shops = [ ...result.docs ];
       } );
     }
@@ -140,11 +147,11 @@ export class ProductsComponent implements OnInit, AfterViewInit {
   }
 
   private loadData( page = 1 ): void {
-    ( this.user.role === 'merchant' )
-      ? this.params = `store=${this.user.stores[ 0 ]._id}&name=${this.name}&status=${this.status}`
+    ( this.role === 'merchant' )
+      ? this.params = `store=${this.store._id}&name=${this.name}&status=${this.status}`
       : this.params = `store=${this.store}&name=${this.name}&status=${this.status}`;
 
-    this.productService.productList( page, this.params ).subscribe( ( result: Result<Product> ) => {
+    this.productService.productList( page, this.params ).subscribe( result => {
       this.products = [ ...result.docs ];
       this.paginate = { ...result };
       this.paginate.pages = [];

@@ -165,7 +165,7 @@
 					<app-dashboard></app-dashboard>
 				</div>
 				<div *ngIf="active==='products'" class="" id="products" role="tabpanel">
-					<app-products></app-products>
+					<app-products [store]="selectedStore"></app-products>
 				</div>
 				<div *ngIf="active==='admin-orders'" class="" id="admin-orders" role="tabpanel">
 					<app-orders></app-orders>
@@ -235,7 +235,7 @@
 						*ngIf="active=='admin-store' && subtab=='store-profile' && stores.length == 0">
 					</app-register-store>
 					<app-shop-design *ngIf="active=='admin-store' && subtab=='design'"></app-shop-design>
-					<app-shop-suscription *ngIf="active=='admin-store' && subtab=='suscription'"></app-shop-suscription>
+					<app-shop-suscription *ngIf="active=='admin-store' && subtab=='suscription'" [store]="selectedStore"></app-shop-suscription>
 					<app-shop-withdrawal *ngIf="active=='admin-store' && subtab=='withdrawal'"></app-shop-withdrawal>
 					<app-shipping-zones *ngIf="active=='admin-store' && subtab=='shipping'"></app-shipping-zones>
 				</div>

@@ -1,19 +1,21 @@
-import { Component, OnInit, ViewChild, TemplateRef, Input, OnDestroy } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { StorageService } from '../../../shared/services/storage.service';
-import { ProductService } from '../../../shared/services/product.service';
-import { Product, Images } from '../../../shared/classes/product';
-import { Router, ActivatedRoute } from '@angular/router';
-import { Category } from '../../../shared/classes/category';
-import { User } from '../../../shared/classes/user';
-import { environment } from '../../../../environments/environment';
-import { Result } from '../../../shared/classes/response';
 import { ToastrService } from 'ngx-toastr';
-import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
-import { ShopService } from '../../../shared/services/shop.service';
-import { Plan } from '../../../shared/classes/plan';
-import { Store } from '../../../shared/classes/store';
 import { forkJoin } from 'rxjs';
+
+import { Component, Input, OnDestroy, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
+
+import { environment } from '../../../../environments/environment';
+import { Category } from '../../../shared/classes/category';
+import { Plan } from '../../../shared/classes/plan';
+import { Images, Product } from '../../../shared/classes/product';
+import { Result } from '../../../shared/classes/response';
+import { Store } from '../../../shared/classes/store';
+import { User } from '../../../shared/classes/user';
+import { ProductService } from '../../../shared/services/product.service';
+import { ShopService } from '../../../shared/services/shop.service';
+import { StorageService } from '../../../shared/services/storage.service';
 
 @Component( {
   selector: 'app-create-product',
@@ -47,6 +49,8 @@ export class CreateProductComponent implements OnInit, OnDestroy {
   title = 'Crear producto';
   disabled = true;
   plan: Plan;
+  
+  @Input() _store: Store = {};
 
   constructor(
     private router: Router,
@@ -67,11 +71,11 @@ export class CreateProductComponent implements OnInit, OnDestroy {
   get f() { return this.productForm.controls; }
 
   ngOnInit(): void {
-    const user: User = this.storageService.getItem( 'user' );
-
+    const params = `store=${this._store._id}`;
+    
     // tslint:disable-next-line: max-line-length
     forkJoin(
-      [ this.shopService.getStore( user.stores[ 0 ]._id ), this.productService.categoryList() ] )
+      [ this.shopService.storeList( 1, params ), this.productService.categoryList() ] )
       .subscribe( ( [ response, categories ] ) => {
         this.plan = response.docs[ 0 ].plan;
         this.categories = [ ...categories ];

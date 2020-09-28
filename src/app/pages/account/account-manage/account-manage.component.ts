@@ -25,7 +25,7 @@ export class AccountManageComponent implements OnInit {
     private auth: AuthService,
     private route: ActivatedRoute,
     private storage: StorageService,
-    private shopServive: ShopService,
+    private shopService: ShopService,
   ) {
     this.user = this.storage.getItem( 'user' );
     this.stores = [ ...this.user.stores ];
@@ -51,7 +51,8 @@ export class AccountManageComponent implements OnInit {
 
   selectStore( store: Store ): void {
     this.selectedStore = store;
-    this.shopServive.storeSubject( store );
+    this.shopService.storeSubject( store );
+    this.shopService.selectedStore = store;
   }
 
 }

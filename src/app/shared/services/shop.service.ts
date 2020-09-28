@@ -74,20 +74,6 @@ export class ShopService {
   }
 
   /**
-   * @description Retorna la lista de todas las tiendas
-   * @param id Id de la tienda
-   */
-  getAll( page = 1 ): Observable<Result<Store>> {
-    return this.http.get( `stores?page=${page}` ).pipe(
-      map( ( response: Response<Store> ) => {
-        if ( response.success ) {
-          return response.result;
-        }
-      } )
-    );
-  }
-
-  /**
    * @description Actualiza la data de la tienda
    * @param id Id de la tienda
    * @param data Data de tipo Tienda
