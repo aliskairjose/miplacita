@@ -17,7 +17,7 @@ export class SuccessComponent implements OnInit, AfterViewInit {
     public productService: ProductService,
     private orderService: OrderService,
     private router: Router
-  ) { 
+  ) {
     this.url = this.router.url;
   }
 
