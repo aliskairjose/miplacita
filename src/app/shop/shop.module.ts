@@ -80,8 +80,7 @@ const maskConfig: Partial<IConfig> = {
     CheckoutComponent,
     SuccessComponent,
     ShopsComponent,
-    ShippingComponent
-  ],
+    ShippingComponent  ],
   imports: [
     CommonModule,
     GooglePlaceModule,

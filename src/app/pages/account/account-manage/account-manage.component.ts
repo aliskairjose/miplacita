@@ -39,6 +39,7 @@ export class AccountManageComponent implements OnInit {
 
   updateSubtab( tab ) {
     this.subtab = tab;
+    console.log(this.subtab, this.active)
   }
 
   loggOut(): void {
