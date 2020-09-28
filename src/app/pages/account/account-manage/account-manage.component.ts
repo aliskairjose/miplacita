@@ -28,12 +28,14 @@ export class AccountManageComponent implements OnInit {
     private shopService: ShopService,
   ) {
     this.user = this.storage.getItem( 'user' );
-    this.stores = [ ...this.user.stores ];
-    this.selectedStore = this.stores[ 0 ];
   }
 
   ngOnInit(): void {
     this.route.url.subscribe( url => this.active = url[ 2 ].path );
+    this.shopService.getMyStores( this.user._id ).subscribe( stores => {
+      this.stores = [ ...stores.docs ];
+      this.selectedStore = this.stores[ 0 ];
+    } );
   }
 
   updateTab( tab: string ) {
