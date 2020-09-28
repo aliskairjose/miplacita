@@ -79,6 +79,13 @@
                             Reportes
                         </button>
                     </div>
+                    <div class="tab" (click)="updateTab('support')" *ngIf="user.role=='merchant' || user.role=='buyer'"
+                        [ngClass]="{'active': active==='support','btn tab': active!=='support'}">
+                        <button class="btn btn-tab">
+                            <img src="assets/images/marketplace/images/icons/report.png" alt="">
+                            Ayuda
+                        </button>
+                    </div>
                 </div>
                 <div class="tab" (click)="updateTab('logout')"
                     [ngClass]="{'active': active==='logout','btn tab': active!=='logout'}">
@@ -151,6 +158,9 @@
                 <div *ngIf="active==='coupons'" class="" id="coupons" role="tabpanel">
                     <app-coupons></app-coupons>
                 </div>
+                <div *ngIf="active==='support'" class="" id="support" role="tabpanel">
+                    <app-support></app-support>
+                </div>
                 <div *ngIf="active=='admin-store'" class="" 
                     id="admin-store" role="tabpanel" >
                     <div class="form-row labels" >
@@ -212,6 +222,7 @@
                         </div>
                     </div>
                 </div>
+                
                 <div class="container">
                     <app-shop-profile *ngIf="active=='admin-store' && subtab=='store-profile' && stores.length > 0"></app-shop-profile>
                     <app-register-store register="false" *ngIf="active=='admin-store' && subtab=='store-profile' && stores.length == 0"></app-register-store>
