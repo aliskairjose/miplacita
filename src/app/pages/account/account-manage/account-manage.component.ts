@@ -4,6 +4,7 @@ import { StorageService } from 'src/app/shared/services/storage.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { User } from '../../../shared/classes/user';
 import { AuthService } from '../../../shared/services/auth.service';
+import { ShopService } from '../../../shared/services/shop.service';
 
 @Component( {
   selector: 'app-account-manage',
@@ -24,11 +25,11 @@ export class AccountManageComponent implements OnInit {
     private auth: AuthService,
     private route: ActivatedRoute,
     private storage: StorageService,
+    private shopServive: ShopService,
   ) {
     this.user = this.storage.getItem( 'user' );
     this.stores = [ ...this.user.stores ];
     this.selectedStore = this.stores[ 0 ];
-
   }
 
   ngOnInit(): void {
@@ -42,7 +43,6 @@ export class AccountManageComponent implements OnInit {
 
   updateSubtab( tab ) {
     this.subtab = tab;
-    console.log( this.subtab, this.active )
   }
 
   loggOut(): void {
@@ -51,6 +51,7 @@ export class AccountManageComponent implements OnInit {
 
   selectStore( store: Store ): void {
     this.selectedStore = store;
+    this.shopServive.storeSubject( store );
   }
 
 }

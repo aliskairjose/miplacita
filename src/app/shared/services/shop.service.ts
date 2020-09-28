@@ -13,6 +13,7 @@ import { ShipmentOption } from '../classes/shipment-option';
 export class ShopService {
 
   $store: Subject<Store> = new Subject<Store>();
+  selectedStore: Store;
 
   constructor(
     private http: HttpService
@@ -44,10 +45,11 @@ export class ShopService {
 
   /**
    * @description Retorna el detalle de la tienda cuando recibe ID, y un listado si no recibe el ID
-   * @param id Id de la tienda
+   * @param params Los filtros que seran enviados al api, si se envia vacio traera todos las tiendas
+   * store=sotreID&limit=10&owner_id=userId
    */
-  getStore( id?: string ): Observable<Result<Store>> {
-    return this.http.get( `stores?store=${id}` ).pipe(
+  storeList( page = 1, params = '' ): Observable<Result<Store>> {
+    return this.http.get( `stores?page=${page}&${params}` ).pipe(
       map( ( response: Response<Store> ) => {
         if ( response.success ) {
           return response.result;
@@ -61,8 +63,8 @@ export class ShopService {
    * @description Retorna la lista de las tiendas de un usuario
    * @param id Id del usuario
    */
-  getMyStores(): Observable<Result<Store>> {
-    return this.http.get( '' ).pipe(
+  getMyStores( userId: string ): Observable<Result<Store>> {
+    return this.http.get( `stores?owner_id=${userId}` ).pipe(
       map( ( response: Response<Store> ) => {
         if ( response.success ) {
           return response.result;

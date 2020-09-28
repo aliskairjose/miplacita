@@ -36,7 +36,7 @@
 							Mi perfil
 						</button>
 					</div>
-					<div class="tab" (click)="updateTab('orders')" *ngIf="user.role=='buyer'"
+					<div class="tab" (click)="updateTab('orders')" *ngIf="user.role=='client'"
 						[ngClass]="{'active': active=='orders','btn tab': active!='orders'}">
 						<button class="btn btn-tab" id="order-tab">
 							<img src="assets/images/marketplace/images/icons/orders.png" alt="">
@@ -88,7 +88,7 @@
 							Tienda
 						</button>
 					</div>
-					<div class="tab" *ngIf="user.role=='buyer' || user.role=='merchant'" (click)="updateTab('coupons')"
+					<div class="tab" *ngIf="user.role=='client' || user.role=='merchant'" (click)="updateTab('coupons')"
 						[ngClass]="{'active': active=='coupons','btn tab': active!='coupons'}">
 						<button class="btn btn-tab">
 							<img src="assets/images/marketplace/images/icons/store.png" alt="">
@@ -229,7 +229,7 @@
 					</div>
 				</div>
 				<div class="container">
-					<app-shop-profile *ngIf="active=='admin-store' && subtab=='store-profile' && stores.length > 0">
+					<app-shop-profile *ngIf="active=='admin-store' && subtab=='store-profile' && stores.length > 0" [store]="selectedStore">
 					</app-shop-profile>
 					<app-register-store register="false"
 						*ngIf="active=='admin-store' && subtab=='store-profile' && stores.length == 0">

@@ -17,7 +17,7 @@ export class SettingsComponent implements OnInit {
   products: Product[] = [];
   isLoggedIn: boolean;
   role: string;
-  _role = 'buyer';
+  _role = 'client';
   constructor(
     @Inject( PLATFORM_ID ) private platformId: Object,
     public auth: AuthService,
