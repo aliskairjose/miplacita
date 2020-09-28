@@ -83,7 +83,7 @@ export class RegisterComponent implements OnInit {
           if ( this.role === 'merchant' ) {
             this.registerSuccess = true;
           } else {
-            // Opcion buyer
+            // Opcion client
             this.router.navigate( [ '/register/success' ] );
           }
         }

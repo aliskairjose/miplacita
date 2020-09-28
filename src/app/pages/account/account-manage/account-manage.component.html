@@ -13,7 +13,7 @@
                             Mi perfil
                         </button>
                     </div>
-                    <div class="tab" (click)="updateTab('orders')" *ngIf="user.role=='buyer'"
+                    <div class="tab" (click)="updateTab('orders')" *ngIf="user.role=='client'"
                         [ngClass]="{'active': active=='orders','btn tab': active!='orders'}">
                         <button class="btn btn-tab"  id="order-tab">
                             <img src="assets/images/marketplace/images/icons/orders.png" alt="">
@@ -65,7 +65,7 @@
                             Tienda
                         </button>
                     </div>
-                    <div class="tab" *ngIf="user.role=='buyer' || user.role=='merchant'" (click)="updateTab('coupons')"
+                    <div class="tab" *ngIf="user.role=='client' || user.role=='merchant'" (click)="updateTab('coupons')"
                         [ngClass]="{'active': active=='coupons','btn tab': active!='coupons'}">
                         <button class="btn btn-tab">
                             <img src="assets/images/marketplace/images/icons/store.png" alt="">
@@ -79,7 +79,7 @@
                             Reportes
                         </button>
                     </div>
-                    <div class="tab" (click)="updateTab('support')" *ngIf="user.role=='merchant' || user.role=='buyer'"
+                    <div class="tab" (click)="updateTab('support')" *ngIf="user.role=='merchant' || user.role=='client'"
                         [ngClass]="{'active': active==='support','btn tab': active!=='support'}">
                         <button class="btn btn-tab">
                             <img src="assets/images/marketplace/images/icons/report.png" alt="">
@@ -174,16 +174,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col label card">
-                            <div class="d-flex flex-row h-100" (click)="updateSubtab('shipping')">
-                                <div class="d-flex flex-fill justify-content-center align-items-center " >
-                                    <p class="my-auto" 
-                                        [ngClass]="{'text-default-color': subtab=='shipping'}">
-                                        Zonas de envío
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
+                        
                         <div class="col label card">
                             <div class="d-flex flex-row h-100" (click)="updateSubtab('design')">
                                 <div class="d-flex flex-fill justify-content-center align-items-center" >
@@ -217,6 +208,16 @@
                                             Retiro de Dinero
                                         </p>
                                     </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col label card">
+                            <div class="d-flex flex-row h-100" (click)="updateSubtab('shipping')">
+                                <div class="d-flex flex-fill justify-content-center align-items-center " >
+                                    <p class="my-auto" 
+                                        [ngClass]="{'text-default-color': subtab=='shipping'}">
+                                        Configuración de zonas
+                                    </p>
                                 </div>
                             </div>
                         </div>
