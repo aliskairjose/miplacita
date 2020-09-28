@@ -1,13 +1,16 @@
-import { Component, OnInit } from '@angular/core';
-import { FormGroup, Validators, FormBuilder } from '@angular/forms';
-import { MustMatch } from '../../../shared/helper/must-match.validator';
-import { environment } from '../../../../environments/environment';
-import { SocialAuthService, FacebookLoginProvider } from 'angularx-social-login';
+import { FacebookLoginProvider, SocialAuthService } from 'angularx-social-login';
 import { AuthService } from 'src/app/shared/services/auth.service';
-import { FacebookLoginResponse } from '../../../shared/classes/facebook-login-response';
-import { AuthResponse } from '../../../shared/classes/auth-response';
 import { StorageService } from 'src/app/shared/services/storage.service';
+
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+
+import { environment } from '../../../../environments/environment';
+import { AuthResponse } from '../../../shared/classes/auth-response';
+import { FacebookLoginResponse } from '../../../shared/classes/facebook-login-response';
+import { MustMatch } from '../../../shared/helper/must-match.validator';
+import { PlatformLocation } from '@angular/common';
 
 const state = { user: JSON.parse( sessionStorage.userForm || null ) };
 
@@ -40,7 +43,9 @@ export class RegisterComponent implements OnInit {
     private storage: StorageService,
     private formBuilder: FormBuilder,
     private socialService: SocialAuthService,
+    private platformLocation: PlatformLocation,
   ) {
+    this.platformLocation.pushState( null, '', '/register' );
     this.createForm();
   }
 

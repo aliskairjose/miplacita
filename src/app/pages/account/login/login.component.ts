@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../../shared/services/auth.service';
 import { StorageService } from '../../../shared/services/storage.service';
 import { AuthResponse } from '../../../shared/classes/auth-response';
 import { SocialAuthService, FacebookLoginProvider } from 'angularx-social-login';
 import { FacebookLoginResponse } from 'src/app/shared/classes/facebook-login-response';
+import { PlatformLocation } from '@angular/common';
 
 @Component( {
   selector: 'app-login',
@@ -22,11 +23,12 @@ export class LoginComponent implements OnInit {
   constructor(
     private router: Router,
     private auth: AuthService,
-    private route: ActivatedRoute,
     private storage: StorageService,
     private formBuilder: FormBuilder,
     private socialService: SocialAuthService,
+    private platformLocation: PlatformLocation,
   ) {
+    this.platformLocation.pushState( null, '', '/login' );
     this.createForm();
   }
 
