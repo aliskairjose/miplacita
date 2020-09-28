@@ -18,8 +18,11 @@ export class PreviousRouteService {
     } );
   }
 
-  public getPreviousUrl() {
+  getPreviousUrl(): string {
     return this.previousUrl;
   }
 
+  getCurrentUrl(): string {
+    return this.currentUrl;
+  }
 }
