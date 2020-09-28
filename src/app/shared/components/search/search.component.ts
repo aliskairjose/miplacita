@@ -1,6 +1,5 @@
 import { Component, OnInit, SimpleChanges, OnChanges, Output, EventEmitter, Input } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
-import { CategoryService } from '../../services/category.service';
 import { Category } from '../../classes/category';
 import { Product } from '../../classes/product';
 import { Router } from '@angular/router';

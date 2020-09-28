@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ShopService } from '../../../shared/services/shop.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { StorageService } from 'src/app/shared/services/storage.service';
+import { User } from '../../../shared/classes/user';
+import { Paginate } from 'src/app/shared/classes/paginate';
 
 @Component( {
   selector: 'app-shipping-zones',
@@ -14,7 +17,10 @@ export class ShippingZonesComponent implements OnInit {
   zones = [];
   allZones = [];
   fields = ['Zona', 'Precio',''];
+  paginate: Paginate;
+
   constructor(
+    private storage: StorageService,
     private formBuilder: FormBuilder,
     private shopService: ShopService,
 
@@ -24,7 +30,8 @@ export class ShippingZonesComponent implements OnInit {
 
 
   ngOnInit(): void {
-
+    const user: User = this.storage.getItem( 'user' );
+    this.zonesForm.value.store_id = user.stores[ 0 ]._id;
   }
 
   onSubmit(): void {
@@ -43,6 +50,10 @@ export class ShippingZonesComponent implements OnInit {
       price: [ '', [ Validators.required ] ],
       store_id: [ '' ],
     } );
+  }
+
+  setPage( page: number ) {
+    //this.loadData( page );
   }
 
 }

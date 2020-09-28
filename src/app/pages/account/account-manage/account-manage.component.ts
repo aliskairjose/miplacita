@@ -17,6 +17,7 @@ export class AccountManageComponent implements OnInit {
   active = 'profile';
   user: User = {};
   subtab = 'store-profile';
+  selectedStore: Store = {};
 
   constructor(
     private router: Router,
@@ -26,6 +27,8 @@ export class AccountManageComponent implements OnInit {
   ) {
     this.user = this.storage.getItem( 'user' );
     this.stores = [ ...this.user.stores ];
+    this.selectedStore = this.stores[ 0 ];
+
   }
 
   ngOnInit(): void {
@@ -39,11 +42,15 @@ export class AccountManageComponent implements OnInit {
 
   updateSubtab( tab ) {
     this.subtab = tab;
-    console.log(this.subtab, this.active)
+    console.log( this.subtab, this.active )
   }
 
   loggOut(): void {
     this.auth.logout();
+  }
+
+  selectStore( store: Store ): void {
+    this.selectedStore = store;
   }
 
 }

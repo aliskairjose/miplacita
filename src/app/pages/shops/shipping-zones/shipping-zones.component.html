@@ -11,7 +11,7 @@
 					<div class="row">
 						<div class="col-lg-12 col-sm-12 col-md-12 mb-3">
 							<div class="border-box h-100">
-                                <div class="row">
+                                <div class="form-row">
                                     <div class="checkout-title">
                                         <h3>Zonas de envío</h3>
                                     </div>
@@ -20,15 +20,15 @@
                                     </div>
                                 </div>
 								
-                                <div class="row">
-                                    <div class="col-4">
+                                <div class="form-row">
+                                    <div class="col-md-4">
                                         <select name="model" class="form-control">
                                             <option value="">Seleccione una</option>
                                             <option *ngFor="let zone of zones" class="text-capitalize">{{ zone }}
                                             </option>
                                         </select>
                                     </div>
-                                    <div class="col-4">
+                                    <div class="col-md-4">
                                     <div class="form-group col-lg-10 col-md-10 col-sm-12">
                                         <div class="field-label font-weight-bold">Precio</div>
                                         <input type="number" class="form-control" />
@@ -47,40 +47,26 @@
                                                     <th class="text-center text-uppercase" *ngFor="let field of fields" scope="col">{{field}}</th>
                                                 </tr>
                                             </thead>
-                                            <!--Store Admin-->
-                                            <tbody *ngIf="user.role =='merchant'">
+                                            <tbody>
                                                 <tr *ngFor="let zone of allZones">
                                                     <td class="text-center">
                                                         {{zone.name}}
                                                     </td>
                                                     <td class="text-center"><strong>{{zone.price}}</strong></td>
                                                     <td class="text-center">
-                                                        <a (click)="OrderDetails.openModal(order)" class="btn btn-table-action">
+                                                        <a  class="btn btn-table-action">
                                                             <i class="fa fa-edit fa-lg" style="color: Dodgerblue"></i>
                                                         </a>
                                                     </td>
 
                                                 </tr>
                                             </tbody>
-                                            <!--Store Admin ends-->
-                                            <!--Admin Marketplace-->
-                                            <tbody *ngIf="user.role =='admin'">
-                                                <tr *ngFor="let store of shops">
-                                                    <td class="text-center"><p>{{store.name}}</p></td>
-                                                    <td class="text-center" >
-                                                        <p>{{store.amount}}</p>
-                                                    </td>
-                                                    <td class="text-center">
-                                                        <p>{{store.date}}</p>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                            <!--Admin Marketplace ends-->
+                                            
                                         </table>
                                         
                                     </div>
-                                    <app-custom-pagination *ngIf="user.role =='merchant' && orders.length>0" [items]="orders" [paginate]="paginate" (setPage)="setPage($event)">
-                                    </app-custom-pagination>
+                                    <app-custom-pagination [items]="allZones" [paginate]="paginate" (setPage)="setPage($event)"></app-custom-pagination>
+
                                 </div>
 							</div>
 						</div>
