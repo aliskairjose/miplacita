@@ -60,9 +60,7 @@ export class ProductsComponent implements OnInit, OnChanges, AfterViewInit {
   }
 
   ngOnChanges( changes: SimpleChanges ): void {
-    this.shopService.storeObserver().subscribe( store => {
-      if ( store ) { this.init(); }
-    } );
+    this.init();
   }
 
   ngOnInit(): void {
@@ -112,10 +110,6 @@ export class ProductsComponent implements OnInit, OnChanges, AfterViewInit {
     if ( this.store || this.role === 'admin' ) {
       this.loadData();
     }
-
-    this.productService.productObserver().subscribe( () => {
-      this.loadData();
-    } );
 
     if ( this.store ) {
       const params = `store=${this.store._id}`;

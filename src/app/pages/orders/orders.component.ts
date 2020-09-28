@@ -49,9 +49,7 @@ export class OrdersComponent implements OnInit, OnChanges {
   ) { }
 
   ngOnChanges( changes: SimpleChanges ): void {
-    this.shopService.storeObserver().subscribe( store => {
-      if ( store ) { this.init(); }
-    } );
+    this.init();
   }
 
   ngOnInit(): void {
