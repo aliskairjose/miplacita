@@ -4,22 +4,13 @@
 			<div class="row user-row">
 				<div ngbDropdown>
 					<button class="btn btn-link" id="store-logo" ngbDropdownToggle>
-						<img 
-							class="rounded-circle store-logo"
-							[src]="selectedStore.logo"
-							alt="User Pic">
-								{{ selectedStore.name }}
+						<img class="rounded-circle store-logo" [src]="selectedStore.logo" alt="User Pic">
+						{{ selectedStore.name }}
 					</button>
-					<div 
-						ngbDropdownMenu 
-						aria-labelledby="dropdownBasic1">
-						<button 
-							type="button" 
-							(click)="selectStore(store)" 
-							*ngFor="let store of stores" 
-							[value]="store._id"
+					<div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+						<button type="button" (click)="selectStore(store)" *ngFor="let store of stores" [value]="store._id"
 							ngbDropdownItem>
-								{{store.name}}
+							{{store.name}}
 						</button>
 					</div>
 				</div>
@@ -36,7 +27,7 @@
 							Mi perfil
 						</button>
 					</div>
-					<div class="tab" (click)="updateTab('orders')" *ngIf="user.role=='client'"
+					<div class="tab" (click)="updateTab('orders')" *ngIf="role=='client'"
 						[ngClass]="{'active': active=='orders','btn tab': active!='orders'}">
 						<button class="btn btn-tab" id="order-tab">
 							<img src="assets/images/marketplace/images/icons/orders.png" alt="">
@@ -44,7 +35,7 @@
 						</button>
 					</div>
 					<div class="tab" (click)="updateTab('stores')"
-						[ngClass]="{'active': active==='stores','btn tab': active!=='stores'}" *ngIf="user.role !== 'admin'">
+						[ngClass]="{'active': active==='stores','btn tab': active!=='stores'}" *ngIf="role !== 'admin'">
 						<button class="btn btn-tab">
 							<img src="assets/images/marketplace/images/icons/store.png" alt="">
 							Mis tiendas
@@ -53,53 +44,60 @@
 				</div>
 
 				<div class="admin-menu">
-					<div class="tab" (click)="updateTab('dashboard')" *ngIf="user.role=='merchant' || user.role=='admin'"
+					<div class="tab" (click)="updateTab('dashboard')" *ngIf="role=='merchant' || role=='admin'"
 						[ngClass]="{'active': active==='dashboard','btn tab': active!=='dashboard'}">
 						<button class="btn btn-tab">
 							<img src="assets/images/marketplace/images/icons/tablero.png" alt="">
 							Tablero
 						</button>
 					</div>
-					<div class="tab" (click)="updateTab('products')" *ngIf="user.role=='merchant' || user.role=='admin'"
+					<div class="tab" (click)="updateTab('products')" *ngIf="role=='merchant' || role=='admin'"
 						[ngClass]="{'active': active==='products','btn tab': active!=='products'}">
 						<button class="btn btn-tab">
 							<img src="assets/images/marketplace/images/icons/productos.png" alt="">
 							Productos
 						</button>
 					</div>
-					<div class="tab" (click)="updateTab('admin-orders')" *ngIf="user.role=='merchant' || user.role=='admin'"
+					<div class="tab" (click)="updateTab('admin-orders')" *ngIf="role=='merchant' || role=='admin'"
 						[ngClass]="{'active': active==='admin-orders','btn tab': active!=='admin-orders'}">
 						<button class="btn btn-tab">
 							<img src="assets/images/marketplace/images/icons/orders.png" alt="">
 							Órdenes
 						</button>
 					</div>
-					<div class="tab" (click)="updateTab('stores')" *ngIf="user.role=='admin'"
+					<div class="tab" (click)="updateTab('stores')" *ngIf="role=='admin'"
 						[ngClass]="{'active': active=='stores','btn tab': active!='stores'}">
 						<button class="btn btn-tab">
 							<img src="assets/images/marketplace/images/icons/store.png" alt="">
 							Tiendas
 						</button>
 					</div>
-					<div class="tab" *ngIf="user.role=='merchant'" (click)="updateTab('admin-store')"
+					<div class="tab" *ngIf="role=='merchant'" (click)="updateTab('admin-store')"
 						[ngClass]="{'active': active=='admin-store','btn tab': active!='admin-store'}">
 						<button class="btn btn-tab">
 							<img src="assets/images/marketplace/images/icons/store.png" alt="">
 							Tienda
 						</button>
 					</div>
-					<div class="tab" *ngIf="user.role=='client' || user.role=='merchant'" (click)="updateTab('coupons')"
+					<div class="tab" *ngIf="role=='client' || role=='merchant'" (click)="updateTab('coupons')"
 						[ngClass]="{'active': active=='coupons','btn tab': active!='coupons'}">
 						<button class="btn btn-tab">
 							<img src="assets/images/marketplace/images/icons/store.png" alt="">
 							Cupones
 						</button>
 					</div>
-					<div class="tab" (click)="updateTab('report')" *ngIf="user.role=='merchant' || user.role=='admin'"
+					<div class="tab" (click)="updateTab('report')" *ngIf="role=='merchant' || role=='admin'"
 						[ngClass]="{'active': active==='report','btn tab': active!=='report'}">
 						<button class="btn btn-tab">
 							<img src="assets/images/marketplace/images/icons/report.png" alt="">
 							Reportes
+						</button>
+					</div>
+					<div class="tab" (click)="updateTab('support')" *ngIf="role=='merchant' || role=='client'"
+						[ngClass]="{'active': active==='support','btn tab': active!=='support'}">
+						<button class="btn btn-tab">
+							<img src="assets/images/marketplace/images/icons/report.png" alt="">
+							Ayuda
 						</button>
 					</div>
 				</div>
@@ -121,7 +119,7 @@
 					<app-user-orders></app-user-orders>
 				</div>
 				<div *ngIf="active==='stores'" class="" id="contact" role="tabpanel">
-					<div *ngIf="user.role==='merchant'">
+					<div *ngIf="role==='merchant'">
 						<div class="page-title">
 							<h2 class="mp-title">
 								<span>Mis tiendas</span>
@@ -159,7 +157,7 @@
 							</div>
 						</div>
 					</div>
-					<app-shops *ngIf="user.role==='admin'"></app-shops>
+					<app-shops *ngIf="role==='admin'"></app-shops>
 				</div>
 				<div *ngIf="active==='dashboard'" class="" id="dashboard" role="tabpanel">
 					<app-dashboard></app-dashboard>
@@ -173,6 +171,9 @@
 				<div *ngIf="active==='coupons'" class="" id="coupons" role="tabpanel">
 					<app-coupons></app-coupons>
 				</div>
+				<div *ngIf="active==='support'" class="" id="support" role="tabpanel">
+					<app-support></app-support>
+				</div>
 				<div *ngIf="active=='admin-store'" class="" id="admin-store" role="tabpanel">
 					<div class="form-row labels">
 						<div class="col label card">
@@ -184,15 +185,7 @@
 								</div>
 							</div>
 						</div>
-						<div class="col label card">
-							<div class="d-flex flex-row h-100" (click)="updateSubtab('shipping')">
-								<div class="d-flex flex-fill justify-content-center align-items-center ">
-									<p class="my-auto" [ngClass]="{'text-default-color': subtab=='shipping'}">
-										Zonas de envío
-									</p>
-								</div>
-							</div>
-						</div>
+
 						<div class="col label card">
 							<div class="d-flex flex-row h-100" (click)="updateSubtab('design')">
 								<div class="d-flex flex-fill justify-content-center align-items-center">
@@ -226,8 +219,18 @@
 								</div>
 							</div>
 						</div>
+						<div class="col label card">
+							<div class="d-flex flex-row h-100" (click)="updateSubtab('shipping')">
+								<div class="d-flex flex-fill justify-content-center align-items-center ">
+									<p class="my-auto" [ngClass]="{'text-default-color': subtab=='shipping'}">
+										Configuración de zonas
+									</p>
+								</div>
+							</div>
+						</div>
 					</div>
 				</div>
+
 				<div class="container">
 					<app-shop-profile *ngIf="active=='admin-store' && subtab=='store-profile' && stores.length > 0" [store]="selectedStore">
 					</app-shop-profile>

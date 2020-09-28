@@ -3,6 +3,7 @@ import { ShopService } from '../../../shared/services/shop.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { StorageService } from 'src/app/shared/services/storage.service';
 import { User } from '../../../shared/classes/user';
+import { Paginate } from 'src/app/shared/classes/paginate';
 
 @Component( {
   selector: 'app-shipping-zones',
@@ -13,6 +14,10 @@ export class ShippingZonesComponent implements OnInit {
 
   submitted: boolean;
   zonesForm: FormGroup;
+  zones = [];
+  allZones = [];
+  fields = ['Zona', 'Precio',''];
+  paginate: Paginate;
 
   constructor(
     private storage: StorageService,
@@ -45,6 +50,10 @@ export class ShippingZonesComponent implements OnInit {
       price: [ '', [ Validators.required ] ],
       store_id: [ '' ],
     } );
+  }
+
+  setPage( page: number ) {
+    //this.loadData( page );
   }
 
 }
