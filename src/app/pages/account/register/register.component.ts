@@ -7,6 +7,7 @@ import { AuthService } from 'src/app/shared/services/auth.service';
 import { FacebookLoginResponse } from '../../../shared/classes/facebook-login-response';
 import { AuthResponse } from '../../../shared/classes/auth-response';
 import { StorageService } from 'src/app/shared/services/storage.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 const state = { user: JSON.parse( sessionStorage.userForm || null ) };
 
@@ -30,9 +31,12 @@ export class RegisterComponent implements OnInit {
     password: '',
     passwordConfirmation: ''
   };
+  role: string;
 
   constructor(
+    private router: Router,
     private auth: AuthService,
+    private route: ActivatedRoute,
     private storage: StorageService,
     private formBuilder: FormBuilder,
     private socialService: SocialAuthService,
@@ -45,6 +49,9 @@ export class RegisterComponent implements OnInit {
   get f() { return this.registerForm.controls; }
 
   ngOnInit(): void {
+    const role = this.route.queryParams.subscribe( params => {
+      this.role = params.role;
+    } );
 
     if ( state.user ) { this.registerSuccess = true; }
     this.socialService.authState.subscribe( ( response: FacebookLoginResponse ) => {
@@ -68,7 +75,12 @@ export class RegisterComponent implements OnInit {
         if ( data.success ) {
           sessionStorage.setItem( 'userForm', JSON.stringify( data.user ) );
           this.storage.setItem( 'token', data.token );
-          this.registerSuccess = true;
+          if ( this.role === 'merchant' ) {
+            this.registerSuccess = true;
+          } else {
+            // Opcion buyer
+            this.router.navigate( [ '/register/success' ] );
+          }
         }
       } );
     }
@@ -79,9 +91,8 @@ export class RegisterComponent implements OnInit {
   }
 
   private createForm(): void {
-
     this.registerForm = this.formBuilder.group( {
-      role: [ 'merchant' ],
+      role: [ this.role ],
       fullname: [ '', [ Validators.required, Validators.pattern( '[a-zA-Z ]*' ) ] ],
       password: [ '', [ Validators.required, Validators.minLength( 8 ) ] ],
       passwordConfirmation: [ '', Validators.required ],
