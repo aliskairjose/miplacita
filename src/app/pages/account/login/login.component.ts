@@ -56,6 +56,7 @@ export class LoginComponent implements OnInit {
 
   onSubmit(): void {
     this.submitted = true;
+    this.loginForm.value.role = this.role;
 
     if ( this.loginForm.valid ) {
       this.auth.login( this.loginForm.value ).subscribe( ( data: AuthResponse ) => {
@@ -76,7 +77,7 @@ export class LoginComponent implements OnInit {
     this.loginForm = this.formBuilder.group( {
       email: [ '', [ Validators.required, Validators.email ] ],
       password: [ '', [ Validators.required ] ],
-      role: [ this.role ],
+      role: [ '' ],
     } );
   }
 
