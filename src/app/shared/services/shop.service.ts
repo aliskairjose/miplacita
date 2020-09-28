@@ -173,7 +173,7 @@ export class ShopService {
    * @description Crea una nueva opcion de envio para la tienda
    * @param data Datos de Opciones de envio
    */
-  addShipmetZone( data: any ): Observable<any> {
+  addShipmetZone( data: any ): Observable<ShipmentOption> {
     return this.http.post( 'shipment', data ).pipe(
       map( result => {
         // tslint:disable-next-line: curly
