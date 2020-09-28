@@ -11,7 +11,9 @@ export class ShippingZonesComponent implements OnInit {
 
   submitted: boolean;
   zonesForm: FormGroup;
-
+  zones = [];
+  allZones = [];
+  fields = ['Zona', 'Precio',''];
   constructor(
     private formBuilder: FormBuilder,
     private shopService: ShopService,
