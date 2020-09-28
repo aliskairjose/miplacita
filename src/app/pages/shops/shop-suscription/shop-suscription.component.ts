@@ -49,7 +49,9 @@ export class ShopSuscriptionComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges( changes: SimpleChanges ): void {
-    this.getShopPlan();
+    this.shopService.storeObserver().subscribe( store => {
+      if ( store ) { this.getShopPlan(); }
+    } );
   }
 
   ngOnInit(): void {

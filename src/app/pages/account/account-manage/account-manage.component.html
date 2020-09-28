@@ -166,7 +166,7 @@
 					<app-products [store]="selectedStore"></app-products>
 				</div>
 				<div *ngIf="active==='admin-orders'" class="" id="admin-orders" user.role="tabpanel">
-					<app-orders></app-orders>
+					<app-orders [store]="selectedStore"></app-orders>
 				</div>
 				<div *ngIf="active==='coupons'" class="" id="coupons" user.role="tabpanel">
 					<app-coupons></app-coupons>

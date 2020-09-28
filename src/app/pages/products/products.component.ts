@@ -54,46 +54,19 @@ export class ProductsComponent implements OnInit, OnChanges, AfterViewInit {
     private shopService: ShopService,
     private toastrService: ToastrService,
     private productService: ProductService,
-    private storageService: StorageService,
     private confirmationDialogService: ConfirmationDialogService,
   ) {
     this.role = this.auth.getUserRol();
   }
 
   ngOnChanges( changes: SimpleChanges ): void {
-    if ( this.store || this.role === 'admin' ) {
-      this.loadData();
-    }
+    this.shopService.storeObserver().subscribe( store => {
+      if ( store ) { this.init(); }
+    } );
   }
 
   ngOnInit(): void {
-    if ( this.store || this.role === 'admin' ) {
-      this.loadData();
-    }
-
-    this.productService.productObserver().subscribe( () => {
-      this.loadData();
-    } );
-
-    if ( this.store ) {
-      const params = `store=${this.store._id}`;
-
-      forkJoin(
-        [ this.shopService.storeList( 1, params ), this.productService.productList( 1, params ) ] )
-        .subscribe( ( [ storeResponse, productsResponse ] ) => {
-
-          this.plan = storeResponse.docs[ 0 ].plan;
-          this.maxProducts = productsResponse.totalDocs;
-
-        } );
-    }
-
-    if ( this.role === 'admin' ) {
-      this.fields.splice( 2, 0, 'Tienda' );
-      this.shopService.storeList().subscribe( result => {
-        this.shops = [ ...result.docs ];
-      } );
-    }
+    this.init();
 
   }
 
@@ -133,6 +106,36 @@ export class ProductsComponent implements OnInit, OnChanges, AfterViewInit {
 
   setPage( page: number ) {
     this.loadData( page );
+  }
+
+  private init(): void {
+    if ( this.store || this.role === 'admin' ) {
+      this.loadData();
+    }
+
+    this.productService.productObserver().subscribe( () => {
+      this.loadData();
+    } );
+
+    if ( this.store ) {
+      const params = `store=${this.store._id}`;
+
+      forkJoin(
+        [ this.shopService.storeList( 1, params ), this.productService.productList( 1, params ) ] )
+        .subscribe( ( [ storeResponse, productsResponse ] ) => {
+
+          this.plan = storeResponse.docs[ 0 ].plan;
+          this.maxProducts = productsResponse.totalDocs;
+
+        } );
+    }
+
+    if ( this.role === 'admin' ) {
+      this.fields.splice( 2, 0, 'Tienda' );
+      this.shopService.storeList().subscribe( result => {
+        this.shops = [ ...result.docs ];
+      } );
+    }
   }
 
   private deleteProduct( id: string ): void {

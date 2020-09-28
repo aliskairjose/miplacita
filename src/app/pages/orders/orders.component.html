@@ -53,7 +53,7 @@
 		</form>
 
 		<!-- Data de usuario -->
-		<ng-container class="table-responsive-sm mt-3" *ngIf="user.stores.length || role === 'admin'; else elseTemplate">
+		<ng-container class="table-responsive-sm mt-3" *ngIf="store || role === 'admin'; else elseTemplate">
 			<table class="table cart-table table-responsive-xs">
 				<thead>
 					<tr class="table-head text-center">

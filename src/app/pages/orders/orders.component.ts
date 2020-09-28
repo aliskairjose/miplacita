@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, SimpleChanges, OnChanges } from '@angular/core';
+import { Component, OnInit, ViewChild, SimpleChanges, OnChanges, Input } from '@angular/core';
 import { NgbCalendar, NgbDate, NgbDateAdapter, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { OrderDetailsComponent } from '../../shared/custom-components/order-details/order-details.component';
 import { Order } from '../../shared/classes/order';
@@ -11,18 +11,19 @@ import { environment } from '../../../environments/environment';
 import { User } from '../../shared/classes/user';
 import { CustomDateParserFormatterService } from '../../shared/adapter/custom-date-parser-formatter.service';
 import { ToastrService } from 'ngx-toastr';
+import { AuthService } from '../../shared/services/auth.service';
+import { ShopService } from '../../shared/services/shop.service';
 
 @Component( {
   selector: 'app-orders',
   templateUrl: './orders.component.html',
   styleUrls: [ './orders.component.scss' ]
 } )
-export class OrdersComponent implements OnInit {
+export class OrdersComponent implements OnInit, OnChanges {
 
   fields = [ 'Cliente', 'Productos', 'Monto', 'Fecha', 'Zona de Entrega',
     'Estado', 'Acción' ];
 
-  user: User = {};
   orders: Order[] = [];
   paginate: Paginate;
   orderStatus = environment.orderStatus;
@@ -32,29 +33,29 @@ export class OrdersComponent implements OnInit {
   fechaFin = '';
   modelTo: NgbDateStruct;
   modelFrom: NgbDateStruct;
-  private storeId = '';
+
+  @Input() store: Store;
 
   @ViewChild( 'orderDetails' ) OrderDetails: OrderDetailsComponent;
   /** variable provisional */
 
   constructor(
+    private auth: AuthService,
     private toastr: ToastrService,
     private ngbCalendar: NgbCalendar,
+    private shopService: ShopService,
     private orderService: OrderService,
-    private storageService: StorageService,
     private parseDate: CustomDateParserFormatterService,
   ) { }
 
+  ngOnChanges( changes: SimpleChanges ): void {
+    this.shopService.storeObserver().subscribe( store => {
+      if ( store ) { this.init(); }
+    } );
+  }
+
   ngOnInit(): void {
-    this.modelFrom = this.modelTo = this.ngbCalendar.getToday();
-    this.user = this.storageService.getItem( 'user' );
-    this.role = this.user.role;
-
-    if ( this.role === 'admin' ) { this.fields.splice( 1, 0, 'Tienda' ); }
-
-    if ( this.user.stores.length || this.role === 'admin' ) {
-      this.loadData();
-    }
+    this.init();
   }
 
   setPage( page: number ) {
@@ -79,16 +80,23 @@ export class OrdersComponent implements OnInit {
     this.loadData();
   }
 
+  private init(): void {
+    this.modelFrom = this.modelTo = this.ngbCalendar.getToday();
+    this.role = this.auth.getUserRol();
+
+    if ( this.role === 'admin' ) { this.fields.splice( 1, 0, 'Tienda' ); }
+
+    if ( this.store || this.role === 'admin' ) {
+      this.loadData();
+    }
+  }
+
   private loadData( page = 1 ): void {
-    let params = '';
 
-    const user: User = this.storageService.getItem( 'user' );
-    const store: Store[] = user.stores;
-    if ( store.length > 0 ) { this.storeId = store[ 0 ]._id; }
+    const params = `store=${this.store._id}&status=${this.status}&from=${this.fechaIni}&to=${this.fechaFin}`;
 
-    params = `store=${this.storeId}&status=${this.status}&from=${this.fechaIni}&to=${this.fechaFin}`;
+    this.orderService.orderList( page, params ).subscribe( result => {
 
-    this.orderService.orderList( page, params ).subscribe( ( result: Result<Order> ) => {
       this.orders = [ ...result.docs ];
       this.paginate = { ...result };
       this.paginate.pages = [];
