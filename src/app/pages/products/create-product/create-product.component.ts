@@ -1,15 +1,21 @@
-import { Component, OnInit, ViewChild, TemplateRef, Input, OnDestroy } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { StorageService } from '../../../shared/services/storage.service';
-import { ProductService } from '../../../shared/services/product.service';
-import { Product, Images } from '../../../shared/classes/product';
-import { Router, ActivatedRoute } from '@angular/router';
-import { Category } from '../../../shared/classes/category';
-import { User } from '../../../shared/classes/user';
-import { environment } from '../../../../environments/environment';
-import { Result } from '../../../shared/classes/response';
 import { ToastrService } from 'ngx-toastr';
+import { forkJoin } from 'rxjs';
+
+import { Component, Input, OnDestroy, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
+
+import { environment } from '../../../../environments/environment';
+import { Category } from '../../../shared/classes/category';
+import { Plan } from '../../../shared/classes/plan';
+import { Images, Product } from '../../../shared/classes/product';
+import { Result } from '../../../shared/classes/response';
+import { Store } from '../../../shared/classes/store';
+import { User } from '../../../shared/classes/user';
+import { ProductService } from '../../../shared/services/product.service';
+import { ShopService } from '../../../shared/services/shop.service';
+import { StorageService } from '../../../shared/services/storage.service';
 
 @Component( {
   selector: 'app-create-product',
@@ -42,16 +48,19 @@ export class CreateProductComponent implements OnInit, OnDestroy {
   productData: Product = {};
   title = 'Crear producto';
   disabled = true;
-
+  plan: Plan;
+  
+  @Input() _store: Store = {};
 
   constructor(
     private router: Router,
     private route: ActivatedRoute,
+    public modalService: NgbModal,
+    private shopService: ShopService,
     private formBuilder: FormBuilder,
     private toastrService: ToastrService,
     private storageService: StorageService,
     private productService: ProductService,
-    public modalService: NgbModal,
   ) {
     this.createForm();
     this.productData.name = '';
@@ -62,13 +71,27 @@ export class CreateProductComponent implements OnInit, OnDestroy {
   get f() { return this.productForm.controls; }
 
   ngOnInit(): void {
-    this.productService.categoryList().subscribe( ( categories: Category[] ) => {
-      this.categories = [ ...categories ];
-    } );
+    const params = `store=${this._store._id}`;
+    
+    // tslint:disable-next-line: max-line-length
+    forkJoin(
+      [ this.shopService.storeList( 1, params ), this.productService.categoryList() ] )
+      .subscribe( ( [ response, categories ] ) => {
+        this.plan = response.docs[ 0 ].plan;
+        this.categories = [ ...categories ];
+      } );
+
   }
 
   onSubmit(): void {
     this.submitted = true;
+
+    // Elimina la validación de máximo de stock cuando el plan no es gratuito
+    if ( this.plan.price > 0 ) {
+      this.productForm.controls.stock.clearValidators();
+      this.productForm.controls.stock.updateValueAndValidity();
+    }
+
     if ( this.productForm.valid ) {
       if ( this.status === 'add' ) {
         if ( this.productImages.length === 0 ) {
@@ -79,7 +102,6 @@ export class CreateProductComponent implements OnInit, OnDestroy {
       this.productService.uploadImages( { images: this.productImages } ).subscribe( response => {
         if ( response.status === 'isOk' ) {
           const data: Product = { ...this.productForm.value };
-          // data.image = [ ...response.images ] as [ string ];
           data.images = [];
           response.images.forEach( ( url: string ) => {
             const image: Images = {};
@@ -107,8 +129,6 @@ export class CreateProductComponent implements OnInit, OnDestroy {
    * @description Crea el producto via api
    */
   private createProduct( data: Product ): void {
-    console.log( data );
-
     this.productService.addProduct( data ).subscribe( ( product: Product ) => {
       this.toastrService.info( 'El producto se ha creado con exito' );
       this.productService.productSubject( product );
@@ -127,7 +147,7 @@ export class CreateProductComponent implements OnInit, OnDestroy {
       tax: [ '', [ Validators.required ] ],
       category: [ '', [ Validators.required ] ],
       status: [ this.statusSelected, [ Validators.required ] ],
-      stock: [ '', [ Validators.required ] ],
+      stock: [ '', [ Validators.required, Validators.max( 10 ) ] ],
     } );
   }
 
@@ -182,7 +202,7 @@ export class CreateProductComponent implements OnInit, OnDestroy {
     this.modalOption.keyboard = false;
     this.modalOption.windowClass = 'createProductModal';
     this.modal = this.modalService.open( this.CreateProduct, this.modalOption );
-    this.modal.result.then( ( result ) => console.log( result ) );
+    // this.modal.result.then( ( result ) => console.log( result ) );
   }
 
   close() {

@@ -17,11 +17,13 @@ export class MarketplaceShopComponent implements OnInit {
   options = [
     {
       id: 0,
-      image: 'assets/images/marketplace/images/buy.png'
+      image: 'assets/images/marketplace/images/buy.png',
+      url: '/shop/collection/left/sidebar'
     },
     {
       id: 0,
-      image: 'assets/images/marketplace/images/sell.png'
+      image: 'assets/images/marketplace/images/sell.png',
+      url: 'marketplace'
     }
   ];
 

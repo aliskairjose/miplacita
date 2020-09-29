@@ -1,20 +1,20 @@
-import { Component, OnInit, ViewChild, Output, EventEmitter, Input } from '@angular/core';
-import { Validators, FormGroup, FormBuilder, ValidationErrors } from '@angular/forms';
-import { AuthService } from '../../services/auth.service';
+import { ToastrService } from 'ngx-toastr';
+
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+
+import { environment } from '../../../../environments/environment';
+import { Category } from '../../classes/category';
+import { Plan } from '../../classes/plan';
+import { Product } from '../../classes/product';
+import { Store } from '../../classes/store';
 import { User } from '../../classes/user';
-import { StorageService } from '../../services/storage.service';
+import { PaymentComponent } from '../../components/payment/payment.component';
+import { AuthService } from '../../services/auth.service';
 import { ProductService } from '../../services/product.service';
 import { ShopService } from '../../services/shop.service';
-import { Category } from '../../classes/category';
-import { Store } from '../../classes/store';
-import { Product } from '../../classes/product';
-import { Plan } from '../../classes/plan';
-import { SuccessModalComponent } from '../../custom-component/success-modal/success-modal.component';
-import { environment } from '../../../../environments/environment';
-import { ToastrService } from 'ngx-toastr';
-import { PaymentComponent } from '../../components/payment/payment.component';
-
+import { StorageService } from '../../services/storage.service';
 
 @Component( {
   selector: 'app-register-store',
@@ -49,8 +49,6 @@ export class RegisterStoreComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private auth: AuthService,
-    private storage: StorageService,
     private formBuilder: FormBuilder,
     private shopService: ShopService,
     private toastrService: ToastrService,
@@ -66,7 +64,9 @@ export class RegisterStoreComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.user = JSON.parse( sessionStorage.userForm );
+    if(sessionStorage.userForm){
+      this.user = JSON.parse( sessionStorage.userForm );
+    }
 
     if ( sessionStorage.registerStore ) {
       this.store = JSON.parse( sessionStorage.registerStore );
@@ -197,14 +197,13 @@ export class RegisterStoreComponent implements OnInit {
 
   private createProduct(): void {
     this.productForm.value.store = this.store._id;
-    this.productService.addProduct( this.productForm.value ).subscribe( ( product: Product ) => {
+    this.productService.addProduct( this.productForm.value ).subscribe( () => {
       sessionStorage.clear();
       this.router.navigate( [ '/register/success' ] );
-
     } );
   }
 
-  public back( option: number ) {
+  back( option: number ) {
     if ( option === 0 ) {
       this.step = 1;
       this.emitEvent.emit( false );

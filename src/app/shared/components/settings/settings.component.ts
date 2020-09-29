@@ -5,9 +5,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { ProductService } from '../../services/product.service';
 import { Product } from '../../classes/product';
 import { AuthService } from '../../services/auth.service';
-import { StorageService } from '../../services/storage.service';
-import { Router } from '@angular/router';
-import { User } from '../../classes/user';
+import { PreviousRouteService } from '../../services/previous-route.service';
 
 @Component( {
   selector: 'app-settings',
@@ -18,47 +16,29 @@ export class SettingsComponent implements OnInit {
 
   products: Product[] = [];
   isLoggedIn: boolean;
-
-  public languages = [ {
-    name: 'English',
-    code: 'en'
-  }, {
-    name: 'French',
-    code: 'fr'
-  } ];
-
-  public currencies = [ {
-    name: 'Euro',
-    currency: 'EUR',
-    price: 0.90 // price of euro
-  }, {
-    name: 'Rupees',
-    currency: 'INR',
-    price: 70.93 // price of inr
-  }, {
-    name: 'Pound',
-    currency: 'GBP',
-    price: 0.78 // price of euro
-  }, {
-    name: 'Dollar',
-    currency: 'USD',
-    price: 1 // price of usd
-  } ];
-
+  role: string;
+  _role = 'client';
   constructor(
     @Inject( PLATFORM_ID ) private platformId: Object,
-    private auth: AuthService,
+    public auth: AuthService,
     private translate: TranslateService,
     public productService: ProductService,
+    private previousRoute: PreviousRouteService,
   ) {
     this.productService.cartItems.subscribe( response => this.products = response );
   }
 
   ngOnInit(): void {
+    this.role = this.auth.getUserRol();
     this.isLoggedIn = this.auth.isAuthenticated();
+
     this.auth.authObserver().subscribe( ( isAuth: boolean ) => {
       this.isLoggedIn = isAuth;
     } );
+
+    if ( this.previousRoute.getCurrentUrl() === '/home/marketplace' ) {
+      this._role = 'merchant';
+    }
   }
 
   changeLanguage( code ) {

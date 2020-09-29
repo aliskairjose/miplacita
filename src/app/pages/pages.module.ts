@@ -60,6 +60,13 @@ import { TermsAndConditionsComponent } from './terms-and-conditions/terms-and-co
 import { AccountManageComponent } from './account/account-manage/account-manage.component';
 import { UserOrdersComponent } from './account/user-orders/user-orders.component';
 import { ChartsModule } from 'ng2-charts';
+import { ShippingZonesComponent } from './shops/shipping-zones/shipping-zones.component';
+import { CouponsComponent } from './shops/coupons/coupons.component';
+import { SupportComponent } from './support/support.component';
+import { CreateReferralsComponent } from './shops/create-referrals/create-referrals.component';
+import { ReferralsComponent } from './shops/referrals/referrals.component';
+import { CreateCouponsComponent } from './shops/create-coupons/create-coupons.component';
+
 // export let options: Partial<IConfig> | (() => Partial<IConfig>);
 const maskConfig: Partial<IConfig> = {
   validation: false,
@@ -126,7 +133,13 @@ export const customCurrencyMaskConfig = {
     ShopSuscriptionComponent,
     TermsAndConditionsComponent,
     AccountManageComponent,
-    UserOrdersComponent
+    UserOrdersComponent,
+    ShippingZonesComponent,
+    CouponsComponent,
+    SupportComponent,
+    CreateReferralsComponent,
+    ReferralsComponent,
+    CreateCouponsComponent
   ],
   imports: [
     SharedModule,

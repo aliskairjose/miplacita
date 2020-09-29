@@ -44,10 +44,11 @@ export class ShopService {
 
   /**
    * @description Retorna el detalle de la tienda cuando recibe ID, y un listado si no recibe el ID
-   * @param id Id de la tienda
+   * @param params Los filtros que seran enviados al api, si se envia vacio traera todos las tiendas
+   * store=sotreID&limit=10&owner_id=userId
    */
-  getStore( id?: string ): Observable<Result<Store>> {
-    return this.http.get( `stores?store=${id}` ).pipe(
+  storeList( page = 1, params = '' ): Observable<Result<Store>> {
+    return this.http.get( `stores?page=${page}&${params}` ).pipe(
       map( ( response: Response<Store> ) => {
         if ( response.success ) {
           return response.result;
@@ -61,22 +62,8 @@ export class ShopService {
    * @description Retorna la lista de las tiendas de un usuario
    * @param id Id del usuario
    */
-  getMyStores(): Observable<Result<Store>> {
-    return this.http.get( '' ).pipe(
-      map( ( response: Response<Store> ) => {
-        if ( response.success ) {
-          return response.result;
-        }
-      } )
-    );
-  }
-
-  /**
-   * @description Retorna la lista de todas las tiendas
-   * @param id Id de la tienda
-   */
-  getAll( page = 1 ): Observable<Result<Store>> {
-    return this.http.get( `stores?page=${page}` ).pipe(
+  getMyStores( userId: string ): Observable<Result<Store>> {
+    return this.http.get( `stores?owner_id=${userId}` ).pipe(
       map( ( response: Response<Store> ) => {
         if ( response.success ) {
           return response.result;
@@ -94,8 +81,21 @@ export class ShopService {
     return this.http.put( `stores/${id}`, data );
   }
 
+  /**
+   * @description Actualización de plan de tienda
+   * @param storeId Id de la tianda que actualiza el plan
+   * @param planId Id de nuevo plan que se aplica
+   */
   updateStorePlan( storeId: string, planId: any ): Observable<any> {
     return this.http.put( `stores/${storeId}/plan`, planId );
+  }
+
+  /**
+   * @description Actualiza el status de la tienda Active true|false
+   * @param shopId Id de la tienda a activar/desactivar
+   */
+  updateStoreStatus( shopId: string, data: any ): Observable<any> {
+    return this.http.put( `stores/${shopId}/status`, data );
   }
 
   /**
@@ -160,11 +160,11 @@ export class ShopService {
    * @description Crea una nueva opcion de envio para la tienda
    * @param data Datos de Opciones de envio
    */
-  addShipmetZone( data: any ): Observable<any> {
+  addShipmetZone( data: any ): Observable<ShipmentOption> {
     return this.http.post( 'shipment', data ).pipe(
       map( result => {
         // tslint:disable-next-line: curly
-        if ( result.status === 'isOk' ) return result.shipment_option;
+        if ( result.success ) return result.result;
       } )
     );
   }
@@ -177,7 +177,7 @@ export class ShopService {
     return this.http.get( `shipment?store=${id}` ).pipe(
       map( result => {
         // tslint:disable-next-line: curly
-        if ( result.status === 'isOk' ) return result.shipments;
+        if ( result.success) return result.result;
       } )
     );
   }
@@ -191,7 +191,7 @@ export class ShopService {
     return this.http.put( `shipment/${id}`, data ).pipe(
       map( result => {
         // tslint:disable-next-line: curly
-        if ( result.status === 'isOk' ) return result.shipment_option;
+        if ( result.success ) return result.result;
       } )
     );
   }

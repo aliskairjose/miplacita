@@ -1,7 +1,7 @@
 <div class="icon-nav">
   <ul>
     <!-- Cart -->
-    <li class="onhover-div mobile-cart">
+    <li class="onhover-div mobile-cart" *ngIf="role !== 'admin'">
       <div>
         <a [routerLink]="['/shop/cart']">
           <img src="assets/images/icon/cart.png" class="img-fluid" alt="">
@@ -42,7 +42,7 @@
         </li>
         <li>
           <div class="buttons">
-            <a [routerLink]="['/shop/cart']" class="view-cart">Ver carrito</a>
+            <a  [routerLink]="['/shop/cart']" class="view-cart">Ver carrito</a>
             <a [routerLink]="['/shop/checkout']" class="checkout">Revisa</a>
           </div>
         </li>
@@ -56,8 +56,8 @@
       </div>
       <div class="show-div setting mp-setting">
         <div *ngIf="!isLoggedIn">
-          <a [routerLink]="[ '/pages/login']"><h6>Iniciar sesión</h6></a>
-          <a [routerLink]="[ '/pages/register']"> <h6>Registrese</h6></a>
+          <a [routerLink]="[ '/pages/login']" [queryParams]="{ role: _role }"><h6>Iniciar sesión</h6></a>
+          <a [routerLink]="[ '/pages/register']" [queryParams]="{ role: _role }"> <h6>Registrese</h6></a>
         </div>
         <div *ngIf="isLoggedIn">
           <a [routerLink]="[ '/pages/account/user/profile' ]"> <h6>Perfil</h6></a>

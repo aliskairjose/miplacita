@@ -94,6 +94,7 @@
                                         <input formControlName="stock" type="number" class="form-control" id="available" required="" [(ngModel)]="productData.stock">
                                         <div *ngIf="submitted && f.stock.errors" class="invalid-feedback d-block">
                                             <div *ngIf="f.stock.errors.required"> {{ required }} </div>
+                                            <div *ngIf="f.stock.errors?.max"> Su plan sólo permite un máximo de 10 en su inventario </div>
                                         </div>
                                     </div>
                                 </div>

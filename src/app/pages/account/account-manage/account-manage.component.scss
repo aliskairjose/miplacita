@@ -39,6 +39,26 @@
     }
 }
 
+button#store-logo {
+    font-size: 12px;
+    text-decoration: none;
+	img.store-logo {
+		height: 40px;
+		width: 40px;
+	}
+}
+
+.drop-button{
+    font-size: 12px;
+}
+
+hr {
+    width: 80%; 
+    margin-top: 4px;
+    margin-bottom: 4px;
+}
+
+
 @media (min-width: 768px) { 
     .account-page {
         flex-direction: row;

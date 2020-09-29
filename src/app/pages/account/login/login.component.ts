@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../../shared/services/auth.service';
 import { StorageService } from '../../../shared/services/storage.service';
 import { AuthResponse } from '../../../shared/classes/auth-response';
 import { SocialAuthService, FacebookLoginProvider } from 'angularx-social-login';
 import { FacebookLoginResponse } from 'src/app/shared/classes/facebook-login-response';
+import { PlatformLocation } from '@angular/common';
 
 @Component( {
   selector: 'app-login',
@@ -18,6 +19,7 @@ export class LoginComponent implements OnInit {
   submitted: boolean;
   required = 'Campo obligatorio';
   invalidEmail = 'Email inválido';
+  role: string;
 
   constructor(
     private router: Router,
@@ -26,17 +28,23 @@ export class LoginComponent implements OnInit {
     private storage: StorageService,
     private formBuilder: FormBuilder,
     private socialService: SocialAuthService,
+    private platformLocation: PlatformLocation,
   ) {
+    this.platformLocation.pushState( null, '', '/login' );
     this.createForm();
   }
 
   ngOnInit(): void {
-
+    const role = this.route.queryParams.subscribe( params => {
+      this.role = params.role;
+    } );
+    
     this.socialService.authState.subscribe( ( response: FacebookLoginResponse ) => {
-      const data = { fullname: '', token: '', email: '' };
+      const data = { fullname: '', token: '', email: '', role: '' };
       data.email = response.email;
       data.fullname = response.name;
       data.token = response.authToken;
+      data.role = this.role;
 
       this.loginFB( data );
     } );
@@ -48,6 +56,7 @@ export class LoginComponent implements OnInit {
 
   onSubmit(): void {
     this.submitted = true;
+    this.loginForm.value.role = this.role;
 
     if ( this.loginForm.valid ) {
       this.auth.login( this.loginForm.value ).subscribe( ( data: AuthResponse ) => {
@@ -68,6 +77,7 @@ export class LoginComponent implements OnInit {
     this.loginForm = this.formBuilder.group( {
       email: [ '', [ Validators.required, Validators.email ] ],
       password: [ '', [ Validators.required ] ],
+      role: [ '' ],
     } );
   }
 
