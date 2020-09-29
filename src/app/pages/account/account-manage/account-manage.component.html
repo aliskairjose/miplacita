@@ -8,12 +8,12 @@
 						{{ selectedStore.name }}
 					</button>
 					<div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-						<button type="button" (click)="selectStore(store)" *ngFor="let store of stores" [value]="store._id"
+						<button type="button" class="drop-button" (click)="selectStore(store)" *ngFor="let store of stores" [value]="store._id"
 							ngbDropdownItem>
 							{{store.name}}
 						</button>
-						<hr style="width: 80%;">
-						<button type="button" (click)="createStore()"
+						<hr>
+						<button type="button" class="drop-button" (click)="createStore()"
 							ngbDropdownItem>
 							+ Nueva tienda
 						</button>
