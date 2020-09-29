@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnChanges, SimpleChanges } from '@angular/core';
 import { Store } from 'src/app/shared/classes/store';
 import { StorageService } from 'src/app/shared/services/storage.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -12,7 +12,7 @@ import { ShopService } from '../../../shared/services/shop.service';
   styleUrls: [ './account-manage.component.scss' ]
 } )
 
-export class AccountManageComponent implements OnInit {
+export class AccountManageComponent implements OnInit, OnChanges {
 
   stores: Store[] = [];
   active = 'profile';
@@ -29,12 +29,22 @@ export class AccountManageComponent implements OnInit {
   ) {
     this.user = this.storage.getItem( 'user' );
   }
+  ngOnChanges( changes: SimpleChanges ): void {
+
+  }
 
   ngOnInit(): void {
     this.route.url.subscribe( url => this.active = url[ 2 ].path );
     this.shopService.getMyStores( this.user._id ).subscribe( stores => {
+      const _store = JSON.parse( sessionStorage.getItem( 'store' ) );
       this.stores = [ ...stores.docs ];
-      this.selectedStore = this.stores[ 0 ];
+      if ( _store ) {
+        this.selectedStore = _store;
+      } else {
+        this.selectedStore = this.stores[ 0 ];
+        sessionStorage.setItem( 'store', JSON.stringify( this.stores[ 0 ] ) );
+      }
+
     } );
   }
 
@@ -54,7 +64,7 @@ export class AccountManageComponent implements OnInit {
   selectStore( store: Store ): void {
     this.selectedStore = store;
     this.shopService.storeSubject( store );
-    this.shopService.selectedStore = store;
+    sessionStorage.setItem( 'store', JSON.stringify( store ) );
   }
 
 }

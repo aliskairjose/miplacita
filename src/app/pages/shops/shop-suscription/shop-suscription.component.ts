@@ -49,17 +49,15 @@ export class ShopSuscriptionComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges( changes: SimpleChanges ): void {
-    this.shopService.storeObserver().subscribe( store => {
-      if ( store ) { this.getShopPlan(); }
-    } );
-  }
-
-  ngOnInit(): void {
-
+    this.store = JSON.parse( sessionStorage.getItem( 'store' ) );
+    
     if ( this.store ) {
       this.enabled = true;
       this.getShopPlan();
     }
+  }
+
+  ngOnInit(): void {
 
   }
 

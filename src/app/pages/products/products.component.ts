@@ -60,12 +60,12 @@ export class ProductsComponent implements OnInit, OnChanges, AfterViewInit {
   }
 
   ngOnChanges( changes: SimpleChanges ): void {
+    this.store = JSON.parse( sessionStorage.getItem( 'store' ) );
     this.init();
   }
 
   ngOnInit(): void {
     this.init();
-
   }
 
   ngAfterViewInit(): void {

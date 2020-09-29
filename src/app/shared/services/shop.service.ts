@@ -13,7 +13,6 @@ import { ShipmentOption } from '../classes/shipment-option';
 export class ShopService {
 
   $store: Subject<Store> = new Subject<Store>();
-  selectedStore: Store;
 
   constructor(
     private http: HttpService
