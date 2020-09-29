@@ -90,13 +90,13 @@
                 <div class="col-md-5">
                     <div class="card text-center mx-auto mb-2">
                         <div class="card-body">
-                            <p *ngIf="orders.length==0 && user.stores.length == 0">
+                            <p *ngIf="orders.length==0 && store">
                                 Aún no has configurado tu tienda
                                 <a  class="btn btn-solid-purple mt-3" [routerLink]="['/pages/account/user/admin-store']">
                                     Configurar tienda
                                 </a>
                             </p>
-                            <p *ngIf="orders.length==0 && user.stores.length > 0">Aún no has agregado productos a tu tienda</p>
+                            <p *ngIf="orders.length==0 && store">Aún no has agregado productos a tu tienda</p>
                         
                         </div>
                     </div>
