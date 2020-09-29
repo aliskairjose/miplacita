@@ -4,9 +4,7 @@ import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/cor
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { Store } from '../../../shared/classes/store';
-import { User } from '../../../shared/classes/user';
 import { ShopService } from '../../../shared/services/shop.service';
-import { StorageService } from '../../../shared/services/storage.service';
 
 @Component( {
   selector: 'app-shop-profile',

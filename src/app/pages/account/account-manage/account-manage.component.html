@@ -8,13 +8,12 @@
 						{{ selectedStore.name }}
 					</button>
 					<div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-						<button type="button" class="drop-button" (click)="selectStore(store)" *ngFor="let store of stores" [value]="store._id"
-							ngbDropdownItem>
+						<button type="button" class="drop-button" (click)="selectStore(store)" *ngFor="let store of stores"
+							[value]="store._id" ngbDropdownItem>
 							{{store.name}}
 						</button>
 						<hr>
-						<button type="button" class="drop-button" (click)="createStore()"
-							ngbDropdownItem>
+						<button type="button" class="drop-button" (click)="createStore()" ngbDropdownItem>
 							+ Nueva tienda
 						</button>
 					</div>
@@ -181,130 +180,132 @@
 				</div>
 				<div *ngIf="active=='admin-store'" class="" id="admin-store" user.role="tabpanel">
 					<div class="form-row labels">
-                        <div class="row col-lg-12">
-                            <div class="col label card">
-                                <div class="d-flex flex-row h-100" (click)="updateSubtab('store-profile')">
-                                    <div class="d-flex flex-fill justify-content-center align-items-center ">
-                                        <p class="my-auto" [ngClass]="{'text-default-color': subtab=='store-profile'}">
-                                            Perfil de tienda
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-    
-                            <div class="col label card">
-                                <div class="d-flex flex-row h-100" (click)="updateSubtab('design')">
-                                    <div class="d-flex flex-fill justify-content-center align-items-center">
-                                        <div class="d-flex flex-fill justify-content-center align-items-center">
-                                            <p class="my-auto" [ngClass]="{'text-default-color':subtab=='design'}">
-                                                Diseño de tienda
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col label card">
-                                <div class="d-flex flex-row h-100" (click)="updateSubtab('suscription')">
-                                    <div class="d-flex flex-fill justify-content-center align-items-center">
-                                        <div class="d-flex flex-fill  justify-content-center align-items-center">
-                                            <p class="my-auto" [ngClass]="{'text-default-color':subtab=='suscription'}">
-                                                Suscripción
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col label card">
-                                <div class="d-flex flex-row h-100" (click)="updateSubtab('withdrawal')">
-                                    <div class="d-flex flex-fill justify-content-center align-items-center">
-                                        <div class="d-flex flex-fill justify-content-center align-items-center">
-                                            <p class="my-auto" [ngClass]="{'text-default-color':subtab=='withdrawal'}">
-                                                Retiro de Dinero
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col label card">
-                                <div class="d-flex flex-row h-100" (click)="updateSubtab('shipping')">
-                                    <div class="d-flex flex-fill justify-content-center align-items-center ">
-                                        <p class="my-auto" [ngClass]="{'text-default-color': subtab=='shipping'}">
-                                            Configuración de zonas
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
 						<div class="row col-lg-12">
-                            <div class="col label card">
-                                <div class="d-flex flex-row h-100" (click)="updateSubtab('create-coupons')">
-                                    <div class="d-flex flex-fill justify-content-center align-items-center ">
-                                        <p class="my-auto" [ngClass]="{'text-default-color': subtab=='create-coupons'}">
-                                            Cupones
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-    
-                            <div class="col label card">
-                                <div class="d-flex flex-row h-100" (click)="updateSubtab('create-referrals')">
-                                    <div class="d-flex flex-fill justify-content-center align-items-center">
-                                        <div class="d-flex flex-fill justify-content-center align-items-center">
-                                            <p class="my-auto" [ngClass]="{'text-default-color':subtab=='create-referrals'}">
-                                                Referidos
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col label ">
-                                <div class="d-flex flex-row h-100" (click)="updateSubtab('xx')">
-                                    <div class="d-flex flex-fill justify-content-center align-items-center">
-                                        <div class="d-flex flex-fill  justify-content-center align-items-center">
-                                            <p class="my-auto" [ngClass]="{'text-default-color':subtab=='xx'}">
-                                                
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col label ">
-                                <div class="d-flex flex-row h-100" (click)="updateSubtab('yy')">
-                                    <div class="d-flex flex-fill justify-content-center align-items-center">
-                                        <div class="d-flex flex-fill justify-content-center align-items-center">
-                                            <p class="my-auto" [ngClass]="{'text-default-color':subtab=='yy'}">
-                                                
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col label ">
-                                <div class="d-flex flex-row h-100" (click)="updateSubtab('zz')">
-                                    <div class="d-flex flex-fill justify-content-center align-items-center ">
-                                        <p class="my-auto" [ngClass]="{'text-default-color': subtab=='zz'}">
-                                            
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+							<div class="col label card">
+								<div class="d-flex flex-row h-100" (click)="updateSubtab('store-profile')">
+									<div class="d-flex flex-fill justify-content-center align-items-center ">
+										<p class="my-auto" [ngClass]="{'text-default-color': subtab=='store-profile'}">
+											Perfil de tienda
+										</p>
+									</div>
+								</div>
+							</div>
+
+							<div class="col label card">
+								<div class="d-flex flex-row h-100" (click)="updateSubtab('design')">
+									<div class="d-flex flex-fill justify-content-center align-items-center">
+										<div class="d-flex flex-fill justify-content-center align-items-center">
+											<p class="my-auto" [ngClass]="{'text-default-color':subtab=='design'}">
+												Diseño de tienda
+											</p>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col label card">
+								<div class="d-flex flex-row h-100" (click)="updateSubtab('suscription')">
+									<div class="d-flex flex-fill justify-content-center align-items-center">
+										<div class="d-flex flex-fill  justify-content-center align-items-center">
+											<p class="my-auto" [ngClass]="{'text-default-color':subtab=='suscription'}">
+												Suscripción
+											</p>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col label card">
+								<div class="d-flex flex-row h-100" (click)="updateSubtab('withdrawal')">
+									<div class="d-flex flex-fill justify-content-center align-items-center">
+										<div class="d-flex flex-fill justify-content-center align-items-center">
+											<p class="my-auto" [ngClass]="{'text-default-color':subtab=='withdrawal'}">
+												Retiro de Dinero
+											</p>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col label card">
+								<div class="d-flex flex-row h-100" (click)="updateSubtab('shipping')">
+									<div class="d-flex flex-fill justify-content-center align-items-center ">
+										<p class="my-auto" [ngClass]="{'text-default-color': subtab=='shipping'}">
+											Configuración de zonas
+										</p>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row col-lg-12">
+							<div class="col label card">
+								<div class="d-flex flex-row h-100" (click)="updateSubtab('create-coupons')">
+									<div class="d-flex flex-fill justify-content-center align-items-center ">
+										<p class="my-auto" [ngClass]="{'text-default-color': subtab=='create-coupons'}">
+											Cupones
+										</p>
+									</div>
+								</div>
+							</div>
+
+							<div class="col label card">
+								<div class="d-flex flex-row h-100" (click)="updateSubtab('create-referrals')">
+									<div class="d-flex flex-fill justify-content-center align-items-center">
+										<div class="d-flex flex-fill justify-content-center align-items-center">
+											<p class="my-auto" [ngClass]="{'text-default-color':subtab=='create-referrals'}">
+												Referidos
+											</p>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col label ">
+								<div class="d-flex flex-row h-100" (click)="updateSubtab('xx')">
+									<div class="d-flex flex-fill justify-content-center align-items-center">
+										<div class="d-flex flex-fill  justify-content-center align-items-center">
+											<p class="my-auto" [ngClass]="{'text-default-color':subtab=='xx'}">
+
+											</p>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col label ">
+								<div class="d-flex flex-row h-100" (click)="updateSubtab('yy')">
+									<div class="d-flex flex-fill justify-content-center align-items-center">
+										<div class="d-flex flex-fill justify-content-center align-items-center">
+											<p class="my-auto" [ngClass]="{'text-default-color':subtab=='yy'}">
+
+											</p>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col label ">
+								<div class="d-flex flex-row h-100" (click)="updateSubtab('zz')">
+									<div class="d-flex flex-fill justify-content-center align-items-center ">
+										<p class="my-auto" [ngClass]="{'text-default-color': subtab=='zz'}">
+
+										</p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
 				</div>
 				<div class="container">
-					<app-shop-profile *ngIf="active=='admin-store' && subtab=='store-profile' && stores.length > 0" [store]="selectedStore">
+					<app-shop-profile *ngIf="active=='admin-store' && subtab=='store-profile' && stores.length > 0"
+						[store]="selectedStore">
 					</app-shop-profile>
 					<app-register-store #registerNewStore register="false"
 						*ngIf="active=='admin-store' && subtab=='store-profile' && stores.length == 0">
 					</app-register-store>
 					<app-shop-design *ngIf="active=='admin-store' && subtab=='design'"></app-shop-design>
-					<app-shop-suscription *ngIf="active=='admin-store' && subtab=='suscription'" [store]="selectedStore"></app-shop-suscription>
+					<app-shop-suscription *ngIf="active=='admin-store' && subtab=='suscription'" [store]="selectedStore">
+					</app-shop-suscription>
 					<app-shop-withdrawal *ngIf="active=='admin-store' && subtab=='withdrawal'"></app-shop-withdrawal>
-					<app-shipping-zones *ngIf="active=='admin-store' && subtab=='shipping'" [store]="selectedStore"></app-shipping-zones>
-                    <app-create-coupons *ngIf="active=='admin-store' && subtab=='create-coupons'"></app-create-coupons>
-                    <app-create-referrals *ngIf="active=='admin-store' && subtab=='create-referrals'"></app-create-referrals>
-
-                </div>
+					<app-shipping-zones *ngIf="active=='admin-store' && subtab=='shipping'" [store]="selectedStore">
+					</app-shipping-zones>
+					<app-create-coupons *ngIf="active=='admin-store' && subtab=='create-coupons'"></app-create-coupons>
+					<app-create-referrals *ngIf="active=='admin-store' && subtab=='create-referrals'"></app-create-referrals>
+				</div>
 				<div *ngIf="active==='report'" class="" id="report" user.role="tabpanel">
 				</div>
 			</div>
