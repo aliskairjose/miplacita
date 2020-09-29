@@ -8,6 +8,7 @@ import { Store } from '../../../shared/classes/store';
 import { ShipmentOption } from '../../../shared/classes/shipment-option';
 import { environment } from '../../../../environments/environment.prod';
 import { ToastrService } from 'ngx-toastr';
+import { ConfirmationDialogService } from '../../../shared/services/confirmation-dialog.service';
 
 @Component( {
   selector: 'app-shipping-zones',
@@ -33,7 +34,7 @@ export class ShippingZonesComponent implements OnInit, OnChanges {
     private toastr: ToastrService,
     private formBuilder: FormBuilder,
     private shopService: ShopService,
-
+    private confirmationDialogService: ConfirmationDialogService,
   ) {
     this.createForm();
   }
@@ -74,10 +75,27 @@ export class ShippingZonesComponent implements OnInit, OnChanges {
     this.zone = { ...zone };
   }
 
-  deleteZone( id: string ): void {
-    this.shopService.deleteShipmentOptions( id ).subscribe( () => {
-      this.toastr.info( 'Ha eliminado la zona de envio' );
-      this.loadShippingZones();
+  deleteItem( zone: ShipmentOption ): void {
+    this.confirmationDialogService
+      .confirm(
+        'Por favor confirme...',
+        `¿Realmente desea borrar ${zone.name}?`,
+        'Si, borrar!',
+        'No borrar',
+        'lg'
+      )
+      .then( ( confirmed ) => {
+        // tslint:disable-next-line: curly
+        if ( confirmed ) this.deleteZone( zone._id );
+      } );
+  }
+
+  private deleteZone( id: string ): void {
+    this.shopService.deleteShipmentOptions( id ).subscribe( result => {
+      if ( result.success ) {
+        this.toastr.info( 'Ha eliminado la zona de envio' );
+        this.loadShippingZones();
+      }
     } );
   }
 
@@ -85,8 +103,6 @@ export class ShippingZonesComponent implements OnInit, OnChanges {
     this.shopService.addShipmetZone( { shipment_options: this.zonesForm.value } ).subscribe( shipmentZone => {
       this.toastr.info( 'Se ha creado una nueva zona de envío' );
       this.allZones.push( shipmentZone );
-      this.zone = {};
-
     } );
   }
 
