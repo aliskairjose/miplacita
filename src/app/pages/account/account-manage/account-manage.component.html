@@ -240,7 +240,7 @@
 					<app-shop-design *ngIf="active=='admin-store' && subtab=='design'"></app-shop-design>
 					<app-shop-suscription *ngIf="active=='admin-store' && subtab=='suscription'" [store]="selectedStore"></app-shop-suscription>
 					<app-shop-withdrawal *ngIf="active=='admin-store' && subtab=='withdrawal'"></app-shop-withdrawal>
-					<app-shipping-zones *ngIf="active=='admin-store' && subtab=='shipping'"></app-shipping-zones>
+					<app-shipping-zones *ngIf="active=='admin-store' && subtab=='shipping'" [store]="selectedStore"></app-shipping-zones>
 				</div>
 				<div *ngIf="active==='report'" class="" id="report" user.role="tabpanel">
 				</div>
