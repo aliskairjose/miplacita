@@ -164,7 +164,7 @@ export class ShopService {
     return this.http.post( 'shipment', data ).pipe(
       map( result => {
         // tslint:disable-next-line: curly
-        if ( result.status === 'isOk' ) return result.shipment_option;
+        if ( result.success ) return result.result;
       } )
     );
   }
@@ -177,7 +177,7 @@ export class ShopService {
     return this.http.get( `shipment?store=${id}` ).pipe(
       map( result => {
         // tslint:disable-next-line: curly
-        if ( result.status === 'isOk' ) return result.shipments;
+        if ( result.success) return result.result;
       } )
     );
   }
@@ -191,7 +191,7 @@ export class ShopService {
     return this.http.put( `shipment/${id}`, data ).pipe(
       map( result => {
         // tslint:disable-next-line: curly
-        if ( result.status === 'isOk' ) return result.shipment_option;
+        if ( result.success ) return result.result;
       } )
     );
   }

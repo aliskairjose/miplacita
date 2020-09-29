@@ -89,7 +89,7 @@ export class ProductsComponent implements OnInit, OnChanges, AfterViewInit {
     this.confirmationDialogService
       .confirm(
         'Por favor confirme...',
-        `¿Realmente desea borrar <b>${product.name}</b>?`,
+        `¿Realmente desea borrar ${product.name}?`,
         'Si, borrar!',
         'No borrar',
         'lg'

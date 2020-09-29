@@ -4,13 +4,18 @@
 			<div class="row user-row">
 				<div ngbDropdown>
 					<button class="btn btn-link" id="store-logo" ngbDropdownToggle>
-						<img class="rounded-circle store-logo" [src]="selectedStore.logo" alt="User Pic">
+						<img class="rounded-circle store-logo mr-1" [src]="selectedStore.logo" alt="User Pic">
 						{{ selectedStore.name }}
 					</button>
 					<div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-						<button type="button" (click)="selectStore(store)" *ngFor="let store of stores" [value]="store._id"
+						<button type="button" class="drop-button" (click)="selectStore(store)" *ngFor="let store of stores" [value]="store._id"
 							ngbDropdownItem>
 							{{store.name}}
+						</button>
+						<hr>
+						<button type="button" class="drop-button" (click)="createStore()"
+							ngbDropdownItem>
+							+ Nueva tienda
 						</button>
 					</div>
 				</div>
@@ -169,10 +174,10 @@
 					<app-orders [store]="selectedStore"></app-orders>
 				</div>
 				<div *ngIf="active==='coupons'" class="" id="coupons" user.role="tabpanel">
-					<app-coupons></app-coupons>
+					<app-coupons [store]="selectedStore"></app-coupons>
 				</div>
 				<div *ngIf="active==='support'" class="" id="support" user.role="tabpanel">
-					<app-support></app-support>
+					<app-support [store]="selectedStore"></app-support>
 				</div>
 				<div *ngIf="active=='admin-store'" class="" id="admin-store" user.role="tabpanel">
 					<div class="form-row labels">
