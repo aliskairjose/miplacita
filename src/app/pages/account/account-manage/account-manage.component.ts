@@ -54,6 +54,11 @@ export class AccountManageComponent implements OnInit, OnChanges {
     } );
   }
 
+  createStore(): void {
+    console.log( 'createStore' );
+
+  }
+
   updateTab( tab: string ) {
     this.active = tab;
     this.router.navigateByUrl( `pages/account/user/${tab}`, { skipLocationChange: false } );
