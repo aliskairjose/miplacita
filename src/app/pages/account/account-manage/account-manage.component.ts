@@ -30,10 +30,16 @@ export class AccountManageComponent implements OnInit, OnChanges {
     this.user = this.storage.getItem( 'user' );
   }
   ngOnChanges( changes: SimpleChanges ): void {
-
+    this.shopService.storeObserver().subscribe( store => {
+      if ( store ) { this.init(); }
+    } );
   }
 
   ngOnInit(): void {
+    this.init();
+  }
+
+  init(): void {
     this.route.url.subscribe( url => this.active = url[ 2 ].path );
     this.shopService.getMyStores( this.user._id ).subscribe( stores => {
       const _store = JSON.parse( sessionStorage.getItem( 'store' ) );
