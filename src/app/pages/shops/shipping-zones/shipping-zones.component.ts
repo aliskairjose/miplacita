@@ -23,6 +23,9 @@ export class ShippingZonesComponent implements OnInit, OnChanges {
   fields = [ 'Zona', 'Precio', '' ];
   paginate: Paginate;
   required = environment.errorForm.required;
+  zone: ShipmentOption = {};
+  state = 'add';
+  buttonTitle = 'Crear zona';
 
   @Input() store: Store;
 
@@ -53,14 +56,50 @@ export class ShippingZonesComponent implements OnInit, OnChanges {
     this.zonesForm.value.store_id = this.store._id;
 
     if ( this.zonesForm.valid ) {
-      this.shopService.addShipmetZone( { shipment_options: this.zonesForm.value } ).subscribe( shipmentZone => {
-        // Logica despues de crear zone
-        // this.loadShippingZones();
-        this.toastr.info( 'Se ha creado una nueva zona de envío' );
-        this.allZones.push( shipmentZone );
-
-      } );
+      if ( this.state === 'add' ) {
+        this.createShipmentZone();
+      }
+      if ( this.state === 'edit' ) {
+        this.updateShipmentZone();
+      }
     }
+  }
+
+  /**
+   * * Edita la zona de envio seleccionada
+   */
+  editZone( zone: ShipmentOption ): void {
+    this.state = 'edit';
+    this.buttonTitle = 'Editar zona';
+    this.zone = { ...zone };
+  }
+
+  deleteZone( id: string ): void {
+    this.shopService.deleteShipmentOptions( id ).subscribe( () => {
+      this.toastr.info( 'Ha eliminado la zona de envio' );
+      this.loadShippingZones();
+    } );
+  }
+
+  private createShipmentZone(): void {
+    this.shopService.addShipmetZone( { shipment_options: this.zonesForm.value } ).subscribe( shipmentZone => {
+      this.toastr.info( 'Se ha creado una nueva zona de envío' );
+      this.allZones.push( shipmentZone );
+      this.zone = {};
+
+    } );
+  }
+
+  private updateShipmentZone(): void {
+    this.shopService.updateShipmetOptions( this.zone._id, { shipment_options: this.zone } ).subscribe( () => {
+      this.toastr.info( 'Se ha actualizado una nueva zona de envío' );
+      this.state = 'add';
+      this.buttonTitle = 'Crear zona';
+      this.zone = {};
+      this.zonesForm.reset();
+      this.submitted = false;
+      this.loadShippingZones();
+    } );
   }
 
   private loadShippingZones(): void {
