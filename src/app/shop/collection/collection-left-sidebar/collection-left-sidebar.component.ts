@@ -44,7 +44,7 @@ export class CollectionLeftSidebarComponent implements OnInit {
   ) {
 
     // tslint:disable-next-line: max-line-length
-    forkJoin( [ this.shopService.getAll(), this.categoryService.categoryList() ] ).subscribe( ( [ shopsResult, categoriesResult ] ) => {
+    forkJoin( [ this.shopService.storeList(), this.categoryService.categoryList() ] ).subscribe( ( [ shopsResult, categoriesResult ] ) => {
       // Get Query params..
       this.route.queryParams.subscribe( params => {
 

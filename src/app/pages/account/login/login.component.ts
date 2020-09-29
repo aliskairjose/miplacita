@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../../shared/services/auth.service';
 import { StorageService } from '../../../shared/services/storage.service';
@@ -19,10 +19,12 @@ export class LoginComponent implements OnInit {
   submitted: boolean;
   required = 'Campo obligatorio';
   invalidEmail = 'Email inválido';
+  role: string;
 
   constructor(
     private router: Router,
     private auth: AuthService,
+    private route: ActivatedRoute,
     private storage: StorageService,
     private formBuilder: FormBuilder,
     private socialService: SocialAuthService,
@@ -33,12 +35,16 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
+    const role = this.route.queryParams.subscribe( params => {
+      this.role = params.role;
+    } );
+    
     this.socialService.authState.subscribe( ( response: FacebookLoginResponse ) => {
-      const data = { fullname: '', token: '', email: '' };
+      const data = { fullname: '', token: '', email: '', role: '' };
       data.email = response.email;
       data.fullname = response.name;
       data.token = response.authToken;
+      data.role = this.role;
 
       this.loginFB( data );
     } );
@@ -50,6 +56,7 @@ export class LoginComponent implements OnInit {
 
   onSubmit(): void {
     this.submitted = true;
+    this.loginForm.value.role = this.role;
 
     if ( this.loginForm.valid ) {
       this.auth.login( this.loginForm.value ).subscribe( ( data: AuthResponse ) => {
@@ -70,6 +77,7 @@ export class LoginComponent implements OnInit {
     this.loginForm = this.formBuilder.group( {
       email: [ '', [ Validators.required, Validators.email ] ],
       password: [ '', [ Validators.required ] ],
+      role: [ '' ],
     } );
   }
 

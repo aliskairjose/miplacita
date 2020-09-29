@@ -1,16 +1,17 @@
 <ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="ball-spin-clockwise" [fullScreen]="true">
-    <p style="color: white"> Por favor espere... </p>
+	<p style="color: white"> Por favor espere... </p>
 </ngx-spinner>
 
 <!-- section start -->
 <section class="section-b-space">
-    <div class="container ">
-        <div class="checkout-page">
+	<div class="container ">
+		<div class="checkout-page">
 			<div class="checkout-form">
-				<form >
+				<form [formGroup]="zonesForm" (ngSubmit)="onSubmit()" class="theme-form">
 					<div class="row">
 						<div class="col-lg-12 col-sm-12 col-md-12 mb-3">
 							<div class="border-box h-100">
+<<<<<<< HEAD
                                 <div class="form-row">
                                     <div class="checkout-title">
                                         <h3>Zonas de envío</h3>
@@ -62,21 +63,72 @@
                                                             <i class="fa fa-edit fa-lg" style="color: Dodgerblue"></i>
                                                         </a>
                                                     </td>
+=======
+								<div class="form-row">
+									<div class="checkout-title">
+										<h3>Zonas de envío</h3>
+									</div>
+									<div class="col-3 offset-md-9">
+										<button class="btn btn-solid-purple"> Crear zona nueva</button>
+									</div>
+								</div>
+>>>>>>> 9159764d09d8014280200e081a02a95ea5645117
 
-                                                </tr>
-                                            </tbody>
-                                            
-                                        </table>
-                                        
-                                    </div>
-                                    <app-custom-pagination [items]="allZones" [paginate]="paginate" (setPage)="setPage($event)"></app-custom-pagination>
+								<div class="form-row">
+										
+									<div class="col-md-4">
+										<select name="model" class="form-control">
+											<option value="">Seleccione una</option>
+											<option *ngFor="let zone of zones" class="text-capitalize">{{ zone }}
+											</option>
+										</select>
+									</div>
+									
+									<div class="col-md-4">
+										<div class="form-group col-lg-10 col-md-10 col-sm-12">
+											<div class="field-label font-weight-bold">Precio</div>
+											<input type="number" class="form-control" />
+										</div>
+									</div>
 
-                                </div>
+									<div class="col">
+										<button class="btn btn-solid-purple">Crear</button>
+									</div>
+								</div>
+								<div class="form-row flex-fill flex-column mt-5 px-1">
+									<div class="table-responsive">
+										<table class="table table-responsive-sm">
+											<thead>
+												<tr class="table-head">
+													<th class="text-center text-uppercase" *ngFor="let field of fields" scope="col">{{field}}</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr *ngFor="let zone of allZones">
+													<td class="text-center">
+														{{ zone.name }}
+													</td>
+													<td class="text-center"><strong>{{ zone.price | currency }}</strong>
+													</td>
+													<td class="text-center">
+														<a class="btn btn-table-action">
+															<i class="fa fa-edit fa-lg" style="color: Dodgerblue"></i>
+														</a>
+													</td>
+
+												</tr>
+											</tbody>
+
+										</table>
+
+									</div>
+									<!-- <app-custom-pagination [items]="allZones" [paginate]="paginate" (setPage)="setPage($event)"></app-custom-pagination> -->
+								</div>
 							</div>
 						</div>
 					</div>
 				</form>
 			</div>
 		</div>
-    </div>
+	</div>
 </section>

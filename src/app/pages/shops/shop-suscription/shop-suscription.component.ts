@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { Plan } from '../../../shared/classes/plan';
 import { StorageService } from '../../../shared/services/storage.service';
 import { Store } from '../../../shared/classes/store';
@@ -12,7 +12,7 @@ import { ToastrService } from 'ngx-toastr';
   templateUrl: './shop-suscription.component.html',
   styleUrls: [ './shop-suscription.component.scss' ]
 } )
-export class ShopSuscriptionComponent implements OnInit {
+export class ShopSuscriptionComponent implements OnInit, OnChanges {
   shop: any;
   plan: any = {};
   checkIcon = 'bi bi-check2';
@@ -37,30 +37,32 @@ export class ShopSuscriptionComponent implements OnInit {
     'Cupones de descuentos'
   ];
   enabled = false;
-  private _stores: Store[] = [];
+  @Input() store: Store;
 
   constructor(
     private shopService: ShopService,
     private toastrService: ToastrService,
-    private storageService: StorageService,
-  ) { }
-
-  ngOnInit(): void {
-    const user: User = this.storageService.getItem( 'user' );
-    this._stores = [ ...user.stores ];
-
-    if ( this._stores.length ) {
-      this.enabled = true;
-      this.getShopPlan();
-    }
-
+  ) {
     this.shopService.getPlans().subscribe( plans => {
       this.plans = [ ...plans ];
     } );
   }
 
+  ngOnChanges( changes: SimpleChanges ): void {
+    this.store = JSON.parse( sessionStorage.getItem( 'store' ) );
+    if ( this.store ) {
+      this.enabled = true;
+      this.getShopPlan();
+    }
+  }
+
+  ngOnInit(): void {
+
+  }
+
   getShopPlan(): void {
-    this.shopService.getStore( this._stores[ 0 ]._id ).subscribe( ( response: Result<Store> ) => {
+    const params = `store=${this.store._id}`;
+    this.shopService.storeList( 1, params ).subscribe( ( response ) => {
       this.plan = response.docs[ 0 ].plan;
     } );
   }
@@ -70,7 +72,7 @@ export class ShopSuscriptionComponent implements OnInit {
   }
 
   changePlan( planId: string ): void {
-    this.shopService.updateStorePlan( this._stores[ 0 ]._id, { plan: planId } ).subscribe( response => {
+    this.shopService.updateStorePlan( this.store._id, { plan: planId } ).subscribe( response => {
       const plan = response.result.plan;
       if ( response.success ) {
         this.toastrService.info( response.message[ 0 ] );
