@@ -294,7 +294,7 @@
 				<div class="container">
 					<app-shop-profile *ngIf="active=='admin-store' && subtab=='store-profile' && stores.length > 0" [store]="selectedStore">
 					</app-shop-profile>
-					<app-register-store register="false"
+					<app-register-store #registerNewStore register="false"
 						*ngIf="active=='admin-store' && subtab=='store-profile' && stores.length == 0">
 					</app-register-store>
 					<app-shop-design *ngIf="active=='admin-store' && subtab=='design'"></app-shop-design>
@@ -312,3 +312,6 @@
 	</div>
 
 </div>
+<ng-template #registerNewStore >
+	<app-register-store #registerNewStore modal="true" register="false" (callback)="close()"></app-register-store>
+</ng-template>

@@ -15,6 +15,7 @@ import { AuthService } from '../../services/auth.service';
 import { ProductService } from '../../services/product.service';
 import { ShopService } from '../../services/shop.service';
 import { StorageService } from '../../services/storage.service';
+import { NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 
 @Component( {
   selector: 'app-register-store',
@@ -23,9 +24,10 @@ import { StorageService } from '../../services/storage.service';
 } )
 export class RegisterStoreComponent implements OnInit {
   @Input() register = true;
-  @Output() emitEvent: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Input() modal = false;
+  @Output() callback: EventEmitter<boolean> = new EventEmitter<boolean>();
   @ViewChild( 'payment' ) payment: PaymentComponent;
-
+  
   planSelected = '';
   step = 1;
   imageLogo: any = '../../../../assets/images/marketplace/svg/upload-image.svg';;
@@ -206,10 +208,15 @@ export class RegisterStoreComponent implements OnInit {
   back( option: number ) {
     if ( option === 0 ) {
       this.step = 1;
-      this.emitEvent.emit( false );
+      this.callback.emit( false );
     } else if ( option === 1 ) {
       this.step = 1;
     }
   }
+
+  close(){
+    this.callback.emit( false );
+  }
+
 
 }
