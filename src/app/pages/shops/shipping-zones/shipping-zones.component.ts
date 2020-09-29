@@ -6,6 +6,8 @@ import { User } from '../../../shared/classes/user';
 import { Paginate } from 'src/app/shared/classes/paginate';
 import { Store } from '../../../shared/classes/store';
 import { ShipmentOption } from '../../../shared/classes/shipment-option';
+import { environment } from '../../../../environments/environment.prod';
+import { ToastrService } from 'ngx-toastr';
 
 @Component( {
   selector: 'app-shipping-zones',
@@ -20,20 +22,25 @@ export class ShippingZonesComponent implements OnInit, OnChanges {
   allZones: ShipmentOption[] = [];
   fields = [ 'Zona', 'Precio', '' ];
   paginate: Paginate;
+  required = environment.errorForm.required;
 
   @Input() store: Store;
 
   constructor(
-    private storage: StorageService,
+    private toastr: ToastrService,
     private formBuilder: FormBuilder,
     private shopService: ShopService,
 
   ) {
     this.createForm();
   }
+
+  // convenience getter for easy access to form fields
+  // tslint:disable-next-line: typedef
+  get f() { return this.zonesForm.controls; }
+
   ngOnChanges( changes: SimpleChanges ): void {
     this.store = JSON.parse( sessionStorage.getItem( 'store' ) );
-    this.zonesForm.value.store_id = this.store._id;
     this.loadShippingZones();
   }
 
@@ -43,10 +50,15 @@ export class ShippingZonesComponent implements OnInit, OnChanges {
 
   onSubmit(): void {
     this.submitted = true;
+    this.zonesForm.value.store_id = this.store._id;
 
     if ( this.zonesForm.valid ) {
-      this.shopService.addShipmetZone( this.zonesForm.value ).subscribe( response => {
+      this.shopService.addShipmetZone( { shipment_options: this.zonesForm.value } ).subscribe( shipmentZone => {
         // Logica despues de crear zone
+        // this.loadShippingZones();
+        this.toastr.info( 'Se ha creado una nueva zona de envío' );
+        this.allZones.push( shipmentZone );
+
       } );
     }
   }
