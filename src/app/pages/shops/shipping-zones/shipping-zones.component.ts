@@ -33,13 +33,12 @@ export class ShippingZonesComponent implements OnInit, OnChanges {
   }
   ngOnChanges( changes: SimpleChanges ): void {
     this.store = JSON.parse( sessionStorage.getItem( 'store' ) );
+    this.zonesForm.value.store_id = this.store._id;
+    this.loadShippingZones();
   }
 
 
   ngOnInit(): void {
-    const user: User = this.storage.getItem( 'user' );
-    this.zonesForm.value.store_id = this.store._id;
-    this.loadShippingZones();
   }
 
   onSubmit(): void {

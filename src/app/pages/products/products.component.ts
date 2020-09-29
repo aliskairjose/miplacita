@@ -65,7 +65,6 @@ export class ProductsComponent implements OnInit, OnChanges, AfterViewInit {
   }
 
   ngOnInit(): void {
-    this.init();
   }
 
   ngAfterViewInit(): void {

@@ -51,7 +51,6 @@ export class OrdersComponent implements OnInit, OnChanges {
   }
 
   ngOnInit(): void {
-    this.init();
   }
 
   setPage( page: number ) {
