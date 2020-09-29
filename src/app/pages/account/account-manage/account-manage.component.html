@@ -186,256 +186,53 @@
 							</div>
 						</div>
 
-                <div class="admin-menu">
-                    <div class="tab" (click)="updateTab('dashboard')" *ngIf="user.role=='merchant' || user.role=='admin'"
-                        [ngClass]="{'active': active==='dashboard','btn tab': active!=='dashboard'}">
-                        <button class="btn btn-tab">
-                            <img src="assets/images/marketplace/images/icons/tablero.png" alt="">
-                            Tablero
-                        </button>
-                    </div>
-                    <div class="tab" (click)="updateTab('products')" *ngIf="user.role=='merchant' || user.role=='admin'"
-                        [ngClass]="{'active': active==='products','btn tab': active!=='products'}">
-                        <button class="btn btn-tab">
-                            <img src="assets/images/marketplace/images/icons/productos.png" alt="">
-                            Productos
-                        </button>
-                    </div>
-                    <div class="tab" (click)="updateTab('admin-orders')" *ngIf="user.role=='merchant' || user.role=='admin'"
-                        [ngClass]="{'active': active==='admin-orders','btn tab': active!=='admin-orders'}">
-                        <button class="btn btn-tab">
-                            <img src="assets/images/marketplace/images/icons/orders.png" alt="">
-                            Órdenes
-                        </button>
-                    </div>
-                    <div class="tab" (click)="updateTab('stores')" *ngIf="user.role=='admin'"
-                        [ngClass]="{'active': active=='stores','btn tab': active!='stores'}">
-                        <button class="btn btn-tab">
-                            <img src="assets/images/marketplace/images/icons/store.png" alt="">
-                            Tiendas
-                        </button>
-                    </div>
-                    <div class="tab" *ngIf="user.role=='merchant'" (click)="updateTab('admin-store')"
-                        [ngClass]="{'active': active=='admin-store','btn tab': active!='admin-store'}">
-                        <button class="btn btn-tab">
-                            <img src="assets/images/marketplace/images/icons/store.png" alt="">
-                            Tienda
-                        </button>
-                    </div>
-                    <div class="tab" *ngIf="user.role=='client' || user.role=='merchant'" (click)="updateTab('coupons')"
-                        [ngClass]="{'active': active=='coupons','btn tab': active!='coupons'}">
-                        <button class="btn btn-tab">
-                            <img src="assets/images/marketplace/images/icons/store.png" alt="">
-                            Cupones
-                        </button>
-                    </div>
-                    <div class="tab" (click)="updateTab('report')" *ngIf="user.role=='merchant' || user.role=='admin'"
-                        [ngClass]="{'active': active==='report','btn tab': active!=='report'}">
-                        <button class="btn btn-tab">
-                            <img src="assets/images/marketplace/images/icons/report.png" alt="">
-                            Reportes
-                        </button>
-                    </div>
-                    <div class="tab" (click)="updateTab('support')" *ngIf="user.role=='merchant' || user.role=='client'"
-                        [ngClass]="{'active': active==='support','btn tab': active!=='support'}">
-                        <button class="btn btn-tab">
-                            <img src="assets/images/marketplace/images/icons/report.png" alt="">
-                            Ayuda
-                        </button>
-                    </div>
-                </div>
-                <div class="tab" (click)="updateTab('logout')"
-                    [ngClass]="{'active': active==='logout','btn tab': active!=='logout'}">
-                    <button class="btn btn-tab" (click)="loggOut()">
-                        <img src="assets/images/marketplace/images/icons/logout.png" alt="">
-                        Cerrar Sesión
-                    </button>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-10 col-md-10 col-sm-12">
-            <div class="tab-content" id="myTabContent">
-                <div *ngIf="active=='profile'" class="" 
-                    id="profile" role="tabpanel" >
-                    <app-profile></app-profile>
-                </div>
-                <div *ngIf="active==='orders'" class="" id="order" role="tabpanel">
-                    <app-user-orders></app-user-orders>
-                </div>
-                <div *ngIf="active==='stores'" class="" id="contact" role="tabpanel">
-                    <div *ngIf="user.role==='merchant'" >
-                        <div class="page-title">
-                            <h2 class="mp-title">
-                                <span >Mis tiendas</span>
-                            </h2>
-                        </div>
-                        <div class="container">
-                            <div class="row">
-                                <div class="col theme-tab">
-                                    <div>
-                                        <div class="no-slider row">
-                                            <ng-container *ngFor="let store of stores | slice:0:8">
-                                                <div class="store-box">
-                                                    <app-shop-card [store]="store">
-                                                    </app-shop-card>
-                                                </div>
-                                            </ng-container>
-                                        </div>
-                                        <div class="form-row container justify-content-center " *ngIf="stores.length==0">
-                                            <div class="col-md-5">
-                                                <div class="card text-center mx-auto mb-2">
-                                                    <div class="card-body">
-                                                        <p>
-                                                            Aún no has creado tu primera tienda.
-                                                            Configura una tienda y empieza a vender!
-                                                        </p>
-                                                        <a  class="btn btn-solid-purple" [routerLink]="['/pages/account/user/admin-store']">
-                                                            Configurar tienda
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <app-shops *ngIf="user.role==='admin'"></app-shops>
-                </div>
-                <div *ngIf="active==='dashboard'" class="" id="dashboard" role="tabpanel">
-                    <app-dashboard></app-dashboard>
-                </div>
-                <div *ngIf="active==='products'" class="" id="products" role="tabpanel">
-                    <app-products></app-products>
-                </div>
-                <div *ngIf="active==='admin-orders'" class="" id="admin-orders" role="tabpanel">
-                    <app-orders></app-orders>
-                </div>
-                <div *ngIf="active==='coupons'" class="" id="coupons" role="tabpanel">
-                    <app-coupons></app-coupons>
-                </div>
-                <div *ngIf="active==='support'" class="" id="support" role="tabpanel">
-                    <app-support></app-support>
-                </div>
-                <div *ngIf="active=='admin-store'" class="" 
-                    id="admin-store" role="tabpanel" >
-                    <div class="form-row labels" >
-                        <div class="row col-lg-12">
-                            <div class="col label card">
-                                <div class="d-flex flex-row h-100" (click)="updateSubtab('store-profile')">
-                                    <div class="d-flex flex-fill justify-content-center align-items-center " >
-                                        <p class="my-auto" 
-                                            [ngClass]="{'text-default-color': subtab=='store-profile'}">
-                                            Perfil de tienda
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <div class="col label card">
-                                <div class="d-flex flex-row h-100" (click)="updateSubtab('design')">
-                                    <div class="d-flex flex-fill justify-content-center align-items-center" >
-                                        <div class="d-flex flex-fill justify-content-center align-items-center">
-                                            <p class="my-auto" 
-                                                [ngClass]="{'text-default-color':subtab=='design'}">
-                                                Diseño de tienda
-                                            </p>
-                                        </div>    
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col label card">
-                                <div class="d-flex flex-row h-100" (click)="updateSubtab('suscription')">
-                                    <div class="d-flex flex-fill justify-content-center align-items-center">
-                                        <div class="d-flex flex-fill  justify-content-center align-items-center">
-                                            <p class="my-auto"
-                                                [ngClass]="{'text-default-color':subtab=='suscription'}">
-                                                Suscripción
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col label card">
-                                <div class="d-flex flex-row h-100" (click)="updateSubtab('withdrawal')">
-                                    <div class="d-flex flex-fill justify-content-center align-items-center">
-                                        <div class="d-flex flex-fill justify-content-center align-items-center">
-                                            <p class="my-auto"
-                                            [ngClass]="{'text-default-color':subtab=='withdrawal'}"> 
-                                                Retiro de Dinero
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col label card">
-                                <div class="d-flex flex-row h-100" (click)="updateSubtab('shipping')">
-                                    <div class="d-flex flex-fill justify-content-center align-items-center " >
-                                        <p class="my-auto" 
-                                            [ngClass]="{'text-default-color': subtab=='shipping'}">
-                                            Configuración de zonas
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>    
-                        </div>
-                        <div class=" row col-lg-12">
-                            <div class="col label card">
-                                <div class="d-flex flex-row h-100" (click)="updateSubtab('create-referrals')">
-                                    <div class="d-flex flex-fill justify-content-center align-items-center " >
-                                        <p class="my-auto" 
-                                            [ngClass]="{'text-default-color': subtab=='create-referrals'}">
-                                            Referidos
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col label card">
-                                <div class="d-flex flex-row h-100" (click)="updateSubtab('referrals-list')">
-                                    <div class="d-flex flex-fill justify-content-center align-items-center " >
-                                        <p class="my-auto" 
-                                            [ngClass]="{'text-default-color': subtab=='referrals-list'}">
-                                            Lista de Referidos
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col label card">
-                                <div class="d-flex flex-row h-100" (click)="updateSubtab('create-coupons')">
-                                    <div class="d-flex flex-fill justify-content-center align-items-center " >
-                                        <p class="my-auto" 
-                                            [ngClass]="{'text-default-color': subtab=='create-coupons'}">
-                                            Cupones
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col label">
-                                <div class="d-flex flex-row h-100" (click)="updateSubtab('xx')">
-                                    <div class="d-flex flex-fill justify-content-center align-items-center " >
-                                        <p class="my-auto" 
-                                            [ngClass]="{'text-default-color': subtab=='xx'}">
-                                            
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col label">
-                                <div class="d-flex flex-row h-100" (click)="updateSubtab('xx')">
-                                    <div class="d-flex flex-fill justify-content-center align-items-center " >
-                                        <p class="my-auto" 
-                                            [ngClass]="{'text-default-color': subtab=='xx'}">
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="container">
-                    <app-shop-profile *ngIf="active=='admin-store' && subtab=='store-profile' && stores.length > 0" [store]="selectedStore">
+						<div class="col label card">
+							<div class="d-flex flex-row h-100" (click)="updateSubtab('design')">
+								<div class="d-flex flex-fill justify-content-center align-items-center">
+									<div class="d-flex flex-fill justify-content-center align-items-center">
+										<p class="my-auto" [ngClass]="{'text-default-color':subtab=='design'}">
+											Diseño de tienda
+										</p>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col label card">
+							<div class="d-flex flex-row h-100" (click)="updateSubtab('suscription')">
+								<div class="d-flex flex-fill justify-content-center align-items-center">
+									<div class="d-flex flex-fill  justify-content-center align-items-center">
+										<p class="my-auto" [ngClass]="{'text-default-color':subtab=='suscription'}">
+											Suscripción
+										</p>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col label card">
+							<div class="d-flex flex-row h-100" (click)="updateSubtab('withdrawal')">
+								<div class="d-flex flex-fill justify-content-center align-items-center">
+									<div class="d-flex flex-fill justify-content-center align-items-center">
+										<p class="my-auto" [ngClass]="{'text-default-color':subtab=='withdrawal'}">
+											Retiro de Dinero
+										</p>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col label card">
+							<div class="d-flex flex-row h-100" (click)="updateSubtab('shipping')">
+								<div class="d-flex flex-fill justify-content-center align-items-center ">
+									<p class="my-auto" [ngClass]="{'text-default-color': subtab=='shipping'}">
+										Configuración de zonas
+									</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="container">
+					<app-shop-profile *ngIf="active=='admin-store' && subtab=='store-profile' && stores.length > 0" [store]="selectedStore">
 					</app-shop-profile>
 					<app-register-store register="false"
 						*ngIf="active=='admin-store' && subtab=='store-profile' && stores.length == 0">
@@ -444,14 +241,11 @@
 					<app-shop-suscription *ngIf="active=='admin-store' && subtab=='suscription'" [store]="selectedStore"></app-shop-suscription>
 					<app-shop-withdrawal *ngIf="active=='admin-store' && subtab=='withdrawal'"></app-shop-withdrawal>
 					<app-shipping-zones *ngIf="active=='admin-store' && subtab=='shipping'" [store]="selectedStore"></app-shipping-zones>
-                    <app-create-referrals *ngIf="active=='admin-store' && subtab=='create-referrals'"></app-create-referrals>
-                    <app-referrals *ngIf="active=='admin-store' && subtab=='referrals-list'"></app-referrals>
-                    <app-create-coupons *ngIf="active=='admin-store' && subtab=='create-coupons'"></app-create-coupons>
-                </div>
-                <div *ngIf="active==='report'" class="" id="report" role="tabpanel">
-                </div>
-            </div>
-        </div>
-    </div>
+				</div>
+				<div *ngIf="active==='report'" class="" id="report" user.role="tabpanel">
+				</div>
+			</div>
+		</div>
+	</div>
 
 </div>
