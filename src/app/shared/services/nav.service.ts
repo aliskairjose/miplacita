@@ -39,8 +39,17 @@ export class NavService {
 		{ path: "/pages/account/user/dashboard", title: "tablero", type: "link", logged: true, role: null },
 		{ path: "/pages/account/user/products", title: "productos", type: "link", logged: true, role: null },
 		{ path: "/pages/account/user/admin-orders", title: "órdenes", type: "link", logged: true, role: null },
-		{ path: "/pages/account/user/admin-store", title: "tienda", type: "link", logged: true, role: 'merchant' },
-		{ path: "/pages/account/user/reposrt", title: "reportes", type: "link", logged: true, role: null },
+		{ title: "tienda", type: "sub", active: false, logged: true, role: 'merchant',
+			children: [
+				{ path: "/pages/account/user/admin-store/design", title: "Diseño de tienda", type: "link", logged: true, role: 'merchant' },
+				{ path: "/pages/account/user/admin-store/suscription", title: "Suscripción", type: "link", logged: true, role: 'merchant' },
+				{ path: "/pages/account/user/admin-store/withdrawal", title: "Retiro", type: "link", logged: true, role: 'merchant' },
+				{ path: "/pages/account/user/admin-store/shipping", title: "Configuración de zonas", type: "link", logged: true, role: 'merchant' },
+				{ path: "/pages/account/user/admin-store/create-coupons", title: "Cupones", type: "link", logged: true, role: 'merchant' },
+				{ path: "/pages/account/user/admin-store/create-referrals", title: "Referidos", type: "link", logged: true, role: 'merchant' },		
+			]},
+		{ path: "/pages/account/user/report", title: "reportes", type: "link", logged: true, role: null },
+		
 	];
 	sideMenuItem: Menu = {};
 

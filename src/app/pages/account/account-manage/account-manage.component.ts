@@ -46,7 +46,12 @@ export class AccountManageComponent implements OnInit, OnChanges {
   }
 
   init(): void {
-    this.route.url.subscribe( url => this.active = url[ 2 ].path );
+    this.route.url.subscribe( url => {
+      this.active = url[ 2 ].path;
+      if(this.active === 'admin-store'){
+        this.subtab = url[ 3 ].path;
+      }
+    });
     this.shopService.getMyStores( this.user._id ).subscribe( stores => {
       const _store = JSON.parse( sessionStorage.getItem( 'store' ) );
       this.stores = [ ...stores.docs ];
@@ -72,6 +77,9 @@ export class AccountManageComponent implements OnInit, OnChanges {
 
   updateSubtab( tab ) {
     this.subtab = tab;
+    console.log(`pages/account/user/${this.active}/${this.subtab}`);
+    this.router.navigateByUrl( `pages/account/user/${this.active}/${this.subtab}`, { skipLocationChange: false } );
+
   }
 
   loggOut(): void {
