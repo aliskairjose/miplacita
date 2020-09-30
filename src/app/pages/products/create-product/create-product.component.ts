@@ -1,7 +1,7 @@
 import { ToastrService } from 'ngx-toastr';
 import { forkJoin } from 'rxjs';
 
-import { Component, Input, OnDestroy, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit, TemplateRef, ViewChild, OnChanges, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
@@ -23,7 +23,7 @@ import { StorageService } from '../../../shared/services/storage.service';
   templateUrl: './create-product.component.html',
   styleUrls: [ './create-product.component.scss' ]
 } )
-export class CreateProductComponent implements OnInit, OnDestroy {
+export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
   @ViewChild( 'createProduct', { static: false } ) CreateProduct: TemplateRef<any>;
   modal: any;
   modalOpen = false;
@@ -65,12 +65,18 @@ export class CreateProductComponent implements OnInit, OnDestroy {
     this.createForm();
     this.productData.name = '';
   }
+  ngOnChanges( changes: SimpleChanges ): void {
+    this.init();
+  }
 
   // convenience getter for easy access to form fields
   // tslint:disable-next-line: typedef
   get f() { return this.productForm.controls; }
 
   ngOnInit(): void {
+  }
+
+  private init(): void {
     const store = JSON.parse( sessionStorage.getItem( 'store' ) );
     const params = `store=${store._id}`;
 
