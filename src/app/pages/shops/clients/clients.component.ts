@@ -4,6 +4,7 @@ import { OrderService } from 'src/app/shared/services/order.service';
 import { Store } from 'src/app/shared/classes/store';
 import { Paginate } from 'src/app/shared/classes/paginate';
 import { User } from 'src/app/shared/classes/user';
+import { InterestsComponent } from '../../interests/interests.component';
 
 @Component({
   selector: 'app-clients',
@@ -11,10 +12,14 @@ import { User } from 'src/app/shared/classes/user';
   styleUrls: ['./clients.component.scss']
 })
 export class ClientsComponent implements OnInit {
-
+  @ViewChild( 'interests' ) Interests: InterestsComponent;
 
   fields = ['Cliente', 'Email','Número de compras', ''];
-  clients: User[] = []
+  clients: User[] = [ {  _id : "string",
+    avatar: "string",
+    fullname: "string",
+    email: "string",    role: "string",
+    }]
   paginate: Paginate;
   role: string;
   
