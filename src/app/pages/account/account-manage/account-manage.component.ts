@@ -25,6 +25,7 @@ export class AccountManageComponent implements OnInit, OnChanges {
   modal: any;
   modalOpen = false;
   modalOption: NgbModalOptions = {}; // not null!
+  
   constructor(
     private router: Router,
     private auth: AuthService,
@@ -48,10 +49,10 @@ export class AccountManageComponent implements OnInit, OnChanges {
   init(): void {
     this.route.url.subscribe( url => {
       this.active = url[ 2 ].path;
-      if(this.active === 'admin-store'){
+      if ( this.active === 'admin-store' ) {
         this.subtab = url[ 3 ].path;
       }
-    });
+    } );
     this.shopService.getMyStores( this.user._id ).subscribe( stores => {
       const _store = JSON.parse( sessionStorage.getItem( 'store' ) );
       this.stores = [ ...stores.docs ];
@@ -77,7 +78,7 @@ export class AccountManageComponent implements OnInit, OnChanges {
 
   updateSubtab( tab ) {
     this.subtab = tab;
-    console.log(`pages/account/user/${this.active}/${this.subtab}`);
+    console.log( `pages/account/user/${this.active}/${this.subtab}` );
     this.router.navigateByUrl( `pages/account/user/${this.active}/${this.subtab}`, { skipLocationChange: false } );
 
   }
@@ -92,7 +93,7 @@ export class AccountManageComponent implements OnInit, OnChanges {
     sessionStorage.setItem( 'store', JSON.stringify( store ) );
   }
 
-  openModal(  ) {
+  openModal() {
     this.modalOpen = true;
     this.modalOption.backdrop = 'static';
     this.modalOption.keyboard = false;
@@ -101,7 +102,7 @@ export class AccountManageComponent implements OnInit, OnChanges {
     // this.modal.result.then( ( result ) => console.log( result ) );
   }
 
-  close(){
+  close() {
     this.modal.dismiss();
   }
 
