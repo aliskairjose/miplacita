@@ -25,6 +25,7 @@ export class AccountManageComponent implements OnInit, OnChanges {
   modal: any;
   modalOpen = false;
   modalOption: NgbModalOptions = {}; // not null!
+
   constructor(
     private router: Router,
     private auth: AuthService,
@@ -48,21 +49,25 @@ export class AccountManageComponent implements OnInit, OnChanges {
   init(): void {
     this.route.url.subscribe( url => {
       this.active = url[ 2 ].path;
-      if(this.active === 'admin-store'){
+      if ( this.active === 'admin-store' ) {
         this.subtab = url[ 3 ].path;
       }
-    });
-    this.shopService.getMyStores( this.user._id ).subscribe( stores => {
-      const _store = JSON.parse( sessionStorage.getItem( 'store' ) );
-      this.stores = [ ...stores.docs ];
-      if ( _store ) {
-        this.selectedStore = _store;
-      } else {
-        this.selectedStore = this.stores[ 0 ];
-        sessionStorage.setItem( 'store', JSON.stringify( this.stores[ 0 ] ) );
-      }
-
     } );
+
+    // Se cargas las tiendas solo de merchant
+    if ( this.user.role === 'merchant' ) {
+      this.shopService.getMyStores( this.user._id ).subscribe( stores => {
+        const _store = JSON.parse( sessionStorage.getItem( 'store' ) );
+        this.stores = [ ...stores.docs ];
+        if ( _store ) {
+          this.selectedStore = _store;
+        } else {
+          this.selectedStore = this.stores[ 0 ];
+          sessionStorage.setItem( 'store', JSON.stringify( this.stores[ 0 ] ) );
+        }
+
+      } );
+    }
   }
 
   createStore(): void {
@@ -93,7 +98,7 @@ export class AccountManageComponent implements OnInit, OnChanges {
     sessionStorage.setItem( 'store', JSON.stringify( store ) );
   }
 
-  openModal(  ) {
+  openModal() {
     this.modalOpen = true;
     this.modalOption.backdrop = 'static';
     this.modalOption.keyboard = false;
@@ -101,7 +106,7 @@ export class AccountManageComponent implements OnInit, OnChanges {
     this.modal = this.modalService.open( this.RegisterStore, this.modalOption );
   }
 
-  close(){
+  close() {
     this.modal.dismiss();
   }
 

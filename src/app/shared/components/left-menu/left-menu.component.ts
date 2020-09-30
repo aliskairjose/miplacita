@@ -21,12 +21,19 @@ export class LeftMenuComponent implements OnInit {
     public navServices: NavService,
     private storage: StorageService,
   ) {
+
     this.navServices.leftMenuItems.subscribe( menuItems => {
-      this.menuItems = menuItems
+      this.menuItems = menuItems;
     } );
+
     this.navServices.leftMenuItemsResponsive.subscribe( menuItems => {
+<<<<<<< HEAD
       this.menuItemsResponsive = menuItems
+=======
+      this.menuItemsResponsive = menuItems;
+>>>>>>> ddbb8cb05930fa5a0508713df902c7bf4add47cb
     } );
+
     this.router.events.subscribe( ( event ) => {
       this.navServices.mainMenuToggle = false;
     } );
@@ -49,7 +56,7 @@ export class LeftMenuComponent implements OnInit {
   }
 
   routerTo( id: string ): void {
-    this.router.navigateByUrl(`${this.path}${id}`);
+    this.router.navigateByUrl( `${this.path}${id}` );
   }
 
 }

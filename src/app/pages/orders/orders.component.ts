@@ -46,7 +46,9 @@ export class OrdersComponent implements OnInit, OnChanges {
   ) { }
 
   ngOnChanges( changes: SimpleChanges ): void {
-    this.store = JSON.parse( sessionStorage.getItem( 'store' ) );
+    if ( this.auth.getUserRol() === 'merchant' ) {
+      this.store = JSON.parse( sessionStorage.getItem( 'store' ) );
+    }
     this.init();
   }
 
@@ -87,8 +89,16 @@ export class OrdersComponent implements OnInit, OnChanges {
   }
 
   private loadData( page = 1 ): void {
+    let params = '';
 
-    const params = `store=${this.store._id}&status=${this.status}&from=${this.fechaIni}&to=${this.fechaFin}`;
+    // const params = `store=${this.store._id}&status=${this.status}&from=${this.fechaIni}&to=${this.fechaFin}`;
+    if ( this.role === 'merchant' ) {
+      params = `store=${this.store._id}&status=${this.status}&from=${this.fechaIni}&to=${this.fechaFin}`;
+    }
+
+    if ( this.role === 'admin' ) {
+      params = `status=${this.status}&from=${this.fechaIni}&to=${this.fechaFin}`;
+    }
 
     this.orderService.orderList( page, params ).subscribe( result => {
 

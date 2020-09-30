@@ -2,7 +2,7 @@
 	<div class="d-flex account-page">
 		<div class="col-lg-2 col-md-2 col-sm-0 mp-side-menu">
 			<div class="row user-row">
-				<div ngbDropdown>
+				<div ngbDropdown *ngIf="user.role === 'merchant'">
 					<button class="btn btn-link" id="store-logo" ngbDropdownToggle>
 						<img class="rounded-circle store-logo mr-1" [src]="selectedStore.logo" alt="User Pic">
 						{{ selectedStore.name }}

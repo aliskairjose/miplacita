@@ -4,7 +4,8 @@
 <ngx-alerts></ngx-alerts>
 <section class="section-b-space">
 	<div class="container">
-		<div class="alert alert-warning" role="alert" *ngIf="(plan?.price === 0) && (maxProducts >= 10) && (role ==='merchant')">
+		<div class="alert alert-warning" role="alert"
+			*ngIf="(plan?.price === 0) && (maxProducts >= 10) && (role ==='merchant')">
 			Debe adquirir un plan pago para poder agregar más productos a su catálogo
 		</div>
 		<div class="d-flex">
@@ -35,11 +36,8 @@
 						</div>
 					</div>
 					<div class="d-flex  h-100 " *ngIf="role==='merchant' && store">
-						<button 
-							[disabled]="(plan.price === 0) && (maxProducts >= 10)"
-							type="button" 
-							class="btn btn-solid-purple flex-fill"
-							(click)="CreateProduct.openModal(true,null)">
+						<button [disabled]="(plan.price === 0) && (maxProducts >= 10)" type="button"
+							class="btn btn-solid-purple flex-fill" (click)="CreateProduct.openModal(true,null)">
 							Crear Producto
 						</button>
 					</div>
@@ -47,8 +45,7 @@
 			</form>
 		</div>
 
-		<ng-container class="table-responsive-sm mt-3"
-			*ngIf="store || role === 'admin'; else elseTemplate">
+		<ng-container class="table-responsive-sm mt-3" *ngIf="store || role === 'admin'; else elseTemplate">
 			<table class="table">
 				<thead>
 					<tr class="table-head text-center">
@@ -105,9 +102,9 @@
 									Configurar tienda
 								</a>
 							</p>
-							<p *ngIf="products.length==0 && store">Aún no has agregado productos a tu
-								tienda</p>
-
+							<p *ngIf="products.length==0 && store">
+								Aún no has agregado productos a tutienda
+							</p>
 						</div>
 					</div>
 				</div>
@@ -117,4 +114,4 @@
 		</app-custom-pagination>
 	</div>
 </section>
-<app-create-product #createProduct *ngIf="role!='admin'" [_store]="store"></app-create-product>
+<app-create-product #createProduct *ngIf="role === 'merchant'" [store]="store"></app-create-product>
