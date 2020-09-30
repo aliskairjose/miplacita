@@ -27,11 +27,7 @@ export class LeftMenuComponent implements OnInit {
     } );
 
     this.navServices.leftMenuItemsResponsive.subscribe( menuItems => {
-<<<<<<< HEAD
-      this.menuItemsResponsive = menuItems
-=======
       this.menuItemsResponsive = menuItems;
->>>>>>> ddbb8cb05930fa5a0508713df902c7bf4add47cb
     } );
 
     this.router.events.subscribe( ( event ) => {

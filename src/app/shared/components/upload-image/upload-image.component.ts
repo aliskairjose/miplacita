@@ -75,10 +75,6 @@ export class UploadImageComponent implements OnInit, AfterViewInit {
 
   private imageBase( image: string, length: number ): void {
     this.images.push( image );
-<<<<<<< HEAD
-=======
-
->>>>>>> ddbb8cb05930fa5a0508713df902c7bf4add47cb
     if ( this.images.length === length ) {
       this.uploadImage.emit( this.images );
     }
