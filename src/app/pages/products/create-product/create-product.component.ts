@@ -5,11 +5,12 @@ import { Component, Input, OnDestroy, OnInit, TemplateRef, ViewChild } from '@an
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
+import { FormControl } from '@angular/forms';
 
 import { environment } from '../../../../environments/environment';
 import { Category } from '../../../shared/classes/category';
 import { Plan } from '../../../shared/classes/plan';
-import { Images, Product } from '../../../shared/classes/product';
+import { Product } from '../../../shared/classes/product';
 import { Result } from '../../../shared/classes/response';
 import { Store } from '../../../shared/classes/store';
 import { User } from '../../../shared/classes/user';
@@ -49,7 +50,6 @@ export class CreateProductComponent implements OnInit, OnDestroy {
   title = 'Crear producto';
   disabled = true;
   plan: Plan;
-
   @Input() _store: Store = {};
 
   constructor(
@@ -81,44 +81,47 @@ export class CreateProductComponent implements OnInit, OnDestroy {
         this.plan = response.docs[ 0 ].plan;
         this.categories = [ ...categories ];
 
+        // Actualiza las valildaciones de sotck por el plan activo de la tienda
         if ( this.plan.price === 0 ) {
-          this.productForm.addControl( 'stock', this.formBuilder.control( [ '', Validators.max( 10 ) ] ) );
+          this.productForm.controls.stock.setValidators( [ Validators.required, Validators.max( 10 ) ] );
+        } else {
+          this.productForm.controls.stock.setValidators( [ Validators.required ] );
         }
-
+        this.productForm.controls.stock.updateValueAndValidity();
       } );
-
   }
 
   onSubmit(): void {
     this.submitted = true;
+    console.log( this.productForm );
 
-    // Elimina la validación de máximo de stock cuando el plan no es gratuito
-    if ( this.plan.price > 0 ) {
-      this.productForm.controls.stock.clearValidators();
-      this.productForm.controls.stock.updateValueAndValidity();
-    }
+    // // Elimina la validación de máximo de stock cuando el plan no es gratuito
+    // if ( this.plan.price > 0 ) {
+    //   this.productForm.controls.stock.clearValidators();
+    //   this.productForm.controls.stock.updateValueAndValidity();
+    // }
 
-    if ( this.productForm.valid ) {
-      if ( this.status === 'add' ) {
-        if ( this.productImages.length === 0 ) {
-          this.toastrService.warning( 'Debe cargar al menos una imagen de producto' );
-          return;
-        }
-      }
-      this.productService.uploadImages( { images: this.productImages } ).subscribe( response => {
-        if ( response.status === 'isOk' ) {
-          const data: Product = { ...this.productForm.value };
-          data.images = [];
-          response.images.forEach( ( url: string ) => {
-            const image: Images = {};
-            image.url = url;
-            image.principal = true;
-            data.images.push( image );
-          } );
-          ( this.status === 'add' ) ? this.createProduct( data ) : this.updateProduct( data );
-        }
-      } );
-    }
+    // if ( this.productForm.valid ) {
+    //   if ( this.status === 'add' ) {
+    //     if ( this.productImages.length === 0 ) {
+    //       this.toastrService.warning( 'Debe cargar al menos una imagen de producto' );
+    //       return;
+    //     }
+    //   }
+    //   this.productService.uploadImages( { images: this.productImages } ).subscribe( response => {
+    //     if ( response.status === 'isOk' ) {
+    //       const data: Product = { ...this.productForm.value };
+    //       data.images = [];
+    //       response.images.forEach( ( url: string ) => {
+    //         const image: Images = {};
+    //         image.url = url;
+    //         image.principal = true;
+    //         data.images.push( image );
+    //       } );
+    //       ( this.status === 'add' ) ? this.createProduct( data ) : this.updateProduct( data );
+    //     }
+    //   } );
+    // }
   }
 
   private updateProduct( data: Product ): void {
@@ -153,7 +156,7 @@ export class CreateProductComponent implements OnInit, OnDestroy {
       tax: [ '', [ Validators.required ] ],
       category: [ '', [ Validators.required ] ],
       status: [ this.statusSelected, [ Validators.required ] ],
-      stock: [ '', [ Validators.required, Validators.max( 10 ) ] ],
+      stock: [ '' ],
       marketplace: [ '' ]
     } );
   }
@@ -213,10 +216,13 @@ export class CreateProductComponent implements OnInit, OnDestroy {
   }
 
   close() {
+    this.productForm.reset();
+    this.productData = {};
     this.modal.close();
   }
 
   ngOnDestroy(): void {
+    this.productForm.reset();
     if ( this.modalOpen ) {
       this.modalService.dismissAll();
     }
