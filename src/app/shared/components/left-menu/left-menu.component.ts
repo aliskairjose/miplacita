@@ -22,11 +22,11 @@ export class LeftMenuComponent implements OnInit {
     private storage: StorageService,
   ) {
     this.navServices.leftMenuItems.subscribe( menuItems => {
-      this.menuItems = menuItems
+      this.menuItems = menuItems;
     } );
     this.navServices.leftMenuItemsResponsive.subscribe( menuItems => {
-      this.menuItemsResponsive = menuItems
-      console.log(this.menuItemsResponsive);
+      this.menuItemsResponsive = menuItems;
+      console.log( this.menuItemsResponsive );
     } );
     this.router.events.subscribe( ( event ) => {
       this.navServices.mainMenuToggle = false;
@@ -46,12 +46,11 @@ export class LeftMenuComponent implements OnInit {
 
   // Click Toggle menu (Mobile)
   toggletNavActive( item ) {
-    console.log('active',item);
     item.active = !item.active;
   }
 
   routerTo( id: string ): void {
-    this.router.navigateByUrl(`${this.path}${id}`);
+    this.router.navigateByUrl( `${this.path}${id}` );
   }
 
 }
