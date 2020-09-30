@@ -90,7 +90,17 @@ $radius: 5px;
   }
 
 }
+.box-mobile-first{
+  display: flex;
+  flex-direction: column;
+}
+.btn-submit {
+  justify-content: center;
+}
 
+.justify-content-mobile-first {
+    justify-content: center;
+}
 .mp-title {
   font-size: 24px;
   text-transform: capitalize                      ;
@@ -564,6 +574,7 @@ ngb-carousel {
   .preview-box {
     visibility: visible;
   }
+ 
 }
 
 // Medium devices (tablets, 768px and up)
@@ -650,6 +661,16 @@ ngb-carousel {
 
 // Large devices (desktops, 992px and up)
 @media (min-width: 992px) { 
+  .box-mobile-first{
+    flex-direction: row;
+  }
+  .btn-submit {
+    justify-content: end;
+  }
+
+  .justify-content-mobile-first {
+    justify-content: start;
+  }
   
   .btn-inside-slider{
     position: relative;

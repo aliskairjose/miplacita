@@ -137,8 +137,14 @@ const routes: Routes = [
   {
     path: 'account/user/:page',
     component: AccountManageComponent,
-    canActivate: [ AuthGuard ]
+    canActivate: [ AuthGuard ],
+  },
+  {
+    path: 'account/user/admin-store/:page',
+    component: AccountManageComponent,
+    canActivate: [ AuthGuard ],
   }
+
 ];
 
 @NgModule( {
