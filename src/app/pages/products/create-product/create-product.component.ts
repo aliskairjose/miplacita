@@ -14,7 +14,7 @@ import { Result } from '../../../shared/classes/response';
 import { Store } from '../../../shared/classes/store';
 import { ProductService } from '../../../shared/services/product.service';
 import { ShopService } from '../../../shared/services/shop.service';
-import { StorageService } from '../../../shared/services/storage.service';
+import { ProductsComponent } from '../products.component';
 
 @Component( {
   selector: 'app-create-product',
@@ -48,10 +48,8 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
   title = 'Crear producto';
   disabled = true;
   plan: Plan;
-  store: Store = {};
-  reason = '';
 
-  @Input() _store: Store = {};
+  @Input() store: Store = {};
 
   constructor(
     private router: Router,
@@ -60,8 +58,8 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
     private shopService: ShopService,
     private formBuilder: FormBuilder,
     private toastrService: ToastrService,
-    private storageService: StorageService,
     private productService: ProductService,
+    public productsComponent: ProductsComponent,
   ) {
     this.createForm();
     this.productData.name = '';
@@ -99,6 +97,7 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   onSubmit(): void {
+    this.modal.close( );
     this.submitted = true;
     this.productForm.value.store = this.store._id;
 
@@ -147,6 +146,8 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
     this.productService.addProduct( data ).subscribe( ( product: Product ) => {
       this.toastrService.info( 'El producto se ha creado con exito' );
       this.productService.productSubject( product );
+      this.productsComponent.reloadData();
+      this.clear();
       this.close();
     } );
   }
@@ -218,16 +219,23 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
     this.modalOption.keyboard = false;
     this.modalOption.windowClass = 'createProductModal';
     this.modal = this.modalService.open( this.CreateProduct, this.modalOption );
-    this.modal.result.then( ( result ) => this.reason = 'adios' );
+    this.modal.result.then( () => {
+      // Cuando se envia la data cerrando el modal con el boton
+    }, ( ) => {
+      // Cuando se cierra con la x de la esquina
+      this.clear();
+    } );
   }
 
   close() {
+    this.modal.dismiss();
+  }
+
+  private clear(): void {
     this.productData = {};
     this.productData.name = '';
     this.productForm.reset();
     this.productForm.clearValidators();
-    this.modal.close();
-    this.reason = 'adios';
   }
 
   ngOnDestroy(): void {

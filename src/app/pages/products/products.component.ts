@@ -18,6 +18,7 @@ import { ConfirmationDialogService } from '../../shared/services/confirmation-di
 import { ProductService } from '../../shared/services/product.service';
 import { ShopService } from '../../shared/services/shop.service';
 import { CreateProductComponent } from './create-product/create-product.component';
+import { log } from 'console';
 
 @Component( {
   selector: 'app-products',
@@ -25,6 +26,18 @@ import { CreateProductComponent } from './create-product/create-product.componen
   styleUrls: [ './products.component.scss' ]
 } )
 export class ProductsComponent implements OnInit, OnChanges, AfterViewInit {
+
+  constructor(
+    private auth: AuthService,
+    private shopService: ShopService,
+    private toastrService: ToastrService,
+    private productService: ProductService,
+    private confirmationDialogService: ConfirmationDialogService,
+  ) {
+    this.role = this.auth.getUserRol();
+  }
+
+  static isCreated = false;
   @ViewChild( 'createProduct' ) CreateProduct: CreateProductComponent;
 
   typeUser = 'admin';
@@ -51,16 +64,6 @@ export class ProductsComponent implements OnInit, OnChanges, AfterViewInit {
 
   @Input() store: Store;
 
-  constructor(
-    private auth: AuthService,
-    private shopService: ShopService,
-    private toastrService: ToastrService,
-    private productService: ProductService,
-    private confirmationDialogService: ConfirmationDialogService,
-  ) {
-    this.role = this.auth.getUserRol();
-  }
-
   ngOnChanges( changes: SimpleChanges ): void {
     if ( this.auth.getUserRol() === 'merchant' ) {
       this.store = JSON.parse( sessionStorage.getItem( 'store' ) );
@@ -76,6 +79,10 @@ export class ProductsComponent implements OnInit, OnChanges, AfterViewInit {
     if ( ( this.plan?.price === 0 ) && this.maxProducts >= 10 ) {
       alert( 'Debe cambiar de plan si quiere mas productos' );
     }
+  }
+
+  reloadData(): void {
+    this.init();
   }
 
   search(): void {

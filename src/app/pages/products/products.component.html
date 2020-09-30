@@ -114,4 +114,4 @@
 		</app-custom-pagination>
 	</div>
 </section>
-<app-create-product #createProduct *ngIf="role!='admin'" [_store]="store"></app-create-product>
+<app-create-product #createProduct *ngIf="role === 'merchant'" [store]="store"></app-create-product>
