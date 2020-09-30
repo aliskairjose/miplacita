@@ -202,7 +202,7 @@ export class CreateProductComponent implements OnInit, OnDestroy {
     this.modalOption.keyboard = false;
     this.modalOption.windowClass = 'createProductModal';
     this.modal = this.modalService.open( this.CreateProduct, this.modalOption );
-    // this.modal.result.then( ( result ) => console.log( result ) );
+  
   }
 
   close() {

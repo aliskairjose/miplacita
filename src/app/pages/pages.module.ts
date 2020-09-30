@@ -66,6 +66,11 @@ import { SupportComponent } from './support/support.component';
 import { CreateReferralsComponent } from './shops/create-referrals/create-referrals.component';
 import { ReferralsComponent } from './shops/referrals/referrals.component';
 import { CreateCouponsComponent } from './shops/create-coupons/create-coupons.component';
+import { ReportsComponent } from './shops/reports/reports.component';
+import { DailySalesReportComponent } from './shops/daily-sales-report/daily-sales-report.component';
+import { ClientsComponent } from './shops/clients/clients.component';
+import { BestSellersComponent } from './shops/best-sellers/best-sellers.component';
+import { TotalSalesComponent } from './shops/total-sales/total-sales.component';
 
 // export let options: Partial<IConfig> | (() => Partial<IConfig>);
 const maskConfig: Partial<IConfig> = {
@@ -139,7 +144,12 @@ export const customCurrencyMaskConfig = {
     SupportComponent,
     CreateReferralsComponent,
     ReferralsComponent,
-    CreateCouponsComponent
+    CreateCouponsComponent,
+    ReportsComponent,
+    DailySalesReportComponent,
+    ClientsComponent,
+    BestSellersComponent,
+    TotalSalesComponent
   ],
   imports: [
     SharedModule,

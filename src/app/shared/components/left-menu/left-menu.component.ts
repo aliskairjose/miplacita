@@ -26,7 +26,6 @@ export class LeftMenuComponent implements OnInit {
     } );
     this.navServices.leftMenuItemsResponsive.subscribe( menuItems => {
       this.menuItemsResponsive = menuItems
-      console.log(this.menuItemsResponsive);
     } );
     this.router.events.subscribe( ( event ) => {
       this.navServices.mainMenuToggle = false;
@@ -46,7 +45,6 @@ export class LeftMenuComponent implements OnInit {
 
   // Click Toggle menu (Mobile)
   toggletNavActive( item ) {
-    console.log('active',item);
     item.active = !item.active;
   }
 

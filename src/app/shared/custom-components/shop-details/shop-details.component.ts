@@ -53,12 +53,6 @@ export class ShopDetailsComponent implements OnInit, OnDestroy {
   }
 
   getPlanInformation(){
-    // informacion de plan de la tienda
-    // this.ShopService.getPlans().subscribe( ( plans: any ) => {
-    //   this.plan = plans.filter(plan => plan.id === this.shop.plan.id );
-    //   console.log(this.plan);
-
-    // } );
     if (this.shop.plan.price > 0) {
       this.benefits = this.allBenefits[1];
     } else {

@@ -72,8 +72,6 @@ export class UploadImageComponent implements OnInit, AfterViewInit {
 
   private imageBase( image: string, length: number ): void {
     this.images.push( image );
-    console.log("ngcarousel",this.ngCarousel, this.vc);
-
     if ( this.images.length === length ) {
       this.uploadImage.emit( this.images );
     }

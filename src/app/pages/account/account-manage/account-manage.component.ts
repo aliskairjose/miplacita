@@ -66,20 +66,21 @@ export class AccountManageComponent implements OnInit, OnChanges {
   }
 
   createStore(): void {
-    console.log( 'createStore' );
     this.openModal();
   }
 
   updateTab( tab: string ) {
     this.active = tab;
-    this.router.navigateByUrl( `pages/account/user/${tab}`, { skipLocationChange: false } );
+    if(this.active == 'reports'){
+      this.updateSubtab('daily-sales');
+    } else {
+      this.router.navigateByUrl( `pages/account/user/${tab}`, { skipLocationChange: false } );
+    }
   }
 
   updateSubtab( tab ) {
     this.subtab = tab;
-    console.log(`pages/account/user/${this.active}/${this.subtab}`);
     this.router.navigateByUrl( `pages/account/user/${this.active}/${this.subtab}`, { skipLocationChange: false } );
-
   }
 
   loggOut(): void {
@@ -98,7 +99,6 @@ export class AccountManageComponent implements OnInit, OnChanges {
     this.modalOption.keyboard = false;
     this.modalOption.windowClass = 'createProductModal';
     this.modal = this.modalService.open( this.RegisterStore, this.modalOption );
-    // this.modal.result.then( ( result ) => console.log( result ) );
   }
 
   close(){

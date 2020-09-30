@@ -4,6 +4,7 @@ import { environment } from '../../../../environments/environment';
 import { Order } from '../../classes/order';
 import { OrderService } from '../../services/order.service';
 import { ToastrService } from 'ngx-toastr';
+import { AuthService } from '../../services/auth.service';
 
 
 @Component( {
@@ -21,10 +22,11 @@ export class OrderDetailsComponent implements OnInit, OnDestroy {
   order: Order;
   detail: Order;
   modal: any;
-
+  role: string;
   @ViewChild( 'orderDetails', { static: false } ) OrderDetails: TemplateRef<any>;
 
   constructor(
+    private auth: AuthService,
     private modalService: NgbModal,
     private orderService: OrderService,
     private toastrService: ToastrService,
@@ -33,6 +35,8 @@ export class OrderDetailsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.role = this.auth.getUserRol();
+
   }
 
   updateStatus(): void {

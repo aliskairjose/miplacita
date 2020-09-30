@@ -48,7 +48,14 @@ export class NavService {
 				{ path: "/pages/account/user/admin-store/create-coupons", title: "Cupones", type: "link", logged: true, role: 'merchant' },
 				{ path: "/pages/account/user/admin-store/create-referrals", title: "Referidos", type: "link", logged: true, role: 'merchant' },		
 			]},
-		{ path: "/pages/account/user/report", title: "reportes", type: "link", logged: true, role: null },
+		{ title: "reportes", type: "link", logged: true,role: 'merchant',
+			children: [
+				{ path: "/pages/account/user/reports/daily-sales", title: "ventas diarias", type: "link", logged: true, role: 'merchant' },
+				{ path: "/pages/account/user/reports/clients", title: "clientes", type: "link", logged: true, role: 'merchant' },
+				{ path: "/pages/account/user/reports/best-sellers", title: "best-sellers", type: "link", logged: true, role: 'merchant' },
+				{ path: "/pages/account/user/reports/total-sales", title: "total-sales", type: "link", logged: true, role: 'merchant' },
+				
+			]},
 		
 	];
 	sideMenuItem: Menu = {};

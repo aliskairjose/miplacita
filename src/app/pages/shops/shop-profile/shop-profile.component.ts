@@ -46,12 +46,9 @@ export class ShopProfileComponent implements OnInit, OnChanges {
   }
 
   onSubmit(): void {
-    console.log( this.profileForm.valid);
-    
     this.submitted = true;
     if ( this.profileForm.valid ) {
       this.shopService.updateStore( this.store._id, this.profileForm.value ).subscribe( response => {
-        console.log(response);
         this.toastrService.info( 'Tienda actualizada con éxito' );
       } );
     }
