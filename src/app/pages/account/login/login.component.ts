@@ -39,8 +39,6 @@ export class LoginComponent implements OnInit {
       if ( Object.keys(params).length !== 0 ) {
         this.role = params.role;
       }
-      console.log( this.role );
-
     } );
 
     this.socialService.authState.subscribe( ( response: FacebookLoginResponse ) => {
