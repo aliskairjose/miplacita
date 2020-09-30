@@ -94,11 +94,13 @@
                                             required="" [(ngModel)]="productData.stock">
                                         <div *ngIf="submitted && f.stock.errors" class="invalid-feedback d-block">
                                             <div *ngIf="f.stock.errors.required"> {{ required }} </div>
-                                            <div *ngIf="f.stock.errors?.max"> Su plan sólo permite un máximo de 10 en su inventario </div>
+                                            <div *ngIf="f.stock.errors?.max"> Su plan sólo permite un máximo de 10 en su
+                                                inventario </div>
                                         </div>
                                     </div>
                                     <div class="form-check">
-                                        <input formControlName="marketplace" class="form-check-input" type="checkbox" id="gridCheck1">
+                                        <input formControlName="marketplace" class="form-check-input" type="checkbox"
+                                            id="gridCheck1">
                                         <label class="form-check-label" for="gridCheck1">
                                             Vender este producto en Marketplace
                                         </label>

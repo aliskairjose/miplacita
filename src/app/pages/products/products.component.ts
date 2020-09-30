@@ -1,21 +1,23 @@
 
 
+import { ToastrService } from 'ngx-toastr';
+import { forkJoin } from 'rxjs';
+
+import {
+  AfterViewInit, Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild
+} from '@angular/core';
+
 import { environment } from '../../../environments/environment';
 import { Paginate } from '../../shared/classes/paginate';
-import { Component, OnInit, ViewChild, AfterViewInit, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { StorageService } from '../../shared/services/storage.service';
-import { User } from '../../shared/classes/user';
+import { Plan } from '../../shared/classes/plan';
 import { Product } from '../../shared/classes/product';
-import { Result } from '../../shared/classes/response';
 import { Store } from '../../shared/classes/store';
+import { User } from '../../shared/classes/user';
+import { AuthService } from '../../shared/services/auth.service';
 import { ConfirmationDialogService } from '../../shared/services/confirmation-dialog.service';
 import { ProductService } from '../../shared/services/product.service';
 import { ShopService } from '../../shared/services/shop.service';
-import { ToastrService } from 'ngx-toastr';
 import { CreateProductComponent } from './create-product/create-product.component';
-import { forkJoin } from 'rxjs';
-import { Plan } from '../../shared/classes/plan';
-import { AuthService } from '../../shared/services/auth.service';
 
 @Component( {
   selector: 'app-products',
