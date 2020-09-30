@@ -60,7 +60,10 @@ export class ProductsComponent implements OnInit, OnChanges, AfterViewInit {
   }
 
   ngOnChanges( changes: SimpleChanges ): void {
-    this.store = JSON.parse( sessionStorage.getItem( 'store' ) );
+    if ( this.auth.getUserRol() === 'merchant' ) {
+      this.store = JSON.parse( sessionStorage.getItem( 'store' ) );
+    }
+
     this.init();
   }
 
@@ -143,9 +146,14 @@ export class ProductsComponent implements OnInit, OnChanges, AfterViewInit {
   }
 
   private loadData( page = 1 ): void {
-    ( this.role === 'merchant' )
-      ? this.params = `store=${this.store._id}&name=${this.name}&status=${this.status}`
-      : this.params = `store=${this.store}&name=${this.name}&status=${this.status}`;
+
+    if ( this.role === 'merchant' ) {
+      this.params = `store=${this.store._id}&name=${this.name}&status=${this.status}`;
+    }
+
+    if ( this.role === 'admin' ) {
+      this.params = `store=${this.storeSelected}&name=${this.name}&status=${this.status}`;
+    }
 
     this.productService.productList( page, this.params ).subscribe( result => {
       this.products = [ ...result.docs ];

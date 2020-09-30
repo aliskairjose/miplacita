@@ -21,13 +21,15 @@ export class LeftMenuComponent implements OnInit {
     public navServices: NavService,
     private storage: StorageService,
   ) {
+
     this.navServices.leftMenuItems.subscribe( menuItems => {
       this.menuItems = menuItems;
     } );
+
     this.navServices.leftMenuItemsResponsive.subscribe( menuItems => {
       this.menuItemsResponsive = menuItems;
-      console.log( this.menuItemsResponsive );
     } );
+
     this.router.events.subscribe( ( event ) => {
       this.navServices.mainMenuToggle = false;
     } );

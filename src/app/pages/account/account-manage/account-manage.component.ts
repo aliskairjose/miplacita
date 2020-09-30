@@ -25,7 +25,7 @@ export class AccountManageComponent implements OnInit, OnChanges {
   modal: any;
   modalOpen = false;
   modalOption: NgbModalOptions = {}; // not null!
-  
+
   constructor(
     private router: Router,
     private auth: AuthService,
@@ -53,17 +53,21 @@ export class AccountManageComponent implements OnInit, OnChanges {
         this.subtab = url[ 3 ].path;
       }
     } );
-    this.shopService.getMyStores( this.user._id ).subscribe( stores => {
-      const _store = JSON.parse( sessionStorage.getItem( 'store' ) );
-      this.stores = [ ...stores.docs ];
-      if ( _store ) {
-        this.selectedStore = _store;
-      } else {
-        this.selectedStore = this.stores[ 0 ];
-        sessionStorage.setItem( 'store', JSON.stringify( this.stores[ 0 ] ) );
-      }
 
-    } );
+    // Se cargas las tiendas solo de merchant
+    if ( this.user.role === 'merchant' ) {
+      this.shopService.getMyStores( this.user._id ).subscribe( stores => {
+        const _store = JSON.parse( sessionStorage.getItem( 'store' ) );
+        this.stores = [ ...stores.docs ];
+        if ( _store ) {
+          this.selectedStore = _store;
+        } else {
+          this.selectedStore = this.stores[ 0 ];
+          sessionStorage.setItem( 'store', JSON.stringify( this.stores[ 0 ] ) );
+        }
+
+      } );
+    }
   }
 
   createStore(): void {
