@@ -49,7 +49,7 @@ export class CreateProductComponent implements OnInit, OnDestroy {
   title = 'Crear producto';
   disabled = true;
   plan: Plan;
-  
+
   @Input() _store: Store = {};
 
   constructor(
@@ -71,14 +71,20 @@ export class CreateProductComponent implements OnInit, OnDestroy {
   get f() { return this.productForm.controls; }
 
   ngOnInit(): void {
-    const params = `store=${this._store._id}`;
-    
+    const store = JSON.parse( sessionStorage.getItem( 'store' ) );
+    const params = `store=${store._id}`;
+
     // tslint:disable-next-line: max-line-length
     forkJoin(
       [ this.shopService.storeList( 1, params ), this.productService.categoryList() ] )
       .subscribe( ( [ response, categories ] ) => {
         this.plan = response.docs[ 0 ].plan;
         this.categories = [ ...categories ];
+
+        if ( this.plan.price === 0 ) {
+          this.productForm.addControl( 'stock', this.formBuilder.control( [ '', Validators.max( 10 ) ] ) );
+        }
+
       } );
 
   }
@@ -148,6 +154,7 @@ export class CreateProductComponent implements OnInit, OnDestroy {
       category: [ '', [ Validators.required ] ],
       status: [ this.statusSelected, [ Validators.required ] ],
       stock: [ '', [ Validators.required, Validators.max( 10 ) ] ],
+      marketplace: [ '' ]
     } );
   }
 
