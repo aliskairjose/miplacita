@@ -61,7 +61,7 @@ export class AccountManageComponent implements OnInit, OnChanges {
 
       this.shopService.getMyStores( this.user._id ).subscribe( stores => {
         console.log("tienda", stores, sessionStorage.getItem( 'store' ));
-        if(stores.docs.length > 0){
+        
           const _store = JSON.parse( sessionStorage.getItem( 'store' ) );
           this.stores = [ ...stores.docs ];
           if ( _store ) {
@@ -70,7 +70,7 @@ export class AccountManageComponent implements OnInit, OnChanges {
             this.selectedStore = this.stores[ 0 ];
             sessionStorage.setItem( 'store', JSON.stringify( this.stores[ 0 ] ) );
           }
-        }
+     
       } );
     }
   }
