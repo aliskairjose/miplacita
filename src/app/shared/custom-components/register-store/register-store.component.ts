@@ -202,12 +202,13 @@ export class RegisterStoreComponent implements OnInit, OnChanges {
   private createStore(): void {
     this.shopService.addStore( this.storeForm.value ).subscribe( ( store: Store ) => {
       this.store = { ...store };
-      if ( this.modal ) {
+      if ( !this.register ) {
         this.toastrService.info( 'Se ha creado la nueva tienda con exito' );
         this.close( true );
       } else {
         this.step = 2;
         sessionStorage.setItem( 'registerStore', JSON.stringify( this.store ) );
+  
       }
     } );
   }
