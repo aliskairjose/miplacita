@@ -53,7 +53,7 @@ export class AccountManageComponent implements OnInit, OnChanges {
   init(): void {
     this.route.url.subscribe( url => {
       this.active = url[ 2 ].path;
-      if ( this.active === 'admin-store' && url.length > 4) {
+      if ( this.active === 'admin-store' && url.length > 4 ) {
         this.subtab = url[ 3 ].path;
       }
     } );
@@ -66,7 +66,7 @@ export class AccountManageComponent implements OnInit, OnChanges {
         if ( stores.docs.length ) {
           const _store = JSON.parse( sessionStorage.getItem( 'store' ) );
           this.stores = [ ...stores.docs ];
-          
+
           if ( _store ) {
             this.selectedStore = _store;
           } else {
