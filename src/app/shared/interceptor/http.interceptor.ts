@@ -52,7 +52,7 @@ export class HttpInterceptor implements HttpInterceptor {
             this.router.navigate( [ 'login' ] );
             break;
           case 404:
-            this.router.navigate( [ 'pages/404' ] );
+            // this.router.navigate( [ 'pages/404' ] );
             break;
           case 500:
             // Manejor de error

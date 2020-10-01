@@ -40,10 +40,10 @@ export class AccountManageComponent implements OnInit, OnChanges {
     this.shopService.storeObserver().subscribe( store => {
       if ( store ) { this.init(); }
     } );
+    this.init();
   }
 
   ngOnInit(): void {
-    this.init();
   }
 
   init(): void {
@@ -82,9 +82,7 @@ export class AccountManageComponent implements OnInit, OnChanges {
 
   updateSubtab( tab ) {
     this.subtab = tab;
-    console.log( `pages/account/user/${this.active}/${this.subtab}` );
     this.router.navigateByUrl( `pages/account/user/${this.active}/${this.subtab}`, { skipLocationChange: false } );
-
   }
 
   loggOut(): void {
