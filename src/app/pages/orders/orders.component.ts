@@ -46,9 +46,11 @@ export class OrdersComponent implements OnInit, OnChanges {
   ) { }
 
   ngOnChanges( changes: SimpleChanges ): void {
-    if ( this.auth.getUserRol() === 'merchant' ) {
-      this.store = JSON.parse( sessionStorage.getItem( 'store' ) );
-    }
+    console.log(this.store);
+    
+    // if ( this.auth.getUserRol() === 'merchant' ) {
+    //   this.store = JSON.parse( sessionStorage.getItem( 'store' ) );
+    // }
     this.init();
   }
 

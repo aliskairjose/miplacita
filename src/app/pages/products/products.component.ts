@@ -65,6 +65,7 @@ export class ProductsComponent implements OnInit, OnChanges, AfterViewInit {
   @Input() store: Store;
 
   ngOnChanges( changes: SimpleChanges ): void {
+
     if ( this.auth.getUserRol() === 'merchant' ) {
       this.store = JSON.parse( sessionStorage.getItem( 'store' ) );
     }
