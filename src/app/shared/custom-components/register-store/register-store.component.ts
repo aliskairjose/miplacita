@@ -1,33 +1,26 @@
 import { ToastrService } from 'ngx-toastr';
 
-import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild, OnChanges, SimpleChanges } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { environment } from '../../../../environments/environment';
 import { Category } from '../../classes/category';
 import { Plan } from '../../classes/plan';
-import { Product } from '../../classes/product';
 import { Store } from '../../classes/store';
 import { User } from '../../classes/user';
 import { PaymentComponent } from '../../components/payment/payment.component';
-import { AuthService } from '../../services/auth.service';
 import { ProductService } from '../../services/product.service';
 import { ShopService } from '../../services/shop.service';
-import { StorageService } from '../../services/storage.service';
-import { NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
+import { forkJoin } from 'rxjs';
 
 @Component( {
   selector: 'app-register-store',
   templateUrl: './register-store.component.html',
   styleUrls: [ './register-store.component.scss' ]
 } )
-export class RegisterStoreComponent implements OnInit {
-  @Input() register = true;
-  @Input() modal = false;
-  @Output() callback: EventEmitter<boolean> = new EventEmitter<boolean>();
-  @ViewChild( 'payment' ) payment: PaymentComponent;
-  
+export class RegisterStoreComponent implements OnInit, OnChanges {
+
   planSelected = '';
   step = 1;
   imageLogo: any = '../../../../assets/images/marketplace/svg/upload-image.svg';;
@@ -45,9 +38,17 @@ export class RegisterStoreComponent implements OnInit {
   disabled = true;
   urlStore = '';
   isShow = true;
+
   private user: User = {};
 
+  @Input() register = true;
+  @Input() modal = false;
+  @Input() _user: User = {};
+
+  @Output() callback: EventEmitter<boolean> = new EventEmitter<boolean>();
   @Output() setBack: EventEmitter<any> = new EventEmitter<any>();
+
+  @ViewChild( 'payment' ) payment: PaymentComponent;
 
   constructor(
     private router: Router,
@@ -58,6 +59,12 @@ export class RegisterStoreComponent implements OnInit {
   ) {
     this.createForm();
   }
+  ngOnChanges( changes: SimpleChanges ): void {
+    console.log( { modal: this.modal, register: this.register } );
+    if ( !sessionStorage.userForm ) {
+      this.user = { ...this._user };
+    }
+  }
 
   // convenience getter for easy access to form fields
   // tslint:disable-next-line: typedef
@@ -66,7 +73,7 @@ export class RegisterStoreComponent implements OnInit {
 
   ngOnInit(): void {
 
-    if(sessionStorage.userForm){
+    if ( sessionStorage.userForm ) {
       this.user = JSON.parse( sessionStorage.userForm );
     }
 
@@ -75,14 +82,13 @@ export class RegisterStoreComponent implements OnInit {
       this.step = 2;
     }
 
-    this.shopService.getPlans().subscribe( ( plans: Plan[] ) => {
+    forkJoin( [ this.shopService.getPlans(), this.productService.categoryList() ] ).subscribe( ( [ plans, categories ] ) => {
       this.plans = [ ...plans ];
       this.planSelected = this.plans[ 0 ]._id;
-    } );
 
-    this.productService.categoryList().subscribe( ( categories: Category[] ) => {
       this.categories = [ ...categories ];
     } );
+
   }
 
   changePlan( planPrice: number ): boolean {
@@ -192,8 +198,12 @@ export class RegisterStoreComponent implements OnInit {
   private createStore(): void {
     this.shopService.addStore( this.storeForm.value ).subscribe( ( store: Store ) => {
       this.store = { ...store };
-      this.step = 2;
-      sessionStorage.setItem( 'registerStore', JSON.stringify( this.store ) );
+      if ( this.modal ) {
+        this.close(true);
+      } else {
+        this.step = 2;
+        sessionStorage.setItem( 'registerStore', JSON.stringify( this.store ) );
+      }
     } );
   }
 
@@ -214,8 +224,8 @@ export class RegisterStoreComponent implements OnInit {
     }
   }
 
-  close(){
-    this.callback.emit( false );
+  close( type: boolean ): void {
+    this.callback.emit( type );
   }
 
 
