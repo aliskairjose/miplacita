@@ -5,7 +5,7 @@
 			<div class="d-flex w-100 flex-column">
 				<div class="d-flex justify-content-end">
 					<div class="col-1 d-flex justify-content-center">
-						<i class="ti-close" (click)="close()"></i>
+						<i class="ti-close" (click)="close(false)"></i>
 					</div>
 				</div>
 				<div class="title-purple text-center" >
@@ -130,15 +130,6 @@
 <!-- Register Product Section -->
 <section class="section-b-space" *ngIf="step==2">
 	<div class="container padding-cls">
-		<div *ngIf="modal" class="row justify-content-end">
-              <div class="title-purple text-center">
-				<h2>Registra tus datos de tienda</h2>
-			  </div>              
-			<div class="col-1 d-flex justify-content-center">
-				<i class="ti-close" (click)="close()"></i>
-			</div>
-		</div>
-		
 		<div class="title-purple text-center">
 			<h2>Registra tus datos de tienda</h2>
 			<p>Configura tu primer producto</p>

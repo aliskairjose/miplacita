@@ -75,6 +75,8 @@ export class RegisterComponent implements OnInit {
 
   onSubmit() {
     this.submitted = true;
+    this.registerForm.value.role = this.role;
+
     if ( this.registerForm.valid ) {
       this.auth.register( this.registerForm.value ).subscribe( ( data: AuthResponse ) => {
         if ( data.success ) {
@@ -97,7 +99,7 @@ export class RegisterComponent implements OnInit {
 
   private createForm(): void {
     this.registerForm = this.formBuilder.group( {
-      role: [ this.role ],
+      role: [ '' ],
       fullname: [ '', [ Validators.required, Validators.pattern( '[a-zA-Z ]*' ) ] ],
       password: [ '', [ Validators.required, Validators.minLength( 8 ) ] ],
       passwordConfirmation: [ '', Validators.required ],

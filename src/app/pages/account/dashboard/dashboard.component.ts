@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ProductService } from '../../../shared/services/tm.product.service';
 import { AuthService } from '../../../shared/services/auth.service';
 import { StorageService } from '../../../shared/services/storage.service';
@@ -8,51 +8,50 @@ import { Dashboard } from '../../../shared/classes/dashboard';
 import { ToastrService } from 'ngx-toastr';
 import { ChartType, ChartDataSets } from 'chart.js';
 import { SingleDataSet, Color, Label } from 'ng2-charts';
+import { Store } from '../../../shared/classes/store';
 @Component( {
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: [ './dashboard.component.scss' ]
 } )
 export class DashboardComponent implements OnInit {
-  public openDashboard = false;
-  public user: User = new User();
-  public dashboardData: Dashboard = new Dashboard();
+  openDashboard = false;
+  dashboardData: Dashboard = new Dashboard();
 
   /** Table fields */
-  public fields = [];
+  fields = [];
 
   /** table fields by type user */
-  public storeFields = [ ];
-  public adminFields = [  ];
-  public paginate: any = {};
-  public pageNo = 1;
-  public pageSize = 5;
-  public shops = [];
-  public orders = [];
+  storeFields = [];
+  adminFields = [];
+  paginate: any = {};
+  pageNo = 1;
+  pageSize = 5;
+  shops = [];
+  orders = [];
   /** Google Chart information */
-  public barChartColumns = [ 'Mayo', 'Junio', 'Julio', 'Agosto' ];
-  public barChartOptions = {
+  barChartColumns = [ 'Mayo', 'Junio', 'Julio', 'Agosto' ];
+  barChartOptions = {
     scaleShowVerticalLines: false,
     responsive: true,
     legend: 'none'
   };
-  public barChartColors: Color[] = [{backgroundColor: '#68396d'}];
+  barChartColors: Color[] = [ { backgroundColor: '#68396d' } ];
+  barChartLabels: Label[] = [];
+  barChartType: ChartType = 'bar';
 
-  public barChartLabels: Label[] = [];
-  public barChartType: ChartType = 'bar';
+  barChartData: ChartDataSets[] = [];
+  doughnutChartLabels: Label[] = [];
+  doughnutChartData: SingleDataSet = [];
+  doughnutChartType: ChartType = 'doughnut';
+  doughnutColors: Color[] = [ { backgroundColor: [ '#d0260f', '#eca89e' ] } ];
+  salesChart = [];
+  adminPieChart = [];
+  storePieChart = [];
+  role: string;
+  user: User = {};
 
-  barChartData: ChartDataSets[] = [ ];
-  public doughnutChartLabels: Label[] = [];
-
-  public doughnutChartData: SingleDataSet = [ ];
-
-  public doughnutChartType: ChartType = 'doughnut';
-  public doughnutColors: Color[] = [{backgroundColor: ['#d0260f','#eca89e']}];
-  public salesChart = [];
-
-  public adminPieChart = [];
-
-  public storePieChart = [];
+  @Input() store: Store;
 
   constructor(
     private auth: AuthService,
@@ -61,6 +60,7 @@ export class DashboardComponent implements OnInit {
     public productService: ProductService,
     public dashboardService: DashboardService
   ) {
+    this.role = this.auth.getUserRol();
     this.user = this.storage.getItem( 'user' );
   }
 
@@ -75,19 +75,19 @@ export class DashboardComponent implements OnInit {
     this.getChartInformation();
   }
   getLabelsInformation() {
-    this.dashboardService.dashboard().subscribe((data: any) => {
+    this.dashboardService.dashboard().subscribe( ( data: any ) => {
       this.dashboardData = data.result;
-    });
+    } );
   }
 
   getTableInformation() {
     // ** carga de datos desde api */
-    if ( this.user.role === 'merchant' ) {
+    if ( this.role === 'merchant' ) {
       this.fields = this.storeFields;
       // this.paginate = this.productService.getPager( this.allOrders.length, +this.pageNo, this.pageSize );
 
       // this.orders = this.slicePage( this.allOrders );
-    } else if ( this.user.role === 'admin' ) {
+    } else if ( this.role === 'admin' ) {
       this.fields = this.adminFields;
       // this.paginate = this.productService.getPager( this.allshops.length, +this.pageNo, this.pageSize );
 
@@ -97,7 +97,7 @@ export class DashboardComponent implements OnInit {
 
   getChartInformation() {
     /** carga de datos para las estadisticas */
-    
+
   }
 
   slicePage( items ) {

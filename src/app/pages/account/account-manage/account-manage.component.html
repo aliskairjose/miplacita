@@ -164,7 +164,7 @@
 					<app-shops *ngIf="user.role==='admin'"></app-shops>
 				</div>
 				<div *ngIf="active==='dashboard'" class="" id="dashboard" user.role="tabpanel">
-					<app-dashboard></app-dashboard>
+					<app-dashboard [store]="selectedStore"></app-dashboard>
 				</div>
 				<div *ngIf="active==='products'" class="" id="products" user.role="tabpanel">
 					<app-products [store]="selectedStore"></app-products>
@@ -311,5 +311,5 @@
 
 </div>
 <ng-template #registerNewStore >
-	<app-register-store #registerNewStore [adminStore]="user" [modal]="true" [register]="false" (callback)="close()"></app-register-store>
+	<app-register-store #registerNewStore [modal]="true" [register]="false" [_user]="user" (callback)="close($event)"></app-register-store>
 </ng-template>

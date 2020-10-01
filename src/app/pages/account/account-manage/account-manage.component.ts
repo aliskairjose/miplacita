@@ -71,9 +71,6 @@ export class AccountManageComponent implements OnInit, OnChanges {
             sessionStorage.setItem( 'store', JSON.stringify( this.stores[ 0 ] ) );
           }
         }
-        
-        
-
       } );
     }
   }
@@ -84,7 +81,7 @@ export class AccountManageComponent implements OnInit, OnChanges {
 
   updateTab( tab: string ) {
     this.active = tab;
-    if ( this.active == 'reports' ) {
+    if ( this.active === 'reports' ) {
       this.updateSubtab( 'daily-sales' );
     } else {
       this.router.navigateByUrl( `pages/account/user/${tab}`, { skipLocationChange: false } );
@@ -106,7 +103,7 @@ export class AccountManageComponent implements OnInit, OnChanges {
     sessionStorage.setItem( 'store', JSON.stringify( store ) );
   }
 
-  openModal() {
+  private openModal() {
     this.modalOpen = true;
     this.modalOption.backdrop = 'static';
     this.modalOption.keyboard = false;
@@ -114,8 +111,11 @@ export class AccountManageComponent implements OnInit, OnChanges {
     this.modal = this.modalService.open( this.RegisterStore, this.modalOption );
   }
 
-  close() {
+  close( type: boolean ) {
     this.modal.dismiss();
+    if ( type ) {
+      this.init();
+    }
   }
 
 
