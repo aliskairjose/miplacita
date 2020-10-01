@@ -147,7 +147,7 @@ export const customCurrencyMaskConfig = {
     ClientsComponent,
     BestSellersComponent,
     TotalSalesComponent,
-    InterestsComponent
+    InterestsComponent,
   ],
   imports: [
     SharedModule,

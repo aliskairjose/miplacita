@@ -1,0 +1,21 @@
+img {
+    height: 50px;
+    width: auto;
+}
+
+.comment-header {
+    display: flex;
+    width: 100%;
+}
+.comment-body {
+    padding: 15px 15px;
+}
+
+.new-comment {
+    width: 100%;
+    border: 0
+}
+
+.justify-content-mobile-first{
+    justify-content: flex-end;
+}
