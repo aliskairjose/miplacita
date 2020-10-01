@@ -97,12 +97,6 @@ export class RegisterStoreComponent implements OnInit, OnChanges {
 
   storeRegister() {
     this.submitted = true;
-<<<<<<< HEAD
-    if(this._user){
-      this.storeForm.value.owner_id = this._user._id;
-    } else {
-      this.storeForm.value.owner_id = this.user._id;
-=======
     let payment = true;
 
     if ( this.isShow ) {
@@ -123,23 +117,7 @@ export class RegisterStoreComponent implements OnInit, OnChanges {
           this.createStore();
         }
       } );
->>>>>>> edd262eceaa39b6841084ccc45387528fda60207
     }
-    console.log(this.storeForm.value);
-    // if ( this.storeForm.valid && this.payment.onSubmit() ) {
-    //   if ( this.images.length === 0 ) {
-    //     this.toastrService.warning( 'Debe cargar un logo para la tienda!' );
-    //     return;
-    //   }
-    //   this.shopService.uploadImages( { images: this.images } ).subscribe( result => {
-    //     if ( result.status === 'isOk' ) {
-    //       this.storeForm.value.logo = result.images[ 0 ];
-    //       this.images.length = 0;
-    //       this.submitted = false;
-    //       this.createStore();
-    //     }
-    //   } );
-    // }
   }
 
   productRegister() {
