@@ -96,11 +96,15 @@ export class RegisterStoreComponent implements OnInit, OnChanges {
   }
 
   storeRegister() {
-
     this.submitted = true;
+    let payment = true;
+
+    if ( this.isShow ) {
+      payment = this.payment.onSubmit();
+    }
 
     this.storeForm.value.owner_id = this.user._id;
-    if ( this.storeForm.valid && this.payment.onSubmit() ) {
+    if ( this.storeForm.valid && payment ) {
       if ( this.images.length === 0 ) {
         this.toastrService.warning( 'Debe cargar un logo para la tienda!' );
         return;
@@ -199,7 +203,8 @@ export class RegisterStoreComponent implements OnInit, OnChanges {
     this.shopService.addStore( this.storeForm.value ).subscribe( ( store: Store ) => {
       this.store = { ...store };
       if ( this.modal ) {
-        this.close(true);
+        this.toastrService.info( 'Se ha creado la nueva tienda con exito' );
+        this.close( true );
       } else {
         this.step = 2;
         sessionStorage.setItem( 'registerStore', JSON.stringify( this.store ) );
