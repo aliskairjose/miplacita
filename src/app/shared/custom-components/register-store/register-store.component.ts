@@ -25,6 +25,7 @@ import { NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 export class RegisterStoreComponent implements OnInit {
   @Input() register = true;
   @Input() modal = false;
+  @Input() adminStore: User = {};
   @Output() callback: EventEmitter<boolean> = new EventEmitter<boolean>();
   @ViewChild( 'payment' ) payment: PaymentComponent;
   
@@ -92,22 +93,26 @@ export class RegisterStoreComponent implements OnInit {
   storeRegister() {
 
     this.submitted = true;
-
-    this.storeForm.value.owner_id = this.user._id;
-    if ( this.storeForm.valid && this.payment.onSubmit() ) {
-      if ( this.images.length === 0 ) {
-        this.toastrService.warning( 'Debe cargar un logo para la tienda!' );
-        return;
-      }
-      this.shopService.uploadImages( { images: this.images } ).subscribe( result => {
-        if ( result.status === 'isOk' ) {
-          this.storeForm.value.logo = result.images[ 0 ];
-          this.images.length = 0;
-          this.submitted = false;
-          this.createStore();
-        }
-      } );
+    if(this.adminStore){
+      this.storeForm.value.owner_id = this.adminStore._id;
+    } else {
+      this.storeForm.value.owner_id = this.user._id;
     }
+    console.log(this.storeForm.value);
+    // if ( this.storeForm.valid && this.payment.onSubmit() ) {
+    //   if ( this.images.length === 0 ) {
+    //     this.toastrService.warning( 'Debe cargar un logo para la tienda!' );
+    //     return;
+    //   }
+    //   this.shopService.uploadImages( { images: this.images } ).subscribe( result => {
+    //     if ( result.status === 'isOk' ) {
+    //       this.storeForm.value.logo = result.images[ 0 ];
+    //       this.images.length = 0;
+    //       this.submitted = false;
+    //       this.createStore();
+    //     }
+    //   } );
+    // }
   }
 
   productRegister() {
@@ -192,8 +197,13 @@ export class RegisterStoreComponent implements OnInit {
   private createStore(): void {
     this.shopService.addStore( this.storeForm.value ).subscribe( ( store: Store ) => {
       this.store = { ...store };
-      this.step = 2;
-      sessionStorage.setItem( 'registerStore', JSON.stringify( this.store ) );
+      if(!this.register){
+        this.router.navigate( [ '/register/success' ] );
+      } else {
+        this.step = 2;
+        sessionStorage.setItem( 'registerStore', JSON.stringify( this.store ) );
+  
+      }
     } );
   }
 

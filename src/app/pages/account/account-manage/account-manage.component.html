@@ -177,7 +177,7 @@
 					<app-support [store]="selectedStore"></app-support>
 				</div>
 				<div *ngIf="active=='admin-store'" class="" id="admin-store" user.role="tabpanel">
-					<div class="form-row labels mp-side-menu ">
+					<div class="form-row labels mp-side-menu " *ngIf="stores.length > 0">
 						<div class="row col-lg-12">
 							<div class="col label card">
 								<div class="d-flex flex-row h-100" (click)="updateSubtab('store-profile')">
@@ -291,7 +291,7 @@
 					<app-shop-profile *ngIf="active=='admin-store' && subtab=='store-profile' && stores.length > 0"
 						[store]="selectedStore">
 					</app-shop-profile>
-					<app-register-store #registerNewStore register="false"
+					<app-register-store [register]="false"
 						*ngIf="active=='admin-store' && subtab=='store-profile' && stores.length == 0">
 					</app-register-store>
 					<app-shop-design *ngIf="active=='admin-store' && subtab=='design'"></app-shop-design>
@@ -311,5 +311,5 @@
 
 </div>
 <ng-template #registerNewStore >
-	<app-register-store #registerNewStore modal="true" [register]="false" (callback)="close()"></app-register-store>
+	<app-register-store #registerNewStore [adminStore]="user" [modal]="true" [register]="false" (callback)="close()"></app-register-store>
 </ng-template>

@@ -51,7 +51,7 @@ export class AccountManageComponent implements OnInit, OnChanges {
   init(): void {
     this.route.url.subscribe( url => {
       this.active = url[ 2 ].path;
-      if ( this.active === 'admin-store' ) {
+      if ( this.active === 'admin-store' && url.length > 4) {
         this.subtab = url[ 3 ].path;
       }
     } );
@@ -60,15 +60,19 @@ export class AccountManageComponent implements OnInit, OnChanges {
     if ( this.user.role === 'merchant' ) {
 
       this.shopService.getMyStores( this.user._id ).subscribe( stores => {
-
-        const _store = JSON.parse( sessionStorage.getItem( 'store' ) );
-        this.stores = [ ...stores.docs ];
-        if ( _store ) {
-          this.selectedStore = _store;
-        } else {
-          this.selectedStore = this.stores[ 0 ];
-          sessionStorage.setItem( 'store', JSON.stringify( this.stores[ 0 ] ) );
+        console.log("tienda", stores, sessionStorage.getItem( 'store' ));
+        if(stores.docs.length > 0){
+          const _store = JSON.parse( sessionStorage.getItem( 'store' ) );
+          this.stores = [ ...stores.docs ];
+          if ( _store ) {
+            this.selectedStore = _store;
+          } else {
+            this.selectedStore = this.stores[ 0 ];
+            sessionStorage.setItem( 'store', JSON.stringify( this.stores[ 0 ] ) );
+          }
         }
+        
+        
 
       } );
     }
