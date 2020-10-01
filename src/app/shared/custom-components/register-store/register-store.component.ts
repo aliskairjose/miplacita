@@ -60,7 +60,6 @@ export class RegisterStoreComponent implements OnInit, OnChanges {
     this.createForm();
   }
   ngOnChanges( changes: SimpleChanges ): void {
-    console.log( { modal: this.modal, register: this.register } );
     if ( !sessionStorage.userForm ) {
       this.user = { ...this._user };
     }
