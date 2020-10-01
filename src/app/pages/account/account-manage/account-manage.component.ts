@@ -66,8 +66,7 @@ export class AccountManageComponent implements OnInit, OnChanges {
         if ( stores.docs.length ) {
           const _store = JSON.parse( sessionStorage.getItem( 'store' ) );
           this.stores = [ ...stores.docs ];
-          console.log( this.stores, this.stores.length );
-
+          
           if ( _store ) {
             this.selectedStore = _store;
           } else {
@@ -75,9 +74,6 @@ export class AccountManageComponent implements OnInit, OnChanges {
             sessionStorage.setItem( 'store', JSON.stringify( this.stores[ 0 ] ) );
           }
         }
-
-        console.log( this.stores );
-
 
       } );
     }
