@@ -4,14 +4,16 @@
 			<div class="row user-row">
 				<div ngbDropdown *ngIf="user.role === 'merchant'">
 					<button class="btn btn-link" id="store-logo" ngbDropdownToggle>
-						<img class="rounded-circle store-logo mr-1" [src]="selectedStore.logo" alt="User Pic">
-						{{ selectedStore.name }}
+						<img class="rounded-circle store-logo mr-1" [src]="selectedStore.logo ? selectedStore.logo : standardImage">
+						{{ selectedStore.name ? selectedStore.name : 'Crear nueva tienda' }}
 					</button>
 					<div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-						<button type="button" class="drop-button" (click)="selectStore(store)" *ngFor="let store of stores"
-							[value]="store._id" ngbDropdownItem>
-							{{store.name}}
-						</button>
+						<div *ngIf="stores.length">
+							<button type="button" class="drop-button" (click)="selectStore(store)" *ngFor="let store of stores"
+								[value]="store._id" ngbDropdownItem>
+								{{store.name}}
+							</button>
+						</div>
 						<hr>
 						<button type="button" class="drop-button" (click)="createStore()" ngbDropdownItem>
 							+ Nueva tienda
@@ -310,6 +312,7 @@
 	</div>
 
 </div>
-<ng-template #registerNewStore >
-	<app-register-store #registerNewStore [modal]="true" [register]="false" [_user]="user" (callback)="close($event)"></app-register-store>
+<ng-template #registerNewStore>
+	<app-register-store #registerNewStore [modal]="true" [register]="false" [_user]="user" (callback)="close($event)">
+	</app-register-store>
 </ng-template>

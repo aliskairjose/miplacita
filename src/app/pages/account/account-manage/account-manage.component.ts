@@ -7,6 +7,7 @@ import { AuthService } from '../../../shared/services/auth.service';
 import { ShopService } from '../../../shared/services/shop.service';
 import { RegisterStoreComponent } from 'src/app/shared/custom-components/register-store/register-store.component';
 import { NgbModalOptions, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { environment } from '../../../../environments/environment.prod';
 
 @Component( {
   selector: 'app-account-manage',
@@ -17,6 +18,7 @@ import { NgbModalOptions, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 export class AccountManageComponent implements OnInit, OnChanges {
   @ViewChild( 'registerNewStore' ) RegisterStore: RegisterStoreComponent;
 
+  standardImage = environment.standardImage;
   stores: Store[] = [];
   active = 'profile';
   user: User = {};
@@ -61,14 +63,22 @@ export class AccountManageComponent implements OnInit, OnChanges {
 
       this.shopService.getMyStores( this.user._id ).subscribe( stores => {
 
-        const _store = JSON.parse( sessionStorage.getItem( 'store' ) );
-        this.stores = [ ...stores.docs ];
-        if ( _store ) {
-          this.selectedStore = _store;
-        } else {
-          this.selectedStore = this.stores[ 0 ];
-          sessionStorage.setItem( 'store', JSON.stringify( this.stores[ 0 ] ) );
+        if ( stores.docs.length ) {
+          const _store = JSON.parse( sessionStorage.getItem( 'store' ) );
+          this.stores = [ ...stores.docs ];
+          console.log( this.stores, this.stores.length );
+
+          if ( _store ) {
+            this.selectedStore = _store;
+          } else {
+            this.selectedStore = this.stores[ 0 ];
+            sessionStorage.setItem( 'store', JSON.stringify( this.stores[ 0 ] ) );
+          }
         }
+
+        console.log( this.stores );
+
+
       } );
     }
   }
