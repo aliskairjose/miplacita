@@ -96,12 +96,34 @@ export class RegisterStoreComponent implements OnInit, OnChanges {
   }
 
   storeRegister() {
-
     this.submitted = true;
+<<<<<<< HEAD
     if(this._user){
       this.storeForm.value.owner_id = this._user._id;
     } else {
       this.storeForm.value.owner_id = this.user._id;
+=======
+    let payment = true;
+
+    if ( this.isShow ) {
+      payment = this.payment.onSubmit();
+    }
+
+    this.storeForm.value.owner_id = this.user._id;
+    if ( this.storeForm.valid && payment ) {
+      if ( this.images.length === 0 ) {
+        this.toastrService.warning( 'Debe cargar un logo para la tienda!' );
+        return;
+      }
+      this.shopService.uploadImages( { images: this.images } ).subscribe( result => {
+        if ( result.status === 'isOk' ) {
+          this.storeForm.value.logo = result.images[ 0 ];
+          this.images.length = 0;
+          this.submitted = false;
+          this.createStore();
+        }
+      } );
+>>>>>>> edd262eceaa39b6841084ccc45387528fda60207
     }
     console.log(this.storeForm.value);
     // if ( this.storeForm.valid && this.payment.onSubmit() ) {
@@ -202,8 +224,9 @@ export class RegisterStoreComponent implements OnInit, OnChanges {
   private createStore(): void {
     this.shopService.addStore( this.storeForm.value ).subscribe( ( store: Store ) => {
       this.store = { ...store };
-      if(!this.modal){
-        this.router.navigate( [ '/register/success' ] );
+      if ( this.modal ) {
+        this.toastrService.info( 'Se ha creado la nueva tienda con exito' );
+        this.close( true );
       } else {
         this.step = 2;
         sessionStorage.setItem( 'registerStore', JSON.stringify( this.store ) );
