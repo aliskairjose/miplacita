@@ -1,0 +1,57 @@
+<section class="section-b-space">
+    <div class="container">
+        <div class="form-row labels mp-side-menu mt-3">
+            <div class="row col-lg-12">
+                <div class="col label card">
+                    <div class="d-flex flex-row h-100" (click)="updateSubtab('daily-sales')">
+                        <div class="d-flex flex-fill justify-content-center align-items-center ">
+                            <p class="my-auto" [ngClass]="{'text-default-color': subtab=='daily-sales'}">
+                                Ventas diarias
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col label card">
+                    <div class="d-flex flex-row h-100" (click)="updateSubtab('clients')">
+                        <div class="d-flex flex-fill justify-content-center align-items-center">
+                            <div class="d-flex flex-fill justify-content-center align-items-center">
+                                <p class="my-auto" [ngClass]="{'text-default-color':subtab=='clients'}">
+                                    Clientes
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col label card">
+                    <div class="d-flex flex-row h-100" (click)="updateSubtab('best-sellers')">
+                        <div class="d-flex flex-fill justify-content-center align-items-center">
+                            <div class="d-flex flex-fill  justify-content-center align-items-center">
+                                <p class="my-auto" [ngClass]="{'text-default-color':subtab=='best-sellers'}">
+                                    Productos más vendidos
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col label card">
+                    <div class="d-flex flex-row h-100" (click)="updateSubtab('total-sales')">
+                        <div class="d-flex flex-fill justify-content-center align-items-center">
+                            <div class="d-flex flex-fill justify-content-center align-items-center">
+                                <p class="my-auto" [ngClass]="{'text-default-color':subtab=='total-sales'}">
+                                    Ventas totales
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <app-daily-sales-report [store]="store" *ngIf="subtab == 'daily-sales'"></app-daily-sales-report>
+            <app-clients [store]="store" *ngIf="subtab == 'clients'"></app-clients>
+            <app-best-sellers [store]="store" *ngIf="subtab == 'best-sellers'"></app-best-sellers>
+            <app-total-sales [store]="store" *ngIf="subtab == 'total-sales'"></app-total-sales>
+        </div>
+    </div>
+</section>
