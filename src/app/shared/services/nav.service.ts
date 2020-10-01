@@ -45,7 +45,6 @@ export class NavService {
 				{ path: "/pages/account/user/admin-store/suscription", title: "Suscripción", type: "link", logged: true, role: 'merchant' },
 				{ path: "/pages/account/user/admin-store/withdrawal", title: "Retiro", type: "link", logged: true, role: 'merchant' },
 				{ path: "/pages/account/user/admin-store/shipping", title: "Configuración de zonas", type: "link", logged: true, role: 'merchant' },
-				{ path: "/pages/account/user/admin-store/create-coupons", title: "Cupones", type: "link", logged: true, role: 'merchant' },
 				{ path: "/pages/account/user/admin-store/create-referrals", title: "Referidos", type: "link", logged: true, role: 'merchant' },		
 			]},
 		{ title: "reportes", type: "sub", logged: true,role: 'merchant',

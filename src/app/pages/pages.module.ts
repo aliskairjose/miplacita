@@ -61,11 +61,9 @@ import { AccountManageComponent } from './account/account-manage/account-manage.
 import { UserOrdersComponent } from './account/user-orders/user-orders.component';
 import { ChartsModule } from 'ng2-charts';
 import { ShippingZonesComponent } from './shops/shipping-zones/shipping-zones.component';
-import { CouponsComponent } from './shops/coupons/coupons.component';
 import { SupportComponent } from './support/support.component';
 import { CreateReferralsComponent } from './shops/create-referrals/create-referrals.component';
 import { ReferralsComponent } from './shops/referrals/referrals.component';
-import { CreateCouponsComponent } from './shops/create-coupons/create-coupons.component';
 import { ReportsComponent } from './shops/reports/reports.component';
 import { DailySalesReportComponent } from './shops/daily-sales-report/daily-sales-report.component';
 import { ClientsComponent } from './shops/clients/clients.component';
@@ -141,11 +139,9 @@ export const customCurrencyMaskConfig = {
     AccountManageComponent,
     UserOrdersComponent,
     ShippingZonesComponent,
-    CouponsComponent,
     SupportComponent,
     CreateReferralsComponent,
     ReferralsComponent,
-    CreateCouponsComponent,
     ReportsComponent,
     DailySalesReportComponent,
     ClientsComponent,

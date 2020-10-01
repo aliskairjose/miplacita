@@ -83,13 +83,6 @@
 							Tienda
 						</button>
 					</div>
-					<!-- <div class="tab" *ngIf="user.role=='client' || user.role=='merchant'" (click)="updateTab('coupons')"
-						[ngClass]="{'active': active=='coupons','btn tab': active!='coupons'}">
-						<button class="btn btn-tab">
-							<img src="assets/images/marketplace/images/icons/store.png" alt="">
-							Cupones
-						</button>
-					</div> -->
 					<div class="tab" (click)="updateTab('reports')" *ngIf="user.role=='merchant' || user.role=='admin'"
 						[ngClass]="{'active': active==='reports','btn tab': active!=='reports'}">
 						<button class="btn btn-tab">
