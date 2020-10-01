@@ -7,8 +7,6 @@ import { Product } from '../../shared/classes/product';
 import { ProductService } from '../../shared/services/product.service';
 import { OrderService } from '../../shared/services/order.service';
 import { Router } from '@angular/router';
-import { StorageService } from '../../shared/services/storage.service';
-import { timeStamp, log } from 'console';
 import { PaymentComponent } from '../../shared/components/payment/payment.component';
 
 const state = {
@@ -37,7 +35,6 @@ export class CheckoutComponent implements OnInit {
   constructor(
     private router: Router,
     private fb: FormBuilder,
-    private storage: StorageService,
     private orderService: OrderService,
     public productService: ProductService,
   ) {
