@@ -7,6 +7,7 @@ import { AuthService } from '../../../shared/services/auth.service';
 import { ShopService } from '../../../shared/services/shop.service';
 import { RegisterStoreComponent } from 'src/app/shared/custom-components/register-store/register-store.component';
 import { NgbModalOptions, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { environment } from '../../../../environments/environment.prod';
 
 @Component( {
   selector: 'app-account-manage',
@@ -17,6 +18,7 @@ import { NgbModalOptions, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 export class AccountManageComponent implements OnInit, OnChanges {
   @ViewChild( 'registerNewStore' ) RegisterStore: RegisterStoreComponent;
 
+  standardImage = environment.standardImage;
   stores: Store[] = [];
   active = 'profile';
   user: User = {};
@@ -51,7 +53,7 @@ export class AccountManageComponent implements OnInit, OnChanges {
   init(): void {
     this.route.url.subscribe( url => {
       this.active = url[ 2 ].path;
-      if ( this.active === 'admin-store' && url.length > 4) {
+      if ( this.active === 'admin-store' && url.length > 4 ) {
         this.subtab = url[ 3 ].path;
       }
     } );
@@ -59,16 +61,20 @@ export class AccountManageComponent implements OnInit, OnChanges {
     // Se cargas las tiendas solo de merchant
     if ( this.user.role === 'merchant' ) {
 
-      this.shopService.getMyStores( this.user._id ).subscribe( stores => {        
+      this.shopService.getMyStores( this.user._id ).subscribe( stores => {
+
+        if ( stores.docs.length ) {
           const _store = JSON.parse( sessionStorage.getItem( 'store' ) );
           this.stores = [ ...stores.docs ];
+
           if ( _store ) {
             this.selectedStore = _store;
           } else {
             this.selectedStore = this.stores[ 0 ];
             sessionStorage.setItem( 'store', JSON.stringify( this.stores[ 0 ] ) );
           }
-     
+        }
+
       } );
     }
   }

@@ -7,6 +7,7 @@ import { Category } from '../classes/category';
 import { Response, Result } from '../classes/response';
 import { ToastrService } from 'ngx-toastr';
 import { StorageService } from './storage.service';
+import { Review } from '../classes/review';
 
 const state = {
   products: JSON.parse( localStorage.products || '[]' ),
@@ -65,7 +66,7 @@ export class ProductService {
    * Id store | id product
    */
   productList( page = 1, params = '' ): Observable<Result<Product>> {
-    
+
     return this.http.get( `products?page=${page}&${params}` ).pipe(
       map( ( response: Response<Product> ) => {
         if ( response.success ) {
@@ -103,7 +104,7 @@ export class ProductService {
       ---------------------------------------------
       ---------------  Photod  --------------------
       ---------------------------------------------
-    */
+  */
   /**
    * @description Agregar foto al producto
    * @param id Id del producto al cual se agrega photo
@@ -291,6 +292,42 @@ export class ProductService {
         return ( prev + price * curr.quantity );
       }, 0 );
     } ) );
+  }
+
+  /*
+    ---------------------------------------------
+    -------------  Product Review  --------------
+    ---------------------------------------------
+*/
+
+  /**
+   * @description Agrega un nuevo review al produco
+   * @param data Data del review del producto
+   */
+  addReview( data: Review ): Observable<boolean> {
+    return this.http.post( `reviews/create`, data ).pipe(
+      map( result => result.success )
+    );
+  }
+
+  productReviews( id: string ): Observable<Review[]> {
+    return this.http.get( `reviews/product/${id}` ).pipe(
+      map( ( response ) => {
+        if ( response.success ) { return response.result; }
+      } )
+    );
+  }
+
+  /**
+   * @description Calificacion promedio del prodcuto
+   * @param id id del producto
+   */
+  productAverage( id: string ): Observable<any> {
+    return this.http.get( `reviews/average/${id}` ).pipe(
+      map( result => {
+        if ( result.success ) { return result.reviews; }
+      } )
+    );
   }
 
   /**

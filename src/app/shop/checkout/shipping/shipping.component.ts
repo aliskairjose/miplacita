@@ -47,7 +47,7 @@ export class ShippingComponent implements OnInit {
   hideMessage = false;
   selectedOption = '';
   order = {
-    details: [],
+    cart: [],
     user: '',
     address: {
       address: '',
@@ -56,7 +56,7 @@ export class ShippingComponent implements OnInit {
       phone: ''
     }
   };
-  details = [];
+  cart = [];
   detail = {
     products: [],
     store: '',
@@ -109,10 +109,10 @@ export class ShippingComponent implements OnInit {
         detail.products = products;
         detail.shipment_option = shop.shopOptions[ 0 ]._id;
         detail.shipment_price = shop.shopOptions[ 0 ].price;
-        this.details.push( detail );
+        this.cart.push( detail );
       }
       this.shipmentOptions = shops;
-      this.order.details = this.details;
+      this.order.cart = this.cart;
       this.order.user = this.user._id;
     } );
     this.createForm();
@@ -198,7 +198,7 @@ export class ShippingComponent implements OnInit {
     // Obtenemos la información de la opción de envíp seleccionada
     const shipOption = shopOptions.filter( val => val._id === optionId );
 
-    this.order.details.map( res => {
+    this.order.cart.map( res => {
       if ( res.store === shopId ) {
         res.shipment_option = optionId;
         res.shipment_price = shipOption[ 0 ].price;
@@ -269,8 +269,8 @@ export class ShippingComponent implements OnInit {
       onApprove: ( data, actions ) => {
         // this.orderService.createOrder( this.products, this.checkoutForm.value, data.orderID, this.getTotal );
         console.log( 'onApprove - transaction was approved, but not authorized', data, actions );
-        actions.order.get().then( details => {
-          console.log( 'onApprove - you can get full order details inside onApprove: ', details );
+        actions.order.get().then( cart => {
+          console.log( 'onApprove - you can get full order cart inside onApprove: ', cart );
         } );
       },
       onClientAuthorization: ( data ) => {
