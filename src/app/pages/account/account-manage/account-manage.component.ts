@@ -37,9 +37,11 @@ export class AccountManageComponent implements OnInit, OnChanges {
     this.user = this.storage.getItem( 'user' );
   }
   ngOnChanges( changes: SimpleChanges ): void {
+
     this.shopService.storeObserver().subscribe( store => {
       if ( store ) { this.init(); }
     } );
+    this.init();
   }
 
   ngOnInit(): void {
@@ -56,7 +58,9 @@ export class AccountManageComponent implements OnInit, OnChanges {
 
     // Se cargas las tiendas solo de merchant
     if ( this.user.role === 'merchant' ) {
+
       this.shopService.getMyStores( this.user._id ).subscribe( stores => {
+
         const _store = JSON.parse( sessionStorage.getItem( 'store' ) );
         this.stores = [ ...stores.docs ];
         if ( _store ) {
@@ -76,8 +80,8 @@ export class AccountManageComponent implements OnInit, OnChanges {
 
   updateTab( tab: string ) {
     this.active = tab;
-    if(this.active == 'reports'){
-      this.updateSubtab('daily-sales');
+    if ( this.active == 'reports' ) {
+      this.updateSubtab( 'daily-sales' );
     } else {
       this.router.navigateByUrl( `pages/account/user/${tab}`, { skipLocationChange: false } );
     }

@@ -143,11 +143,11 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
    * @description Crea el producto via api
    */
   private createProduct( data: Product ): void {
+    this.clear();
     this.productService.addProduct( data ).subscribe( ( product: Product ) => {
       this.toastrService.info( 'El producto se ha creado con exito' );
       this.productService.productSubject( product );
       this.productsComponent.reloadData();
-      this.clear();
       this.close();
     } );
   }
