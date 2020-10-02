@@ -1,9 +1,7 @@
 <div class="section-b-space">
     <hr>
     <div class="page-title mb-2">
-        <h3 class="mp-title">
-            Opiniones del producto
-        </h3>
+        <h3 class="mp-title"> Opiniones del producto </h3>
     </div>
     <div class="container">
         <div *ngIf="reviews.length">
@@ -47,7 +45,7 @@
             <div class="row">
                 <div class="page-title mb-2">
                     <h3 class="mp-title">
-                        Agregar comentario
+                        {{ reviews.length ? 'Agregar comentario' : 'Se el primero en comentar'}}
                     </h3>
                 </div>
                 <div class="comment-header">
