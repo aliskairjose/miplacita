@@ -27,6 +27,7 @@ import { ShopsComponent } from './shops/shops.component';
 import { SearchComponent } from '../pages/search/search.component';
 import { TermsAndConditionsComponent } from './terms-and-conditions/terms-and-conditions.component';
 import { AccountManageComponent } from './account/account-manage/account-manage.component';
+import { InterestsComponent } from './interests/interests.component';
 
 const routes: Routes = [
 
@@ -148,6 +149,10 @@ const routes: Routes = [
     path: 'account/user/reports/:page',
     component: AccountManageComponent,
     canActivate: [ AuthGuard ],
+  },
+  {
+    path: 'user/interests',
+    component: InterestsComponent
   }
 
 ];
