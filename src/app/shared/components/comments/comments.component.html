@@ -6,31 +6,32 @@
         </h3>
     </div>
     <div class="container">
-        <div class="row">
-            <div class="comment-header">
-                <div class="col-1 d-flex justify-content-center">
-                    <img src="assets/images/marketplace/images/icons/profile.png" alt="">
+        <div class="row" *ngIf="reviews.length">
+            <div *ngFor="let review of reviews">
+                <div class="comment-header">
+                    <div class="col-1 d-flex justify-content-center">
+                        <img src="assets/images/marketplace/images/icons/profile.png" alt="">
+                    </div>
+                    <div class="col d-flex flex-column">
+                        <div class="text-default-color">
+                            {{review.user.fullname}}
+                        </div>
+                        <div class="description">
+                            <p>Compra verificada: Entregado Panamá 25 de Septiembre</p>
+                        </div>
+                        <div class="stars">
+                            <bar-rating name="rating" [(rate)]="review.qualification" [max]="5" required disabled></bar-rating>
+                        </div>
+                    </div>
                 </div>
-                <div class="col d-flex flex-column">
-                    <div class="text-default-color">
-                        Luis Arauz
+                <div class="comment-body">
+                    <p>
+                        {{ review.commentary }}
+                    </p>
+                    <div class="d-flex comment-btns mt-3">
+                        <button class="btn border-box font-weight-normal">Me gusta</button>
+                        <button class="btn border-box font-weight-normal ml-2">Comentar</button>
                     </div>
-                    <div class="description">
-                        <p>Compra verificada: Entregado Panamá 25 de Septiembre</p>
-                    </div>
-                    <div class="stars">
-                        <bar-rating [rate]="5" [readOnly]="true"></bar-rating>
-                    </div>
-                </div>
-            </div>
-            <div class="comment-body">
-                <p>
-                    El proceso de ensamblado es muy fácil si se leen las instrucciones, rápido
-                    el proceso de entrega, muy buena calidad los materiales de la silla
-                </p>
-                <div class="d-flex comment-btns mt-3">
-                    <button class="btn border-box font-weight-normal">Me gusta</button>
-                    <button class="btn border-box font-weight-normal ml-2">Comentar</button>
                 </div>
             </div>
         </div>
@@ -41,36 +42,46 @@
             </span>
         </div>
         <hr>
-        <div class="row">
-            <div class="page-title mb-2">
-                <h3 class="mp-title">
-                    Agregar comentario
-                </h3>
-            </div>
-            <div class="comment-header">
-                <div class="col-1 d-flex justify-content-center">
-                    <img src="assets/images/marketplace/images/icons/profile.png" alt="">
+        <form [formGroup]="reviewForm" (ngSubmit)="onSubmit()" class="theme-form">
+            <div class="row">
+                <div class="page-title mb-2">
+                    <h3 class="mp-title">
+                        Agregar comentario
+                    </h3>
                 </div>
-                <div class="col d-flex flex-column">
-                    <div class="text-default-color">
-                        Mi perfil
+                <div class="comment-header">
+                    <div class="col-1 d-flex justify-content-center">
+                        <img src="assets/images/marketplace/images/icons/profile.png" alt="">
                     </div>
-                    <div class="description">
-                        <p>Califica tu experiencia</p>
-                    </div>
-                    <div class="stars">
-                        <bar-rating [rate]="0"></bar-rating>
+                    <div class="col d-flex flex-column">
+                        <div class="text-default-color">
+                            Mi perfil
+                        </div>
+                        <div class="description">
+                            <p>Califica tu experiencia</p>
+                        </div>
+                        <div class="stars">
+                            <!-- <bar-rating [rate]="0"></bar-rating> -->
+                            <bar-rating formControlName="qualification" name="rating" [max]="5" required disabled></bar-rating>
+                            <div *ngIf="submitted && f.qualification.errors?.required" class="invalid-feedback d-block">
+                                Debe calificar
+                            </div>
+                        </div>
                     </div>
                 </div>
+                <div class="border-box w-100 mt-2">
+                    <textarea formControlName="commentary" class="new-comment"
+                        placeholder="Escriba aquí sus comentarios"
+                        [ngClass]="{ 'is-invalid': submitted && f.commentary.errors }">
+                    </textarea>
+                </div>
+                <div *ngIf="submitted && f.commentary.errors?.required" class="invalid-feedback d-block">
+                    Campo requerido
+                </div>
+                <div class="mt-2 d-flex w-100 justify-content-mobile-first">
+                    <button class="btn btn-solid">Agregar cometario</button>
+                </div>
             </div>
-
-            <div class="border-box w-100 mt-2">
-                <textarea class="new-comment" placeholder="Escriba aquí sus comentarios"></textarea>
-            
-            </div>
-            <div class="mt-2 d-flex w-100 justify-content-mobile-first">
-                <button class="btn btn-solid">Agregar cometario</button>
-            </div>
-        </div>
+        </form>
     </div>
 </div>

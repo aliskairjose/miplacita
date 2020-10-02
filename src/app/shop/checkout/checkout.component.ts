@@ -56,7 +56,7 @@ export class CheckoutComponent implements OnInit {
     const date = new Date();
     const shipment = JSON.parse( sessionStorage.order );
 
-    shipment.details.forEach( detail => {
+    shipment.cart.forEach( detail => {
       this.shipmentPrice += detail.shipment_price;
     } );
     this.productService.cartItems.subscribe( response => this.products = response );
@@ -102,6 +102,8 @@ export class CheckoutComponent implements OnInit {
 
     if ( this.payment.onSubmit() ) {
       this.orderService.createOrder( order ).subscribe( response => {
+        console.log( response );
+
         if ( response.success ) {
           this.router.navigate( [ '/shop/checkout/success', response.order._id ] );
         }

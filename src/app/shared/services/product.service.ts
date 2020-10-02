@@ -304,9 +304,11 @@ export class ProductService {
    * @description Agrega un nuevo review al produco
    * @param data Data del review del producto
    */
-  addReview( data: Review ): Observable<boolean> {
+  addReview( data: Review ): Observable<Review> {
     return this.http.post( `reviews/create`, data ).pipe(
-      map( result => result.success )
+      map( result => {
+        if ( result.success ) { return result.reviews; }
+      } )
     );
   }
 

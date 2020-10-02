@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProductDetailsMainSlider, ProductDetailsThumbSlider } from '../../../../shared/data/slider';
 import { Product } from '../../../../shared/classes/product';
@@ -12,6 +12,7 @@ import { forkJoin } from 'rxjs';
 import { Store } from '../../../../shared/classes/store';
 import { Category } from '../../../../shared/classes/category';
 import { ViewportScroller } from '@angular/common';
+import { CommentsComponent } from '../../../../shared/components/comments/comments.component';
 
 @Component( {
   selector: 'app-product-left-sidebar',
@@ -30,23 +31,27 @@ export class ProductLeftSidebarComponent implements OnInit {
   prices: any[] = [];
 
   @ViewChild( 'sizeChart' ) SizeChart: SizeModalComponent;
+  @ViewChild( 'comments' ) comment: CommentsComponent;
 
-  public ProductDetailsMainSliderConfig: any = ProductDetailsMainSlider;
-  public ProductDetailsThumbConfig: any = ProductDetailsThumbSlider;
+  ProductDetailsMainSliderConfig: any = ProductDetailsMainSlider;
+  ProductDetailsThumbConfig: any = ProductDetailsThumbSlider;
 
   constructor(
     private router: Router,
     private route: ActivatedRoute,
     private shopService: ShopService,
     private spinner: NgxSpinnerService,
-    public productService: ProductService,
+    private productService: ProductService,
     private viewScroller: ViewportScroller,
     private categoryService: CategoryService,
   ) {
 
   }
+ 
 
   ngOnInit(): void {
+    console.log( 'init' );
+
     this.spinner.show();
     forkJoin( [ this.shopService.storeList(), this.categoryService.categoryList() ] ).subscribe( ( [ shopsResult, categoriesResult ] ) => {
       this.shops = [ ...shopsResult.docs ];
@@ -62,6 +67,7 @@ export class ProductLeftSidebarComponent implements OnInit {
       this.productService.productList( 1, params ).subscribe( ( result: Result<Product> ) => {
         this.spinner.hide();
         this.product = { ...result.docs[ 0 ] };
+        this.comment.loadReviews( this.product._id );
       } );
     } );
 
