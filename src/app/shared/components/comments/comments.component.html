@@ -6,39 +6,41 @@
         </h3>
     </div>
     <div class="container">
-        <div class="row" *ngFor="let review of reviews">
-            <div class="comment-header">
-                <div class="col-1 d-flex justify-content-center">
-                    <img src="assets/images/marketplace/images/icons/profile.png" alt="">
+        <div *ngIf="reviews.length">
+            <div class="row" *ngFor="let review of reviews">
+                <div class="comment-header">
+                    <div class="col-1 d-flex justify-content-center">
+                        <img src="assets/images/marketplace/images/icons/profile.png" alt="">
+                    </div>
+                    <div class="col d-flex flex-column">
+                        <div class="text-default-color">
+                            {{review.user.fullname}}
+                        </div>
+                        <div class="description">
+                            <p>Compra verificada: Entregado Panamá 25 de Septiembre</p>
+                        </div>
+                        <div class="stars">
+                            <bar-rating name="rating" [(rate)]="review.qualification" [max]="5" required disabled>
+                            </bar-rating>
+                        </div>
+                    </div>
                 </div>
-                <div class="col d-flex flex-column">
-                    <div class="text-default-color">
-                        {{review.user.fullname}}
-                    </div>
-                    <div class="description">
-                        <p>Compra verificada: Entregado Panamá 25 de Septiembre</p>
-                    </div>
-                    <div class="stars">
-                        <bar-rating name="rating" [(rate)]="review.qualification" [max]="5" required disabled>
-                        </bar-rating>
+                <div class="comment-body">
+                    <p>
+                        {{ review.commentary }}
+                    </p>
+                    <div class="d-flex comment-btns mt-3">
+                        <button class="btn border-box font-weight-normal">Me gusta</button>
+                        <button class="btn border-box font-weight-normal ml-2">Comentar</button>
                     </div>
                 </div>
             </div>
-            <div class="comment-body">
-                <p>
-                    {{ review.commentary }}
-                </p>
-                <div class="d-flex comment-btns mt-3">
-                    <button class="btn border-box font-weight-normal">Me gusta</button>
-                    <button class="btn border-box font-weight-normal ml-2">Comentar</button>
-                </div>
+            <div class="row d-flex">
+                <p class="text-default-color font-weight-bold mr-2">Ver más comentarios</p>
+                <span style="color: #b8b3b3">
+                    <i class="fa fa-caret-down"></i>
+                </span>
             </div>
-        </div>
-        <div class="row d-flex">
-            <p class="text-default-color font-weight-bold mr-2">Ver más comentarios</p>
-            <span style="color: #b8b3b3">
-                <i class="fa fa-caret-down"></i>
-            </span>
         </div>
         <hr>
         <form [formGroup]="reviewForm" (ngSubmit)="onSubmit()" class="theme-form">
