@@ -6,32 +6,31 @@
         </h3>
     </div>
     <div class="container">
-        <div class="row" *ngIf="reviews.length">
-            <div *ngFor="let review of reviews">
-                <div class="comment-header">
-                    <div class="col-1 d-flex justify-content-center">
-                        <img src="assets/images/marketplace/images/icons/profile.png" alt="">
+        <div class="row" *ngFor="let review of reviews">
+            <div class="comment-header">
+                <div class="col-1 d-flex justify-content-center">
+                    <img src="assets/images/marketplace/images/icons/profile.png" alt="">
+                </div>
+                <div class="col d-flex flex-column">
+                    <div class="text-default-color">
+                        {{review.user.fullname}}
                     </div>
-                    <div class="col d-flex flex-column">
-                        <div class="text-default-color">
-                            {{review.user.fullname}}
-                        </div>
-                        <div class="description">
-                            <p>Compra verificada: Entregado Panamá 25 de Septiembre</p>
-                        </div>
-                        <div class="stars">
-                            <bar-rating name="rating" [(rate)]="review.qualification" [max]="5" required disabled></bar-rating>
-                        </div>
+                    <div class="description">
+                        <p>Compra verificada: Entregado Panamá 25 de Septiembre</p>
+                    </div>
+                    <div class="stars">
+                        <bar-rating name="rating" [(rate)]="review.qualification" [max]="5" required disabled>
+                        </bar-rating>
                     </div>
                 </div>
-                <div class="comment-body">
-                    <p>
-                        {{ review.commentary }}
-                    </p>
-                    <div class="d-flex comment-btns mt-3">
-                        <button class="btn border-box font-weight-normal">Me gusta</button>
-                        <button class="btn border-box font-weight-normal ml-2">Comentar</button>
-                    </div>
+            </div>
+            <div class="comment-body">
+                <p>
+                    {{ review.commentary }}
+                </p>
+                <div class="d-flex comment-btns mt-3">
+                    <button class="btn border-box font-weight-normal">Me gusta</button>
+                    <button class="btn border-box font-weight-normal ml-2">Comentar</button>
                 </div>
             </div>
         </div>
@@ -62,7 +61,8 @@
                         </div>
                         <div class="stars">
                             <!-- <bar-rating [rate]="0"></bar-rating> -->
-                            <bar-rating formControlName="qualification" name="rating" [max]="5" required disabled></bar-rating>
+                            <bar-rating formControlName="qualification" name="rating" [max]="5" required disabled>
+                            </bar-rating>
                             <div *ngIf="submitted && f.qualification.errors?.required" class="invalid-feedback d-block">
                                 Debe calificar
                             </div>

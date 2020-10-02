@@ -63,11 +63,16 @@ export class CommentsComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   loadReviews( id: string ): void {
-    
+
     this._productId = id;
     this.productService.productReviews( id ).subscribe( reviews => {
       this.reviews = [ ...reviews ];
+      this.cleatForm();
     } );
+  }
+
+  private cleatForm(): void {
+    this.reviewForm.reset();
   }
 
   private createForm(): void {
