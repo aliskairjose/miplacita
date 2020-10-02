@@ -228,7 +228,6 @@ export class RegisterStoreComponent implements OnInit, OnChanges {
   }
 
   close( type: boolean ): void {
-    console.log("close");
     this.callback.emit( type );
   }
 
