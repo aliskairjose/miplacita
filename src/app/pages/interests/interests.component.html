@@ -2,11 +2,6 @@
  
     <div class="modal-content">
       <div class="modal-header">
-        <div class="page-title row">
-          <!-- <h4 class="px-3">
-             <span> <strong>Intereses </strong>  </span> 
-          </h4> -->
-        </div>
         <button type="button" class="close" (click)="close()" >
           <span aria-hidden="true">&times;</span>
         </button>
@@ -33,3 +28,57 @@
       </div>
     </div>
 </ng-template>
+<div *ngIf="isPage">
+  <ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="ball-spin-clockwise" [fullScreen]="true">
+    <p style="color: white"> Por favor espere... </p>
+  </ngx-spinner>
+  <ngx-alerts></ngx-alerts>
+  <section class="section-b-space">
+    <div class="container px-3">
+      <div class="row justify-content-center">
+        <div class="col-lg-7">
+          <div class="row justify-content-between px-3">
+            <div class="page-title">
+              <h2 class="mp-title">
+                <span>Selecciona tus intereses</span>
+              </h2>
+            </div>
+            <p class="mp-side-menu">Omitir ahora</p>
+          </div>
+          <div class="border-box w-100 px-3 py-3">
+            <form  class="theme-form">
+              <div class="row mb-2">
+                <div class="option-box d-flex mx-auto py-2 px-2">
+                  <span style="color: #b8b3b3" class="mr-2">
+                    <i class="fa fa-search"></i>
+                  </span>
+                  <input type="text" placeholder="Buscar intereses" id="search-input" class="w-100 h-100">
+                </div>
+              </div>
+              <div class="shipping-option" *ngIf="interestsList.length">
+                <div class="row mb-3" *ngFor="let interest of interestsList; let i=index">
+                  <div class="option-box d-flex mx-auto py-2">
+                    <div class="col-md-11 text-center">
+                      <p class="my-auto">{{interest}}</p>
+                    </div>
+                    <div class="col-md-1 text-right">
+                      <input class="my-auto" type="radio">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row text-center">
+                <button class="btn background-default-color" id="btn-save">
+                  Guardar interses
+                </button>
+              </div>
+            </form>
+          </div>
+          <div class="row mp-side-menu-responsive text-center">
+            <p class="">Omitir ahora</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

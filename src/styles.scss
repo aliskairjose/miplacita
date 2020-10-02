@@ -32,7 +32,9 @@ $radius: 5px;
 .btn {
   text-transform: none;
 }
-
+.background-default-color {
+  background-color: var(--theme-deafult);
+}
 .btn-solid, .btn-solid-purple {
   border-radius: $radius;
 }
