@@ -102,6 +102,7 @@ export class ShippingZonesComponent implements OnInit, OnChanges {
   private createShipmentZone(): void {
     this.shopService.addShipmetZone( { shipment_options: this.zonesForm.value } ).subscribe( shipmentZone => {
       this.toastr.info( 'Se ha creado una nueva zona de envío' );
+      this.clearForm();
       this.allZones.push( shipmentZone );
     } );
   }
@@ -109,13 +110,17 @@ export class ShippingZonesComponent implements OnInit, OnChanges {
   private updateShipmentZone(): void {
     this.shopService.updateShipmetOptions( this.zone._id, { shipment_options: this.zone } ).subscribe( () => {
       this.toastr.info( 'Se ha actualizado una nueva zona de envío' );
-      this.state = 'add';
-      this.buttonTitle = 'Crear zona';
-      this.zone = {};
-      this.zonesForm.reset();
-      this.submitted = false;
+      this.clearForm();
       this.loadShippingZones();
     } );
+  }
+
+  private clearForm(): void {
+    this.state = 'add';
+    this.buttonTitle = 'Crear zona';
+    this.zone = {};
+    this.zonesForm.reset();
+    this.submitted = false;
   }
 
   private loadShippingZones(): void {
