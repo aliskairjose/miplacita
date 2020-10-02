@@ -1,9 +1,8 @@
-import { ToastrService } from 'ngx-toastr';
-
-import { Component, EventEmitter, Input, OnInit, Output, ViewChild, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-
+import { ToastrService } from 'ngx-toastr';
+import { forkJoin } from 'rxjs';
 import { environment } from '../../../../environments/environment';
 import { Category } from '../../classes/category';
 import { Plan } from '../../classes/plan';
@@ -12,7 +11,6 @@ import { User } from '../../classes/user';
 import { PaymentComponent } from '../../components/payment/payment.component';
 import { ProductService } from '../../services/product.service';
 import { ShopService } from '../../services/shop.service';
-import { forkJoin } from 'rxjs';
 
 @Component( {
   selector: 'app-register-store',

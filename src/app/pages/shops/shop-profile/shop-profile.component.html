@@ -15,13 +15,28 @@
 									<h3>Mis Datos</h3>
 									<p> Completa estos datos para configurar tu tienda</p>
 								</div>
-                                
                                 <!-- Shop Name -->
                                 <div class="form-group col-lg-10 col-md-10 col-sm-12">
                                     <div class="field-label font-weight-bold">Nombre de la tienda</div>
                                     <input formControlName="name" type="text" class="form-control" [(ngModel)]="store.name"/>
                                     <div *ngIf="submitted && f.name.errors" class="invalid-feedback d-block">
                                         <div *ngIf="f.name.errors.required"> {{ required }} </div>
+                                    </div>
+                                </div>
+                                <!-- Description -->
+                                <div class="form-group col-lg-10 col-md-10 col-sm-12">
+                                    <div class="field-label font-weight-bold">Descripción</div>
+                                    <input formControlName="description" type="text" class="form-control" [(ngModel)]="store.description"/>
+                                    <div *ngIf="submitted && f.description.errors" class="invalid-feedback d-block">
+                                        <div *ngIf="f.description.errors.required"> {{ required }} </div>
+                                    </div>
+                                </div>
+                                <!-- Description -->
+                                <div class="form-group col-lg-10 col-md-10 col-sm-12">
+                                    <div class="field-label font-weight-bold">Url</div>
+                                    <input formControlName="url_store" type="text" class="form-control" [(ngModel)]="store.url_store"/>
+                                    <div *ngIf="submitted && f.url_store.errors" class="invalid-feedback d-block">
+                                        <div *ngIf="f.url_store.errors.required"> {{ required }} </div>
                                     </div>
                                 </div>
                                 <!-- Phone -->
