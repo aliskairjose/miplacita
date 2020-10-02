@@ -51,6 +51,13 @@ $radius: 5px;
   padding: 10px 10px;
 }
 
+.tab-product {
+  padding: 10px 10px;
+}
+.tab-product-active {
+  border-bottom: 3px solid $mp-purple;
+}
+
 .separador {
   color: var(--mp-gray);
 }
