@@ -286,7 +286,7 @@
 					<app-shop-profile *ngIf="active=='admin-store' && subtab=='store-profile' && stores.length > 0"
 						[store]="selectedStore">
 					</app-shop-profile>
-					<app-register-store [register]="false" [_user]="user"
+					<app-register-store [register]="false" [_user]="user" (callback)="init()"
 						*ngIf="active=='admin-store' && subtab=='store-profile' && stores.length == 0">
 					</app-register-store>
 					<app-shop-design *ngIf="active=='admin-store' && subtab=='design'"></app-shop-design>

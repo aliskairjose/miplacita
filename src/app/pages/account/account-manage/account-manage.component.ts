@@ -51,6 +51,7 @@ export class AccountManageComponent implements OnInit, OnChanges {
   }
 
   init(): void {
+    console.log("init callback");
     this.route.url.subscribe( url => {
       this.active = url[ 2 ].path;
       if ( this.active === 'admin-store' && url.length > 4 ) {
