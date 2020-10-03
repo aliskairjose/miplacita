@@ -23,6 +23,8 @@ import { ProductsComponent } from '../products.component';
 } )
 export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
   @ViewChild( 'createProduct', { static: false } ) CreateProduct: TemplateRef<any>;
+  active = 'product';
+  showForm: boolean = false;
   modal: any;
   modalOpen = false;
   modalOption: NgbModalOptions = {}; // not null!
@@ -242,6 +244,14 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
     if ( this.modalOpen ) {
       this.modalService.dismissAll();
     }
+  }
+
+  updateActive(tab: string) {
+    this.active = tab;
+  }
+
+  variationsForm(){
+    this.showForm = !this.showForm;
   }
 
 }
