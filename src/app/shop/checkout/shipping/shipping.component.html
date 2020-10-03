@@ -119,26 +119,26 @@
 											</div>
 										</div>
 									</form>
-									<div class="button-box h-100 d-flex justify-content-end align-items-end">
+									<div class="row maps">
+										<div class="col-lg-12 col-sm-12 col-xs-12 mb-3">
+											<div class="border-box h-100">
+												<div class="shipping-options d-flex flex-column h-100">
+													<div class="checkout-title">
+														<h3>Seleccione la dirección de envío</h3>
+													</div>
+													<agm-map [latitude]="latitude" [longitude]="longitude" [zoom]="zoom">
+														<agm-marker [latitude]="latitude" [longitude]="longitude" [markerDraggable]="true"
+															(dragEnd)="markerDragEnd($event)"></agm-marker>
+													</agm-map>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="button-box d-flex justify-content-end align-items-end">
 										<div class="text-right">
 											<a (click)="checkout()" class="btn btn-solid">Finalizar</a>
 										</div>
 									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="row maps">
-						<div class="col-lg-6 col-sm-12 col-xs-12 mb-3">
-							<div class="border-box h-100">
-								<div class="shipping-options d-flex flex-column h-100">
-									<div class="checkout-title">
-										<h3>Seleccione la dirección de envío</h3>
-									</div>
-									<agm-map [latitude]="latitude" [longitude]="longitude" [zoom]="zoom">
-										<agm-marker [latitude]="latitude" [longitude]="longitude" [markerDraggable]="true"
-											(dragEnd)="markerDragEnd($event)"></agm-marker>
-									</agm-map>
 								</div>
 							</div>
 						</div>
