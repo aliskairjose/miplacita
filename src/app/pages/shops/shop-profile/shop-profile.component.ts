@@ -1,6 +1,6 @@
 import { ToastrService } from 'ngx-toastr';
 
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, Input, Output, OnChanges, OnInit, SimpleChanges, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { Store } from '../../../shared/classes/store';
@@ -22,6 +22,7 @@ export class ShopProfileComponent implements OnInit, OnChanges {
   enabled = false;
 
   @Input() store: Store;
+  @Output() updateShop: EventEmitter<Store> = new EventEmitter<Store>();
 
   constructor(
     private formBuilder: FormBuilder,
@@ -47,12 +48,15 @@ export class ShopProfileComponent implements OnInit, OnChanges {
 
   onSubmit(): void {
     this.submitted = true;
+    this.profileForm.value.logo = this.store.logo;
 
     if ( this.profileForm.valid ) {
       this.shopService.updateStore( this.store._id, this.profileForm.value ).subscribe( response => {
-        console.log( response );
-
-        this.toastrService.info( 'Tienda actualizada con éxito' );
+        if ( response.success ) {
+          this.store = { ...response.store };
+          this.toastrService.info( response.message[ 0 ] );
+          this.updateShop.emit( this.store );
+        }
       } );
     }
   }
@@ -64,7 +68,7 @@ export class ShopProfileComponent implements OnInit, OnChanges {
       description: [ '', [ Validators.required ] ],
       email: [ '', [ Validators.required, Validators.email ] ],
       url_store: [ '', [ Validators.required ] ],
-      logo: ['']
+      logo: [ '' ]
     } );
   }
 

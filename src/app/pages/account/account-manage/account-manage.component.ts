@@ -39,7 +39,6 @@ export class AccountManageComponent implements OnInit, OnChanges {
     this.user = this.storage.getItem( 'user' );
   }
   ngOnChanges( changes: SimpleChanges ): void {
-
     this.shopService.storeObserver().subscribe( store => {
       if ( store ) { this.init(); }
     } );
@@ -102,9 +101,17 @@ export class AccountManageComponent implements OnInit, OnChanges {
   }
 
   selectStore( store: Store ): void {
-    this.selectedStore = store;
+    this.selectedStore = { ...store };
     this.shopService.storeSubject( store );
     sessionStorage.setItem( 'store', JSON.stringify( store ) );
+  }
+
+  /**
+   * @description Recibe el evento de perfil de tienda cuando actualiza la informacion
+   * @param shop Valores de la tienda actualizada
+   */
+  updateShop( store: Store ): void {
+    this.selectStore( store );
   }
 
   private openModal() {
