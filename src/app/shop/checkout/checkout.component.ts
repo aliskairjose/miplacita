@@ -104,7 +104,7 @@ export class CheckoutComponent implements OnInit {
         console.log( response );
 
         if ( response.success ) {
-          this.router.navigate( [ '/shop/checkout/success', response.order._id ] );
+          this.router.navigate( [ '/shop/checkout/success' ] );
         }
       } );
     }

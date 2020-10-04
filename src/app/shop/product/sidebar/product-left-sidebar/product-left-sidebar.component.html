@@ -63,7 +63,7 @@
                     </ng-template>
                   </ng-container>
                 </owl-carousel-o>
-                <div class="col-12 p-0" *ngIf="product?.image?.length > 1">
+                <div class="col-12 p-0" *ngIf="product?.image?.length">
                   <div class="slider-nav">
                     <owl-carousel-o [options]="ProductDetailsThumbConfig" class="product-slick">
                       <ng-container *ngFor="let image of product?.image; index as i">

@@ -102,7 +102,7 @@ const routes: Routes = [
     component: ShippingComponent
   },
   {
-    path: 'checkout/success/:id',
+    path: 'checkout/success',
     component: SuccessComponent
   },
   {
