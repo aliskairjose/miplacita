@@ -43,6 +43,7 @@ export class AccountManageComponent implements OnInit, OnChanges {
   }
 
   ngOnInit(): void {
+    this.init();
   }
 
   init(): void {
