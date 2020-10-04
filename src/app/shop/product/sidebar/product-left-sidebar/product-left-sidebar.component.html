@@ -85,12 +85,11 @@
                   <h3>
                     {{ product?.price | currency }}
                   </h3>
-                  <div class="product-description border-product">
-                    <p>{{ product.description }}</p>
-                    <h5 class="avalibility" *ngIf="counter <= product.stock"><span>({{ product.stock }} unidades
-                        desponibles)</span></h5>
-                    <!-- <h5 class="avalibility" *ngIf="counter > product.stock"><span>Out of Stock</span></h5> -->
-                    <h6 class="product-title mt-5">Cantidad</h6>
+                  <div class="product-description">
+                    <h5 class="avalibility" *ngIf="counter <= product.stock">
+                      <span>({{ product.stock }} unidades desponibles)</span>
+                    </h5>
+                    <h6 class="product-title mt-1">Cantidad</h6>
                     <div class="qty-box">
                       <div class="input-group">
                         <span class="input-group-prepend">
@@ -108,10 +107,13 @@
                       </div>
                     </div>
                   </div>
-                  <div class="product-buttons">
+                  <div class="product-buttons mt-3">
                     <a href="javascrip:void(0)" class="btn btn-solid" [class.disabled]="counter > product.stock"
                       (click)="addToCart(product)">Agregar al carrito</a>
-                    <!-- <a href="javascrip:void(0)" class="btn btn-solid" [class.disabled]="counter > product.stock" (click)="buyNow(product)">buy now</a> -->
+                  </div>
+                  <div class="border-product">
+                    <h6 class="product-title">Detalles del producto</h6>
+                    <p>{{ product.description.substring(0, 200)+'...' }}</p>
                   </div>
                   <div class="d-flex flex-column justify-content-end pb-3">
                     <h6 class="product-title">share it</h6>
