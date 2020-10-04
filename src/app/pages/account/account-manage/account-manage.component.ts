@@ -39,14 +39,10 @@ export class AccountManageComponent implements OnInit, OnChanges {
     this.user = this.storage.getItem( 'user' );
   }
   ngOnChanges( changes: SimpleChanges ): void {
-    this.shopService.storeObserver().subscribe( store => {
-      if ( store ) { this.init(); }
-    } );
     this.init();
   }
 
   ngOnInit(): void {
-    this.init();
   }
 
   init(): void {
@@ -71,7 +67,7 @@ export class AccountManageComponent implements OnInit, OnChanges {
             this.selectedStore = this.stores[ 0 ];
             sessionStorage.setItem( 'store', JSON.stringify( this.stores[ 0 ] ) );
           }
-          this.shopService.storeSubject(this.selectedStore);
+          this.shopService.storeSubject( this.selectedStore );
         }
 
       } );

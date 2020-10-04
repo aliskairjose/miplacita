@@ -57,6 +57,7 @@ export class ShopProfileComponent implements OnInit, OnChanges {
         if ( response.success ) {
           this.store = { ...response.store };
           this.toastrService.info( response.message[ 0 ] );
+          this.shopService.storeSubject( response.store );
           this.updateShop.emit( this.store );
         }
       } );
