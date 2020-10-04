@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, ViewChild, OnChanges, SimpleChanges, Output, EventEmitter } from '@angular/core';
 import { NgbSlideEvent, NgbSlideEventSource, NgbCarousel } from '@ng-bootstrap/ng-bootstrap';
 import { ShopService } from '../../../shared/services/shop.service';
 import { Store } from '../../../shared/classes/store';
@@ -10,18 +10,21 @@ import { ToastrService } from 'ngx-toastr';
   templateUrl: './shop-design.component.html',
   styleUrls: [ './shop-design.component.scss' ]
 } )
-export class ShopDesignComponent implements OnInit {
+export class ShopDesignComponent implements OnInit, OnChanges {
   @ViewChild( 'ngcarousel', { static: true } ) ngCarousel: NgbCarousel;
 
   color = '';
-  font = '';
+  fontSelected = '';
   images = [];
   fonts = [
-    { name: 'Raleway Bold' },
-    { name: 'Roboto Bold' },
-    { name: 'Source Sans Pro' }
-  ]
-  private _shop: Store = {};
+    { value: 'Raleway Bold', name: 'Raleway Bold' },
+    { value: 'Roboto Bold', name: 'Roboto Bold' },
+    { value: 'Source Sans Pro', name: 'Source Sans Pro' }
+  ];
+
+  @Input() store: Store;
+  @Output() updateShop: EventEmitter<Store> = new EventEmitter<Store>();
+
 
   constructor(
     private storage: StorageService,
@@ -30,17 +33,26 @@ export class ShopDesignComponent implements OnInit {
   ) {
 
   }
+  ngOnChanges( changes: SimpleChanges ): void {
+    
+    this.store = JSON.parse( sessionStorage.getItem( 'store' ) );
+
+    this.color = this.store.config.color;
+    this.fontSelected = this.store.config.font;
+  }
 
   ngOnInit(): void {
-    const user: User = this.storage.getItem( 'user' );
-    this._shop = user.stores[ 0 ];
+    // const user: User = this.storage.getItem( 'user' );
+    // this.store = user.stores[ 0 ];
   }
 
   updateConfig(): void {
-    const data = { color: this.color, font: this.font };
-    this.shopService.config( this._shop._id, data ).subscribe( response => {
+    const data = { color: this.color, font: this.fontSelected };
+    this.shopService.config( this.store._id, data ).subscribe( response => {
       if ( response.success ) {
+        this.store = { ...response.result };
         this.toastrService.info( response.message[ 0 ] );
+        this.updateShop.emit( this.store );
       }
     } );
   }
@@ -49,7 +61,7 @@ export class ShopDesignComponent implements OnInit {
     this.shopService.uploadImages( { images: this.images } ).subscribe( result => {
       if ( result.status === 'isOk' ) {
         // result.images[ 0 ];
-        this.shopService.addBanner( this._shop._id, result.images[ 0 ] ).subscribe( _result => {
+        this.shopService.addBanner( this.store._id, result.images[ 0 ] ).subscribe( _result => {
           console.log( _result );
         } );
       }

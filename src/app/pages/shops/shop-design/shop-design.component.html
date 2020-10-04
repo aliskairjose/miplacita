@@ -2,28 +2,28 @@
   <div class="container d-flex">
     <div class="theme-form col mx-auto">
       <div class="d-flex color-fonts">
-        <div class="label card col-lg-3 col-md-4 col-sm-6 mr-3 text-center"
-        id="color" [(colorPicker)]="color" [cpPosition]="'bottom'"  >
-          <button class="btn" id="dropdownManual"  >
+        <div class="label card col-lg-3 col-md-4 col-sm-6 mr-3 text-center" id="color" [(colorPicker)]="color"
+          [cpPosition]="'bottom'">
+          <button class="btn" id="dropdownManual">
             Color de tienda
           </button>
           <div class="color" [style.background]="color"></div>
         </div>
-        <div class="label card col-lg-3 col-md-5 col-sm-6 mr-3 text-center"  ngbDropdown #myDrop="ngbDropdown" >
+        <div class="label card col-lg-3 col-md-5 col-sm-6 mr-3 text-center" ngbDropdown #myDrop="ngbDropdown">
           <button class="btn" id="dropdownManual" ngbDropdownAnchor (focus)="myDrop.open()">
             Tipografía de tienda
           </button>
-          <div  class="w-100" ngbDropdownMenu aria-labelledby="dropdownManual">
+          <div class="w-100" ngbDropdownMenu aria-labelledby="dropdownManual">
             <div class="border-box" id="item" ngbDropdownItem *ngFor="let font of fonts">
               <div class="d-flex align-items-center">
                 <div class="row w-100 mx-auto">
                   <div class="col d-flex justify-content-end align-items-center">{{ font.name}} </div>
                   <div class="col d-flex justify-content-end align-items-center">
-                    <input  type="radio">                    
+                    <input type="radio" name="font" [(ngModel)]="fontSelected" [value]="font.value">
                   </div>
                 </div>
               </div>
-            </div>            
+            </div>
           </div>
         </div>
 
@@ -36,6 +36,6 @@
     </div>
   </div>
   <div class="row mt-5 justify-content-center">
-    <button class="btn btn-solid-purple"> Actualizar diseño</button>
+    <button class="btn btn-solid-purple" (click)="updateConfig()"> Actualizar diseño</button>
   </div>
 </section>
