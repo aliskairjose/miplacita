@@ -35,7 +35,6 @@ export class UploadImageComponent implements OnInit, AfterViewInit {
   }
 
   upload( files ): void {
-    console.log( files );
 
     const limit = 102400;
 
@@ -76,7 +75,6 @@ export class UploadImageComponent implements OnInit, AfterViewInit {
   }
 
   private imageBase( image: string, length: number ): void {
-    console.log( image );
 
     this.images.push( image );
     if ( this.images.length === length ) {
