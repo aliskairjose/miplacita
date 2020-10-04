@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpService } from './http.service';
-import { Observable, Subject } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 import { Store } from '../classes/store';
 import { map } from 'rxjs/operators';
 import { Plan } from '../classes/plan';
@@ -12,11 +12,15 @@ import { ShipmentOption } from '../classes/shipment-option';
 } )
 export class ShopService {
 
-  $store: Subject<Store> = new Subject<Store>();
+  // $store: Subject<Store> = new Subject<Store>();
+  store: Store;
+  $store: BehaviorSubject<Store>;
 
   constructor(
     private http: HttpService
-  ) { }
+  ) {
+    this.$store = new BehaviorSubject( this.store );
+  }
 
   getPlans(): Observable<Plan[]> {
     return this.http.get( 'plan' ).pipe(
@@ -177,7 +181,7 @@ export class ShopService {
     return this.http.get( `shipment?store=${id}` ).pipe(
       map( result => {
         // tslint:disable-next-line: curly
-        if ( result.success) return result.result;
+        if ( result.success ) return result.result;
       } )
     );
   }

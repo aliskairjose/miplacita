@@ -27,18 +27,17 @@ export class ShopDesignComponent implements OnInit, OnChanges {
 
 
   constructor(
-    private storage: StorageService,
     private shopService: ShopService,
     private toastrService: ToastrService,
   ) {
 
   }
   ngOnChanges( changes: SimpleChanges ): void {
-    
-    this.store = JSON.parse( sessionStorage.getItem( 'store' ) );
-
-    this.color = this.store.config.color;
-    this.fontSelected = this.store.config.font;
+    this.shopService.storeObserver().subscribe( ( store: Store ) => {
+      this.store = store;
+      this.color = this.store.config.color;
+      this.fontSelected = this.store.config.font;
+    } );
   }
 
   ngOnInit(): void {

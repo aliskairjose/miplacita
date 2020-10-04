@@ -11,6 +11,7 @@ import { Store } from '../../shared/classes/store';
 import { OrderDetailsComponent } from '../../shared/custom-components/order-details/order-details.component';
 import { AuthService } from '../../shared/services/auth.service';
 import { OrderService } from '../../shared/services/order.service';
+import { ShopService } from '../../shared/services/shop.service';
 
 @Component( {
   selector: 'app-orders',
@@ -41,14 +42,17 @@ export class OrdersComponent implements OnInit, OnChanges {
     private auth: AuthService,
     private toastr: ToastrService,
     private ngbCalendar: NgbCalendar,
+    private shopService: ShopService,
     private orderService: OrderService,
     private parseDate: CustomDateParserFormatterService,
   ) { }
 
   ngOnChanges( changes: SimpleChanges ): void {
-    if ( this.auth.getUserRol() === 'merchant' ) {
-      this.store = JSON.parse( sessionStorage.getItem( 'store' ) );
-    }
+    this.shopService.storeObserver().subscribe( ( store: Store ) => {
+      if ( this.auth.getUserRol() === 'merchant' ) {
+        this.store = store;
+      }
+    } );
 
     this.init();
   }

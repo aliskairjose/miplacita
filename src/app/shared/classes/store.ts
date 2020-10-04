@@ -12,7 +12,7 @@ export interface Store {
   plan?: any;
   active?: boolean;
   created_at?: string;
-  config: Config;
+  config?: Config;
 }
 
 export interface Config {

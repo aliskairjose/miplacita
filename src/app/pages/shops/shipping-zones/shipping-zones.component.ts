@@ -44,8 +44,10 @@ export class ShippingZonesComponent implements OnInit, OnChanges {
   get f() { return this.zonesForm.controls; }
 
   ngOnChanges( changes: SimpleChanges ): void {
-    this.store = JSON.parse( sessionStorage.getItem( 'store' ) );
-    this.loadShippingZones();
+    this.shopService.storeObserver().subscribe( ( store: Store ) => {
+      this.store = store;
+      this.loadShippingZones();
+    } );
   }
 
 
