@@ -16,7 +16,7 @@
           </div>
           <div class="row border">
             <!-- Tipografía -->
-            <div class="col-6">
+            <div class="col-sm-12 col-lg-6">
               <div class="border-box my-3" id="item" *ngFor="let font of fonts">
                 <div class="custom-control custom-radio">
                   <input type="radio" [id]="font.name" name="font" class="custom-control-input"
@@ -26,7 +26,7 @@
               </div>
             </div>
             <!-- Color -->
-            <div class="col-6">
+            <div class="col-sm-12 col-lg-6">
               <div class="label card text-center" id="color" [(colorPicker)]="color"
                 [cpPosition]="'bottom'">
                 <button class="btn" id="dropdownManual">
