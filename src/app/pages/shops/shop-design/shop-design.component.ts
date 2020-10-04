@@ -1,10 +1,13 @@
-import { Component, Input, OnInit, ViewChild, OnChanges, SimpleChanges, Output, EventEmitter } from '@angular/core';
-import { NgbSlideEvent, NgbSlideEventSource, NgbCarousel } from '@ng-bootstrap/ng-bootstrap';
-import { ShopService } from '../../../shared/services/shop.service';
-import { Store } from '../../../shared/classes/store';
-import { StorageService } from '../../../shared/services/storage.service';
-import { User } from '../../../shared/classes/user';
 import { ToastrService } from 'ngx-toastr';
+
+import {
+  Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild
+} from '@angular/core';
+import { NgbCarousel } from '@ng-bootstrap/ng-bootstrap';
+
+import { Store } from '../../../shared/classes/store';
+import { ShopService } from '../../../shared/services/shop.service';
+
 @Component( {
   selector: 'app-shop-design',
   templateUrl: './shop-design.component.html',

@@ -4,11 +4,15 @@ import { Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from '@
 import { NgbCalendar, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 
 import { environment } from '../../../environments/environment';
-import { CustomDateParserFormatterService } from '../../shared/adapter/custom-date-parser-formatter.service';
+import {
+  CustomDateParserFormatterService
+} from '../../shared/adapter/custom-date-parser-formatter.service';
 import { Order } from '../../shared/classes/order';
 import { Paginate } from '../../shared/classes/paginate';
 import { Store } from '../../shared/classes/store';
-import { OrderDetailsComponent } from '../../shared/custom-components/order-details/order-details.component';
+import {
+  OrderDetailsComponent
+} from '../../shared/custom-components/order-details/order-details.component';
 import { AuthService } from '../../shared/services/auth.service';
 import { OrderService } from '../../shared/services/order.service';
 import { ShopService } from '../../shared/services/shop.service';
