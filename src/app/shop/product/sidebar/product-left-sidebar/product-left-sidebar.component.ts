@@ -50,8 +50,6 @@ export class ProductLeftSidebarComponent implements OnInit {
  
 
   ngOnInit(): void {
-    console.log( 'init' );
-
     this.spinner.show();
     forkJoin( [ this.shopService.storeList(), this.categoryService.categoryList() ] ).subscribe( ( [ shopsResult, categoriesResult ] ) => {
       this.shops = [ ...shopsResult.docs ];
