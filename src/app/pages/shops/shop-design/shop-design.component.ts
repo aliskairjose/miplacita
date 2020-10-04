@@ -50,13 +50,15 @@ export class ShopDesignComponent implements OnInit, OnChanges {
 
   updateConfig(): void {
     const data = { color: this.color, font: this.fontSelected };
-    this.shopService.config( this.store._id, data ).subscribe( response => {
-      if ( response.success ) {
-        this.store = { ...response.result };
-        this.toastrService.info( response.message[ 0 ] );
-        this.updateShop.emit( this.store );
-      }
-    } );
+    console.log(data);
+    
+    // this.shopService.config( this.store._id, data ).subscribe( response => {
+    //   if ( response.success ) {
+    //     this.store = { ...response.result };
+    //     this.toastrService.info( response.message[ 0 ] );
+    //     this.updateShop.emit( this.store );
+    //   }
+    // } );
   }
 
   sendImageToCloud(): void {
