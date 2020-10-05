@@ -4,13 +4,18 @@ import { Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from '@
 import { NgbCalendar, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 
 import { environment } from '../../../environments/environment';
-import { CustomDateParserFormatterService } from '../../shared/adapter/custom-date-parser-formatter.service';
+import {
+  CustomDateParserFormatterService
+} from '../../shared/adapter/custom-date-parser-formatter.service';
 import { Order } from '../../shared/classes/order';
 import { Paginate } from '../../shared/classes/paginate';
 import { Store } from '../../shared/classes/store';
-import { OrderDetailsComponent } from '../../shared/custom-components/order-details/order-details.component';
+import {
+  OrderDetailsComponent
+} from '../../shared/custom-components/order-details/order-details.component';
 import { AuthService } from '../../shared/services/auth.service';
 import { OrderService } from '../../shared/services/order.service';
+import { ShopService } from '../../shared/services/shop.service';
 
 @Component( {
   selector: 'app-orders',
@@ -41,14 +46,17 @@ export class OrdersComponent implements OnInit, OnChanges {
     private auth: AuthService,
     private toastr: ToastrService,
     private ngbCalendar: NgbCalendar,
+    private shopService: ShopService,
     private orderService: OrderService,
     private parseDate: CustomDateParserFormatterService,
   ) { }
 
   ngOnChanges( changes: SimpleChanges ): void {
-    if ( this.auth.getUserRol() === 'merchant' ) {
-      this.store = JSON.parse( sessionStorage.getItem( 'store' ) );
-    }
+    this.shopService.storeObserver().subscribe( ( store: Store ) => {
+      if ( this.auth.getUserRol() === 'merchant' ) {
+        this.store = store;
+      }
+    } );
 
     this.init();
   }

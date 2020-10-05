@@ -20,6 +20,7 @@ export class LoginComponent implements OnInit {
   required = 'Campo obligatorio';
   invalidEmail = 'Email inválido';
   role = 'admin';
+  title: string;
 
   constructor(
     private router: Router,
@@ -36,8 +37,13 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     const role = this.route.queryParams.subscribe( params => {
-      if ( Object.keys(params).length !== 0 ) {
+      if ( Object.keys( params ).length !== 0 ) {
         this.role = params.role;
+
+        if ( params.role === 'merchant' ) { this.title = 'como Vendedor'; }
+
+        if ( params.role === 'client' ) { this.title = 'como Comprador'; }
+
       }
     } );
 

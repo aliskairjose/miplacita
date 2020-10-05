@@ -1,5 +1,3 @@
-
-
 import { ToastrService } from 'ngx-toastr';
 import { forkJoin } from 'rxjs';
 
@@ -18,7 +16,6 @@ import { ConfirmationDialogService } from '../../shared/services/confirmation-di
 import { ProductService } from '../../shared/services/product.service';
 import { ShopService } from '../../shared/services/shop.service';
 import { CreateProductComponent } from './create-product/create-product.component';
-import { log } from 'console';
 
 @Component( {
   selector: 'app-products',
@@ -66,9 +63,11 @@ export class ProductsComponent implements OnInit, OnChanges, AfterViewInit {
 
   ngOnChanges( changes: SimpleChanges ): void {
 
-    if ( this.auth.getUserRol() === 'merchant' ) {
-      this.store = JSON.parse( sessionStorage.getItem( 'store' ) );
-    }
+    this.shopService.storeObserver().subscribe( ( store: Store ) => {
+      if ( this.auth.getUserRol() === 'merchant' ) {
+        this.store = store;
+      }
+    } );
 
     this.init();
   }

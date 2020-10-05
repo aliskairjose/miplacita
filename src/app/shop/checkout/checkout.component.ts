@@ -99,13 +99,12 @@ export class CheckoutComponent implements OnInit {
   onSubmit(): void {
     this.submitted = true;
     const order = JSON.parse( sessionStorage.order );
-
     if ( this.payment.onSubmit() ) {
       this.orderService.createOrder( order ).subscribe( response => {
         console.log( response );
 
         if ( response.success ) {
-          this.router.navigate( [ '/shop/checkout/success', response.order._id ] );
+          this.router.navigate( [ '/shop/checkout/success' ] );
         }
       } );
     }

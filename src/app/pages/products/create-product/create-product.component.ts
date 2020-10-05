@@ -103,7 +103,7 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   onSubmit(): void {
-    this.modal.close( );
+    this.modal.close();
     this.submitted = true;
     this.productForm.value.store = this.store._id;
 
@@ -136,11 +136,13 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   private updateProduct( data: Product ): void {
-    this.productService.updateProduct( this.productData._id, data ).subscribe( response => {
-      this.toastrService.info( 'Producto actualizado correctamente' );
-      setTimeout( () => {
-        this.router.navigate( [ 'pages/products' ] );
-      }, 2000 );
+    this.productService.updateProduct( this.productData._id, data ).subscribe( ( response ) => {
+      if ( response.success ) {
+        this.toastrService.info( response.message[ 0 ] );
+        this.productsComponent.reloadData();
+        this.close();
+      }
+
     } );
   }
 
@@ -189,6 +191,11 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
    * @description Valida que el nombre del producto no este en uso
    */
   validateName(): void {
+    if ( !this.create ) {
+      this.disabled = false;
+      return;
+    }
+
     if ( this.productData.name.length > 0 && this.productData.name.length < 4 ) {
       this.toastrService.warning( 'El nombre debe tener un mínimo de 4 caracteres' );
       return;
@@ -227,7 +234,7 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
     this.modal = this.modalService.open( this.CreateProduct, this.modalOption );
     this.modal.result.then( () => {
       // Cuando se envia la data cerrando el modal con el boton
-    }, ( ) => {
+    }, () => {
       // Cuando se cierra con la x de la esquina
       this.clear();
     } );
@@ -250,11 +257,11 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
     }
   }
 
-  updateActive(tab: string) {
+  updateActive( tab: string ) {
     this.active = tab;
   }
 
-  variationsForm(){
+  variationsForm() {
     this.showForm = !this.showForm;
   }
 

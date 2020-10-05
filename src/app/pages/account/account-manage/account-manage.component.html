@@ -284,12 +284,17 @@
 				</div>
 				<div class="container">
 					<app-shop-profile *ngIf="active=='admin-store' && subtab=='store-profile' && stores.length > 0"
-						[store]="selectedStore">
+						(updateShop)="updateShop($event)" [store]="selectedStore">
 					</app-shop-profile>
+
 					<app-register-store [register]="false" [_user]="user" (callback)="init()"
 						*ngIf="active=='admin-store' && subtab=='store-profile' && stores.length == 0">
 					</app-register-store>
-					<app-shop-design *ngIf="active=='admin-store' && subtab=='design'"></app-shop-design>
+
+					<app-shop-design *ngIf="active=='admin-store' && subtab=='design'" [store]="selectedStore"
+						(updateShop)="updateShop($event)">
+					</app-shop-design>
+
 					<app-shop-suscription *ngIf="active=='admin-store' && subtab=='suscription'" [store]="selectedStore">
 					</app-shop-suscription>
 					<app-shop-withdrawal *ngIf="active=='admin-store' && subtab=='withdrawal'"></app-shop-withdrawal>

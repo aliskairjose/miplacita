@@ -1,14 +1,14 @@
-import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { ShopService } from '../../../shared/services/shop.service';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { StorageService } from 'src/app/shared/services/storage.service';
-import { User } from '../../../shared/classes/user';
-import { Paginate } from 'src/app/shared/classes/paginate';
-import { Store } from '../../../shared/classes/store';
-import { ShipmentOption } from '../../../shared/classes/shipment-option';
-import { environment } from '../../../../environments/environment.prod';
 import { ToastrService } from 'ngx-toastr';
+import { Paginate } from 'src/app/shared/classes/paginate';
+
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+
+import { environment } from '../../../../environments/environment.prod';
+import { ShipmentOption } from '../../../shared/classes/shipment-option';
+import { Store } from '../../../shared/classes/store';
 import { ConfirmationDialogService } from '../../../shared/services/confirmation-dialog.service';
+import { ShopService } from '../../../shared/services/shop.service';
 
 @Component( {
   selector: 'app-shipping-zones',
@@ -44,8 +44,10 @@ export class ShippingZonesComponent implements OnInit, OnChanges {
   get f() { return this.zonesForm.controls; }
 
   ngOnChanges( changes: SimpleChanges ): void {
-    this.store = JSON.parse( sessionStorage.getItem( 'store' ) );
-    this.loadShippingZones();
+    this.shopService.storeObserver().subscribe( ( store: Store ) => {
+      this.store = store;
+      this.loadShippingZones();
+    } );
   }
 
 

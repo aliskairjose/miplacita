@@ -1,11 +1,9 @@
-import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { Plan } from '../../../shared/classes/plan';
-import { StorageService } from '../../../shared/services/storage.service';
+import { ToastrService } from 'ngx-toastr';
+
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+
 import { Store } from '../../../shared/classes/store';
 import { ShopService } from '../../../shared/services/shop.service';
-import { Result } from '../../../shared/classes/response';
-import { User } from '../../../shared/classes/user';
-import { ToastrService } from 'ngx-toastr';
 
 @Component( {
   selector: 'app-shop-suscription',
@@ -49,11 +47,14 @@ export class ShopSuscriptionComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges( changes: SimpleChanges ): void {
-    this.store = JSON.parse( sessionStorage.getItem( 'store' ) );
-    if ( this.store ) {
-      this.enabled = true;
-      this.getShopPlan();
-    }
+    this.shopService.storeObserver().subscribe( ( store: Store ) => {
+      if ( store ) {
+        this.store = store;
+        this.enabled = true;
+        this.getShopPlan();
+      }
+    } );
+
   }
 
   ngOnInit(): void {
