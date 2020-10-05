@@ -19,16 +19,15 @@
             <div class="col-sm-12 col-lg-6">
               <div class="border-box my-3" id="item" *ngFor="let font of fonts">
                 <div class="custom-control custom-radio">
-                  <input type="radio" [id]="font.name" name="font" class="custom-control-input"
+                  <input type="radio" [id]="font.name" [name]="font.name" class="custom-control-input"
                     [(ngModel)]="fontSelected" [value]="font.value">
-                  <label class="custom-control-label" for="customRadio1">{{ font.name }}</label>
+                  <label class="custom-control-label" [for]="font.name">{{ font.name }}</label>
                 </div>
               </div>
             </div>
             <!-- Color -->
             <div class="col-sm-12 col-lg-6">
-              <div class="label card text-center" id="color" [(colorPicker)]="color"
-                [cpPosition]="'bottom'">
+              <div class="label card text-center" id="color" [(colorPicker)]="color" [cpPosition]="'bottom'">
                 <button class="btn" id="dropdownManual">
                   Color de tienda
                 </button>
