@@ -153,6 +153,58 @@
                                             <p class="my-auto pl-2">Tamaño</p>
                                         </div>
                                     </div>
+                                    <div class="table-responsive" *ngIf="variations.length>0">
+                                        <table class="table table-responsive-sm">
+                                            <thead>
+                                                <tr class="table-head">
+                                                    <th class="text-center text-uppercase" *ngFor="let field of fields" scope="col">{{field}}</th>
+                                                </tr>
+                                            </thead>
+                                            <!--Store Admin-->
+                                            <tbody *ngIf="user.role =='merchant'">
+                                                <tr *ngFor="let order of orders">
+                                                    <td class="text-center">
+                                                        Nombre
+                                                    </td>
+                                                    <td class="text-center" >
+                                                        <p>Precio</p>
+                                                    </td>
+                                                    <td class="text-center" >
+                                                        <p>Itbms</p>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        Tamaño
+                                                    </td>
+                                                    <td class="text-center">
+                                                        Color
+                                                    </td>
+                                                    <td class="text-center" *ngIf="role==='merchant'">
+                                                        <a [routerLink]="" class="btn btn-table-action">
+                                                            <i class="fa fa-edit fa-lg" style="color: Dodgerblue"></i>
+                                                        </a>
+                                                        <button class="btn btn-table-action" >
+                                                            <i class="fa fa-close fa-lg" style="color: Tomato"></i>
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                            <!--Store Admin ends-->
+                                            <!--Admin Marketplace-->
+                                            <tbody *ngIf="user.role =='admin'">
+                                                <tr *ngFor="let store of shops">
+                                                    <td class="text-center"><p>{{store.name}}</p></td>
+                                                    <td class="text-center" >
+                                                        <p>{{store.amount}}</p>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <p>{{store.date}}</p>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                            <!--Admin Marketplace ends-->
+                                        </table>
+                                        
+                                    </div>
                                     <div *ngIf="!showForm" class="d-flex px-5 py-5 justify-content-center aling-content-center">
                                         <button class="btn btn-solid-purple" (click)="variationsForm()">
                                             Agregar tu primera variación

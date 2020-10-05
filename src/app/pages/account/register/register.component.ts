@@ -86,7 +86,7 @@ export class RegisterComponent implements OnInit {
             this.registerSuccess = true;
           } else {
             // Opcion client
-            this.router.navigate( [ '/register/success' ] );
+            this.router.navigate( [ '/user/interests' ] );
           }
         }
       } );

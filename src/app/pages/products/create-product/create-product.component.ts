@@ -23,14 +23,18 @@ import { ProductsComponent } from '../products.component';
 } )
 export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
   @ViewChild( 'createProduct', { static: false } ) CreateProduct: TemplateRef<any>;
+  fields = ['Nombre', 'Precio', 'Itbms', 'Tamaño', 'Color', ''];
   active = 'product';
   showForm: boolean = false;
+
   modal: any;
   modalOpen = false;
-  modalOption: NgbModalOptions = {}; // not null!
+  modalOption: NgbModalOptions = {};
+  
   create = true;
   typesProduct = [];
   states = [];
+  variations = [];
   categoryId = '';
   categories: Category[];
   productForm: FormGroup;

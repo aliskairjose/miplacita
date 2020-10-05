@@ -214,7 +214,7 @@ export class RegisterStoreComponent implements OnInit, OnChanges {
     this.productForm.value.store = this.store._id;
     this.productService.addProduct( this.productForm.value ).subscribe( () => {
       sessionStorage.clear();
-      this.router.navigate( [ '/register/success' ] );
+      this.router.navigate( [ '/shop/register/success' ] );
     } );
   }
 

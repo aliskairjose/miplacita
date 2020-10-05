@@ -3,7 +3,7 @@ import { AuthService } from 'src/app/shared/services/auth.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { Route } from '@angular/compiler/src/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-interests',
@@ -15,7 +15,7 @@ export class InterestsComponent implements OnInit {
   isPage = false;
   modalOpen = false;
   closeResult: string;
-  interestsList = ['Carros'];
+  interestsList = ['Carros', 'Tecnología y Computación', 'Hogar y Decoración'];
   fields = [ 'Producto', 'Precio', 'Itbms' ];
   modal: any;
   role: string;
@@ -25,6 +25,7 @@ export class InterestsComponent implements OnInit {
     private auth: AuthService,
     private modalService: NgbModal,
     private route: ActivatedRoute,
+    private router: Router,
     private toastrService: ToastrService,
   ) {
 
@@ -53,5 +54,9 @@ export class InterestsComponent implements OnInit {
     if ( this.modalOpen ) {
       this.modalService.dismissAll();
     }
+  }
+
+  saveInterests(){
+    this.router.navigate( [ '/user/interests' ] );
   }
 }
