@@ -30,6 +30,19 @@ $radius: 5px;
   border: 1px solid var(--mp-pink-light);
 }
 
+.checkout-page .checkout-form input[type="text"],
+.checkout-page .checkout-form input[type="tel"],
+.checkout-page .checkout-form input[type="email"],
+.checkout-page .checkout-form input[type="url"],
+.checkout-page .checkout-form input[type="password"],
+.checkout-page .checkout-form input[type="number"],
+.checkout-page .checkout-form select,
+.checkout-page .checkout-form textarea,
+.card,
+.form-control {
+  border: 1px solid var(--mp-pink-light);
+
+}
 .btn {
   text-transform: none;
 }
