@@ -15,6 +15,7 @@ import { Store } from '../../../shared/classes/store';
 import { ProductService } from '../../../shared/services/product.service';
 import { ShopService } from '../../../shared/services/shop.service';
 import { ProductsComponent } from '../products.component';
+import { ModalNewElementComponent } from 'src/app/shared/components/modal-new-element/modal-new-element.component';
 
 @Component( {
   selector: 'app-create-product',
@@ -23,11 +24,15 @@ import { ProductsComponent } from '../products.component';
 } )
 export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
   @ViewChild( 'createProduct', { static: false } ) CreateProduct: TemplateRef<any>;
+  @ViewChild( 'newElement' ) AddElement: ModalNewElementComponent;
+
   fields = ['Nombre', 'Precio', 'Itbms', 'Tamaño', 'Color', ''];
   active = 'product';
   showForm: boolean = false;
+  newElement: boolean = true;
 
   modal: any;
+  modal2: any;
   modalOpen = false;
   modalOption: NgbModalOptions = {};
   
@@ -35,6 +40,9 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
   typesProduct = [];
   states = [];
   allVariations = [];
+  sizes = [];
+  subcategories = [];
+
   categoryId = '';
   categories: Category[];
   productForm: FormGroup;
@@ -54,12 +62,10 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
   title = 'Crear producto';
   disabled = true;
   plan: Plan;
-
+  color: string = '';
   @Input() store: Store = {};
 
   constructor(
-    private router: Router,
-    private route: ActivatedRoute,
     public modalService: NgbModal,
     private shopService: ShopService,
     private formBuilder: FormBuilder,
@@ -263,6 +269,36 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
 
   variationsForm() {
     this.showForm = !this.showForm;
+  }
+
+  createNewSize(){
+   
+    this.modalOption.backdrop = 'static';
+    this.modalOption.keyboard = false;
+    this.modalOption.windowClass = 'createProductModal';
+    this.modal2 = this.modalService.open( ModalNewElementComponent, this.modalOption );
+    this.modal2.componentInstance.option = 1;
+
+    this.modal.result.then( () => {
+      // Cuando se envia la data cerrando el modal con el boton
+    }, () => {
+      // Cuando se cierra con la x de la esquina
+    
+    } );
+  }
+
+  createNewSubCategory(){
+    this.modalOption.backdrop = 'static';
+    this.modalOption.keyboard = false;
+    this.modalOption.windowClass = 'createProductModal';
+    this.modal2 = this.modalService.open( ModalNewElementComponent, this.modalOption );
+    this.modal2.componentInstance.option = 2;
+    this.modal.result.then( () => {
+      // Cuando se envia la data cerrando el modal con el boton
+    }, () => {
+      // Cuando se cierra con la x de la esquina
+    
+    } );
   }
 
 }

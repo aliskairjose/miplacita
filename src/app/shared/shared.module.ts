@@ -75,6 +75,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { ShopCardComponent } from './components/shop-card/shop-card.component';
 import { PaymentComponent } from './components/payment/payment.component';
 import { CommentsComponent } from './components/comments/comments.component';
+import { ModalNewElementComponent } from './components/modal-new-element/modal-new-element.component';
 
 // export let options: Partial<IConfig> | (() => Partial<IConfig>);
 const maskConfig: Partial<IConfig> = {
@@ -143,7 +144,8 @@ export const customCurrencyMaskConfig = {
     SearchComponent,
     ShopCardComponent,
     PaymentComponent,
-    CommentsComponent
+    CommentsComponent,
+    ModalNewElementComponent
   ],
   imports: [
     NgxCurrencyModule.forRoot(customCurrencyMaskConfig),
@@ -216,7 +218,8 @@ export const customCurrencyMaskConfig = {
     TimelineComponent,
     SearchComponent,
     ShopCardComponent,
-    CommentsComponent
+    CommentsComponent,
+    ModalNewElementComponent
   ],
   providers: [ ConfirmationDialogService ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
