@@ -34,7 +34,7 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
   create = true;
   typesProduct = [];
   states = [];
-  variations = [];
+  allVariations = [];
   categoryId = '';
   categories: Category[];
   productForm: FormGroup;
