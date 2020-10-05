@@ -7,6 +7,7 @@ import { NgbCarousel } from '@ng-bootstrap/ng-bootstrap';
 
 import { Store } from '../../../shared/classes/store';
 import { ShopService } from '../../../shared/services/shop.service';
+import { forkJoin } from 'rxjs';
 
 @Component( {
   selector: 'app-shop-design',
@@ -48,9 +49,36 @@ export class ShopDesignComponent implements OnInit, OnChanges {
     // this.store = user.stores[ 0 ];
   }
 
+  updateShopConfig(): void {
+    const data = { color: this.color, font: this.fontSelected };
+
+    if ( this.images.length ) {
+      forkJoin( [
+        this.shopService.config( this.store._id, data ),
+        this.shopService.uploadImages( { images: this.images } )
+      ] ).subscribe( ( [ configResponse, imageResponse ] ) => {
+        if ( configResponse.success ) {
+
+          this.store = { ...configResponse.result };
+          this.toastrService.info( configResponse.message[ 0 ] );
+        }
+
+        if ( imageResponse.status === 'isOk' ) {
+          this.shopService.addBanner( this.store._id, { url: imageResponse.images[ 0 ] } ).subscribe( _result => {
+            if ( _result.success ) { this.toastrService.info( _result.message[ 0 ] ); }
+          } );
+        }
+      } );
+      this.updateShop.emit( this.store );
+
+    } else {
+      this.updateConfig();
+    }
+  }
+
   updateConfig(): void {
     const data = { color: this.color, font: this.fontSelected };
-    
+
     this.shopService.config( this.store._id, data ).subscribe( response => {
       if ( response.success ) {
         this.store = { ...response.result };
@@ -72,6 +100,8 @@ export class ShopDesignComponent implements OnInit, OnChanges {
   }
 
   uploadImage( images: string[] ): void {
+    console.log( images );
+
     this.images = [ ...images ];
   }
 
