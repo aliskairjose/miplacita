@@ -8,7 +8,6 @@ $mp-blue: #3d5afe;
 $mp-red: #eba39a;
 $mp-purple: #68396d;
 $mp-pink-dark: #e37d6f;
-$mp-pink-light: #eca89f;
 $mp-rosa: #fed3c3;
 $mp-white: #fff;
 $mp-gray: #f7f7f7;
@@ -21,12 +20,14 @@ $radius: 5px;
 .text-pink-light { color: $mp-pink-dark !important }
 .text-default-color {color : var(--theme-deafult) }
 .text-purple { color : $mp-purple }
+
 .background-gray { 
   background-color: $mp-gray;
   padding: 10% 10% }
+
 .border-box {
   padding: 13px 13px;
-  border: 1px solid #ffb6af;
+  border: 1px solid var(--mp-pink-light);
 }
 
 .btn {
@@ -60,6 +61,11 @@ $radius: 5px;
 
 .separador {
   color: var(--mp-gray);
+  hr {
+    width: 45%;
+    height: 0.03rem;
+    background-color: var(--theme-deafult);
+  }
 }
 
 .timeline {
@@ -109,6 +115,13 @@ $radius: 5px;
 
 .justify-content-mobile-first {
     justify-content: center;
+}
+
+.login-page .theme-card {
+  border: 1px solid var(--mp-pink-light);
+  & .theme-form input{
+    border: 1px solid var(--mp-pink-light);
+  }
 }
 .mp-title {
   font-size: 24px;
@@ -516,7 +529,7 @@ ngb-carousel {
 
 .option-box {
   width: 90%;
-  border: 1px solid #ffb6af;
+  border: 1px solid var(--mp-pink-light);
 }
 /**/
 .footer-logo {
