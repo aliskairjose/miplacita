@@ -62,18 +62,15 @@ export class ProductsComponent implements OnInit, OnChanges, AfterViewInit {
   @Input() store: Store;
 
   ngOnChanges( changes: SimpleChanges ): void {
-
     this.shopService.storeObserver().subscribe( ( store: Store ) => {
       if ( this.auth.getUserRol() === 'merchant' ) {
         this.store = store;
       }
     } );
-
     this.init();
+    
   }
 
-  ngOnInit(): void {
-  }
 
   ngAfterViewInit(): void {
     if ( ( this.plan?.price === 0 ) && this.maxProducts >= 10 ) {

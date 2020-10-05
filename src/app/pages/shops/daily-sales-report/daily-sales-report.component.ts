@@ -1,24 +1,29 @@
-import { Component, OnInit, Input, SimpleChanges, ViewChild } from '@angular/core';
-import { Store } from 'src/app/shared/classes/store';
 import { Order } from 'src/app/shared/classes/order';
 import { Paginate } from 'src/app/shared/classes/paginate';
-import { environment } from 'src/environments/environment';
-import { NgbDateStruct, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
-import { OrderService } from 'src/app/shared/services/order.service';
+import { Store } from 'src/app/shared/classes/store';
+import {
+  OrderDetailsComponent
+} from 'src/app/shared/custom-components/order-details/order-details.component';
 import { AuthService } from 'src/app/shared/services/auth.service';
-import { ToastrService } from 'ngx-toastr';
-import { OrderDetailsComponent } from 'src/app/shared/custom-components/order-details/order-details.component';
+import { OrderService } from 'src/app/shared/services/order.service';
+import { environment } from 'src/environments/environment';
 
-@Component({
+import { Component, OnInit, ViewChild, Input } from '@angular/core';
+import { NgbCalendar, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
+import { ShopService } from '../../../shared/services/shop.service';
+import { CustomDateParserFormatterService } from '../../../shared/adapter/custom-date-parser-formatter.service';
+import { ToastrService } from 'ngx-toastr';
+
+@Component( {
   selector: 'app-daily-sales-report',
   templateUrl: './daily-sales-report.component.html',
-  styleUrls: ['./daily-sales-report.component.scss']
-})
+  styleUrls: [ './daily-sales-report.component.scss' ]
+} )
 export class DailySalesReportComponent implements OnInit {
   @ViewChild( 'orderDetails' ) OrderDetails: OrderDetailsComponent;
 
-  fields = ['Número de orden', 'Monto','Cliente','Estado', ''];
-  orders: Order[] = []
+  fields = [ 'Número de orden', 'Monto', 'Cliente', 'Estado', '' ];
+  orders: Order[] = [];
   paginate: Paginate;
   orderStatus = environment.orderStatus;
   role: string;
@@ -27,19 +32,43 @@ export class DailySalesReportComponent implements OnInit {
   fechaFin = '';
   modelTo: NgbDateStruct;
   modelFrom: NgbDateStruct;
+
   @Input() store: Store;
-  constructor(private auth: AuthService,
-              private ngbCalendar: NgbCalendar,
-              private orderService: OrderService ) { }
+
+  constructor(
+    private auth: AuthService,
+    private toastr: ToastrService,
+    private ngbCalendar: NgbCalendar,
+    private shopService: ShopService,
+    private orderService: OrderService,
+    private parseDate: CustomDateParserFormatterService,
+  ) { }
 
   ngOnInit(): void {
+    this.shopService.storeObserver().subscribe( ( store: Store ) => {
+      if ( store ) {
+        this.store = { ...store };
+        this.init();
+      }
+    } );
   }
-  ngOnChanges( changes: SimpleChanges ): void {
-    this.store = JSON.parse( sessionStorage.getItem( 'store' ) );
-    this.init();
+
+  filtrar(): void {
+    this.fechaIni = this.parseDate.format( this.modelFrom );
+    this.fechaFin = this.parseDate.format( this.modelTo );
+    const from = new Date( this.fechaIni );
+    const to = new Date( this.fechaFin );
+
+    if ( from > to ) {
+      this.toastr.warning( 'La fecha inicial no debe ser menor a la final' );
+      return;
+    }
+
+    this.loadData();
   }
 
   private init(): void {
+
     this.modelFrom = this.modelTo = this.ngbCalendar.getToday();
     this.role = this.auth.getUserRol();
 
@@ -49,13 +78,15 @@ export class DailySalesReportComponent implements OnInit {
       this.loadData();
     }
   }
-  
+
   private loadData( page = 1 ): void {
 
-    const params = `store=${this.store._id}&status=${this.status}&from=${this.fechaIni}&to=${this.fechaFin}`;
+    const params = `store=${this.store._id}&from=${this.fechaIni}&to=${this.fechaFin}`;
+    console.log( params );
 
     this.orderService.orderList( page, params ).subscribe( result => {
-
+      console.log(result);
+      
       this.orders = [ ...result.docs ];
       this.paginate = { ...result };
       this.paginate.pages = [];
