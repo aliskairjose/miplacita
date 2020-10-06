@@ -17,8 +17,8 @@ import { ShopService } from '../../../shared/services/shop.service';
 import { StorageService } from '../../../shared/services/storage.service';
 
 export interface ShippingAddress {
-  firstname?: string;
-  lastname?: string;
+  name?: string;
+  last_name?: string;
   phone?: string;
   email?: string;
   address?: string;
@@ -159,8 +159,8 @@ export class ShippingComponent implements OnInit {
   createForm(): void {
 
     this.checkoutForm = this.fb.group( {
-      firstname: [ this.shippingAddress ? this.shippingAddress.firstname : '', [ Validators.required, Validators.pattern( '[a-zA-Z][a-zA-Z ]+[a-zA-Z]$' ) ] ],
-      lastname: [ this.shippingAddress ? this.shippingAddress.lastname : '', [ Validators.required, Validators.pattern( '[a-zA-Z][a-zA-Z ]+[a-zA-Z]$' ) ] ],
+      name: [ this.shippingAddress ? this.shippingAddress.name : '', [ Validators.required, Validators.pattern( '[a-zA-Z][a-zA-Z ]+[a-zA-Z]$' ) ] ],
+      last_name: [ this.shippingAddress ? this.shippingAddress.last_name : '', [ Validators.required, Validators.pattern( '[a-zA-Z][a-zA-Z ]+[a-zA-Z]$' ) ] ],
       phone: [ this.shippingAddress ? this.shippingAddress.phone : '', [ Validators.required, Validators.pattern( '[0-9]+' ) ] ],
       email: [ this.shippingAddress ? this.shippingAddress.email : '', [ Validators.required, Validators.email ] ],
       address: [ this.shippingAddress ? this.shippingAddress.address : '', [ Validators.required, Validators.maxLength( 50 ) ] ],
