@@ -22,6 +22,7 @@ export class ProfileComponent implements OnInit {
   matchError = environment.errorForm.matchError;
   onlyLetter = environment.errorForm.onlyLetter;
   user: User = {};
+  active: string = 'profile';
 
   constructor(
     private auth: AuthService,
@@ -73,5 +74,9 @@ export class ProfileComponent implements OnInit {
     }, {
       validator: MustMatch( 'password', 'passwordConfirmation' )
     } );
+  }
+
+  updateTab( tab: string ) {
+    this.active = tab;
   }
 }

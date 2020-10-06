@@ -93,7 +93,7 @@
                     {{ product?.price | currency }}
                   </h3> 
                   <div class="product-description">
-                    <div class="my-3 d-flex" >
+                    <div class="my-3 justify-content-mobile-first" >
                         <p class="font-weight-bold">
                           Entrega del producto: {{ product?.description}}
                         </p>
@@ -136,12 +136,16 @@
                     <a href="javascrip:void(0)" class="btn btn-solid" [class.disabled]="counter > product.stock"
                       (click)="addToCart(product)">Agregar al carrito</a>
                   </div>
-                  <div class="my-3">
-                    <h6 class="product-title mb-3">Calificación del producto</h6>
-                    <bar-rating [readOnly]="true" [rate]="0" name="rating" [max]="5" disabled>
-                    </bar-rating>
+                  <div class="product-description">
+                    <div class="my-3 ">
+                      <h6 class="product-title mb-3">Calificación del producto</h6>
+                      <div class="d-flex justify-content-mobile-first">
+                        <bar-rating [readOnly]="true" [rate]="0" name="rating" [max]="5" disabled>
+                        </bar-rating>
+                      </div>
+                      
+                    </div>
                   </div>
-                  
                   <div class="d-flex flex-column justify-content-end pb-3">
                     <h6 class="product-title">share it</h6>
                     <div class="product-icon">

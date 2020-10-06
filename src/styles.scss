@@ -149,7 +149,7 @@ input[type='checkbox']:checked {
 }
 
 .justify-content-mobile-first {
-    justify-content: center;
+    justify-content: center !important;
 }
 
 .login-page .theme-card {
@@ -745,7 +745,7 @@ ngb-carousel {
   }
 
   .justify-content-mobile-first {
-    justify-content: start;
+    justify-content: start !important;
   }
   
   .btn-inside-slider{
