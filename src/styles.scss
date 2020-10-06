@@ -43,6 +43,28 @@ $radius: 5px;
   border: 1px solid var(--mp-pink-light);
 
 }
+input[type='checkbox']{
+  width: 15px !important;
+  height: 15px !important;
+  background-color: white;
+  border: 1px solid #ffb6af;
+  border-radius: 50% !important;
+  margin: 5px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -o-appearance: none;
+  appearance:none;
+  // outline: 2px solid lightblue;
+  box-shadow: none;
+  font-size: 2em;
+}
+
+input[type='checkbox']:checked {
+  background-color: #7d1709;
+  line-height: 1rem;
+  font-size:1rem;
+  border: 2px solid var(--theme-deafult); 
+} 
 .btn {
   text-transform: none;
 }
@@ -214,7 +236,12 @@ $radius: 5px;
   display: flex !important;
   justify-content: center;
   .modal-dialog {
-    max-width: 80% !important;
+    width: 100vw;
+    margin: 0 0 0 0;
+    max-width: 100% !important;
+    .modal-content {
+      padding: 10px 10px;
+    }
   }
 }
 /* ==============
@@ -696,6 +723,12 @@ ngb-carousel {
   
   .vertical-banners-carousel {
     display: none !important;
+  }
+
+  .createProductModal{
+    .modal-dialog {
+      max-width: 80% !important;
+    }
   }
 }
 

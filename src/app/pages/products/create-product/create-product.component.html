@@ -12,12 +12,11 @@
                 <div class="col-lg-12 ">
                     <div class="theme-card">
                         <div class="row justify-content-end">
-                            <div class="col-1 d-flex justify-content-center">
+                            <div class="col-2 d-flex justify-content-center">
                                 <i class="ti-close" (click)="close()"></i>
                             </div>
                         </div>
-                        <hr>
-                        <div class="row justify-content-center mb-4 tab-box">
+                        <div class="row justify-content-center mx-auto mb-4 tab-box">
                             <div class="col d-flex justify-content-end ">
                                 <div class="tab-product" [ngClass]="{'tab-product-active': active=='product'}" (click)="updateActive('product')">
                                     <p>Producto principal</p>
@@ -33,7 +32,7 @@
                             <form class="theme-form" [formGroup]="productForm" (ngSubmit)="onSubmit()">
                                 <div class="create-product-form">
                                     <div class="first-column">
-                                        <div class="page-title row">
+                                        <div class="page-title form-row px-2">
                                             <h4 class="col-10">
                                                 <span> <strong>{{ title }} </strong> </span>
                                             </h4>
@@ -49,7 +48,7 @@
                                         </div>
                                         <!-- Price -->
                                         <div class="form-group ">
-                                            <div class="field-label">Precio</div>
+                                            <div class="field-label">Precio del producto</div>
                                             <input formControlName="price" currencyMask type="text" class="form-control"
                                                 id="price" required="" [(ngModel)]="productData.price">
                                             <div *ngIf="submitted && f.price.errors" class="invalid-feedback d-block">
@@ -58,7 +57,7 @@
                                         </div>
                                         <!-- Tax -->
                                         <div class="form-group ">
-                                            <div class="field-label">Impuesto del producto</div>
+                                            <div class="field-label">Itbms del producto</div>
                                             <input formControlName="tax" currencyMask type="text" class="form-control"
                                                 id="itbms" required="" [(ngModel)]="productData.tax">
 
@@ -82,7 +81,7 @@
                                         </div>
                                         <!-- Descripcion -->
                                         <div class="form-group">
-                                            <div class="field-label">Descripción del producto</div>
+                                            <div class="field-label">Descripción</div>
                                             <textarea formControlName="description" type="text" class="form-control"
                                                 id="exampleFormControlTextarea1" placeholder="Descripción" required=""
                                                 [(ngModel)]="productData.description"></textarea>
@@ -92,7 +91,7 @@
                                         </div>
                                         <!-- Status -->
                                         <div class="form-group ">
-                                            <div class="field-label">Estado(Activo e Inactivo)</div>
+                                            <div class="field-label">Estado del producto</div>
                                             <select formControlName="status" class="form-control" name="status"
                                                 [(ngModel)]="statusSelected">
                                                 <!-- <option value="" selected>Seleccione un estado</option> -->
@@ -101,6 +100,28 @@
                                                 </option>
                                             </select>
                                         </div>
+                                        
+                                        <!-- <div class="form-check">
+                                            <input formControlName="marketplace" class="form-check-input" type="checkbox"
+                                                id="gridCheck1">
+                                            <label class="form-check-label" for="gridCheck1">
+                                                Vender este producto en Marketplace
+                                            </label>
+                                        </div> -->
+                                        <div class="shipping-option" >
+                                            <div class="row mb-3" >
+                                              <div class="option-box d-flex mx-auto py-2">
+                                                <div class="col-md-11 text-center">
+                                                  <p class="my-auto">Vender en home page 20%</p>
+                                                </div>
+                                                <div class="col-md-1 text-right">
+                                                  <input class="my-auto" type="checkbox">
+                                                </div>
+                                              </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="second-column">
                                         <!-- Cantidad disponible -->
                                         <div class="form-group">
                                             <div class="field-label">Cantidad disponible</div>
@@ -112,19 +133,71 @@
                                                     inventario </div>
                                             </div>
                                         </div>
-                                        <div class="form-check">
-                                            <input formControlName="marketplace" class="form-check-input" type="checkbox"
-                                                id="gridCheck1">
-                                            <label class="form-check-label" for="gridCheck1">
-                                                Vender este producto en Marketplace
-                                            </label>
+                             
+                                        <!-- Dias para entregar -->
+                                        <div class="d-flex date-range">
+                                            <div class="form-group hidden">
+                                              <div class="input-group">
+                                                <input name="datepicker"
+                                                       class="form-control"
+                                                       ngbDatepicker
+                                                       #datepicker="ngbDatepicker"
+                                                       [autoClose]="'outside'"
+                                                       (dateSelect)="onDateSelection($event)"
+                                                       [displayMonths]="1"
+                                                       [dayTemplate]="t"
+                                                       outsideDays="hidden"
+                                                       [startDate]="fromDate!">
+                                                <ng-template #t let-date let-focused="focused">
+                                                  <span class="custom-day"
+                                                        [class.focused]="focused"
+                                                        [class.range]="isRange(date)"
+                                                        [class.faded]="isHovered(date) || isInside(date)"
+                                                        (mouseenter)="hoveredDate = date"
+                                                        (mouseleave)="hoveredDate = null">
+                                                    {{ date.day }}
+                                                  </span>
+                                                </ng-template>
+                                              </div>
+                                            </div>
+                                            <div class="form-group">
+                                              <div class="input-group">
+                                                <input #dpFromDate
+                                                       class="form-control" placeholder="yyyy-mm-dd"
+                                                       name="dpFromDate"
+                                                       [value]="formatter.format(fromDate)"
+                                                       (input)="fromDate = validateInput(fromDate, dpFromDate.value)">
+                                                <div class="input-group-append">
+                                                  <button class="btn btn-outline-secondary calendar" (click)="datepicker.toggle()" type="button">
+                                                    <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-calendar-week-fill"
+                                                    fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                                    <path fill-rule="evenodd"
+                                                        d="M4 .5a.5.5 0 0 0-1 0V1H2a2 2 0 0 0-2 2v1h16V3a2 2 0 0 0-2-2h-1V.5a.5.5 0 0 0-1 0V1H4V.5zM0 5h16v9a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V5zm9.5 2a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1zm3 0a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1zM2 10.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm3.5-.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1z" />
+                                                </svg>
+                                                  </button>
+                                                </div>
+                                              </div>
+                                            </div>
+                                            <div class="form-group mp-p-2">
+                                              <div class="input-group">
+                                                <input #dpToDate
+                                                       class="form-control" placeholder="yyyy-mm-dd"
+                                                       name="dpToDate"
+                                                       [value]="formatter.format(toDate)"
+                                                       (input)="toDate = validateInput(toDate, dpToDate.value)">
+                                                <div class="input-group-append">
+                                                  <button class="btn btn-outline-secondary calendar" (click)="datepicker.toggle()" type="button">
+                                                    <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-calendar-week-fill"
+                                                    fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                                    <path fill-rule="evenodd"
+                                                        d="M4 .5a.5.5 0 0 0-1 0V1H2a2 2 0 0 0-2 2v1h16V3a2 2 0 0 0-2-2h-1V.5a.5.5 0 0 0-1 0V1H4V.5zM0 5h16v9a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V5zm9.5 2a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1zm3 0a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1zM2 10.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm3.5-.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1z" />
+                                                </svg>
+                                                  </button>
+                                                </div>
+                                              </div>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="second-column pl-5">
-                                        <div class="page-title row">
-                                            <h4 class="col-10">
-                                                <span> <strong>{{ title }} </strong> </span>
-                                            </h4>
+                                        <div class="page-title form-row px-2">
                                             <p>Selecciona uan foto de tu producto para que tus clientes puedan ver el
                                                 detalle del mismo</p>
                                         </div>
