@@ -5,7 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Route } from '@angular/compiler/src/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from '../../shared/services/user.service';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { CategoryService } from '../../shared/services/category.service';
 import { Category } from '../../shared/classes/category';
 
@@ -43,6 +43,10 @@ export class InterestsComponent implements OnInit, OnDestroy {
   ) {
     this.createForm();
   }
+
+  // convenience getter for easy access to form fields
+  // tslint:disable-next-line: typedef
+  get f() { return this.interestForm.controls; }
 
   ngOnInit(): void {
 
@@ -88,6 +92,7 @@ export class InterestsComponent implements OnInit, OnDestroy {
   }
 
   saveInterests(): void {
+    sessionStorage.removeItem( 'userForm' );
     this.router.navigate( [ '/shop/register/success' ] );
   }
 
@@ -95,7 +100,7 @@ export class InterestsComponent implements OnInit, OnDestroy {
     this.submitted = true;
 
     if ( this.interestForm.valid ) {
-      this.userService.addUserInterest( this.userform._id, this.interests ).subscribe( response => {
+      this.userService.addUserInterest( this.userform._id, {interest: this.interests} ).subscribe( response => {
 
         if ( response.success ) {
           this.toastrService.info( response.message[ 0 ] );
@@ -107,7 +112,7 @@ export class InterestsComponent implements OnInit, OnDestroy {
 
   private createForm(): void {
     this.interestForm = this.formBuilder.group( {
-      interest: [ '' ]
+      interest: [ '', [ Validators.required ] ]
     } );
   }
 }

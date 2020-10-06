@@ -41,9 +41,12 @@
             <div class="page-title">
               <h2 class="mp-title">
                 <span>Selecciona tus intereses</span>
+                <div *ngIf="submitted && f.interest.errors?.required" class="invalid-feedback d-block">
+                  Debe marcar al menos un interes
+                </div>
               </h2>
             </div>
-            <p class="mp-side-menu">Omitir ahora</p>
+            <a (click)="saveInterests()" routerLinkActive="router-link-active" class="mp-side-menu">Omitir ahora</a>
           </div>
           <div class="border-box w-100 px-3 py-3">
             <form [formGroup]="interestForm" (ngSubmit)="onSubmit()" class="theme-form">
@@ -69,14 +72,14 @@
                 </div>
               </div>
               <div class="row text-center">
-                <button class="btn background-default-color" id="btn-save" (click)="saveInterests()">
+                <button type="submit" class="btn background-default-color" id="btn-save">
                   Guardar interses
                 </button>
               </div>
             </form>
           </div>
           <div class="row mp-side-menu-responsive text-center">
-            <p class="">Omitir ahora</p>
+            <p class="" (click)="saveInterests()">Omitir ahora</p>
           </div>
         </div>
       </div>
