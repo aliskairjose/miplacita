@@ -153,7 +153,7 @@
                                             <p class="my-auto pl-2">Tamaño</p>
                                         </div>
                                     </div>
-                                    <div class="table-responsive" *ngIf="allVariations.length>0">
+                                    <div class="table-responsive" *ngIf="allVariations.length>0 && !showForm">
                                         <table class="table table-responsive-sm">
                                             <thead>
                                                 <tr class="table-head">
@@ -310,7 +310,7 @@
                                                 style="width: 100%;">
                                         </app-upload-image>
                                         <div class="save text-center p-3">
-                                            <button class="btn btn-solid-purple mr-3" type="button" >
+                                            <button class="btn btn-solid-purple mr-3" type="button" (click)="back()" >
                                                 Atrás
                                             </button>
                                             <button class="btn btn-solid-purple" type="submit" [disabled]="disabled">Guardar

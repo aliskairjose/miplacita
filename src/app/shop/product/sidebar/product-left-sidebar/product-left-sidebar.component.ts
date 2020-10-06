@@ -65,6 +65,7 @@ export class ProductLeftSidebarComponent implements OnInit {
       this.productService.productList( 1, params ).subscribe( ( result: Result<Product> ) => {
         this.spinner.hide();
         this.product = { ...result.docs[ 0 ] };
+        console.log(this.product);
         this.comment.loadReviews( this.product._id );
       } );
     } );
@@ -145,6 +146,10 @@ export class ProductLeftSidebarComponent implements OnInit {
   // Toggle Mobile Sidebar
   toggleMobileSidebar() {
     this.mobileSidebar = !this.mobileSidebar;
+  }
+
+  ChangeVariants(color, product){
+    console.log("variante de color");
   }
 
 }

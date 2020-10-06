@@ -279,11 +279,13 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
     this.modal2 = this.modalService.open( ModalNewElementComponent, this.modalOption );
     this.modal2.componentInstance.option = 1;
 
-    this.modal.result.then( () => {
+    this.modal2.result.then( (size) => {
       // Cuando se envia la data cerrando el modal con el boton
-    }, () => {
+      this.sizes.push(size);
+      console.log(this.sizes);
+    }, (result) => {
       // Cuando se cierra con la x de la esquina
-    
+
     } );
   }
 
@@ -293,12 +295,18 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
     this.modalOption.windowClass = 'createProductModal';
     this.modal2 = this.modalService.open( ModalNewElementComponent, this.modalOption );
     this.modal2.componentInstance.option = 2;
-    this.modal.result.then( () => {
+    this.modal2.result.then( (category) => {
       // Cuando se envia la data cerrando el modal con el boton
-    }, () => {
+      this.subcategories.push(category);
+      console.log(this.subcategories);
+    }, (result) => {
       // Cuando se cierra con la x de la esquina
-    
+
     } );
+  }
+
+  back(){
+    this.showForm = false;
   }
 
 }

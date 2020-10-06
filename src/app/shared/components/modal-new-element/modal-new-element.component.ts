@@ -1,5 +1,7 @@
 import { Component, OnInit, ViewChild, TemplateRef, Input, Output, EventEmitter } from '@angular/core';
 import { NgbModalOptions, NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { FormGroup, FormBuilder } from '@angular/forms';
+import { close } from 'fs';
 
 @Component({
   selector: 'app-modal-new-element',
@@ -10,27 +12,37 @@ export class ModalNewElementComponent implements OnInit {
   @ViewChild( 'newElement', { static: false } ) AddElement: TemplateRef<any>;
   @Input() option: number = 1;
 
-  @Output() closeModal: EventEmitter<boolean> = new EventEmitter<boolean>();
-
   modal: any;
   modalOpen = false;
   modalOption: NgbModalOptions = {};
   
-
+  elementForm: FormGroup;
   constructor(  
-    public modalService: NgbModal,
-    public activeModal: NgbActiveModal
+    private modalService: NgbModal,
+    private activeModal: NgbActiveModal,
+    private formBuilder: FormBuilder
     ) { }
 
+    get f() { return this.elementForm.controls; }
+
   ngOnInit(): void {
-    console.log("on init", this.option);
+    this.elementForm = this.formBuilder.group( {
+      size: [ '' ],
+      subcategory: ['']
+      
+    } );
   }
 
-  clear(){
-
+  save(){
+    if(this.option == 1){
+      this.activeModal.close({name: this.elementForm.value.size});
+    } else {
+      this.activeModal.close({name: this.elementForm.value.subcategory});
+    }
   }
+
   close(){
     console.log("close");
-    this.activeModal.dismiss();
+    this.activeModal.dismiss("true");
   }
 }
