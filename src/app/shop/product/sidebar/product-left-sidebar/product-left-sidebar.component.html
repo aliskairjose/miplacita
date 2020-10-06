@@ -91,8 +91,13 @@
                   <h4 class="mb-3"> Tienda: {{ product?.store?.name }}</h4>
                   <h3>
                     {{ product?.price | currency }}
-                  </h3>
+                  </h3> 
                   <div class="product-description">
+                    <ul class="color-variant" *ngIf="product?.colors">
+                      <li [class]="color" *ngFor="let color of product?.colors" [ngStyle]="{'background-color': color}"
+                      (click)="ChangeVariants(color, product)">
+                      </li>
+                    </ul>
                     <h5 class="avalibility" *ngIf="counter <= product.stock">
                       <span>({{ product.stock }} unidades desponibles)</span>
                     </h5>

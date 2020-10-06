@@ -22,8 +22,8 @@ import { CreateProductComponent } from './create-product/create-product.componen
   templateUrl: './products.component.html',
   styleUrls: [ './products.component.scss' ]
 } )
-export class ProductsComponent implements OnInit, OnChanges, AfterViewInit {
-
+export class ProductsComponent implements OnChanges, AfterViewInit {
+  
   constructor(
     private auth: AuthService,
     private shopService: ShopService,

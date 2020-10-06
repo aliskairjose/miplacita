@@ -141,7 +141,7 @@
                             </form>
                         </div>
                         <ng-template #variations>
-                            <form class="theme-form" [formGroup]="productForm" (ngSubmit)="onSubmit()">
+                            <form class="theme-form">
                                 <div class="container">  
                                     <div class="d-flex justify-content-center">
                                         <div class="col d-flex justify-content-end">
@@ -152,6 +152,46 @@
                                             <input type="checkbox">
                                             <p class="my-auto pl-2">Tamaño</p>
                                         </div>
+                                    </div>
+                                    <div class="table-responsive" *ngIf="allVariations.length>0 && !showForm">
+                                        <table class="table table-responsive-sm">
+                                            <thead>
+                                                <tr class="table-head">
+                                                    <th class="text-center text-uppercase" *ngFor="let field of fields" scope="col">{{field}}</th>
+                                                </tr>
+                                            </thead>
+                                            <!--Store Admin-->
+                                            <tbody >
+                                                <tr *ngFor="let item of allVariations">
+                                                    <td class="text-center">
+                                                        Nombre
+                                                    </td>
+                                                    <td class="text-center" >
+                                                        <p>Precio</p>
+                                                    </td>
+                                                    <td class="text-center" >
+                                                        <p>Itbms</p>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        Tamaño
+                                                    </td>
+                                                    <td class="text-center">
+                                                        Color
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <a [routerLink]="" class="btn btn-table-action">
+                                                            <i class="fa fa-edit fa-lg" style="color: Dodgerblue"></i>
+                                                        </a>
+                                                        <button class="btn btn-table-action" >
+                                                            <i class="fa fa-close fa-lg" style="color: Tomato"></i>
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                            <!--Store Admin ends-->
+                                            
+                                        </table>
+                                        
                                     </div>
                                     <div *ngIf="!showForm" class="d-flex px-5 py-5 justify-content-center aling-content-center">
                                         <button class="btn btn-solid-purple" (click)="variationsForm()">
@@ -212,35 +252,56 @@
                                         </div>
                                         <div class="row col-lg-12">
                                             <div class="col-lg-3">
-                                                <!-- Price -->
-                                            <div class="form-group ">
-                                                <div class="field-label">Color</div>
-                                                <input  currencyMask type="text" class="form-control"
-                                                    id="price" required="" >
-                                            </div>
-                                            </div>
-                                            <div class="col-lg-3">
-                                                <!-- Tax -->
+                                                <!-- Color -->
                                                 <div class="form-group ">
-                                                    <div class="field-label">Tamaño</div>
-                                                        <input currencyMask type="text" class="form-control"
-                                                        id="itbms" required="">
-                                                    <!-- <div *ngIf="submitted && f.tax.errors" class="invalid-feedback d-block">
-                                                        <div *ngIf="f.tax.errors.required"> {{ required }} </div>
-                                                    </div> -->
+                                                    <div class="field-label">Color</div>
+                                                    <input type="text"  class="form-control" [value]="color"
+                                                        required="" [(colorPicker)]="color" [cpPosition]="'bottom'" >
                                                 </div>
                                             </div>
-                                            <div class="col-lg-3">
-                                                <!-- Categoria -->
-                                                <div class="form-group ">
+                                            <div class="col-lg-4">
+                                                <!-- Size -->
+                                                <div class="form-group">
+                                                    <div class="field-label">Tamaño</div>
+                                                    <div ngbDropdown>
+                                                        <button class="form-control" id="select-btn" ngbDropdownToggle >
+                                                            Selecciona un tamaño                                                   
+                                                        </button>
+                                                        <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                                                            <button type="button" class="drop-button" (click)="createNewSize()" ngbDropdownItem>
+                                                                Agregar nuevo tamaño
+                                                            </button>
+                                                            <hr>
+                                                            <div>
+                                                                <button type="button" class="drop-button"  *ngFor="let size of sizes"
+                                                                    [value]="size._id" ngbDropdownItem>
+                                                                    {{size.name}}
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4">
+                                                <!--Sub Categoria -->
+                                                <div class="form-group">
                                                     <div class="field-label">Sub-categoría</div>
-                                                    <select formControlName="category" class="form-control" name="category">
-                                                        <option value="" selected>Seleccione una categoría</option>
-                                                        <option *ngFor="let category of categories" [value]="category._id">
-                                                            {{category.name}}</option>
-                                                    </select>
-                                                    <div *ngIf="submitted && f.category.errors" class="invalid-feedback d-block">
-                                                        <div *ngIf="f.category.errors.required"> {{ required }} </div>
+                                                    <div ngbDropdown>
+                                                        <button class="form-control" id="select-btn" ngbDropdownToggle>
+                                                            Selecciona un sub-categoría                                                   
+                                                        </button>
+                                                        <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                                                            <button type="button" class="drop-button" (click)="createNewSubCategory()" ngbDropdownItem>
+                                                                Agregar nuevo tamaño
+                                                            </button>
+                                                            <hr>
+                                                            <div>
+                                                                <button type="button" class="drop-button"  *ngFor="let subcategory of subcategories"
+                                                                    [value]="subcategory._id" ngbDropdownItem>
+                                                                    {{subcategory.name}}
+                                                                </button>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -249,7 +310,7 @@
                                                 style="width: 100%;">
                                         </app-upload-image>
                                         <div class="save text-center p-3">
-                                            <button class="btn btn-solid-purple mr-3" type="button" >
+                                            <button class="btn btn-solid-purple mr-3" type="button" (click)="back()" >
                                                 Atrás
                                             </button>
                                             <button class="btn btn-solid-purple" type="submit" [disabled]="disabled">Guardar

@@ -62,13 +62,13 @@
                       <p class="my-auto">{{interest}}</p>
                     </div>
                     <div class="col-md-1 text-right">
-                      <input class="my-auto" type="radio">
+                      <input class="my-auto" type="checkbox" (change)="selectInterest(interest, $event)">
                     </div>
                   </div>
                 </div>
               </div>
               <div class="row text-center">
-                <button class="btn background-default-color" id="btn-save">
+                <button class="btn background-default-color" id="btn-save" (click)="saveInterests()">
                   Guardar interses
                 </button>
               </div>
