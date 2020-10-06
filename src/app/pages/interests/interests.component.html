@@ -1,32 +1,32 @@
 <ng-template #interests let-modal>
- 
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" (click)="close()" >
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <div class="theme-form">
-          <form>
-            
-            <div class="table-responsive-sm mt-2">
-              <table class="table">
-                <thead>
-                  <th scope="col">Lista de intereses</th>
-                </thead>
-                <tbody>
-                  <tr *ngFor="let interest of interestsList">
-                    <td>{{ interest }}</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </form>
-        </div>
-        
-      </div>
+
+  <div class="modal-content">
+    <div class="modal-header">
+      <button type="button" class="close" (click)="close()">
+        <span aria-hidden="true">&times;</span>
+      </button>
     </div>
+    <div class="modal-body">
+      <div class="theme-form">
+        <form>
+
+          <div class="table-responsive-sm mt-2">
+            <table class="table">
+              <thead>
+                <th scope="col">Lista de intereses</th>
+              </thead>
+              <tbody>
+                <tr *ngFor="let interest of interestsList">
+                  <td>{{ interest.name }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </form>
+      </div>
+
+    </div>
+  </div>
 </ng-template>
 <div *ngIf="isPage">
   <ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="ball-spin-clockwise" [fullScreen]="true">
@@ -46,7 +46,7 @@
             <p class="mp-side-menu">Omitir ahora</p>
           </div>
           <div class="border-box w-100 px-3 py-3">
-            <form  class="theme-form">
+            <form [formGroup]="interestForm" (ngSubmit)="onSubmit()" class="theme-form">
               <div class="row mb-2">
                 <div class="option-box d-flex mx-auto py-2 px-2">
                   <span style="color: #b8b3b3" class="mr-2">
@@ -59,10 +59,11 @@
                 <div class="row mb-3" *ngFor="let interest of interestsList; let i=index">
                   <div class="option-box d-flex mx-auto py-2">
                     <div class="col-md-11 text-center">
-                      <p class="my-auto">{{interest}}</p>
+                      <p class="my-auto">{{interest.name}}</p>
                     </div>
                     <div class="col-md-1 text-right">
-                      <input class="my-auto" type="checkbox" (change)="selectInterest(interest, $event)">
+                      <input class="my-auto" formControlName="interest" [value]="interest._id" [name]="interest"
+                        type="checkbox" (change)="selectInterest( $event)">
                     </div>
                   </div>
                 </div>
