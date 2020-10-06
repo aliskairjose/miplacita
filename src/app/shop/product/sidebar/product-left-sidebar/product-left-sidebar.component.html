@@ -93,15 +93,28 @@
                     {{ product?.price | currency }}
                   </h3> 
                   <div class="product-description">
-                    <ul class="color-variant" *ngIf="product?.colors">
-                      <li [class]="color" *ngFor="let color of product?.colors" [ngStyle]="{'background-color': color}"
-                      (click)="ChangeVariants(color, product)">
-                      </li>
-                    </ul>
-                    <h5 class="avalibility" *ngIf="counter <= product.stock">
-                      <span>({{ product.stock }} unidades desponibles)</span>
-                    </h5>
-                    <h6 class="product-title mt-1">Cantidad</h6>
+                    <div class="my-3 d-flex" >
+                        <p class="font-weight-bold">
+                          Entrega del producto: {{ product?.description}}
+                        </p>
+                    </div>
+                    <div *ngIf="product?.colors">
+                      <ul class="color-variant" >
+                        <li [class]="color" *ngFor="let color of product?.colors" [ngStyle]="{'background-color': color}"
+                        (click)="ChangeVariants(color, product)">
+                        </li>
+                      </ul>
+                      <h6 class="product-title">Colores disponibles</h6>
+                    </div>
+                    <div class="my-3">
+                      <p>{{ product?.description?.substring(0, 200)+'...' }}</p>
+                    </div>
+                    <div class="my-3">
+                      <h6 class="product-title">Disponible</h6>
+                      <h5 class="avalibility" *ngIf="counter <= product.stock">
+                        <span>({{ product.stock }} unidades desponibles)</span>
+                      </h5>
+                    </div>
                     <div class="qty-box">
                       <div class="input-group">
                         <span class="input-group-prepend">
@@ -119,14 +132,16 @@
                       </div>
                     </div>
                   </div>
-                  <div class="product-buttons mt-3">
+                  <div class="my-3">
                     <a href="javascrip:void(0)" class="btn btn-solid" [class.disabled]="counter > product.stock"
                       (click)="addToCart(product)">Agregar al carrito</a>
                   </div>
-                  <div class="border-product">
-                    <h6 class="product-title">Detalles del producto</h6>
-                    <p>{{ product?.description?.substring(0, 200)+'...' }}</p>
+                  <div class="my-3">
+                    <h6 class="product-title mb-3">Calificación del producto</h6>
+                    <bar-rating [readOnly]="true" [rate]="0" name="rating" [max]="5" disabled>
+                    </bar-rating>
                   </div>
+                  
                   <div class="d-flex flex-column justify-content-end pb-3">
                     <h6 class="product-title">share it</h6>
                     <div class="product-icon">
