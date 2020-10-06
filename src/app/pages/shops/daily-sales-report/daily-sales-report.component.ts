@@ -70,6 +70,7 @@ export class DailySalesReportComponent implements OnInit {
   private init(): void {
 
     this.modelFrom = this.modelTo = this.ngbCalendar.getToday();
+    this.fechaIni = this.fechaFin = this.parseDate.format( this.modelFrom );
     this.role = this.auth.getUserRol();
 
     if ( this.role === 'admin' ) { this.fields.splice( 1, 0, 'Tienda' ); }
@@ -85,8 +86,6 @@ export class DailySalesReportComponent implements OnInit {
     console.log( params );
 
     this.orderService.orderList( page, params ).subscribe( result => {
-      console.log(result);
-      
       this.orders = [ ...result.docs ];
       this.paginate = { ...result };
       this.paginate.pages = [];
