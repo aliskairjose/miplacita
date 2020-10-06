@@ -86,7 +86,14 @@ export class ShippingComponent implements OnInit {
     public productService: ProductService,
   ) {
 
-    this.productService.cartItems.subscribe( products => this._products = [ ...products ] );
+    this.productService.cartItems.subscribe( products => {
+
+      if ( products.length ) {
+        this._products = [ ...products ];
+      } else {
+        this.router.navigate( [ '/home' ] );
+      }
+    } );
 
     if ( this.auth.isAuthenticated() ) {
       this.hideMessage = true;
