@@ -146,6 +146,11 @@ const routes: Routes = [
     canActivate: [ AuthGuard ],
   },
   {
+    path: 'account/user/profile/:page',
+    component: AccountManageComponent,
+    canActivate: [ AuthGuard ],
+  },
+  {
     path: 'account/user/reports/:page',
     component: AccountManageComponent,
     canActivate: [ AuthGuard ],

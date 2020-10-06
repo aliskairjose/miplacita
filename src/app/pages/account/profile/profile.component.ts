@@ -6,6 +6,7 @@ import { environment } from '../../../../environments/environment.prod';
 import { User } from '../../../shared/classes/user';
 import { ToastrService } from 'ngx-toastr';
 import { StorageService } from '../../../shared/services/storage.service';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component( {
   selector: 'app-profile',
@@ -25,6 +26,8 @@ export class ProfileComponent implements OnInit {
   active: string = 'profile';
 
   constructor(
+    private route: ActivatedRoute,
+    private router: Router,
     private auth: AuthService,
     private storage: StorageService,
     private formBuilder: FormBuilder,
@@ -35,6 +38,13 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit(): void {
     this.user = this.storage.getItem( 'user' );
+    this.route.url.subscribe( url => {
+      console.log("--",url);
+      this.active = url[ 2 ].path;
+      if ( this.active === 'profile' && url.length == 4 ) {
+        this.active = 'address';
+      }
+    } );
     this.createForm();
   }
 
@@ -78,5 +88,13 @@ export class ProfileComponent implements OnInit {
 
   updateTab( tab: string ) {
     this.active = tab;
+    if(this.active == 'profile'){
+      this.router.navigateByUrl( `pages/account/user/${tab}`, { skipLocationChange: false } );
+
+    }else{
+      this.router.navigateByUrl( `pages/account/user/profile/${tab}`, { skipLocationChange: false } );
+
+    }
+
   }
 }

@@ -32,7 +32,10 @@ export class NavService {
 	// LEFTMENUITEMS: Menu[] = menu.leftMenuItems;
 	LEFTMENUITEMS: Menu[] = [];
 	LEFTMENUITEMSRESPONSIVE: Menu[] = [
-		{ path: "/pages/account/user/profile", title: "mi perfil", type: "link", logged: true, role: null },
+		{ path: "/pages/account/user/profile", title: "mi perfil", type: "link", logged: true, role: null,
+			children:[
+				{ path: "/pages/account/user/address", title: "Dirección", type: "link", logged: true, role: 'client' },
+			] },
 		{ path: "/pages/account/user/orders", title: "mis pedidos", type: "link", logged: true, role: 'merchant' },
 		{ path: "/pages/account/user/stores", title: "mis tiendas", type: "link", logged: true, role: 'merchant' },
 		{ path: "/pages/account/user/stores", title: "tiendas", type: "link", logged: true, role: 'admin' },
