@@ -88,6 +88,11 @@
 				</div>
 				<div *ngIf="active=='address'">
 					<app-address></app-address>
+					<div class="button-box d-flex justify-content-end align-items-end">
+						<div class="text-right">
+							<a (click)="checkout()" class="btn btn-solid">Finalizar</a>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
