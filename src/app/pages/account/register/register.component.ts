@@ -35,6 +35,7 @@ export class RegisterComponent implements OnInit {
     passwordConfirmation: ''
   };
   role: string;
+  title: string;
 
   constructor(
     private router: Router,
@@ -56,6 +57,9 @@ export class RegisterComponent implements OnInit {
   ngOnInit(): void {
     const role = this.route.queryParams.subscribe( params => {
       this.role = params.role;
+      if ( params.role === 'merchant' ) { this.title = 'como Vendedor'; }
+
+      if ( params.role === 'client' ) { this.title = 'como Comprador'; }
     } );
 
     if ( state.user ) { this.registerSuccess = true; }
