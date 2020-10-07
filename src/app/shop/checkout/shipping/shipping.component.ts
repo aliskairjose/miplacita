@@ -61,7 +61,6 @@ export class ShippingComponent implements OnInit {
   ) {
 
     this.user = this.auth.getUserActive();
-    console.log( this.user );
 
     this.productService.cartItems.subscribe( products => {
       ( products.length ) ? this._products = [ ...products ] : this.router.navigate( [ '/home' ] );
@@ -94,24 +93,41 @@ export class ShippingComponent implements OnInit {
 
   checkout(): void {
 
-    const shippingAddress = this.address.onSubmit();
-    console.log( shippingAddress );
+    const data = this.address.onSubmit();
 
-    if ( shippingAddress ) {
-      this.userService.addUserAddress( this.user._id, shippingAddress ).subscribe( response => {
-        console.log( response );
-        if ( response.success ) {
-          this.toastr.info( response.message[ 0 ] );
-          // this.order.address.address = shippingAddress.address;
-          // this.order.address.phone = shippingAddress.phone;
-          // this.order.address.location = shippingAddress.coord;
+    if ( data ) {
+      if ( Object.keys( data?.shippingAddress ).length !== 0 && data.addressExist ) {
+        // Actualiza la dirección
 
-          // sessionStorage.setItem( 'order', JSON.stringify( this.order ) );
-          // this.router.navigate( [ 'shop/checkout' ] );
-        }
-      } );
+        this.userService.updateUserAddress( this.user._id, data.shippingAddress ).subscribe( response => {
+          if ( response.success ) {
+            this.toastr.info( response.message[ 0 ] );
+            this.makeOrderData( data.shippingAddress );
+          }
+        } );
+      }
+      if ( Object.keys( data?.shippingAddress ).length !== 0 && !data.addressExist ) {
+        // Registra nueva dirección
+
+        this.userService.addUserAddress( this.user._id, data.shippingAddress ).subscribe( response => {
+          console.log( response );
+          if ( response.success ) {
+            this.toastr.info( response.message[ 0 ] );
+            this.makeOrderData( data.shippingAddress );
+          }
+        } );
+      }
     }
+    
+  }
 
+  private makeOrderData( shippingAddress ): void {
+    this.order.address.address = shippingAddress.address;
+    this.order.address.phone = shippingAddress.phone;
+    this.order.address.location = shippingAddress.coord;
+
+    sessionStorage.setItem( 'order', JSON.stringify( this.order ) );
+    this.router.navigate( [ 'shop/checkout' ] );
   }
 
   selectOption( shopId: string, optionId: string ): void {

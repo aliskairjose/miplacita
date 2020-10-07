@@ -30,6 +30,7 @@ export class AddressComponent implements OnInit {
     types: [],
     componentRestrictions: { country: 'PA' }
   };
+  private _addressExist = false;
   private geoCoder;
   private _saveAddress: boolean;
 
@@ -53,6 +54,7 @@ export class AddressComponent implements OnInit {
       this.userService.getUserAddress( this.user._id ).subscribe( response => {
         console.log( response.result.address );
         if ( response.success ) {
+          this._addressExist = true;
           // const response = confirm( 'Ya existe una dirección, ¿Desea usarla?' );
           // ( response ) ? this.shippingAddress = shippingAddress : this.shippingAddress = {};
         }
@@ -122,9 +124,14 @@ export class AddressComponent implements OnInit {
     this._saveAddress = event.target.checked;
   }
 
-  onSubmit(): ShippingAddress {
+  onSubmit(): any {
     this.submitted = true;
-    if ( this.addressForm.valid && this._saveAddress ) { return this.addressForm.value; }
+    const data = {
+      shippingAddress: this.addressForm.value,
+      addressExist: this._addressExist
+    };
+
+    if ( this.addressForm.valid && this._saveAddress ) { return data; }
   }
 
   // Get Current Location Coordinates
@@ -152,12 +159,6 @@ export class AddressComponent implements OnInit {
         this.toastrService.warning( `Geocoder failed due to: ${status}` );
       }
 
-    } );
-  }
-
-  private addUserAddress(): void {
-    this.userService.addUserAddress( this.user._id, this.addressForm.value ).subscribe( response => {
-      console.log( response );
     } );
   }
 
