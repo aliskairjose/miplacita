@@ -64,14 +64,11 @@ export class ProfileComponent implements OnInit, AfterViewInit {
   saveAddress(): void {
     const data = this.address.onSubmit();
 
-    console.log( data );
-
     if ( data.addressExist ) {
       this.addUserAddress( data.shippingAddress );
     } else {
       this.updateUserAddress( data.shippingAddress );
     }
-
   }
 
   private addUserAddress( shippingAddress: ShippingAddress ): void {
