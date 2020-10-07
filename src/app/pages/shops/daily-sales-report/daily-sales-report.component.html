@@ -45,14 +45,14 @@
 				
 			</div>
 			<div class="form-group mt-2 d-flex justify-content-mobile-first">
-				<button class="btn btn-solid-purple">Reporte PDF</button>
-				<button class="btn btn-solid-purple mx-1">Reporte Excel</button>
+				<button class="btn btn-solid-purple" (click)="ExportTOPDF('Ventas Diarias')">Reporte PDF</button>
+				<button class="btn btn-solid-purple mx-1" (click)="ExportTOExcel('reporte')">Reporte Excel</button>
 			</div>
 		</form>
 
 		<!-- Data de usuario -->
 		<ng-container class="table-responsive-sm mt-3" *ngIf="store || role === 'admin'; else elseTemplate">
-			<table class="table cart-table table-responsive-xs">
+			<table class="table cart-table table-responsive-xs" id="mp-table" #TABLE>
 				<thead>
 					<tr class="table-head text-center">
 						<th *ngFor="let field of fields" scope="col">{{field}}</th>
@@ -65,7 +65,6 @@
 						<td class="text-center">{{ order.user.fullname }}</td>
 						<td class="text-center text-capitalize">{{order.status }}</td>
 						<td class="text-center">
-							<!-- <button class="btn btn-table-action" (click)="OrderDetails.openModal(order)">Editar</button> -->
 							<a (click)="OrderDetails.openModal(order)" class="btn btn-table-action">
 								<i class="fa fa-search fa-lg" style="color: Dodgerblue"></i>
 							</a>
@@ -73,7 +72,6 @@
 					</tr>
 				</tbody>
 			</table>
-
 		</ng-container>
 
 		<ng-template #elseTemplate>

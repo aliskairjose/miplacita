@@ -4,17 +4,17 @@
       <div class="row" style="display: flex;">
         <!-- Banner -->
         <div class="col-sm-12 col-lg-7">
-          <div class="form-row mb-3">
+          <div class="form-row d-flex flex-column mb-3" >
             <label class="label mr-2 my-auto"><strong>Banner</strong> </label>
+            <app-upload-image multiple="true" (uploadImage)="uploadImage($event)"></app-upload-image>
           </div>
-          <app-upload-image multiple="true" (uploadImage)="uploadImage($event)"></app-upload-image>
         </div>
         <!-- Tipografia y color -->
-        <div class="col-sm-12 col-lg-5">
+        <div class="col-sm-12 col-lg-5" id="special-padding">
           <div class="form-row mb-3">
             <label class="label mr-2 my-auto"><strong>Tipografía y Color</strong> </label>
           </div>
-          <div class="row border">
+          <div class="row border-box">
             <!-- Tipografía -->
             <div class="col-sm-12 col-lg-6">
               <div class="border-box my-3" id="item" *ngFor="let font of fonts">
