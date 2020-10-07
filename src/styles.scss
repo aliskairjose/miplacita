@@ -420,8 +420,11 @@ ngb-carousel {
   & .carousel-inner{
       height: 100%;
       .carousel-item.active {
-        z-index: 8;
+        z-index: 7;
       }
+  }
+  & .carousel-control-next{
+    z-index: 8;
   }
 }
 
@@ -775,3 +778,6 @@ ngb-carousel {
     left: 200px;
   }
 }
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
