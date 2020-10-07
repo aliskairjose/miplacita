@@ -45,16 +45,12 @@ export class ShippingComponent implements OnInit {
     shipment_option: '',
     shipment_price: 0,
   };
- 
-  private _products: Product[] = [];
 
+  private _products: Product[] = [];
 
   constructor(
     private router: Router,
-    private auth: AuthService,
-    private storage: StorageService,
     private shopService: ShopService,
-    private userService: UserService,
     public productService: ProductService,
   ) {
 

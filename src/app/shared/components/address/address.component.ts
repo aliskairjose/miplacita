@@ -44,7 +44,6 @@ export class AddressComponent implements OnInit {
   constructor(
     private ngZone: NgZone,
     private auth: AuthService,
-    private storage: StorageService,
     private formBuilder: FormBuilder,
     private userService: UserService,
     private toastrService: ToastrService,
@@ -54,7 +53,7 @@ export class AddressComponent implements OnInit {
 
     if ( this.auth.isAuthenticated() ) {
       this.hideMessage = true;
-      this.user = this.storage.getItem( 'user' );
+      this.user = this.auth.getUserActive();
 
       // this.userService.getUserAddress( this.user._id ).subscribe( response => {
       //   console.log( response );
@@ -81,7 +80,7 @@ export class AddressComponent implements OnInit {
   ngOnInit(): void {
     this.setCurrentLocation();
     this.mapsAPILoader.load().then( () => {
-      this.setCurrentLocation();
+      // this.setCurrentLocation();
       // tslint:disable-next-line: new-parens
       this.geoCoder = new google.maps.Geocoder;
 

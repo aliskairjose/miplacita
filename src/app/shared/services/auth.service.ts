@@ -72,6 +72,10 @@ export class AuthService {
     return ( user ) ? true : false;
   }
 
+  /**
+   * @description Muetsra el rol del usuario
+   * @returns El rol del usuario activo
+   */
   getUserRol(): string {
     const user: User = JSON.parse( localStorage.getItem( 'user' ) );
     if ( user ) {
@@ -79,6 +83,15 @@ export class AuthService {
     } else {
       return '';
     }
+  }
+
+  /**
+   * @description Muestra los datos del usuario activo
+   * @returns Usuario
+   */
+  getUserActive(): User {
+    const user = JSON.parse( localStorage.getItem( 'user' ) );
+    return user;
   }
 
   /**
