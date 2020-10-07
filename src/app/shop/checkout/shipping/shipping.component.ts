@@ -91,7 +91,6 @@ export class ShippingComponent implements OnInit {
     const shippingAddress = this.address.onSubmit();
 
     if ( shippingAddress ) {
-      console.log( 'hola' );
       this.order.address.address = shippingAddress.address;
       this.order.address.phone = shippingAddress.phone;
       this.order.address.location = shippingAddress.coord;
