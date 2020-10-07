@@ -30,6 +30,7 @@ export class AddressComponent implements OnInit {
     types: [],
     componentRestrictions: { country: 'PA' }
   };
+  isProfile = false;
   private _addressExist = false;
   private geoCoder;
   private _saveAddress: boolean;
@@ -45,7 +46,6 @@ export class AddressComponent implements OnInit {
     private toastrService: ToastrService,
     private mapsAPILoader: MapsAPILoader,
   ) {
-    this.createForm();
 
     if ( this.auth.isAuthenticated() ) {
       this.hideMessage = true;
@@ -54,12 +54,20 @@ export class AddressComponent implements OnInit {
       this.userService.getUserAddress( this.user._id ).subscribe( response => {
         console.log( response.result.address );
         if ( response.success ) {
+
           this._addressExist = true;
-          // const response = confirm( 'Ya existe una dirección, ¿Desea usarla?' );
-          // ( response ) ? this.shippingAddress = shippingAddress : this.shippingAddress = {};
+
+          if ( this.isProfile ) {
+            this.shippingAddress = response.result.address;
+          } else {
+            // const response = confirm( 'Ya existe una dirección, ¿Desea usarla?' );
+            // ( response ) ? this.shippingAddress = shippingAddress : this.shippingAddress = {};
+          }
+          this.createForm();
         }
       } );
     }
+    this.createForm();
   }
 
   // convenience getter for easy access to form fields

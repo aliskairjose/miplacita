@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { MustMatch } from '../../../shared/helper/must-match.validator';
 import { AuthService } from '../../../shared/services/auth.service';
@@ -16,7 +16,7 @@ import { UserService } from '../../../shared/services/user.service';
   templateUrl: './profile.component.html',
   styleUrls: [ './profile.component.scss' ]
 } )
-export class ProfileComponent implements OnInit {
+export class ProfileComponent implements OnInit, AfterViewInit {
 
   updateUserForm: FormGroup;
   submitted: boolean;
@@ -41,11 +41,13 @@ export class ProfileComponent implements OnInit {
   ) {
 
   }
+  ngAfterViewInit(): void {
+    this.address.isProfile = true;
+  }
 
   ngOnInit(): void {
     this.user = this.storage.getItem( 'user' );
     this.route.url.subscribe( url => {
-      console.log( "--", url );
       this.active = url[ 2 ].path;
       if ( this.active === 'profile' && url.length === 4 ) {
         this.active = 'address';
@@ -60,14 +62,34 @@ export class ProfileComponent implements OnInit {
 
 
   saveAddress(): void {
-    const shippingAddress: ShippingAddress = this.address.onSubmit();
+    const data = this.address.onSubmit();
 
+    console.log( data );
+
+    if ( data.addressExist ) {
+      this.addUserAddress( data.shippingAddress );
+    } else {
+      this.updateUserAddress( data.shippingAddress );
+    }
+
+  }
+
+  private addUserAddress( shippingAddress: ShippingAddress ): void {
     if ( shippingAddress ) {
       this.userService.addUserAddress( this.user._id, shippingAddress ).subscribe( response => {
-        console.log( response );
-
+        if ( response.success ) {
+          this.toatsrService.info( response.message[ 0 ] );
+        }
       } );
     }
+  }
+
+  private updateUserAddress( shippingAddress: ShippingAddress ): void {
+    this.userService.updateUserAddress( this.user._id, shippingAddress ).subscribe( response => {
+      if ( response.success ) {
+        this.toatsrService.info( response.message[ 0 ] );
+      }
+    } );
   }
 
   onSubmit(): void {
