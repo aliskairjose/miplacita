@@ -21,8 +21,8 @@ export class AddressComponent implements OnInit {
   addressForm: FormGroup;
   submitted: boolean;
   hideMessage = false;
-  latitude = 10.4683841;
-  longitude = -66.9604066;
+  latitude = 	8.9936;
+  longitude = -79.51973;
   zoom: number;
   address: string;
   user: User = {};
@@ -49,21 +49,14 @@ export class AddressComponent implements OnInit {
       this.hideMessage = true;
       this.user = this.auth.getUserActive();
 
-      // this.userService.getUserAddress( this.user._id ).subscribe( response => {
-      //   console.log( response );
+      this.userService.getUserAddress( this.user._id ).subscribe( response => {
+        console.log( response );
 
-      //   if ( response.success ) {
-      //     // const response = confirm( 'Ya existe una dirección, ¿Desea usarla?' );
-      //     // ( response ) ? this.shippingAddress = shippingAddress : this.shippingAddress = {};
-      //   }
-      // } );
-      /* const store = this.user.stores[ 0 ];
-      const shippingAddress: ShippingAddress = this.storage.getItem( `shippingAddress${this.user._id}` );
-
-      if ( shippingAddress && ( shippingAddress.userId === this.user._id ) ) {
-        const response = confirm( 'Ya existe una dirección, ¿Desea usarla?' );
-        ( response ) ? this.shippingAddress = shippingAddress : this.shippingAddress = {};
-      } */
+        if ( response.success ) {
+          // const response = confirm( 'Ya existe una dirección, ¿Desea usarla?' );
+          // ( response ) ? this.shippingAddress = shippingAddress : this.shippingAddress = {};
+        }
+      } );
     }
   }
 
