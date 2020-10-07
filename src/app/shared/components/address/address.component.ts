@@ -7,15 +7,9 @@ import { ToastrService } from 'ngx-toastr';
 import { AuthService } from '../../services/auth.service';
 import { StorageService } from '../../services/storage.service';
 import { User } from '../../classes/user';
+import { ShippingAddress } from '../../classes/shipping-address';
 
-export interface ShippingAddress {
-  name?: string;
-  last_name?: string;
-  phone?: string;
-  email?: string;
-  address?: string;
-  userId?: string;
-}
+
 @Component( {
   selector: 'app-address',
   templateUrl: './address.component.html',
@@ -23,7 +17,7 @@ export interface ShippingAddress {
 } )
 export class AddressComponent implements OnInit {
 
-  shippingAddress: ShippingAddress;
+  shippingAddress: ShippingAddress = {};
   addressForm: FormGroup;
   submitted: boolean;
   hideMessage = false;
@@ -129,6 +123,11 @@ export class AddressComponent implements OnInit {
     this.longitude = $event.latLng.lng();
 
     this.getAddress( this.latitude, this.longitude );
+  }
+
+  onSubmit(): ShippingAddress {
+    this.submitted = true;
+    if ( this.addressForm.valid ) { return this.addressForm.value; }
   }
 
   // Get Current Location Coordinates

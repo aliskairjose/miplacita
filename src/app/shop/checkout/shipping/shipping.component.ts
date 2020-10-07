@@ -1,7 +1,7 @@
 import { IPayPalConfig } from 'ngx-paypal';
 import { Observable } from 'rxjs';
 
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { Product } from '../../../shared/classes/product';
@@ -11,6 +11,7 @@ import { ProductService } from '../../../shared/services/product.service';
 import { ShopService } from '../../../shared/services/shop.service';
 import { StorageService } from '../../../shared/services/storage.service';
 import { UserService } from '../../../shared/services/user.service';
+import { AddressComponent } from '../../../shared/components/address/address.component';
 
 
 @Component( {
@@ -48,6 +49,8 @@ export class ShippingComponent implements OnInit {
 
   private _products: Product[] = [];
 
+  @ViewChild( 'address' ) address: AddressComponent;
+
   constructor(
     private router: Router,
     private shopService: ShopService,
@@ -83,23 +86,19 @@ export class ShippingComponent implements OnInit {
     return this.productService.cartTotalAmount();
   }
 
-
-
   checkout(): void {
 
-    // this.submitted = true;
-    // if ( this.checkoutForm.valid ) {
-    //   const shippingAddress = { ...this.checkoutForm.value };
-    //   this.order.address.address = this.checkoutForm.value.address;
-    //   this.order.address.phone = this.checkoutForm.value.phone;
-    //   this.order.address.location = [ this.latitude, this.longitude ];
+    const shippingAddress = this.address.onSubmit();
 
-    // se agrega id a la dirección para cuando se cargue desde storage comparar con el usuario activo
-    // shippingAddress.userId = this.user._id;
-    // this.storage.setItem( `shippingAddress${this.user._id}`, shippingAddress );
-    // sessionStorage.setItem( 'order', JSON.stringify( this.order ) );
-    // this.router.navigate( [ 'shop/checkout' ] );
-    // }
+    if ( shippingAddress ) {
+      console.log( 'hola' );
+      this.order.address.address = shippingAddress.address;
+      this.order.address.phone = shippingAddress.phone;
+      this.order.address.location = shippingAddress.coord;
+
+      sessionStorage.setItem( 'order', JSON.stringify( this.order ) );
+      this.router.navigate( [ 'shop/checkout' ] );
+    }
 
   }
 
