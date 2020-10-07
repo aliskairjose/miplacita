@@ -6,11 +6,8 @@ import { Router } from '@angular/router';
 
 import { Product } from '../../../shared/classes/product';
 import { User } from '../../../shared/classes/user';
-import { AuthService } from '../../../shared/services/auth.service';
 import { ProductService } from '../../../shared/services/product.service';
 import { ShopService } from '../../../shared/services/shop.service';
-import { StorageService } from '../../../shared/services/storage.service';
-import { UserService } from '../../../shared/services/user.service';
 import { AddressComponent } from '../../../shared/components/address/address.component';
 
 
