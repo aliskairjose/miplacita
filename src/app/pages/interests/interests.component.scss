@@ -8,25 +8,3 @@
     color: white;
 }
 
-input[type='checkbox']{
-    width: 15px !important;
-    height: 15px !important;
-    background-color: white;
-    border: 1px solid #ffb6af;
-    border-radius: 50% !important;
-    margin: 5px;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    -o-appearance: none;
-    appearance:none;
-    // outline: 2px solid lightblue;
-    box-shadow: none;
-    font-size: 2em;
-  }
-
-  input[type='checkbox']:checked {
-      background-color: #7d1709;
-      line-height: 1rem;
-      font-size:1rem;
-      border: 2px solid var(--theme-deafult); 
-    } 

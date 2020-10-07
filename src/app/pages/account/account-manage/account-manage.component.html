@@ -1,10 +1,30 @@
 <div class="container">
 	<div class="d-flex account-page">
-		<div class="col-lg-2 col-md-2 col-sm-0 mp-side-menu">
+		<div class="row user-row mx-auto mp-side-menu-responsive">
+			<div ngbDropdown *ngIf="user.role === 'merchant'">
+				<button class="btn btn-link text-default-color" id="store-logo" ngbDropdownToggle>
+					<img class="rounded-circle store-logo mr-1" [src]="selectedStore.logo ? selectedStore.logo : standardImage">
+					{{ selectedStore.name ? selectedStore.name : 'Crear nueva tienda' }}
+				</button>
+				<div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+					<div *ngIf="stores.length">
+						<button type="button" class="drop-button" (click)="selectStore(store)" *ngFor="let store of stores"
+							[value]="store._id" ngbDropdownItem>
+							{{store.name}}
+						</button>
+					</div>
+					<hr>
+					<button type="button" class="drop-button" (click)="createStore()" ngbDropdownItem>
+						+ Nueva tienda
+					</button>
+				</div>
+			</div>
+		</div>
+		<div class="col-lg-3 col-md-3 col-sm-0 mp-side-menu">
 			<div class="row user-row">
-				<div ngbDropdown *ngIf="user.role === 'merchant'">
-					<button class="btn btn-link" id="store-logo" ngbDropdownToggle>
-						<img class="rounded-circle store-logo mr-1" [src]="selectedStore.logo ? selectedStore.logo : standardImage">
+				<div ngbDropdown *ngIf="user.role === 'merchant'" class="d-flex flex-column w-100">
+					<img class="rounded-circle store-logo mx-auto" id="store-img"[src]="selectedStore.logo ? selectedStore.logo : standardImage">
+					<button class="btn btn-link text-default-color" id="store-logo" ngbDropdownToggle>
 						{{ selectedStore.name ? selectedStore.name : 'Crear nueva tienda' }}
 					</button>
 					<div ngbDropdownMenu aria-labelledby="dropdownBasic1">
@@ -109,7 +129,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="col-lg-10 col-md-10 col-sm-12">
+		<div class="col-lg-9 col-md-9 col-sm-12">
 			<div class="tab-content" id="myTabContent">
 				<div *ngIf="active=='profile'" class="" id="profile" user.role="tabpanel">
 					<app-profile></app-profile>
