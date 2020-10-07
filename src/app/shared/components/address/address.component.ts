@@ -21,7 +21,7 @@ export class AddressComponent implements OnInit {
   addressForm: FormGroup;
   submitted: boolean;
   hideMessage = false;
-  latitude = 	8.9936;
+  latitude = 8.9936;
   longitude = -79.51973;
   zoom: number;
   address: string;
@@ -30,7 +30,10 @@ export class AddressComponent implements OnInit {
     types: [],
     componentRestrictions: { country: 'PA' }
   };
+  isProfile = false;
+  private _addressExist = false;
   private geoCoder;
+  private _saveAddress: boolean;
 
   @ViewChild( 'placesRef' ) placesRef: GooglePlaceDirective;
   @ViewChild( 'placesRef' ) public searchElementRef: ElementRef;
@@ -43,21 +46,27 @@ export class AddressComponent implements OnInit {
     private toastrService: ToastrService,
     private mapsAPILoader: MapsAPILoader,
   ) {
-    this.createForm();
 
     if ( this.auth.isAuthenticated() ) {
       this.hideMessage = true;
       this.user = this.auth.getUserActive();
 
       this.userService.getUserAddress( this.user._id ).subscribe( response => {
-        console.log( response );
-
         if ( response.success ) {
-          // const response = confirm( 'Ya existe una dirección, ¿Desea usarla?' );
-          // ( response ) ? this.shippingAddress = shippingAddress : this.shippingAddress = {};
+
+          this._addressExist = true;
+
+          if ( this.isProfile ) {
+            this.shippingAddress = response.result.address;
+          } else {
+            const result = confirm( 'Ya existe una dirección, ¿Desea usarla?' );
+            ( result ) ? this.shippingAddress = response.result.address : this.shippingAddress = {};
+          }
+          this.createForm();
         }
       } );
     }
+    this.createForm();
   }
 
   // convenience getter for easy access to form fields
@@ -118,9 +127,19 @@ export class AddressComponent implements OnInit {
     this.getAddress( this.latitude, this.longitude );
   }
 
-  onSubmit(): ShippingAddress {
+  saveAddress( event ): void {
+    this._saveAddress = event.target.checked;
+  }
+
+  onSubmit(): any {
     this.submitted = true;
-    if ( this.addressForm.valid ) { return this.addressForm.value; }
+    const data = {
+      shippingAddress: this.addressForm.value,
+      addressExist: this._addressExist,
+      saveAddress: this._saveAddress
+    };
+
+    if ( this.addressForm.valid ) { return data; }
   }
 
   // Get Current Location Coordinates
@@ -148,12 +167,6 @@ export class AddressComponent implements OnInit {
         this.toastrService.warning( `Geocoder failed due to: ${status}` );
       }
 
-    } );
-  }
-
-  private addUserAddress(): void {
-    this.userService.addUserAddress( this.user._id, this.addressForm.value ).subscribe( response => {
-      console.log( response );
     } );
   }
 

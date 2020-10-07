@@ -9,6 +9,9 @@ import { User } from '../../../shared/classes/user';
 import { ProductService } from '../../../shared/services/product.service';
 import { ShopService } from '../../../shared/services/shop.service';
 import { AddressComponent } from '../../../shared/components/address/address.component';
+import { UserService } from '../../../shared/services/user.service';
+import { ToastrService } from 'ngx-toastr';
+import { AuthService } from '../../../shared/services/auth.service';
 
 
 @Component( {
@@ -50,9 +53,14 @@ export class ShippingComponent implements OnInit {
 
   constructor(
     private router: Router,
+    private auth: AuthService,
+    private toastr: ToastrService,
+    private userService: UserService,
     private shopService: ShopService,
     public productService: ProductService,
   ) {
+
+    this.user = this.auth.getUserActive();
 
     this.productService.cartItems.subscribe( products => {
       ( products.length ) ? this._products = [ ...products ] : this.router.navigate( [ '/home' ] );
@@ -85,17 +93,43 @@ export class ShippingComponent implements OnInit {
 
   checkout(): void {
 
-    const shippingAddress = this.address.onSubmit();
+    const data = this.address.onSubmit();
 
-    if ( shippingAddress ) {
-      this.order.address.address = shippingAddress.address;
-      this.order.address.phone = shippingAddress.phone;
-      this.order.address.location = shippingAddress.coord;
+    if ( data?.saveAddress ) {
+      if ( Object.keys( data?.shippingAddress ).length !== 0 && data.addressExist ) {
+        // Actualiza la dirección
 
-      sessionStorage.setItem( 'order', JSON.stringify( this.order ) );
-      this.router.navigate( [ 'shop/checkout' ] );
+        this.userService.updateUserAddress( this.user._id, data.shippingAddress ).subscribe( response => {
+          if ( response.success ) {
+            this.toastr.info( response.message[ 0 ] );
+            this.makeOrderData( data.shippingAddress );
+          }
+        } );
+      }
+      if ( Object.keys( data?.shippingAddress ).length !== 0 && !data.addressExist ) {
+        // Registra nueva dirección
+
+        this.userService.addUserAddress( this.user._id, data.shippingAddress ).subscribe( response => {
+          if ( response.success ) {
+            this.toastr.info( response.message[ 0 ] );
+            this.makeOrderData( data.shippingAddress );
+          }
+        } );
+      }
+    } else {
+      // Continua sin guardar ni actualizar direccón
+      this.makeOrderData( data.shippingAddress );
     }
 
+  }
+
+  private makeOrderData( shippingAddress ): void {
+    this.order.address.address = shippingAddress.address;
+    this.order.address.phone = shippingAddress.phone;
+    this.order.address.location = shippingAddress.coord;
+
+    sessionStorage.setItem( 'order', JSON.stringify( this.order ) );
+    this.router.navigate( [ 'shop/checkout' ] );
   }
 
   selectOption( shopId: string, optionId: string ): void {
