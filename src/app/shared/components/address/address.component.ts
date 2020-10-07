@@ -52,7 +52,6 @@ export class AddressComponent implements OnInit {
 
       this.userService.getUserAddress( this.user._id ).subscribe( response => {
         console.log( response.result.address );
-
         if ( response.success ) {
           // const response = confirm( 'Ya existe una dirección, ¿Desea usarla?' );
           // ( response ) ? this.shippingAddress = shippingAddress : this.shippingAddress = {};
