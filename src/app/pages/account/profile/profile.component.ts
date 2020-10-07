@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { MustMatch } from '../../../shared/helper/must-match.validator';
 import { AuthService } from '../../../shared/services/auth.service';
@@ -7,6 +7,9 @@ import { User } from '../../../shared/classes/user';
 import { ToastrService } from 'ngx-toastr';
 import { StorageService } from '../../../shared/services/storage.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import { AddressComponent } from '../../../shared/components/address/address.component';
+import { ShippingAddress } from '../../../shared/classes/shipping-address';
+import { UserService } from '../../../shared/services/user.service';
 
 @Component( {
   selector: 'app-profile',
@@ -23,7 +26,9 @@ export class ProfileComponent implements OnInit {
   matchError = environment.errorForm.matchError;
   onlyLetter = environment.errorForm.onlyLetter;
   user: User = {};
-  active: string = 'profile';
+  active = 'profile';
+
+  @ViewChild( 'address' ) address: AddressComponent;
 
   constructor(
     private route: ActivatedRoute,
@@ -31,6 +36,7 @@ export class ProfileComponent implements OnInit {
     private auth: AuthService,
     private storage: StorageService,
     private formBuilder: FormBuilder,
+    private userService: UserService,
     private toatsrService: ToastrService,
   ) {
 
@@ -39,9 +45,9 @@ export class ProfileComponent implements OnInit {
   ngOnInit(): void {
     this.user = this.storage.getItem( 'user' );
     this.route.url.subscribe( url => {
-      console.log("--",url);
+      console.log( "--", url );
       this.active = url[ 2 ].path;
-      if ( this.active === 'profile' && url.length == 4 ) {
+      if ( this.active === 'profile' && url.length === 4 ) {
         this.active = 'address';
       }
     } );
@@ -51,6 +57,18 @@ export class ProfileComponent implements OnInit {
   // convenience getter for easy access to form fields
   // tslint:disable-next-line: typedef
   get f() { return this.updateUserForm.controls; }
+
+
+  saveAddress(): void {
+    const shippingAddress: ShippingAddress = this.address.onSubmit();
+
+    if ( shippingAddress ) {
+      this.userService.addUserAddress( this.user._id, shippingAddress ).subscribe( response => {
+        console.log( response );
+
+      } );
+    }
+  }
 
   onSubmit(): void {
     this.submitted = true;
@@ -88,10 +106,10 @@ export class ProfileComponent implements OnInit {
 
   updateTab( tab: string ) {
     this.active = tab;
-    if(this.active == 'profile'){
+    if ( this.active == 'profile' ) {
       this.router.navigateByUrl( `pages/account/user/${tab}`, { skipLocationChange: false } );
 
-    }else{
+    } else {
       this.router.navigateByUrl( `pages/account/user/profile/${tab}`, { skipLocationChange: false } );
 
     }
