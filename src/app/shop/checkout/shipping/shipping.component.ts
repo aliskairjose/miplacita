@@ -95,7 +95,7 @@ export class ShippingComponent implements OnInit {
 
     const data = this.address.onSubmit();
 
-    if ( data ) {
+    if ( data?.saveAddress ) {
       if ( Object.keys( data?.shippingAddress ).length !== 0 && data.addressExist ) {
         // Actualiza la dirección
 
@@ -110,15 +110,17 @@ export class ShippingComponent implements OnInit {
         // Registra nueva dirección
 
         this.userService.addUserAddress( this.user._id, data.shippingAddress ).subscribe( response => {
-          console.log( response );
           if ( response.success ) {
             this.toastr.info( response.message[ 0 ] );
             this.makeOrderData( data.shippingAddress );
           }
         } );
       }
+    } else {
+      // Continua sin guardar ni actualizar direccón
+      this.makeOrderData( data.shippingAddress );
     }
-    
+
   }
 
   private makeOrderData( shippingAddress ): void {

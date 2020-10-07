@@ -128,10 +128,11 @@ export class AddressComponent implements OnInit {
     this.submitted = true;
     const data = {
       shippingAddress: this.addressForm.value,
-      addressExist: this._addressExist
+      addressExist: this._addressExist,
+      saveAddress: this._saveAddress
     };
 
-    if ( this.addressForm.valid && this._saveAddress ) { return data; }
+    if ( this.addressForm.valid ) { return data; }
   }
 
   // Get Current Location Coordinates
