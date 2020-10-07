@@ -53,7 +53,7 @@
             </div>
             <div class="row">
               <div class="col-lg-6">
-                <owl-carousel-o [options]="ProductDetailsMainSliderConfig" #owlCar class="product-slick">
+                <!-- <owl-carousel-o [options]="ProductDetailsMainSliderConfig" #owlCar class="product-slick">
                   <ng-container *ngFor="let image of product?.image; index as i">
                     <ng-template carouselSlide [id]="i">
                       <div>
@@ -64,10 +64,19 @@
                       </div>
                     </ng-template>
                   </ng-container>
-                </owl-carousel-o>
+                </owl-carousel-o> -->
+                <section class="p-0">
+                  <ngb-carousel #ngcarousel>
+                      <ng-template *ngFor="let image of product?.image; index as i" ngbSlide>
+                          <div class="picsum-img-wrapper w-100">
+                              <img class="img-main-banner" [src]="image" alt="Angular Carousel 1">
+                          </div>
+                      </ng-template>
+                  </ngb-carousel>
+                </section>
                 <div class="col-12 p-0" *ngIf="product?.image?.length">
                   <div class="slider-nav">
-                    <owl-carousel-o [options]="ProductDetailsThumbConfig" class="product-slick">
+                    <!-- <owl-carousel-o [options]="ProductDetailsThumbConfig" class="product-slick">
                       <ng-container *ngFor="let image of product?.image; index as i">
                         <ng-template carouselSlide [id]="i">
                           <div 
@@ -81,7 +90,7 @@
                           </div>
                         </ng-template>
                       </ng-container>
-                    </owl-carousel-o>
+                    </owl-carousel-o> -->
                   </div>
                 </div>
               </div>
