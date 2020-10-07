@@ -20,7 +20,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="col-lg-3 col-md-3 col-sm-0 mp-side-menu">
+		<div class="col-lg-2 col-md-2 col-sm-0 mp-side-menu">
 			<div class="row user-row">
 				<div ngbDropdown *ngIf="user.role === 'merchant'" class="d-flex flex-column w-100">
 					<img class="rounded-circle store-logo mx-auto" id="store-img"[src]="selectedStore.logo ? selectedStore.logo : standardImage">
@@ -129,7 +129,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="col-lg-9 col-md-9 col-sm-12">
+		<div class="col-lg-10 col-md-10 col-sm-12">
 			<div class="tab-content" id="myTabContent">
 				<div *ngIf="active=='profile'" class="" id="profile" user.role="tabpanel">
 					<app-profile></app-profile>
