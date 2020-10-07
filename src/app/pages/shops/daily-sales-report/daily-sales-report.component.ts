@@ -92,6 +92,7 @@ export class DailySalesReportComponent implements OnInit {
       for ( let i = 1; i <= this.paginate.totalPages; i++ ) {
         this.paginate.pages.push( i );
       }
+
     } );
   }
 
