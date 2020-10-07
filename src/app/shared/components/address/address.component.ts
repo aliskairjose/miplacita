@@ -52,7 +52,6 @@ export class AddressComponent implements OnInit {
       this.user = this.auth.getUserActive();
 
       this.userService.getUserAddress( this.user._id ).subscribe( response => {
-        console.log( response.result.address );
         if ( response.success ) {
 
           this._addressExist = true;
@@ -60,8 +59,8 @@ export class AddressComponent implements OnInit {
           if ( this.isProfile ) {
             this.shippingAddress = response.result.address;
           } else {
-            // const response = confirm( 'Ya existe una dirección, ¿Desea usarla?' );
-            // ( response ) ? this.shippingAddress = shippingAddress : this.shippingAddress = {};
+            const result = confirm( 'Ya existe una dirección, ¿Desea usarla?' );
+            ( result ) ? this.shippingAddress = response.result.address : this.shippingAddress = {};
           }
           this.createForm();
         }

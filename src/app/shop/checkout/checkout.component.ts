@@ -101,9 +101,8 @@ export class CheckoutComponent implements OnInit {
     const order = JSON.parse( sessionStorage.order );
     if ( this.payment.onSubmit() ) {
       this.orderService.createOrder( order ).subscribe( response => {
-        console.log( response );
-
         if ( response.success ) {
+          sessionStorage.removeItem( 'order' );
           this.router.navigate( [ '/shop/checkout/success' ] );
         }
       } );
