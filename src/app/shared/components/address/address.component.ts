@@ -21,7 +21,7 @@ export class AddressComponent implements OnInit {
   addressForm: FormGroup;
   submitted: boolean;
   hideMessage = false;
-  latitude = 	8.9936;
+  latitude = 8.9936;
   longitude = -79.51973;
   zoom: number;
   address: string;
@@ -31,6 +31,7 @@ export class AddressComponent implements OnInit {
     componentRestrictions: { country: 'PA' }
   };
   private geoCoder;
+  private _saveAddress: boolean;
 
   @ViewChild( 'placesRef' ) placesRef: GooglePlaceDirective;
   @ViewChild( 'placesRef' ) public searchElementRef: ElementRef;
@@ -50,7 +51,7 @@ export class AddressComponent implements OnInit {
       this.user = this.auth.getUserActive();
 
       this.userService.getUserAddress( this.user._id ).subscribe( response => {
-        console.log( response );
+        console.log( response.result.address );
 
         if ( response.success ) {
           // const response = confirm( 'Ya existe una dirección, ¿Desea usarla?' );
@@ -118,9 +119,13 @@ export class AddressComponent implements OnInit {
     this.getAddress( this.latitude, this.longitude );
   }
 
+  saveAddress( event ): void {
+    this._saveAddress = event.target.checked;
+  }
+
   onSubmit(): ShippingAddress {
     this.submitted = true;
-    if ( this.addressForm.valid ) { return this.addressForm.value; }
+    if ( this.addressForm.valid && this._saveAddress ) { return this.addressForm.value; }
   }
 
   // Get Current Location Coordinates

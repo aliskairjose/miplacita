@@ -86,15 +86,16 @@ export class ShippingComponent implements OnInit {
   checkout(): void {
 
     const shippingAddress = this.address.onSubmit();
+    console.log( shippingAddress );
 
-    if ( shippingAddress ) {
-      this.order.address.address = shippingAddress.address;
-      this.order.address.phone = shippingAddress.phone;
-      this.order.address.location = shippingAddress.coord;
+    // if ( shippingAddress ) {
+    //   this.order.address.address = shippingAddress.address;
+    //   this.order.address.phone = shippingAddress.phone;
+    //   this.order.address.location = shippingAddress.coord;
 
-      sessionStorage.setItem( 'order', JSON.stringify( this.order ) );
-      this.router.navigate( [ 'shop/checkout' ] );
-    }
+    //   sessionStorage.setItem( 'order', JSON.stringify( this.order ) );
+    //   this.router.navigate( [ 'shop/checkout' ] );
+    // }
 
   }
 
