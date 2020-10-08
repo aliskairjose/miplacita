@@ -3,8 +3,7 @@ import { forkJoin } from 'rxjs';
 
 import { Component, Input, OnDestroy, OnInit, TemplateRef, ViewChild, OnChanges, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
-import { NgbModal, NgbModalOptions, NgbDate, NgbDateParserFormatter, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbModalOptions, NgbDateParserFormatter, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
 
 import { environment } from '../../../../environments/environment';
 import { Category } from '../../../shared/classes/category';
@@ -36,12 +35,13 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
   modalOpen = false;
   modalOption: NgbModalOptions = {};
   
-  create = true;
+  create = 1;
   typesProduct = [];
   states = [];
   allVariations = [];
   sizes = [];
   subcategories = [];
+  colors = [];
 
   categoryId = '';
   categories: Category[];
@@ -65,10 +65,7 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
   color: string = '';
   @Input() store: Store = {};
 
-  hoveredDate: NgbDate | null = null;
 
-  fromDate: NgbDate | null;
-  toDate: NgbDate | null;
 
   constructor(
     public modalService: NgbModal,
@@ -79,8 +76,6 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
     public productsComponent: ProductsComponent,
     private calendar: NgbCalendar, public formatter: NgbDateParserFormatter
   ) {
-    this.fromDate = calendar.getToday();
-    this.toDate = calendar.getNext(calendar.getToday(), 'd', 10);
     this.createForm();
     this.productData.name = '';
   }
@@ -205,7 +200,7 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
    * @description Valida que el nombre del producto no este en uso
    */
   validateName(): void {
-    if ( !this.create ) {
+    if ( this.create == 2 ) {
       this.disabled = false;
       return;
     }
@@ -228,17 +223,20 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
     }
   }
   choiceOptions( productId: string ) {
-    if ( !this.create ) {
+    if (this.create == 1) {
+      this.title = 'Crear producto';
+    }else if ( this.create == 2 ) {
       this.status = 'edit';
       this.disabled = false;
       this.title = 'Editar producto';
       this.loadProductData( productId );
-    } else {
-      this.title = 'Crear producto';
+    } else if ( this.create == 3) {
+      this.title = 'Crear variante de producto';
+      this.active = 'variations'
     }
 
   }
-  openModal( option: boolean, id: string ) {
+  openModal( option: number, id: string, ) {
     this.create = option;
     this.choiceOptions( id );
     this.modalOpen = true;
@@ -279,72 +277,37 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
     this.showForm = !this.showForm;
   }
 
-  createNewSize(){
-   
-    this.modalOption.backdrop = 'static';
-    this.modalOption.keyboard = false;
-    this.modalOption.windowClass = 'createProductModal';
-    this.modal2 = this.modalService.open( ModalNewElementComponent, this.modalOption );
-    this.modal2.componentInstance.option = 1;
-
-    this.modal2.result.then( (size) => {
-      // Cuando se envia la data cerrando el modal con el boton
-      this.sizes.push(size);
-      console.log(this.sizes);
-    }, (result) => {
-      // Cuando se cierra con la x de la esquina
-
-    } );
-  }
-
-  createNewSubCategory(){
-    this.modalOption.backdrop = 'static';
-    this.modalOption.keyboard = false;
-    this.modalOption.size = 'lg';
-    this.modalOption.windowClass = 'createProductModal';
-    this.modal2 = this.modalService.open( ModalNewElementComponent, this.modalOption );
-    this.modal2.componentInstance.option = 2;
-    this.modal2.result.then( (category) => {
-      // Cuando se envia la data cerrando el modal con el boton
-      this.subcategories.push(category);
-      console.log(this.subcategories);
-    }, (result) => {
-      // Cuando se cierra con la x de la esquina
-
-    } );
-  }
-
   back(){
     this.showForm = false;
   }
 
+  openModalNewElement(option: number){
+    this.modalOption.backdrop = 'static';
+    this.modalOption.keyboard = false;
+    this.modalOption.windowClass = 'customModal';
+    this.modal2 = this.modalService.open( ModalNewElementComponent, this.modalOption );
+    this.modal2.componentInstance.option = option;
 
-  onDateSelection(date: NgbDate) {
-    if (!this.fromDate && !this.toDate) {
-      this.fromDate = date;
-    } else if (this.fromDate && !this.toDate && date && date.after(this.fromDate)) {
-      this.toDate = date;
-    } else {
-      this.toDate = null;
-      this.fromDate = date;
-    }
+    this.modal2.result.then( (item) => {
+      // Cuando se envia la data cerrando el modal con el boton
+      if(option == 1){
+        this.sizes.push(item);
+
+      } else if( option == 2 ){
+        this.subcategories.push(item);
+
+      } else if( option == 3) {
+        this.colors.push(item);
+        console.log(this.colors);
+
+      }
+    }, (result) => {
+      // Cuando se cierra con la x de la esquina
+
+    } );
   }
 
-  isHovered(date: NgbDate) {
-    return this.fromDate && !this.toDate && this.hoveredDate && date.after(this.fromDate) && date.before(this.hoveredDate);
-  }
 
-  isInside(date: NgbDate) {
-    return this.toDate && date.after(this.fromDate) && date.before(this.toDate);
-  }
 
-  isRange(date: NgbDate) {
-    return date.equals(this.fromDate) || (this.toDate && date.equals(this.toDate)) || this.isInside(date) || this.isHovered(date);
-  }
-
-  validateInput(currentValue: NgbDate | null, input: string): NgbDate | null {
-    const parsed = this.formatter.parse(input);
-    return parsed && this.calendar.isValid(NgbDate.from(parsed)) ? NgbDate.from(parsed) : currentValue;
-  }
 
 }

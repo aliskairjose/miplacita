@@ -17,6 +17,8 @@ export class ModalNewElementComponent implements OnInit {
   modalOption: NgbModalOptions = {};
   
   elementForm: FormGroup;
+  color: string = '';
+
   constructor(  
     private modalService: NgbModal,
     private activeModal: NgbActiveModal,
@@ -27,17 +29,20 @@ export class ModalNewElementComponent implements OnInit {
 
   ngOnInit(): void {
     this.elementForm = this.formBuilder.group( {
+      name: [''],
       size: [ '' ],
-      subcategory: ['']
+      subcategory: [''],
       
     } );
   }
 
   save(){
     if(this.option == 1){
-      this.activeModal.close({name: this.elementForm.value.size});
-    } else {
-      this.activeModal.close({name: this.elementForm.value.subcategory});
+      this.activeModal.close({name: this.elementForm.value.name, value: this.elementForm.value.size});
+    } else if(this.option == 2){
+      this.activeModal.close({name: this.elementForm.value.name, value: this.elementForm.value.subcategory});
+    } else if(this.option == 3){
+      this.activeModal.close({name: this.elementForm.value.name, value: this.color});
     }
   }
 

@@ -16,7 +16,7 @@
                                 <i class="ti-close" (click)="close()"></i>
                             </div>
                         </div>
-                        <div class="row justify-content-center mx-auto mb-4 tab-box">
+                        <!-- <div class="row justify-content-center mx-auto mb-4 tab-box">
                             <div class="col d-flex justify-content-end ">
                                 <div class="tab-product" [ngClass]="{'tab-product-active': active=='product'}" (click)="updateActive('product')">
                                     <p>Producto principal</p>
@@ -27,16 +27,16 @@
                                     <p>Variaciones</p>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                         <div *ngIf="active=='product'; else variations">
                             <form class="theme-form" [formGroup]="productForm" (ngSubmit)="onSubmit()">
+                                <div class="page-title form-row px-2">
+                                    <h4 class="col-10">
+                                        <span> <strong>{{ title }} </strong> </span>
+                                    </h4>
+                                </div>
                                 <div class="create-product-form">
                                     <div class="first-column">
-                                        <div class="page-title form-row px-2">
-                                            <h4 class="col-10">
-                                                <span> <strong>{{ title }} </strong> </span>
-                                            </h4>
-                                        </div>
                                         <!-- Nombre -->
                                         <div class="form-group ">
                                             <div class="field-label">Nombre del producto</div>
@@ -77,6 +77,26 @@
 
                                             <div *ngIf="submitted && f.category.errors" class="invalid-feedback d-block">
                                                 <div *ngIf="f.category.errors.required"> {{ required }} </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="field-label">Sub-categoría</div>
+                                            <div ngbDropdown>
+                                                <button class="form-control" id="select-btn" ngbDropdownToggle>
+                                                    Selecciona un sub-categoría                                                   
+                                                </button>
+                                                <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                                                    <button type="button" class="drop-button" (click)="openModalNewElement(2)" ngbDropdownItem>
+                                                        Agregar nuevo tamaño
+                                                    </button>
+                                                    <hr>
+                                                    <div>
+                                                        <button type="button" class="drop-button"  *ngFor="let subcategory of subcategories"
+                                                            [value]="subcategory._id" ngbDropdownItem>
+                                                            {{subcategory.name}}
+                                                        </button>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                         <!-- Descripcion -->
@@ -122,79 +142,34 @@
                                         </div>
                                     </div>
                                     <div class="second-column">
-                                        <!-- Cantidad disponible -->
-                                        <div class="form-group">
-                                            <div class="field-label">Cantidad disponible</div>
-                                            <input formControlName="stock" type="number" class="form-control" id="available"
-                                                required="" [(ngModel)]="productData.stock">
-                                            <div *ngIf="submitted && f.stock.errors" class="invalid-feedback d-block">
-                                                <div *ngIf="f.stock.errors.required"> {{ required }} </div>
-                                                <div *ngIf="f.stock.errors?.max"> Su plan sólo permite un máximo de 10 en su
-                                                    inventario </div>
-                                            </div>
-                                        </div>
-                             
-                                        <!-- Dias para entregar -->
-                                        <div class="d-flex date-range">
-                                            <div class="form-group hidden">
-                                              <div class="input-group">
-                                                <input name="datepicker"
-                                                       class="form-control"
-                                                       ngbDatepicker
-                                                       #datepicker="ngbDatepicker"
-                                                       [autoClose]="'outside'"
-                                                       (dateSelect)="onDateSelection($event)"
-                                                       [displayMonths]="1"
-                                                       [dayTemplate]="t"
-                                                       outsideDays="hidden"
-                                                       [startDate]="fromDate!">
-                                                <ng-template #t let-date let-focused="focused">
-                                                  <span class="custom-day"
-                                                        [class.focused]="focused"
-                                                        [class.range]="isRange(date)"
-                                                        [class.faded]="isHovered(date) || isInside(date)"
-                                                        (mouseenter)="hoveredDate = date"
-                                                        (mouseleave)="hoveredDate = null">
-                                                    {{ date.day }}
-                                                  </span>
-                                                </ng-template>
-                                              </div>
-                                            </div>
-                                            <div class="form-group">
-                                              <div class="input-group">
-                                                <input #dpFromDate
-                                                       class="form-control" placeholder="yyyy-mm-dd"
-                                                       name="dpFromDate"
-                                                       [value]="formatter.format(fromDate)"
-                                                       (input)="fromDate = validateInput(fromDate, dpFromDate.value)">
-                                                <div class="input-group-append">
-                                                  <button class="btn btn-outline-secondary calendar" (click)="datepicker.toggle()" type="button">
-                                                    <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-calendar-week-fill"
-                                                    fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                                    <path fill-rule="evenodd"
-                                                        d="M4 .5a.5.5 0 0 0-1 0V1H2a2 2 0 0 0-2 2v1h16V3a2 2 0 0 0-2-2h-1V.5a.5.5 0 0 0-1 0V1H4V.5zM0 5h16v9a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V5zm9.5 2a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1zm3 0a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1zM2 10.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm3.5-.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1z" />
-                                                </svg>
-                                                  </button>
+                                        <div class="form-row">
+                                            <div class="col-lg-5 col-sm-12">
+                                                <!-- Cantidad disponible -->
+
+                                                <div class="form-group">
+                                                    <div class="field-label">Cantidad disponible</div>
+                                                    <input formControlName="stock" type="number" class="form-control" id="available"
+                                                        required="" [(ngModel)]="productData.stock">
+                                                    <div *ngIf="submitted && f.stock.errors" class="invalid-feedback d-block">
+                                                        <div *ngIf="f.stock.errors.required"> {{ required }} </div>
+                                                        <div *ngIf="f.stock.errors?.max"> Su plan sólo permite un máximo de 10 en su
+                                                            inventario </div>
+                                                    </div>
                                                 </div>
-                                              </div>
                                             </div>
-                                            <div class="form-group mp-p-2">
-                                              <div class="input-group">
-                                                <input #dpToDate
-                                                       class="form-control" placeholder="yyyy-mm-dd"
-                                                       name="dpToDate"
-                                                       [value]="formatter.format(toDate)"
-                                                       (input)="toDate = validateInput(toDate, dpToDate.value)">
-                                                <div class="input-group-append">
-                                                  <button class="btn btn-outline-secondary calendar" (click)="datepicker.toggle()" type="button">
-                                                    <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-calendar-week-fill"
-                                                    fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                                    <path fill-rule="evenodd"
-                                                        d="M4 .5a.5.5 0 0 0-1 0V1H2a2 2 0 0 0-2 2v1h16V3a2 2 0 0 0-2-2h-1V.5a.5.5 0 0 0-1 0V1H4V.5zM0 5h16v9a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V5zm9.5 2a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1zm3 0a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1zM2 10.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm3.5-.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1z" />
-                                                </svg>
-                                                  </button>
+                                            <div class="col-lg-5 col-sm-12">
+                                                <!-- Dias de entrega -->
+
+                                                <div class="form-group">
+                                                    <div class="field-label">Días de entrega</div>
+                                                    <input type="number" class="form-control" id="available"
+                                                        required="">
+                                                    <!-- <div *ngIf="submitted && f.stock.errors" class="invalid-feedback d-block">
+                                                        <div *ngIf="f.stock.errors.required"> {{ required }} </div>
+                                                        <div *ngIf="f.stock.errors?.max"> Su plan sólo permite un máximo de 10 en su
+                                                            inventario </div>
+                                                    </div> -->
                                                 </div>
-                                              </div>
                                             </div>
                                         </div>
                                         <div class="page-title form-row px-2">
@@ -215,7 +190,13 @@
                         </div>
                         <ng-template #variations>
                             <form class="theme-form">
-                                <div class="container">  
+                                <div class="container"> 
+                                    <div class="page-title row">
+                                        <h4 class="col-12">
+                                            <span> <strong>{{ title }} </strong> </span>
+                                        </h4>
+                                    </div>
+                                    <p>Crea una nueva variación para tu producto</p>
                                     <div class="d-flex justify-content-center">
                                         <div class="col d-flex justify-content-end">
                                             <input type="checkbox">
@@ -272,11 +253,7 @@
                                         </button>
                                     </div>
                                     <div class="tab-body" *ngIf="showForm">
-                                        <div class="page-title row">
-                                            <h4 class="col-12">
-                                                <span> <strong>{{ title }} </strong> </span>
-                                            </h4>
-                                        </div>
+                                        
                                         <div class="row col-lg-12">
                                             <div class="col-lg-3">
                                                 <!-- Price -->
@@ -326,10 +303,25 @@
                                         <div class="row col-lg-12">
                                             <div class="col-lg-3">
                                                 <!-- Color -->
-                                                <div class="form-group ">
+                                                <div class="form-group">
                                                     <div class="field-label">Color</div>
-                                                    <input type="text"  class="form-control" [value]="color"
-                                                        required="" [(colorPicker)]="color" [cpPosition]="'bottom'" >
+                                                    <div ngbDropdown>
+                                                        <button class="form-control" id="select-btn" ngbDropdownToggle >
+                                                            Selecciona un color                                                   
+                                                        </button>
+                                                        <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                                                            <button type="button" class="drop-button" (click)="openModalNewElement(3)" ngbDropdownItem>
+                                                                Agregar nuevo color
+                                                            </button>
+                                                            <hr>
+                                                            <div>
+                                                                <button type="button" class="drop-button"  *ngFor="let color of colors"
+                                                                    [value]="color._id" ngbDropdownItem>
+                                                                    {{color.name}}
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="col-lg-4">
@@ -341,7 +333,7 @@
                                                             Selecciona un tamaño                                                   
                                                         </button>
                                                         <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-                                                            <button type="button" class="drop-button" (click)="createNewSize()" ngbDropdownItem>
+                                                            <button type="button" class="drop-button" (click)="openModalNewElement(1)" ngbDropdownItem>
                                                                 Agregar nuevo tamaño
                                                             </button>
                                                             <hr>
@@ -349,29 +341,6 @@
                                                                 <button type="button" class="drop-button"  *ngFor="let size of sizes"
                                                                     [value]="size._id" ngbDropdownItem>
                                                                     {{size.name}}
-                                                                </button>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-4">
-                                                <!--Sub Categoria -->
-                                                <div class="form-group">
-                                                    <div class="field-label">Sub-categoría</div>
-                                                    <div ngbDropdown>
-                                                        <button class="form-control" id="select-btn" ngbDropdownToggle>
-                                                            Selecciona un sub-categoría                                                   
-                                                        </button>
-                                                        <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-                                                            <button type="button" class="drop-button" (click)="createNewSubCategory()" ngbDropdownItem>
-                                                                Agregar nuevo tamaño
-                                                            </button>
-                                                            <hr>
-                                                            <div>
-                                                                <button type="button" class="drop-button"  *ngFor="let subcategory of subcategories"
-                                                                    [value]="subcategory._id" ngbDropdownItem>
-                                                                    {{subcategory.name}}
                                                                 </button>
                                                             </div>
                                                         </div>

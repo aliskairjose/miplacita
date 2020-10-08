@@ -80,6 +80,7 @@ import { AddressComponent } from './components/address/address.component';
 
 import { GooglePlaceModule } from 'ngx-google-places-autocomplete';
 import { AgmCoreModule } from '@agm/core';
+import { ColorPickerModule } from 'ngx-color-picker';
 // export let options: Partial<IConfig> | (() => Partial<IConfig>);
 const maskConfig: Partial<IConfig> = {
   validation: false,
@@ -170,6 +171,7 @@ export const customCurrencyMaskConfig = {
     NgxSkeletonLoaderModule,
     TranslateModule,
     GooglePlaceModule,
+    ColorPickerModule,
     AgmCoreModule.forRoot( { apiKey: 'AIzaSyC7YdhqPz4rB-D8U7F4qxVokWDb8EWYOB4' } )
   ],
   exports: [
