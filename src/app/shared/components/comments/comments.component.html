@@ -1,13 +1,13 @@
 <div class="section-b-space">
-    <hr>
-    <div class="page-title mb-2">
+    <hr *ngIf="reviews.length">
+    <div *ngIf="reviews.length" class="page-title mb-2 px-2">
         <h3 class="mp-title"> Opiniones del producto </h3>
     </div>
     <div class="container">
         <div *ngIf="reviews.length">
             <div class="row" *ngFor="let review of reviews">
                 <div class="comment-header">
-                    <div class="col-1 d-flex justify-content-center">
+                    <div class="col-md-1 col-sm-12 d-flex justify-content-center">
                         <img src="assets/images/marketplace/images/icons/profile.png" alt="">
                     </div>
                     <div class="col d-flex flex-column">
@@ -33,7 +33,7 @@
                     </div>
                 </div>
             </div>
-            <div class="row d-flex">
+            <div class="form-row d-flex">
                 <p class="text-default-color font-weight-bold mr-2">Ver más comentarios</p>
                 <span style="color: #b8b3b3">
                     <i class="fa fa-caret-down"></i>
@@ -43,13 +43,13 @@
         <hr>
         <form [formGroup]="reviewForm" (ngSubmit)="onSubmit()" class="theme-form">
             <div class="row">
-                <div class="page-title mb-2">
+                <div class="page-title mb-2 px-2">
                     <h3 class="mp-title">
-                        {{ reviews.length ? 'Agregar comentario' : 'Se el primero en comentar'}}
+                        {{ reviews.length ? 'Agregar comentario' : 'Sé el primero en comentar'}}
                     </h3>
                 </div>
                 <div class="comment-header">
-                    <div class="col-1 d-flex justify-content-center">
+                    <div class="col-md-1 col-sm-12 d-flex justify-content-center">
                         <img src="assets/images/marketplace/images/icons/profile.png" alt="">
                     </div>
                     <div class="col d-flex flex-column">
@@ -69,7 +69,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="border-box w-100 mt-2">
+                <div class="border-box w-100 mt-2 mx-2">
                     <textarea formControlName="commentary" class="new-comment"
                         placeholder="Escriba aquí sus comentarios"
                         [ngClass]="{ 'is-invalid': submitted && f.commentary.errors }">
@@ -78,7 +78,7 @@
                 <div *ngIf="submitted && f.commentary.errors?.required" class="invalid-feedback d-block">
                     Campo requerido
                 </div>
-                <div class="mt-2 d-flex w-100 justify-content-mobile-first">
+                <div class="mt-2 mx-2 d-flex w-100 justify-content-mobile-first">
                     <button class="btn btn-solid">Agregar cometario</button>
                 </div>
             </div>
