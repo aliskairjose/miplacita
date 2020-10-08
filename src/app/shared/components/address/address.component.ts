@@ -58,7 +58,7 @@ export class AddressComponent implements OnInit {
 
           if ( this.isProfile ) {
             this.shippingAddress = response.result.address;
-          } else {
+          } else if ( response.result.address?.name ) {
             const result = confirm( 'Ya existe una dirección, ¿Desea usarla?' );
             ( result ) ? this.shippingAddress = response.result.address : this.shippingAddress = {};
           }
