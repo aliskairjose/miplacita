@@ -16,7 +16,7 @@ import { ToastrService } from 'ngx-toastr';
 
 import * as XLSX from 'xlsx';
 import jsPDF from 'jspdf';
-import { autoTable } from 'jspdf-autotable'; 
+import { autoTable } from 'jspdf-autotable';
 import 'jspdf-autotable';
 import { title } from 'process';
 @Component( {
@@ -41,9 +41,9 @@ export class DailySalesReportComponent implements OnInit {
   @Input() store: Store;
   /****************/
 
-  @ViewChild('TABLE',{ read: ElementRef }) table: ElementRef;
+  @ViewChild( 'TABLE', { read: ElementRef } ) table: ElementRef;
 
-   /**/
+  /**/
   constructor(
     private auth: AuthService,
     private toastr: ToastrService,
@@ -92,7 +92,6 @@ export class DailySalesReportComponent implements OnInit {
   private loadData( page = 1 ): void {
 
     const params = `store=${this.store._id}&from=${this.fechaIni}&to=${this.fechaFin}`;
-    console.log( params );
 
     this.orderService.orderList( page, params ).subscribe( result => {
       this.orders = [ ...result.docs ];
@@ -111,25 +110,25 @@ export class DailySalesReportComponent implements OnInit {
   }
 
   /************************************** */
-  ExportTOExcel(title: string) {
-    const ws: XLSX.WorkSheet=XLSX.utils.table_to_sheet(this.table.nativeElement);
+  ExportTOExcel( title: string ) {
+    const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet( this.table.nativeElement );
     const wb: XLSX.WorkBook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+    XLSX.utils.book_append_sheet( wb, ws, 'Sheet1' );
 
-    XLSX.writeFile(wb,title+'.xlsx');
+    XLSX.writeFile( wb, title + '.xlsx' );
   }
 
-  ExportTOPDF(title:string) {
-    var doc = new jsPDF('p', 'mm', 'a4');
-    doc.text(title, 11, 8);
-    let custom = [];
-    let col = ["Número de orden","Precio","Cliente", "Estado"];
-    for(let i of this.orders){
-      custom.push([i._id, i.amount,i.user.fullname, i.status]);
+  ExportTOPDF( title: string ) {
+    const doc = new jsPDF( 'p', 'mm', 'a4' );
+    doc.text( title, 11, 8 );
+    const custom = [];
+    const col = [ 'Número de orden', 'Precio', 'Cliente', 'Estado' ];
+    for ( const i of this.orders ) {
+      custom.push( [ i._id, i.amount, i.user.fullname, i.status ] );
     }
     // (doc as any).autoTable(col, custom, {theme: 'grid'})
-    (doc as any).autoTable({html: '#mp-table'})
-    
-    doc.save('reporte.pdf');      
+    ( doc as any ).autoTable( { html: '#mp-table' } );
+
+    doc.save( 'reporte.pdf' );
   }
 }
