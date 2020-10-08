@@ -45,8 +45,14 @@
 
 			</div>
 			<div class="form-group mt-2 d-flex justify-content-mobile-first">
-				<button class="btn btn-solid-purple" (click)="ExportTOPDF('Ventas Diarias')">Reporte PDF</button>
-				<button class="btn btn-solid-purple mx-1" (click)="ExportTOExcel('reporte')">Reporte Excel</button>
+				<button class="btn btn-outline btn-sm" (click)="ExportTOPDF('Ventas Diarias')">
+					Reporte PDF
+					<i class="fa fa-file-pdf-o fa-2x"></i>
+				</button>
+				<button class="btn btn-outline btn-sm mx-1" (click)="ExportTOExcel('reporte')">
+					Reporte Excel
+					<i class="fa fa-file-excel-o fa-2x"></i>
+				</button>
 			</div>
 		</form>
 
