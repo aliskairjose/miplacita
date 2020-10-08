@@ -1,4 +1,4 @@
-export interface ProductVariant {
+export interface VariableProduct {
   id?: string;
   name?: string;
   value?: string; // Hexadecimal para color, string para size
