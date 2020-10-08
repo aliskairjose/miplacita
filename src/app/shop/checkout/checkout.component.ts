@@ -103,6 +103,7 @@ export class CheckoutComponent implements OnInit {
       this.orderService.createOrder( order ).subscribe( response => {
         if ( response.success ) {
           sessionStorage.removeItem( 'order' );
+          sessionStorage.removeItem( 'cartItems' );
           this.router.navigate( [ '/shop/checkout/success' ] );
         }
       } );
