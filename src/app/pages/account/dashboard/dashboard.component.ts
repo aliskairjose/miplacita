@@ -61,7 +61,7 @@ export class DashboardComponent implements OnInit {
     public dashboardService: DashboardService
   ) {
     this.role = this.auth.getUserRol();
-    this.user = this.storage.getItem( 'user' );
+    this.user = this.auth.getUserActive();
   }
 
   async ngOnInit() {

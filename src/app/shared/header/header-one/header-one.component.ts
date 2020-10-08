@@ -1,7 +1,6 @@
 import { ToastrService } from 'ngx-toastr';
 
 import { Component, HostListener, Input, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 
 import { Category } from '../../classes/category';
 import { User } from '../../classes/user';
@@ -43,7 +42,6 @@ export class HeaderOneComponent implements OnInit {
 
   constructor(
     private auth: AuthService,
-    private storage: StorageService,
     private categoryService: CategoryService
   ) { }
 
@@ -54,14 +52,14 @@ export class HeaderOneComponent implements OnInit {
     } );
 
     if ( this.isLoggedIn ) {
-      this.user = this.storage.getItem( 'user' );
+      this.user = this.auth.getUserActive();
       this.role = this.user.role;
     }
 
     this.auth.authObserver().subscribe( ( isAuth: boolean ) => {
       this.isLoggedIn = isAuth;
       if ( isAuth ) {
-        this.user = this.storage.getItem( 'user' );
+        this.user = this.auth.getUserActive();
         this.role = this.user.role;
       }
     } );

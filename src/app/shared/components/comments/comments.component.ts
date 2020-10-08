@@ -5,7 +5,6 @@ import { StorageService } from '../../services/storage.service';
 import { ProductService } from '../../services/product.service';
 import { Review } from '../../classes/review';
 import { ToastrService } from 'ngx-toastr';
-import { Product } from '../../classes/product';
 import { User } from '../../classes/user';
 
 @Component( {
@@ -25,7 +24,6 @@ export class CommentsComponent implements OnInit, OnChanges, OnDestroy {
   constructor(
     private auth: AuthService,
     private toastr: ToastrService,
-    private storage: StorageService,
     private formBuilder: FormBuilder,
     private productService: ProductService,
   ) {
@@ -50,7 +48,7 @@ export class CommentsComponent implements OnInit, OnChanges, OnDestroy {
   onSubmit(): void {
     this.submitted = true;
 
-    const user: User = this.storage.getItem( 'user' );
+    const user: User = this.auth.getUserActive();
     this.reviewForm.value.product = this._productId;
     this.reviewForm.value.user = user._id;
 

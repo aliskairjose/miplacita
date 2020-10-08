@@ -3,10 +3,9 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { environment } from '../../../../environments/environment';
 import { default as banks } from '../../../../assets/data/banks.json';
 import { ShopService } from '../../../shared/services/shop.service';
-import { StorageService } from '../../../shared/services/storage.service';
-import { log } from 'console';
 import { ToastrService } from 'ngx-toastr';
 import { User } from '../../../shared/classes/user';
+import { AuthService } from '../../../shared/services/auth.service';
 
 @Component( {
   selector: 'app-shop-withdrawal',
@@ -22,7 +21,7 @@ export class ShopWithdrawalComponent implements OnInit {
   storeId = '';
 
   constructor(
-    private storage: StorageService,
+    private auth: AuthService,
     private formBuilder: FormBuilder,
     private shopService: ShopService,
     private toastrService: ToastrService,
@@ -34,7 +33,7 @@ export class ShopWithdrawalComponent implements OnInit {
   get f() { return this.form.controls; }
 
   ngOnInit(): void {
-    const user: User = this.storage.getItem( 'user' );
+    const user: User = this.auth.getUserActive();
     if ( user.stores.length ) { this.storeId = user.stores[ 0 ]._id; }
   }
 

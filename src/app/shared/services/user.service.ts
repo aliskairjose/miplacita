@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpService } from './http.service';
 import { Observable } from 'rxjs';
-import { Plan } from '../classes/plan';
-import { map } from 'rxjs/operators';
+import { User } from '../classes/user';
 
 @Injectable( {
   providedIn: 'root'
@@ -12,6 +11,29 @@ export class UserService {
   constructor(
     private http: HttpService
   ) { }
+
+  /**
+   * @description Muetsra el rol del usuario
+   * @returns El rol del usuario activo
+   */
+  getUserRol(): string {
+    const user: User = JSON.parse( localStorage.getItem( 'user' ) );
+    if ( user ) {
+      return user.role;
+    } else {
+      return '';
+    }
+  }
+
+  /**
+   * @description Muestra los datos del usuario activo
+   * @returns Usuario
+   */
+  getUserActive(): User {
+    const user = JSON.parse( localStorage.getItem( 'user' ) );
+    return user;
+  }
+
 
   /**
    * @description Consulta la información del usuario por ID

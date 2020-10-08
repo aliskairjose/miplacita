@@ -46,7 +46,7 @@ export class ProfileComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-    this.user = this.storage.getItem( 'user' );
+    this.user = this.auth.getUserActive();
     this.route.url.subscribe( url => {
       this.active = url[ 2 ].path;
       if ( this.active === 'profile' && url.length === 4 ) {
