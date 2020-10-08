@@ -60,8 +60,15 @@
 							Mis Órdenes
 						</button>
 					</div>
+					<div class="tab" (click)="updateTab('referrals')" *ngIf="user.role=='client'"
+						[ngClass]="{'active': active=='referrals','btn tab': active!='referrals'}">
+						<button class="btn btn-tab" id="order-tab">
+							<img src="assets/images/marketplace/images/icons/orders.png" alt="">
+							Referidos
+						</button>
+					</div>
 					<div class="tab" (click)="updateTab('stores')"
-						[ngClass]="{'active': active==='stores','btn tab': active!=='stores'}" *ngIf="user.role !== 'admin'">
+						[ngClass]="{'active': active==='stores','btn tab': active!=='stores'}" *ngIf="user.role == 'merchant'">
 						<button class="btn btn-tab">
 							<img src="assets/images/marketplace/images/icons/store.png" alt="">
 							Mis tiendas
@@ -115,7 +122,7 @@
 					<div class="tab" (click)="updateTab('support')" *ngIf="user.role=='merchant' || user.role=='client'"
 						[ngClass]="{'active': active==='support','btn tab': active!=='support'}">
 						<button class="btn btn-tab">
-							<img src="assets/images/marketplace/images/icons/report.png" alt="">
+							<img src="assets/images/marketplace/images/icons/help.png" id="big-icon"alt="">
 							Ayuda
 						</button>
 					</div>
@@ -178,20 +185,22 @@
 					</div>
 					<app-shops *ngIf="user.role==='admin'"></app-shops>
 				</div>
-				<div *ngIf="active==='dashboard'" class="" id="dashboard" user.role="tabpanel">
+				<div *ngIf="active==='dashboard'" class="" id="dashboard" >
 					<app-dashboard [store]="selectedStore"></app-dashboard>
 				</div>
-				<div *ngIf="active==='products'" class="" id="products" user.role="tabpanel">
+				<div *ngIf="active==='products'" class="" id="products" >
 					<app-products [store]="selectedStore"></app-products>
 				</div>
-				<div *ngIf="active==='admin-orders'" class="" id="admin-orders" user.role="tabpanel">
+				<div *ngIf="active==='admin-orders'" class="" id="admin-orders" >
 					<app-orders [store]="selectedStore"></app-orders>
 				</div>
-
-				<div *ngIf="active==='support'" class="" id="support" user.role="tabpanel">
+				<div *ngIf="active==='referrals'" id="referrals">
+					<app-referrals ></app-referrals>
+				</div>
+				<div *ngIf="active==='support'" class="" id="support" >
 					<app-support [store]="selectedStore"></app-support>
 				</div>
-				<div *ngIf="active=='admin-store'" class="" id="admin-store" user.role="tabpanel">
+				<div *ngIf="active=='admin-store'" class="" id="admin-store" >
 					<div class="form-row labels mp-side-menu " *ngIf="stores.length > 0">
 						<div class="row col-lg-12">
 							<div class="col label card">
@@ -306,7 +315,6 @@
 					<app-shop-profile *ngIf="active=='admin-store' && subtab=='store-profile' && stores.length > 0"
 						(updateShop)="updateShop($event)" [store]="selectedStore">
 					</app-shop-profile>
-
 					<app-register-store [register]="false" [_user]="user" (callback)="init()"
 						*ngIf="active=='admin-store' && subtab=='store-profile' && stores.length == 0">
 					</app-register-store>
