@@ -52,7 +52,7 @@ export class ShopWithdrawalComponent implements OnInit {
   private createForm(): void {
     this.form = this.formBuilder.group( {
       bank: [ '', [ Validators.required ] ],
-      account: [ '', [ Validators.required, Validators.minLength( 9 ) ] ],
+      account: [ '', [ Validators.required ] ],
       name_holder: [ '', [ Validators.required ] ],
       type: [ '', [ Validators.required ] ],
     } );
