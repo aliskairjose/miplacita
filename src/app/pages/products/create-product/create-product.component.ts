@@ -173,7 +173,6 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
         this.productsComponent.reloadData();
         this.close();
       }
-
     } );
   }
 
@@ -305,6 +304,7 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   openModal( option: number, id: string, ) {
+    this.loadVariables();
     this.create = option;
     this.choiceOptions( id, option );
     this.modalOpen = true;
@@ -321,14 +321,25 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   close() {
+    this.clear();
     this.modal.dismiss();
   }
 
   private clear(): void {
+    this.showForm = false;
+    this.disabledBtn = true;
+    this.colorChecked = false;
+    this.sizeChecked = false;
     this.productData = {};
     this.productData.name = '';
+
+    this.variableForm.reset();
+    this.variableForm.clearValidators();
+    this.variableForm.updateValueAndValidity();
+
     this.productForm.reset();
     this.productForm.clearValidators();
+    this.productForm.updateValueAndValidity();
   }
 
   ngOnDestroy(): void {
@@ -357,23 +368,24 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
     this.modal2.componentInstance.option = option;
 
     this.modal2.result.then( ( item ) => {
+      console.log( item )
       // Cuando se envia la data cerrando el modal con el boton
       switch ( option ) {
         case 1:
+          this.addVariation( item, 'size' );
           this.sizes.push( item );
           break;
 
         case 2:
+          this.addVariation( item, 'color' );
           this.subcategories.push( item );
           break;
 
         default:
+          this.addVariation( item, 'color' );
           this.colors.push( item );
           break;
       }
-    }, ( result ) => {
-      // Cuando se cierra con la x de la esquina
-
     } );
   }
 
@@ -386,6 +398,28 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
 
     if ( !this.sizeChecked && !this.colorChecked ) { this.disabledBtn = true; }
 
+  }
+
+  private addVariation( data: any, type: string ): void {
+
+    data.type = type;
+    data.store = this.store._id;
+
+    this.productService.addVariableProduct( data ).subscribe( response => {
+      console.log( response );
+
+    } );
+
+  }
+
+  private loadVariables(): void {
+    forkJoin( [
+      this.productService.getVariableProduct( this.store._id, 'color' ),
+      this.productService.getVariableProduct( this.store._id, 'size' )
+    ] ).subscribe( ( [ colorResponse, sizeResponse ] ) => {
+      this.colors = [ ...colorResponse.attributes ];
+      this.sizes = [ ...sizeResponse.attributes ];
+    } );
   }
 
 
