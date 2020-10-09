@@ -1,374 +1,381 @@
 <ng-template #createProduct let-modal>
-    <ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="ball-spin-clockwise" [fullScreen]="true">
-        <p style="color: white"> Por favor espere... </p>
-    </ngx-spinner>
-    <ngx-alerts></ngx-alerts>
+	<ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="ball-spin-clockwise" [fullScreen]="true">
+		<p style="color: white"> Por favor espere... </p>
+	</ngx-spinner>
+	<ngx-alerts></ngx-alerts>
 
-      
-    <!-- section start -->
-    <section class="section-b-space">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-lg-12 ">
-                    <div class="theme-card">
-                        <div class="row justify-content-end">
-                            <div class="col-2 d-flex justify-content-center">
-                                <i class="ti-close" (click)="close()"></i>
-                            </div>
-                        </div>
-                        <!-- <div class="row justify-content-center mx-auto mb-4 tab-box">
-                            <div class="col d-flex justify-content-end ">
-                                <div class="tab-product" [ngClass]="{'tab-product-active': active=='product'}" (click)="updateActive('product')">
-                                    <p>Producto principal</p>
-                                </div>
-                            </div>
-                            <div class="col d-flex justify-content-start ">
-                                <div class="tab-product" [ngClass]="{'tab-product-active': active=='variations'}" (click)="updateActive('variations')">
-                                    <p>Variaciones</p>
-                                </div>
-                            </div>
-                        </div> -->
-                        <div *ngIf="active=='product'; else variations">
-                            <form class="theme-form" [formGroup]="productForm" (ngSubmit)="onSubmit()">
-                                <div class="page-title form-row px-2">
-                                    <h4 class="col-10">
-                                        <span> <strong>{{ title }} </strong> </span>
-                                    </h4>
-                                </div>
-                                <div class="create-product-form">
-                                    <div class="first-column">
-                                        <!-- Nombre -->
-                                        <div class="form-group ">
-                                            <div class="field-label">Nombre del producto</div>
-                                            <input formControlName="name" type="text" class="form-control" id="name"
-                                                required="" [(ngModel)]="productData.name" (blur)="validateName()">
-                                            <div *ngIf="submitted && f.name.errors" class="invalid-feedback d-block">
-                                                <div *ngIf="f.name.errors.required"> {{ required }} </div>
-                                            </div>
-                                        </div>
-                                        <!-- Price -->
-                                        <div class="form-group ">
-                                            <div class="field-label">Precio del producto</div>
-                                            <input formControlName="price" currencyMask type="text" class="form-control"
-                                                id="price" required="" [(ngModel)]="productData.price">
-                                            <div *ngIf="submitted && f.price.errors" class="invalid-feedback d-block">
-                                                <div *ngIf="f.price.errors.required"> {{ required }} </div>
-                                            </div>
-                                        </div>
-                                        <!-- Tax -->
-                                        <div class="form-group ">
-                                            <div class="field-label">Itbms del producto</div>
-                                            <input formControlName="tax" currencyMask type="text" class="form-control"
-                                                id="itbms" required="" [(ngModel)]="productData.tax">
+	<!-- section start -->
+	<section class="section-b-space">
+		<div class="container">
+			<div class="row justify-content-center">
+				<div class="col-lg-12 ">
+					<div class="theme-card">
+						<div class="row justify-content-end">
+							<div class="col-2 d-flex justify-content-center">
+								<i class="ti-close" (click)="close()"></i>
+							</div>
+						</div>
+						<!-- <div class="row justify-content-center mx-auto mb-4 tab-box">
+							<div class="col d-flex justify-content-end ">
+								<div class="tab-product" [ngClass]="{'tab-product-active': active=='product'}"
+									(click)="updateActive('product')">
+									<p>Producto principal</p>
+								</div>
+							</div>
+							<div class="col d-flex justify-content-start ">
+								<div class="tab-product" [ngClass]="{'tab-product-active': active=='variations'}"
+									(click)="updateActive('variations')">
+									<p>Variaciones</p>
+								</div>
+							</div>
+						</div> -->
 
-                                            <div *ngIf="submitted && f.tax.errors" class="invalid-feedback d-block">
-                                                <div *ngIf="f.tax.errors.required"> {{ required }} </div>
-                                            </div>
-                                        </div>
-                                        <!-- Categoria -->
-                                        <div class="form-group ">
-                                            <div class="field-label">Categoría</div>
-                                            <select formControlName="category" class="form-control" name="category"
-                                                [(ngModel)]="selectedCategory">
-                                                <option value="" selected>Seleccione una categoría</option>
-                                                <option *ngFor="let category of categories" [value]="category._id">
-                                                    {{category.name}}</option>
-                                            </select>
+						<!-- Producto base -->
+						<div *ngIf="active=='product'; else variations">
+							<form class="theme-form" [formGroup]="productForm" (ngSubmit)="onSubmit()">
+								<div class="page-title form-row px-2">
+									<h4 class="col-10">
+										<span> <strong>{{ title }} </strong> </span>
+									</h4>
+								</div>
+								<div class="create-product-form">
+									<div class="first-column">
+										<!-- Nombre -->
+										<div class="form-group ">
+											<div class="field-label">Nombre del producto</div>
+											<input formControlName="name" type="text" class="form-control" id="name" required=""
+												[(ngModel)]="productData.name" (blur)="validateName()">
+											<div *ngIf="submitted && f.name.errors" class="invalid-feedback d-block">
+												<div *ngIf="f.name.errors.required"> {{ required }} </div>
+											</div>
+										</div>
+										<!-- Price -->
+										<div class="form-group ">
+											<div class="field-label">Precio del producto</div>
+											<input formControlName="price" currencyMask type="text" class="form-control" id="price"
+												required="" [(ngModel)]="productData.price">
+											<div *ngIf="submitted && f.price.errors" class="invalid-feedback d-block">
+												<div *ngIf="f.price.errors.required"> {{ required }} </div>
+											</div>
+										</div>
+										<!-- Tax -->
+										<div class="form-group ">
+											<div class="field-label">Itbms del producto</div>
+											<input formControlName="tax" currencyMask type="text" class="form-control" id="itbms" required=""
+												[(ngModel)]="productData.tax">
 
-                                            <div *ngIf="submitted && f.category.errors" class="invalid-feedback d-block">
-                                                <div *ngIf="f.category.errors.required"> {{ required }} </div>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <div class="field-label">Sub-categoría</div>
-                                            <div ngbDropdown>
-                                                <button class="form-control" id="select-btn" ngbDropdownToggle>
-                                                    Selecciona un sub-categoría                                                   
-                                                </button>
-                                                <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-                                                    <button type="button" class="drop-button" (click)="openModalNewElement(2)" ngbDropdownItem>
-                                                        Agregar nuevo tamaño
-                                                    </button>
-                                                    <hr>
-                                                    <div>
-                                                        <button type="button" class="drop-button"  *ngFor="let subcategory of subcategories"
-                                                            [value]="subcategory._id" ngbDropdownItem>
-                                                            {{subcategory.name}}
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- Descripcion -->
-                                        <div class="form-group">
-                                            <div class="field-label">Descripción</div>
-                                            <textarea formControlName="description" type="text" class="form-control"
-                                                id="exampleFormControlTextarea1" placeholder="Descripción" required=""
-                                                [(ngModel)]="productData.description"></textarea>
-                                            <div *ngIf="submitted && f.description.errors" class="invalid-feedback d-block">
-                                                <div *ngIf="f.description.errors.required"> {{ required }} </div>
-                                            </div>
-                                        </div>
-                                        <!-- Status -->
-                                        <div class="form-group ">
-                                            <div class="field-label">Estado del producto</div>
-                                            <select formControlName="status" class="form-control" name="status"
-                                                [(ngModel)]="statusSelected">
-                                                <!-- <option value="" selected>Seleccione un estado</option> -->
-                                                <option *ngFor="let status of statuses" [value]="status.value">
-                                                    {{status.text}}
-                                                </option>
-                                            </select>
-                                        </div>
-                                        
-                                        <!-- <div class="form-check">
-                                            <input formControlName="marketplace" class="form-check-input" type="checkbox"
-                                                id="gridCheck1">
-                                            <label class="form-check-label" for="gridCheck1">
-                                                Vender este producto en Marketplace
-                                            </label>
-                                        </div> -->
-                                        <div class="shipping-option" >
-                                            <div class="row mb-3" >
-                                              <div class="option-box d-flex mx-auto py-2">
-                                                <div class="col-md-11 text-center">
-                                                  <p class="my-auto">Vender en home page 20%</p>
-                                                </div>
-                                                <div class="col-md-1 text-right">
-                                                  <input class="my-auto" type="checkbox">
-                                                </div>
-                                              </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="second-column">
-                                        <div class="form-row">
-                                            <div class="col-lg-5 col-sm-12">
-                                                <!-- Cantidad disponible -->
+											<div *ngIf="submitted && f.tax.errors" class="invalid-feedback d-block">
+												<div *ngIf="f.tax.errors.required"> {{ required }} </div>
+											</div>
+										</div>
+										<!-- Categoria -->
+										<div class="form-group ">
+											<div class="field-label">Categoría</div>
+											<select formControlName="category" class="form-control" name="category"
+												[(ngModel)]="selectedCategory">
+												<option value="" selected>Seleccione una categoría</option>
+												<option *ngFor="let category of categories" [value]="category._id">
+													{{category.name}}</option>
+											</select>
 
-                                                <div class="form-group">
-                                                    <div class="field-label">Cantidad disponible</div>
-                                                    <input formControlName="stock" type="number" class="form-control" id="available"
-                                                        required="" [(ngModel)]="productData.stock">
-                                                    <div *ngIf="submitted && f.stock.errors" class="invalid-feedback d-block">
-                                                        <div *ngIf="f.stock.errors.required"> {{ required }} </div>
-                                                        <div *ngIf="f.stock.errors?.max"> Su plan sólo permite un máximo de 10 en su
-                                                            inventario </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-5 col-sm-12">
-                                                <!-- Dias de entrega -->
+											<div *ngIf="submitted && f.category.errors" class="invalid-feedback d-block">
+												<div *ngIf="f.category.errors.required"> {{ required }} </div>
+											</div>
+										</div>
+										<div class="form-group">
+											<div class="field-label">Sub-categoría</div>
+											<div ngbDropdown>
+												<button class="form-control" id="select-btn" ngbDropdownToggle>
+													Selecciona un sub-categoría
+												</button>
+												<div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+													<button type="button" class="drop-button" (click)="openModalNewElement(2)" ngbDropdownItem>
+														Agregar nuevo tamaño
+													</button>
+													<hr>
+													<div>
+														<button type="button" class="drop-button" *ngFor="let subcategory of subcategories"
+															[value]="subcategory._id" ngbDropdownItem>
+															{{subcategory.name}}
+														</button>
+													</div>
+												</div>
+											</div>
+										</div>
+										<!-- Descripcion -->
+										<div class="form-group">
+											<div class="field-label">Descripción</div>
+											<textarea formControlName="description" type="text" class="form-control"
+												id="exampleFormControlTextarea1" placeholder="Descripción" required=""
+												[(ngModel)]="productData.description"></textarea>
+											<div *ngIf="submitted && f.description.errors" class="invalid-feedback d-block">
+												<div *ngIf="f.description.errors.required"> {{ required }} </div>
+											</div>
+										</div>
+										<!-- Status -->
+										<div class="form-group ">
+											<div class="field-label">Estado del producto</div>
+											<select formControlName="status" class="form-control" name="status" [(ngModel)]="statusSelected">
+												<option *ngFor="let status of statuses" [value]="status.value">
+													{{status.text}}
+												</option>
+											</select>
+										</div>
 
-                                                <div class="form-group">
-                                                    <div class="field-label">Días de entrega</div>
-                                                    <input type="number" class="form-control" id="available"
-                                                        required="">
-                                                    <!-- <div *ngIf="submitted && f.stock.errors" class="invalid-feedback d-block">
-                                                        <div *ngIf="f.stock.errors.required"> {{ required }} </div>
-                                                        <div *ngIf="f.stock.errors?.max"> Su plan sólo permite un máximo de 10 en su
-                                                            inventario </div>
-                                                    </div> -->
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="page-title form-row px-2">
-                                            <p>Selecciona uan foto de tu producto para que tus clientes puedan ver el
-                                                detalle del mismo</p>
-                                        </div>
-                                        <div class="form-group d-flex justify-content-center">
-                                            <app-upload-image [multiple]="true" (uploadImage)="upload($event)"
-                                                style="width: 100%;"></app-upload-image>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="save text-center p-3">
-                                    <button class="btn btn-solid-purple" type="submit" [disabled]="disabled">Guardar
-                                        Producto</button>
-                                </div>
-                            </form>
-                        </div>
-                        <ng-template #variations>
-                            <form class="theme-form">
-                                <div class="container"> 
-                                    <div class="page-title row">
-                                        <h4 class="col-12">
-                                            <span> <strong>{{ title }} </strong> </span>
-                                        </h4>
-                                    </div>
-                                    <p>Crea una nueva variación para tu producto</p>
-                                    <div class="d-flex justify-content-center">
-                                        <div class="col d-flex justify-content-end">
-                                            <input type="checkbox">
-                                            <p class="my-auto pl-2">Color</p>
-                                        </div>
-                                        <div class="col d-flex justify-content-start">
-                                            <input type="checkbox">
-                                            <p class="my-auto pl-2">Tamaño</p>
-                                        </div>
-                                    </div>
-                                    <div class="table-responsive" *ngIf="allVariations.length>0 && !showForm">
-                                        <table class="table table-responsive-sm">
-                                            <thead>
-                                                <tr class="table-head">
-                                                    <th class="text-center text-uppercase" *ngFor="let field of fields" scope="col">{{field}}</th>
-                                                </tr>
-                                            </thead>
-                                            <!--Store Admin-->
-                                            <tbody >
-                                                <tr *ngFor="let item of allVariations">
-                                                    <td class="text-center">
-                                                        Nombre
-                                                    </td>
-                                                    <td class="text-center" >
-                                                        <p>Precio</p>
-                                                    </td>
-                                                    <td class="text-center" >
-                                                        <p>Itbms</p>
-                                                    </td>
-                                                    <td class="text-center">
-                                                        Tamaño
-                                                    </td>
-                                                    <td class="text-center">
-                                                        Color
-                                                    </td>
-                                                    <td class="text-center">
-                                                        <a [routerLink]="" class="btn btn-table-action">
-                                                            <i class="fa fa-edit fa-lg" style="color: Dodgerblue"></i>
-                                                        </a>
-                                                        <button class="btn btn-table-action" >
-                                                            <i class="fa fa-close fa-lg" style="color: Tomato"></i>
-                                                        </button>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                            <!--Store Admin ends-->
-                                            
-                                        </table>
-                                        
-                                    </div>
-                                    <div *ngIf="!showForm" class="d-flex px-5 py-5 justify-content-center aling-content-center">
-                                        <button class="btn btn-solid-purple" (click)="variationsForm()">
-                                            Agregar tu primera variación
-                                        </button>
-                                    </div>
-                                    <div class="tab-body" *ngIf="showForm">
-                                        
-                                        <div class="row col-lg-12">
-                                            <div class="col-lg-3">
-                                                <!-- Price -->
-                                            <div class="form-group ">
-                                                <div class="field-label">Precio del producto</div>
-                                                <input  currencyMask type="text" class="form-control"
-                                                    id="price" required="" >
-                                            </div>
-                                            </div>
-                                            <div class="col-lg-3">
-                                                <!-- Tax -->
-                                                <div class="form-group ">
-                                                    <div class="field-label">Itbms del producto</div>
-                                                        <input currencyMask type="text" class="form-control"
-                                                        id="itbms" required="">
-                                                    <!-- <div *ngIf="submitted && f.tax.errors" class="invalid-feedback d-block">
-                                                        <div *ngIf="f.tax.errors.required"> {{ required }} </div>
-                                                    </div> -->
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-3">
+										<!-- <div class="form-check">
+											<input formControlName="marketplace" class="form-check-input" type="checkbox" id="gridCheck1">
+											<label class="form-check-label" for="gridCheck1">
+												Vender este producto en Marketplace
+											</label>
+										</div> -->
+										<div class="shipping-option">
+											<div class="row mb-3">
+												<div class="option-box d-flex mx-auto py-2">
+													<div class="col-md-11 text-center">
+														<p class="my-auto">Vender en home page 20%</p>
+													</div>
+													<div class="col-md-1 text-right">
+														<input formControlName="marketplace" class="form-check-input" type="checkbox"
+															id="gridCheck1">
+														<!-- <input class="my-auto" type="checkbox"> -->
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="second-column">
+										<div class="form-row">
+											<div class="col-lg-5 col-sm-12">
+												<!-- Cantidad disponible -->
+												<div class="form-group">
+													<div class="field-label">Cantidad disponible</div>
+													<input formControlName="stock" type="number" class="form-control" id="available" required=""
+														[(ngModel)]="productData.stock">
+													<div *ngIf="submitted && f.stock.errors" class="invalid-feedback d-block">
+														<div *ngIf="f.stock.errors?.required"> {{ required }} </div>
+														<div *ngIf="f.stock.errors?.max">
+															Su plan sólo permite un máximo de 10 en su inventario
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="col-lg-5 col-sm-12">
+												<!-- Dias de entrega -->
+												<div class="form-group">
+													<div class="field-label">Días de entrega</div>
+													<input type="number" class="form-control" id="available" required="">
+													<!-- <div *ngIf="submitted && f.stock.errors" class="invalid-feedback d-block">
+														<div *ngIf="f.stock.errors.required"> {{ required }} </div>
+														<div *ngIf="f.stock.errors?.max"> Su plan sólo permite un máximo de 10 en su
+															inventario </div>
+													</div> -->
+												</div>
+											</div>
+										</div>
+										<div class="page-title form-row px-2">
+											<p>Selecciona uan foto de tu producto para que tus clientes puedan ver el
+												detalle del mismo</p>
+										</div>
+										<div class="form-group d-flex justify-content-center">
+											<app-upload-image [multiple]="true" (uploadImage)="upload($event)" style="width: 100%;">
+											</app-upload-image>
+										</div>
+									</div>
+								</div>
+								<div class="save text-center p-3">
+									<button class="btn btn-solid-purple" type="submit" [disabled]="disabled">Guardar
+										Producto</button>
+								</div>
+							</form>
+						</div>
 
-                                                <!-- Status -->
-                                                <div class="form-group ">
-                                                    <div class="field-label">Estado</div>
-                                                    <select class="form-control" name="status">
-                                                        <option *ngFor="let status of statuses" [value]="status.value">
-                                                            {{status.text}}
-                                                        </option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-3">
-                                                <!-- Cantidad disponible -->
-                                                <div class="form-group">
-                                                    <div class="field-label">Cantidad disponible</div>
-                                                    <input  type="number" class="form-control" id="available"
-                                                        required="" >
-                                                    <!-- <div *ngIf="submitted && f.stock.errors" class="invalid-feedback d-block">
-                                                        <div *ngIf="f.stock.errors.required"> {{ required }} </div>
-                                                        <div *ngIf="f.stock.errors?.max"> Su plan sólo permite un máximo de 10 en su
-                                                            inventario </div>
-                                                    </div> -->
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row col-lg-12">
-                                            <div class="col-lg-3">
-                                                <!-- Color -->
-                                                <div class="form-group">
-                                                    <div class="field-label">Color</div>
-                                                    <div ngbDropdown>
-                                                        <button class="form-control" id="select-btn" ngbDropdownToggle >
-                                                            Selecciona un color                                                   
-                                                        </button>
-                                                        <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-                                                            <button type="button" class="drop-button" (click)="openModalNewElement(3)" ngbDropdownItem>
-                                                                Agregar nuevo color
-                                                            </button>
-                                                            <hr>
-                                                            <div>
-                                                                <button type="button" class="drop-button"  *ngFor="let color of colors"
-                                                                    [value]="color._id" ngbDropdownItem>
-                                                                    {{color.name}}
-                                                                </button>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-4">
-                                                <!-- Size -->
-                                                <div class="form-group">
-                                                    <div class="field-label">Tamaño</div>
-                                                    <div ngbDropdown>
-                                                        <button class="form-control" id="select-btn" ngbDropdownToggle >
-                                                            Selecciona un tamaño                                                   
-                                                        </button>
-                                                        <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-                                                            <button type="button" class="drop-button" (click)="openModalNewElement(1)" ngbDropdownItem>
-                                                                Agregar nuevo tamaño
-                                                            </button>
-                                                            <hr>
-                                                            <div>
-                                                                <button type="button" class="drop-button"  *ngFor="let size of sizes"
-                                                                    [value]="size._id" ngbDropdownItem>
-                                                                    {{size.name}}
-                                                                </button>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <app-upload-image [multiple]="true" (uploadImage)="upload($event)"
-                                                style="width: 100%;">
-                                        </app-upload-image>
-                                        <div class="save text-center p-3">
-                                            <button class="btn btn-solid-purple mr-3" type="button" (click)="back()" >
-                                                Atrás
-                                            </button>
-                                            <button class="btn btn-solid-purple" type="submit" [disabled]="disabled">Guardar
-                                                Producto
-                                            </button>
-                                        </div>
-                                    </div>
-                                    
-                                </div>
-                                
-                            </form>
-                        </ng-template>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!--Section ends-->
+						<!-- Variacion de producto -->
+						<ng-template #variations>
+							<form [formGroup]="variableForm" class="theme-form">
+								<div class="container">
+									<div class="page-title row">
+										<h4 class="col-12">
+											<span> <strong>{{ title }} </strong> </span>
+										</h4>
+									</div>
+									<p>Crea una nueva variación para tu producto</p>
+									<div class="d-flex justify-content-center">
+										<div class="col d-flex justify-content-end">
+											<input type="checkbox" name="variante" id="color" (change)="selectVariable($event)">
+											<p class="my-auto pl-2">Color</p>
+										</div>
+										<div class="col d-flex justify-content-start">
+											<input type="checkbox" name="variante" id="size" (change)="selectVariable($event)">
+											<p class="my-auto pl-2">Tamaño</p>
+										</div>
+									</div>
+									<div class="table-responsive" *ngIf="allVariations.length > 0 && !showForm">
+										<table class="table table-responsive-sm">
+											<thead>
+												<tr class="table-head">
+													<th class="text-center text-uppercase" *ngFor="let field of fields" scope="col">
+														{{field}}
+													</th>
+												</tr>
+											</thead>
+											<!--Store Admin-->
+											<tbody>
+												<tr *ngFor="let item of allVariations">
+													<td class="text-center">
+														Nombre
+													</td>
+													<td class="text-center">
+														<p>Precio</p>
+													</td>
+													<td class="text-center">
+														<p>Itbms</p>
+													</td>
+													<td class="text-center">
+														Tamaño
+													</td>
+													<td class="text-center">
+														Color
+													</td>
+													<td class="text-center">
+														<a [routerLink]="" class="btn btn-table-action">
+															<i class="fa fa-edit fa-lg" style="color: Dodgerblue"></i>
+														</a>
+														<button class="btn btn-table-action">
+															<i class="fa fa-close fa-lg" style="color: Tomato"></i>
+														</button>
+													</td>
+												</tr>
+											</tbody>
+											<!--Store Admin ends-->
+										</table>
+									</div>
+									<div *ngIf="!showForm" class="d-flex px-5 py-5 justify-content-center aling-content-center">
+										<button class="btn btn-solid-purple" (click)="variationsForm()" [disabled]="disabledBtn">
+											Agregar tu primera variación
+										</button>
+									</div>
+									<div class="tab-body" *ngIf="showForm">
+										<div class="row col-lg-12">
+											<div class="col-lg-3">
+												<!-- Price -->
+												<div class="form-group ">
+													<div class="field-label">Precio del producto</div>
+													<input formControlName="price" currencyMask type="text" class="form-control" id="price"
+														required="" [(ngModel)]="productData.price">
+													<div *ngIf="submitted && v.price.errors" class="invalid-feedback d-block">
+														<div *ngIf="v.price.errors.required"> {{ required }} </div>
+													</div>
+												</div>
+
+											</div>
+											<div class="col-lg-3">
+												<!-- Tax -->
+												<div class="form-group ">
+													<div class="field-label">Itbms del producto</div>
+													<input currencyMask type="text" class="form-control" id="itbms" required="">
+													<div *ngIf="submitted && v.tax.errors" class="invalid-feedback d-block">
+														<div *ngIf="v.tax.errors.required"> {{ required }} </div>
+													</div>
+												</div>
+											</div>
+											<div class="col-lg-3">
+												<!-- Status -->
+												<div class="form-group ">
+													<div class="field-label">Estado</div>
+													<select class="form-control" name="status">
+														<option *ngFor="let status of statuses" [value]="status.value">
+															{{status.text}}
+														</option>
+													</select>
+												</div>
+											</div>
+											<div class="col-lg-3">
+												<!-- Cantidad disponible -->
+												<div class="form-group">
+													<div class="field-label">Cantidad disponible</div>
+													<input type="number" class="form-control" id="available" required="">
+													<div *ngIf="submitted && v.stock.errors?.required" class="invalid-feedback d-block">
+														{{ required }}
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="row col-lg-12">
+											<div class="col-lg-3">
+												<!-- Color -->
+												<div class="form-group" *ngIf="colorChecked">
+													<div class="field-label">Color</div>
+													<div ngbDropdown>
+														<button class="form-control" id="select-btn" ngbDropdownToggle>
+															Selecciona un color
+														</button>
+														<div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+															<button type="button" class="drop-button" (click)="openModalNewElement(3)"
+																ngbDropdownItem>
+																Agregar nuevo color
+															</button>
+															<hr>
+															<div>
+																<button type="button" class="drop-button" *ngFor="let color of colors"
+																	[value]="color._id" ngbDropdownItem>
+																	{{color.name}}
+																</button>
+															</div>
+														</div>
+													</div>
+													<div *ngIf="submitted && v.color.errors?.required" class="invalid-feedback d-block">
+														{{ required }}
+													</div>
+												</div>
+											</div>
+											<div class="col-lg-4">
+												<!-- Size -->
+												<div class="form-group" *ngIf="sizeChecked">
+													<div class="field-label">Tamaño</div>
+													<div ngbDropdown>
+														<button class="form-control" id="select-btn" ngbDropdownToggle>
+															Selecciona un tamaño
+														</button>
+														<div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+															<button type="button" class="drop-button" (click)="openModalNewElement(1)"
+																ngbDropdownItem>
+																Agregar nuevo tamaño
+															</button>
+															<hr>
+															<div>
+																<button type="button" class="drop-button" *ngFor="let size of sizes" [value]="size._id"
+																	ngbDropdownItem>
+																	{{size.name}}
+																</button>
+															</div>
+														</div>
+													</div>
+													<div *ngIf="submitted && v.size.errors?.required" class="invalid-feedback d-block">
+														{{ required }}
+													</div>
+												</div>
+											</div>
+										</div>
+										<app-upload-image [multiple]="true" (uploadImage)="upload($event)" style="width: 100%;">
+										</app-upload-image>
+										<div class="save text-center p-3">
+											<!-- <button class="btn btn-solid-purple mr-3" type="button" (click)="back()">
+												Atrás
+											</button> -->
+											<button class="btn btn-solid-purple" type="button" (click)="saveVariable()">
+												Guardar Producto
+											</button>
+										</div>
+									</div>
+
+								</div>
+
+							</form>
+						</ng-template>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!--Section ends-->
 </ng-template>

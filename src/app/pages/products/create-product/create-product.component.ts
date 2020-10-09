@@ -15,6 +15,7 @@ import { ProductService } from '../../../shared/services/product.service';
 import { ShopService } from '../../../shared/services/shop.service';
 import { ProductsComponent } from '../products.component';
 import { ModalNewElementComponent } from 'src/app/shared/components/modal-new-element/modal-new-element.component';
+import { log } from 'console';
 
 @Component( {
   selector: 'app-create-product',
@@ -25,27 +26,34 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
   @ViewChild( 'createProduct', { static: false } ) CreateProduct: TemplateRef<any>;
   @ViewChild( 'newElement' ) AddElement: ModalNewElementComponent;
 
-  fields = ['Nombre', 'Precio', 'Itbms', 'Tamaño', 'Color', ''];
+  fields = [ 'Nombre', 'Precio', 'Itbms', 'Tamaño', 'Color', '' ];
   active = 'product';
-  showForm: boolean = false;
-  newElement: boolean = true;
-
+  showForm = false;
+  newElement = true;
+  disabledBtn = true;
   modal: any;
   modal2: any;
   modalOpen = false;
   modalOption: NgbModalOptions = {};
-  
+
   create = 1;
   typesProduct = [];
   states = [];
   allVariations = [];
-  sizes = [];
   subcategories = [];
   colors = [];
+  color = '';
+  colorChecked = false;
 
+  sizes = [];
+  size = '';
+  sizeChecked = false;
   categoryId = '';
   categories: Category[];
+
   productForm: FormGroup;
+  variableForm: FormGroup;
+
   submitted: boolean;
   required = environment.errorForm.required;
   status = 'add';
@@ -62,10 +70,8 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
   title = 'Crear producto';
   disabled = true;
   plan: Plan;
-  color: string = '';
+
   @Input() store: Store = {};
-
-
 
   constructor(
     public modalService: NgbModal,
@@ -78,6 +84,7 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
   ) {
     this.createForm();
     this.productData.name = '';
+
   }
   ngOnChanges( changes: SimpleChanges ): void {
     this.init();
@@ -86,20 +93,28 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
   // convenience getter for easy access to form fields
   // tslint:disable-next-line: typedef
   get f() { return this.productForm.controls; }
+  get v() { return this.variableForm.controls; }
 
   ngOnInit(): void {
   }
 
   private init(): void {
+
     this.store = JSON.parse( sessionStorage.getItem( 'store' ) );
     const params = `store=${this.store._id}`;
 
-    // tslint:disable-next-line: max-line-length
-    forkJoin(
-      [ this.shopService.storeList( 1, params ), this.productService.categoryList() ] )
-      .subscribe( ( [ response, categories ] ) => {
+    // Carga los valores base
+    forkJoin( [
+      this.shopService.storeList( 1, params ),
+      this.productService.categoryList(),
+      this.productService.getVariableProduct( this.store._id, 'color' ),
+      this.productService.getVariableProduct( this.store._id, 'size' )
+    ] )
+      .subscribe( ( [ response, categories, colorResponse, sizeResponse ] ) => {
         this.plan = response.docs[ 0 ].plan;
         this.categories = [ ...categories ];
+        this.colors = [ ...colorResponse.attributes ];
+        this.sizes = [ ...sizeResponse.attributes ];
 
         // Actualiza las valildaciones de sotck por el plan activo de la tienda
         if ( this.plan.price === 0 ) {
@@ -144,6 +159,19 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
     }
   }
 
+  /**
+   * *! Metodo sin submit para evitar conflicto con el submit del producto base
+   * @description Guarda la variacion de producto!
+   */
+  saveVariable(): void {
+    this.submitted = true;
+
+    this.updateValidators();
+
+    console.log( this.variableForm.valid );
+    console.log( this.variableForm.value );
+  }
+
   private updateProduct( data: Product ): void {
     this.productService.updateProduct( this.productData._id, data ).subscribe( ( response ) => {
       if ( response.success ) {
@@ -151,8 +179,28 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
         this.productsComponent.reloadData();
         this.close();
       }
-
     } );
+  }
+
+  /**
+   * *! Importante
+   * @description Cambia las validaciones de color y size dependiendo si estan o no marcadas
+   */
+  private updateValidators(): void {
+    if ( this.colorChecked ) {
+      this.variableForm.controls.color.setValidators( [ Validators.required ] );
+    } else {
+      this.variableForm.controls.color.clearValidators();
+    }
+
+    if ( this.sizeChecked ) {
+      this.variableForm.controls.size.setValidators( [ Validators.required ] );
+    } else {
+      this.variableForm.controls.size.clearValidators();
+    }
+
+    this.variableForm.controls.color.updateValueAndValidity();
+    this.variableForm.controls.size.updateValueAndValidity();
   }
 
 
@@ -179,9 +227,25 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
       tax: [ '', [ Validators.required ] ],
       category: [ '', [ Validators.required ] ],
       status: [ this.statusSelected, [ Validators.required ] ],
-      stock: [ '' ],
+      stock: [ '', ],
       marketplace: [ '' ],
       images: [ '' ]
+    } );
+
+    this.variableForm = this.formBuilder.group( {
+      type: [ 'variable' ], // Datos de producto variable
+      parent: [ '' ], // Datos de producto variable
+      color: [ '' ], // Datos de producto variable
+      size: [ '' ], // Datos de producto variable
+      store: [ '' ],
+      name: [ '', [ Validators.required ] ],
+      description: [ '', [ Validators.required ] ],
+      price: [ '', [ Validators.required ] ],
+      tax: [ '', [ Validators.required ] ],
+      category: [ '', [ Validators.required ] ],
+      status: [ this.statusSelected, [ Validators.required ] ],
+      stock: [ '', [ Validators.required ] ],
+      images: [ '' ],
     } );
   }
 
@@ -200,7 +264,7 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
    * @description Valida que el nombre del producto no este en uso
    */
   validateName(): void {
-    if ( this.create == 2 ) {
+    if ( this.create === 2 ) {
       this.disabled = false;
       return;
     }
@@ -222,23 +286,32 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
       } );
     }
   }
-  choiceOptions( productId: string ) {
-    if (this.create == 1) {
-      this.title = 'Crear producto';
-    }else if ( this.create == 2 ) {
-      this.status = 'edit';
-      this.disabled = false;
-      this.title = 'Editar producto';
-      this.loadProductData( productId );
-    } else if ( this.create == 3) {
-      this.title = 'Crear variante de producto';
-      this.active = 'variations'
+
+  choiceOptions( productId: string, option: number ) {
+
+    switch ( option ) {
+      case 1:
+        this.title = 'Crear producto';
+        this.active = 'product';
+        break;
+      case 2:
+        this.active = 'product';
+        this.status = 'edit';
+        this.disabled = false;
+        this.title = 'Editar producto';
+        this.loadProductData( productId );
+        break;
+      default:
+        this.title = 'Crear variante de producto';
+        this.active = 'variations';
+        break;
     }
 
   }
+
   openModal( option: number, id: string, ) {
     this.create = option;
-    this.choiceOptions( id );
+    this.choiceOptions( id, option );
     this.modalOpen = true;
     this.modalOption.backdrop = 'static';
     this.modalOption.keyboard = false;
@@ -253,14 +326,25 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   close() {
+    this.clear();
     this.modal.dismiss();
   }
 
   private clear(): void {
+    this.showForm = false;
+    this.disabledBtn = true;
+    this.colorChecked = false;
+    this.sizeChecked = false;
     this.productData = {};
     this.productData.name = '';
+
+    this.variableForm.reset();
+    this.variableForm.clearValidators();
+    this.variableForm.updateValueAndValidity();
+
     this.productForm.reset();
     this.productForm.clearValidators();
+    this.productForm.updateValueAndValidity();
   }
 
   ngOnDestroy(): void {
@@ -277,37 +361,60 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
     this.showForm = !this.showForm;
   }
 
-  back(){
+  back() {
     this.showForm = false;
   }
 
-  openModalNewElement(option: number){
+  openModalNewElement( option: number ) {
     this.modalOption.backdrop = 'static';
     this.modalOption.keyboard = false;
     this.modalOption.windowClass = 'customModal';
     this.modal2 = this.modalService.open( ModalNewElementComponent, this.modalOption );
     this.modal2.componentInstance.option = option;
 
-    this.modal2.result.then( (item) => {
+    this.modal2.result.then( ( item ) => {
+      console.log( item )
       // Cuando se envia la data cerrando el modal con el boton
-      if(option == 1){
-        this.sizes.push(item);
+      switch ( option ) {
+        case 1:
+          this.addVariation( item, 'size' );
+          this.sizes.push( item );
+          break;
 
-      } else if( option == 2 ){
-        this.subcategories.push(item);
+        case 2:
+          this.addVariation( item, 'color' );
+          this.subcategories.push( item );
+          break;
 
-      } else if( option == 3) {
-        this.colors.push(item);
-        console.log(this.colors);
-
+        default:
+          this.addVariation( item, 'color' );
+          this.colors.push( item );
+          break;
       }
-    }, (result) => {
-      // Cuando se cierra con la x de la esquina
-
     } );
   }
 
+  selectVariable( event ): void {
 
+    if ( event.target.id === 'color' ) { this.colorChecked = event.target.checked; }
+    if ( event.target.id === 'size' ) { this.sizeChecked = event.target.checked; }
 
+    if ( this.sizeChecked || this.colorChecked ) { this.disabledBtn = false; }
+
+    if ( !this.sizeChecked && !this.colorChecked ) { this.disabledBtn = true; }
+
+  }
+
+  private addVariation( data: any, type: string ): void {
+
+    data.type = type;
+    data.store = this.store._id;
+
+    this.productService.addVariableProduct( data ).subscribe( response => {
+      console.log( response );
+
+    } );
+
+  }
 
 }
