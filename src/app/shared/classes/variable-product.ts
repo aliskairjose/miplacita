@@ -1,5 +1,5 @@
 export interface VariableProduct {
-  id?: string;
+  _id?: string;
   name?: string;
   value?: string; // Hexadecimal para color, string para size
   store?: string; // Id de la tienda

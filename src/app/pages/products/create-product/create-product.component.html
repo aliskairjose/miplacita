@@ -173,8 +173,9 @@
 											</div>
 										</div>
 										<div class="page-title form-row px-2">
-											<p>Selecciona uan foto de tu producto para que tus clientes puedan ver el
-												detalle del mismo</p>
+											<p>
+												Selecciona uan foto de tu producto para que tus clientes puedan ver el detalle del mismo
+											</p>
 										</div>
 										<div class="form-group d-flex justify-content-center">
 											<app-upload-image [multiple]="true" (uploadImage)="upload($event)" style="width: 100%;">
@@ -183,8 +184,9 @@
 									</div>
 								</div>
 								<div class="save text-center p-3">
-									<button class="btn btn-solid-purple" type="submit" [disabled]="disabled">Guardar
-										Producto</button>
+									<button class="btn btn-solid-purple" type="submit" [disabled]="disabled">
+										Guardar Producto
+									</button>
 								</div>
 							</form>
 						</div>
@@ -201,11 +203,11 @@
 									<p>Crea una nueva variación para tu producto</p>
 									<div class="d-flex justify-content-center">
 										<div class="col d-flex justify-content-end">
-											<input type="checkbox" name="variante" id="color" (change)="selectVariable($event)">
+											<input type="checkbox" name="variante" id="color" (change)="checkVariable($event)">
 											<p class="my-auto pl-2">Color</p>
 										</div>
 										<div class="col d-flex justify-content-start">
-											<input type="checkbox" name="variante" id="size" (change)="selectVariable($event)">
+											<input type="checkbox" name="variante" id="size" (change)="checkVariable($event)">
 											<p class="my-auto pl-2">Tamaño</p>
 										</div>
 									</div>
@@ -260,8 +262,7 @@
 												<!-- Price -->
 												<div class="form-group ">
 													<div class="field-label">Precio del producto</div>
-													<input formControlName="price" currencyMask type="text" class="form-control" id="price"
-														required="" [(ngModel)]="productData.price">
+													<input formControlName="price" currencyMask type="text" class="form-control" id="price">
 													<div *ngIf="submitted && v.price.errors" class="invalid-feedback d-block">
 														<div *ngIf="v.price.errors.required"> {{ required }} </div>
 													</div>
@@ -272,7 +273,7 @@
 												<!-- Tax -->
 												<div class="form-group ">
 													<div class="field-label">Itbms del producto</div>
-													<input currencyMask type="text" class="form-control" id="itbms" required="">
+													<input currencyMask formControlName="tax" type="text" class="form-control" id="itbms">
 													<div *ngIf="submitted && v.tax.errors" class="invalid-feedback d-block">
 														<div *ngIf="v.tax.errors.required"> {{ required }} </div>
 													</div>
@@ -306,18 +307,16 @@
 												<div class="form-group" *ngIf="colorChecked">
 													<div class="field-label">Color</div>
 													<div ngbDropdown>
-														<button class="form-control" id="select-btn" ngbDropdownToggle>
-															Selecciona un color
-														</button>
+														<button type="button" class="form-control" id="select-btn" ngbDropdownToggle> Selecciona un
+															color </button>
 														<div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-															<button type="button" class="drop-button" (click)="openModalNewElement(3)"
-																ngbDropdownItem>
+															<button type="button" class="drop-button" (click)="openModalNewElement(3)" ngbDropdownItem>
 																Agregar nuevo color
 															</button>
 															<hr>
-															<div>
+															<div *ngIf="colors.length">
 																<button type="button" class="drop-button" *ngFor="let color of colors"
-																	[value]="color._id" ngbDropdownItem>
+																	[value]="color._id" (click)="selectVariable(color, 'color')" ngbDropdownItem>
 																	{{color.name}}
 																</button>
 															</div>
@@ -333,18 +332,15 @@
 												<div class="form-group" *ngIf="sizeChecked">
 													<div class="field-label">Tamaño</div>
 													<div ngbDropdown>
-														<button class="form-control" id="select-btn" ngbDropdownToggle>
-															Selecciona un tamaño
-														</button>
+														<button class="form-control" id="select-btn" ngbDropdownToggle>Selecciona un tamaño</button>
 														<div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-															<button type="button" class="drop-button" (click)="openModalNewElement(1)"
-																ngbDropdownItem>
+															<button type="button" class="drop-button" (click)="openModalNewElement(1)" ngbDropdownItem>
 																Agregar nuevo tamaño
 															</button>
 															<hr>
-															<div>
-																<button type="button" class="drop-button" *ngFor="let size of sizes" [value]="size._id"
-																	ngbDropdownItem>
+															<div *ngIf="sizes.length">
+																<button type="button" class="drop-button" (click)="selectVariable(size, 'size')"
+																	*ngFor="let size of sizes" [value]="size._id" ngbDropdownItem>
 																	{{size.name}}
 																</button>
 															</div>

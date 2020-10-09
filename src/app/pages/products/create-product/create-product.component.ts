@@ -16,6 +16,7 @@ import { ShopService } from '../../../shared/services/shop.service';
 import { ProductsComponent } from '../products.component';
 import { ModalNewElementComponent } from 'src/app/shared/components/modal-new-element/modal-new-element.component';
 import { log } from 'console';
+import { VariableProduct } from '../../../shared/classes/variable-product';
 
 @Component( {
   selector: 'app-create-product',
@@ -43,10 +44,12 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
   subcategories = [];
   colors = [];
   color = '';
+  selectedColor: VariableProduct = {};
   colorChecked = false;
 
   sizes = [];
   size = '';
+  selectedSize: VariableProduct = {};
   sizeChecked = false;
   categoryId = '';
   categories: Category[];
@@ -127,7 +130,6 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   onSubmit(): void {
-    this.modal.close();
     this.submitted = true;
     this.productForm.value.store = this.store._id;
 
@@ -136,6 +138,7 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
     }
 
     if ( this.productForm.valid ) {
+      this.modal.close();
       if ( this.status === 'add' ) {
         if ( this.productImages.length === 0 ) {
           this.toastrService.warning( 'Debe cargar al menos una imagen de producto' );
@@ -165,9 +168,9 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
    */
   saveVariable(): void {
     this.submitted = true;
-
     this.updateValidators();
 
+    console.log( this.selectedColor );
     console.log( this.variableForm.valid );
     console.log( this.variableForm.value );
   }
@@ -331,6 +334,7 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   private clear(): void {
+    this.submitted = false;
     this.showForm = false;
     this.disabledBtn = true;
     this.colorChecked = false;
@@ -340,11 +344,10 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
 
     this.variableForm.reset();
     this.variableForm.clearValidators();
-    this.variableForm.updateValueAndValidity();
 
     this.productForm.reset();
     this.productForm.clearValidators();
-    this.productForm.updateValueAndValidity();
+    // this.productForm.updateValueAndValidity();
   }
 
   ngOnDestroy(): void {
@@ -394,7 +397,7 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
     } );
   }
 
-  selectVariable( event ): void {
+  checkVariable( event ): void {
 
     if ( event.target.id === 'color' ) { this.colorChecked = event.target.checked; }
     if ( event.target.id === 'size' ) { this.sizeChecked = event.target.checked; }
@@ -412,9 +415,19 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
 
     this.productService.addVariableProduct( data ).subscribe( response => {
       console.log( response );
-
     } );
+  }
+
+  selectVariable( variable: VariableProduct, type: string ): void {
+    if ( type === 'color' ) {
+      this.selectedColor = { ...variable }
+      this.variableForm.value.color = this.selectedColor._id;
+    } else {
+      this.selectedSize = { ...variable };
+      this.variableForm.value.size = this.selectedSize._id;
+    }
 
   }
+
 
 }
