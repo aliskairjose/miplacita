@@ -84,6 +84,7 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
   ) {
     this.createForm();
     this.productData.name = '';
+
   }
   ngOnChanges( changes: SimpleChanges ): void {
     this.init();
@@ -98,17 +99,22 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   private init(): void {
+
     this.store = JSON.parse( sessionStorage.getItem( 'store' ) );
     const params = `store=${this.store._id}`;
 
-    // tslint:disable-next-line: max-line-length
+    // Carga los valores base
     forkJoin( [
       this.shopService.storeList( 1, params ),
-      this.productService.categoryList()
+      this.productService.categoryList(),
+      this.productService.getVariableProduct( this.store._id, 'color' ),
+      this.productService.getVariableProduct( this.store._id, 'size' )
     ] )
-      .subscribe( ( [ response, categories ] ) => {
+      .subscribe( ( [ response, categories, colorResponse, sizeResponse ] ) => {
         this.plan = response.docs[ 0 ].plan;
         this.categories = [ ...categories ];
+        this.colors = [ ...colorResponse.attributes ];
+        this.sizes = [ ...sizeResponse.attributes ];
 
         // Actualiza las valildaciones de sotck por el plan activo de la tienda
         if ( this.plan.price === 0 ) {
@@ -304,7 +310,6 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   openModal( option: number, id: string, ) {
-    this.loadVariables();
     this.create = option;
     this.choiceOptions( id, option );
     this.modalOpen = true;
@@ -411,16 +416,5 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
     } );
 
   }
-
-  private loadVariables(): void {
-    forkJoin( [
-      this.productService.getVariableProduct( this.store._id, 'color' ),
-      this.productService.getVariableProduct( this.store._id, 'size' )
-    ] ).subscribe( ( [ colorResponse, sizeResponse ] ) => {
-      this.colors = [ ...colorResponse.attributes ];
-      this.sizes = [ ...sizeResponse.attributes ];
-    } );
-  }
-
 
 }
