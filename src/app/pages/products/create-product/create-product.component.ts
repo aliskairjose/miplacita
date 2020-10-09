@@ -15,6 +15,7 @@ import { ProductService } from '../../../shared/services/product.service';
 import { ShopService } from '../../../shared/services/shop.service';
 import { ProductsComponent } from '../products.component';
 import { ModalNewElementComponent } from 'src/app/shared/components/modal-new-element/modal-new-element.component';
+import { log } from 'console';
 
 @Component( {
   selector: 'app-create-product',
@@ -39,11 +40,14 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
   typesProduct = [];
   states = [];
   allVariations = [];
-  sizes = [];
   subcategories = [];
   colors = [];
   color = '';
+  colorCheck = false;
 
+  sizes = [];
+  size = '';
+  sizeCheck = false;
   categoryId = '';
   categories: Category[];
   productForm: FormGroup;
@@ -232,6 +236,7 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
         this.active = 'product';
         break;
       case 2:
+        this.active = 'product';
         this.status = 'edit';
         this.disabled = false;
         this.title = 'Editar producto';
@@ -318,7 +323,19 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
     } );
   }
 
+  selectVariable( event ): void {
+    console.log( event.target.id, event.target.checked );
 
+    if ( event.target.id === 'color' ) { this.colorCheck = event.target.checked; }
+    if ( event.target.id === 'size' ) { this.sizeCheck = event.target.checked; }
+
+    if ( this.sizeCheck || this.colorCheck ) { this.disabledBtn = false; }
+
+    if ( !this.sizeCheck && !this.colorCheck ) { this.disabledBtn = true; }
+
+
+
+  }
 
 
 }

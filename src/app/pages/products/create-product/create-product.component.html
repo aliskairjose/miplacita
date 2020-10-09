@@ -136,7 +136,8 @@
 														<p class="my-auto">Vender en home page 20%</p>
 													</div>
 													<div class="col-md-1 text-right">
-														<input formControlName="marketplace" class="form-check-input" type="checkbox" id="gridCheck1">
+														<input formControlName="marketplace" class="form-check-input" type="checkbox"
+															id="gridCheck1">
 														<!-- <input class="my-auto" type="checkbox"> -->
 													</div>
 												</div>
@@ -202,11 +203,11 @@
 									<p>Crea una nueva variación para tu producto</p>
 									<div class="d-flex justify-content-center">
 										<div class="col d-flex justify-content-end">
-											<input type="checkbox">
+											<input type="checkbox" name="variante" id="color" (change)="selectVariable($event)">
 											<p class="my-auto pl-2">Color</p>
 										</div>
 										<div class="col d-flex justify-content-start">
-											<input type="checkbox">
+											<input type="checkbox" name="variante" id="size" (change)="selectVariable($event)">
 											<p class="my-auto pl-2">Tamaño</p>
 										</div>
 									</div>
@@ -273,8 +274,8 @@
 													<div class="field-label">Itbms del producto</div>
 													<input currencyMask type="text" class="form-control" id="itbms" required="">
 													<!-- <div *ngIf="submitted && f.tax.errors" class="invalid-feedback d-block">
-                                                        <div *ngIf="f.tax.errors.required"> {{ required }} </div>
-                                                    </div> -->
+														<div *ngIf="f.tax.errors.required"> {{ required }} </div>
+													</div> -->
 												</div>
 											</div>
 											<div class="col-lg-3">
