@@ -86,17 +86,17 @@
 											<div class="field-label">Sub-categoría</div>
 											<div ngbDropdown>
 												<button class="form-control" id="select-btn" ngbDropdownToggle>
-													Selecciona un sub-categoría
+													{{ selectedSubcategory.value ? selectedSubcategory.value : 'Selecciona una sub categoría' }}
 												</button>
 												<div ngbDropdownMenu aria-labelledby="dropdownBasic1">
 													<button type="button" class="drop-button" (click)="openModalNewElement(2)" ngbDropdownItem>
-														Agregar nuevo tamaño
+														Agregar nueva subcategoría
 													</button>
 													<hr>
 													<div>
 														<button type="button" class="drop-button" *ngFor="let subcategory of subcategories"
-															[value]="subcategory._id" ngbDropdownItem>
-															{{subcategory.name}}
+															[value]="subcategory._id" (click)="selectSubcategory(subcategory)"  ngbDropdownItem>
+															{{subcategory.value}}
 														</button>
 													</div>
 												</div>
@@ -307,8 +307,9 @@
 												<div class="form-group" *ngIf="colorChecked">
 													<div class="field-label">Color</div>
 													<div ngbDropdown>
-														<button type="button" class="form-control" id="select-btn" ngbDropdownToggle> Selecciona un
-															color </button>
+														<button type="button" class="form-control" id="select-btn" ngbDropdownToggle> 
+															{{ selectedColor.name ? selectedColor.name : 'Selecciona un tamaño' }}
+														</button>
 														<div ngbDropdownMenu aria-labelledby="dropdownBasic1">
 															<button type="button" class="drop-button" (click)="openModalNewElement(3)" ngbDropdownItem>
 																Agregar nuevo color
@@ -332,7 +333,9 @@
 												<div class="form-group" *ngIf="sizeChecked">
 													<div class="field-label">Tamaño</div>
 													<div ngbDropdown>
-														<button class="form-control" id="select-btn" ngbDropdownToggle>Selecciona un tamaño</button>
+														<button class="form-control" id="select-btn" ngbDropdownToggle>																
+															{{ selectedSize.name ? selectedSize.name : 'Selecciona un tamaño' }}
+														</button>
 														<div ngbDropdownMenu aria-labelledby="dropdownBasic1">
 															<button type="button" class="drop-button" (click)="openModalNewElement(1)" ngbDropdownItem>
 																Agregar nuevo tamaño
