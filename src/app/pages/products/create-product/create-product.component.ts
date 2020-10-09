@@ -43,14 +43,17 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
   subcategories = [];
   colors = [];
   color = '';
-  colorCheck = false;
+  colorChecked = false;
 
   sizes = [];
   size = '';
-  sizeCheck = false;
+  sizeChecked = false;
   categoryId = '';
   categories: Category[];
+
   productForm: FormGroup;
+  variableForm: FormGroup;
+
   submitted: boolean;
   required = environment.errorForm.required;
   status = 'add';
@@ -89,6 +92,7 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
   // convenience getter for easy access to form fields
   // tslint:disable-next-line: typedef
   get f() { return this.productForm.controls; }
+  get v() { return this.variableForm.controls; }
 
   ngOnInit(): void {
   }
@@ -149,6 +153,19 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
     }
   }
 
+  /**
+   * *! Metodo sin submit para evitar conflicto con el submit del producto base
+   * @description Guarda la variacion de producto!
+   */
+  saveVariable(): void {
+    this.submitted = true;
+
+    this.updateValidators();
+
+    console.log( this.variableForm.valid );
+    console.log( this.variableForm.value );
+  }
+
   private updateProduct( data: Product ): void {
     this.productService.updateProduct( this.productData._id, data ).subscribe( ( response ) => {
       if ( response.success ) {
@@ -158,6 +175,27 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
       }
 
     } );
+  }
+
+  /**
+   * *! Importante
+   * @description Cambia las validaciones de color y size dependiendo si estan o no marcadas
+   */
+  private updateValidators(): void {
+    if ( this.colorChecked ) {
+      this.variableForm.controls.color.setValidators( [ Validators.required ] );
+    } else {
+      this.variableForm.controls.color.clearValidators();
+    }
+
+    if ( this.sizeChecked ) {
+      this.variableForm.controls.size.setValidators( [ Validators.required ] );
+    } else {
+      this.variableForm.controls.size.clearValidators();
+    }
+
+    this.variableForm.controls.color.updateValueAndValidity();
+    this.variableForm.controls.size.updateValueAndValidity();
   }
 
 
@@ -184,9 +222,25 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
       tax: [ '', [ Validators.required ] ],
       category: [ '', [ Validators.required ] ],
       status: [ this.statusSelected, [ Validators.required ] ],
-      stock: [ '' ],
+      stock: [ '', ],
       marketplace: [ '' ],
       images: [ '' ]
+    } );
+
+    this.variableForm = this.formBuilder.group( {
+      type: [ 'variable' ], // Datos de producto variable
+      parent: [ '' ], // Datos de producto variable
+      color: [ '' ], // Datos de producto variable
+      size: [ '' ], // Datos de producto variable
+      store: [ '' ],
+      name: [ '', [ Validators.required ] ],
+      description: [ '', [ Validators.required ] ],
+      price: [ '', [ Validators.required ] ],
+      tax: [ '', [ Validators.required ] ],
+      category: [ '', [ Validators.required ] ],
+      status: [ this.statusSelected, [ Validators.required ] ],
+      stock: [ '', [ Validators.required ] ],
+      images: [ '' ],
     } );
   }
 
@@ -324,16 +378,13 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   selectVariable( event ): void {
-    console.log( event.target.id, event.target.checked );
 
-    if ( event.target.id === 'color' ) { this.colorCheck = event.target.checked; }
-    if ( event.target.id === 'size' ) { this.sizeCheck = event.target.checked; }
+    if ( event.target.id === 'color' ) { this.colorChecked = event.target.checked; }
+    if ( event.target.id === 'size' ) { this.sizeChecked = event.target.checked; }
 
-    if ( this.sizeCheck || this.colorCheck ) { this.disabledBtn = false; }
+    if ( this.sizeChecked || this.colorChecked ) { this.disabledBtn = false; }
 
-    if ( !this.sizeCheck && !this.colorCheck ) { this.disabledBtn = true; }
-
-
+    if ( !this.sizeChecked && !this.colorChecked ) { this.disabledBtn = true; }
 
   }
 

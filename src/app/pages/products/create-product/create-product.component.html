@@ -116,7 +116,6 @@
 										<div class="form-group ">
 											<div class="field-label">Estado del producto</div>
 											<select formControlName="status" class="form-control" name="status" [(ngModel)]="statusSelected">
-												<!-- <option value="" selected>Seleccione un estado</option> -->
 												<option *ngFor="let status of statuses" [value]="status.value">
 													{{status.text}}
 												</option>
@@ -148,30 +147,28 @@
 										<div class="form-row">
 											<div class="col-lg-5 col-sm-12">
 												<!-- Cantidad disponible -->
-
 												<div class="form-group">
 													<div class="field-label">Cantidad disponible</div>
 													<input formControlName="stock" type="number" class="form-control" id="available" required=""
 														[(ngModel)]="productData.stock">
 													<div *ngIf="submitted && f.stock.errors" class="invalid-feedback d-block">
-														<div *ngIf="f.stock.errors.required"> {{ required }} </div>
-														<div *ngIf="f.stock.errors?.max"> Su plan sólo permite un máximo
-															de 10 en su
-															inventario </div>
+														<div *ngIf="f.stock.errors?.required"> {{ required }} </div>
+														<div *ngIf="f.stock.errors?.max">
+															Su plan sólo permite un máximo de 10 en su inventario
+														</div>
 													</div>
 												</div>
 											</div>
 											<div class="col-lg-5 col-sm-12">
 												<!-- Dias de entrega -->
-
 												<div class="form-group">
 													<div class="field-label">Días de entrega</div>
 													<input type="number" class="form-control" id="available" required="">
 													<!-- <div *ngIf="submitted && f.stock.errors" class="invalid-feedback d-block">
-                                                        <div *ngIf="f.stock.errors.required"> {{ required }} </div>
-                                                        <div *ngIf="f.stock.errors?.max"> Su plan sólo permite un máximo de 10 en su
-                                                            inventario </div>
-                                                    </div> -->
+														<div *ngIf="f.stock.errors.required"> {{ required }} </div>
+														<div *ngIf="f.stock.errors?.max"> Su plan sólo permite un máximo de 10 en su
+															inventario </div>
+													</div> -->
 												</div>
 											</div>
 										</div>
@@ -191,9 +188,10 @@
 								</div>
 							</form>
 						</div>
+
 						<!-- Variacion de producto -->
 						<ng-template #variations>
-							<form class="theme-form">
+							<form [formGroup]="variableForm" class="theme-form">
 								<div class="container">
 									<div class="page-title row">
 										<h4 class="col-12">
@@ -249,9 +247,7 @@
 												</tr>
 											</tbody>
 											<!--Store Admin ends-->
-
 										</table>
-
 									</div>
 									<div *ngIf="!showForm" class="d-flex px-5 py-5 justify-content-center aling-content-center">
 										<button class="btn btn-solid-purple" (click)="variationsForm()" [disabled]="disabledBtn">
@@ -259,27 +255,30 @@
 										</button>
 									</div>
 									<div class="tab-body" *ngIf="showForm">
-
 										<div class="row col-lg-12">
 											<div class="col-lg-3">
 												<!-- Price -->
 												<div class="form-group ">
 													<div class="field-label">Precio del producto</div>
-													<input currencyMask type="text" class="form-control" id="price" required="">
+													<input formControlName="price" currencyMask type="text" class="form-control" id="price"
+														required="" [(ngModel)]="productData.price">
+													<div *ngIf="submitted && v.price.errors" class="invalid-feedback d-block">
+														<div *ngIf="v.price.errors.required"> {{ required }} </div>
+													</div>
 												</div>
+
 											</div>
 											<div class="col-lg-3">
 												<!-- Tax -->
 												<div class="form-group ">
 													<div class="field-label">Itbms del producto</div>
 													<input currencyMask type="text" class="form-control" id="itbms" required="">
-													<!-- <div *ngIf="submitted && f.tax.errors" class="invalid-feedback d-block">
-														<div *ngIf="f.tax.errors.required"> {{ required }} </div>
-													</div> -->
+													<div *ngIf="submitted && v.tax.errors" class="invalid-feedback d-block">
+														<div *ngIf="v.tax.errors.required"> {{ required }} </div>
+													</div>
 												</div>
 											</div>
 											<div class="col-lg-3">
-
 												<!-- Status -->
 												<div class="form-group ">
 													<div class="field-label">Estado</div>
@@ -295,18 +294,16 @@
 												<div class="form-group">
 													<div class="field-label">Cantidad disponible</div>
 													<input type="number" class="form-control" id="available" required="">
-													<!-- <div *ngIf="submitted && f.stock.errors" class="invalid-feedback d-block">
-														<div *ngIf="f.stock.errors.required"> {{ required }} </div>
-														<div *ngIf="f.stock.errors?.max"> Su plan sólo permite un máximo de 10 en su
-															inventario </div>
-													</div> -->
+													<div *ngIf="submitted && v.stock.errors?.required" class="invalid-feedback d-block">
+														{{ required }}
+													</div>
 												</div>
 											</div>
 										</div>
 										<div class="row col-lg-12">
 											<div class="col-lg-3">
 												<!-- Color -->
-												<div class="form-group">
+												<div class="form-group" *ngIf="colorChecked">
 													<div class="field-label">Color</div>
 													<div ngbDropdown>
 														<button class="form-control" id="select-btn" ngbDropdownToggle>
@@ -326,11 +323,14 @@
 															</div>
 														</div>
 													</div>
+													<div *ngIf="submitted && v.color.errors?.required" class="invalid-feedback d-block">
+														{{ required }}
+													</div>
 												</div>
 											</div>
 											<div class="col-lg-4">
 												<!-- Size -->
-												<div class="form-group">
+												<div class="form-group" *ngIf="sizeChecked">
 													<div class="field-label">Tamaño</div>
 													<div ngbDropdown>
 														<button class="form-control" id="select-btn" ngbDropdownToggle>
@@ -350,17 +350,20 @@
 															</div>
 														</div>
 													</div>
+													<div *ngIf="submitted && v.size.errors?.required" class="invalid-feedback d-block">
+														{{ required }}
+													</div>
 												</div>
 											</div>
 										</div>
 										<app-upload-image [multiple]="true" (uploadImage)="upload($event)" style="width: 100%;">
 										</app-upload-image>
 										<div class="save text-center p-3">
-											<button class="btn btn-solid-purple mr-3" type="button" (click)="back()">
+											<!-- <button class="btn btn-solid-purple mr-3" type="button" (click)="back()">
 												Atrás
-											</button>
-											<button class="btn btn-solid-purple" type="submit" [disabled]="disabled">Guardar
-												Producto
+											</button> -->
+											<button class="btn btn-solid-purple" type="button" (click)="saveVariable()">
+												Guardar Producto
 											</button>
 										</div>
 									</div>
