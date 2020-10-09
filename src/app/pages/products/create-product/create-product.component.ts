@@ -25,16 +25,16 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
   @ViewChild( 'createProduct', { static: false } ) CreateProduct: TemplateRef<any>;
   @ViewChild( 'newElement' ) AddElement: ModalNewElementComponent;
 
-  fields = ['Nombre', 'Precio', 'Itbms', 'Tamaño', 'Color', ''];
+  fields = [ 'Nombre', 'Precio', 'Itbms', 'Tamaño', 'Color', '' ];
   active = 'product';
-  showForm: boolean = false;
-  newElement: boolean = true;
-
+  showForm = false;
+  newElement = true;
+  disabledBtn = true;
   modal: any;
   modal2: any;
   modalOpen = false;
   modalOption: NgbModalOptions = {};
-  
+
   create = 1;
   typesProduct = [];
   states = [];
@@ -42,6 +42,7 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
   sizes = [];
   subcategories = [];
   colors = [];
+  color = '';
 
   categoryId = '';
   categories: Category[];
@@ -62,10 +63,8 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
   title = 'Crear producto';
   disabled = true;
   plan: Plan;
-  color: string = '';
+
   @Input() store: Store = {};
-
-
 
   constructor(
     public modalService: NgbModal,
@@ -95,8 +94,10 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
     const params = `store=${this.store._id}`;
 
     // tslint:disable-next-line: max-line-length
-    forkJoin(
-      [ this.shopService.storeList( 1, params ), this.productService.categoryList() ] )
+    forkJoin( [
+      this.shopService.storeList( 1, params ),
+      this.productService.categoryList()
+    ] )
       .subscribe( ( [ response, categories ] ) => {
         this.plan = response.docs[ 0 ].plan;
         this.categories = [ ...categories ];
@@ -200,7 +201,7 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
    * @description Valida que el nombre del producto no este en uso
    */
   validateName(): void {
-    if ( this.create == 2 ) {
+    if ( this.create === 2 ) {
       this.disabled = false;
       return;
     }
@@ -222,23 +223,31 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
       } );
     }
   }
-  choiceOptions( productId: string ) {
-    if (this.create == 1) {
-      this.title = 'Crear producto';
-    }else if ( this.create == 2 ) {
-      this.status = 'edit';
-      this.disabled = false;
-      this.title = 'Editar producto';
-      this.loadProductData( productId );
-    } else if ( this.create == 3) {
-      this.title = 'Crear variante de producto';
-      this.active = 'variations'
+
+  choiceOptions( productId: string, option: number ) {
+
+    switch ( option ) {
+      case 1:
+        this.title = 'Crear producto';
+        this.active = 'product';
+        break;
+      case 2:
+        this.status = 'edit';
+        this.disabled = false;
+        this.title = 'Editar producto';
+        this.loadProductData( productId );
+        break;
+      default:
+        this.title = 'Crear variante de producto';
+        this.active = 'variations';
+        break;
     }
 
   }
+
   openModal( option: number, id: string, ) {
     this.create = option;
-    this.choiceOptions( id );
+    this.choiceOptions( id, option );
     this.modalOpen = true;
     this.modalOption.backdrop = 'static';
     this.modalOption.keyboard = false;
@@ -277,31 +286,33 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
     this.showForm = !this.showForm;
   }
 
-  back(){
+  back() {
     this.showForm = false;
   }
 
-  openModalNewElement(option: number){
+  openModalNewElement( option: number ) {
     this.modalOption.backdrop = 'static';
     this.modalOption.keyboard = false;
     this.modalOption.windowClass = 'customModal';
     this.modal2 = this.modalService.open( ModalNewElementComponent, this.modalOption );
     this.modal2.componentInstance.option = option;
 
-    this.modal2.result.then( (item) => {
+    this.modal2.result.then( ( item ) => {
       // Cuando se envia la data cerrando el modal con el boton
-      if(option == 1){
-        this.sizes.push(item);
+      switch ( option ) {
+        case 1:
+          this.sizes.push( item );
+          break;
 
-      } else if( option == 2 ){
-        this.subcategories.push(item);
+        case 2:
+          this.subcategories.push( item );
+          break;
 
-      } else if( option == 3) {
-        this.colors.push(item);
-        console.log(this.colors);
-
+        default:
+          this.colors.push( item );
+          break;
       }
-    }, (result) => {
+    }, ( result ) => {
       // Cuando se cierra con la x de la esquina
 
     } );

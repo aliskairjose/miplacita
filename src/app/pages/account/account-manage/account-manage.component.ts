@@ -51,7 +51,9 @@ export class AccountManageComponent implements OnInit, OnChanges {
       this.active = url[ 2 ].path;
       if ( this.active === 'admin-store' && url.length > 4 ) {
         this.subtab = url[ 3 ].path;
-      }if ( this.active === 'profile' && url.length > 4 ) {
+      }
+
+      if ( this.active === 'profile' && url.length > 4 ) {
         this.active = 'profile';
       }
     } );
@@ -64,14 +66,12 @@ export class AccountManageComponent implements OnInit, OnChanges {
         if ( stores.docs.length ) {
           const _store = JSON.parse( sessionStorage.getItem( 'store' ) );
           this.stores = [ ...stores.docs ];
-          console.log("estores",stores, _store);
           if ( _store ) {
             this.selectedStore = _store;
           } else {
             this.selectedStore = this.stores[ 0 ];
             sessionStorage.setItem( 'store', JSON.stringify( this.stores[ 0 ] ) );
           }
-          console.log("selected",this.selectedStore);
           this.shopService.storeSubject( this.selectedStore );
         }
 
