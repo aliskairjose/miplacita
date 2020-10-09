@@ -16,13 +16,19 @@
 				</div>
 			</div>
 			<div class="form-group mt-2 d-flex justify-content-mobile-first">
-				<button class="btn btn-solid-purple">Reporte PDF</button>
-				<button class="btn btn-solid-purple mx-1">Reporte Excel</button>
+				<button class="btn btn-outline btn-sm" (click)="ExportTOPDF()">
+					Reporte PDF
+					<i class="fa fa-file-pdf-o fa-2x"></i>
+				</button>
+				<button class="btn btn-outline btn-sm mx-1" (click)="ExportTOExcel()">
+					Reporte Excel
+					<i class="fa fa-file-excel-o fa-2x"></i>
+				</button>
 			</div>
 		</form>
 
 		<ng-container class="table-responsive-sm mt-3" *ngIf="store || role === 'admin'; else elseTemplate">
-			<table class="table cart-table table-responsive-xs">
+			<table class="table cart-table table-responsive-xs" id="mp-table" #TABLE>
 				<thead>
 					<tr class="table-head text-center">
 						<th *ngFor="let field of fields" scope="col">{{field}}</th>

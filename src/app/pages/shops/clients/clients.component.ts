@@ -1,10 +1,11 @@
-import { Component, OnInit, Input, ViewChild, SimpleChanges } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, SimpleChanges, ElementRef } from '@angular/core';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { OrderService } from 'src/app/shared/services/order.service';
 import { Store } from 'src/app/shared/classes/store';
 import { Paginate } from 'src/app/shared/classes/paginate';
 import { User } from 'src/app/shared/classes/user';
 import { InterestsComponent } from '../../interests/interests.component';
+import { ExportService } from 'src/app/shared/services/export.service';
 
 @Component({
   selector: 'app-clients',
@@ -13,6 +14,7 @@ import { InterestsComponent } from '../../interests/interests.component';
 })
 export class ClientsComponent implements OnInit {
   @ViewChild( 'interests' ) Interests: InterestsComponent;
+  @ViewChild( 'TABLE', { read: ElementRef } ) table: ElementRef;
 
   fields = ['Cliente', 'Email','Número de compras', ''];
   clients: User[] = [ {  _id : "string",
@@ -24,8 +26,10 @@ export class ClientsComponent implements OnInit {
   role: string;
   
   @Input() store: Store;
-  constructor(private auth: AuthService,
-              private orderService: OrderService ) { }
+  constructor(
+    private auth: AuthService,
+    private orderService: OrderService,
+    private exportDoc: ExportService) { }
 
   ngOnInit(): void {
   }
@@ -47,6 +51,14 @@ export class ClientsComponent implements OnInit {
 
   setPage( page: number ) {
     this.loadData( page );
+  }
+
+  ExportTOExcel( ) {
+    this.exportDoc.ExportTOExcel(this.table.nativeElement,"clients-report");
+  }
+
+  ExportTOPDF( ) {
+    this.exportDoc.ExportTOPDF('#mp-table','Clientes','clients-report');
   }
 
 }

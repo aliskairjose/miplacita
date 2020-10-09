@@ -83,8 +83,6 @@ export class DashboardComponent implements OnInit {
     } );
   }
 
-  
-
   getChartInformation() {
     /** carga de datos para las estadisticas */
 

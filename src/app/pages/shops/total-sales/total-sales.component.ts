@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild, SimpleChanges } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, SimpleChanges, ElementRef } from '@angular/core';
 import { Order } from 'src/app/shared/classes/order';
 import { Paginate } from 'src/app/shared/classes/paginate';
 import { environment } from 'src/environments/environment';
@@ -7,6 +7,7 @@ import { Store } from 'src/app/shared/classes/store';
 import { OrderDetailsComponent } from 'src/app/shared/custom-components/order-details/order-details.component';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { OrderService } from 'src/app/shared/services/order.service';
+import { ExportService } from 'src/app/shared/services/export.service';
 
 @Component({
   selector: 'app-total-sales',
@@ -15,6 +16,7 @@ import { OrderService } from 'src/app/shared/services/order.service';
 })
 export class TotalSalesComponent implements OnInit {
   @ViewChild( 'orderDetails' ) OrderDetails: OrderDetailsComponent;
+  @ViewChild( 'TABLE', { read: ElementRef } ) table: ElementRef;
 
   fields = ['Número de orden', 'Monto','Cliente','Estado', ''];
   sales = []
@@ -25,8 +27,10 @@ export class TotalSalesComponent implements OnInit {
   modelTo: NgbDateStruct;
   modelFrom: NgbDateStruct;
   @Input() store: Store;
-  constructor(private auth: AuthService,
-              private ngbCalendar: NgbCalendar) { }
+  constructor(
+    private auth: AuthService,
+    private ngbCalendar: NgbCalendar,
+    private exportDoc: ExportService) { }
 
   ngOnInit(): void {
   }
@@ -51,4 +55,11 @@ export class TotalSalesComponent implements OnInit {
     this.loadData( page );
   }
 
+  ExportTOExcel( ) {
+    this.exportDoc.ExportTOExcel(this.table.nativeElement,"total-sales-report");
+  }
+
+  ExportTOPDF( ) {
+    this.exportDoc.ExportTOPDF('#mp-table','Ventas totales','total-sales-report');
+  }
 }

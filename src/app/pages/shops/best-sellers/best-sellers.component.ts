@@ -1,9 +1,10 @@
-import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
+import { Component, OnInit, Input, SimpleChanges, ViewChild, ElementRef } from '@angular/core';
 import { Paginate } from 'src/app/shared/classes/paginate';
 import { NgbDateStruct, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { Store } from 'src/app/shared/classes/store';
 import { Product } from 'src/app/shared/classes/product';
+import { ExportService } from 'src/app/shared/services/export.service';
 
 @Component({
   selector: 'app-best-sellers',
@@ -11,7 +12,8 @@ import { Product } from 'src/app/shared/classes/product';
   styleUrls: ['./best-sellers.component.scss']
 })
 export class BestSellersComponent implements OnInit {
-  
+  @ViewChild( 'TABLE', { read: ElementRef } ) table: ElementRef;
+
 
   fields = ['ID del Producto', 'Nombre del Producto','Cantidad'];
   bestSellers: Product[]= []
@@ -22,8 +24,10 @@ export class BestSellersComponent implements OnInit {
   modelTo: NgbDateStruct;
   modelFrom: NgbDateStruct;
   @Input() store: Store;
-  constructor(private auth: AuthService,
-              private ngbCalendar: NgbCalendar) { }
+  constructor(
+    private auth: AuthService,
+    private ngbCalendar: NgbCalendar,
+    private exportDoc: ExportService) { }
 
   ngOnInit(): void {
   }
@@ -46,6 +50,14 @@ export class BestSellersComponent implements OnInit {
 
   setPage( page: number ) {
     this.loadData( page );
+  }
+
+  ExportTOExcel( ) {
+    this.exportDoc.ExportTOExcel(this.table.nativeElement,"best-sellers-report");
+  }
+
+  ExportTOPDF( ) {
+    this.exportDoc.ExportTOPDF('#mp-table','Productos más vendidos','best-sellers-report');
   }
 
 }

@@ -6,6 +6,8 @@ import {
 } from 'src/app/shared/custom-components/order-details/order-details.component';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { OrderService } from 'src/app/shared/services/order.service';
+import { ExportService } from 'src/app/shared/services/export.service';
+
 import { environment } from 'src/environments/environment';
 
 import { Component, OnInit, ViewChild, Input, ElementRef } from '@angular/core';
@@ -14,11 +16,7 @@ import { ShopService } from '../../../shared/services/shop.service';
 import { CustomDateParserFormatterService } from '../../../shared/adapter/custom-date-parser-formatter.service';
 import { ToastrService } from 'ngx-toastr';
 
-import * as XLSX from 'xlsx';
-import jsPDF from 'jspdf';
-import { autoTable } from 'jspdf-autotable';
-import 'jspdf-autotable';
-import { title } from 'process';
+
 @Component( {
   selector: 'app-daily-sales-report',
   templateUrl: './daily-sales-report.component.html',
@@ -51,6 +49,7 @@ export class DailySalesReportComponent implements OnInit {
     private shopService: ShopService,
     private orderService: OrderService,
     private parseDate: CustomDateParserFormatterService,
+    private exportDoc: ExportService
   ) { }
 
   ngOnInit(): void {
@@ -110,25 +109,11 @@ export class DailySalesReportComponent implements OnInit {
   }
 
   /************************************** */
-  ExportTOExcel( title: string ) {
-    const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet( this.table.nativeElement );
-    const wb: XLSX.WorkBook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet( wb, ws, 'Sheet1' );
-
-    XLSX.writeFile( wb, title + '.xlsx' );
+  ExportTOExcel( ) {
+    this.exportDoc.ExportTOExcel(this.table.nativeElement,"daily-report");
   }
 
-  ExportTOPDF( title: string ) {
-    const doc = new jsPDF( 'p', 'mm', 'a4' );
-    doc.text( title, 11, 8 );
-    const custom = [];
-    const col = [ 'Número de orden', 'Precio', 'Cliente', 'Estado' ];
-    for ( const i of this.orders ) {
-      custom.push( [ i._id, i.amount, i.user.fullname, i.status ] );
-    }
-    // (doc as any).autoTable(col, custom, {theme: 'grid'})
-    ( doc as any ).autoTable( { html: '#mp-table' } );
-
-    doc.save( 'reporte.pdf' );
+  ExportTOPDF( ) {
+    this.exportDoc.ExportTOPDF('#mp-table','Ventas diarias','daily-report');
   }
 }
