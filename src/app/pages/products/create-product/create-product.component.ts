@@ -53,7 +53,7 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
   sizeChecked = false;
   categoryId = '';
   categories: Category[];
-
+  selectedSubcategory: any = {};
   productForm: FormGroup;
   variableForm: FormGroup;
 
@@ -422,12 +422,16 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
     if ( type === 'color' ) {
       this.selectedColor = { ...variable }
       this.variableForm.value.color = this.selectedColor._id;
-    } else {
+    } else if(  type === 'size'){
       this.selectedSize = { ...variable };
       this.variableForm.value.size = this.selectedSize._id;
     }
 
   }
 
+  selectSubcategory( subcategory ): void {
+    
+    this.selectedSubcategory = subcategory ;
 
+  }
 }
