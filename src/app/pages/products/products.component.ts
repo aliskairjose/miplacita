@@ -1,28 +1,40 @@
+import { ToastrService } from 'ngx-toastr';
+import { forkJoin } from 'rxjs';
 
+import {
+  AfterViewInit, Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild
+} from '@angular/core';
 
 import { environment } from '../../../environments/environment';
 import { Paginate } from '../../shared/classes/paginate';
-import { Component, OnInit, ViewChild, AfterViewInit, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { StorageService } from '../../shared/services/storage.service';
-import { User } from '../../shared/classes/user';
+import { Plan } from '../../shared/classes/plan';
 import { Product } from '../../shared/classes/product';
-import { Result } from '../../shared/classes/response';
 import { Store } from '../../shared/classes/store';
+import { User } from '../../shared/classes/user';
+import { AuthService } from '../../shared/services/auth.service';
 import { ConfirmationDialogService } from '../../shared/services/confirmation-dialog.service';
 import { ProductService } from '../../shared/services/product.service';
 import { ShopService } from '../../shared/services/shop.service';
-import { ToastrService } from 'ngx-toastr';
 import { CreateProductComponent } from './create-product/create-product.component';
-import { forkJoin } from 'rxjs';
-import { Plan } from '../../shared/classes/plan';
-import { AuthService } from '../../shared/services/auth.service';
 
 @Component( {
   selector: 'app-products',
   templateUrl: './products.component.html',
   styleUrls: [ './products.component.scss' ]
 } )
-export class ProductsComponent implements OnInit, OnChanges, AfterViewInit {
+export class ProductsComponent implements OnChanges, AfterViewInit {
+  
+  constructor(
+    private auth: AuthService,
+    private shopService: ShopService,
+    private toastrService: ToastrService,
+    private productService: ProductService,
+    private confirmationDialogService: ConfirmationDialogService,
+  ) {
+    this.role = this.auth.getUserRol();
+  }
+
+  static isCreated = false;
   @ViewChild( 'createProduct' ) CreateProduct: CreateProductComponent;
 
   typeUser = 'admin';
@@ -49,28 +61,25 @@ export class ProductsComponent implements OnInit, OnChanges, AfterViewInit {
 
   @Input() store: Store;
 
-  constructor(
-    private auth: AuthService,
-    private shopService: ShopService,
-    private toastrService: ToastrService,
-    private productService: ProductService,
-    private confirmationDialogService: ConfirmationDialogService,
-  ) {
-    this.role = this.auth.getUserRol();
-  }
-
   ngOnChanges( changes: SimpleChanges ): void {
-    this.store = JSON.parse( sessionStorage.getItem( 'store' ) );
+    this.shopService.storeObserver().subscribe( ( store: Store ) => {
+      if ( this.auth.getUserRol() === 'merchant' ) {
+        this.store = store;
+      }
+    } );
     this.init();
+    
   }
 
-  ngOnInit(): void {
-  }
 
   ngAfterViewInit(): void {
     if ( ( this.plan?.price === 0 ) && this.maxProducts >= 10 ) {
       alert( 'Debe cambiar de plan si quiere mas productos' );
     }
+  }
+
+  reloadData(): void {
+    this.init();
   }
 
   search(): void {
@@ -143,9 +152,14 @@ export class ProductsComponent implements OnInit, OnChanges, AfterViewInit {
   }
 
   private loadData( page = 1 ): void {
-    ( this.role === 'merchant' )
-      ? this.params = `store=${this.store._id}&name=${this.name}&status=${this.status}`
-      : this.params = `store=${this.store}&name=${this.name}&status=${this.status}`;
+
+    if ( this.role === 'merchant' ) {
+      this.params = `store=${this.store._id}&name=${this.name}&status=${this.status}`;
+    }
+
+    if ( this.role === 'admin' ) {
+      this.params = `store=${this.storeSelected}&name=${this.name}&status=${this.status}`;
+    }
 
     this.productService.productList( page, this.params ).subscribe( result => {
       this.products = [ ...result.docs ];

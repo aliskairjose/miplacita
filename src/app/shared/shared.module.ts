@@ -74,7 +74,13 @@ import { SearchComponent } from './components/search/search.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { ShopCardComponent } from './components/shop-card/shop-card.component';
 import { PaymentComponent } from './components/payment/payment.component';
+import { CommentsComponent } from './components/comments/comments.component';
+import { ModalNewElementComponent } from './components/modal-new-element/modal-new-element.component';
+import { AddressComponent } from './components/address/address.component';
 
+import { GooglePlaceModule } from 'ngx-google-places-autocomplete';
+import { AgmCoreModule } from '@agm/core';
+import { ColorPickerModule } from 'ngx-color-picker';
 // export let options: Partial<IConfig> | (() => Partial<IConfig>);
 const maskConfig: Partial<IConfig> = {
   validation: false,
@@ -94,8 +100,9 @@ export const customCurrencyMaskConfig = {
   max: null,
   inputMode: CurrencyMaskInputMode.FINANCIAL
 };
-@NgModule({
+@NgModule( {
   declarations: [
+    AddressComponent,
     HeaderOneComponent,
     FooterOneComponent,
     HeaderTwoComponent,
@@ -142,9 +149,12 @@ export const customCurrencyMaskConfig = {
     SearchComponent,
     ShopCardComponent,
     PaymentComponent,
+    CommentsComponent,
+    ModalNewElementComponent,
+    AddressComponent
   ],
   imports: [
-    NgxCurrencyModule.forRoot(customCurrencyMaskConfig),
+    NgxCurrencyModule.forRoot( customCurrencyMaskConfig ),
     CommonModule,
     RouterModule,
     FormsModule,
@@ -153,15 +163,19 @@ export const customCurrencyMaskConfig = {
     CarouselModule,
     NgxSpinnerModule,
     BarRatingModule,
-    NgxMaskModule.forRoot(maskConfig),
-    AlertModule.forRoot({maxMessages: 5, timeout: 3000, position: 'left'}),
-    LazyLoadImageModule.forRoot({
+    NgxMaskModule.forRoot( maskConfig ),
+    AlertModule.forRoot( { maxMessages: 5, timeout: 3000, position: 'left' } ),
+    LazyLoadImageModule.forRoot( {
       // preset: scrollPreset // <-- tell LazyLoadImage that you want to use scrollPreset
-    }),
+    } ),
     NgxSkeletonLoaderModule,
-    TranslateModule
+    TranslateModule,
+    GooglePlaceModule,
+    ColorPickerModule,
+    AgmCoreModule.forRoot( { apiKey: 'AIzaSyC7YdhqPz4rB-D8U7F4qxVokWDb8EWYOB4' } )
   ],
   exports: [
+    AddressComponent,
     NgxSpinnerModule,
     CommonModule,
     FormsModule,
@@ -213,10 +227,12 @@ export const customCurrencyMaskConfig = {
     ShopSubmenuComponent,
     TimelineComponent,
     SearchComponent,
-    ShopCardComponent
+    ShopCardComponent,
+    CommentsComponent,
+    ModalNewElementComponent
   ],
   providers: [ ConfirmationDialogService ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 
-})
+} )
 export class SharedModule { }

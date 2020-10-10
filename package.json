@@ -51,12 +51,14 @@
     "chart.js": "^2.9.3",
     "domino": "^2.1.5",
     "express": "^4.15.2",
-    "firebase": "^7.19.1",
+    "firebase": "^7.22.1",
     "font-awesome": "^4.7.0",
     "fs": "0.0.1-security",
     "hammerjs": "^2.0.8",
     "imagesloaded": "^4.1.4",
     "isotope-layout": "^3.0.6",
+    "jspdf": "^2.1.1",
+    "jspdf-autotable": "^3.5.13",
     "localstorage-polyfill": "^1.0.1",
     "masonry-layout": "^4.2.2",
     "mousetrap": "^1.6.5",
@@ -83,6 +85,7 @@
     "path": "^0.12.7",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
+    "xlsx": "^0.16.8",
     "zone.js": "~0.10.2"
   },
   "devDependencies": {

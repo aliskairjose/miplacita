@@ -1,8 +1,21 @@
 <!-- Register Store Section -->
 <section class="section-b-space" *ngIf="step==1">
-	<div class="container padding-cls">
-		<div class="title-purple text-center" *ngIf="register">
-			<h2>Registra tus datos de tienda</h2>
+	<div class="container padding-cls px-3">
+		<div *ngIf="modal" class="form-row">
+			<div class="d-flex w-100 flex-column">
+				<div class="d-flex justify-content-end">
+					<div class="col-1 d-flex justify-content-center">
+						<i class="ti-close" (click)="close(true)"></i>
+					</div>
+				</div>
+				<div class="title-purple text-center" >
+					<h2>Registra los datos de tu tienda</h2>
+				</div> 
+			</div>
+		</div>
+		
+		<div class="title-purple text-center" *ngIf="!modal">
+			<h2>Registra los datos de tienda</h2>
 			<p>Configura tu tienda</p>
 		</div>
 		<!-- TIMELINE -->
@@ -117,6 +130,13 @@
 <!-- Register Product Section -->
 <section class="section-b-space" *ngIf="step==2">
 	<div class="container padding-cls">
+		<div *ngIf="modal" class="row justify-content-end">
+                            
+			<div class="col-1 d-flex justify-content-center">
+				<i class="ti-close" (click)="close(false)"></i>
+			</div>
+		</div>
+		
 		<div class="title-purple text-center">
 			<h2>Registra tus datos de tienda</h2>
 			<p>Configura tu primer producto</p>

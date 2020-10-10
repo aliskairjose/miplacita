@@ -1,12 +1,10 @@
 import { ToastrService } from 'ngx-toastr';
 
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, Input, Output, OnChanges, OnInit, SimpleChanges, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { Store } from '../../../shared/classes/store';
-import { User } from '../../../shared/classes/user';
 import { ShopService } from '../../../shared/services/shop.service';
-import { StorageService } from '../../../shared/services/storage.service';
 
 @Component( {
   selector: 'app-shop-profile',
@@ -24,6 +22,7 @@ export class ShopProfileComponent implements OnInit, OnChanges {
   enabled = false;
 
   @Input() store: Store;
+  @Output() updateShop: EventEmitter<Store> = new EventEmitter<Store>();
 
   constructor(
     private formBuilder: FormBuilder,
@@ -34,7 +33,9 @@ export class ShopProfileComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges( changes: SimpleChanges ): void {
-    this.store = JSON.parse( sessionStorage.getItem( 'store' ) );
+    this.shopService.storeObserver().subscribe( ( store: Store ) => {
+      this.store = store;
+    } );
   }
 
 
@@ -48,13 +49,17 @@ export class ShopProfileComponent implements OnInit, OnChanges {
   }
 
   onSubmit(): void {
-    console.log( this.profileForm.valid);
-    
     this.submitted = true;
+    this.profileForm.value.logo = this.store.logo;
+
     if ( this.profileForm.valid ) {
       this.shopService.updateStore( this.store._id, this.profileForm.value ).subscribe( response => {
-        console.log(response);
-        this.toastrService.info( 'Tienda actualizada con éxito' );
+        if ( response.success ) {
+          this.store = { ...response.store };
+          this.toastrService.info( response.message[ 0 ] );
+          this.shopService.storeSubject( response.store );
+          this.updateShop.emit( this.store );
+        }
       } );
     }
   }
@@ -63,8 +68,10 @@ export class ShopProfileComponent implements OnInit, OnChanges {
     this.profileForm = this.formBuilder.group( {
       name: [ '', [ Validators.required ] ],
       phone: [ '', [ Validators.required ] ],
-      // description: [ '', [ Validators.required ] ],
-      email: [ '', [ Validators.required, Validators.email ] ]
+      description: [ '', [ Validators.required ] ],
+      email: [ '', [ Validators.required, Validators.email ] ],
+      url_store: [ '', [ Validators.required ] ],
+      logo: [ '' ]
     } );
   }
 

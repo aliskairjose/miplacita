@@ -5,12 +5,12 @@
         <div class="d-flex flex-column">
           <ng-container *ngIf="multiple; else multipleImages" #carouselbox>
             <div class="mt-3">
-              <div class="image-upload border-box text-center">
+              <div class="image-upload border-box text-center" style="overflow: hidden;">
                 <label for="file-input">
                   <div *ngIf="images.length">
                     <!-- CAROUSEL -->
                     <ngb-carousel #ngcarousel>
-                      <ng-template *ngFor="let image of images; let i = index" ngbSlide [id]="i" >
+                      <ng-template *ngFor="let image of images; let i = index" ngbSlide [id]="i">
                         <div class="picsum-img-wrapper w-100">
                           <img [src]="image" class="store-design-img">
                         </div>
@@ -28,7 +28,6 @@
                                 d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.146-3.146a.5.5 0 0 0-.708-.708L8 7.293 4.854 4.146a.5.5 0 1 0-.708.708L7.293 8l-3.147 3.146a.5.5 0 0 0 .708.708L8 8.707l3.146 3.147a.5.5 0 0 0 .708-.708L8.707 8l3.147-3.146z" />
                             </svg>
                           </div>
-
                         </div>
                       </div>
                     </div>

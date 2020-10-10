@@ -8,13 +8,13 @@
 <section class="login-page section-b-space" *ngIf="!registerSuccess">
     <div class="container">
         <!-- TIMELINE -->
-        <div class="d-flex mb-3 timeline" >
+        <div class="d-flex mb-3 timeline" *ngIf="role === 'merchant'" >
             <app-timeline class="mx-auto" [active]="1"></app-timeline>   
         </div>
         <!-- TIMELINE-->
         <div class="row justify-content-center">
             <div class="col-lg-6">
-                <h2 class="mp-title">Registrate ahora</h2 >
+                <h2 class="mp-title">Registrate ahora {{ title }}</h2 >
                 <div class="theme-card">
                     <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="theme-form">
                         <!-- FullName -->

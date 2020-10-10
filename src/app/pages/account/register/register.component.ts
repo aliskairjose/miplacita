@@ -35,6 +35,7 @@ export class RegisterComponent implements OnInit {
     passwordConfirmation: ''
   };
   role: string;
+  title: string;
 
   constructor(
     private router: Router,
@@ -56,6 +57,9 @@ export class RegisterComponent implements OnInit {
   ngOnInit(): void {
     const role = this.route.queryParams.subscribe( params => {
       this.role = params.role;
+      if ( params.role === 'merchant' ) { this.title = 'como Vendedor'; }
+
+      if ( params.role === 'client' ) { this.title = 'como Comprador'; }
     } );
 
     if ( state.user ) { this.registerSuccess = true; }
@@ -75,6 +79,8 @@ export class RegisterComponent implements OnInit {
 
   onSubmit() {
     this.submitted = true;
+    this.registerForm.value.role = this.role;
+
     if ( this.registerForm.valid ) {
       this.auth.register( this.registerForm.value ).subscribe( ( data: AuthResponse ) => {
         if ( data.success ) {
@@ -84,7 +90,7 @@ export class RegisterComponent implements OnInit {
             this.registerSuccess = true;
           } else {
             // Opcion client
-            this.router.navigate( [ '/register/success' ] );
+            this.router.navigate( [ '/pages/user/interests' ] );
           }
         }
       } );
@@ -97,7 +103,7 @@ export class RegisterComponent implements OnInit {
 
   private createForm(): void {
     this.registerForm = this.formBuilder.group( {
-      role: [ this.role ],
+      role: [ '' ],
       fullname: [ '', [ Validators.required, Validators.pattern( '[a-zA-Z ]*' ) ] ],
       password: [ '', [ Validators.required, Validators.minLength( 8 ) ] ],
       passwordConfirmation: [ '', Validators.required ],

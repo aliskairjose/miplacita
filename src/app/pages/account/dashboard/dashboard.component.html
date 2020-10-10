@@ -138,20 +138,20 @@
             <h3 *ngIf="user.role == 'admin'">Pagos</h3>
             <h3 *ngIf="user.role == 'merchant'">Pedidos</h3>
             <div class="table-responsive">
-                <table class="table table-responsive-sm">
+                
+                <table class="table cart-table table-responsive-xs">
                     <thead>
-                        <tr class="table-head">
-                            <th class="text-center text-uppercase" *ngFor="let field of fields" scope="col">{{field.name}}</th>
+                        <tr class="table-head text-center">
+                            <th *ngFor="let item of tableHeaders" scope="col">{{item}}</th>
                         </tr>
                     </thead>
-                    <!--Store Admin-->
-                    <tbody *ngIf="user.role =='merchant'">
+                    <tbody>
                         <tr *ngFor="let order of orders">
                             <td class="text-center">
                                 ID: {{order._id}}
                             </td>
                             <td class="text-center" >
-                                <p>{{order.description}}</p>
+                                <p>{{order.user.fullname}}</p>
                             </td>
                             <td class="text-center" >
                                 <p>{{order.created_at}}</p>
@@ -160,23 +160,8 @@
                                 {{order.status}}
                             </td>
                             
-                            <td class="text-center"><strong>{{order.price}}</strong></td>
                         </tr>
                     </tbody>
-                    <!--Store Admin ends-->
-                    <!--Admin Marketplace-->
-                    <tbody *ngIf="user.role =='admin'">
-                        <tr *ngFor="let store of shops">
-                            <td class="text-center"><p>{{store.name}}</p></td>
-                            <td class="text-center" >
-                                <p>{{store.amount}}</p>
-                            </td>
-                            <td class="text-center">
-                                <p>{{store.date}}</p>
-                            </td>
-                        </tr>
-                    </tbody>
-                    <!--Admin Marketplace ends-->
                 </table>
                 
             </div>

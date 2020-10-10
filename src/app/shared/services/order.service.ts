@@ -40,16 +40,8 @@ export class OrderService {
     state.checkoutItems = data;
     this.storage.setItem( 'checkoutItems', data );
     this.storage.removeItem( 'cartItems' );
-    return this.http.post( 'order', data );
+    return this.http.post( 'order/v2', data );
     // this.router.navigate( [ '/shop/checkout/success', orderId ] );
-  }
-
-  /**
-   * @description Crea una nueva Orden
-   * @param data Data de tipo Order
-   */
-  addOrder( data: Order ): Observable<any> {
-    return this.http.post( 'order', data );
   }
 
   /**

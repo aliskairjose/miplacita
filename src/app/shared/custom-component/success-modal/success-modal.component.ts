@@ -24,9 +24,6 @@ export class SuccessModalComponent implements OnInit, OnDestroy {
     this.modalOption.backdrop = 'static';
     this.modalOption.keyboard = false;
     this.modal = this.modalService.open(this.SuccessModal, this.modalOption);
-    this.modal.result.then((result) => {
-      console.log(result);
-    });
   }
 
   close(){

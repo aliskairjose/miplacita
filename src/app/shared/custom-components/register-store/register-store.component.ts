@@ -1,30 +1,23 @@
-import { ToastrService } from 'ngx-toastr';
-
-import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-
+import { ToastrService } from 'ngx-toastr';
+import { forkJoin } from 'rxjs';
 import { environment } from '../../../../environments/environment';
 import { Category } from '../../classes/category';
 import { Plan } from '../../classes/plan';
-import { Product } from '../../classes/product';
 import { Store } from '../../classes/store';
 import { User } from '../../classes/user';
 import { PaymentComponent } from '../../components/payment/payment.component';
-import { AuthService } from '../../services/auth.service';
 import { ProductService } from '../../services/product.service';
 import { ShopService } from '../../services/shop.service';
-import { StorageService } from '../../services/storage.service';
 
 @Component( {
   selector: 'app-register-store',
   templateUrl: './register-store.component.html',
   styleUrls: [ './register-store.component.scss' ]
 } )
-export class RegisterStoreComponent implements OnInit {
-  @Input() register = true;
-  @Output() emitEvent: EventEmitter<boolean> = new EventEmitter<boolean>();
-  @ViewChild( 'payment' ) payment: PaymentComponent;
+export class RegisterStoreComponent implements OnInit, OnChanges {
 
   planSelected = '';
   step = 1;
@@ -43,9 +36,17 @@ export class RegisterStoreComponent implements OnInit {
   disabled = true;
   urlStore = '';
   isShow = true;
+
   private user: User = {};
 
+  @Input() register = true;
+  @Input() modal = false;
+  @Input() _user: User = {};
+
+  @Output() callback: EventEmitter<boolean> = new EventEmitter<boolean>();
   @Output() setBack: EventEmitter<any> = new EventEmitter<any>();
+
+  @ViewChild( 'payment' ) payment: PaymentComponent;
 
   constructor(
     private router: Router,
@@ -56,6 +57,11 @@ export class RegisterStoreComponent implements OnInit {
   ) {
     this.createForm();
   }
+  ngOnChanges( changes: SimpleChanges ): void {
+    if ( !sessionStorage.userForm ) {
+      this.user = { ...this._user };
+    }
+  }
 
   // convenience getter for easy access to form fields
   // tslint:disable-next-line: typedef
@@ -64,7 +70,7 @@ export class RegisterStoreComponent implements OnInit {
 
   ngOnInit(): void {
 
-    if(sessionStorage.userForm){
+    if ( sessionStorage.userForm ) {
       this.user = JSON.parse( sessionStorage.userForm );
     }
 
@@ -73,14 +79,13 @@ export class RegisterStoreComponent implements OnInit {
       this.step = 2;
     }
 
-    this.shopService.getPlans().subscribe( ( plans: Plan[] ) => {
+    forkJoin( [ this.shopService.getPlans(), this.productService.categoryList() ] ).subscribe( ( [ plans, categories ] ) => {
       this.plans = [ ...plans ];
       this.planSelected = this.plans[ 0 ]._id;
-    } );
 
-    this.productService.categoryList().subscribe( ( categories: Category[] ) => {
       this.categories = [ ...categories ];
     } );
+
   }
 
   changePlan( planPrice: number ): boolean {
@@ -88,11 +93,15 @@ export class RegisterStoreComponent implements OnInit {
   }
 
   storeRegister() {
-
     this.submitted = true;
+    let payment = true;
+
+    if ( this.isShow ) {
+      payment = this.payment.onSubmit();
+    }
 
     this.storeForm.value.owner_id = this.user._id;
-    if ( this.storeForm.valid && this.payment.onSubmit() ) {
+    if ( this.storeForm.valid && payment ) {
       if ( this.images.length === 0 ) {
         this.toastrService.warning( 'Debe cargar un logo para la tienda!' );
         return;
@@ -190,8 +199,14 @@ export class RegisterStoreComponent implements OnInit {
   private createStore(): void {
     this.shopService.addStore( this.storeForm.value ).subscribe( ( store: Store ) => {
       this.store = { ...store };
-      this.step = 2;
-      sessionStorage.setItem( 'registerStore', JSON.stringify( this.store ) );
+      if ( !this.register ) {
+        this.toastrService.info( 'Se ha creado la nueva tienda con exito' );
+        this.close( true );
+      } else {
+        this.step = 2;
+        sessionStorage.setItem( 'registerStore', JSON.stringify( this.store ) );
+  
+      }
     } );
   }
 
@@ -199,17 +214,22 @@ export class RegisterStoreComponent implements OnInit {
     this.productForm.value.store = this.store._id;
     this.productService.addProduct( this.productForm.value ).subscribe( () => {
       sessionStorage.clear();
-      this.router.navigate( [ '/register/success' ] );
+      this.router.navigate( [ '/shop/register/success' ] );
     } );
   }
 
   back( option: number ) {
     if ( option === 0 ) {
       this.step = 1;
-      this.emitEvent.emit( false );
+      this.callback.emit( false );
     } else if ( option === 1 ) {
       this.step = 1;
     }
   }
+
+  close( type: boolean ): void {
+    this.callback.emit( type );
+  }
+
 
 }

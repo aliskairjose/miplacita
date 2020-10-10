@@ -12,4 +12,12 @@ export interface Store {
   plan?: any;
   active?: boolean;
   created_at?: string;
+  config?: Config;
+}
+
+export interface Config {
+  font?: string;
+  color?: string;
+  _id?: string;
+  images: [];
 }

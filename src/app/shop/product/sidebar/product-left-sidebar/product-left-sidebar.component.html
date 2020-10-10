@@ -53,28 +53,44 @@
             </div>
             <div class="row">
               <div class="col-lg-6">
-                <owl-carousel-o [options]="ProductDetailsMainSliderConfig" #owlCar class="product-slick">
+                <!-- <owl-carousel-o [options]="ProductDetailsMainSliderConfig" #owlCar class="product-slick">
                   <ng-container *ngFor="let image of product?.image; index as i">
                     <ng-template carouselSlide [id]="i">
                       <div>
-                        <img [defaultImage]="'assets/images/product/placeholder.jpg'" [lazyLoad]="image"
+                        <img 
+                          [defaultImage]="'assets/images/product/placeholder.jpg'" 
+                          [lazyLoad]="image"
                           [alt]="image.alt" class="img-fluid">
                       </div>
                     </ng-template>
                   </ng-container>
-                </owl-carousel-o>
-                <div class="col-12 p-0" *ngIf="product?.image?.length > 1">
+                </owl-carousel-o> -->
+                <section class="p-0">
+                  <ngb-carousel #ngcarousel>
+                      <ng-template *ngFor="let image of product?.image; index as i" ngbSlide>
+                          <div class="picsum-img-wrapper w-100">
+                              <img class="img-main-banner" [src]="image" alt="Angular Carousel 1">
+                          </div>
+                      </ng-template>
+                  </ngb-carousel>
+                </section>
+                <div class="col-12 p-0" *ngIf="product?.image?.length">
                   <div class="slider-nav">
-                    <owl-carousel-o [options]="ProductDetailsThumbConfig" class="product-slick">
+                    <!-- <owl-carousel-o [options]="ProductDetailsThumbConfig" class="product-slick">
                       <ng-container *ngFor="let image of product?.image; index as i">
                         <ng-template carouselSlide [id]="i">
-                          <div class="owl-thumb" [class.active]="i == activeSlide">
-                            <img [defaultImage]="'assets/images/product/placeholder.jpg'" [lazyLoad]="image"
-                              [alt]="image.alt" class="img-fluid" (click)="owlCar.to(activeSlide = i.toString())">
+                          <div 
+                            class="owl-thumb" 
+                            [class.active]="i == activeSlide">
+                            <img 
+                              [defaultImage]="'assets/images/product/placeholder.jpg'" 
+                              [lazyLoad]="image"
+                              [alt]="image.alt" class="img-fluid" 
+                              (click)="owlCar.to(activeSlide = i.toString())">
                           </div>
                         </ng-template>
                       </ng-container>
-                    </owl-carousel-o>
+                    </owl-carousel-o> -->
                   </div>
                 </div>
               </div>
@@ -84,13 +100,30 @@
                   <h4 class="mb-3"> Tienda: {{ product?.store?.name }}</h4>
                   <h3>
                     {{ product?.price | currency }}
-                  </h3>
-                  <div class="product-description border-product">
-                    <p>{{ product.description }}</p>
-                    <h5 class="avalibility" *ngIf="counter <= product.stock"><span>({{ product.stock }} unidades
-                        desponibles)</span></h5>
-                    <!-- <h5 class="avalibility" *ngIf="counter > product.stock"><span>Out of Stock</span></h5> -->
-                    <h6 class="product-title mt-5">Cantidad</h6>
+                  </h3> 
+                  <div class="product-description">
+                    <div class="my-3 justify-content-mobile-first" >
+                        <p class="font-weight-bold">
+                          Entrega del producto: {{ product?.description}}
+                        </p>
+                    </div>
+                    <div *ngIf="product?.colors">
+                      <ul class="color-variant" >
+                        <li [class]="color" *ngFor="let color of product?.colors" [ngStyle]="{'background-color': color}"
+                        (click)="ChangeVariants(color, product)">
+                        </li>
+                      </ul>
+                      <h6 class="product-title">Colores disponibles</h6>
+                    </div>
+                    <div class="my-3">
+                      <p>{{ product?.description?.substring(0, 200)+'...' }}</p>
+                    </div>
+                    <div class="my-3">
+                      <h6 class="product-title">Disponible</h6>
+                      <h5 class="avalibility" *ngIf="counter <= product.stock">
+                        <span>({{ product.stock }} unidades desponibles)</span>
+                      </h5>
+                    </div>
                     <div class="qty-box">
                       <div class="input-group">
                         <span class="input-group-prepend">
@@ -108,10 +141,19 @@
                       </div>
                     </div>
                   </div>
-                  <div class="product-buttons">
+                  <div class="my-3">
                     <a href="javascrip:void(0)" class="btn btn-solid" [class.disabled]="counter > product.stock"
                       (click)="addToCart(product)">Agregar al carrito</a>
-                    <!-- <a href="javascrip:void(0)" class="btn btn-solid" [class.disabled]="counter > product.stock" (click)="buyNow(product)">buy now</a> -->
+                  </div>
+                  <div class="product-description">
+                    <div class="my-3 ">
+                      <h6 class="product-title mb-3">Calificación del producto</h6>
+                      <div class="d-flex justify-content-mobile-first">
+                        <bar-rating [readOnly]="true" [rate]="0" name="rating" [max]="5" disabled>
+                        </bar-rating>
+                      </div>
+                      
+                    </div>
                   </div>
                   <div class="d-flex flex-column justify-content-end pb-3">
                     <h6 class="product-title">share it</h6>
@@ -125,6 +167,8 @@
           </div>
         </div>
       </div>
+      <!-- Comentarios ( Reviews ) -->
+      <app-comments #comments></app-comments>
     </div>
   </div>
 </section>
