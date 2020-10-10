@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { MustMatch } from '../../../shared/helper/must-match.validator';
 import { AuthService } from '../../../shared/services/auth.service';
@@ -6,13 +6,17 @@ import { environment } from '../../../../environments/environment.prod';
 import { User } from '../../../shared/classes/user';
 import { ToastrService } from 'ngx-toastr';
 import { StorageService } from '../../../shared/services/storage.service';
+import { Router, ActivatedRoute } from '@angular/router';
+import { AddressComponent } from '../../../shared/components/address/address.component';
+import { ShippingAddress } from '../../../shared/classes/shipping-address';
+import { UserService } from '../../../shared/services/user.service';
 
 @Component( {
   selector: 'app-profile',
   templateUrl: './profile.component.html',
   styleUrls: [ './profile.component.scss' ]
 } )
-export class ProfileComponent implements OnInit {
+export class ProfileComponent implements OnInit, AfterViewInit {
 
   updateUserForm: FormGroup;
   submitted: boolean;
@@ -22,24 +26,68 @@ export class ProfileComponent implements OnInit {
   matchError = environment.errorForm.matchError;
   onlyLetter = environment.errorForm.onlyLetter;
   user: User = {};
+  active = 'profile';
+
+  @ViewChild( 'address' ) address: AddressComponent;
 
   constructor(
+    private route: ActivatedRoute,
+    private router: Router,
     private auth: AuthService,
     private storage: StorageService,
     private formBuilder: FormBuilder,
+    private userService: UserService,
     private toatsrService: ToastrService,
   ) {
 
   }
+  ngAfterViewInit(): void {
+    this.address.isProfile = true;
+  }
 
   ngOnInit(): void {
-    this.user = this.storage.getItem( 'user' );
+    this.user = this.auth.getUserActive();
+    this.route.url.subscribe( url => {
+      this.active = url[ 2 ].path;
+      if ( this.active === 'profile' && url.length === 4 ) {
+        this.active = 'address';
+      }
+    } );
     this.createForm();
   }
 
   // convenience getter for easy access to form fields
   // tslint:disable-next-line: typedef
   get f() { return this.updateUserForm.controls; }
+
+
+  saveAddress(): void {
+    const data = this.address.onSubmit();
+
+    if ( data.addressExist ) {
+      this.addUserAddress( data.shippingAddress );
+    } else {
+      this.updateUserAddress( data.shippingAddress );
+    }
+  }
+
+  private addUserAddress( shippingAddress: ShippingAddress ): void {
+    if ( shippingAddress ) {
+      this.userService.addUserAddress( this.user._id, shippingAddress ).subscribe( response => {
+        if ( response.success ) {
+          this.toatsrService.info( response.message[ 0 ] );
+        }
+      } );
+    }
+  }
+
+  private updateUserAddress( shippingAddress: ShippingAddress ): void {
+    this.userService.updateUserAddress( this.user._id, shippingAddress ).subscribe( response => {
+      if ( response.success ) {
+        this.toatsrService.info( response.message[ 0 ] );
+      }
+    } );
+  }
 
   onSubmit(): void {
     this.submitted = true;
@@ -73,5 +121,17 @@ export class ProfileComponent implements OnInit {
     }, {
       validator: MustMatch( 'password', 'passwordConfirmation' )
     } );
+  }
+
+  updateTab( tab: string ) {
+    this.active = tab;
+    if ( this.active == 'profile' ) {
+      this.router.navigateByUrl( `pages/account/user/${tab}`, { skipLocationChange: false } );
+
+    } else {
+      this.router.navigateByUrl( `pages/account/user/profile/${tab}`, { skipLocationChange: false } );
+
+    }
+
   }
 }

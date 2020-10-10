@@ -7,6 +7,8 @@ import { Category } from '../classes/category';
 import { Response, Result } from '../classes/response';
 import { ToastrService } from 'ngx-toastr';
 import { StorageService } from './storage.service';
+import { Review } from '../classes/review';
+import { VariableProduct } from '../classes/variable-product';
 
 const state = {
   products: JSON.parse( localStorage.products || '[]' ),
@@ -65,6 +67,7 @@ export class ProductService {
    * Id store | id product
    */
   productList( page = 1, params = '' ): Observable<Result<Product>> {
+
     return this.http.get( `products?page=${page}&${params}` ).pipe(
       map( ( response: Response<Product> ) => {
         if ( response.success ) {
@@ -102,7 +105,7 @@ export class ProductService {
       ---------------------------------------------
       ---------------  Photod  --------------------
       ---------------------------------------------
-    */
+  */
   /**
    * @description Agregar foto al producto
    * @param id Id del producto al cual se agrega photo
@@ -210,6 +213,37 @@ export class ProductService {
   }
 
   /*
+   ---------------------------------------------
+   -------------  Variaciones ------------------
+   ---------------------------------------------
+ */
+
+  /**
+   * @description Agrega variacion a producto
+   * @param data Data de variacion de producto
+   */
+  addVariableProduct( data: VariableProduct ): Observable<any> {
+    return this.http.post( 'products/variable', data );
+  }
+
+  /**
+   * @description Muestra las variaciones del producto
+   * @param id Id del producto padre al que pertenece la variacion
+   * @param type El tipo de variacion Color | Size
+   */
+  getVariableProduct( id: string, type: string ): Observable<any> {
+    return this.http.get( `products/variable?store=${id}&type=${type}` );
+  }
+
+  /**
+   * @description Elimina la variacion del producto
+   * @param id Id de la variacion a eliminar
+   */
+  deleteVariableProduct( id: string ): Observable<any> {
+    return this.http.delete( `products/variable/${id}` );
+  }
+
+  /*
     ---------------------------------------------
     -----------------  Cart  --------------------
     ---------------------------------------------
@@ -290,6 +324,44 @@ export class ProductService {
         return ( prev + price * curr.quantity );
       }, 0 );
     } ) );
+  }
+
+  /*
+    ---------------------------------------------
+    -------------  Product Review  --------------
+    ---------------------------------------------
+  */
+
+  /**
+   * @description Agrega un nuevo review al produco
+   * @param data Data del review del producto
+   */
+  addReview( data: Review ): Observable<Review> {
+    return this.http.post( `reviews/create`, data ).pipe(
+      map( result => {
+        if ( result.success ) { return result.reviews; }
+      } )
+    );
+  }
+
+  productReviews( id: string ): Observable<Review[]> {
+    return this.http.get( `reviews/product/${id}` ).pipe(
+      map( ( response ) => {
+        if ( response.success ) { return response.result; }
+      } )
+    );
+  }
+
+  /**
+   * @description Calificacion promedio del prodcuto
+   * @param id id del producto
+   */
+  productAverage( id: string ): Observable<any> {
+    return this.http.get( `reviews/average/${id}` ).pipe(
+      map( result => {
+        if ( result.success ) { return result.reviews; }
+      } )
+    );
   }
 
   /**

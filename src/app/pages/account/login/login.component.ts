@@ -19,7 +19,8 @@ export class LoginComponent implements OnInit {
   submitted: boolean;
   required = 'Campo obligatorio';
   invalidEmail = 'Email inválido';
-  role: string;
+  role = 'admin';
+  title: string;
 
   constructor(
     private router: Router,
@@ -36,9 +37,16 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     const role = this.route.queryParams.subscribe( params => {
-      this.role = params.role;
+      if ( Object.keys( params ).length !== 0 ) {
+        this.role = params.role;
+
+        if ( params.role === 'merchant' ) { this.title = 'como Vendedor'; }
+
+        if ( params.role === 'client' ) { this.title = 'como Comprador'; }
+
+      }
     } );
-    
+
     this.socialService.authState.subscribe( ( response: FacebookLoginResponse ) => {
       const data = { fullname: '', token: '', email: '', role: '' };
       data.email = response.email;

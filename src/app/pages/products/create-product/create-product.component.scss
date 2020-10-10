@@ -2,8 +2,53 @@
     height: 50px;
 }
 
+.tab-box {
+    width: 90vw;
+}
 
+hr {
+    width: 90%;
+    margin: 0 auto;
+}
+#select-btn {
+    font-size: 0.8rem;
+    color: var(--mp-gray);
+}
+.form-group.hidden {
+    width: 0;
+    margin: 0;
+    border: none;
+    padding: 0;
+}
+.custom-day {
+    text-align: center;
+    padding: 0.185rem 0.25rem;
+    display: inline-block;
+    height: 2rem;
+    width: 2rem;
+}
+.custom-day.focused {
+    background-color: #e6e6e6;
+}
+.custom-day.range, .custom-day:hover {
+    background-color: rgb(2, 117, 216);
+    color: white;
+}
+.custom-day.faded {
+    background-color: rgba(2, 117, 216, 0.5);
+}
+
+.date-range{
+    flex-direction: column;
+}
+.mp-p-2 {
+    margin-left: 0px;
+}
 @media (min-width: 768px){
+    .tab-box {
+        width: 80vw;
+    }
+    
     .create-product-form {
         display: flex;
         justify-content: center;
@@ -13,9 +58,18 @@
     }
     .second-column {
         width: 50%;
+        padding: 0 10px;
     }
     .save{
         display: flex;
         justify-content: flex-end;
     }
+    .date-range {
+        flex-direction: row;
+    }
+
+    .mp-p-2 {
+        margin-left: 10px;
+    }
 }
+

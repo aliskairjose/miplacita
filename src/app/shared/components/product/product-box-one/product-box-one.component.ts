@@ -19,7 +19,7 @@ export class ProductBoxOneComponent implements OnInit {
   @Input() cartModal = false; // Default False
   @Input() loader = false;
   @Input() search = false;
-  @Input() horizontal = false; 
+  @Input() horizontal = false;
 
 
   @ViewChild( 'quickView' ) QuickView: QuickViewComponent;
@@ -27,9 +27,10 @@ export class ProductBoxOneComponent implements OnInit {
 
   ImageSrc: string;
 
-  constructor( private productService: ProductService,    
-                private toastrService: ToastrService,
-    ) { }
+  constructor(
+    private productService: ProductService,
+    private toastrService: ToastrService,
+  ) { }
 
   ngOnInit(): void {
     if ( this.loader ) {
@@ -68,7 +69,7 @@ export class ProductBoxOneComponent implements OnInit {
 
   addToCart( product: Product ) {
     this.productService.addToCart( product );
-    this.showMessage('Producto agregado al carrito')
+    this.showMessage( 'Producto agregado al carrito' )
   }
 
   addToWishlist( product: Product ) {
@@ -79,7 +80,7 @@ export class ProductBoxOneComponent implements OnInit {
     this.productService.addToCompare( product );
   }
 
-  showMessage( message ){
+  showMessage( message ) {
     this.toastrService.info( message );
   }
 }

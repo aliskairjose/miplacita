@@ -33,11 +33,9 @@
                     <div *ngIf="submitted && f.account.errors?.required" class="invalid-feedback d-block">
                         {{ required }}
                     </div>
-                    <div *ngIf="submitted && f.account.errors?.minlength" class="invalid-feedback d-block">
+                    <!-- <div *ngIf="submitted && f.account.errors?.minlength" class="invalid-feedback d-block">
                         El campo debe contener todos los dígitos
-                    </div>
-
-                    
+                    </div> -->                    
                 </div>
                 <!-- Tipo de cuenta -->
                 <div class="form-group">

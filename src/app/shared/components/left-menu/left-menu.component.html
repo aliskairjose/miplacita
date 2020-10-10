@@ -144,7 +144,25 @@
             <a [routerLink]="menuItem.path" *ngIf="menuItem.type === 'link' && (menuItem.role === role || menuItem.role === null)" (click)="leftMenuToggle()">
                 {{menuItem.title}}
             </a>
+            <!-- Sub -->
+            <a href="javascript:void(0)" *ngIf="menuItem.type === 'sub' && (menuItem.role === role || menuItem.role === null)" 
+                (click)="toggletNavActive(menuItem)">
+              {{menuItem.title}}
+              <span class="sub-arrow"  *ngIf="menuItem.children"></span>
+            </a>
+            <ul [class.opensub1]="menuItem.active" *ngIf="menuItem.children">
+              
+              <ng-container *ngIf="!menuItem.megaMenu">
+                <li *ngFor="let childrenItem of menuItem.children">
+                  <!-- Link -->
+                  <a [routerLink]="childrenItem.path" *ngIf="childrenItem.type === 'link'">
+                    {{childrenItem.title}}
+                  </a>
+                </li>
+              </ng-container>
+            </ul>
           </li>
+         
         </ul>
       </nav>
     </div>

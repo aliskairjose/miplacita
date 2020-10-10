@@ -1,8 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { NavService, Menu } from '../../services/nav.service';
 import { Router } from '@angular/router';
-import { StorageService } from '../../services/storage.service';
 import { User } from '../../classes/user';
+import { AuthService } from '../../services/auth.service';
 
 @Component( {
   selector: 'app-left-menu',
@@ -18,22 +18,25 @@ export class LeftMenuComponent implements OnInit {
 
   constructor(
     private router: Router,
+    private auth: AuthService,
     public navServices: NavService,
-    private storage: StorageService,
   ) {
+
     this.navServices.leftMenuItems.subscribe( menuItems => {
-      this.menuItems = menuItems
+      this.menuItems = menuItems;
     } );
+
     this.navServices.leftMenuItemsResponsive.subscribe( menuItems => {
-      this.menuItemsResponsive = menuItems
+      this.menuItemsResponsive = menuItems;
     } );
+
     this.router.events.subscribe( ( event ) => {
       this.navServices.mainMenuToggle = false;
     } );
   }
 
   ngOnInit(): void {
-    const user: User = this.storage.getItem( 'user' );
+    const user: User = this.auth.getUserActive();
     if ( user ) {
       this.role = user.role;
     }
@@ -49,7 +52,7 @@ export class LeftMenuComponent implements OnInit {
   }
 
   routerTo( id: string ): void {
-    this.router.navigateByUrl(`${this.path}${id}`);
+    this.router.navigateByUrl( `${this.path}${id}` );
   }
 
 }

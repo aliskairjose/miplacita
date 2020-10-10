@@ -13,6 +13,7 @@ export class CartComponent implements OnInit {
 
   products: Product[] = [];
   standardImage = environment.standardImage;
+  
   constructor(
     public productService: ProductService
   ) {
@@ -39,7 +40,7 @@ export class CartComponent implements OnInit {
     this.productService.updateCartQuantity( product, qty );
   }
 
-  public removeItem( product: Product ) {
+  removeItem( product: Product ) {
     this.productService.removeCartItem( product );
   }
 

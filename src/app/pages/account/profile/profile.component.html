@@ -1,67 +1,101 @@
-
 <!-- personal deatail section start -->
 <section class="">
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-12">
-                <div class="page-title mb-5">
-                    <h2 class="mp-title">
-                       Mi Perfil 
-                    </h2>
-                </div>
-                <div class="border-box px-2">
-                    <form [formGroup]="updateUserForm" (ngSubmit)="onSubmit()" class="theme-form">
-                        <div class="row mb-2">
-                            <div class="col-md-6">
-                                <label for="name">Nombre completo</label>
-                                <input type="text" formControlName="fullname" class="form-control" id="fullname"
-                                    placeholder="Luis Rodriguez" required="">
-                                <div *ngIf="submitted && f.fullname.errors" class="invalid-feedback d-block">
-                                    <div *ngIf="f.fullname.errors.required"> {{ required }} </div>
-                                    <div *ngIf="f.fullname.errors.pattern"> {{ onlyLetter }} </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row mb-2">
-                            <div class="col-md-6">
-                                <label for="email">Correo Electrónico</label>
-                                <input type="email" formControlName="email" class="form-control" id="last-name"
-                                    placeholder="lrodriguez@gmail.com" required="" disabled>
-                                <div *ngIf="submitted && f.email.errors" class="invalid-feedback d-block">
-                                    <div *ngIf="f.email.errors.required"> {{ required }} </div>
-                                    <div *ngIf="f.email.errors.email"> {{ invalidEmail }} </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row mb-2">
-                            <div class="col-md-6">
-                                <label for="review">Ingrese su contraseña</label>
-                                <input type="password" formControlName="password" class="form-control" id="review"
-                                    placeholder="********" required="">
-                                <div *ngIf="submitted && f.password.errors" class="invalid-feedback d-block">
-                                    <div *ngIf="f.password.errors.minlength"> {{ minlength }}</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row mb-2">
-                            <div class="col-md-6">
-                                <label for="email">Confirmar contraseña</label>
-                                <input type="password" formControlName="passwordConfirmation" class="form-control"
-                                    id="email" placeholder="********" required="">
-                                <div *ngIf="submitted && f.passwordConfirmation.errors" class="invalid-feedback">
-                                    <div *ngIf="f.passwordConfirmation.errors.mustMatch">{{ matchError }}</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row w-100 justify-content-end mb-2">
-                            <button class="btn btn-solid" type="submit">Editar</button>
-                        </div>
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-12">
+				<div *ngIf="user.role=='client'" class="" id="admin-store">
+					<div class="form-row labels mp-side-menu ">
+						<div class="row col-lg-12">
+							<div class="col-md-4 label card">
+								<div class="d-flex flex-row h-100" (click)="updateTab('profile')">
+									<div class="d-flex flex-fill justify-content-center align-items-center ">
+										<p class="my-auto" [ngClass]="{'text-default-color': active=='profile'}">
+											Perfil
+										</p>
+									</div>
+								</div>
+							</div>
 
-                    </form>
-                </div>
-
-            </div>
-        </div>
-    </div>
+							<div class="col-md-4 label card">
+								<div class="d-flex flex-row h-100" (click)="updateTab('address')">
+									<div class="d-flex flex-fill justify-content-center align-items-center">
+										<div class="d-flex flex-fill justify-content-center align-items-center">
+											<p class="my-auto" [ngClass]="{'text-default-color':active=='address'}">
+												Dirección
+											</p>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div *ngIf="active=='profile'">
+					<div class="page-title mb-5">
+						<h2 class="mp-title">
+							Mi Perfil
+						</h2>
+					</div>
+					<div class="border-box px-2">
+						<form [formGroup]="updateUserForm" (ngSubmit)="onSubmit()" class="theme-form">
+							<div class="row mb-2">
+								<div class="col-md-6">
+									<label for="name">Nombre completo</label>
+									<input type="text" formControlName="fullname" class="form-control" id="fullname"
+										placeholder="Luis Rodriguez" required="">
+									<div *ngIf="submitted && f.fullname.errors" class="invalid-feedback d-block">
+										<div *ngIf="f.fullname.errors.required"> {{ required }} </div>
+										<div *ngIf="f.fullname.errors.pattern"> {{ onlyLetter }} </div>
+									</div>
+								</div>
+							</div>
+							<div class="row mb-2">
+								<div class="col-md-6">
+									<label for="email">Correo Electrónico</label>
+									<input type="email" formControlName="email" class="form-control" id="last-name"
+										placeholder="lrodriguez@gmail.com" required="" disabled>
+									<div *ngIf="submitted && f.email.errors" class="invalid-feedback d-block">
+										<div *ngIf="f.email.errors.required"> {{ required }} </div>
+										<div *ngIf="f.email.errors.email"> {{ invalidEmail }} </div>
+									</div>
+								</div>
+							</div>
+							<div class="row mb-2">
+								<div class="col-md-6">
+									<label for="review">Ingrese su contraseña</label>
+									<input type="password" formControlName="password" class="form-control" id="review"
+										placeholder="********" required="">
+									<div *ngIf="submitted && f.password.errors" class="invalid-feedback d-block">
+										<div *ngIf="f.password.errors.minlength"> {{ minlength }}</div>
+									</div>
+								</div>
+							</div>
+							<div class="row mb-2">
+								<div class="col-md-6">
+									<label for="email">Confirmar contraseña</label>
+									<input type="password" formControlName="passwordConfirmation" class="form-control" id="email"
+										placeholder="********" required="">
+									<div *ngIf="submitted && f.passwordConfirmation.errors" class="invalid-feedback">
+										<div *ngIf="f.passwordConfirmation.errors.mustMatch">{{ matchError }}</div>
+									</div>
+								</div>
+							</div>
+							<div class="row w-100 justify-content-end mb-2">
+								<button class="btn btn-solid-purple" type="submit">Editar</button>
+							</div>
+						</form>
+					</div>
+				</div>
+				<div *ngIf="active=='address'">
+					<app-address #address></app-address>
+					<div class="button-box d-flex justify-content-end align-items-end">
+						<div class="text-right">
+							<a (click)="saveAddress()" class="btn btn-solid">Guardar</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </section>
 <!-- Section ends -->

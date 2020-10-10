@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Order } from 'src/app/shared/classes/order';
 import { OrderService } from '../../../shared/services/order.service';
-import { StorageService } from '../../../shared/services/storage.service';
-import { Store } from '../../../shared/classes/store';
 import { User } from '../../../shared/classes/user';
 import { Result } from '../../../shared/classes/response';
+import { AuthService } from '../../../shared/services/auth.service';
 
 @Component( {
   selector: 'app-user-orders',
@@ -16,13 +15,13 @@ export class UserOrdersComponent implements OnInit {
   private _user: User = {};
 
   constructor(
-    private storage: StorageService,
+    private auth: AuthService,
     private orderService: OrderService,
   ) {
   }
 
   ngOnInit(): void {
-    this._user = this.storage.getItem( 'user' );
+    this._user = this.auth.getUserActive();
     this.loadData();
   }
 

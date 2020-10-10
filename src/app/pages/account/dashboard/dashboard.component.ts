@@ -1,67 +1,69 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ProductService } from '../../../shared/services/tm.product.service';
 import { AuthService } from '../../../shared/services/auth.service';
-import { StorageService } from '../../../shared/services/storage.service';
 import { User } from '../../../shared/classes/user';
 import { DashboardService } from '../../../shared/services/dashboard.service';
 import { Dashboard } from '../../../shared/classes/dashboard';
 import { ToastrService } from 'ngx-toastr';
 import { ChartType, ChartDataSets } from 'chart.js';
 import { SingleDataSet, Color, Label } from 'ng2-charts';
+import { Store } from '../../../shared/classes/store';
+import { OrderService } from 'src/app/shared/services/order.service';
+import { NgbCalendar, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
+import { CustomDateParserFormatterService } from 'src/app/shared/adapter/custom-date-parser-formatter.service';
 @Component( {
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: [ './dashboard.component.scss' ]
 } )
 export class DashboardComponent implements OnInit {
-  public openDashboard = false;
-  public user: User = new User();
-  public dashboardData: Dashboard = new Dashboard();
+  openDashboard = false;
+  dashboardData: Dashboard = new Dashboard();
 
   /** Table fields */
-  public fields = [];
+  tableHeaders = [ 'PEDIDO NRO', 'CLIENTE', 'FECHA DE EMISIÓN', 'ESTATUS' ];
 
-  /** table fields by type user */
-  public storeFields = [ ];
-  public adminFields = [  ];
-  public paginate: any = {};
-  public pageNo = 1;
-  public pageSize = 5;
-  public shops = [];
-  public orders = [];
+  paginate: any = {};
+  pageNo = 1;
+  pageSize = 5;
+  shops = [];
+  orders = [];
   /** Google Chart information */
-  public barChartColumns = [ 'Mayo', 'Junio', 'Julio', 'Agosto' ];
-  public barChartOptions = {
+  barChartColumns = [ 'Mayo', 'Junio', 'Julio', 'Agosto' ];
+  barChartOptions = {
     scaleShowVerticalLines: false,
     responsive: true,
     legend: 'none'
   };
-  public barChartColors: Color[] = [{backgroundColor: '#68396d'}];
+  barChartColors: Color[] = [ { backgroundColor: '#68396d' } ];
+  barChartLabels: Label[] = [];
+  barChartType: ChartType = 'bar';
 
-  public barChartLabels: Label[] = [];
-  public barChartType: ChartType = 'bar';
+  barChartData: ChartDataSets[] = [];
+  doughnutChartLabels: Label[] = [];
+  doughnutChartData: SingleDataSet = [];
+  doughnutChartType: ChartType = 'doughnut';
+  doughnutColors: Color[] = [ { backgroundColor: [ '#d0260f', '#eca89e' ] } ];
+  salesChart = [];
+  adminPieChart = [];
+  storePieChart = [];
+  role: string;
+  user: User = {};
 
-  barChartData: ChartDataSets[] = [ ];
-  public doughnutChartLabels: Label[] = [];
-
-  public doughnutChartData: SingleDataSet = [ ];
-
-  public doughnutChartType: ChartType = 'doughnut';
-  public doughnutColors: Color[] = [{backgroundColor: ['#d0260f','#eca89e']}];
-  public salesChart = [];
-
-  public adminPieChart = [];
-
-  public storePieChart = [];
+  @Input() store: Store;
 
   constructor(
     private auth: AuthService,
-    private storage: StorageService,
     private toastrService: ToastrService,
     public productService: ProductService,
-    public dashboardService: DashboardService
+    public dashboardService: DashboardService,
+    private orderService: OrderService,
+    private ngbCalendar: NgbCalendar,
+    private parseDate: CustomDateParserFormatterService
+
   ) {
-    this.user = this.storage.getItem( 'user' );
+    this.role = this.auth.getUserRol();
+    this.user = this.auth.getUserActive();
   }
 
   async ngOnInit() {
@@ -70,34 +72,20 @@ export class DashboardComponent implements OnInit {
         this.toastrService.info( `Bienvenido ${this.user.fullname}` );
       }
     } );
+
     this.getLabelsInformation();
-    this.getTableInformation();
     this.getChartInformation();
+    this.loadData();
   }
   getLabelsInformation() {
-    this.dashboardService.dashboard().subscribe((data: any) => {
+    this.dashboardService.dashboard().subscribe( ( data: any ) => {
       this.dashboardData = data.result;
-    });
-  }
-
-  getTableInformation() {
-    // ** carga de datos desde api */
-    if ( this.user.role === 'merchant' ) {
-      this.fields = this.storeFields;
-      // this.paginate = this.productService.getPager( this.allOrders.length, +this.pageNo, this.pageSize );
-
-      // this.orders = this.slicePage( this.allOrders );
-    } else if ( this.user.role === 'admin' ) {
-      this.fields = this.adminFields;
-      // this.paginate = this.productService.getPager( this.allshops.length, +this.pageNo, this.pageSize );
-
-      // this.shops = this.slicePage( this.allshops );
-    }
+    } );
   }
 
   getChartInformation() {
     /** carga de datos para las estadisticas */
-    
+
   }
 
   slicePage( items ) {
@@ -112,32 +100,32 @@ export class DashboardComponent implements OnInit {
     this.openDashboard = !this.openDashboard;
   }
 
-  setPage( event ) {
-    // if ( event === this.paginate.endPage ) {
-    //   const end = event * this.paginate.pageSize;
-    //   this.paginate.startIndex = end - this.paginate.pageSize;
+  setPage( page: number ) {
+    this.loadData( page );
+  }
 
-    //   if ( this.user.role === 'merchant' ) {
-    //     this.orders = this.allOrders.slice( this.paginate.startIndex );
-    //     this.paginate.endIndex = this.allOrders.length - 1;
+  private loadData( page = 1 ): void {
+    let params = '';
+   
+    // const params = `store=${this.store._id}&status=${this.status}&from=${this.fechaIni}&to=${this.fechaFin}`;
+    if ( this.role === 'merchant' ) {
+      params = `store=${this.store._id}&status=&from=&to=`;
+    }
 
-    //   } else if ( this.user.role === 'admin' ) {
-    //     this.shops = this.allshops.slice( this.paginate.startIndex );
-    //     this.paginate.endIndex = this.allshops.length - 1;
+    if ( this.role === 'admin' ) {
+      params = `status=&from=&to=`;
+    }
 
-    //   }
-    // } else {
-    //   const end = event * this.paginate.pageSize;
-    //   this.paginate.startIndex = end - this.paginate.pageSize;
-
-    //   this.paginate.endIndex = end - 1;
-    //   if ( this.user.role === 'merchant' ) {
-    //     this.orders = this.allOrders.slice( this.paginate.startIndex, this.paginate.endIndex + 1 );
-    //   } else if ( this.user.role === 'admin' ) {
-    //     this.shops = this.allshops.slice( this.paginate.startIndex, this.paginate.endIndex + 1 );
-    //   }
-    // }
-    // this.paginate.currentPage = event;
+    this.orderService.orderList( page, params ).subscribe( result => {
+      console.log(result);
+      this.orders = [ ...result.docs ];
+      console.log(this.orders);
+      this.paginate = { ...result };
+      this.paginate.pages = [];
+      for ( let i = 1; i <= this.paginate.totalPages; i++ ) {
+        this.paginate.pages.push( i );
+      }
+    } );
   }
 
 }
