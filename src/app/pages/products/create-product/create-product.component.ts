@@ -167,32 +167,34 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
    * @description Guarda la variacion de producto!
    */
   saveVariable(): void {
-    this.submitted = true;
+    console.log( this.variableForm.value );
+
+    // this.submitted = true;
     this.updateValidators();
 
-    this.variableForm.get( 'store' ).setValue( this.store._id );
+    // this.variableForm.get( 'store' ).setValue( this.store._id );
 
-    if ( !this.productImages.length ) {
-      this.toastrService.warning( 'Debe cargar al menos una imagen' );
-      return;
-    }
+    // if ( !this.productImages.length ) {
+    //   this.toastrService.warning( 'Debe cargar al menos una imagen' );
+    //   return;
+    // }
 
-    if ( this.variableForm.valid ) {
-      this.productService.uploadImages( { images: this.productImages } ).subscribe( response => {
-        if ( response.status === 'isOk' ) {
-          const data: Product = {};
-          data.images = [];
-          response.images.forEach( ( url: string, index: number ) => {
-            const image: Images = {};
-            image.url = url;
-            ( index > 0 ) ? image.principal = false : image.principal = true;
-            data.images.push( image );
-          } );
-          this.variableForm.value.images = data.images;
-          this.createProductVariable();
-        }
-      } );
-    }
+    // if ( this.variableForm.valid ) {
+    //   this.productService.uploadImages( { images: this.productImages } ).subscribe( response => {
+    //     if ( response.status === 'isOk' ) {
+    //       const data: Product = {};
+    //       data.images = [];
+    //       response.images.forEach( ( url: string, index: number ) => {
+    //         const image: Images = {};
+    //         image.url = url;
+    //         ( index > 0 ) ? image.principal = false : image.principal = true;
+    //         data.images.push( image );
+    //       } );
+    //       this.variableForm.value.images = data.images;
+    //       this.createProductVariable();
+    //     }
+    //   } );
+    // }
   }
 
   createProductVariable(): void {
@@ -225,12 +227,14 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
     if ( this.colorChecked ) {
       this.variableForm.controls.color.setValidators( [ Validators.required ] );
     } else {
+      this.variableForm.value.color = '';
       this.variableForm.controls.color.clearValidators();
     }
 
     if ( this.sizeChecked ) {
       this.variableForm.controls.size.setValidators( [ Validators.required ] );
     } else {
+      this.variableForm.value.size = '';
       this.variableForm.controls.size.clearValidators();
     }
 
@@ -323,7 +327,6 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   choiceOptions( product: Product, option: number ) {
-    console.log( product._id );
 
     switch ( option ) {
       case 1:
