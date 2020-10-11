@@ -75,10 +75,14 @@ export class UploadImageComponent implements OnInit, AfterViewInit {
   }
 
   private imageBase( image: string, length: number ): void {
-
+    console.log( image, length );
+    let images = [];
     this.images.push( image );
-    if ( this.images.length === length ) {
-      this.uploadImage.emit( this.images );
+    images.push( image );
+    if ( images.length === length ) {
+      console.log( 'emit' );
+      this.uploadImage.emit( images );
+      images = [];
     }
   }
 
