@@ -149,10 +149,10 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
         if ( response.status === 'isOk' ) {
           const data: Product = { ...this.productForm.value };
           data.images = [];
-          response.images.forEach( ( url: string ) => {
+          response.images.forEach( ( url: string, index ) => {
             const image: Images = {};
             image.url = url;
-            image.principal = true;
+            ( index > 0 ) ? image.principal = false : image.principal = true;
             data.images.push( image );
           } );
           this.productForm.value.images = data.images;
@@ -170,9 +170,41 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
     this.submitted = true;
     this.updateValidators();
 
-    console.log( this.selectedColor );
-    console.log( this.variableForm.valid );
+    this.variableForm.get( 'store' ).setValue( this.store._id );
+
+    if ( !this.productImages.length ) {
+      this.toastrService.warning( 'Debe cargar al menos una imagen' );
+      return;
+    }
+
+    if ( this.variableForm.valid ) {
+      this.productService.uploadImages( { images: this.productImages } ).subscribe( response => {
+        if ( response.status === 'isOk' ) {
+          const data: Product = {};
+          data.images = [];
+          response.images.forEach( ( url: string, index: number ) => {
+            const image: Images = {};
+            image.url = url;
+            ( index > 0 ) ? image.principal = false : image.principal = true;
+            data.images.push( image );
+          } );
+          this.variableForm.value.images = data.images;
+          this.createProductVariable();
+        }
+      } );
+    }
+  }
+
+  createProductVariable(): void {
     console.log( this.variableForm.value );
+
+    this.productService.addProduct( this.variableForm.value ).subscribe( response => {
+      console.log( response );
+
+      this.toastrService.info( 'El producto variable se ha creado con exito' );
+      this.productsComponent.reloadData();
+      this.close();
+    } );
   }
 
   private updateProduct( data: Product ): void {
@@ -253,7 +285,7 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   upload( images: string[] ): void {
-    this.productImages = [ ...images ];
+    this.productImages.push( ...images );
   }
 
   private loadProductData( id: string ): void {
@@ -290,7 +322,8 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
     }
   }
 
-  choiceOptions( productId: string, option: number ) {
+  choiceOptions( product: Product, option: number ) {
+    console.log( product._id );
 
     switch ( option ) {
       case 1:
@@ -302,9 +335,11 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
         this.status = 'edit';
         this.disabled = false;
         this.title = 'Editar producto';
-        this.loadProductData( productId );
+        this.loadProductData( product._id );
         break;
       default:
+        this.variableForm.get( 'parent' ).setValue( product._id );
+        this.variableForm.get( 'category' ).setValue( product.category );
         this.title = 'Crear variante de producto';
         this.active = 'variations';
         break;
@@ -312,9 +347,10 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
 
   }
 
-  openModal( option: number, id: string, ) {
+  openModal( option: number, product: Product, ) {
+
     this.create = option;
-    this.choiceOptions( id, option );
+    this.choiceOptions( product, option );
     this.modalOpen = true;
     this.modalOption.backdrop = 'static';
     this.modalOption.keyboard = false;

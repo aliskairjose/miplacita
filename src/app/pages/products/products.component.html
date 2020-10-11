@@ -82,10 +82,10 @@
 						<td class="text-center">{{ product.status }}</td>
 
 						<td class="text-center" *ngIf="role==='merchant'">
-							<a type="button" (click)="CreateProduct.openModal(3,product._id)" class="btn btn-table-action">
+							<a type="button" (click)="CreateProduct.openModal(3,product)" class="btn btn-table-action">
 								<i class="fa fa-plus-circle fa-lg" style="color: Dodgerblue"></i>
 							</a>
-							<a type="button" (click)="CreateProduct.openModal(2,product._id)" class="btn btn-table-action">
+							<a type="button" (click)="CreateProduct.openModal(2,product)" class="btn btn-table-action">
 								<i class="fa fa-edit fa-lg" style="color: Dodgerblue"></i>
 							</a>
 							<button class="btn btn-table-action" (click)="deleteItem(product)">

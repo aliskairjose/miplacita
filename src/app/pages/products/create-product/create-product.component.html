@@ -257,6 +257,30 @@
 										</button>
 									</div>
 									<div class="tab-body" *ngIf="showForm">
+										<div class="row">
+											<div class="col-12">
+												<!-- Nombre -->
+												<div class="form-group ">
+													<div class="field-label">Nombre del producto</div>
+													<input formControlName="name" type="text" class="form-control" id="nameVariable"
+														(blur)="validateName()">
+													<div *ngIf="submitted && v.name.errors?.required" class="invalid-feedback d-block">
+														{{ required }}
+													</div>
+												</div>
+											</div>
+											<div class="col-12">
+												<!-- Descripcion -->
+												<div class="form-group">
+													<div class="field-label">Descripción</div>
+													<textarea formControlName="description" type="text" class="form-control"
+														id="exampleFormControlTextarea00" placeholder="Descripción" required=""></textarea>
+													<div *ngIf="submitted && v.description.errors?.required" class="invalid-feedback d-block">
+														{{ required }}
+													</div>
+												</div>
+											</div>
+										</div>
 										<div class="row col-lg-12">
 											<div class="col-lg-3">
 												<!-- Price -->
@@ -283,7 +307,8 @@
 												<!-- Status -->
 												<div class="form-group ">
 													<div class="field-label">Estado</div>
-													<select class="form-control" name="status">
+													<select formControlName="status" class="form-control" name="status"
+														[(ngModel)]="statusSelected">
 														<option *ngFor="let status of statuses" [value]="status.value">
 															{{status.text}}
 														</option>
@@ -294,7 +319,7 @@
 												<!-- Cantidad disponible -->
 												<div class="form-group">
 													<div class="field-label">Cantidad disponible</div>
-													<input type="number" class="form-control" id="available" required="">
+													<input type="number" class="form-control" id="available" required="" formControlName="stock">
 													<div *ngIf="submitted && v.stock.errors?.required" class="invalid-feedback d-block">
 														{{ required }}
 													</div>
