@@ -343,7 +343,7 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
     this.productData.name = '';
 
     this.variableForm.reset();
-    this.variableForm.clearValidators();
+    // this.variableForm.clearValidators();
 
     this.productForm.reset();
     this.productForm.clearValidators();
@@ -422,7 +422,7 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
     if ( type === 'color' ) {
       this.selectedColor = { ...variable }
       this.variableForm.value.color = this.selectedColor._id;
-    } else if(  type === 'size'){
+    } else if ( type === 'size' ) {
       this.selectedSize = { ...variable };
       this.variableForm.value.size = this.selectedSize._id;
     }
@@ -430,8 +430,11 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   selectSubcategory( subcategory ): void {
-    
-    this.selectedSubcategory = subcategory ;
+    this.selectedSubcategory = subcategory;
+  }
 
+  variableOptionSelected( value: string ): void {
+    if ( value === 'addColor' ) { this.openModalNewElement( 3 ); }
+    if ( value === 'addSize' ) { this.openModalNewElement( 1 ); }
   }
 }
