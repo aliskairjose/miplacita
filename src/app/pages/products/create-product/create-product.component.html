@@ -150,7 +150,7 @@
 												<div class="form-group">
 													<div class="field-label">Cantidad disponible</div>
 													<input formControlName="stock" type="number" class="form-control" id="available" required=""
-														[(ngModel)]="productData.stock">
+														[(ngModel)]="productData.stock" min="1">
 													<div *ngIf="submitted && f.stock.errors" class="invalid-feedback d-block">
 														<div *ngIf="f.stock.errors?.required"> {{ required }} </div>
 														<div *ngIf="f.stock.errors?.max">
@@ -319,7 +319,7 @@
 												<!-- Cantidad disponible -->
 												<div class="form-group">
 													<div class="field-label">Cantidad disponible</div>
-													<input type="number" class="form-control" id="available" required="" formControlName="stock">
+													<input type="number" class="form-control" id="available" required="" formControlName="stock" min="1">
 													<div *ngIf="submitted && v.stock.errors?.required" class="invalid-feedback d-block">
 														{{ required }}
 													</div>
