@@ -66,9 +66,9 @@
 				</thead>
 				<tbody>
 					<tr *ngFor="let seller of bestSellers">
-						<td class="text-center"></td>
-						<td class="text-center"></td>
-						<td class="text-center"></td>
+						<td class="text-center">{{ seller._id }}</td>
+						<td class="text-center">{{ seller.name }}</td>
+						<td class="text-center">{{ seller.quantitySold }}</td>
 					</tr>
 				</tbody>
 			</table>

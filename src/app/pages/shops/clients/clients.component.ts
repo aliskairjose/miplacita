@@ -18,7 +18,7 @@ export class ClientsComponent implements OnInit {
   @ViewChild( 'TABLE', { read: ElementRef } ) table: ElementRef;
 
   fields = ['Cliente', 'Email','Número de compras', ''];
-  clients: User[] = [];
+  clients: any = [];
   paginate: Paginate;
   role: string;
   
@@ -47,17 +47,14 @@ export class ClientsComponent implements OnInit {
 
     this.shopService.clientsList(params ).subscribe( result => {
       console.log("result",result);
-      if(result.docs){
-        this.clients = [ ...result.docs ];
+      
+        this.clients = result;
         console.log(this.clients);
         this.paginate = { ...result };
         this.paginate.pages = [];
         for ( let i = 1; i <= this.paginate.totalPages; i++ ) {
           this.paginate.pages.push( i );
         }
-      }
-      
-
     } );
   }
 

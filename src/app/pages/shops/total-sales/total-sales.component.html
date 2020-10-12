@@ -66,9 +66,9 @@
 				</thead>
 				<tbody>
 					<tr *ngFor="let sale of sales">
-						<td class="text-center"></td>
-						<td class="text-center"></td>
-						<td class="text-center"></td>
+						<td class="text-center">{{ sale._id | date:'short' }}</td>
+						<td class="text-center">{{ sale.qty }}</td>
+						<td class="text-center">{{ sale.amount }}</td>
 					</tr>
 				</tbody>
 			</table>

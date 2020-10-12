@@ -240,10 +240,10 @@ export class ShopService {
   }
 
   /**
-   * @description lista de ventas diarias de la tienda
+   * @description lista de ventas totales de la tienda
    * 
    */
-  dailySales( params: string ): Observable<Result<Order>> {
+  totalSales( params: string ): Observable<Result<Order>> {
     return this.http.get( `sales?` + params ).pipe(
       map( ( response: Response<Order> ) => {
         console.log(response);
