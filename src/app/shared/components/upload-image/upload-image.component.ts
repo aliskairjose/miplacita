@@ -52,7 +52,7 @@ export class UploadImageComponent implements OnInit, AfterViewInit {
     const image = files[ 0 ];
     const mimeType = image.type;
 
-    if ( files.length > 3 || this.images.length === 3 ) {
+    if ( files.length > 4 || this.images.length === 3 ) {
       this.toastrService.warning( 'Máximo 3 imagenes' );
       return;
     }

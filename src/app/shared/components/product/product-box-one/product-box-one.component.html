@@ -8,18 +8,18 @@
       <a [routerLink]="['/shop/product/', product._id]">
         <img 
           [defaultImage]="ImageSrc ? ImageSrc : 'assets/images/product/placeholder.jpg'" 
-          [lazyLoad]="product.image[0]" 
+          [lazyLoad]="product.images[0].url" 
           class="img-fluid lazy-loading" 
-          alt="{{ product.image[0] }}" />
+          alt="{{ product.name }}" />
       </a>
     </div>
     <div class="back" *ngIf="onHowerChangeImage">
      
     </div>
     <ul class="product-thumb-list" *ngIf="thumbnail">
-      <li class="grid_thumb_img" [class.active]="ImageSrc == image.src" *ngFor="let image of product.image">
+      <li class="grid_thumb_img" [class.active]="ImageSrc == image.src" *ngFor="let image of product.images">
         <a href="javascript:void(0)" (mouseover)="ChangeVariantsImage(image)">
-          <img [lazyLoad]="image[0]">
+          <img [lazyLoad]="image.url">
         </a>
       </li>
     </ul>

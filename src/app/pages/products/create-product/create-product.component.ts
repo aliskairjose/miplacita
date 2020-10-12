@@ -43,7 +43,7 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
   allVariations = [];
   subcategories = [];
   colors = [];
-  color = '';
+  color = null;
   selectedColor: VariableProduct = {};
   colorChecked = false;
 
@@ -226,14 +226,14 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
     if ( this.colorChecked ) {
       this.variableForm.controls.color.setValidators( [ Validators.required ] );
     } else {
-      this.variableForm.value.color = '';
+      this.variableForm.get( 'color' ).setValue( null );
       this.variableForm.controls.color.clearValidators();
     }
 
     if ( this.sizeChecked ) {
       this.variableForm.controls.size.setValidators( [ Validators.required ] );
     } else {
-      this.variableForm.value.size = '';
+      this.variableForm.get( 'size' ).setValue( null );
       this.variableForm.controls.size.clearValidators();
     }
 
@@ -304,6 +304,11 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
   validateName(): void {
     if ( this.create === 2 ) {
       this.disabled = false;
+      return;
+    }
+
+    if(this.productData.name.length > 30){
+      this.toastrService.warning( 'El nombre debe tener un máximo de 30 caracteres' );
       return;
     }
 
