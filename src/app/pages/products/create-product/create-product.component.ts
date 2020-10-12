@@ -1,3 +1,4 @@
+
 import { ToastrService } from 'ngx-toastr';
 import { forkJoin } from 'rxjs';
 
@@ -15,7 +16,6 @@ import { ProductService } from '../../../shared/services/product.service';
 import { ShopService } from '../../../shared/services/shop.service';
 import { ProductsComponent } from '../products.component';
 import { ModalNewElementComponent } from 'src/app/shared/components/modal-new-element/modal-new-element.component';
-import { log } from 'console';
 import { VariableProduct } from '../../../shared/classes/variable-product';
 
 @Component( {
@@ -167,34 +167,33 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
    * @description Guarda la variacion de producto!
    */
   saveVariable(): void {
-    console.log( this.variableForm.value );
 
-    // this.submitted = true;
+    this.submitted = true;
     this.updateValidators();
 
-    // this.variableForm.get( 'store' ).setValue( this.store._id );
+    this.variableForm.get( 'store' ).setValue( this.store._id );
 
-    // if ( !this.productImages.length ) {
-    //   this.toastrService.warning( 'Debe cargar al menos una imagen' );
-    //   return;
-    // }
+    if ( !this.productImages.length ) {
+      this.toastrService.warning( 'Debe cargar al menos una imagen' );
+      return;
+    }
 
-    // if ( this.variableForm.valid ) {
-    //   this.productService.uploadImages( { images: this.productImages } ).subscribe( response => {
-    //     if ( response.status === 'isOk' ) {
-    //       const data: Product = {};
-    //       data.images = [];
-    //       response.images.forEach( ( url: string, index: number ) => {
-    //         const image: Images = {};
-    //         image.url = url;
-    //         ( index > 0 ) ? image.principal = false : image.principal = true;
-    //         data.images.push( image );
-    //       } );
-    //       this.variableForm.value.images = data.images;
-    //       this.createProductVariable();
-    //     }
-    //   } );
-    // }
+    if ( this.variableForm.valid ) {
+      this.productService.uploadImages( { images: this.productImages } ).subscribe( response => {
+        if ( response.status === 'isOk' ) {
+          const data: Product = {};
+          data.images = [];
+          response.images.forEach( ( url: string, index: number ) => {
+            const image: Images = {};
+            image.url = url;
+            ( index > 0 ) ? image.principal = false : image.principal = true;
+            data.images.push( image );
+          } );
+          this.variableForm.value.images = data.images;
+          this.createProductVariable();
+        }
+      } );
+    }
   }
 
   createProductVariable(): void {
