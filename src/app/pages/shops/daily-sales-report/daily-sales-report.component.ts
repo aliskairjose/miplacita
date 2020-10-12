@@ -92,14 +92,15 @@ export class DailySalesReportComponent implements OnInit {
 
     const params = `store=${this.store._id}&from=${this.fechaIni}&to=${this.fechaFin}`;
 
-    this.orderService.orderList( page, params ).subscribe( result => {
-      this.orders = [ ...result.docs ];
-      this.paginate = { ...result };
-      this.paginate.pages = [];
-      for ( let i = 1; i <= this.paginate.totalPages; i++ ) {
-        this.paginate.pages.push( i );
+    this.shopService.dailySales( params ).subscribe( result => {
+      if(result.docs){
+        this.orders = [ ...result.docs ];
+        this.paginate = { ...result };
+        this.paginate.pages = [];
+        for ( let i = 1; i <= this.paginate.totalPages; i++ ) {
+          this.paginate.pages.push( i );
+        }
       }
-
     } );
   }
 
