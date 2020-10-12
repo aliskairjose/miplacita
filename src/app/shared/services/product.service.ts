@@ -51,6 +51,7 @@ export class ProductService {
    * @param data Detale del producto
    */
   addProduct( data: Product ): Observable<Product> {
+    
     return this.http.post( 'products', data ).pipe(
       map( response => {
         if ( response.success ) {

@@ -52,15 +52,20 @@ export class AddressComponent implements OnInit {
       this.user = this.auth.getUserActive();
 
       this.userService.getUserAddress( this.user._id ).subscribe( response => {
-        if ( response.success ) {
 
+        if ( response.success ) {
           this._addressExist = true;
 
           if ( this.isProfile ) {
             this.shippingAddress = response.result.address;
           } else if ( response.result.address?.name ) {
             const result = confirm( 'Ya existe una dirección, ¿Desea usarla?' );
-            ( result ) ? this.shippingAddress = response.result.address : this.shippingAddress = {};
+            if ( result ) {
+              this.shippingAddress = response.result.address;
+              this.addressForm.get( 'coord' ).setValue( this.shippingAddress.coord );
+            } else {
+              this.shippingAddress = {};
+            }
           }
           this.createForm();
         }
@@ -133,6 +138,9 @@ export class AddressComponent implements OnInit {
 
   onSubmit(): any {
     this.submitted = true;
+    const shippingAddress = this.addressForm.value;
+    if ( !shippingAddress.coord ) { shippingAddress.coord = this.shippingAddress.coord; }
+
     const data = {
       shippingAddress: this.addressForm.value,
       addressExist: this._addressExist,
