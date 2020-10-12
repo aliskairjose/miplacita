@@ -94,7 +94,6 @@ export class ShippingComponent implements OnInit {
   checkout(): void {
 
     const data = this.address.onSubmit();
-
     if ( data?.saveAddress ) {
       if ( Object.keys( data?.shippingAddress ).length !== 0 && data.addressExist ) {
         // Actualiza la dirección

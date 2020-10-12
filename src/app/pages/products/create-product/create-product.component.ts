@@ -307,7 +307,7 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
       return;
     }
 
-    if(this.productData.name.length > 30){
+    if ( this.productData.name.length > 30 ) {
       this.toastrService.warning( 'El nombre debe tener un máximo de 30 caracteres' );
       return;
     }

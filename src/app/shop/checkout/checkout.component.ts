@@ -66,8 +66,6 @@ export class CheckoutComponent implements OnInit {
       this.totalPrice = amount + this.shipmentPrice;
     } );
 
-    // this.initConfig();
-
   }
 
   public get subTotal(): Observable<number> {
@@ -78,29 +76,12 @@ export class CheckoutComponent implements OnInit {
     return this.productService.cartTotalAmount();
   }
 
-  // Stripe Payment Gateway
-  stripeCheckout() {
-    const handler = ( <any> window ).StripeCheckout.configure( {
-      key: environment.stripe_token, // publishble key
-      locale: 'auto',
-      token: ( token: any ) => {
-        // You can access the token ID with `token.id`.
-        // Get the token ID to your server-side code for use.
-        // this.orderService.createOrder( this.products, this.checkoutForm.value, token.id, this.amount );
-      }
-    } );
-    handler.open( {
-      name: 'Multikart',
-      description: 'Online Fashion Store',
-      amount: this.amount * 100
-    } );
-  }
-
   onSubmit(): void {
     this.submitted = true;
     const order = JSON.parse( sessionStorage.order );
     if ( this.payment.onSubmit() ) {
       this.orderService.createOrder( order ).subscribe( response => {
+        console.log( response );
         if ( response.success ) {
           sessionStorage.removeItem( 'order' );
           sessionStorage.removeItem( 'cartItems' );
@@ -111,54 +92,5 @@ export class CheckoutComponent implements OnInit {
 
   }
 
-  // Paypal Payment Gateway
-  // private initConfig(): void {
-  //   this.payPalConfig = {
-  //     currency: this.productService.Currency.currency,
-  //     clientId: environment.paypal_token,
-  //     createOrderOnClient: ( data ) => <ICreateOrderRequest> {
-  //       intent: 'CAPTURE',
-  //       purchase_units: [ {
-  //         amount: {
-  //           currency_code: this.productService.Currency.currency,
-  //           value: this.amount,
-  //           breakdown: {
-  //             item_total: {
-  //               currency_code: this.productService.Currency.currency,
-  //               value: this.amount
-  //             }
-  //           }
-  //         }
-  //       } ]
-  //     },
-  //     advanced: {
-  //       commit: 'true'
-  //     },
-  //     style: {
-  //       label: 'paypal',
-  //       size: 'small', // small | medium | large | responsive
-  //       shape: 'rect', // pill | rect
-  //     },
-  //     onApprove: ( data, actions ) => {
-  //       // this.orderService.createOrder( this.products, this.checkoutForm.value, data.orderID, this.getTotal );
-  //       console.log( 'onApprove - transaction was approved, but not authorized', data, actions );
-  //       actions.order.get().then( details => {
-  //         console.log( 'onApprove - you can get full order details inside onApprove: ', details );
-  //       } );
-  //     },
-  //     onClientAuthorization: ( data ) => {
-  //       console.log( 'onClientAuthorization - you should probably inform your server about completed transaction at this point', data );
-  //     },
-  //     onCancel: ( data, actions ) => {
-  //       console.log( 'OnCancel', data, actions );
-  //     },
-  //     onError: err => {
-  //       console.log( 'OnError', err );
-  //     },
-  //     onClick: ( data, actions ) => {
-  //       console.log( 'onClick', data, actions );
-  //     }
-  //   };
-  // }
 
 }
