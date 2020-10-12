@@ -86,7 +86,17 @@
 					</tr>
 				</tbody>
 			</table>
-
+			<app-custom-pagination [items]="orders" [paginate]="paginate" (setPage)="setPage($event)">
+			</app-custom-pagination>
+			<div class="form-row container justify-content-center " *ngIf="orders.length==0">
+				<div class="col-md-5">
+					<div class="card text-center mx-auto mb-2">
+						<div class="card-body">
+							<p>No hay órdenes para mostrar</p>
+						</div>
+					</div>
+				</div>
+			</div>
 		</ng-container>
 
 		<ng-template #elseTemplate>
@@ -108,8 +118,7 @@
             </div>   
 		</ng-template>
 
-		<app-custom-pagination [items]="orders" [paginate]="paginate" (setPage)="setPage($event)">
-		</app-custom-pagination>
+
 	</div>
 </section>
 
