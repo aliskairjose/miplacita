@@ -1,3 +1,4 @@
+
 import { ToastrService } from 'ngx-toastr';
 import { forkJoin } from 'rxjs';
 
@@ -15,7 +16,6 @@ import { ProductService } from '../../../shared/services/product.service';
 import { ShopService } from '../../../shared/services/shop.service';
 import { ProductsComponent } from '../products.component';
 import { ModalNewElementComponent } from 'src/app/shared/components/modal-new-element/modal-new-element.component';
-import { log } from 'console';
 import { VariableProduct } from '../../../shared/classes/variable-product';
 
 @Component( {
@@ -43,7 +43,7 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
   allVariations = [];
   subcategories = [];
   colors = [];
-  color = '';
+  color = null;
   selectedColor: VariableProduct = {};
   colorChecked = false;
 
@@ -132,7 +132,6 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
   onSubmit(): void {
     this.submitted = true;
     this.productForm.value.store = this.store._id;
-
     if ( !this.productForm.value.marketplace ) {
       this.productForm.value.marketplace = false;
     }
@@ -149,10 +148,10 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
         if ( response.status === 'isOk' ) {
           const data: Product = { ...this.productForm.value };
           data.images = [];
-          response.images.forEach( ( url: string ) => {
+          response.images.forEach( ( url: string, index ) => {
             const image: Images = {};
             image.url = url;
-            image.principal = true;
+            ( index > 0 ) ? image.principal = false : image.principal = true;
             data.images.push( image );
           } );
           this.productForm.value.images = data.images;
@@ -167,12 +166,41 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
    * @description Guarda la variacion de producto!
    */
   saveVariable(): void {
+
     this.submitted = true;
     this.updateValidators();
 
-    console.log( this.selectedColor );
-    console.log( this.variableForm.valid );
-    console.log( this.variableForm.value );
+    this.variableForm.get( 'store' ).setValue( this.store._id );
+
+    if ( !this.productImages.length ) {
+      this.toastrService.warning( 'Debe cargar al menos una imagen' );
+      return;
+    }
+
+    if ( this.variableForm.valid ) {
+      this.productService.uploadImages( { images: this.productImages } ).subscribe( response => {
+        if ( response.status === 'isOk' ) {
+          const data: Product = {};
+          data.images = [];
+          response.images.forEach( ( url: string, index: number ) => {
+            const image: Images = {};
+            image.url = url;
+            ( index > 0 ) ? image.principal = false : image.principal = true;
+            data.images.push( image );
+          } );
+          this.variableForm.value.images = data.images;
+          this.createProductVariable();
+        }
+      } );
+    }
+  }
+
+  createProductVariable(): void {
+    this.productService.addProduct( this.variableForm.value ).subscribe( response => {
+      this.toastrService.info( 'El producto variable se ha creado con exito' );
+      this.productsComponent.reloadData();
+      this.close();
+    } );
   }
 
   private updateProduct( data: Product ): void {
@@ -193,12 +221,14 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
     if ( this.colorChecked ) {
       this.variableForm.controls.color.setValidators( [ Validators.required ] );
     } else {
+      this.variableForm.get( 'color' ).setValue( null );
       this.variableForm.controls.color.clearValidators();
     }
 
     if ( this.sizeChecked ) {
       this.variableForm.controls.size.setValidators( [ Validators.required ] );
     } else {
+      this.variableForm.get( 'size' ).setValue( null );
       this.variableForm.controls.size.clearValidators();
     }
 
@@ -211,6 +241,7 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
    * @description Crea el producto via api
    */
   private createProduct( data: Product ): void {
+
     this.clear();
     this.productService.addProduct( data ).subscribe( ( product: Product ) => {
       this.toastrService.info( 'El producto se ha creado con exito' );
@@ -253,7 +284,7 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   upload( images: string[] ): void {
-    this.productImages = [ ...images ];
+    this.productImages.push( ...images );
   }
 
   private loadProductData( id: string ): void {
@@ -269,6 +300,11 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
   validateName(): void {
     if ( this.create === 2 ) {
       this.disabled = false;
+      return;
+    }
+
+    if ( this.productData.name.length > 30 ) {
+      this.toastrService.warning( 'El nombre debe tener un máximo de 30 caracteres' );
       return;
     }
 
@@ -290,7 +326,7 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
     }
   }
 
-  choiceOptions( productId: string, option: number ) {
+  choiceOptions( product: Product, option: number ) {
 
     switch ( option ) {
       case 1:
@@ -302,9 +338,11 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
         this.status = 'edit';
         this.disabled = false;
         this.title = 'Editar producto';
-        this.loadProductData( productId );
+        this.loadProductData( product._id );
         break;
       default:
+        this.variableForm.get( 'parent' ).setValue( product._id );
+        this.variableForm.get( 'category' ).setValue( product.category );
         this.title = 'Crear variante de producto';
         this.active = 'variations';
         break;
@@ -312,9 +350,10 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
 
   }
 
-  openModal( option: number, id: string, ) {
+  openModal( option: number, product: Product, ) {
+
     this.create = option;
-    this.choiceOptions( id, option );
+    this.choiceOptions( product, option );
     this.modalOpen = true;
     this.modalOption.backdrop = 'static';
     this.modalOption.keyboard = false;
@@ -343,7 +382,7 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
     this.productData.name = '';
 
     this.variableForm.reset();
-    this.variableForm.clearValidators();
+    // this.variableForm.clearValidators();
 
     this.productForm.reset();
     this.productForm.clearValidators();
@@ -376,7 +415,6 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
     this.modal2.componentInstance.option = option;
 
     this.modal2.result.then( ( item ) => {
-      console.log( item )
       // Cuando se envia la data cerrando el modal con el boton
       switch ( option ) {
         case 1:
@@ -422,7 +460,7 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
     if ( type === 'color' ) {
       this.selectedColor = { ...variable }
       this.variableForm.value.color = this.selectedColor._id;
-    } else if(  type === 'size'){
+    } else if ( type === 'size' ) {
       this.selectedSize = { ...variable };
       this.variableForm.value.size = this.selectedSize._id;
     }
@@ -430,8 +468,11 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   selectSubcategory( subcategory ): void {
-    
-    this.selectedSubcategory = subcategory ;
+    this.selectedSubcategory = subcategory;
+  }
 
+  variableOptionSelected( value: string ): void {
+    if ( value === 'addColor' ) { this.openModalNewElement( 3 ); }
+    if ( value === 'addSize' ) { this.openModalNewElement( 1 ); }
   }
 }

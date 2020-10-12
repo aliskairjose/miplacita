@@ -17,11 +17,7 @@ export class ClientsComponent implements OnInit {
   @ViewChild( 'TABLE', { read: ElementRef } ) table: ElementRef;
 
   fields = ['Cliente', 'Email','Número de compras', ''];
-  clients: User[] = [ {  _id : "string",
-    avatar: "string",
-    fullname: "string",
-    email: "string",    role: "string",
-    }]
+  clients: User[] = [];
   paginate: Paginate;
   role: string;
   

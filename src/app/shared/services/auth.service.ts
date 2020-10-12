@@ -110,4 +110,16 @@ export class AuthService {
     return this.$auth.asObservable();
   }
 
+  /**
+   *  @description Recuperar contraseña del usuario
+   *  @returns Observable
+   */
+  passwordRecovery( params: any ): Observable<any> {
+    return this.http.post('users/password', params);
+  }
+
+  updatePassword( params: any ): Observable<any> {
+    return this.http.put('users/password', params);
+  }
+
 }

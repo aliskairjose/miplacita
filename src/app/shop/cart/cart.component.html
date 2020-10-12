@@ -24,11 +24,11 @@
 						<tbody *ngFor="let product of products">
 							<tr>
 								<td>
-									<a [routerLink]="['/shop/product/', product._id]" *ngIf="product.image.length">
-										<img [src]="product.image[0]" [alt]="product.name">
+									<a [routerLink]="['/shop/product/', product._id]" *ngIf="product.images.length">
+										<img [src]="product.images[0].url" [alt]="product.name">
 									</a>
 									<a [routerLink]="['/shop/product/', product._id]"
-										*ngIf="product.image.length === 0 && product.images.length === 0">
+										*ngIf="product.images.length === 0">
 										<img [src]="standardImage" alt="no-image">
 									</a>
 								</td>

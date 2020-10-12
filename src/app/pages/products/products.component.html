@@ -59,18 +59,13 @@
 				</thead>
 				<tbody>
 					<tr *ngFor="let product of products">
-
-						<td class="text-center" *ngIf="product.image.length">
-							<img class="product-image" [src]="product.image[0]" />
-						</td>
-
-						<td class="text-center" *ngIf="product.image.length === 0 && product.images.length">
+						<td class="text-center" *ngIf="product.images.length">
 							<div *ngFor="let image of product.images">
 								<img class="product-image" *ngIf="image.principal" [src]="image.url" />
 							</div>
 						</td>
 
-						<td class="text-center" *ngIf="!product.image.length && !product.images.length">
+						<td class="text-center" *ngIf="!product.images.length">
 							<img class="product-image" [src]="standardImage" />
 						</td>
 
@@ -82,10 +77,10 @@
 						<td class="text-center">{{ product.status }}</td>
 
 						<td class="text-center" *ngIf="role==='merchant'">
-							<a type="button" (click)="CreateProduct.openModal(3,product._id)" class="btn btn-table-action">
+							<a type="button" (click)="CreateProduct.openModal(3,product)" class="btn btn-table-action">
 								<i class="fa fa-plus-circle fa-lg" style="color: Dodgerblue"></i>
 							</a>
-							<a type="button" (click)="CreateProduct.openModal(2,product._id)" class="btn btn-table-action">
+							<a type="button" (click)="CreateProduct.openModal(2,product)" class="btn btn-table-action">
 								<i class="fa fa-edit fa-lg" style="color: Dodgerblue"></i>
 							</a>
 							<button class="btn btn-table-action" (click)="deleteItem(product)">
@@ -104,14 +99,14 @@
 				<div class="col-md-5">
 					<div class="card text-center mx-auto mb-2">
 						<div class="card-body">
-							<p *ngIf="products.length==0 && store">
+							<p *ngIf="products.length==0 && !store">
 								Aún no has configurado tu tienda
 								<a class="btn btn-solid-purple mt-3" [routerLink]="['/pages/account/user/admin-store']">
 									Configurar tienda
 								</a>
 							</p>
 							<p *ngIf="products.length==0 && store">
-								Aún no has agregado productos a tutienda
+								Aún no has agregado productos a tu tienda
 							</p>
 						</div>
 					</div>

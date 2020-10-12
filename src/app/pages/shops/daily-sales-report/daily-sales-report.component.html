@@ -57,7 +57,7 @@
 		</form>
 
 		<!-- Data de usuario -->
-		<ng-container class="table-responsive-sm mt-3" *ngIf="store || role === 'admin'; else elseTemplate">
+		<ng-container class="table-responsive-sm mt-3" *ngIf="store; else elseTemplate">
 			<table class="table cart-table table-responsive-xs" id="mp-table" #TABLE>
 				<thead>
 					<tr class="table-head text-center">
@@ -78,6 +78,8 @@
 					</tr>
 				</tbody>
 			</table>
+			<app-custom-pagination [items]="orders" [paginate]="paginate" (setPage)="setPage($event)">
+			</app-custom-pagination>
 			<div class="form-row container justify-content-center " *ngIf="orders.length==0">
 				<div class="col-md-5">
 					<div class="card text-center mx-auto mb-2">
@@ -90,25 +92,22 @@
 		</ng-container>
 
 		<ng-template #elseTemplate>
-			<div class="form-row container justify-content-center " *ngIf="orders.length==0 ">
+			<div class="form-row container justify-content-center ">
 				<div class="col-md-5">
 					<div class="card text-center mx-auto mb-2">
 						<div class="card-body">
-							<p *ngIf="orders.length==0 && store">
+							<p *ngIf="orders.length==0 && !store">
 								Aún no has configurado tu tienda
 								<a class="btn btn-solid-purple mt-3" [routerLink]="['/pages/account/user/admin-store']">
 									Configurar tienda
 								</a>
 							</p>
-							<p *ngIf="orders.length==0 && store">No se han realizado ventas el día de hoy</p>
-
 						</div>
 					</div>
 				</div>
 			</div>
 		</ng-template>
-		<app-custom-pagination [items]="orders" [paginate]="paginate" (setPage)="setPage($event)">
-		</app-custom-pagination>
+		
 	</div>
 </section>
 
