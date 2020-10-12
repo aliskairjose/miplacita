@@ -16,7 +16,6 @@ import { ProductService } from '../../../shared/services/product.service';
 import { ShopService } from '../../../shared/services/shop.service';
 import { ProductsComponent } from '../products.component';
 import { ModalNewElementComponent } from 'src/app/shared/components/modal-new-element/modal-new-element.component';
-import { log } from 'console';
 import { VariableProduct } from '../../../shared/classes/variable-product';
 
 @Component( {
@@ -168,7 +167,6 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
    * @description Guarda la variacion de producto!
    */
   saveVariable(): void {
-    console.log( this.variableForm.value );
 
     // this.submitted = true;
     this.updateValidators();
