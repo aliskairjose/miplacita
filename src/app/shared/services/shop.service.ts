@@ -6,6 +6,7 @@ import { map } from 'rxjs/operators';
 import { Plan } from '../classes/plan';
 import { Response, Result } from '../classes/response';
 import { ShipmentOption } from '../classes/shipment-option';
+import { User } from '../classes/user';
 
 @Injectable( {
   providedIn: 'root'
@@ -220,6 +221,21 @@ export class ShopService {
    */
   storeObserver(): Observable<Store> {
     return this.$store.asObservable();
+  }
+
+    /**
+   * @description lista de clientes de una tienda
+   * 
+   */
+  clientsList( params: string ): Observable<Result<User>> {
+    return this.http.get( `client?` + params ).pipe(
+      map( ( response: Response<User> ) => {
+        console.log(response);
+        if ( response.success ) {
+          return response.result;
+        }
+      } )
+    );
   }
 
 }
