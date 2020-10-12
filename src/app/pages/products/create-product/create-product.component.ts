@@ -168,7 +168,7 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
    */
   saveVariable(): void {
 
-    // this.submitted = true;
+    this.submitted = true;
     this.updateValidators();
 
     this.variableForm.get( 'store' ).setValue( this.store._id );
