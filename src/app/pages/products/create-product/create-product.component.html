@@ -257,8 +257,8 @@
 										</button>
 									</div>
 									<div class="tab-body" *ngIf="showForm">
-										<div class="row col-12">
-											<div class="col-12">
+										<div class="row col-12 col-lg-12">
+											<div class="col-12 col-lg-12">
 												<!-- Nombre -->
 												<div class="form-group ">
 													<div class="field-label">Nombre del producto</div>
@@ -269,7 +269,7 @@
 													</div>
 												</div>
 											</div>
-											<div class="col-12">
+											<div class="col-12 col-lg-12">
 												<!-- Descripcion -->
 												<div class="form-group">
 													<div class="field-label">Descripción</div>
@@ -281,8 +281,8 @@
 												</div>
 											</div>
 										</div>
-										<div class="row col-lg-12">
-											<div class="col-lg-3">
+										<div class="row col-12 col-lg-12">
+											<div class="col-lg-6">
 												<!-- Price -->
 												<div class="form-group ">
 													<div class="field-label">Precio del producto</div>
@@ -293,7 +293,7 @@
 												</div>
 
 											</div>
-											<div class="col-lg-3">
+											<div class="col-lg-6">
 												<!-- Tax -->
 												<div class="form-group ">
 													<div class="field-label">Itbms del producto</div>
@@ -303,7 +303,9 @@
 													</div>
 												</div>
 											</div>
-											<div class="col-lg-3">
+										</div>
+										<div class="row col-12 col-lg-12">
+											<div class="col-lg-6">
 												<!-- Status -->
 												<div class="form-group ">
 													<div class="field-label">Estado</div>
@@ -315,7 +317,7 @@
 													</select>
 												</div>
 											</div>
-											<div class="col-lg-3">
+											<div class="col-lg-6">
 												<!-- Cantidad disponible -->
 												<div class="form-group">
 													<div class="field-label">Cantidad disponible</div>
@@ -326,33 +328,33 @@
 												</div>
 											</div>
 										</div>
-										<div class="row col-lg-12">
-											<div class="col-lg-4">
+										<div class="row col-12 col-lg-12">
+											<div class="col-lg-6" *ngIf="colorChecked">
 												<!-- Color -->
 												<div class="form-group" >
 													<div class="field-label">Color</div>
 													<select formControlName="color" class="form-control" name="color"
 														(change)="variableOptionSelected($event.target.value)">
 														<option value="" selected>Seleccione un color</option>
-														<option value="addColor" [disabled]="!colorChecked">Agregar nuevo color</option>
+														<option value="addColor">Agregar nuevo color</option>
 														<hr class="p-0 m-0">
-														<option *ngFor="let color of colors" [value]="color._id" [disabled]="!colorChecked">{{color.name}}</option>
+														<option *ngFor="let color of colors" [value]="color._id">{{color.name}}</option>
 													</select>
 													<div *ngIf="submitted && v.color.errors?.required" class="invalid-feedback d-block">
 														{{ required }}
 													</div>
 												</div>
 											</div>
-											<div class="col-lg-4">
+											<div class="col-lg-6" *ngIf="sizeChecked">
 												<!-- Size -->
 												<div class="form-group">
 													<div class="field-label">Tamaño</div>
 													<select formControlName="size" class="form-control" name="color"
 														(change)="variableOptionSelected($event.target.value)">
 														<option value="" selected>Seleccione un tamaño</option>
-														<option value="addSize" [disabled]="!sizeChecked">Agregar nuevo tamaño</option>
+														<option value="addSize">Agregar nuevo tamaño</option>
 														<hr class="p-0 m-0">
-														<option *ngFor="let size of sizes" [value]="size._id" [disabled]="!sizeChecked">{{size.name}}</option>
+														<option *ngFor="let size of sizes" [value]="size._id">{{size.name}}</option>
 													</select>
 													<div *ngIf="submitted && v.size.errors?.required" class="invalid-feedback d-block">
 														{{ required }}
