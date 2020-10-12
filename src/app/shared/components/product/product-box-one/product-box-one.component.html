@@ -8,7 +8,7 @@
       <a [routerLink]="['/shop/product/', product._id]">
         <img 
           [defaultImage]="ImageSrc ? ImageSrc : 'assets/images/product/placeholder.jpg'" 
-          [lazyLoad]="product.images[0]" 
+          [lazyLoad]="product.images[0].url" 
           class="img-fluid lazy-loading" 
           alt="{{ product.name }}" />
       </a>
