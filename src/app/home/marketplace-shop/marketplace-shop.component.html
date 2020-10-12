@@ -35,10 +35,10 @@
   <!-- collection banner End -->
 
   <!-- Product slider start-->
-  <div class="title1 section-t-space">
+  <div class="title1 section-t-space" *ngIf="products.length">
     <h2 class="title-inner1">ofertas especiales</h2>
   </div>
-  <div class="container">
+  <div class="container" *ngIf="products.length">
     <div class="row">
       <div class="col-lg-6 offset-lg-3">
         <div class="product-para">
@@ -83,13 +83,13 @@
   </section>
 
   <!-- Tab product start-->
-  <div class="title1 section-t-space">
+  <div class="title1 section-t-space" *ngIf="products.length">
     <h2 class="title-inner1">PRODUCTOS MÁS VENDIDOS</h2>
     <div class="title2">
       <h4 class="text-pink-light">ofertas especiales</h4>
     </div>
   </div>
-  <section class="section-b-space p-t-0 mt-4">
+  <section class="section-b-space p-t-0 mt-4" *ngIf="products.length">
     <div class="container">
       <div class="row">
         <div class="col theme-tab">
