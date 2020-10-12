@@ -132,7 +132,6 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
   onSubmit(): void {
     this.submitted = true;
     this.productForm.value.store = this.store._id;
-
     if ( !this.productForm.value.marketplace ) {
       this.productForm.value.marketplace = false;
     }
@@ -197,11 +196,7 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   createProductVariable(): void {
-    console.log( this.variableForm.value );
-
     this.productService.addProduct( this.variableForm.value ).subscribe( response => {
-      console.log( response );
-
       this.toastrService.info( 'El producto variable se ha creado con exito' );
       this.productsComponent.reloadData();
       this.close();
@@ -246,6 +241,7 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
    * @description Crea el producto via api
    */
   private createProduct( data: Product ): void {
+
     this.clear();
     this.productService.addProduct( data ).subscribe( ( product: Product ) => {
       this.toastrService.info( 'El producto se ha creado con exito' );
@@ -419,7 +415,6 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
     this.modal2.componentInstance.option = option;
 
     this.modal2.result.then( ( item ) => {
-      console.log( item )
       // Cuando se envia la data cerrando el modal con el boton
       switch ( option ) {
         case 1:
