@@ -333,7 +333,6 @@
 													<div class="field-label">Color</div>
 													<select formControlName="color" class="form-control" name="color"
 														(change)="variableOptionSelected($event.target.value)">
-														<option value="" selected>Seleccione un color</option>
 														<option value="addColor" [disabled]="!colorChecked">Agregar nuevo color</option>
 														<hr class="p-0 m-0">
 														<option *ngFor="let color of colors" [value]="color._id" [disabled]="!colorChecked">{{color.name}}</option>
@@ -349,7 +348,6 @@
 													<div class="field-label">Tamaño</div>
 													<select formControlName="size" class="form-control" name="color"
 														(change)="variableOptionSelected($event.target.value)">
-														<option value="" selected>Seleccione un tamaño</option>
 														<option value="addSize" [disabled]="!sizeChecked">Agregar nuevo tamaño</option>
 														<hr class="p-0 m-0">
 														<option *ngFor="let size of sizes" [value]="size._id" [disabled]="!sizeChecked">{{size.name}}</option>
