@@ -163,12 +163,12 @@
 												<!-- Dias de entrega -->
 												<div class="form-group">
 													<div class="field-label">Días de entrega</div>
-													<input type="number" class="form-control" id="available" required="">
-													<!-- <div *ngIf="submitted && f.stock.errors" class="invalid-feedback d-block">
-														<div *ngIf="f.stock.errors.required"> {{ required }} </div>
-														<div *ngIf="f.stock.errors?.max"> Su plan sólo permite un máximo de 10 en su
-															inventario </div>
-													</div> -->
+													<input type="number" class="form-control" id="available" required=""
+														formControlName="deliveryDays">
+													<div *ngIf="submitted && f.deliveryDays.errors?.deliveryDays"
+														class="invalid-feedback d-block">
+														{{required}}
+													</div>
 												</div>
 											</div>
 										</div>
@@ -321,7 +321,8 @@
 												<!-- Cantidad disponible -->
 												<div class="form-group">
 													<div class="field-label">Cantidad disponible</div>
-													<input type="number" class="form-control" id="available" required="" formControlName="stock" min="1">
+													<input type="number" class="form-control" id="available" required="" formControlName="stock"
+														min="1">
 													<div *ngIf="submitted && v.stock.errors?.required" class="invalid-feedback d-block">
 														{{ required }}
 													</div>
@@ -331,7 +332,7 @@
 										<div class="row col-12 col-lg-12">
 											<div class="col-lg-6" *ngIf="colorChecked">
 												<!-- Color -->
-												<div class="form-group" >
+												<div class="form-group">
 													<div class="field-label">Color</div>
 													<select formControlName="color" class="form-control" name="color"
 														(change)="variableOptionSelected($event.target.value)">

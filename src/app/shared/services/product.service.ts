@@ -67,7 +67,6 @@ export class ProductService {
    * Id store | id product
    */
   productList( page = 1, params = '' ): Observable<Result<Product>> {
-
     return this.http.get( `products?page=${page}&${params}` ).pipe(
       map( ( response: Response<Product> ) => {
         if ( response.success ) {

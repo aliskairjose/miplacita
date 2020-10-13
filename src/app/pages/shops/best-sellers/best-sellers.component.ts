@@ -22,13 +22,7 @@ export class BestSellersComponent implements OnInit, OnChanges {
   bestSellers: Product[] = [];
   paginate: Paginate;
   role: string;
-  fechaIni = '';
-  fechaFin = '';
-  name = '';
   order = 'asc';
-  status = '';
-  modelTo: NgbDateStruct;
-  modelFrom: NgbDateStruct;
   @Input() store: Store;
 
   constructor(
@@ -37,7 +31,6 @@ export class BestSellersComponent implements OnInit, OnChanges {
     private exportDoc: ExportService,
     private ngbCalendar: NgbCalendar,
     private productService: ProductService,
-    private parseDate: CustomDateParserFormatterService,
     ) { }
 
   ngOnInit(): void {
@@ -56,7 +49,7 @@ export class BestSellersComponent implements OnInit, OnChanges {
   }
 
   private loadData( page = 1 ): void {
-    const params = `store=${this.store._id}&name=${this.name}&status=${this.status}&best=${this.order}`;
+    const params = `store=${this.store._id}&best=${this.order}`;
     this.productService.productList( page, params ).subscribe( result => {
       this.bestSellers = [ ...result.docs ];
       this.paginate = { ...result };
@@ -66,20 +59,6 @@ export class BestSellersComponent implements OnInit, OnChanges {
       }
 
     } );
-  }
-
-  filtrar(): void {
-    this.fechaIni = this.parseDate.format( this.modelFrom );
-    this.fechaFin = this.parseDate.format( this.modelTo );
-    const from = new Date( this.fechaIni );
-    const to = new Date( this.fechaFin );
-
-    if ( from > to ) {
-      this.toastr.warning( 'La fecha inicial no debe ser menor a la final' );
-      return;
-    }
-
-    this.loadData();
   }
 
   setPage( page: number ) {
