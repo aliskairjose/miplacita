@@ -4,7 +4,7 @@
         <div class="d-flex flex-column col-lg-9 col-md-9 col-sm-12 border-box">
             <div class="card form-group text-center p-4">
                 <h3 class="font-weight-bold">Monto en ventas </h3>
-                <h3><strong>8.88$</strong></h3>
+                <h3><strong>{{ amount | currency}}</strong></h3>
                 <h4>Te pagaremos el día <strong>{{ paymentDay }}</strong></h4>
             </div>
             <form [formGroup]="form" (ngSubmit)="onSubmit()" class="theme-form">
@@ -28,14 +28,14 @@
                 <!-- Acccount -->
                 <div class="form-group">
                     <div class="field-label font-weight-bold">Número de la cuenta</div>
-                    <input formControlName="account" type="text" class="form-control" id="bank-account" 
-                    mask="0000-0000" required="">
+                    <input formControlName="account" type="text" class="form-control" id="bank-account" mask="0000-0000"
+                        required="">
                     <div *ngIf="submitted && f.account.errors?.required" class="invalid-feedback d-block">
                         {{ required }}
                     </div>
                     <!-- <div *ngIf="submitted && f.account.errors?.minlength" class="invalid-feedback d-block">
                         El campo debe contener todos los dígitos
-                    </div> -->                    
+                    </div> -->
                 </div>
                 <!-- Tipo de cuenta -->
                 <div class="form-group">
