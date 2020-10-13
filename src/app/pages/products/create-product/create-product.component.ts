@@ -59,6 +59,7 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
 
   submitted: boolean;
   required = environment.errorForm.required;
+  maxStock = environment.errorForm.maxStock;
   status = 'add';
   statuses = [
     { value: 'active', text: 'Activo' },
@@ -261,6 +262,7 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
       tax: [ '', [ Validators.required ] ],
       category: [ '', [ Validators.required ] ],
       status: [ this.statusSelected, [ Validators.required ] ],
+      deliveryDays: [ '', [ Validators.required ] ],
       stock: [ '', ],
       marketplace: [ '' ],
       images: [ '' ]

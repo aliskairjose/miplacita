@@ -15,21 +15,6 @@
 								<i class="ti-close" (click)="close()"></i>
 							</div>
 						</div>
-						<!-- <div class="row justify-content-center mx-auto mb-4 tab-box">
-							<div class="col d-flex justify-content-end ">
-								<div class="tab-product" [ngClass]="{'tab-product-active': active=='product'}"
-									(click)="updateActive('product')">
-									<p>Producto principal</p>
-								</div>
-							</div>
-							<div class="col d-flex justify-content-start ">
-								<div class="tab-product" [ngClass]="{'tab-product-active': active=='variations'}"
-									(click)="updateActive('variations')">
-									<p>Variaciones</p>
-								</div>
-							</div>
-						</div> -->
-
 						<!-- Producto base -->
 						<div *ngIf="active=='product'; else variations">
 							<form class="theme-form" [formGroup]="productForm" (ngSubmit)="onSubmit()">
@@ -121,13 +106,6 @@
 												</option>
 											</select>
 										</div>
-
-										<!-- <div class="form-check">
-											<input formControlName="marketplace" class="form-check-input" type="checkbox" id="gridCheck1">
-											<label class="form-check-label" for="gridCheck1">
-												Vender este producto en Marketplace
-											</label>
-										</div> -->
 										<div class="shipping-option">
 											<div class="row mb-3">
 												<div class="option-box d-flex mx-auto py-2">
@@ -154,7 +132,7 @@
 													<div *ngIf="submitted && f.stock.errors" class="invalid-feedback d-block">
 														<div *ngIf="f.stock.errors?.required"> {{ required }} </div>
 														<div *ngIf="f.stock.errors?.max">
-															Su plan sólo permite un máximo de 10 en su inventario
+															{{ maxStock }}
 														</div>
 													</div>
 												</div>
@@ -163,12 +141,12 @@
 												<!-- Dias de entrega -->
 												<div class="form-group">
 													<div class="field-label">Días de entrega</div>
-													<input type="number" class="form-control" id="available" required="">
-													<!-- <div *ngIf="submitted && f.stock.errors" class="invalid-feedback d-block">
-														<div *ngIf="f.stock.errors.required"> {{ required }} </div>
-														<div *ngIf="f.stock.errors?.max"> Su plan sólo permite un máximo de 10 en su
-															inventario </div>
-													</div> -->
+													<input type="number" class="form-control" id="available" required=""
+														formControlName="deliveryDays" [(ngModel)]="productData.deliveryDays">
+													<div *ngIf="submitted && f.deliveryDays.errors?.required"
+														class="invalid-feedback d-block">
+														{{required}}
+													</div>
 												</div>
 											</div>
 										</div>
@@ -321,7 +299,8 @@
 												<!-- Cantidad disponible -->
 												<div class="form-group">
 													<div class="field-label">Cantidad disponible</div>
-													<input type="number" class="form-control" id="available" required="" formControlName="stock" min="1">
+													<input type="number" class="form-control" id="available" required="" formControlName="stock"
+														min="1">
 													<div *ngIf="submitted && v.stock.errors?.required" class="invalid-feedback d-block">
 														{{ required }}
 													</div>
@@ -331,7 +310,7 @@
 										<div class="row col-12 col-lg-12">
 											<div class="col-lg-6" *ngIf="colorChecked">
 												<!-- Color -->
-												<div class="form-group" >
+												<div class="form-group">
 													<div class="field-label">Color</div>
 													<select formControlName="color" class="form-control" name="color"
 														(change)="variableOptionSelected($event.target.value)">

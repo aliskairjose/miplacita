@@ -29,6 +29,8 @@ export class ProductLeftSidebarComponent implements OnInit {
   shops: Store[] = [];
   categories: Category[] = [];
   prices: any[] = [];
+  today: Date = new Date();
+  endDate: Date;
 
   @ViewChild( 'sizeChart' ) SizeChart: SizeModalComponent;
   @ViewChild( 'comments' ) comment: CommentsComponent;
@@ -45,13 +47,20 @@ export class ProductLeftSidebarComponent implements OnInit {
     private viewScroller: ViewportScroller,
     private categoryService: CategoryService,
   ) {
-
   }
-
 
   ngOnInit(): void {
     this.spinner.show();
-    forkJoin( [ this.shopService.storeList(), this.categoryService.categoryList() ] ).subscribe( ( [ shopsResult, categoriesResult ] ) => {
+    const id = this.route.snapshot.paramMap.get( 'id' );
+    const params = `product=${id}`;
+
+    forkJoin( [
+      this.shopService.storeList(),
+      this.categoryService.categoryList(),
+      this.productService.producVariable( id ),
+      this.productService.productList( 1, params ),
+    ] ).subscribe( ( [ shopsResult, categoriesResult, variationResult, productResult ] ) => {
+
       this.shops = [ ...shopsResult.docs ];
       this.categories = [ ...categoriesResult ];
       this.prices = [
@@ -59,14 +68,12 @@ export class ProductLeftSidebarComponent implements OnInit {
         { _id: 'desc', name: 'Desde el más alto' }
       ];
 
-      const id = this.route.snapshot.paramMap.get( 'id' );
-      const params = `product=${id}`;
+      this.product = { ...productResult.docs[ 0 ] };
+      this.endDate = new Date();
+      this.endDate.setDate( this.today.getDate() + parseInt( this.product.deliveryDays, 10 ) );
+      this.comment.loadReviews( this.product._id );
 
-      this.productService.productList( 1, params ).subscribe( ( result: Result<Product> ) => {
-        this.spinner.hide();
-        this.product = { ...result.docs[ 0 ] };
-        this.comment.loadReviews( this.product._id );
-      } );
+      console.log( variationResult );
     } );
 
   }
@@ -148,7 +155,7 @@ export class ProductLeftSidebarComponent implements OnInit {
   }
 
   ChangeVariants( color, product ) {
-    console.log( "variante de color" );
+    console.log( 'variante de color' );
   }
 
 }

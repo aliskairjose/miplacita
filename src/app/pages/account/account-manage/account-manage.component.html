@@ -325,7 +325,7 @@
 
 					<app-shop-suscription *ngIf="active=='admin-store' && subtab=='suscription'" [store]="selectedStore">
 					</app-shop-suscription>
-					<app-shop-withdrawal *ngIf="active=='admin-store' && subtab=='withdrawal'"></app-shop-withdrawal>
+					<app-shop-withdrawal *ngIf="active=='admin-store' && subtab=='withdrawal'" [store]="selectedStore"></app-shop-withdrawal>
 					<app-shipping-zones *ngIf="active=='admin-store' && subtab=='shipping'" [store]="selectedStore">
 					</app-shipping-zones>
 					<app-create-referrals *ngIf="active=='admin-store' && subtab=='create-referrals'"></app-create-referrals>
