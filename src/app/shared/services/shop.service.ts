@@ -211,20 +211,6 @@ export class ShopService {
   }
 
   /**
-   * @description Genera el stream de eventos usando next() para crear el evento
-   */
-  storeSubject( store: Store ): void {
-    this.$store.next( store );
-  }
-
-  /**
-   * @description Creación del observer mediante el método asObserver(), el cual sera consumido por el componente
-   */
-  storeObserver(): Observable<Store> {
-    return this.$store.asObservable();
-  }
-
-  /**
    * @description lista de clientes de una tienda
    *
    */
@@ -250,6 +236,26 @@ export class ShopService {
         }
       } )
     );
+  }
+
+  /*
+    ---------------------------------------------
+    --------------  SubjectBehaviors  -----------
+    ---------------------------------------------
+  */
+
+  /**
+   * @description Genera el stream de eventos usando next() para crear el evento
+   */
+  storeSubject( store: Store ): void {
+    this.$store.next( store );
+  }
+
+  /**
+   * @description Creación del observer mediante el método asObserver(), el cual sera consumido por el componente
+   */
+  storeObserver(): Observable<Store> {
+    return this.$store.asObservable();
   }
 
 }
