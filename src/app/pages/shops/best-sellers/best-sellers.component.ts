@@ -22,7 +22,7 @@ export class BestSellersComponent implements OnInit, OnChanges {
   bestSellers: Product[] = [];
   paginate: Paginate;
   role: string;
-  order = 'asc';
+  order = 'desc';
   @Input() store: Store;
 
   constructor(
