@@ -99,9 +99,17 @@ export class ShopDesignComponent implements OnInit, OnChanges {
     } );
   }
 
-  uploadImage( images: string[] ): void {
+  /**
+   * @description Carga la imagenes del banner
+   * @param images Banners
+   */
+  uploadBanner( images: string[] ): void {
     console.log( images );
 
+    this.images = [ ...images ];
+  }
+
+  uploadLogo( images: string[] ): void {
     this.images = [ ...images ];
   }
 

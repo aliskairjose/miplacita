@@ -1,6 +1,5 @@
 import { ToastrService } from 'ngx-toastr';
 
-import { Container } from '@angular/compiler/src/i18n/i18n_ast';
 import {
   AfterViewInit, Component, ElementRef, EventEmitter, Input, OnInit, Output, QueryList, ViewChild
   , ViewContainerRef

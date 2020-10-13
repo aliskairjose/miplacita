@@ -6,12 +6,15 @@ export const environment = {
   apiUrl: 'http://marketplace.dev.cronapis.com:3010/api/',
   standardImage: '../../../../assets/images/marketplace/images/placeholder.jpg',
   orderStatus: [ 'Por aprobar', 'aprobado', 'en proceso', 'cancelado', 'pagado', 'entregado', 'devuelto' ],
+  maxProducts: 8,
   errorForm: {
     invalidEmail: 'Email inválido.',
     required: 'Campo obligatorio.',
     invalidUrl: 'Ingere una url válida.',
     onlyLetter: 'Solo se permiten caracteres',
     matchError: 'Los campos contraseña y Repetir contraseña deben coincidir',
-    onlyDigits: 'Sólo se permiten números'
+    onlyDigits: 'Sólo se permiten números',
+    maxStock: 'Su plan sólo permite un máximo de 8 en su inventario'
+
   }
 };

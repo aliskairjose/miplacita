@@ -72,7 +72,7 @@ export class ProductsComponent implements OnChanges, AfterViewInit {
 
 
   ngAfterViewInit(): void {
-    if ( ( this.plan?.price === 0 ) && this.maxProducts >= 10 ) {
+    if ( ( this.plan?.price === 0 ) && this.maxProducts >= environment.maxProducts ) {
       alert( 'Debe cambiar de plan si quiere mas productos' );
     }
   }
