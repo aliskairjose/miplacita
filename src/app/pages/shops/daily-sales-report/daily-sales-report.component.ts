@@ -62,8 +62,9 @@ export class DailySalesReportComponent implements OnInit {
   }
 
   filtrar(): void {
-    this.fechaIni = this.parseDate.format( this.modelFrom );
-    this.fechaFin = this.parseDate.format( this.modelTo );
+    this.fechaIni = this.fechaFin = this.parseDate.format( this.modelFrom );
+    // this.fechaIni = this.parseDate.format( this.modelFrom );
+    // this.fechaFin = this.parseDate.format( this.modelTo );
     const from = new Date( this.fechaIni );
     const to = new Date( this.fechaFin );
 
@@ -109,11 +110,11 @@ export class DailySalesReportComponent implements OnInit {
   }
 
   /************************************** */
-  ExportTOExcel( ) {
-    this.exportDoc.ExportTOExcel(this.table.nativeElement,"daily-report");
+  ExportTOExcel() {
+    this.exportDoc.ExportTOExcel( this.table.nativeElement, "daily-report" );
   }
 
-  ExportTOPDF( ) {
-    this.exportDoc.ExportTOPDF('#mp-table','Ventas diarias','daily-report');
+  ExportTOPDF() {
+    this.exportDoc.ExportTOPDF( '#mp-table', 'Ventas diarias', 'daily-report' );
   }
 }
