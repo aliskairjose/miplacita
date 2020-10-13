@@ -52,6 +52,7 @@ export class ShopWithdrawalComponent implements OnInit, OnChanges {
       this.shopService.withdrawals( this.form.value, this.storeId ).subscribe( response => {
         if ( response.success ) {
           this.toastrService.info( response.message[ 0 ] );
+          this.loadDebs();
         }
         this.form.reset();
       } );
