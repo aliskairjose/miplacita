@@ -50,49 +50,63 @@
 			</form>
 		</div>
 
-		<ng-container class="table-responsive-sm mt-3" *ngIf="store || role === 'admin'; else elseTemplate">
-			<table class="table">
-				<thead>
-					<tr class="table-head text-center">
-						<th *ngFor="let field of fields" scope="col">{{field}}</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr *ngFor="let product of products">
-						<td class="text-center" *ngIf="product.images.length">
-							<div *ngFor="let image of product.images">
-								<img class="product-image" *ngIf="image.principal" [src]="image.url" />
-							</div>
-						</td>
+		<ng-container *ngIf="store || role === 'admin'; else elseTemplate">
+			<div class="table-responsive mt-3">
+				<table class="table">
+					<thead>
+						<tr class="table-head text-center">
+							<th *ngFor="let field of fields" scope="col">{{field}}</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr *ngFor="let product of products">
+							<td class="text-center" *ngIf="product.images.length">
+								<div *ngFor="let image of product.images">
+									<img class="product-image" *ngIf="image.principal" [src]="image.url" />
+								</div>
+							</td>
+	
+							<td class="text-center" *ngIf="!product.images.length">
+								<img class="product-image" [src]="standardImage" />
+							</td>
+	
+							<td>{{ product.name }}</td>
+							<td *ngIf="role==='admin' "> {{ product.store ? product.store.name : 'Sin tienda' }}</td>
+							<td>{{ product.description }}</td>
+							<td class="text-center">{{ product.price | currency }}</td>
+							<td class="text-center">{{ product.tax | currency }}</td>
+							<td class="text-center">{{ product.status }}</td>
+	
+							<td class="text-center" *ngIf="role==='merchant'">
+								<a type="button" (click)="CreateProduct.openModal(3,product)" class="btn btn-table-action">
+									<i class="fa fa-plus-circle fa-lg" style="color: Dodgerblue"></i>
+								</a>
+								<a type="button" (click)="CreateProduct.openModal(2,product)" class="btn btn-table-action">
+									<i class="fa fa-edit fa-lg" style="color: Dodgerblue"></i>
+								</a>
+								<button class="btn btn-table-action" (click)="deleteItem(product)">
+									<i class="fa fa-close fa-lg" style="color: Tomato"></i>
+								</button>
+							</td>
+							<td class="text-center" *ngIf="role==='admin'">
+								<button class="btn btn-table-action">Desactivar</button>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
 
-						<td class="text-center" *ngIf="!product.images.length">
-							<img class="product-image" [src]="standardImage" />
-						</td>
-
-						<td>{{ product.name }}</td>
-						<td *ngIf="role==='admin' "> {{ product.store ? product.store.name : 'Sin tienda' }}</td>
-						<td>{{ product.description }}</td>
-						<td class="text-center">{{ product.price | currency }}</td>
-						<td class="text-center">{{ product.tax | currency }}</td>
-						<td class="text-center">{{ product.status }}</td>
-
-						<td class="text-center" *ngIf="role==='merchant'">
-							<a type="button" (click)="CreateProduct.openModal(3,product)" class="btn btn-table-action">
-								<i class="fa fa-plus-circle fa-lg" style="color: Dodgerblue"></i>
-							</a>
-							<a type="button" (click)="CreateProduct.openModal(2,product)" class="btn btn-table-action">
-								<i class="fa fa-edit fa-lg" style="color: Dodgerblue"></i>
-							</a>
-							<button class="btn btn-table-action" (click)="deleteItem(product)">
-								<i class="fa fa-close fa-lg" style="color: Tomato"></i>
-							</button>
-						</td>
-						<td class="text-center" *ngIf="role==='admin'">
-							<button class="btn btn-table-action">Desactivar</button>
-						</td>
-					</tr>
-				</tbody>
-			</table>
+			<app-custom-pagination [items]="products" [paginate]="paginate" (setPage)="setPage($event)">
+			</app-custom-pagination>
+			<div class="form-row container justify-content-center " *ngIf="products.length==0">
+				<div class="col-md-5">
+					<div class="card text-center mx-auto mb-2">
+						<div class="card-body">
+							<p>No hay productos</p>
+						</div>
+					</div>
+				</div>
+			</div>
 		</ng-container>
 		<ng-template #elseTemplate>
 			<div class="form-row container justify-content-center " *ngIf="products.length==0 ">
@@ -105,16 +119,11 @@
 									Configurar tienda
 								</a>
 							</p>
-							<p *ngIf="products.length==0 && store">
-								Aún no has agregado productos a tu tienda
-							</p>
 						</div>
 					</div>
 				</div>
 			</div>
 		</ng-template>
-		<app-custom-pagination [items]="products" [paginate]="paginate" (setPage)="setPage($event)">
-		</app-custom-pagination>
 	</div>
 </section>
 <app-create-product #createProduct *ngIf="role === 'merchant'" [store]="store"></app-create-product>

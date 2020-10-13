@@ -30,7 +30,7 @@ export class AddressComponent implements OnInit {
     types: [],
     componentRestrictions: { country: 'PA' }
   };
-  isProfile = false;
+  public isProfile = false;
   private _addressExist = false;
   private geoCoder;
   private _saveAddress: boolean;

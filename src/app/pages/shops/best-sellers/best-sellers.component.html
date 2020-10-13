@@ -57,21 +57,24 @@
 		</form>
 
 		<!-- Data de usuario -->
-		<ng-container class="table-responsive-sm mt-3" *ngIf="store ; else elseTemplate">
-			<table class="table cart-table table-responsive-xs" id="mp-table" #TABLE>
-				<thead>
-					<tr class="table-head text-center">
-						<th *ngFor="let field of fields" scope="col">{{field}}</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr *ngFor="let seller of bestSellers">
-						<td class="text-center"></td>
-						<td class="text-center"></td>
-						<td class="text-center"></td>
-					</tr>
-				</tbody>
-			</table>
+		<ng-container  *ngIf="store ; else elseTemplate">
+			<div class="table-responsive mt-3">
+				<table class="table cart-table table-responsive-xs" id="mp-table" #TABLE>
+					<thead>
+						<tr class="table-head text-center">
+							<th *ngFor="let field of fields" scope="col">{{field}}</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr *ngFor="let seller of bestSellers">
+							<td class="text-center">{{ seller._id }}</td>
+							<td class="text-center">{{ seller.name }}</td>
+							<td class="text-center">{{ seller.quantitySold }}</td>
+						</tr>
+					</tbody>
+				</table>
+				
+			</div>
 			<app-custom-pagination [items]="bestSellers" [paginate]="paginate" (setPage)="setPage($event)">
 			</app-custom-pagination>
 			<div class="form-row container justify-content-center " *ngIf="bestSellers.length==0">

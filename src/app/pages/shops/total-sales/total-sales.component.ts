@@ -8,6 +8,7 @@ import { OrderDetailsComponent } from 'src/app/shared/custom-components/order-de
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { OrderService } from 'src/app/shared/services/order.service';
 import { ExportService } from 'src/app/shared/services/export.service';
+import { ShopService } from 'src/app/shared/services/shop.service';
 
 @Component({
   selector: 'app-total-sales',
@@ -18,8 +19,8 @@ export class TotalSalesComponent implements OnInit {
   @ViewChild( 'orderDetails' ) OrderDetails: OrderDetailsComponent;
   @ViewChild( 'TABLE', { read: ElementRef } ) table: ElementRef;
 
-  fields = ['Número de orden', 'Monto','Cliente','Estado', ''];
-  sales = []
+  fields = ['Fecha', 'Cantidades ordenadas','Total de ventas'];
+  sales :any = []
   paginate: Paginate;
   role: string;
   fechaIni = '';
@@ -30,6 +31,7 @@ export class TotalSalesComponent implements OnInit {
   constructor(
     private auth: AuthService,
     private ngbCalendar: NgbCalendar,
+    private shopService: ShopService,
     private exportDoc: ExportService) { }
 
   ngOnInit(): void {
@@ -47,7 +49,17 @@ export class TotalSalesComponent implements OnInit {
   }
   
   private loadData( page = 1 ): void {
-    //conexion con api
+    const params = `store=${this.store._id}&from=${this.fechaIni}&to=${this.fechaFin}`;
+
+    this.shopService.totalSales( params ).subscribe( result => {
+      this.sales = result;
+      this.paginate = { ...result };
+      this.paginate.pages = [];
+      for ( let i = 1; i <= this.paginate.totalPages; i++ ) {
+        this.paginate.pages.push( i );
+      }
+
+    } );
   }
 
 

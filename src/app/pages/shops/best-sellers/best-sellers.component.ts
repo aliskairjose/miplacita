@@ -5,6 +5,7 @@ import { AuthService } from 'src/app/shared/services/auth.service';
 import { Store } from 'src/app/shared/classes/store';
 import { Product } from 'src/app/shared/classes/product';
 import { ExportService } from 'src/app/shared/services/export.service';
+import { ProductService } from 'src/app/shared/services/product.service';
 
 @Component({
   selector: 'app-best-sellers',
@@ -15,18 +16,22 @@ export class BestSellersComponent implements OnInit {
   @ViewChild( 'TABLE', { read: ElementRef } ) table: ElementRef;
 
 
-  fields = ['ID del Producto', 'Nombre del Producto','Cantidad'];
+  fields = ['ID del Producto', 'Nombre del Producto','Cantidad Vendida'];
   bestSellers: Product[]= []
   paginate: Paginate;
   role: string;
   fechaIni = '';
   fechaFin = '';
+  name = '';
+  order = 'asc';
+  status = '';
   modelTo: NgbDateStruct;
   modelFrom: NgbDateStruct;
   @Input() store: Store;
   constructor(
     private auth: AuthService,
     private ngbCalendar: NgbCalendar,
+    private productService: ProductService,
     private exportDoc: ExportService) { }
 
   ngOnInit(): void {
@@ -44,7 +49,18 @@ export class BestSellersComponent implements OnInit {
   }
   
   private loadData( page = 1 ): void {
-    //conexion con api
+    const params = `store=${this.store._id}&name=${this.name}&status=${this.status}&best=${this.order}`;
+
+
+    this.productService.productList( page, params ).subscribe( result => {
+      this.bestSellers = [ ...result.docs ];
+      this.paginate = { ...result };
+      this.paginate.pages = [];
+      for ( let i = 1; i <= this.paginate.totalPages; i++ ) {
+        this.paginate.pages.push( i );
+      }
+
+    } );
   }
 
 

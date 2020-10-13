@@ -57,27 +57,30 @@
 		</form>
 
 		<!-- Data de usuario -->
-		<ng-container class="table-responsive-sm mt-3" *ngIf="store; else elseTemplate">
-			<table class="table cart-table table-responsive-xs" id="mp-table" #TABLE>
-				<thead>
-					<tr class="table-head text-center">
-						<th *ngFor="let field of fields" scope="col">{{field}}</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr *ngFor="let order of orders">
-						<td class="text-center">{{order._id}}</td>
-						<td class="text-center">{{ order.amount | currency }}</td>
-						<td class="text-center">{{ order.user.fullname }}</td>
-						<td class="text-center text-capitalize">{{order.status }}</td>
-						<td class="text-center">
-							<a (click)="OrderDetails.openModal(order)" class="btn btn-table-action">
-								<i class="fa fa-search fa-lg" style="color: Dodgerblue"></i>
-							</a>
-						</td>
-					</tr>
-				</tbody>
-			</table>
+		<ng-container  *ngIf="store; else elseTemplate">
+			<div class="table-responsive-sm mt-3">
+				<table class="table cart-table table-responsive-xs" id="mp-table" #TABLE>
+					<thead>
+						<tr class="table-head text-center">
+							<th *ngFor="let field of fields" scope="col">{{field}}</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr *ngFor="let order of orders">
+							<td class="text-center">{{order._id}}</td>
+							<td class="text-center">{{ order.amount | currency }}</td>
+							<td class="text-center">{{ order.user.fullname }}</td>
+							<td class="text-center text-capitalize">{{order.status }}</td>
+							<td class="text-center">
+								<a (click)="OrderDetails.openModal(order)" class="btn btn-table-action">
+									<i class="fa fa-search fa-lg" style="color: Dodgerblue"></i>
+								</a>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			
 			<app-custom-pagination [items]="orders" [paginate]="paginate" (setPage)="setPage($event)">
 			</app-custom-pagination>
 			<div class="form-row container justify-content-center " *ngIf="orders.length==0">
