@@ -244,7 +244,7 @@ export class ShopService {
    * @param params Fecha inicio, fecha fin
    */
   getDebts( id: string, params = '' ): Observable<any> {
-    return this.http.get( `api/debts/${id}` );
+    return this.http.get( `api/debts/${id}?${params}` );
   }
 
   /*
