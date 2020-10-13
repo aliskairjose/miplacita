@@ -5,7 +5,7 @@ import { User } from '../../../shared/classes/user';
 import { DashboardService } from '../../../shared/services/dashboard.service';
 import { Dashboard } from '../../../shared/classes/dashboard';
 import { ToastrService } from 'ngx-toastr';
-import { ChartType, ChartDataSets } from 'chart.js';
+import { ChartType, ChartDataSets, ChartData } from 'chart.js';
 import { SingleDataSet, Color, Label } from 'ng2-charts';
 import { Store } from '../../../shared/classes/store';
 import { OrderService } from 'src/app/shared/services/order.service';
@@ -17,6 +17,8 @@ import { CustomDateParserFormatterService } from 'src/app/shared/adapter/custom-
   styleUrls: [ './dashboard.component.scss' ]
 } )
 export class DashboardComponent implements OnInit {
+
+  months = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul','Ago', 'Sept','Oct','Nov','Dic'];
   openDashboard = false;
   dashboardData: Dashboard = new Dashboard();
 
@@ -29,7 +31,6 @@ export class DashboardComponent implements OnInit {
   shops = [];
   orders = [];
   /** Google Chart information */
-  barChartColumns = [ 'Mayo', 'Junio', 'Julio', 'Agosto' ];
   barChartOptions = {
     scaleShowVerticalLines: false,
     responsive: true,
@@ -38,8 +39,8 @@ export class DashboardComponent implements OnInit {
   barChartColors: Color[] = [ { backgroundColor: '#68396d' } ];
   barChartLabels: Label[] = [];
   barChartType: ChartType = 'bar';
-
   barChartData: ChartDataSets[] = [];
+
   doughnutChartLabels: Label[] = [];
   doughnutChartData: SingleDataSet = [];
   doughnutChartType: ChartType = 'doughnut';
@@ -89,11 +90,45 @@ export class DashboardComponent implements OnInit {
       console.log("->>",data);
       this.dashboardData = data.dashboard;
       if(this.dashboardData.sold_products.length>0){
-        this.dashboardData.sold_products.map((elemt:any) => {
-          this.doughnutChartLabels.push(elemt.name);
-          this.doughnutChartData.push(elemt.quantitySold);
+        if(this.dashboardData.sold_products.length > 3){
+          this.dashboardData.sold_products.sort(function (a:any, b:any) {
+            if (a.quantitySold < b.quantitySold) {
+              return 1;
+            }
+            if (a.quantitySold > b.quantitySold) {
+              return -1;
+            }
+            // a must be equal to b
+            return 0;
+          });
+          console.log(this.dashboardData.sold_products);
+          for(let i= 0;i< 3;i++ ){
+            
+            let element: any = this.dashboardData.sold_products[i];
+            if(element.quantitySold>0){
+              this.doughnutChartLabels.push(element.name);
+              this.doughnutChartData.push(element.quantitySold);
+            }
+          }
+        } else {
+          this.dashboardData.sold_products.map((element:any) => {
+            this.doughnutChartLabels.push(element.name);
+            this.doughnutChartData.push(10);
+          })
+        }
+        
+        
+      }
+      let barTemporal = [];
+      if(this.dashboardData.month_orders.length > 0){
+        this.dashboardData.month_orders.map((elemt:any) => {
+          let month = this.months[+elemt._id.month - 1];
+          this.barChartLabels.push(month + ' ' + elemt._id.year);
+          barTemporal.push(elemt.total);
         })
       }
+      this.barChartData.push({data: barTemporal});
+
     });
   }
 
@@ -115,7 +150,7 @@ export class DashboardComponent implements OnInit {
   }
 
   setPage( page: number ) {
-    //this.loadData( page );
+    this.loadData( page );
   }
 
   private loadData( page = 1 ): void {
