@@ -261,6 +261,7 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
       tax: [ '', [ Validators.required ] ],
       category: [ '', [ Validators.required ] ],
       status: [ this.statusSelected, [ Validators.required ] ],
+      deliveryDays: [ '', [ Validators.required ] ],
       stock: [ '', ],
       marketplace: [ '' ],
       images: [ '' ]
@@ -279,7 +280,6 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
       category: [ '', [ Validators.required ] ],
       status: [ this.statusSelected, [ Validators.required ] ],
       stock: [ '', [ Validators.required ] ],
-      deliveryDays: [ '', [ Validators.required ] ],
       images: [ '' ],
     } );
   }
