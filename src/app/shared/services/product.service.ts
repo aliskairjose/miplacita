@@ -77,6 +77,18 @@ export class ProductService {
   }
 
   /**
+   * @description Obtiene la data del producto variable
+   * @param id Id del producto base
+   */
+  producVariable( id: string ): Observable<any> {
+    return this.http.get( `products/${id}/variable` ).pipe(
+      map( response => {
+        if ( response.success ) { return response.result; }
+      } )
+    );
+  }
+
+  /**
    * @description Eliminado de producto por Id
    * @param id Id del producto a eliminar
    */
@@ -106,7 +118,7 @@ export class ProductService {
 
   /*
       ---------------------------------------------
-      ---------------  Photod  --------------------
+      ---------------  Photos  --------------------
       ---------------------------------------------
   */
   /**
