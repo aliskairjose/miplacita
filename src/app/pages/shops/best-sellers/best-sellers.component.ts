@@ -1,13 +1,10 @@
 import { Component, OnInit, Input, SimpleChanges, ViewChild, ElementRef, OnChanges } from '@angular/core';
 import { Paginate } from 'src/app/shared/classes/paginate';
-import { NgbDateStruct, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { Store } from 'src/app/shared/classes/store';
 import { Product } from 'src/app/shared/classes/product';
 import { ExportService } from 'src/app/shared/services/export.service';
 import { ProductService } from 'src/app/shared/services/product.service';
-import { CustomDateParserFormatterService } from '../../../shared/adapter/custom-date-parser-formatter.service';
-import { ToastrService } from 'ngx-toastr';
 
 @Component( {
   selector: 'app-best-sellers',
