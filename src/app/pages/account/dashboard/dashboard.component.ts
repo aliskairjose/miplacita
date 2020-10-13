@@ -62,6 +62,9 @@ export class DashboardComponent implements OnInit {
     private parseDate: CustomDateParserFormatterService
 
   ) {
+    this.dashboardData.month_orders = [];
+    this.dashboardData.sold_products = [];
+    
     this.role = this.auth.getUserRol();
     this.user = this.auth.getUserActive();
   }
@@ -78,10 +81,20 @@ export class DashboardComponent implements OnInit {
     this.loadData();
   }
   getLabelsInformation() {
-    this.dashboardService.dashboard().subscribe( ( data: any ) => {
-      console.log(data);
-      this.dashboardData = data.result;
-    } );
+      let params = ''
+      params = `store=${this.store._id}`;
+
+
+    this.dashboardService.dashboard_store(params).subscribe( ( data: any ) => {
+      console.log("->>",data);
+      this.dashboardData = data.dashboard;
+      if(this.dashboardData.sold_products.length>0){
+        this.dashboardData.sold_products.map((elemt:any) => {
+          this.doughnutChartLabels.push(elemt.name);
+          this.doughnutChartData.push(elemt.quantitySold);
+        })
+      }
+    });
   }
 
   getChartInformation() {
@@ -102,7 +115,7 @@ export class DashboardComponent implements OnInit {
   }
 
   setPage( page: number ) {
-    this.loadData( page );
+    //this.loadData( page );
   }
 
   private loadData( page = 1 ): void {
@@ -110,23 +123,24 @@ export class DashboardComponent implements OnInit {
    
     // const params = `store=${this.store._id}&status=${this.status}&from=${this.fechaIni}&to=${this.fechaFin}`;
     if ( this.role === 'merchant' ) {
-      params = `store=${this.store._id}&status=&from=&to=`;
+      params = `store=${this.store._id}`;
+
     }
 
     if ( this.role === 'admin' ) {
       params = `status=&from=&to=`;
     }
+    
 
     this.orderService.orderList( page, params ).subscribe( result => {
-      console.log(result);
       this.orders = [ ...result.docs ];
-      console.log(this.orders);
       this.paginate = { ...result };
       this.paginate.pages = [];
       for ( let i = 1; i <= this.paginate.totalPages; i++ ) {
         this.paginate.pages.push( i );
       }
     } );
+
   }
 
 }

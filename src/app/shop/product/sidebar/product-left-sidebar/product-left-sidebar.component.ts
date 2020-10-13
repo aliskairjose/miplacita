@@ -65,9 +65,6 @@ export class ProductLeftSidebarComponent implements OnInit {
       this.productService.productList( 1, params ).subscribe( ( result: Result<Product> ) => {
         this.spinner.hide();
         this.product = { ...result.docs[ 0 ] };
-        console.log("-->",this.product);
-        this.product[ 'colors' ] = [ '#ff5733', '#ff5733' ];
-        this.product[ 'delivery' ] = '26-Sept 29-Sept';
         this.comment.loadReviews( this.product._id );
       } );
     } );
