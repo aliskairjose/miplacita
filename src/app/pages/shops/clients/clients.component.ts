@@ -46,7 +46,6 @@ export class ClientsComponent implements OnInit, OnChanges {
     const params = `store=${this.store._id}`;
 
     this.shopService.clientsList( params ).subscribe( result => {
-      console.log( result );
       this.clients = result;
       this.paginate = { ...result };
       this.paginate.pages = [];
