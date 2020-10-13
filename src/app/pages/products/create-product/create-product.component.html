@@ -142,7 +142,7 @@
 												<div class="form-group">
 													<div class="field-label">Días de entrega</div>
 													<input type="number" class="form-control" id="available" required=""
-														formControlName="deliveryDays">
+														formControlName="deliveryDays" [(ngModel)]="productData.deliveryDays">
 													<div *ngIf="submitted && f.deliveryDays.errors?.required"
 														class="invalid-feedback d-block">
 														{{required}}

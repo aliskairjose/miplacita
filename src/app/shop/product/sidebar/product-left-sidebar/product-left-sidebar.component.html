@@ -67,7 +67,6 @@
                     <img class="w-100 col-4" *ngFor="let image of product?.images" alt="" [src]="image.url">
                     <img class="w-100 col-4" *ngFor="let image of product?.images" alt="" [src]="image.url">
                     <img class="w-100 col-4" *ngFor="let image of product?.images" alt="" [src]="image.url">
-                  
                   </div>
                 </div>
               </div>
@@ -81,7 +80,7 @@
                   <div class="product-description">
                     <div class="my-3 justify-content-mobile-first" >
                         <p class="font-weight-bold">
-                          Entrega del producto: {{ product?.description}}
+                          Entrega del producto: {{ today | date }} - {{ endDate | date }}
                         </p>
                     </div>
                     <div *ngIf="product?.colors">

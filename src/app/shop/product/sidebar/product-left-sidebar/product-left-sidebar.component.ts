@@ -29,6 +29,8 @@ export class ProductLeftSidebarComponent implements OnInit {
   shops: Store[] = [];
   categories: Category[] = [];
   prices: any[] = [];
+  today: Date = new Date();
+  endDate: Date;
 
   @ViewChild( 'sizeChart' ) SizeChart: SizeModalComponent;
   @ViewChild( 'comments' ) comment: CommentsComponent;
@@ -45,9 +47,7 @@ export class ProductLeftSidebarComponent implements OnInit {
     private viewScroller: ViewportScroller,
     private categoryService: CategoryService,
   ) {
-
   }
-
 
   ngOnInit(): void {
     this.spinner.show();
@@ -65,9 +65,12 @@ export class ProductLeftSidebarComponent implements OnInit {
       this.productService.productList( 1, params ).subscribe( ( result: Result<Product> ) => {
         this.spinner.hide();
         this.product = { ...result.docs[ 0 ] };
-        console.log("-->",this.product);
-        this.product[ 'colors' ] = [ '#ff5733', '#ff5733' ];
-        this.product[ 'delivery' ] = '26-Sept 29-Sept';
+        // this.product[ 'colors' ] = [ '#ff5733', '#ff5733' ];
+
+        // Estableve el tiempo de entrega
+        this.endDate = new Date();
+        this.endDate.setDate( this.today.getDate() + parseInt( this.product.deliveryDays, 10 ) );
+
         this.comment.loadReviews( this.product._id );
       } );
     } );
@@ -151,7 +154,7 @@ export class ProductLeftSidebarComponent implements OnInit {
   }
 
   ChangeVariants( color, product ) {
-    console.log( "variante de color" );
+    console.log( 'variante de color' );
   }
 
 }
