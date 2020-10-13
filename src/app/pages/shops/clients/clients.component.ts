@@ -6,6 +6,7 @@ import { Paginate } from 'src/app/shared/classes/paginate';
 import { User } from 'src/app/shared/classes/user';
 import { InterestsComponent } from '../../interests/interests.component';
 import { ExportService } from 'src/app/shared/services/export.service';
+import { ShopService } from 'src/app/shared/services/shop.service';
 
 @Component({
   selector: 'app-clients',
@@ -17,11 +18,7 @@ export class ClientsComponent implements OnInit {
   @ViewChild( 'TABLE', { read: ElementRef } ) table: ElementRef;
 
   fields = ['Cliente', 'Email','Número de compras', ''];
-  clients: User[] = [ {  _id : "string",
-    avatar: "string",
-    fullname: "string",
-    email: "string",    role: "string",
-    }]
+  clients: any = [];
   paginate: Paginate;
   role: string;
   
@@ -29,6 +26,7 @@ export class ClientsComponent implements OnInit {
   constructor(
     private auth: AuthService,
     private orderService: OrderService,
+    private shopService: ShopService,
     private exportDoc: ExportService) { }
 
   ngOnInit(): void {
@@ -45,7 +43,19 @@ export class ClientsComponent implements OnInit {
   
   private loadData( page = 1 ): void {
 
-  // conexion de api
+    const params = `store=${this.store._id}`;
+
+    this.shopService.clientsList(params ).subscribe( result => {
+      console.log("result",result);
+      
+        this.clients = result;
+        console.log(this.clients);
+        this.paginate = { ...result };
+        this.paginate.pages = [];
+        for ( let i = 1; i <= this.paginate.totalPages; i++ ) {
+          this.paginate.pages.push( i );
+        }
+    } );
   }
 
 

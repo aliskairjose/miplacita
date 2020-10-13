@@ -10,7 +10,7 @@
                         </button>
                         <div class="media">
                             <a [routerLink]="['/shop/product/left/sidebar/', product.name.replace(' ', '-')]">
-                                <img class="img-fluid pro-img" [src]="product.image[0]" [alt]="product.name">
+                                <img class="img-fluid pro-img" [src]="product.images[0].url" [alt]="product.name">
                             </a>
                             <div class="media-body align-self-center text-center">
                                 <a [routerLink]="['/shop/product/left/sidebar/', product.name.replace(' ', '-')]">

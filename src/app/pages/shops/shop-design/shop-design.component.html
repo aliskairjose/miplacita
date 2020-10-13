@@ -14,7 +14,7 @@
           <div class="form-row mb-3">
             <label class="label mr-2 my-auto"><strong>Tipografía y Color</strong> </label>
           </div>
-          <div class="row border-box">
+          <div class="form-row border-box mx-2">
             <!-- Tipografía -->
             <div class="col-sm-12 col-lg-6">
               <div class="border-box my-3" id="item" *ngFor="let font of fonts">
@@ -34,6 +34,10 @@
                 <div class="color" [style.background]="color"></div>
               </div>
             </div>
+          </div>
+          <div class="form-row d-flex flex-column mb-3" >
+            <label class="label mr-2 my-auto"><strong>Editar logo</strong> </label>
+            <app-upload-image multiple="true" (uploadImage)="uploadImage($event)"></app-upload-image>
           </div>
         </div>
       </div>

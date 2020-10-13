@@ -11,6 +11,7 @@ import { User } from '../../classes/user';
 import { PaymentComponent } from '../../components/payment/payment.component';
 import { ProductService } from '../../services/product.service';
 import { ShopService } from '../../services/shop.service';
+import { Product, Images } from '../../classes/product';
 
 @Component( {
   selector: 'app-register-store',
@@ -125,8 +126,17 @@ export class RegisterStoreComponent implements OnInit, OnChanges {
         return;
       }
       this.productService.uploadImages( { images: this.images } ).subscribe( result => {
+
         if ( result.status === 'isOk' ) {
-          this.productForm.value.image = result.images[ 0 ];
+          const data: Product = { ...this.productForm.value };
+          data.images = [];
+          result.images.forEach( ( url: string, index ) => {
+            const image: Images = {};
+            image.url = url;
+            ( index > 0 ) ? image.principal = false : image.principal = true;
+            data.images.push( image );
+          } );
+          this.productForm.value.image = data.images;
           this.createProduct();
         }
       } );
@@ -205,7 +215,6 @@ export class RegisterStoreComponent implements OnInit, OnChanges {
       } else {
         this.step = 2;
         sessionStorage.setItem( 'registerStore', JSON.stringify( this.store ) );
-  
       }
     } );
   }

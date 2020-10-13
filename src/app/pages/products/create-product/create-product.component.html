@@ -95,7 +95,7 @@
 													<hr>
 													<div>
 														<button type="button" class="drop-button" *ngFor="let subcategory of subcategories"
-															[value]="subcategory._id" (click)="selectSubcategory(subcategory)"  ngbDropdownItem>
+															[value]="subcategory._id" (click)="selectSubcategory(subcategory)" ngbDropdownItem>
 															{{subcategory.value}}
 														</button>
 													</div>
@@ -150,7 +150,7 @@
 												<div class="form-group">
 													<div class="field-label">Cantidad disponible</div>
 													<input formControlName="stock" type="number" class="form-control" id="available" required=""
-														[(ngModel)]="productData.stock">
+														[(ngModel)]="productData.stock" min="1">
 													<div *ngIf="submitted && f.stock.errors" class="invalid-feedback d-block">
 														<div *ngIf="f.stock.errors?.required"> {{ required }} </div>
 														<div *ngIf="f.stock.errors?.max">
@@ -257,8 +257,32 @@
 										</button>
 									</div>
 									<div class="tab-body" *ngIf="showForm">
-										<div class="row col-lg-12">
-											<div class="col-lg-3">
+										<div class="row col-12 col-lg-12">
+											<div class="col-12 col-lg-12">
+												<!-- Nombre -->
+												<div class="form-group ">
+													<div class="field-label">Nombre del producto</div>
+													<input formControlName="name" type="text" class="form-control" id="nameVariable"
+														(blur)="validateName()">
+													<div *ngIf="submitted && v.name.errors?.required" class="invalid-feedback d-block">
+														{{ required }}
+													</div>
+												</div>
+											</div>
+											<div class="col-12 col-lg-12">
+												<!-- Descripcion -->
+												<div class="form-group">
+													<div class="field-label">Descripción</div>
+													<textarea formControlName="description" type="text" class="form-control"
+														id="exampleFormControlTextarea00" placeholder="Descripción" required=""></textarea>
+													<div *ngIf="submitted && v.description.errors?.required" class="invalid-feedback d-block">
+														{{ required }}
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="row col-12 col-lg-12">
+											<div class="col-lg-6">
 												<!-- Price -->
 												<div class="form-group ">
 													<div class="field-label">Precio del producto</div>
@@ -269,7 +293,7 @@
 												</div>
 
 											</div>
-											<div class="col-lg-3">
+											<div class="col-lg-6">
 												<!-- Tax -->
 												<div class="form-group ">
 													<div class="field-label">Itbms del producto</div>
@@ -279,76 +303,59 @@
 													</div>
 												</div>
 											</div>
-											<div class="col-lg-3">
+										</div>
+										<div class="row col-12 col-lg-12">
+											<div class="col-lg-6">
 												<!-- Status -->
 												<div class="form-group ">
 													<div class="field-label">Estado</div>
-													<select class="form-control" name="status">
+													<select formControlName="status" class="form-control" name="status"
+														[(ngModel)]="statusSelected">
 														<option *ngFor="let status of statuses" [value]="status.value">
 															{{status.text}}
 														</option>
 													</select>
 												</div>
 											</div>
-											<div class="col-lg-3">
+											<div class="col-lg-6">
 												<!-- Cantidad disponible -->
 												<div class="form-group">
 													<div class="field-label">Cantidad disponible</div>
-													<input type="number" class="form-control" id="available" required="">
+													<input type="number" class="form-control" id="available" required="" formControlName="stock" min="1">
 													<div *ngIf="submitted && v.stock.errors?.required" class="invalid-feedback d-block">
 														{{ required }}
 													</div>
 												</div>
 											</div>
 										</div>
-										<div class="row col-lg-12">
-											<div class="col-lg-3">
+										<div class="row col-12 col-lg-12">
+											<div class="col-lg-6" *ngIf="colorChecked">
 												<!-- Color -->
-												<div class="form-group" *ngIf="colorChecked">
+												<div class="form-group" >
 													<div class="field-label">Color</div>
-													<div ngbDropdown>
-														<button type="button" class="form-control" id="select-btn" ngbDropdownToggle> 
-															{{ selectedColor.name ? selectedColor.name : 'Selecciona un tamaño' }}
-														</button>
-														<div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-															<button type="button" class="drop-button" (click)="openModalNewElement(3)" ngbDropdownItem>
-																Agregar nuevo color
-															</button>
-															<hr>
-															<div *ngIf="colors.length">
-																<button type="button" class="drop-button" *ngFor="let color of colors"
-																	[value]="color._id" (click)="selectVariable(color, 'color')" ngbDropdownItem>
-																	{{color.name}}
-																</button>
-															</div>
-														</div>
-													</div>
+													<select formControlName="color" class="form-control" name="color"
+														(change)="variableOptionSelected($event.target.value)">
+														<option value="" selected>Seleccione un color</option>
+														<option value="addColor">Agregar nuevo color</option>
+														<hr class="p-0 m-0">
+														<option *ngFor="let color of colors" [value]="color._id">{{color.name}}</option>
+													</select>
 													<div *ngIf="submitted && v.color.errors?.required" class="invalid-feedback d-block">
 														{{ required }}
 													</div>
 												</div>
 											</div>
-											<div class="col-lg-4">
+											<div class="col-lg-6" *ngIf="sizeChecked">
 												<!-- Size -->
-												<div class="form-group" *ngIf="sizeChecked">
+												<div class="form-group">
 													<div class="field-label">Tamaño</div>
-													<div ngbDropdown>
-														<button class="form-control" id="select-btn" ngbDropdownToggle>																
-															{{ selectedSize.name ? selectedSize.name : 'Selecciona un tamaño' }}
-														</button>
-														<div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-															<button type="button" class="drop-button" (click)="openModalNewElement(1)" ngbDropdownItem>
-																Agregar nuevo tamaño
-															</button>
-															<hr>
-															<div *ngIf="sizes.length">
-																<button type="button" class="drop-button" (click)="selectVariable(size, 'size')"
-																	*ngFor="let size of sizes" [value]="size._id" ngbDropdownItem>
-																	{{size.name}}
-																</button>
-															</div>
-														</div>
-													</div>
+													<select formControlName="size" class="form-control" name="color"
+														(change)="variableOptionSelected($event.target.value)">
+														<option value="" selected>Seleccione un tamaño</option>
+														<option value="addSize">Agregar nuevo tamaño</option>
+														<hr class="p-0 m-0">
+														<option *ngFor="let size of sizes" [value]="size._id">{{size.name}}</option>
+													</select>
 													<div *ngIf="submitted && v.size.errors?.required" class="invalid-feedback d-block">
 														{{ required }}
 													</div>
@@ -358,9 +365,6 @@
 										<app-upload-image [multiple]="true" (uploadImage)="upload($event)" style="width: 100%;">
 										</app-upload-image>
 										<div class="save text-center p-3">
-											<!-- <button class="btn btn-solid-purple mr-3" type="button" (click)="back()">
-												Atrás
-											</button> -->
 											<button class="btn btn-solid-purple" type="button" (click)="saveVariable()">
 												Guardar Producto
 											</button>

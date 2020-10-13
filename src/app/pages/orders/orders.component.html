@@ -57,36 +57,49 @@
 		</form>
 
 		<!-- Data de usuario -->
-		<ng-container class="table-responsive-sm mt-3" *ngIf="store || role === 'admin'; else elseTemplate">
-			<table class="table cart-table table-responsive-xs">
-				<thead>
-					<tr class="table-head text-center">
-						<th *ngFor="let field of fields" scope="col">{{field}}</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr *ngFor="let order of orders">
-						<td class="text-center">{{order.user.fullname}}</td>
-						<td *ngIf="role === 'admin' " class="text-center">{{order.store.name}}</td>
-						<td>
-							<div class="d-flex justify-content-center flex-wrap" *ngFor="let item of order.items">
-								{{ item.product_name }}
-							</div>
-						</td>
-						<td class="text-center">{{ order.amount | currency }}</td>
-						<td class="text-center">{{ order.created_at | date }}</td>
-						<td class="text-center">{{ order.shipment_option.name }}</td>
-						<td class="text-center text-capitalize">{{order.status }}</td>
-						<td class="text-center">
-							<!-- <button class="btn btn-table-action" (click)="OrderDetails.openModal(order)">Editar</button> -->
-							<a (click)="OrderDetails.openModal(order)" class="btn btn-table-action">
-								<i class="fa fa-edit fa-lg" style="color: Dodgerblue"></i>
-							</a>
-						</td>
-					</tr>
-				</tbody>
-			</table>
-
+		<ng-container *ngIf="store || role === 'admin'; else elseTemplate">
+			<div class="table-responsive mt-3" >
+				<table class="table cart-table table-responsive-xs">
+					<thead>
+						<tr class="table-head text-center">
+							<th *ngFor="let field of fields" scope="col">{{field}}</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr *ngFor="let order of orders">
+							<td class="text-center">{{order.user.fullname}}</td>
+							<td *ngIf="role === 'admin' " class="text-center">{{order.store.name}}</td>
+							<td>
+								<div class="d-flex justify-content-center flex-wrap" *ngFor="let item of order.items">
+									{{ item.product_name }}
+								</div>
+							</td>
+							<td class="text-center">{{ order.amount | currency }}</td>
+							<td class="text-center">{{ order.created_at | date }}</td>
+							<td class="text-center">{{ order.shipment_option.name }}</td>
+							<td class="text-center text-capitalize">{{order.status }}</td>
+							<td class="text-center">
+								<!-- <button class="btn btn-table-action" (click)="OrderDetails.openModal(order)">Editar</button> -->
+								<a (click)="OrderDetails.openModal(order)" class="btn btn-table-action">
+									<i class="fa fa-edit fa-lg" style="color: Dodgerblue"></i>
+								</a>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			
+			<app-custom-pagination [items]="orders" [paginate]="paginate" (setPage)="setPage($event)">
+			</app-custom-pagination>
+			<div class="form-row container justify-content-center " *ngIf="orders.length==0">
+				<div class="col-md-5">
+					<div class="card text-center mx-auto mb-2">
+						<div class="card-body">
+							<p>No hay órdenes para mostrar</p>
+						</div>
+					</div>
+				</div>
+			</div>
 		</ng-container>
 
 		<ng-template #elseTemplate>
@@ -94,7 +107,7 @@
                 <div class="col-md-5">
                     <div class="card text-center mx-auto mb-2">
                         <div class="card-body">
-                            <p *ngIf="orders.length==0 && store">
+                            <p *ngIf="orders.length==0 && !store">
                                 Aún no has configurado tu tienda
                                 <a  class="btn btn-solid-purple mt-3" [routerLink]="['/pages/account/user/admin-store']">
                                     Configurar tienda
@@ -108,8 +121,7 @@
             </div>   
 		</ng-template>
 
-		<app-custom-pagination [items]="orders" [paginate]="paginate" (setPage)="setPage($event)">
-		</app-custom-pagination>
+
 	</div>
 </section>
 

@@ -17,7 +17,8 @@ export const environment = {
     onlyLetter: 'Sólo se permiten caracteres',
     matchError: 'Los campos contraseña y Repetir contraseña deben coincidir',
     onlyDigits: 'Sólo se permiten números'
-  }
+  },
+  whatsappContact: '+584141236547'
 };
 
 /*

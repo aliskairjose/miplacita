@@ -471,6 +471,11 @@ ngb-carousel {
 .preview-box {
   visibility: hidden;
 }
+.mp-product-slide{
+  & .carousel-inner, .carousel-item , .picsum-img-wrapper, img{
+    max-height: 50vh;
+  }
+}
 /* ==============
     ShopDesign -Carousel ends
    ==============
@@ -769,6 +774,8 @@ ngb-carousel {
       width: 40%;
     }
   }
+
+
  }
 
 // Extra large devices (large desktops, 1200px and up)
