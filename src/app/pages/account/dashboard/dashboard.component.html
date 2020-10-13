@@ -64,8 +64,8 @@
                         <img src="assets/images/marketplace/images/icons/stats.png"/>
                     </div>
                     <div *ngIf="user.role=='merchant'" class="d-flex flex-fill justify-content-center align-items-center ">
-                        <p class="my-auto" *ngIf="dashboardData.todayOrders">{{ dashboardData.todayOrders }} ventas hoy</p>
-                        <p class="my-auto" *ngIf="!dashboardData.todayOrders">0 ventas hoy</p>
+                        <p class="my-auto" *ngIf="dashboardData.today_orders">{{ dashboardData.today_orders }} ventas hoy</p>
+                        <p class="my-auto" *ngIf="!dashboardData.today_orders">0 ventas hoy</p>
                     </div>
                 </div>
             </div>
@@ -76,8 +76,8 @@
                     </div>
                     <div class="d-flex flex-fill justify-content-center align-items-center ">
                         <div *ngIf="user.role=='merchant'" class="d-flex flex-fill justify-content-center align-items-center ">
-                            <p class="my-auto" *ngIf="dashboardData.totalOrders">{{ dashboardData.totalOrders }} ventas totales</p>
-                            <p class="my-auto" *ngIf="!dashboardData.totalOrders">0 ventas totales</p>
+                            <p class="my-auto" *ngIf="dashboardData.total_orders">{{ dashboardData.total_orders }} ventas totales</p>
+                            <p class="my-auto" *ngIf="!dashboardData.total_orders">0 ventas totales</p>
                         </div>    
                     </div>
                 </div>
@@ -89,8 +89,8 @@
                     </div>
                     <div class="d-flex flex-fill justify-content-center align-items-center ">
                         <div *ngIf="user.role=='merchant'" class="d-flex flex-fill justify-content-center align-items-center ">
-                            <p class="my-auto" *ngIf="dashboardData.clients">{{ dashboardData.clients }} clientes</p>
-                            <p class="my-auto" *ngIf="!dashboardData.clients">0 clientes</p>
+                            <p class="my-auto" *ngIf="dashboardData.total_clients">{{ dashboardData.total_clients }} clientes</p>
+                            <p class="my-auto" *ngIf="!dashboardData.total_clients">0 clientes</p>
                         </div>
                     </div>
                 </div>
@@ -102,15 +102,15 @@
                     </div>
                     <div class="d-flex flex-fill justify-content-center align-items-center ">
                         <div *ngIf="user.role=='merchant'" class="d-flex flex-fill justify-content-center align-items-center ">
-                            <p class="my-auto" *ngIf="dashboardData.products">{{ dashboardData.products }} productos</p>
-                            <p class="my-auto" *ngIf="!dashboardData.products">0 productos</p>
+                            <p class="my-auto" *ngIf="dashboardData.total_products">{{ dashboardData.total_products }} productos</p>
+                            <p class="my-auto" *ngIf="!dashboardData.total_products">0 productos</p>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="form-row charts" *ngIf="barChartData.length > 0">
-            <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="form-row charts" >
+            <div class="col-lg-6 col-md-6 col-sm-6" *ngIf="dashboardData.month_orders.length > 0">
                 <h5 class="text-center">Ventas</h5>
                 <canvas baseChart
                         [datasets]="barChartData"
@@ -121,7 +121,7 @@
                         [chartType]="barChartType">
                 </canvas>
             </div>
-            <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-6 col-md-6 col-sm-6" *ngIf="dashboardData.sold_products.length > 0" >
                 <h5 class="text-center">Más vendidos de este mes</h5>
                 <canvas baseChart
                         [colors]="doughnutColors"

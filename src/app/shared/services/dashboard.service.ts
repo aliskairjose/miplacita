@@ -12,12 +12,9 @@ export class DashboardService {
     private http: HttpService
   ) { }
 
-  /**
-   * @description Registro de dueño de tienda
-   * @param params Datos del registro
-   */
-  dashboard(): Observable<any> {
-    return this.http.get( 'dashboard' );
+  dashboard_store(param: any): Observable<any> {
+    console.log('dashboard/store?'+ param);
+    return this.http.get( 'dashboard/store?'+ param );
   }
 
 
