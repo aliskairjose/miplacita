@@ -243,8 +243,12 @@ export class ShopService {
    * @param id Id de la tienda
    * @param params Fecha inicio, fecha fin
    */
-  getDebts( id: string, params = '' ): Observable<any> {
-    return this.http.get( `api/debts/${id}?${params}` );
+  getDebts( id: string, params = '' ): Observable<number> {
+    return this.http.get( `debts/${id}?${params}` ).pipe(
+      map( result => {
+        if ( result.success ) { return result.totalAmount[0].amount; }
+      } )
+    );
   }
 
   /*
