@@ -226,12 +226,11 @@ export class ShopService {
 
   /**
    * @description lista de clientes de una tienda
-   * 
+   *
    */
   clientsList( params: string ): Observable<Result<User>> {
-    return this.http.get( `client?` + params ).pipe(
+    return this.http.get( `client?${params}` ).pipe(
       map( ( response: Response<User> ) => {
-        console.log(response);
         if ( response.success ) {
           return response.result;
         }
@@ -241,12 +240,11 @@ export class ShopService {
 
   /**
    * @description lista de ventas totales de la tienda
-   * 
+   *
    */
   totalSales( params: string ): Observable<Result<Order>> {
-    return this.http.get( `sales?` + params ).pipe(
+    return this.http.get( `sales?${params}` ).pipe(
       map( ( response: Response<Order> ) => {
-        console.log(response);
         if ( response.success ) {
           return response.result;
         }
