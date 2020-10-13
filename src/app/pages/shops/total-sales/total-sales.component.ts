@@ -40,7 +40,7 @@ export class TotalSalesComponent implements OnInit, OnChanges {
     private exportDoc: ExportService,
     private parseDate: CustomDateParserFormatterService
   ) {
-    
+
   }
 
   ngOnInit(): void {
@@ -55,7 +55,7 @@ export class TotalSalesComponent implements OnInit, OnChanges {
     this.modelFrom = this.modelTo = this.ngbCalendar.getToday();
     this.fechaIni = this.parseDate.format( this.modelFrom );
     this.fechaFin = this.parseDate.format( this.modelTo );
-    
+
     this.role = this.auth.getUserRol();
 
     this.loadData();
