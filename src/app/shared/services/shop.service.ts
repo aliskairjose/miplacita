@@ -238,6 +238,15 @@ export class ShopService {
     );
   }
 
+  /**
+   * 
+   * @param id Id de la tienda
+   * @param params Fecha inicio, fecha fin
+   */
+  getDebts( id: string, params = '' ): Observable<any> {
+    return this.http.get( `api/debts/${id}` );
+  }
+
   /*
     ---------------------------------------------
     --------------  SubjectBehaviors  -----------
