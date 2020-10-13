@@ -8,6 +8,7 @@ import { ProductService } from '../../shared/services/product.service';
 import { OrderService } from '../../shared/services/order.service';
 import { Router } from '@angular/router';
 import { PaymentComponent } from '../../shared/components/payment/payment.component';
+import { StorageService } from '../../shared/services/storage.service';
 
 const state = {
   user: JSON.parse( localStorage.getItem( 'user' ) || null )
@@ -35,6 +36,7 @@ export class CheckoutComponent implements OnInit {
   constructor(
     private router: Router,
     private fb: FormBuilder,
+    private storage: StorageService,
     private orderService: OrderService,
     public productService: ProductService,
   ) {
@@ -83,14 +85,13 @@ export class CheckoutComponent implements OnInit {
       this.orderService.createOrder( order ).subscribe( response => {
         console.log( response );
         if ( response.success ) {
+          this.storage.removeItem('cartItems'); // elimina los item del carrito en settings
           sessionStorage.removeItem( 'order' );
           sessionStorage.removeItem( 'cartItems' );
           this.router.navigate( [ '/shop/checkout/success' ] );
         }
       } );
     }
-
   }
-
 
 }
