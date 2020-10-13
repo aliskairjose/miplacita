@@ -31,6 +31,7 @@ export class ShopWithdrawalComponent implements OnInit, OnChanges {
     private toastrService: ToastrService,
 
   ) { this.createForm(); }
+
   ngOnChanges( changes: SimpleChanges ): void {
     console.log( this.store );
     this.loadDebs();
