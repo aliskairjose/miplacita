@@ -211,6 +211,49 @@ export class ShopService {
   }
 
   /**
+   * @description lista de clientes de una tienda
+   *
+   */
+  clientsList( params: string ): Observable<Result<User>> {
+    return this.http.get( `client?${params}` ).pipe(
+      map( ( response: Response<User> ) => {
+        if ( response.success ) {
+          return response.result;
+        }
+      } )
+    );
+  }
+
+  /**
+   * @description lista de ventas totales de la tienda
+   *
+   */
+  totalSales( params: string ): Observable<Result<Order>> {
+    return this.http.get( `sales?${params}` ).pipe(
+      map( ( response: Response<Order> ) => {
+        if ( response.success ) {
+          return response.result;
+        }
+      } )
+    );
+  }
+
+  /**
+   * 
+   * @param id Id de la tienda
+   * @param params Fecha inicio, fecha fin
+   */
+  getDebts( id: string, params = '' ): Observable<any> {
+    return this.http.get( `api/debts/${id}?${params}` );
+  }
+
+  /*
+    ---------------------------------------------
+    --------------  SubjectBehaviors  -----------
+    ---------------------------------------------
+  */
+
+  /**
    * @description Genera el stream de eventos usando next() para crear el evento
    */
   storeSubject( store: Store ): void {
@@ -222,36 +265,6 @@ export class ShopService {
    */
   storeObserver(): Observable<Store> {
     return this.$store.asObservable();
-  }
-
-  /**
-   * @description lista de clientes de una tienda
-   * 
-   */
-  clientsList( params: string ): Observable<Result<User>> {
-    return this.http.get( `client?` + params ).pipe(
-      map( ( response: Response<User> ) => {
-        console.log(response);
-        if ( response.success ) {
-          return response.result;
-        }
-      } )
-    );
-  }
-
-  /**
-   * @description lista de ventas totales de la tienda
-   * 
-   */
-  totalSales( params: string ): Observable<Result<Order>> {
-    return this.http.get( `sales?` + params ).pipe(
-      map( ( response: Response<Order> ) => {
-        console.log(response);
-        if ( response.success ) {
-          return response.result;
-        }
-      } )
-    );
   }
 
 }

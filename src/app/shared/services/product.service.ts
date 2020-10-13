@@ -51,7 +51,6 @@ export class ProductService {
    * @param data Detale del producto
    */
   addProduct( data: Product ): Observable<Product> {
-    
     return this.http.post( 'products', data ).pipe(
       map( response => {
         if ( response.success ) {
@@ -68,7 +67,6 @@ export class ProductService {
    * Id store | id product
    */
   productList( page = 1, params = '' ): Observable<Result<Product>> {
-
     return this.http.get( `products?page=${page}&${params}` ).pipe(
       map( ( response: Response<Product> ) => {
         if ( response.success ) {
@@ -78,6 +76,10 @@ export class ProductService {
     );
   }
 
+  /**
+   * @description Eliminado de producto por Id
+   * @param id Id del producto a eliminar
+   */
   deleteProduct( id: string ): Observable<any> {
     return this.http.delete( `products/${id}` );
   }
