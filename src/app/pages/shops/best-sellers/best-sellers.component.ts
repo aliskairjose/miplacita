@@ -6,6 +6,8 @@ import { Store } from 'src/app/shared/classes/store';
 import { Product } from 'src/app/shared/classes/product';
 import { ExportService } from 'src/app/shared/services/export.service';
 import { ProductService } from 'src/app/shared/services/product.service';
+import { CustomDateParserFormatterService } from '../../../shared/adapter/custom-date-parser-formatter.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component( {
   selector: 'app-best-sellers',
@@ -31,9 +33,12 @@ export class BestSellersComponent implements OnInit, OnChanges {
 
   constructor(
     private auth: AuthService,
+    private toastr: ToastrService,
+    private exportDoc: ExportService,
     private ngbCalendar: NgbCalendar,
     private productService: ProductService,
-    private exportDoc: ExportService ) { }
+    private parseDate: CustomDateParserFormatterService,
+    ) { }
 
   ngOnInit(): void {
   }
@@ -54,8 +59,6 @@ export class BestSellersComponent implements OnInit, OnChanges {
     const params = `store=${this.store._id}&name=${this.name}&status=${this.status}&best=${this.order}`;
     this.productService.productList( page, params ).subscribe( result => {
       this.bestSellers = [ ...result.docs ];
-      console.log( this.bestSellers );
-
       this.paginate = { ...result };
       this.paginate.pages = [];
       for ( let i = 1; i <= this.paginate.totalPages; i++ ) {
@@ -63,6 +66,20 @@ export class BestSellersComponent implements OnInit, OnChanges {
       }
 
     } );
+  }
+
+  filtrar(): void {
+    this.fechaIni = this.parseDate.format( this.modelFrom );
+    this.fechaFin = this.parseDate.format( this.modelTo );
+    const from = new Date( this.fechaIni );
+    const to = new Date( this.fechaFin );
+
+    if ( from > to ) {
+      this.toastr.warning( 'La fecha inicial no debe ser menor a la final' );
+      return;
+    }
+
+    this.loadData();
   }
 
   setPage( page: number ) {
