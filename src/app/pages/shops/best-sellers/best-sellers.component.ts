@@ -27,9 +27,7 @@ export class BestSellersComponent implements OnInit, OnChanges {
 
   constructor(
     private auth: AuthService,
-    private toastr: ToastrService,
     private exportDoc: ExportService,
-    private ngbCalendar: NgbCalendar,
     private productService: ProductService,
     ) { }
 
@@ -42,7 +40,6 @@ export class BestSellersComponent implements OnInit, OnChanges {
   }
 
   private init(): void {
-    this.modelFrom = this.modelTo = this.ngbCalendar.getToday();
     this.role = this.auth.getUserRol();
 
     this.loadData();
