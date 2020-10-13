@@ -83,7 +83,6 @@ export class CheckoutComponent implements OnInit {
     const order = JSON.parse( sessionStorage.order );
     if ( this.payment.onSubmit() ) {
       this.orderService.createOrder( order ).subscribe( response => {
-        console.log( response );
         if ( response.success ) {
           this.storage.removeItem('cartItems'); // elimina los item del carrito en settings
           sessionStorage.removeItem( 'order' );
