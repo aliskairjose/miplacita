@@ -13,7 +13,7 @@ export class CartComponent implements OnInit {
 
   products: Product[] = [];
   standardImage = environment.standardImage;
-  
+
   constructor(
     public productService: ProductService
   ) {
@@ -21,9 +21,7 @@ export class CartComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.productService.cartItems.subscribe( products => {
-      this.products = [ ...products ];
-    } );
+    this.productService.cartItems.subscribe( products => { this.products = [ ...products ]; } );
   }
 
   public get getTotal(): Observable<number> {

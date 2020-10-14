@@ -6,7 +6,7 @@
         <div class="col-sm-12 col-lg-7">
           <div class="form-row d-flex flex-column mb-3" >
             <label class="label mr-2 my-auto"><strong>Banner</strong> </label>
-            <app-upload-image #banner multiple="true" (uploadImage)="uploadBanner($event)"></app-upload-image>
+            <app-upload-image #banner type="banner" multiple="true" (deleteImage)="deleteBanner($event)" [imagesObject]="banners" (uploadImage)="uploadBanner($event)"></app-upload-image>
           </div>
         </div>
         <!-- Tipografia y color -->
@@ -37,7 +37,7 @@
           </div>
           <div class="form-row d-flex flex-column mb-3" >
             <label class="label mr-2 my-auto"><strong>Editar logo</strong> </label>
-            <app-upload-image #logo (uploadImage)="uploadLogo($event)"></app-upload-image>
+            <app-upload-image #logo [images]="imageLogo" type="logo"  (uploadImage)="uploadLogo($event)"></app-upload-image>
           </div>
         </div>
       </div>

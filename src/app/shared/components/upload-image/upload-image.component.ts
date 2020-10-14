@@ -2,7 +2,9 @@ import { ToastrService } from 'ngx-toastr';
 
 import {
   AfterViewInit, Component, ElementRef, EventEmitter, Input, OnInit, Output, QueryList, ViewChild
-  , ViewContainerRef
+  , ViewContainerRef,
+  OnChanges,
+  OnDestroy
 } from '@angular/core';
 
 @Component( {
@@ -10,16 +12,19 @@ import {
   templateUrl: './upload-image.component.html',
   styleUrls: [ './upload-image.component.scss' ]
 } )
-export class UploadImageComponent implements OnInit, AfterViewInit {
+export class UploadImageComponent implements OnInit, AfterViewInit, OnChanges, OnDestroy {
 
-  fakeImage = '../../../../assets/images/marketplace/svg/plus-circle.svg';
-  images: Array<string> = [];
+  fakeImage = 'assets/images/marketplace/svg/plus-circle.svg';
+  @Input() images: Array<string> = [];
+  @Input() imagesObject: Array<any> = [];
 
   @ViewChild( 'ngcarousel' ) ngCarousel: ElementRef;
   @ViewChild( 'carouselbox', { read: ViewContainerRef } ) vc: ViewContainerRef;
 
   @Input() multiple = false;
+  @Input() type = '';
   @Output() uploadImage: EventEmitter<Array<string>> = new EventEmitter<Array<string>>();
+  @Output() deleteImage: EventEmitter<Array<any>> = new EventEmitter<Array<any>>();
 
   constructor(
     private toastrService: ToastrService,
@@ -27,12 +32,27 @@ export class UploadImageComponent implements OnInit, AfterViewInit {
   ) { }
 
   ngOnInit(): void {
+    if(this.imagesObject.length){
+      this.imagesObject.map((image: any)=>{
+        this.images.push(image.url);
+      });
+    };
   }
 
   ngAfterViewInit() {
 
   }
+  ngOnChanges( ): void {
+    if(this.imagesObject.length){
+      this.imagesObject.map((image: any)=>{
+        this.images.push(image.url);
+      });
+    };
+  }
 
+  ngOnDestroy(){
+    this.imagesObject = [];
+  }
   upload( files ): void {
 
     const limit = 102400;
@@ -88,6 +108,7 @@ export class UploadImageComponent implements OnInit, AfterViewInit {
   }
 
   delete( idItem ) {
+    this.deleteImage.emit(this.imagesObject[idItem]);
     this.images.splice( idItem, 1 );
   }
 

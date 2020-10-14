@@ -70,9 +70,9 @@
 								<img class="product-image" [src]="standardImage" />
 							</td>
 	
-							<td>{{ product.name }}</td>
-							<td *ngIf="role==='admin' "> {{ product.store ? product.store.name : 'Sin tienda' }}</td>
-							<td>{{ product.description }}</td>
+							<td class="text-center">{{ product.name }}</td>
+							<td *ngIf="role==='admin' " class="text-center"> {{ product.store ? product.store.name : 'Sin tienda' }}</td>
+							<td class="text-center">{{ product.description }}</td>
 							<td class="text-center">{{ product.price | currency }}</td>
 							<td class="text-center">{{ product.tax | currency }}</td>
 							<td class="text-center">{{ product.status }}</td>

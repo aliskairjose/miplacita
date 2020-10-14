@@ -32,18 +32,21 @@ export class NavService {
 	// LEFTMENUITEMS: Menu[] = menu.leftMenuItems;
 	LEFTMENUITEMS: Menu[] = [];
 	LEFTMENUITEMSRESPONSIVE: Menu[] = [
-		{ path: "/pages/account/user/profile", title: "mi perfil", type: "link", logged: true, role: null,
+		{ title: "mi perfil", type: "sub", logged: true, role: 'client',
 			children:[
+				{ path: "/pages/account/user/profile", title: "Datos de la cuenta", type: "link", logged: true, role: 'client' },
 				{ path: "/pages/account/user/address", title: "Dirección", type: "link", logged: true, role: 'client' },
 			] },
+		{ path: "/pages/account/user/profile", title: "Perfil", type: "link", logged: true, role: 'merchant' },
 		{ path: "/pages/account/user/orders", title: "mis pedidos", type: "link", logged: true, role: 'merchant' },
 		{ path: "/pages/account/user/stores", title: "mis tiendas", type: "link", logged: true, role: 'merchant' },
 		{ path: "/pages/account/user/stores", title: "tiendas", type: "link", logged: true, role: 'admin' },
 		{ path: "/pages/account/user/dashboard", title: "tablero", type: "link", logged: true, role: null },
 		{ path: "/pages/account/user/products", title: "productos", type: "link", logged: true, role: null },
 		{ path: "/pages/account/user/admin-orders", title: "órdenes", type: "link", logged: true, role: null },
-		{ title: "tienda", type: "sub", active: false, logged: true, role: 'merchant',
+		{ title: "tienda", type: "sub", logged: true, role: 'merchant',
 			children: [
+				{ path: "/pages/account/user/admin-store", title: "Perfil de tienda", type: "link", logged: true, role: 'merchant' },
 				{ path: "/pages/account/user/admin-store/design", title: "Diseño de tienda", type: "link", logged: true, role: 'merchant' },
 				{ path: "/pages/account/user/admin-store/suscription", title: "Suscripción", type: "link", logged: true, role: 'merchant' },
 				{ path: "/pages/account/user/admin-store/withdrawal", title: "Retiro", type: "link", logged: true, role: 'merchant' },

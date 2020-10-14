@@ -87,7 +87,7 @@
 					</div>
 				</div>
 				<div *ngIf="active=='address'">
-					<app-address #address></app-address>
+					<app-address #address [isProfile]="isProfile"></app-address>
 					<div class="button-box d-flex justify-content-end align-items-end">
 						<div class="text-right">
 							<a (click)="saveAddress()" class="btn btn-solid">Guardar</a>

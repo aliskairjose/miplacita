@@ -70,7 +70,14 @@ export class ShippingComponent implements OnInit {
       for ( const shop of shops as any ) {
         const detail = { ...this.detail };
         detail.store = shop.id;
-        const products = this._products.filter( value => value.store._id === shop.id );
+        const products = this._products.filter( value => {
+          if ( ( value.type === 'principal' ) && ( value.store._id === shop.id ) ) {
+            return value;
+          }
+          if ( ( value.type === 'variable' ) && ( value.store === shop.id ) ) {
+            return value;
+          }
+        } );
         detail.products = products;
         detail.shipment_option = shop.shopOptions[ 0 ]._id;
         detail.shipment_price = shop.shopOptions[ 0 ].price;
@@ -183,13 +190,19 @@ export class ShippingComponent implements OnInit {
   }
 
   private getUniqueStoreId() {
+
     const uniqueStore = [];
     const uniqueStoreID = [];
     this._products.filter( ( product: Product ) => {
-      const index = uniqueStoreID.indexOf( product.store._id );
+      let index = 0;
+
+      if ( product.type === 'principal' ) { index = uniqueStoreID.indexOf( product.store._id ); }
+      if ( product.type === 'variable' ) { index = uniqueStoreID.indexOf( product.store ); }
+
       if ( index === -1 ) {
         const shop: any = {};
-        shop.id = product.store._id;
+        if ( product.type === 'principal' ) { shop.id = product.store._id; }
+        if ( product.type === 'variable' ) { shop.id = product.store; }
         shop.name = product.store.name;
         uniqueStore.push( shop );
         uniqueStoreID.push( product.store._id );
@@ -197,5 +210,6 @@ export class ShippingComponent implements OnInit {
     } );
     return uniqueStore;
   }
+
 
 }

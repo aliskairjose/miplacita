@@ -2,9 +2,9 @@ section {
   padding-top: 10px;
 }
 
-.preview {
-  max-width: 50% !important;
-  height: auto;
+
+.border-box {
+  padding: 5px 5px;
 }
 
 .img-thumbnail {
@@ -20,24 +20,21 @@ section {
   input {
     display: none;
   }
-  img {
-    height: fit-content;
-  }
 }
 /*====================*/
 .preview {
-  height: 8rem;
-  width: 10rem;
+  height: 100%;
+  width: 100%;
   max-width: 10rem;
 }
 
 .preview-box {
-  display: none;
+  display: none !important;
 }
 
 .preview{
   & img{
-      
+      max-height: 130px;
       transform:scale(1);
       -ms-transform:scale(1); // IE 9 
       -moz-transform:scale(1); // Firefox 
@@ -67,30 +64,53 @@ section {
 }
 
 ngb-carousel {
-  height: 45vh;
+  //height: 45vh;
+  max-width: 45vh;
   margin-bottom: 50px;
 }
 
 .store-design-img {
   width: 100%;
 }
+.store-design-img {
+  width: 100%;
+  height: auto;    
+}
+.mp-preview-img {
+  width: 100%;
+  height: auto;
+}
 
-@media (min-width: 576px){
+@supports(object-fit: cover){
   .store-design-img {
-    width: auto;
+      height: 100%;
+      object-fit: contain;
+      object-position: center center;
+  }
+  .mp-preview-img {
+    height: 100%;
+    object-fit: contain;
+    object-position: center center;
+  }
+}
+@media (min-width: 576px){
+  .preview-box {
+    // overflow-y: hidden;
+    // overflow-x: scroll;
+    height: auto;
+    //max-height: 15vh;
+    display: flex !important;
+    padding-bottom: 1.5rem;
   }
 }
 
 /*=============*/
 @media (min-width:768px){
-  .preview-box {
-    // overflow-y: hidden;
-    // overflow-x: scroll;
-    height: 15vh;
-    padding-bottom: 1.5rem;
-  }
+  
   .fakeImage {
     width: 25%;
     max-width: 25%;
   }
+
+  
 }

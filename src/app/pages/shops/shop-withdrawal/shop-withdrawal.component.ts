@@ -33,7 +33,6 @@ export class ShopWithdrawalComponent implements OnInit, OnChanges {
   ) { this.createForm(); }
 
   ngOnChanges( changes: SimpleChanges ): void {
-    console.log( this.store );
     this.loadDebs();
   }
 
@@ -60,9 +59,7 @@ export class ShopWithdrawalComponent implements OnInit, OnChanges {
   }
 
   private loadDebs(): void {
-    this.shopService.getDebts( this.store._id ).subscribe( result => {
-      console.log( result );
-    } );
+    this.shopService.getDebts( this.store._id ).subscribe( amount => this.amount = amount );
   }
 
   private createForm(): void {
