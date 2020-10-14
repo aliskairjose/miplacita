@@ -13,7 +13,11 @@ import { Store } from '../../../../shared/classes/store';
 import { Category } from '../../../../shared/classes/category';
 import { ViewportScroller } from '@angular/common';
 import { CommentsComponent } from '../../../../shared/components/comments/comments.component';
-import { log } from 'console';
+
+export interface ProductDetail {
+  colors?: any[];
+  sizes?: any[];
+}
 
 @Component( {
   selector: 'app-product-left-sidebar',
@@ -34,6 +38,10 @@ export class ProductLeftSidebarComponent implements OnInit {
   endDate: Date;
   sizes = [];
   colors = [];
+  productDetail: ProductDetail;
+
+  color = '';
+  size = '';
 
   @ViewChild( 'sizeChart' ) SizeChart: SizeModalComponent;
   @ViewChild( 'comments' ) comment: CommentsComponent;
@@ -76,30 +84,50 @@ export class ProductLeftSidebarComponent implements OnInit {
       this.endDate.setDate( this.today.getDate() + parseInt( this.product.deliveryDays, 10 ) );
       this.comment.loadReviews( this.product._id );
 
-      console.log( variationResult );
-
-      if ( variationResult.primary_key === 'color' ) {
+      if ( variationResult?.primary_key === 'color' ) {
         variationResult.keys.forEach( key => {
-          this.colors.push( { value: key.value, name: key.name, product: key.products[ 0 ].product } );
+          this.colors.push( { value: key.value, name: key.name, products: key.products } );
         } );
+        this.selectProduct( this.colors[ 0 ].products );
       }
 
-      if ( variationResult.primary_key === 'size' ) {
+      if ( variationResult?.primary_key === 'size' ) {
         variationResult.keys.forEach( key => {
           this.sizes.push( { value: key.value, name: key.name, product: key.products[ 0 ].product } );
         } );
+        this.product = this.sizes[ 0 ].product;
       }
-      console.log( this.sizes );
 
     } );
 
   }
 
-  /* Producto seleccionado desde las opciones de tamaño */
-  selectProduct( product ): void {
-    // console.log( value );
-    this.product = product;
+  // Selecciona el producto por defecto a mostrar cuando hay color
+  selectProduct( products: any[] ): void {
+
+    if ( products.length ) {
+      this.sizes = products;
+      this.product = products[ 0 ].product;
+    }
+
+    this.color = this.product.color.name;
+    this.size = this.product.size?.name;
   }
+
+  /* Producto seleccionado desde las opciones de color */
+  selectColor( sizes: any ): void {
+    this.sizes = sizes;
+    this.product = sizes[ 0 ].product;
+    this.color = this.product.color.name;
+
+  }
+
+  // Selecciona la talla desde el selector
+  selectSize( size ): void {
+    this.product = size;
+    this.size = this.product.size.name;
+  }
+
 
   // Append filter value to Url
   updateFilter( tags: any ) {
@@ -137,9 +165,9 @@ export class ProductLeftSidebarComponent implements OnInit {
     return uniqSize;
   }
 
-  selectSize( size ) {
-    this.selectedSize = size;
-  }
+  // selectSize( size ) {
+  //   this.selectedSize = size;
+  // }
 
   // Increament
   increment() {
@@ -175,10 +203,6 @@ export class ProductLeftSidebarComponent implements OnInit {
   // Toggle Mobile Sidebar
   toggleMobileSidebar() {
     this.mobileSidebar = !this.mobileSidebar;
-  }
-
-  ChangeVariants( color, product ) {
-    console.log( 'variante de color' );
   }
 
 }

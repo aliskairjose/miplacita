@@ -4,8 +4,8 @@ export interface Product {
   name?: string;
   type?: string; // variable si esta vacio es producto base,
   parent?: string; // Id del producto base,
-  color?: string; // Id del color
-  size?: string; // Id del tamaño,
+  color?: any; // Id del color
+  size?: any; // Id del tamaño,
   description?: string;
   price?: string;
   colors?: string[];

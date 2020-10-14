@@ -7,6 +7,7 @@ import { ExportService } from 'src/app/shared/services/export.service';
 import { ProductService } from 'src/app/shared/services/product.service';
 import { CustomDateParserFormatterService } from '../../../shared/adapter/custom-date-parser-formatter.service';
 import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
+import { ToastrService } from 'ngx-toastr';
 
 @Component( {
   selector: 'app-best-sellers',
@@ -31,6 +32,7 @@ export class BestSellersComponent implements OnInit, OnChanges {
 
   constructor(
     private auth: AuthService,
+    private toastr: ToastrService,
     private exportDoc: ExportService,
     private productService: ProductService,
     private parseDate: CustomDateParserFormatterService

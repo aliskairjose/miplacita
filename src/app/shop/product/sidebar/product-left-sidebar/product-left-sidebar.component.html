@@ -93,19 +93,19 @@
                       <p>{{ product?.description?.substring(0, 200)+'...' }}</p>
                     </div>
                     <div *ngIf="colors.length">
-                      <h6 class="product-title">Colores:</h6>
+                      <h6 class="product-title mb-1">Color: {{ color }}</h6>
                       <div class="d-flex flex-row">
                         <div class="border-box mr-2 flex-fill text-center" *ngFor="let color of colors"
-                          (click)="selectProduct(color.product)">
+                          (click)="selectColor(color.products)">
                           <p>{{ color.name }}</p>
                         </div>
                       </div>
                     </div>
-                    <div *ngIf="sizes.length">
-                      <h6 class="product-title">Tamaño:</h6>
+                    <div *ngIf="sizes.length" class="mt-3">
+                      <h6 class="product-title mb-1">Tamaño: {{ size }}</h6>
                       <div class="d-flex flex-row">
                         <div class="border-box mr-2 flex-fill text-center" *ngFor="let size of sizes"
-                          (click)="selectProduct(size.product)">
+                          (click)="selectSize(size.product)">
                           <p>{{ size.name }}</p>
                         </div>
                       </div>
