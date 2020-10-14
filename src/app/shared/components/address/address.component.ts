@@ -30,7 +30,7 @@ export class AddressComponent implements OnInit {
     types: [],
     componentRestrictions: { country: 'PA' }
   };
-  public isProfile = false;
+  isProfile: boolean;
   private _addressExist = false;
   private geoCoder;
   private _saveAddress: boolean;
@@ -46,7 +46,7 @@ export class AddressComponent implements OnInit {
     private toastrService: ToastrService,
     private mapsAPILoader: MapsAPILoader,
   ) {
-
+    this.isProfile = false;
     if ( this.auth.isAuthenticated() ) {
       this.hideMessage = true;
       this.user = this.auth.getUserActive();

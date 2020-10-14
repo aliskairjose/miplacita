@@ -55,11 +55,11 @@
               <div class="col-lg-6">
                 <section class="p-0">
                   <ngb-carousel class="mp-product-slide" #ngcarousel>
-                      <ng-template  *ngFor="let image of product?.images; index as i" ngbSlide>
-                          <div class="picsum-img-wrapper w-100 h-100">
-                              <img class="img-main-banner " [src]="image.url" [alt]="product.name">
-                          </div>
-                      </ng-template>
+                    <ng-template *ngFor="let image of product?.images; index as i" ngbSlide>
+                      <div class="picsum-img-wrapper w-100 h-100">
+                        <img class="img-main-banner " [src]="image.url" [alt]="product.name">
+                      </div>
+                    </ng-template>
                   </ngb-carousel>
                 </section>
                 <div class="col-12 mt-3" *ngIf="product?.images?.length">
@@ -74,23 +74,35 @@
                   <h4 class="mb-3"> Tienda: {{ product?.store?.name }}</h4>
                   <h3>
                     {{ product?.price | currency }}
-                  </h3> 
+                  </h3>
                   <div class="product-description">
-                    <div class="my-3 justify-content-mobile-first" >
-                        <p class="font-weight-bold">
-                          Entrega del producto: {{ today | date }} - {{ endDate | date }}
-                        </p>
+                    <div class="my-3 justify-content-mobile-first">
+                      <p class="font-weight-bold">
+                        Entrega del producto: {{ today | date }} - {{ endDate | date }}
+                      </p>
                     </div>
                     <div *ngIf="product?.colors">
-                      <ul class="color-variant" >
-                        <li [class]="color" *ngFor="let color of product?.colors" [ngStyle]="{'background-color': color}"
-                        (click)="ChangeVariants(color, product)">
+                      <ul class="color-variant">
+                        <li [class]="color" *ngFor="let color of product?.colors"
+                          [ngStyle]="{'background-color': color}" (click)="ChangeVariants(color, product)">
                         </li>
                       </ul>
                       <h6 class="product-title">Colores disponibles</h6>
                     </div>
                     <div class="my-3">
                       <p>{{ product?.description?.substring(0, 200)+'...' }}</p>
+                    </div>
+                    <div *ngIf="sizes.length">
+                      <h6 class="product-title">Tamaño:</h6>
+                      <select class="form-select form-control"  aria-label="Default select example" (change)="selectProduct($event.target.value)">
+                        <option selected>Open this select menu</option>
+                        <option [value]="size.value" *ngFor="let size of sizes">{{ size.name }}</option>
+                      </select>
+                      <!-- <div class="d-flex flex-row" >
+                        <div class="border-box mr-2 flex-fill text-center" *ngFor="let size of sizes" (click)="selectProduct(size.product)">
+                          <p>{{ size.name }}</p>
+                        </div>
+                      </div> -->
                     </div>
                     <div class="my-3">
                       <h6 class="product-title">Disponible</h6>
@@ -126,7 +138,7 @@
                         <bar-rating [readOnly]="true" [rate]="0" name="rating" [max]="5" disabled>
                         </bar-rating>
                       </div>
-                      
+
                     </div>
                   </div>
                   <div class="d-flex flex-column justify-content-end pb-3">

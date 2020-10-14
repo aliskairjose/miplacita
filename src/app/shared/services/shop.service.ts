@@ -228,9 +228,9 @@ export class ShopService {
    * @description lista de ventas totales de la tienda
    *
    */
-  totalSales( params: string ): Observable<Result<Order>> {
+  totalSales( params: string ): Observable<Array<any>> {
     return this.http.get( `sales?${params}` ).pipe(
-      map( ( response: Response<Order> ) => {
+      map( ( response ) => {
         if ( response.success ) {
           return response.result;
         }
@@ -246,7 +246,7 @@ export class ShopService {
   getDebts( id: string, params = '' ): Observable<number> {
     return this.http.get( `debts/${id}?${params}` ).pipe(
       map( result => {
-        if ( result.success ) { return result.totalAmount[0].amount; }
+        if ( result.success ) { return result.totalAmount[ 0 ].amount; }
       } )
     );
   }

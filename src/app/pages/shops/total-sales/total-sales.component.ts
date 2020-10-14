@@ -1,17 +1,22 @@
-import { Component, OnInit, Input, ViewChild, SimpleChanges, ElementRef, OnChanges } from '@angular/core';
-import { Order } from 'src/app/shared/classes/order';
+import moment from 'moment';
+import { ToastrService } from 'ngx-toastr';
 import { Paginate } from 'src/app/shared/classes/paginate';
-import { environment } from 'src/environments/environment';
-import { NgbDateStruct, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
 import { Store } from 'src/app/shared/classes/store';
-import { OrderDetailsComponent } from 'src/app/shared/custom-components/order-details/order-details.component';
+import {
+  OrderDetailsComponent
+} from 'src/app/shared/custom-components/order-details/order-details.component';
 import { AuthService } from 'src/app/shared/services/auth.service';
-import { OrderService } from 'src/app/shared/services/order.service';
 import { ExportService } from 'src/app/shared/services/export.service';
 import { ShopService } from 'src/app/shared/services/shop.service';
-import { CustomDateParserFormatterService } from '../../../shared/adapter/custom-date-parser-formatter.service';
-import { ToastrService } from 'ngx-toastr';
-import { log } from 'console';
+
+import {
+  Component, ElementRef, Input, OnChanges, OnInit, SimpleChanges, ViewChild
+} from '@angular/core';
+import { NgbCalendar, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
+
+import {
+  CustomDateParserFormatterService
+} from '../../../shared/adapter/custom-date-parser-formatter.service';
 
 @Component( {
   selector: 'app-total-sales',
@@ -40,7 +45,6 @@ export class TotalSalesComponent implements OnInit, OnChanges {
     private exportDoc: ExportService,
     private parseDate: CustomDateParserFormatterService
   ) {
-
   }
 
   ngOnInit(): void {
@@ -64,13 +68,13 @@ export class TotalSalesComponent implements OnInit, OnChanges {
   private loadData( page = 1 ): void {
     const params = `store=${this.store._id}&from=${this.fechaIni}&to=${this.fechaFin}`;
 
-    this.shopService.totalSales( params ).subscribe( result => {
+    this.shopService.totalSales( params ).subscribe( ( result ) => {
       this.sales = result;
-      this.paginate = { ...result };
-      this.paginate.pages = [];
-      for ( let i = 1; i <= this.paginate.totalPages; i++ ) {
-        this.paginate.pages.push( i );
-      }
+      // this.paginate = { ...result };
+      // this.paginate.pages = [];
+      // for ( let i = 1; i <= this.paginate.totalPages; i++ ) {
+      //   this.paginate.pages.push( i );
+      // }
 
     } );
   }

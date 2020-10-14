@@ -13,6 +13,7 @@ import { Store } from '../../../../shared/classes/store';
 import { Category } from '../../../../shared/classes/category';
 import { ViewportScroller } from '@angular/common';
 import { CommentsComponent } from '../../../../shared/components/comments/comments.component';
+import { log } from 'console';
 
 @Component( {
   selector: 'app-product-left-sidebar',
@@ -31,6 +32,8 @@ export class ProductLeftSidebarComponent implements OnInit {
   prices: any[] = [];
   today: Date = new Date();
   endDate: Date;
+  sizes = [];
+  colors = [];
 
   @ViewChild( 'sizeChart' ) SizeChart: SizeModalComponent;
   @ViewChild( 'comments' ) comment: CommentsComponent;
@@ -75,11 +78,21 @@ export class ProductLeftSidebarComponent implements OnInit {
 
       console.log( variationResult );
 
-      // if ( variationResult.primary_key === 'size' ) {
-      //   variationResult.keys
-      // }
+      if ( variationResult.primary_key === 'size' ) {
+        variationResult.keys.forEach( key => {
+          this.sizes.push( { value: key.value, name: key.name, product: key.products[ 0 ].product } );
+        } );
+      }
+      console.log( this.sizes );
+
     } );
 
+  }
+
+  /* Producto seleccionado desde las opciones de tamaño */
+  selectProduct( value ): void {
+    console.log( value );
+    // this.product = product;
   }
 
   // Append filter value to Url
