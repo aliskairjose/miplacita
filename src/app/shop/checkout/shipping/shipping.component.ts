@@ -189,18 +189,15 @@ export class ShippingComponent implements OnInit {
     const uniqueStoreID = [];
     this._products.filter( ( product: Product ) => {
       let index = 0;
+      console.log( product.type );
 
-      if ( product.type === 'principal' ) {
-        index = uniqueStoreID.indexOf( product.store._id );
-      }
-
-      if ( product.type === 'variable' ) {
-        index = uniqueStoreID.indexOf( product.store );
-      }
+      if ( product.type === 'principal' ) { index = uniqueStoreID.indexOf( product.store._id ); }
+      if ( product.type === 'variable' ) { index = uniqueStoreID.indexOf( product.store ); }
 
       if ( index === -1 ) {
         const shop: any = {};
-        shop.id = product.store._id;
+        if ( product.type === 'principal' ) { shop.id = product.store._id; }
+        if ( product.type === 'variable' ) { shop.id = product.store; }
         shop.name = product.store.name;
         uniqueStore.push( shop );
         uniqueStoreID.push( product.store._id );
