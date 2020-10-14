@@ -13,13 +13,16 @@ import {
 export class UploadImageComponent implements OnInit, AfterViewInit {
 
   fakeImage = '../../../../assets/images/marketplace/svg/plus-circle.svg';
-  images: Array<string> = [];
+  @Input() images: Array<string> = [];
+  @Input() imagesObject: Array<any> = [];
 
   @ViewChild( 'ngcarousel' ) ngCarousel: ElementRef;
   @ViewChild( 'carouselbox', { read: ViewContainerRef } ) vc: ViewContainerRef;
 
   @Input() multiple = false;
+  @Input() type = '';
   @Output() uploadImage: EventEmitter<Array<string>> = new EventEmitter<Array<string>>();
+  @Output() deleteImage: EventEmitter<Array<any>> = new EventEmitter<Array<any>>();
 
   constructor(
     private toastrService: ToastrService,
@@ -27,6 +30,12 @@ export class UploadImageComponent implements OnInit, AfterViewInit {
   ) { }
 
   ngOnInit(): void {
+    console.log(this.type,this.imagesObject,this.images );
+    if(this.imagesObject.length){
+      this.imagesObject.map((image: any)=>{
+        this.images.push(image.url);
+      });
+    };
   }
 
   ngAfterViewInit() {
@@ -75,6 +84,7 @@ export class UploadImageComponent implements OnInit, AfterViewInit {
 
   private imageBase( image: string, length: number ): void {
     let images = [];
+    console.log(this.type);
     this.images.push( image );
     images.push( image );
     if ( images.length === length ) {
@@ -88,6 +98,7 @@ export class UploadImageComponent implements OnInit, AfterViewInit {
   }
 
   delete( idItem ) {
+    this.deleteImage.emit(this.imagesObject[idItem]);
     this.images.splice( idItem, 1 );
   }
 

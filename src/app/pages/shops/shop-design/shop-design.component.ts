@@ -20,6 +20,9 @@ export class ShopDesignComponent implements OnInit, OnChanges {
   color = '';
   fontSelected = '';
   images = [];
+  banners = [];
+  imageLogo = [];
+  bannersDelete = [];
   fonts = [
     { value: 'Raleway Bold', name: 'Raleway Bold' },
     { value: 'Roboto Bold', name: 'Roboto Bold' },
@@ -39,7 +42,9 @@ export class ShopDesignComponent implements OnInit, OnChanges {
   ngOnChanges( changes: SimpleChanges ): void {
     this.shopService.storeObserver().subscribe( ( store: Store ) => {
       this.store = store;
-      this.color = this.store.config.color;
+      if(this.store.config.color){
+        this.color = this.store.config.color;
+      }
       this.fontSelected = this.store.config.font;
     } );
   }
@@ -47,6 +52,10 @@ export class ShopDesignComponent implements OnInit, OnChanges {
   ngOnInit(): void {
     // const user: User = this.storage.getItem( 'user' );
     // this.store = user.stores[ 0 ];
+    console.log("store",this.store);
+    this.banners = this.store.config.images;
+    this.imageLogo = [this.store.logo];
+   console.log(this.imageLogo, this.banners)
   }
 
   updateShopConfig(): void {
@@ -71,16 +80,64 @@ export class ShopDesignComponent implements OnInit, OnChanges {
       } );
       this.updateShop.emit( this.store );
 
-    } else {
+    } 
+    
+    if(this.bannersDelete.length){
+      console.log("eliminar");
+      for(let image of this.bannersDelete){
+        this.shopService.deleteBanner(this.store._id,image._id).subscribe((result)=>{
+          console.log("delete", result);
+
+          if(result.success){
+            console.log("success");
+
+          }
+        })
+
+      }
+    }
+    
+    if(this.imageLogo.length){
+      this.updateLogo();
+    } else{
+
       this.updateConfig();
     }
   }
+  updateLogo(){
+    this.shopService.uploadImages( { images: this.imageLogo } ).subscribe( result => {
+      if ( result.status === 'isOk' ) {
+        let updateStore = { 
+          logo: result.images[ 0 ],
+          name: this.store.name,
+          description: this.store.description,
+          // currency: this.store.currency,
 
+        };
+        this.updateStoreLogo(updateStore);
+      }
+    } );
+
+  
+  }
+
+  updateStoreLogo(data: any){
+    
+    this.shopService.updateStore( this.store._id,data).subscribe( response => {
+      console.log("updateStore", response);
+      if ( response.success ) {
+        this.store = { ...response.store };
+        this.toastrService.info( response.message[ 0 ] );
+        this.updateShop.emit( this.store );
+      }
+    } );
+  }
   updateConfig(): void {
     const data = { color: this.color, font: this.fontSelected };
 
     this.shopService.config( this.store._id, data ).subscribe( response => {
       if ( response.success ) {
+        console.log("tienda",response);
         this.store = { ...response.result };
         this.toastrService.info( response.message[ 0 ] );
         this.updateShop.emit( this.store );
@@ -110,15 +167,22 @@ export class ShopDesignComponent implements OnInit, OnChanges {
   }
 
   uploadLogo( images: string[] ): void {
-    this.images = [ ...images ];
+    this.imageLogo = [ ...images ];
   }
 
   update( item ) {
     this.ngCarousel.select( item );
   }
 
-  delete( idItem ) {
-    this.images.splice( idItem, 1 );
+  deleteBanner( image ) {
+    this.bannersDelete.push(image);
+    console.log("delete banner",image, this.bannersDelete);
+
+  }
+
+  deleteLogo(image){
+    console.log("delete logo",image);
+
   }
 
 }

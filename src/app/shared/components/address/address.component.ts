@@ -1,4 +1,4 @@
-import { Component, OnInit, NgZone, ElementRef, ViewChild } from '@angular/core';
+import { Component, OnInit, NgZone, ElementRef, ViewChild, Input } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { UserService } from '../../services/user.service';
 import { MapsAPILoader } from '@agm/core';
@@ -30,7 +30,7 @@ export class AddressComponent implements OnInit {
     types: [],
     componentRestrictions: { country: 'PA' }
   };
-  public isProfile = false;
+  @Input() isProfile = false;
   private _addressExist = false;
   private geoCoder;
   private _saveAddress: boolean;
