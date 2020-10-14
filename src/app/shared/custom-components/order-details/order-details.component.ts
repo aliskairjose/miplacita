@@ -18,7 +18,7 @@ export class OrderDetailsComponent implements OnInit, OnDestroy {
   closeResult: string;
   states = environment.orderStatus;
   products = [];
-  fields = [ 'Producto', 'Precio', 'Itbms' ];
+  fields = [ 'Producto', 'Precio', 'Cantidad', 'Itbms' ];
   order: Order;
   detail: Order;
   modal: any;
@@ -50,6 +50,8 @@ export class OrderDetailsComponent implements OnInit, OnDestroy {
   }
 
   openModal( order: Order ) {
+    console.log(order);
+    
     this.modalOpen = true;
     this.detail = order;
     this.order = { ...order };
