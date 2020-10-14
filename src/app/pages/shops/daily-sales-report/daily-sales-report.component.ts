@@ -25,7 +25,7 @@ import { ToastrService } from 'ngx-toastr';
 export class DailySalesReportComponent implements OnInit {
   @ViewChild( 'orderDetails' ) OrderDetails: OrderDetailsComponent;
 
-  fields = [ 'Número de orden', 'Monto', 'Cliente', 'Estado', '' ];
+  fields = [ 'Número de orden', 'Monto', 'Cliente', 'Fecha', 'Estado', '' ];
   orders: Order[] = [];
   paginate: Paginate;
   orderStatus = environment.orderStatus;
