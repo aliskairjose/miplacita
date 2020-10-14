@@ -104,7 +104,6 @@ export class DailySalesReportComponent implements OnInit {
     } );
   }
 
-
   setPage( page: number ) {
     this.loadData( page );
   }
