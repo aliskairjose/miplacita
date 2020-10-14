@@ -147,7 +147,7 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
           return;
         }
       }
-      if(this.changeImage && this.productImages.length){
+      if ( this.changeImage && this.productImages.length ) {
         this.productService.uploadImages( { images: this.productImages } ).subscribe( response => {
           if ( response.status === 'isOk' ) {
             const data: Product = { ...this.productForm.value };
@@ -162,7 +162,7 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
             ( this.status === 'add' ) ? this.createProduct( this.productForm.value ) : this.updateProduct( this.productForm.value );
           }
         } );
-      } else if(!this.changeImage) {
+      } else if ( !this.changeImage ) {
         this.updateProduct( this.productForm.value )
       }
 
@@ -174,7 +174,6 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
    * @description Guarda la variacion de producto!
    */
   saveVariable(): void {
-
     this.submitted = true;
     this.updateValidators();
 
@@ -436,7 +435,6 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
       switch ( option ) {
         case 1:
           this.addVariation( item, 'size' );
-          this.sizes.push( item );
           break;
 
         case 2:
@@ -446,7 +444,6 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
 
         default:
           this.addVariation( item, 'color' );
-          this.colors.push( item );
           break;
       }
     } );
@@ -469,6 +466,10 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
     data.store = this.store._id;
 
     this.productService.addVariableProduct( data ).subscribe( response => {
+      if ( response.success ) {
+        this.toastrService.info( response.message[ 0 ] );
+        this.init();
+      }
     } );
   }
 
