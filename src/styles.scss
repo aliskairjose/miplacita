@@ -430,7 +430,7 @@ ngb-carousel {
 
 .store-design-img, .vertical-banner-img {
   width: 100%;
-  height: 45vh;
+  height: auto;
   max-height:50vh ;
   outline: none;
 }
@@ -475,6 +475,18 @@ ngb-carousel {
   & .carousel-inner, .carousel-item , .picsum-img-wrapper, img{
     max-height: 50vh;
   }
+}
+.upload-image-carousel{
+  & .carousel-inner {
+    display: flex;
+    align-items: center ;
+  }
+  & .carousel-inner, .carousel-item , .picsum-img-wrapper, img{
+    max-height: 40vh;
+  }
+}
+.upload-image-carousel{
+  margin-bottom: 5px !important;
 }
 /* ==============
     ShopDesign -Carousel ends
