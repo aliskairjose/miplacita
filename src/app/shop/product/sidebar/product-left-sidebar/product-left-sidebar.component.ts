@@ -74,6 +74,10 @@ export class ProductLeftSidebarComponent implements OnInit {
       this.comment.loadReviews( this.product._id );
 
       console.log( variationResult );
+
+      // if ( variationResult.primary_key === 'size' ) {
+      //   variationResult.keys
+      // }
     } );
 
   }
