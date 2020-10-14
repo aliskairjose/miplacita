@@ -399,6 +399,7 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
     this.productForm.reset();
     this.productForm.clearValidators();
     this.images = [];
+    this.changeImage = false;
 
     // this.productForm.updateValueAndValidity();
   }
