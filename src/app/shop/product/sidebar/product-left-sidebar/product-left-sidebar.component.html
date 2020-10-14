@@ -92,17 +92,23 @@
                     <div class="my-3">
                       <p>{{ product?.description?.substring(0, 200)+'...' }}</p>
                     </div>
+                    <div *ngIf="colors.length">
+                      <h6 class="product-title">Colores:</h6>
+                      <div class="d-flex flex-row">
+                        <div class="border-box mr-2 flex-fill text-center" *ngFor="let color of colors"
+                          (click)="selectProduct(color.product)">
+                          <p>{{ color.name }}</p>
+                        </div>
+                      </div>
+                    </div>
                     <div *ngIf="sizes.length">
                       <h6 class="product-title">Tamaño:</h6>
-                      <select class="form-select form-control"  aria-label="Default select example" (change)="selectProduct($event.target.value)">
-                        <option selected>Open this select menu</option>
-                        <option [value]="size.value" *ngFor="let size of sizes">{{ size.name }}</option>
-                      </select>
-                      <!-- <div class="d-flex flex-row" >
-                        <div class="border-box mr-2 flex-fill text-center" *ngFor="let size of sizes" (click)="selectProduct(size.product)">
+                      <div class="d-flex flex-row">
+                        <div class="border-box mr-2 flex-fill text-center" *ngFor="let size of sizes"
+                          (click)="selectProduct(size.product)">
                           <p>{{ size.name }}</p>
                         </div>
-                      </div> -->
+                      </div>
                     </div>
                     <div class="my-3">
                       <h6 class="product-title">Disponible</h6>
