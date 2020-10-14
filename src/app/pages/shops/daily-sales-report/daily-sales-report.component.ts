@@ -45,11 +45,11 @@ export class DailySalesReportComponent implements OnInit {
   constructor(
     private auth: AuthService,
     private toastr: ToastrService,
+    private exportDoc: ExportService,
     private ngbCalendar: NgbCalendar,
     private shopService: ShopService,
     private orderService: OrderService,
     private parseDate: CustomDateParserFormatterService,
-    private exportDoc: ExportService
   ) { }
 
   ngOnInit(): void {
