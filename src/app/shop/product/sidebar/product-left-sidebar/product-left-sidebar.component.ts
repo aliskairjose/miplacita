@@ -88,7 +88,6 @@ export class ProductLeftSidebarComponent implements OnInit {
         variationResult.keys.forEach( key => {
           this.colors.push( { value: key.value, name: key.name, products: key.products } );
         } );
-        console.log(this.colors)
         this.selectProduct( this.colors[ 0 ].products );
       }
 
@@ -205,7 +204,5 @@ export class ProductLeftSidebarComponent implements OnInit {
   toggleMobileSidebar() {
     this.mobileSidebar = !this.mobileSidebar;
   }
-
-  ChangeVariants(color, product): void {}
 
 }

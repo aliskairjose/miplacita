@@ -106,7 +106,6 @@ export class MarketplaceShopComponent implements OnInit {
   private getCollectionProducts(): void {
     const params = `feature=true`;
     this.productService.productList(1, params ).subscribe( ( result: Result<Product> ) => {
-      console.log(result);
       this.products = [ ...result.docs ];
     } );
 
