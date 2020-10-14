@@ -49,11 +49,14 @@ export class AccountManageComponent implements OnInit, OnChanges {
   init(): void {
     this.route.url.subscribe( url => {
       this.active = url[ 2 ].path;
-      if ( this.active === 'admin-store' && url.length > 4 ) {
+      if ( this.active === 'admin-store' && url.length > 3 ) {
         this.subtab = url[ 3 ].path;
-      }
+        //this.subtab = 'design';
 
-      if ( this.active === 'profile' && url.length > 4 ) {
+      } else if ( this.active === 'admin-store' && url.length === 3 ) {
+        this.subtab = 'store-profile';
+      }
+      if ( this.active === 'profile' && url.length > 3 ) {
         this.active = 'profile';
       }
     } );

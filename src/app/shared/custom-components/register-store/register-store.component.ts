@@ -37,7 +37,7 @@ export class RegisterStoreComponent implements OnInit, OnChanges {
   disabled = true;
   urlStore = '';
   isShow = true;
-
+  imageLogo1 = [];
   private user: User = {};
 
   @Input() register = true;

@@ -5,9 +5,10 @@
 	<div class="container">
 		<form class="theme-form">
 			<div class="d-flex search justify-content-mobile-first">
-				<div class="box-mobile-first">
+				<!-- <div class="box-mobile-first">
+				</div> -->
+				<div class="filters">
 					<div class="form-group flex-fill mr-1">
-						<div class="field-label font-weight-bold">Fecha Inicio</div>
 						<div class="input-group">
 							<input class="form-control lighten-3" placeholder="dd/mm/yyyy" name="d2" ngbDatepicker #d1="ngbDatepicker"
 								[(ngModel)]="modelFrom">
@@ -23,7 +24,6 @@
 						</div>
 					</div>
 					<div class="form-group flex-fill">
-						<div class="field-label font-weight-bold">Fecha Fin</div>
 						<div class="input-group">
 							<input class="form-control lighten-3" placeholder="dd/mm/yyyy" name="d2" ngbDatepicker #d2="ngbDatepicker"
 								[(ngModel)]="modelTo">
@@ -38,11 +38,10 @@
 							</div>
 						</div>
 					</div>
-					<div class="d-flex align-items-center mt-3 ml-2">
-						<button class="btn btn-solid-purple btn-find flex-fill" >Buscar</button>
-					</div>
 				</div>
-				
+				<div class="d-flex h-100">
+					<button class="btn btn-solid-purple btn-find flex-fill" (click)="filtrar()">Filtrar</button>
+				</div>
 			</div>
 			<div class="form-group mt-2 d-flex justify-content-mobile-first">
 				<button class="btn btn-outline btn-sm" (click)="ExportTOPDF()">
@@ -67,16 +66,16 @@
 					</thead>
 					<tbody>
 						<tr *ngFor="let sale of sales">
-							<td class="text-center">{{ sale._id | date:'short' }}</td>
+							<td class="text-center">{{ sale._id | date: 'mediumDate' }}</td>
 							<td class="text-center">{{ sale.qty }}</td>
-							<td class="text-center">{{ sale.amount }}</td>
+							<td class="text-center">{{ sale.amount | currency }}</td>
 						</tr>
 					</tbody>
 				</table>
 			</div>
 			
-			<app-custom-pagination [items]="sales" [paginate]="paginate" (setPage)="setPage($event)">
-			</app-custom-pagination>
+			<!-- <app-custom-pagination [items]="sales" [paginate]="paginate" (setPage)="setPage($event)">
+			</app-custom-pagination> -->
 			<div class="form-row container justify-content-center " *ngIf="sales.length==0">
 				<div class="col-md-5">
 					<div class="card text-center mx-auto mb-2">

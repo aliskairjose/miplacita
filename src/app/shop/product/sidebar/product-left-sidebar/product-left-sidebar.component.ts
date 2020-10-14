@@ -14,6 +14,11 @@ import { Category } from '../../../../shared/classes/category';
 import { ViewportScroller } from '@angular/common';
 import { CommentsComponent } from '../../../../shared/components/comments/comments.component';
 
+export interface ProductDetail {
+  colors?: any[];
+  sizes?: any[];
+}
+
 @Component( {
   selector: 'app-product-left-sidebar',
   templateUrl: './product-left-sidebar.component.html',
@@ -31,6 +36,12 @@ export class ProductLeftSidebarComponent implements OnInit {
   prices: any[] = [];
   today: Date = new Date();
   endDate: Date;
+  sizes = [];
+  colors = [];
+  productDetail: ProductDetail;
+
+  color: any;
+  size = '';
 
   @ViewChild( 'sizeChart' ) SizeChart: SizeModalComponent;
   @ViewChild( 'comments' ) comment: CommentsComponent;
@@ -47,11 +58,22 @@ export class ProductLeftSidebarComponent implements OnInit {
     private viewScroller: ViewportScroller,
     private categoryService: CategoryService,
   ) {
+    
   }
 
   ngOnInit(): void {
+    window.scrollTo();
     this.spinner.show();
-    forkJoin( [ this.shopService.storeList(), this.categoryService.categoryList() ] ).subscribe( ( [ shopsResult, categoriesResult ] ) => {
+    const id = this.route.snapshot.paramMap.get( 'id' );
+    const params = `product=${id}`;
+
+    forkJoin( [
+      this.shopService.storeList(),
+      this.categoryService.categoryList(),
+      this.productService.producVariable( id ),
+      this.productService.productList( 1, params ),
+    ] ).subscribe( ( [ shopsResult, categoriesResult, variationResult, productResult ] ) => {
+
       this.shops = [ ...shopsResult.docs ];
       this.categories = [ ...categoriesResult ];
       this.prices = [
@@ -59,23 +81,56 @@ export class ProductLeftSidebarComponent implements OnInit {
         { _id: 'desc', name: 'Desde el más alto' }
       ];
 
-      const id = this.route.snapshot.paramMap.get( 'id' );
-      const params = `product=${id}`;
+      this.product = { ...productResult.docs[ 0 ] };
+      this.endDate = new Date();
+      this.endDate.setDate( this.today.getDate() + parseInt( this.product.deliveryDays, 10 ) );
+      this.comment.loadReviews( this.product._id );
 
-      this.productService.productList( 1, params ).subscribe( ( result: Result<Product> ) => {
-        this.spinner.hide();
-        this.product = { ...result.docs[ 0 ] };
-        // this.product[ 'colors' ] = [ '#ff5733', '#ff5733' ];
+      if ( variationResult?.primary_key === 'color' ) {
+        variationResult.keys.forEach( key => {
+          this.colors.push( { value: key.value, name: key.name, products: key.products } );
+        } );
+        this.selectProduct( this.colors[ 0 ].products );
+      }
 
-        // Estableve el tiempo de entrega
-        this.endDate = new Date();
-        this.endDate.setDate( this.today.getDate() + parseInt( this.product.deliveryDays, 10 ) );
+      if ( variationResult?.primary_key === 'size' ) {
+        variationResult.keys.forEach( key => {
+          this.sizes.push( { value: key.value, name: key.name, product: key.products[ 0 ].product } );
+        } );
+        this.product = this.sizes[ 0 ].product;
+        this.size = this.sizes[ 0 ].name;
+      }
 
-        this.comment.loadReviews( this.product._id );
-      } );
     } );
 
   }
+
+  // Selecciona el producto por defecto a mostrar cuando hay color
+  selectProduct( products: any[] ): void {
+
+    if ( products.length ) {
+      this.sizes = products;
+      this.product = products[ 0 ].product;
+    }
+
+    this.color = this.product.color;
+    this.size = this.product.size?.name;
+  }
+
+  /* Producto seleccionado desde las opciones de color */
+  selectColor( sizes: any ): void {
+    this.sizes = sizes;
+    this.product = sizes[ 0 ].product;
+    this.color = this.product.color;
+
+  }
+
+  // Selecciona la talla desde el selector
+  selectSize( size ): void {
+    this.product = size;
+    this.size = this.product.size.name;
+  }
+
 
   // Append filter value to Url
   updateFilter( tags: any ) {
@@ -113,9 +168,9 @@ export class ProductLeftSidebarComponent implements OnInit {
     return uniqSize;
   }
 
-  selectSize( size ) {
-    this.selectedSize = size;
-  }
+  // selectSize( size ) {
+  //   this.selectedSize = size;
+  // }
 
   // Increament
   increment() {
@@ -151,10 +206,6 @@ export class ProductLeftSidebarComponent implements OnInit {
   // Toggle Mobile Sidebar
   toggleMobileSidebar() {
     this.mobileSidebar = !this.mobileSidebar;
-  }
-
-  ChangeVariants( color, product ) {
-    console.log( 'variante de color' );
   }
 
 }

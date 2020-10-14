@@ -5,6 +5,9 @@ import { Store } from 'src/app/shared/classes/store';
 import { Product } from 'src/app/shared/classes/product';
 import { ExportService } from 'src/app/shared/services/export.service';
 import { ProductService } from 'src/app/shared/services/product.service';
+import { CustomDateParserFormatterService } from '../../../shared/adapter/custom-date-parser-formatter.service';
+import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
+import { ToastrService } from 'ngx-toastr';
 
 @Component( {
   selector: 'app-best-sellers',
@@ -20,12 +23,19 @@ export class BestSellersComponent implements OnInit, OnChanges {
   paginate: Paginate;
   role: string;
   order = 'desc';
+  fechaIni = '';
+  fechaFin = '';
+  modelTo: NgbDateStruct;
+  modelFrom: NgbDateStruct;
+
   @Input() store: Store;
 
   constructor(
     private auth: AuthService,
+    private toastr: ToastrService,
     private exportDoc: ExportService,
     private productService: ProductService,
+    private parseDate: CustomDateParserFormatterService
     ) { }
 
   ngOnInit(): void {
@@ -57,6 +67,20 @@ export class BestSellersComponent implements OnInit, OnChanges {
 
   setPage( page: number ) {
     this.loadData( page );
+  }
+
+  filtrar(): void {
+    this.fechaIni = this.parseDate.format( this.modelFrom );
+    this.fechaFin = this.parseDate.format( this.modelTo );
+    const from = new Date( this.fechaIni );
+    const to = new Date( this.fechaFin );
+
+    if ( from > to ) {
+      this.toastr.warning( 'La fecha inicial no debe ser menor a la final' );
+      return;
+    }
+
+    this.loadData();
   }
 
   ExportTOExcel() {

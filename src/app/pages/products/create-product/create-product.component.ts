@@ -74,7 +74,7 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
   title = 'Crear producto';
   disabled = true;
   plan: Plan;
-
+  changeImage = false;
   @Input() store: Store = {};
 
   constructor(
@@ -91,6 +91,7 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
 
   }
   ngOnChanges( changes: SimpleChanges ): void {
+    this.images = [];
     this.init();
   }
 
@@ -100,6 +101,7 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
   get v() { return this.variableForm.controls; }
 
   ngOnInit(): void {
+    this.images = [];
   }
 
   private init(): void {
@@ -138,27 +140,32 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
     }
 
     if ( this.productForm.valid ) {
-      this.modal.close();
+      //this.modal.close();
       if ( this.status === 'add' ) {
         if ( this.productImages.length === 0 ) {
           this.toastrService.warning( 'Debe cargar al menos una imagen de producto' );
           return;
         }
       }
-      this.productService.uploadImages( { images: this.productImages } ).subscribe( response => {
-        if ( response.status === 'isOk' ) {
-          const data: Product = { ...this.productForm.value };
-          data.images = [];
-          response.images.forEach( ( url: string, index ) => {
-            const image: Images = {};
-            image.url = url;
-            ( index > 0 ) ? image.principal = false : image.principal = true;
-            data.images.push( image );
-          } );
-          this.productForm.value.images = data.images;
-          ( this.status === 'add' ) ? this.createProduct( this.productForm.value ) : this.updateProduct( this.productForm.value );
-        }
-      } );
+      if(this.changeImage && this.productImages.length){
+        this.productService.uploadImages( { images: this.productImages } ).subscribe( response => {
+          if ( response.status === 'isOk' ) {
+            const data: Product = { ...this.productForm.value };
+            data.images = [];
+            response.images.forEach( ( url: string, index ) => {
+              const image: Images = {};
+              image.url = url;
+              ( index > 0 ) ? image.principal = false : image.principal = true;
+              data.images.push( image );
+            } );
+            this.productForm.value.images = data.images;
+            ( this.status === 'add' ) ? this.createProduct( this.productForm.value ) : this.updateProduct( this.productForm.value );
+          }
+        } );
+      } else if(!this.changeImage) {
+        this.updateProduct( this.productForm.value )
+      }
+
     }
   }
 
@@ -242,7 +249,6 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
    * @description Crea el producto via api
    */
   private createProduct( data: Product ): void {
-
     this.clear();
     this.productService.addProduct( data ).subscribe( ( product: Product ) => {
       this.toastrService.info( 'El producto se ha creado con exito' );
@@ -287,11 +293,13 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
 
   upload( images: string[] ): void {
     this.productImages.push( ...images );
+    this.changeImage = true;
   }
 
   private loadProductData( id: string ): void {
     this.productService.productList( 1, `product=${id}` ).subscribe( ( response: Result<Product> ) => {
       this.productData = { ...response.docs[ 0 ] };
+      this.images = this.productData.images;
       this.selectedCategory = this.productData.category;
     } );
   }
@@ -334,6 +342,7 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
       case 1:
         this.title = 'Crear producto';
         this.active = 'product';
+        this.status = 'add';
         break;
       case 2:
         this.active = 'product';
@@ -372,6 +381,7 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
   close() {
     this.clear();
     this.modal.dismiss();
+
   }
 
   private clear(): void {
@@ -388,12 +398,17 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
 
     this.productForm.reset();
     this.productForm.clearValidators();
+    this.images = [];
+    this.changeImage = false;
+
     // this.productForm.updateValueAndValidity();
   }
 
   ngOnDestroy(): void {
     if ( this.modalOpen ) {
       this.modalService.dismissAll();
+      this.images = [];
+
     }
   }
 
@@ -454,7 +469,6 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
     data.store = this.store._id;
 
     this.productService.addVariableProduct( data ).subscribe( response => {
-      console.log( response );
     } );
   }
 

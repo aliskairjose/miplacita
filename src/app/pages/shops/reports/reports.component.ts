@@ -13,9 +13,14 @@ export class ReportsComponent implements OnInit, OnChanges {
   subtab = 'daily-sales';
   @Input() store: Store;
 
-  constructor( private router: Router ) { }
+  constructor( private router: Router,
+    private route: ActivatedRoute ) { }
 
   ngOnInit(): void {
+    this.route.url.subscribe( url => {
+      this.active = url[ 2 ].path;
+      this.subtab = url[ 3 ].path;
+    } );
   }
 
   ngOnChanges( changes: SimpleChanges ): void {

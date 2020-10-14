@@ -228,9 +228,9 @@ export class ShopService {
    * @description lista de ventas totales de la tienda
    *
    */
-  totalSales( params: string ): Observable<Result<Order>> {
+  totalSales( params: string ): Observable<Array<any>> {
     return this.http.get( `sales?${params}` ).pipe(
-      map( ( response: Response<Order> ) => {
+      map( ( response ) => {
         if ( response.success ) {
           return response.result;
         }
@@ -243,8 +243,12 @@ export class ShopService {
    * @param id Id de la tienda
    * @param params Fecha inicio, fecha fin
    */
-  getDebts( id: string, params = '' ): Observable<any> {
-    return this.http.get( `api/debts/${id}?${params}` );
+  getDebts( id: string, params = '' ): Observable<number> {
+    return this.http.get( `debts/${id}?${params}` ).pipe(
+      map( result => {
+        if ( result.success ) { return result.totalAmount[ 0 ].amount; }
+      } )
+    );
   }
 
   /*
@@ -267,4 +271,7 @@ export class ShopService {
     return this.$store.asObservable();
   }
 
+  deleteBanner(id,idphoto){
+    return this.http.delete('stores/'+id+'/config/photo/'+idphoto);
+  }
 }

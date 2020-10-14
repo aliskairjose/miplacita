@@ -27,7 +27,7 @@ export class ProfileComponent implements OnInit, AfterViewInit {
   onlyLetter = environment.errorForm.onlyLetter;
   user: User = {};
   active = 'profile';
-
+  isProfile = true;
   @ViewChild( 'address' ) address: AddressComponent;
 
   constructor(
@@ -42,7 +42,7 @@ export class ProfileComponent implements OnInit, AfterViewInit {
 
   }
   ngAfterViewInit(): void {
-    this.address.isProfile = true;
+    this.isProfile = true;
   }
 
   ngOnInit(): void {
