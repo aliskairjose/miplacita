@@ -58,9 +58,11 @@ export class ProductLeftSidebarComponent implements OnInit {
     private viewScroller: ViewportScroller,
     private categoryService: CategoryService,
   ) {
+    
   }
 
   ngOnInit(): void {
+    window.scrollTo();
     this.spinner.show();
     const id = this.route.snapshot.paramMap.get( 'id' );
     const params = `product=${id}`;
@@ -96,6 +98,7 @@ export class ProductLeftSidebarComponent implements OnInit {
           this.sizes.push( { value: key.value, name: key.name, product: key.products[ 0 ].product } );
         } );
         this.product = this.sizes[ 0 ].product;
+        this.size = this.sizes[ 0 ].name;
       }
 
     } );
