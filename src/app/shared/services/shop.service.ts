@@ -271,4 +271,7 @@ export class ShopService {
     return this.$store.asObservable();
   }
 
+  deleteBanner(id,idphoto){
+    return this.http.delete('stores/'+id+'/config/photo/'+idphoto);
+  }
 }

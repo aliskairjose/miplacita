@@ -9,7 +9,7 @@
                 <label for="file-input">
                   <div *ngIf="images.length">
                     <!-- CAROUSEL -->
-                    <ngb-carousel #ngcarousel>
+                    <ngb-carousel  #ngcarousel>
                       <ng-template *ngFor="let image of images; let i = index" ngbSlide [id]="i">
                         <div class="picsum-img-wrapper w-100">
                           <img [src]="image" class="store-design-img">
@@ -17,32 +17,33 @@
                       </ng-template>
                     </ngb-carousel>
                     <!-- END CAROUSEL-->
-                    <div class="d-flex preview-box" *ngIf="images.length>0">
-                      <div class="preview px-3" *ngFor="let image of images;let i = index">
-                        <img class="w-100 h-100" [src]="image" (click)="update(i)" />
-                        <div class="img-btn d-flex">
-                          <div class="w-45 mx-auto" (click)="delete(i)">
-                            <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-x-circle-fill" fill="#ff4c3b"
-                              xmlns="http://www.w3.org/2000/svg">
-                              <path fill-rule="evenodd"
-                                d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.146-3.146a.5.5 0 0 0-.708-.708L8 7.293 4.854 4.146a.5.5 0 1 0-.708.708L7.293 8l-3.147 3.146a.5.5 0 0 0 .708.708L8 8.707l3.146 3.147a.5.5 0 0 0 .708-.708L8.707 8l3.147-3.146z" />
-                            </svg>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
+                    
                   </div>
                   <div *ngIf="!images.length">
                     <img [src]="fakeImage" />
                   </div>
                 </label>
                 <input multiple id="file-input" type="file" (change)="upload($event.target.files)" />
+                <div class="d-flex preview-box" *ngIf="images.length>0">
+                  <div class="preview px-3" *ngFor="let image of images;let i = index">
+                    <img class="w-100 h-100" [src]="image" (click)="update(i)" />
+                    <div class="img-btn d-flex">
+                      <div class="w-45 mx-auto" (click)="delete(i)">
+                        <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-x-circle-fill" fill="#ff4c3b"
+                          xmlns="http://www.w3.org/2000/svg">
+                          <path fill-rule="evenodd"
+                            d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.146-3.146a.5.5 0 0 0-.708-.708L8 7.293 4.854 4.146a.5.5 0 1 0-.708.708L7.293 8l-3.147 3.146a.5.5 0 0 0 .708.708L8 8.707l3.146 3.147a.5.5 0 0 0 .708-.708L8.707 8l3.147-3.146z" />
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </ng-container>
           <ng-template #multipleImages>
             <div class="image-upload border-box text-center">
-              <label for="file-input">
+              <label for="file-input" *ngIf="type!='logo'">
                 <div *ngIf="images.length">
                   <div *ngFor="let image of images" class="d-flex align-items-center mx-auto">
                     <img class="img-thumbnail mx-auto w-75 h-75" [src]="image">
@@ -52,7 +53,19 @@
                   <img [src]="fakeImage" />
                 </div>
               </label>
-              <input id="file-input" type="file" (change)="upload($event.target.files)" />
+              <label for="file-input-logo" *ngIf="type=='logo'">
+                <div *ngIf="images.length">
+                  <div *ngFor="let image of images" class="d-flex align-items-center mx-auto">
+                    <img class="img-thumbnail mx-auto w-75 h-75" [src]="image">
+                  </div>
+                </div>
+                <div *ngIf="!images.length">
+                  <img [src]="fakeImage" />
+                </div>
+              </label>
+              <input *ngIf="type=='logo'" id="file-input-logo" type="file" (change)="upload($event.target.files)" />
+
+              <input *ngIf="type!=='logo'" id="file-input" type="file" (change)="upload($event.target.files)" />
             </div>
           </ng-template>
         </div>
