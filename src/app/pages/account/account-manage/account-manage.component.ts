@@ -51,10 +51,11 @@ export class AccountManageComponent implements OnInit, OnChanges {
       this.active = url[ 2 ].path;
       if ( this.active === 'admin-store' && url.length > 3 ) {
         this.subtab = url[ 3 ].path;
-      
-      } else if(this.active === 'admin-store' && url.length == 3 ){
+        //this.subtab = 'design';
+
+      } else if ( this.active === 'admin-store' && url.length === 3 ) {
         this.subtab = 'store-profile';
-      } 
+      }
       if ( this.active === 'profile' && url.length > 3 ) {
         this.active = 'profile';
       }

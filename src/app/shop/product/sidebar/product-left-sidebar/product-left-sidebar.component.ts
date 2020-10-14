@@ -40,7 +40,7 @@ export class ProductLeftSidebarComponent implements OnInit {
   colors = [];
   productDetail: ProductDetail;
 
-  color = '';
+  color: any;
   size = '';
 
   @ViewChild( 'sizeChart' ) SizeChart: SizeModalComponent;
@@ -58,9 +58,11 @@ export class ProductLeftSidebarComponent implements OnInit {
     private viewScroller: ViewportScroller,
     private categoryService: CategoryService,
   ) {
+    
   }
 
   ngOnInit(): void {
+    window.scrollTo();
     this.spinner.show();
     const id = this.route.snapshot.paramMap.get( 'id' );
     const params = `product=${id}`;
@@ -96,6 +98,7 @@ export class ProductLeftSidebarComponent implements OnInit {
           this.sizes.push( { value: key.value, name: key.name, product: key.products[ 0 ].product } );
         } );
         this.product = this.sizes[ 0 ].product;
+        this.size = this.sizes[ 0 ].name;
       }
 
     } );
@@ -110,7 +113,7 @@ export class ProductLeftSidebarComponent implements OnInit {
       this.product = products[ 0 ].product;
     }
 
-    this.color = this.product.color.name;
+    this.color = this.product.color;
     this.size = this.product.size?.name;
   }
 
@@ -118,7 +121,7 @@ export class ProductLeftSidebarComponent implements OnInit {
   selectColor( sizes: any ): void {
     this.sizes = sizes;
     this.product = sizes[ 0 ].product;
-    this.color = this.product.color.name;
+    this.color = this.product.color;
 
   }
 

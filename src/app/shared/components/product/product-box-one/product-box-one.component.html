@@ -7,8 +7,7 @@
     <div class="front my-auto">
       <a [routerLink]="['/shop/product/', product._id]">
         <img 
-          [defaultImage]="ImageSrc ? ImageSrc : 'assets/images/product/placeholder.jpg'" 
-          [lazyLoad]="product.images[0].url" 
+          [lazyLoad]="product.images[0]?.url" 
           class="img-fluid lazy-loading" 
           alt="{{ product.name }}" />
       </a>
