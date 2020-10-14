@@ -87,7 +87,6 @@ export class DashboardComponent implements OnInit {
 
 
     this.dashboardService.dashboard_store(params).subscribe( ( data: any ) => {
-      console.log("->>",data);
       this.dashboardData = data.dashboard;
       if(this.dashboardData.sold_products.length>0){
         if(this.dashboardData.sold_products.length > 3){
@@ -101,7 +100,6 @@ export class DashboardComponent implements OnInit {
             // a must be equal to b
             return 0;
           });
-          console.log(this.dashboardData.sold_products);
           for(let i= 0;i< 3;i++ ){
             
             let element: any = this.dashboardData.sold_products[i];

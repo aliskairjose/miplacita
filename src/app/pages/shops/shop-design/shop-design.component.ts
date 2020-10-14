@@ -23,6 +23,7 @@ export class ShopDesignComponent implements OnInit, OnChanges {
   banners = [];
   imageLogo = [];
   bannersDelete = [];
+  changeLogo = false;
   fonts = [
     { value: 'Raleway Bold', name: 'Raleway Bold' },
     { value: 'Roboto Bold', name: 'Roboto Bold' },
@@ -52,10 +53,8 @@ export class ShopDesignComponent implements OnInit, OnChanges {
   ngOnInit(): void {
     // const user: User = this.storage.getItem( 'user' );
     // this.store = user.stores[ 0 ];
-    console.log("store",this.store);
     this.banners = this.store.config.images;
     this.imageLogo = [this.store.logo];
-   console.log(this.imageLogo, this.banners)
   }
 
   updateShopConfig(): void {
@@ -83,13 +82,11 @@ export class ShopDesignComponent implements OnInit, OnChanges {
     } 
     
     if(this.bannersDelete.length){
-      console.log("eliminar");
       for(let image of this.bannersDelete){
         this.shopService.deleteBanner(this.store._id,image._id).subscribe((result)=>{
-          console.log("delete", result);
 
           if(result.success){
-            console.log("success");
+            if ( result.success ) { this.toastrService.info( result.message[ 0 ] ); }
 
           }
         })
@@ -97,7 +94,7 @@ export class ShopDesignComponent implements OnInit, OnChanges {
       }
     }
     
-    if(this.imageLogo.length){
+    if(this.imageLogo.length && this.changeLogo){
       this.updateLogo();
     } else{
 
@@ -111,7 +108,6 @@ export class ShopDesignComponent implements OnInit, OnChanges {
           logo: result.images[ 0 ],
           name: this.store.name,
           description: this.store.description,
-          // currency: this.store.currency,
 
         };
         this.updateStoreLogo(updateStore);
@@ -124,7 +120,6 @@ export class ShopDesignComponent implements OnInit, OnChanges {
   updateStoreLogo(data: any){
     
     this.shopService.updateStore( this.store._id,data).subscribe( response => {
-      console.log("updateStore", response);
       if ( response.success ) {
         this.store = { ...response.store };
         this.toastrService.info( response.message[ 0 ] );
@@ -137,7 +132,6 @@ export class ShopDesignComponent implements OnInit, OnChanges {
 
     this.shopService.config( this.store._id, data ).subscribe( response => {
       if ( response.success ) {
-        console.log("tienda",response);
         this.store = { ...response.result };
         this.toastrService.info( response.message[ 0 ] );
         this.updateShop.emit( this.store );
@@ -150,7 +144,9 @@ export class ShopDesignComponent implements OnInit, OnChanges {
       if ( result.status === 'isOk' ) {
         // result.images[ 0 ];
         this.shopService.addBanner( this.store._id, result.images[ 0 ] ).subscribe( _result => {
-          console.log( _result );
+          if(_result.success){
+            this.toastrService.info( _result.message[ 0 ] );
+          };
         } );
       }
     } );
@@ -161,12 +157,11 @@ export class ShopDesignComponent implements OnInit, OnChanges {
    * @param images Banners
    */
   uploadBanner( images: string[] ): void {
-    console.log( images );
-
     this.images = [ ...images ];
   }
 
   uploadLogo( images: string[] ): void {
+    this.changeLogo = true;
     this.imageLogo = [ ...images ];
   }
 
@@ -176,13 +171,8 @@ export class ShopDesignComponent implements OnInit, OnChanges {
 
   deleteBanner( image ) {
     this.bannersDelete.push(image);
-    console.log("delete banner",image, this.bannersDelete);
 
   }
 
-  deleteLogo(image){
-    console.log("delete logo",image);
-
-  }
 
 }

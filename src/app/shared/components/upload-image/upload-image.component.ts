@@ -2,7 +2,9 @@ import { ToastrService } from 'ngx-toastr';
 
 import {
   AfterViewInit, Component, ElementRef, EventEmitter, Input, OnInit, Output, QueryList, ViewChild
-  , ViewContainerRef
+  , ViewContainerRef,
+  OnChanges,
+  OnDestroy
 } from '@angular/core';
 
 @Component( {
@@ -10,9 +12,9 @@ import {
   templateUrl: './upload-image.component.html',
   styleUrls: [ './upload-image.component.scss' ]
 } )
-export class UploadImageComponent implements OnInit, AfterViewInit {
+export class UploadImageComponent implements OnInit, AfterViewInit, OnChanges, OnDestroy {
 
-  fakeImage = '../../../../assets/images/marketplace/svg/plus-circle.svg';
+  fakeImage = 'assets/images/marketplace/svg/plus-circle.svg';
   @Input() images: Array<string> = [];
   @Input() imagesObject: Array<any> = [];
 
@@ -30,7 +32,6 @@ export class UploadImageComponent implements OnInit, AfterViewInit {
   ) { }
 
   ngOnInit(): void {
-    console.log(this.type,this.imagesObject,this.images );
     if(this.imagesObject.length){
       this.imagesObject.map((image: any)=>{
         this.images.push(image.url);
@@ -41,7 +42,17 @@ export class UploadImageComponent implements OnInit, AfterViewInit {
   ngAfterViewInit() {
 
   }
+  ngOnChanges( ): void {
+    if(this.imagesObject.length){
+      this.imagesObject.map((image: any)=>{
+        this.images.push(image.url);
+      });
+    };
+  }
 
+  ngOnDestroy(){
+    this.imagesObject = [];
+  }
   upload( files ): void {
 
     const limit = 102400;
@@ -84,7 +95,6 @@ export class UploadImageComponent implements OnInit, AfterViewInit {
 
   private imageBase( image: string, length: number ): void {
     let images = [];
-    console.log(this.type);
     this.images.push( image );
     images.push( image );
     if ( images.length === length ) {

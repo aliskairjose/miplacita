@@ -18,7 +18,6 @@ export class ReportsComponent implements OnInit, OnChanges {
 
   ngOnInit(): void {
     this.route.url.subscribe( url => {
-      console.log(url.length,url);
       this.active = url[ 2 ].path;
       this.subtab = url[ 3 ].path;
     } );
