@@ -81,26 +81,26 @@
                         Entrega del producto: {{ today | date }} - {{ endDate | date }}
                       </p>
                     </div>
-                    <div *ngIf="product?.colors">
-                      <ul class="color-variant">
-                        <li [class]="color" *ngFor="let color of product?.colors"
-                          [ngStyle]="{'background-color': color}" (click)="ChangeVariants(color, product)">
-                        </li>
-                      </ul>
-                      <h6 class="product-title">Colores disponibles</h6>
-                    </div>
                     <div class="my-3">
                       <p>{{ product?.description?.substring(0, 200)+'...' }}</p>
                     </div>
-                    <div *ngIf="colors.length">
-                      <h6 class="product-title mb-1">Color: {{ color }}</h6>
+                    <h6 class="product-title">Colores disponibles</h6>
+                    <ul class="color-variant" *ngIf="colors.length">
+                      <li [class]="color" [class.active]="activeSlide == i.toString()" 
+                          *ngFor="let color of colors; index as i" 
+                          [ngStyle]="{'background-color': color.value}"
+                          (click)="selectColor(color.products)">
+                      </li>
+                    </ul>
+                    <!-- <div *ngIf="colors.length">
+                      <h6 class="product-title mb-1">Color: {{ color.name }}</h6>
                       <div class="d-flex flex-row">
                         <div class="border-box mr-2 flex-fill text-center" *ngFor="let color of colors"
                           (click)="selectColor(color.products)">
                           <p>{{ color.name }}</p>
                         </div>
                       </div>
-                    </div>
+                    </div> -->
                     <div *ngIf="sizes.length" class="mt-3">
                       <h6 class="product-title mb-1">Tamaño: {{ size }}</h6>
                       <div class="d-flex flex-row">

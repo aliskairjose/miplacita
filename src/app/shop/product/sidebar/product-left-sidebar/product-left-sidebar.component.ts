@@ -40,7 +40,7 @@ export class ProductLeftSidebarComponent implements OnInit {
   colors = [];
   productDetail: ProductDetail;
 
-  color = '';
+  color: any;
   size = '';
 
   @ViewChild( 'sizeChart' ) SizeChart: SizeModalComponent;
@@ -88,6 +88,7 @@ export class ProductLeftSidebarComponent implements OnInit {
         variationResult.keys.forEach( key => {
           this.colors.push( { value: key.value, name: key.name, products: key.products } );
         } );
+        console.log(this.colors)
         this.selectProduct( this.colors[ 0 ].products );
       }
 
@@ -110,7 +111,7 @@ export class ProductLeftSidebarComponent implements OnInit {
       this.product = products[ 0 ].product;
     }
 
-    this.color = this.product.color.name;
+    this.color = this.product.color;
     this.size = this.product.size?.name;
   }
 
@@ -118,7 +119,7 @@ export class ProductLeftSidebarComponent implements OnInit {
   selectColor( sizes: any ): void {
     this.sizes = sizes;
     this.product = sizes[ 0 ].product;
-    this.color = this.product.color.name;
+    this.color = this.product.color;
 
   }
 
@@ -204,5 +205,7 @@ export class ProductLeftSidebarComponent implements OnInit {
   toggleMobileSidebar() {
     this.mobileSidebar = !this.mobileSidebar;
   }
+
+  ChangeVariants(color, product): void {}
 
 }

@@ -183,10 +183,21 @@ export class ShippingComponent implements OnInit {
   }
 
   private getUniqueStoreId() {
+    console.log( 'getUniqueStoreId' );
+
     const uniqueStore = [];
     const uniqueStoreID = [];
     this._products.filter( ( product: Product ) => {
-      const index = uniqueStoreID.indexOf( product.store._id );
+      let index = 0;
+
+      if ( product.type === 'principal' ) {
+        index = uniqueStoreID.indexOf( product.store._id );
+      }
+
+      if ( product.type === 'variable' ) {
+        index = uniqueStoreID.indexOf( product.store );
+      }
+
       if ( index === -1 ) {
         const shop: any = {};
         shop.id = product.store._id;
@@ -197,5 +208,6 @@ export class ShippingComponent implements OnInit {
     } );
     return uniqueStore;
   }
+
 
 }
