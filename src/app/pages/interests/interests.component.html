@@ -11,7 +11,7 @@
         <form>
 
           <div class="table-responsive-sm mt-2">
-            <table class="table">
+            <table class="table" *ngIf="interestsList.length>0">
               <thead>
                 <th scope="col">Lista de intereses</th>
               </thead>
@@ -21,6 +21,15 @@
                 </tr>
               </tbody>
             </table>
+          </div>
+          <div class="form-row container justify-content-center " *ngIf="type!='register' && interestsList.length==0">
+            <div class="col-md-5">
+              <div class="card text-center mx-auto mb-2">
+                <div class="card-body">
+                  <p>No hay intereses registrados</p>
+                </div>
+              </div>
+            </div>
           </div>
         </form>
       </div>

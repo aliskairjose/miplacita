@@ -84,7 +84,7 @@
                     <div *ngIf="product?.colors">
                       <ul class="color-variant">
                         <li [class]="color" *ngFor="let color of product?.colors"
-                          [ngStyle]="{'background-color': color}" (click)="ChangeVariants(color, product)">
+                          [ngStyle]="{'background-color': color}" >
                         </li>
                       </ul>
                       <h6 class="product-title">Colores disponibles</h6>

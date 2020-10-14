@@ -7,6 +7,7 @@ import { UserService } from '../../shared/services/user.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { CategoryService } from '../../shared/services/category.service';
 import { Category } from '../../shared/classes/category';
+import { User } from 'src/app/shared/classes/user';
 
 @Component( {
   selector: 'app-interests',
@@ -20,13 +21,13 @@ export class InterestsComponent implements OnInit, OnDestroy {
   isPage = false;
   modalOpen = false;
   closeResult: string;
-  fields = [ 'Producto', 'Precio', 'Itbms' ];
   modal: any;
   role: string;
   interests = [];
   userform: any;
   interestsList: Category[] = [];
-
+  user: User;
+  @Input() type = 'register';
   @ViewChild( 'interests', { static: false } ) Interests: TemplateRef<any>;
 
   constructor(
@@ -48,12 +49,12 @@ export class InterestsComponent implements OnInit, OnDestroy {
   get f() { return this.interestForm.controls; }
 
   ngOnInit(): void {
-
-    this.userform = JSON.parse( sessionStorage.userForm );
-    this.categoryService.categoryList().subscribe( ( response: Category[] ) => {
-      this.interestsList = [ ...response ];
-    } );
-
+    if(this.type == 'register'){
+      this.userform = JSON.parse( sessionStorage.userForm );
+      this.categoryService.categoryList().subscribe( ( response: Category[] ) => {
+        this.interestsList = [ ...response ];
+      } );
+    }  
     this.role = this.auth.getUserRol();
     this.route.url.subscribe( url => {
       if ( url.length === 2 ) {
@@ -62,9 +63,17 @@ export class InterestsComponent implements OnInit, OnDestroy {
     } );
   }
 
-  openModal(): void {
+  openModal(user): void {
+    this.user = user;
     this.modalOpen = true;
     this.modal = this.modalService.open( this.Interests );
+    console.log(this.user);
+    this.userService.getUserInterest(this.user._id).subscribe((response)=>{
+      console.log(response);
+      if(response.success){
+        this.interestsList = response.users.config;
+      } 
+    });
   }
 
   close(): void {
