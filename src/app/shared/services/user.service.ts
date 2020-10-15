@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpService } from './http.service';
-import { Observable } from 'rxjs';
+import { Observable, Observer } from 'rxjs';
 import { User } from '../classes/user';
+import { map } from 'rxjs/operators';
 
 @Injectable( {
   providedIn: 'root'
@@ -84,9 +85,9 @@ export class UserService {
   }
 
   /*
-    ---------------------------------------------
-    ---------------  User Interes  --------------
-    ---------------------------------------------
+   ---------------------------------------------
+   ---------------  User Interest --------------
+   ---------------------------------------------
   */
 
   /**
@@ -113,6 +114,26 @@ export class UserService {
    */
   updateUserInterest( id: string, data: any ): Observable<any> {
     return this.http.put( `users/${id}/config`, data );
+  }
+
+
+  /*
+   ---------------------------------------------
+   ---------------  Referidos  -----------------
+   ---------------------------------------------
+  */
+
+  getReferred(): Observable<any> {
+    return this.http.get( `endpoint` );
+  }
+
+  /**
+   * @description Genera el codigo de afiliado
+   * @param storeId Id de la tienda
+   * @param userId Id del usuario
+   */
+  generateAffiliateCode( storeId: string, userId: string ): Observable<any> {
+    return this.http.get( `users/affiliate//program?store=${storeId}&user=${userId}` );
   }
 
 }
