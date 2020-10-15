@@ -12,7 +12,7 @@ export class HttpService {
     private http: HttpClient
   ) { }
 
-  post( endpoint: string, data: any ): Observable<any> {
+  post( endpoint: string, data?: any ): Observable<any> {
     const url = environment.apiUrl + endpoint;
     return this.http.post( url, data );
   }

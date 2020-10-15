@@ -3,6 +3,7 @@ import { HttpService } from './http.service';
 import { Observable, Observer } from 'rxjs';
 import { User } from '../classes/user';
 import { map } from 'rxjs/operators';
+import { AuthResponse } from '../classes/auth-response';
 
 @Injectable( {
   providedIn: 'root'
@@ -12,6 +13,11 @@ export class UserService {
   constructor(
     private http: HttpService
   ) { }
+
+
+  userInvited( ): Observable<AuthResponse> {
+    return this.http.post( `users/invited` );
+  }
 
   /**
    * @description Muetsra el rol del usuario

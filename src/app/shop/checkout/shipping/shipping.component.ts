@@ -12,6 +12,7 @@ import { AddressComponent } from '../../../shared/components/address/address.com
 import { UserService } from '../../../shared/services/user.service';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from '../../../shared/services/auth.service';
+import { StorageService } from '../../../shared/services/storage.service';
 
 
 @Component( {
@@ -55,12 +56,14 @@ export class ShippingComponent implements OnInit {
     private router: Router,
     private auth: AuthService,
     private toastr: ToastrService,
+    private storage: StorageService,
     private userService: UserService,
     private shopService: ShopService,
     public productService: ProductService,
   ) {
 
     this.user = this.auth.getUserActive();
+    console.log( this.user );
 
     this.productService.cartItems.subscribe( products => {
       ( products.length ) ? this._products = [ ...products ] : this.router.navigate( [ '/home' ] );
@@ -85,7 +88,21 @@ export class ShippingComponent implements OnInit {
       }
       this.shipmentOptions = shops;
       this.order.cart = this.cart;
-      this.order.user = this.user._id;
+
+      if ( this.user ) {
+        this.order.user = this.user._id;
+      }
+
+      // Usuario invitado
+      if ( !this.user ) {
+        this.userService.userInvited().subscribe( data => {
+          if ( data.success ) {
+            this.storage.setLoginData( 'data', data );
+            this.auth.authSubject( data.success );
+            this.order.user = data.user._id;
+          }
+        } );
+      }
     } );
   }
 

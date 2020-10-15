@@ -81,11 +81,11 @@ export class CheckoutComponent implements OnInit {
   onSubmit(): void {
     this.submitted = true;
     const order = JSON.parse( sessionStorage.order );
-    
+
     if ( this.payment.onSubmit() ) {
       this.orderService.createOrder( order ).subscribe( response => {
         if ( response.success ) {
-          this.storage.removeItem('cartItems'); // elimina los item del carrito en settings
+          this.storage.removeItem( 'cartItems' ); // elimina los item del carrito en settings
           sessionStorage.removeItem( 'order' );
           sessionStorage.removeItem( 'cartItems' );
           this.router.navigate( [ '/shop/checkout/success' ] );
