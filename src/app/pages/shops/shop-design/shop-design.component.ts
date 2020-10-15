@@ -42,6 +42,7 @@ export class ShopDesignComponent implements OnInit, OnChanges {
   }
   ngOnChanges( changes: SimpleChanges ): void {
     this.shopService.storeObserver().subscribe( ( store: Store ) => {
+      console.log("shop-design store",store);
       this.store = store;
       if ( this.store.config ) {
         if ( this.store.config.color ) {
