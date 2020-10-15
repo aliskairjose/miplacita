@@ -63,8 +63,6 @@ export class ShippingComponent implements OnInit {
   ) {
 
     this.user = this.auth.getUserActive();
-    console.log( this.user );
-
     this.productService.cartItems.subscribe( products => {
       ( products.length ) ? this._products = [ ...products ] : this.router.navigate( [ '/home' ] );
     } );
