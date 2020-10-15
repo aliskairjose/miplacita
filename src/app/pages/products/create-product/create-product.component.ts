@@ -452,10 +452,8 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
     } );
   }
   changeCategorySelection(){
-    console.log("seleccions de categoria", this.selectedCategory);
     let param = 'store'+this.store._id+'&category='+this.selectedCategory
     this.categoryService.getSubcategory(param).subscribe((response)=>{
-      console.log(response);
       if(response.success){
         this.subcategories = response.categories;
       }
@@ -464,10 +462,8 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
   addSubCategory(item){
     item['category'] = this.selectedCategory;
     item['store'] = this.store._id;
-    console.log("sub-categoria",item);
 
     this.categoryService.addSubcategory(item).subscribe(result=>{
-      console.log("result",result);
       if(result.success){
         this.subcategories.push(result.category);
       }
@@ -510,11 +506,8 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   selectSubcategory( subcategory ): void {
-    console.log("seleccion", subcategory);
-    //"5f847809688f7e50c8e99bb2"
     this.selectedSubcategory = subcategory;
     this.productForm.value.subcategory = this.selectedSubcategory._id;
-    console.log("seleccion", this.productForm.value);
 
   }
 
