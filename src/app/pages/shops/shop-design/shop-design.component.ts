@@ -76,7 +76,7 @@ export class ShopDesignComponent implements OnInit, OnChanges {
       this.updateShop.emit( this.store );
 
     }
-
+    console.log(this.bannersDelete);
     if ( this.bannersDelete.length ) {
       for ( const image of this.bannersDelete ) {
         this.shopService.deleteBanner( this.store._id, image._id ).subscribe( ( result ) => {
@@ -160,6 +160,7 @@ export class ShopDesignComponent implements OnInit, OnChanges {
   }
 
   deleteBanner( image ) {
+    console.log(image);
     this.bannersDelete.push( image );
 
   }
