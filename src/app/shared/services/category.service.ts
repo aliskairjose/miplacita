@@ -33,10 +33,10 @@ export class CategoryService {
    * @description Elimina una categoria por ID
    * @param id Id de la categoria a eliminar
    */
-  deleteCategory(id: string): Observable<any> {
+  deleteCategory( id: string ): Observable<any> {
     return this.http.delete( `categories/${id}` );
   }
- 
+
   /**
    * @description Retorna la lista de categorias!
    */
@@ -50,12 +50,21 @@ export class CategoryService {
     );
   }
 
-  addSubcategory(data){
+  
+  addSubcategory( data: any ): Observable<any> {
     return this.http.post( 'categories/subcategory', data );
-
   }
 
-  getSubcategory(data){
-    return this.http.get('categories/subcategory?' + data);
+  /**
+   * @description Listado de sub categorias de la categoria seleccionada
+   * @param shopId Id de la tienda
+   * @param categoryId Id de la categoria a consultar
+   */
+  getSubcategory( shopId: string, categoryId: any ): Observable<any[]> {
+    return this.http.get( `categories/subcategory?store=${shopId}&category=${categoryId}` ).pipe(
+      map( response => {
+        if ( response.success ) { return response.categories; }
+      } )
+    );
   }
 }
