@@ -82,6 +82,14 @@ input[type='checkbox']:checked {
       color: var(--white) !important;
     }
 }
+.btn-whatsapp {
+  
+    background-color: #25D366;
+    color: var(--white);
+    &:hover {
+      color: var(--white) !important;
+    }
+}
 
 .btn-tab {
   padding: 10px 10px;
