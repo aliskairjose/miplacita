@@ -61,7 +61,8 @@ export class CheckoutComponent implements OnInit {
     shipment.cart.forEach( detail => {
       this.shipmentPrice += detail.shipment_price;
     } );
-    this.productService.cartItems.subscribe( response => this.products = response );
+    this.productService.cartItems.subscribe( response => {
+      this.products = response} );
 
     this.subTotal.subscribe( amount => {
       this.amount = amount;
@@ -85,9 +86,8 @@ export class CheckoutComponent implements OnInit {
     if ( this.payment.onSubmit() ) {
       this.orderService.createOrder( order ).subscribe( response => {
         if ( response.success ) {
-          this.storage.removeItem( 'cartItems' ); // elimina los item del carrito en settings
           sessionStorage.removeItem( 'order' );
-          sessionStorage.removeItem( 'cartItems' );
+          this.productService.emptyCartItem();
           this.router.navigate( [ '/shop/checkout/success' ] );
         }
       } );

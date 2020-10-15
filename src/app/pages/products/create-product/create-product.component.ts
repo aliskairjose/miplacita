@@ -209,7 +209,7 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
   createProductVariable(): void {
     this.productService.addProduct( this.variableForm.value ).subscribe( response => {
       this.toastrService.info( 'El producto variable se ha creado con exito' );
-      this.reload.emit(true);
+      this.reload.emit( true );
       this.close();
     } );
   }
@@ -256,7 +256,7 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
     this.productService.addProduct( data ).subscribe( ( product: Product ) => {
       this.toastrService.info( 'El producto se ha creado con exito' );
       this.productService.productSubject( product );
-      this.reload.emit(true);
+      this.reload.emit( true );
       this.close();
     } );
   }
@@ -270,7 +270,7 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
       price: [ '', [ Validators.required ] ],
       tax: [ '', [ Validators.required ] ],
       category: [ '', [ Validators.required ] ],
-      subcategory: [ '', [ Validators.required ] ],
+      subcategory: [ null ],
       status: [ this.statusSelected, [ Validators.required ] ],
       deliveryDays: [ '', [ Validators.required ] ],
       stock: [ '', ],
@@ -452,14 +452,13 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
       }
     } );
   }
+
   changeCategorySelection() {
-    const param = 'store' + this.store._id + '&category=' + this.selectedCategory;
-    this.categoryService.getSubcategory( param ).subscribe( ( response ) => {
-      if ( response.success ) {
-        this.subcategories = response.categories;
-      }
-    } )
+    this.categoryService.getSubcategory( this.store._id, this.selectedCategory ).subscribe( subCategories => {
+      this.subcategories = [ ...subCategories ];
+    } );
   }
+
   addSubCategory( item ) {
     item[ 'category' ] = this.selectedCategory;
     item[ 'store' ] = this.store._id;
@@ -468,7 +467,7 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
       if ( result.success ) {
         this.subcategories.push( result.category );
       }
-    } )
+    } );
 
   }
   checkVariable( event ): void {

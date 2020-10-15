@@ -26,7 +26,6 @@ export class ForgetPasswordComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.url.subscribe( url => {
-      console.log(url);
       this.token = url[1].path;
     })
   }

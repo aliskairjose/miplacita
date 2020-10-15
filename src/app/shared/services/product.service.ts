@@ -83,7 +83,7 @@ export class ProductService {
   producVariable( id: string ): Observable<any> {
     return this.http.get( `products/${id}/variable` ).pipe(
       map( response => {
-        if ( response.success ) { return response.result[0]; }
+        if ( response.success ) { return response.result[ 0 ]; }
       } )
     );
   }
@@ -274,7 +274,7 @@ export class ProductService {
   }
 
   // Add to Cart
-  public addToCart( product: Product ): any {
+  addToCart( product: Product ): any {
     const cartItem = state.cart.find( item => item._id === product._id );
     const qty = product.quantity ? product.quantity : 1;
     const items = cartItem ? cartItem : product;
@@ -327,6 +327,13 @@ export class ProductService {
     const index = state.cart.indexOf( product );
     state.cart.splice( index, 1 );
     this.storage.setItem( 'cartItems', state.cart );
+    return true;
+  }
+
+  emptyCartItem(): any {
+    state.cart = [];
+    this.storage.setItem( 'cartItems', state.cart );
+    // this.storage.removeItem('cartItems');
     return true;
   }
 

@@ -246,8 +246,13 @@ export class ShopService {
   getDebts( id: string, params = '' ): Observable<number> {
     return this.http.get( `debts/${id}?${params}` ).pipe(
       map( result => {
-        if ( result.success ) { return result.totalAmount[ 0 ].amount; }
-      } )
+        if ( result.success ) { 
+          if(result.totalAmount.length){
+            return result.totalAmount[ 0 ].amount; 
+          }            
+          return 0; 
+        }
+      })
     );
   }
 
@@ -267,6 +272,14 @@ export class ShopService {
         if ( response.success ) { return response.store; }
       } )
     );
+  }
+
+  deleteBanner( id: string, idphoto: string ) {
+    return this.http.delete( `stores/${id}/config/photo/${idphoto}` );
+  }
+
+  getStore( id: string ) {
+    return this.http.get( `stores/${id}` );
   }
 
   /*
@@ -289,11 +302,5 @@ export class ShopService {
     return this.$store.asObservable();
   }
 
-  deleteBanner( id, idphoto ) {
-    return this.http.delete( 'stores/' + id + '/config/photo/' + idphoto );
-  }
 
-  getStore(id){
-    return this.http.get('stores/'+id);
-  }
 }

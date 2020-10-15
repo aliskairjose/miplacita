@@ -67,9 +67,7 @@ export class InterestsComponent implements OnInit, OnDestroy {
     this.user = user;
     this.modalOpen = true;
     this.modal = this.modalService.open( this.Interests );
-    console.log(this.user);
     this.userService.getUserInterest(this.user._id).subscribe((response)=>{
-      console.log(response);
       if(response.success){
         this.interestsList = response.users.config;
       } 

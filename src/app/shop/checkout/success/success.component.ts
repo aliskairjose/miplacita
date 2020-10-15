@@ -27,8 +27,6 @@ export class SuccessComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-    const user: User = this.userService.getUserActive();
-    if ( user.fullname === 'invited_user' ) { this.auth.logout(); }
     this.orderService.checkoutItems.subscribe( response => {
       this.orderDetails = response;
     } );

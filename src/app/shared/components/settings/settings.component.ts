@@ -25,7 +25,7 @@ export class SettingsComponent implements OnInit {
     public productService: ProductService,
     private previousRoute: PreviousRouteService,
   ) {
-    this.productService.cartItems.subscribe( response => this.products = response );
+    this.productService.cartItems.subscribe( response => { this.products = response; } );
   }
 
   ngOnInit(): void {

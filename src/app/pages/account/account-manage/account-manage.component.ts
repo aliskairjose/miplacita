@@ -28,7 +28,7 @@ export class AccountManageComponent implements OnInit, OnChanges {
   modal: any;
   modalOpen = false;
   modalOption: NgbModalOptions = {}; // not null!
-
+  
   constructor(
     private router: Router,
     private auth: AuthService,
@@ -52,13 +52,14 @@ export class AccountManageComponent implements OnInit, OnChanges {
   }
 
   init(): void {
+    let provisionalSubtab = '';
     this.route.url.subscribe( url => {
       this.active = url[ 2 ].path;
       if ( this.active === 'admin-store' && url.length > 3 ) {
-        this.subtab = url[ 3 ].path;
+        provisionalSubtab = url[ 3 ].path;
         // this.subtab = 'design';
       } else if ( this.active === 'admin-store' && url.length === 3 ) {
-        this.subtab = 'store-profile';
+        provisionalSubtab = 'store-profile';
       }
       if ( this.active === 'profile' && url.length > 3 ) {
         this.active = 'profile';
@@ -72,6 +73,7 @@ export class AccountManageComponent implements OnInit, OnChanges {
         if ( stores.docs.length ) {
           const _store = JSON.parse( sessionStorage.getItem( 'store' ) );
           this.stores = [ ...stores.docs ];
+          this.subtab = provisionalSubtab;
           if ( _store ) {
             this.selectedStore = _store;
           } else {
@@ -93,6 +95,8 @@ export class AccountManageComponent implements OnInit, OnChanges {
     this.active = tab;
     if ( this.active === 'reports' ) {
       this.updateSubtab( 'daily-sales' );
+    } else if( this.active === 'admin-store'){
+      this.subtab = 'store-profile'
     } else {
       this.router.navigateByUrl( `pages/account/user/${tab}`, { skipLocationChange: false } );
     }
