@@ -4,6 +4,7 @@ import { Store } from '../../../shared/classes/store';
 import { UserService } from '../../../shared/services/user.service';
 import { ToastrService } from 'ngx-toastr';
 import { environment } from '../../../../environments/environment.prod';
+import { ShopService } from '../../../shared/services/shop.service';
 
 @Component( {
   selector: 'app-create-referrals',
@@ -20,7 +21,7 @@ export class CreateReferralsComponent implements OnInit, OnChanges {
 
   constructor(
     private toastr: ToastrService,
-    private userService: UserService,
+    private shopService: ShopService,
     private formBuilder: FormBuilder,
   ) {
     this.createForm();
@@ -37,12 +38,12 @@ export class CreateReferralsComponent implements OnInit, OnChanges {
 
   onSubmit(): void {
     console.log( this.referralForm.value );
-    // this.submitted = true;
-    // if ( this.referralForm.valid ) {
-    //   this.userService.updateAffiliate( this.store._id, this.referralForm.value ).subscribe( store => {
-    //     console.log( store );
-    //   } );
-    // }
+    this.submitted = true;
+    if ( this.referralForm.valid ) {
+      this.shopService.updateAffiliate( this.store._id, this.referralForm.value ).subscribe( store => {
+        console.log( store );
+      } );
+    }
   }
 
   private createForm(): void {

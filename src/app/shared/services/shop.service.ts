@@ -253,6 +253,24 @@ export class ShopService {
 
   /*
     ---------------------------------------------
+    --------------  Affiliado de tienda  --------
+    ---------------------------------------------
+  */
+
+  /**
+   * @description Actualiza la data de referido
+   * @param id Id de la tienda
+   */
+  updateAffiliate( id: string, data: any ): Observable<any> {
+    return this.http.put( `stores/${id}/affiliate`, data ).pipe(
+      map( response => {
+        if ( response.success ) { return response.store; }
+      } )
+    );
+  }
+
+  /*
+    ---------------------------------------------
     --------------  SubjectBehaviors  -----------
     ---------------------------------------------
   */
@@ -271,7 +289,7 @@ export class ShopService {
     return this.$store.asObservable();
   }
 
-  deleteBanner(id,idphoto){
-    return this.http.delete('stores/'+id+'/config/photo/'+idphoto);
+  deleteBanner( id, idphoto ) {
+    return this.http.delete( 'stores/' + id + '/config/photo/' + idphoto );
   }
 }

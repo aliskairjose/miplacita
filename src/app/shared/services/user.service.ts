@@ -85,9 +85,9 @@ export class UserService {
   }
 
   /*
-    ---------------------------------------------
-    ---------------  User Interes  --------------
-    ---------------------------------------------
+   ---------------------------------------------
+   ---------------  User Interest --------------
+   ---------------------------------------------
   */
 
   /**
@@ -96,37 +96,6 @@ export class UserService {
    */
   getUserInterest( id: string ): Observable<any> {
     return this.http.get( `users/interest/${id}` );
-  }
-
-  /*
-   ---------------------------------------------
-   ---------------  User Referidos  ------------
-   ---------------------------------------------
- */
-
-  getReferred(): Observable<any> {
-    return this.http.get( `endpoint` );
-  }
-
-  /**
-   * @description Genera el codigo de afiliado
-   * @param storeId Id de la tienda
-   * @param userId Id del usuario
-   */
-  generateAffiliateCode( storeId: string, userId: string ): Observable<any> {
-    return this.http.get( `users/affiliate//program?store=${storeId}&user=${userId}` );
-  }
-
-  /**
-   * @description Actualiza la data de referido
-   * @param id Id de la tienda
-   */
-  updateAffiliate( id: string, data: any ): Observable<any> {
-    return this.http.put( `stores/${id}/affiliate`, data ).pipe(
-      map( response => {
-        if ( response.success ) { return response.store; }
-      } )
-    );
   }
 
   /**
@@ -145,6 +114,26 @@ export class UserService {
    */
   updateUserInterest( id: string, data: any ): Observable<any> {
     return this.http.put( `users/${id}/config`, data );
+  }
+
+
+  /*
+   ---------------------------------------------
+   ---------------  Referidos  -----------------
+   ---------------------------------------------
+  */
+
+  getReferred(): Observable<any> {
+    return this.http.get( `endpoint` );
+  }
+
+  /**
+   * @description Genera el codigo de afiliado
+   * @param storeId Id de la tienda
+   * @param userId Id del usuario
+   */
+  generateAffiliateCode( storeId: string, userId: string ): Observable<any> {
+    return this.http.get( `users/affiliate//program?store=${storeId}&user=${userId}` );
   }
 
 }
