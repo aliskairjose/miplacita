@@ -114,16 +114,13 @@ export class LoginComponent implements OnInit {
   }
 
   public passwordRecovery() {
-    console.log(this.loginForm.value);
     this.loginForm.value.role = this.role;
     this.loginForm.value['password_url'] = window.location.hostname +':4200/pages/password';
-    console.log(this.loginForm.value);
     if(this.loginForm.value.email == ''){
       this.toastrService.info( 'Ingresa tu correo para recuperar tu contraseña' );
 
     } else {
        this.auth.passwordRecovery(this.loginForm.value).subscribe((result) => {
-        console.log(result);
         if(result.success){
           this.toastrService.info( 'Le enviamos un correo para iniciar el proceso de cambio de contraseña' );
 

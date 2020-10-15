@@ -25,9 +25,9 @@ export class ShopDesignComponent implements OnInit, OnChanges {
   bannersDelete = [];
   changeLogo = false;
   fonts = [
-    { style: { 'font-family': 'Raleway' }, name: 'Raleway Bold' },
-    { style: { 'font-family': 'Roboto', 'font-weight': 'bold' }, name: 'Roboto Bold' },
-    { style: { 'font-family': 'Source Sans Pro' }, name: 'Source Sans Pro' }
+    { value:'Raleway',style: { 'font-family': 'Raleway' }, name: 'Raleway Bold' },
+    { value:'Roboto',style: { 'font-family': 'Roboto', 'font-weight': 'bold' }, name: 'Roboto Bold' },
+    { value:'Source Sans Pro',style: { 'font-family': 'Source Sans Pro' }, name: 'Source Sans Pro' }
   ];
 
   config: Config = {};
