@@ -53,7 +53,7 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
   sizeChecked = false;
   categoryId = '';
   categories: Category[];
-  // selectedSubcategory: any = {};
+  selectedSubcategory: any = {};
   productForm: FormGroup;
   variableForm: FormGroup;
 
@@ -68,7 +68,7 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
   ];
   statusSelected = 'active';
   selectedCategory = '';
-  selectedSubcategory = '';
+  // selectedSubcategory = '';
   productImages: Array<string> = [];
   images = [];
   productData: Product = {};
@@ -271,7 +271,7 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
       price: [ '', [ Validators.required ] ],
       tax: [ '', [ Validators.required ] ],
       category: [ '', [ Validators.required ] ],
-      subcategory: [ '' ],
+      subcategory: [ null ],
       status: [ this.statusSelected, [ Validators.required ] ],
       deliveryDays: [ '', [ Validators.required ] ],
       stock: [ '', ],
