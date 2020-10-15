@@ -48,8 +48,6 @@ export class AccountManageComponent implements OnInit, OnChanges {
   }
 
   reload( event: boolean ): void {
-    console.log(event);
-    
     if ( event ) { this.init(); }
   }
 
@@ -58,8 +56,7 @@ export class AccountManageComponent implements OnInit, OnChanges {
       this.active = url[ 2 ].path;
       if ( this.active === 'admin-store' && url.length > 3 ) {
         this.subtab = url[ 3 ].path;
-        //this.subtab = 'design';
-
+        // this.subtab = 'design';
       } else if ( this.active === 'admin-store' && url.length === 3 ) {
         this.subtab = 'store-profile';
       }
