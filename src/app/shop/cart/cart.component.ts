@@ -39,9 +39,9 @@ export class CartComponent implements OnInit {
   }
 
   removeItem( product: Product ) {
-    console.log('removeItem');
-    
-    // this.productService.removeCartItem( product );
+    const index = this.products.indexOf( product );
+    this.products.splice(index, 1);
+    this.productService.removeCartItem( product );
   }
 
 }
