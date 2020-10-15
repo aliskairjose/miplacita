@@ -91,16 +91,6 @@ export class ShippingComponent implements OnInit {
         this.order.user = this.user._id;
       }
 
-      // Usuario invitado
-      if ( !this.user ) {
-        this.userService.userInvited().subscribe( data => {
-          if ( data.success ) {
-            this.storage.setLoginData( 'data', data );
-            this.auth.authSubject( data.success );
-            this.order.user = data.user._id;
-          }
-        } );
-      }
     } );
   }
 
@@ -114,7 +104,16 @@ export class ShippingComponent implements OnInit {
   }
 
   checkout(): void {
-
+    // Usuario invitado
+    if ( !this.user ) {
+      this.userService.userInvited().subscribe( response => {
+        if ( response.success ) {
+          this.storage.setLoginData( 'data', response );
+          this.auth.authSubject( response.success );
+          this.order.user = response.user._id;
+        }
+      } );
+    }
     const data = this.address.onSubmit();
     if ( data?.saveAddress ) {
       if ( Object.keys( data?.shippingAddress ).length !== 0 && data.addressExist ) {
