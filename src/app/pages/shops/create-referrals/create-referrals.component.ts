@@ -49,7 +49,7 @@ export class CreateReferralsComponent implements OnInit, OnChanges {
   private createForm(): void {
     this.referralForm = this.formBuilder.group( {
       affiliate_program_amount: [ '', [ Validators.required ] ],
-      affiliate_program: [ '' ]
+      affiliate_program: [ '', [ Validators.required ] ]
     } );
   }
 
