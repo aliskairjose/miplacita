@@ -126,4 +126,4 @@
 		</ng-template>
 	</div>
 </section>
-<app-create-product #createProduct *ngIf="role === 'merchant'" [store]="store"></app-create-product>
+<app-create-product #createProduct *ngIf="role === 'merchant'" [store]="store" (reload)="reload($event)"></app-create-product>

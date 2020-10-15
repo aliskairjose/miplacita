@@ -329,7 +329,11 @@
 					<app-shop-withdrawal *ngIf="active=='admin-store' && subtab=='withdrawal'" [store]="selectedStore"></app-shop-withdrawal>
 					<app-shipping-zones *ngIf="active=='admin-store' && subtab=='shipping'" [store]="selectedStore">
 					</app-shipping-zones>
-					<app-create-referrals *ngIf="active=='admin-store' && subtab=='create-referrals'" [store]="selectedStore"></app-create-referrals>
+					<app-create-referrals 
+						*ngIf="active=='admin-store' && subtab=='create-referrals'" 
+						[store]="selectedStore"
+						(reload)="reload($event)">
+					</app-create-referrals>
 				</div>
 				<!-- Reportes -->
 				<div 
