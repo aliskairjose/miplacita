@@ -11,8 +11,12 @@ import { environment } from 'src/environments/environment';
 export class SupportComponent implements OnInit, OnChanges {
 
   @Input() store: Store;
-  url: string = 'https://api.whatsapp.com/send?phone=' + environment.whatsappContact + '&text=';
-  constructor( private router: Router) { }
+  private _whatsAppUrl = `https://wa.me/${environment.whatsappContact}`;
+
+  constructor(
+    private router: Router
+  ) { }
+
   ngOnChanges( changes: SimpleChanges ): void {
     this.store = JSON.parse( sessionStorage.getItem( 'store' ) );
     this.init();
@@ -21,9 +25,14 @@ export class SupportComponent implements OnInit, OnChanges {
   ngOnInit(): void {
   }
 
+  sendWhatsApp(): void {
+    window.open( this._whatsAppUrl, '_blank' );
+  }
+
   private init(): void {
 
   }
+
 
 
 }

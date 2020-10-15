@@ -1,5 +1,5 @@
 <ng-template #createProduct let-modal>
-	<ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="ball-spin-clockwise" [fullScreen]="true">
+	<ngx-spinner bdColor="rgba(0, 0, 0, 0.3)" size="medium" color="#fff" type="ball-spin-clockwise" [fullScreen]="true">
 		<p style="color: white"> Por favor espere... </p>
 	</ngx-spinner>
 	<ngx-alerts></ngx-alerts>
@@ -57,8 +57,7 @@
 										<div class="form-group ">
 											<div class="field-label">Categoría</div>
 											<select formControlName="category" class="form-control" name="category"
-												[(ngModel)]="selectedCategory">
-												<option value="" selected>Seleccione una categoría</option>
+												[(ngModel)]="selectedCategory" (change)="changeCategorySelection()">
 												<option *ngFor="let category of categories" [value]="category._id">
 													{{category.name}}</option>
 											</select>
@@ -67,11 +66,12 @@
 												<div *ngIf="f.category.errors.required"> {{ required }} </div>
 											</div>
 										</div>
-										<div class="form-group">
+										<!-- Sub-Categoria -->
+										<div class="form-group" *ngIf="selectedCategory!=''">
 											<div class="field-label">Sub-categoría</div>
 											<div ngbDropdown>
 												<button class="form-control" id="select-btn" ngbDropdownToggle>
-													{{ selectedSubcategory.value ? selectedSubcategory.value : 'Selecciona una sub categoría' }}
+													{{ selectedSubcategory.name ? selectedSubcategory.name : 'Selecciona una sub categoría' }}
 												</button>
 												<div ngbDropdownMenu aria-labelledby="dropdownBasic1">
 													<button type="button" class="drop-button" (click)="openModalNewElement(2)" ngbDropdownItem>
@@ -81,7 +81,7 @@
 													<div>
 														<button type="button" class="drop-button" *ngFor="let subcategory of subcategories"
 															[value]="subcategory._id" (click)="selectSubcategory(subcategory)" ngbDropdownItem>
-															{{subcategory.value}}
+															{{subcategory.name}}
 														</button>
 													</div>
 												</div>

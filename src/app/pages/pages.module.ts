@@ -70,7 +70,6 @@ import { ClientsComponent } from './shops/clients/clients.component';
 import { BestSellersComponent } from './shops/best-sellers/best-sellers.component';
 import { TotalSalesComponent } from './shops/total-sales/total-sales.component';
 import { InterestsComponent } from './interests/interests.component';
-import { MomentModule } from 'ngx-moment';
 
 // export let options: Partial<IConfig> | (() => Partial<IConfig>);
 const maskConfig: Partial<IConfig> = {
@@ -152,7 +151,6 @@ export const customCurrencyMaskConfig = {
   ],
   imports: [
     SharedModule,
-    MomentModule,
     CommonModule,
     FormsModule,
     PagesRoutingModule,

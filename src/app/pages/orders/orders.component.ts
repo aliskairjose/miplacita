@@ -110,7 +110,6 @@ export class OrdersComponent implements OnInit, OnChanges {
     }
 
     this.orderService.orderList( page, params ).subscribe( result => {
-      console.log(result);
       this.orders = [ ...result.docs ];
       this.paginate = { ...result };
       this.paginate.pages = [];

@@ -31,7 +31,7 @@ export class ModalNewElementComponent implements OnInit {
     this.elementForm = this.formBuilder.group( {
       name: [ '' ],
       size: [ '' ],
-      subcategory: [ '' ],
+      description: [ '' ],
 
     } );
   }
@@ -43,7 +43,7 @@ export class ModalNewElementComponent implements OnInit {
         this.activeModal.close( { name: this.elementForm.value.name, value: this.elementForm.value.size } );
         break;
       case 2:
-        this.activeModal.close( { name: this.elementForm.value.name, value: this.elementForm.value.subcategory } );
+        this.activeModal.close( this.elementForm.value );
         break;
 
       default:

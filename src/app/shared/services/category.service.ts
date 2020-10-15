@@ -49,4 +49,13 @@ export class CategoryService {
       } )
     );
   }
+
+  addSubcategory(data){
+    return this.http.post( 'categories/subcategory', data );
+
+  }
+
+  getSubcategory(data){
+    return this.http.get('categories/subcategory?' + data);
+  }
 }

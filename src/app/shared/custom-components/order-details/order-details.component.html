@@ -34,13 +34,14 @@
             <div class="table-responsive-sm mt-2">
               <table class="table">
                 <thead>
-                  <th *ngFor="let field of fields" scope="col">{{field}}</th>
+                  <th *ngFor="let field of fields" scope="col" class="text-center">{{field}}</th>
                 </thead>
                 <tbody>
                   <tr *ngFor="let product of order.items">
-                    <td>{{product.product_name}}</td>
-                    <td>{{product.total_price}}</td>
-                    <td>{{product.tax}}</td>
+                    <td class="text-center">{{ product.product_name }}</td>
+                    <td class="text-center">{{ product.total_price | currency }}</td>
+                    <td class="text-center">{{ product.quantity }}</td>
+                    <td class="text-center">{{ product.tax | currency }}</td>
                   </tr>
                 </tbody>
               </table>

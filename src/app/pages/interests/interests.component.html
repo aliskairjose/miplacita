@@ -11,7 +11,7 @@
         <form>
 
           <div class="table-responsive-sm mt-2">
-            <table class="table">
+            <table class="table" *ngIf="interestsList.length>0">
               <thead>
                 <th scope="col">Lista de intereses</th>
               </thead>
@@ -22,6 +22,15 @@
               </tbody>
             </table>
           </div>
+          <div class="form-row container justify-content-center " *ngIf="type!='register' && interestsList.length==0">
+            <div class="col-md-5">
+              <div class="card text-center mx-auto mb-2">
+                <div class="card-body">
+                  <p>No hay intereses registrados</p>
+                </div>
+              </div>
+            </div>
+          </div>
         </form>
       </div>
 
@@ -29,7 +38,7 @@
   </div>
 </ng-template>
 <div *ngIf="isPage">
-  <ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="ball-spin-clockwise" [fullScreen]="true">
+  <ngx-spinner bdColor="rgba(0, 0, 0, 0.3)" size="medium" color="#fff" type="ball-spin-clockwise" [fullScreen]="true">
     <p style="color: white"> Por favor espere... </p>
   </ngx-spinner>
   <ngx-alerts></ngx-alerts>

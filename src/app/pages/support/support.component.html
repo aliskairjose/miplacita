@@ -1,29 +1,33 @@
-<ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="ball-spin-clockwise" [fullScreen]="true">
+<ngx-spinner bdColor="rgba(0, 0, 0, 0.3)" size="medium" color="#fff" type="ball-spin-clockwise" [fullScreen]="true">
 	<p style="color: white"> Por favor espere... </p>
 </ngx-spinner>
 <section class="section-b-space">
 	<div class="container px-3">
-        <div class="page-title mb-4">
-            <h2 class="mp-title">
-                <span>Soporte</span>
-            </h2>
-        </div>
-        <div class="row justify-content-center">
-            <div class="col-lg-10 col-md-12 col-sm-12 border-box justify-content-center align-items-center">
-                <div class="form-group text-center py-5 px-5">
-              
-                    <button class="btn btn-login btn-lg w-100">Correo Electrónico</button>
-                    <div class="row mt-1 mb-1 align-items-center separador" >
-                    </div>
-                    <div class="btn btn-fb btn-lg btn-block">
-                        <a [href]="url" target="_blank">
-                            <div class="row">
-                                <div class="col justify-content-center">WhatsApp</div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+		<div class="page-title mb-4">
+			<h2 class="mp-title">
+				<span>Soporte</span>
+			</h2>
+		</div>
+		<div class="row justify-content-center">
+			<div class="col-lg-10 col-md-12 col-sm-12 border-box justify-content-center align-items-center">
+				<div class="form-group text-center py-5 px-5">
+
+					<a class="btn btn-fb btn-primary btn-block" href="mailto: info@laplacita.com">
+						<div class="row">
+							<div class="col-md-1"> <i class="fa fa-envelope-o fa-2x"></i> </div>
+							<div class="col justify-content-center">Correo Electrónico</div>
+						</div>
+					</a>
+					<div class="row mt-1 mb-1 align-items-center separador">
+					</div>
+					<div class="btn btn-fb btn-whatsapp btn-block" (click)="sendWhatsApp()">
+						<div class="row">
+							<div class="col-md-1"> <i class="fa fa-whatsapp fa-2x"></i> </div>
+							<div class="col justify-content-center">WhatsApp</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </section>
