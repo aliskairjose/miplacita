@@ -25,12 +25,10 @@ export class ShopDesignComponent implements OnInit, OnChanges {
   bannersDelete = [];
   changeLogo = false;
   fonts = [
-    { value:'Raleway',style: { 'font-family': 'Raleway' }, name: 'Raleway Bold' },
-    { value:'Roboto',style: { 'font-family': 'Roboto', 'font-weight': 'bold' }, name: 'Roboto Bold' },
-    { value:'Source Sans Pro',style: { 'font-family': 'Source Sans Pro' }, name: 'Source Sans Pro' }
+    { value: 'Raleway', style: { 'font-family': 'Raleway' }, name: 'Raleway Bold' },
+    { value: 'Roboto', style: { 'font-family': 'Roboto', 'font-weight': 'bold' }, name: 'Roboto Bold' },
+    { value: 'Source Sans Pro', style: { 'font-family': 'Source Sans Pro' }, name: 'Source Sans Pro' }
   ];
-
-  config: Config = {};
 
   @Input() store: Store;
   @Output() updateShop: EventEmitter<Store> = new EventEmitter<Store>();
@@ -46,12 +44,11 @@ export class ShopDesignComponent implements OnInit, OnChanges {
       console.log( store );
 
       this.store = store;
-      // this.color = this.store.config.color;
-      // this.banners = this.store.config.images;
-      this.config = this.store.config;
+      this.color = this.store.config.color;
+      this.banners = this.store.config.images;
       this.imageLogo = [ this.store.logo ];
 
-      this.fontSelected = this.store.config?.font;
+      this.fontSelected = this.store.config.font;
     } );
   }
 
@@ -85,27 +82,22 @@ export class ShopDesignComponent implements OnInit, OnChanges {
     if ( this.bannersDelete.length ) {
       for ( const image of this.bannersDelete ) {
         this.shopService.deleteBanner( this.store._id, image._id ).subscribe( ( result ) => {
-
-          if ( result.success ) {
-            if ( result.success ) { this.toastrService.info( result.message[ 0 ] ); }
-
-          }
-        } )
-
+          if ( result.success ) { this.toastrService.info( result.message[ 0 ] ); }
+        } );
       }
     }
 
     if ( this.imageLogo.length && this.changeLogo ) {
       this.updateLogo();
     } else {
-
       this.updateConfig();
     }
   }
+  
   updateLogo() {
     this.shopService.uploadImages( { images: this.imageLogo } ).subscribe( result => {
       if ( result.status === 'isOk' ) {
-        let updateStore = {
+        const updateStore = {
           logo: result.images[ 0 ],
           name: this.store.name,
           description: this.store.description,
@@ -114,7 +106,6 @@ export class ShopDesignComponent implements OnInit, OnChanges {
         this.updateStoreLogo( updateStore );
       }
     } );
-
 
   }
 
