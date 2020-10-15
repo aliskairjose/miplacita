@@ -1,7 +1,6 @@
-import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, SimpleChanges, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Store } from '../../../shared/classes/store';
-import { UserService } from '../../../shared/services/user.service';
 import { ToastrService } from 'ngx-toastr';
 import { environment } from '../../../../environments/environment.prod';
 import { ShopService } from '../../../shared/services/shop.service';
@@ -18,6 +17,7 @@ export class CreateReferralsComponent implements OnInit, OnChanges {
   required = environment.errorForm.required;
 
   @Input() store: Store;
+  @Output() reload: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   constructor(
     private toastr: ToastrService,
@@ -28,7 +28,7 @@ export class CreateReferralsComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges( changes: SimpleChanges ): void {
-
+    console.log( this.store );
   }
 
   ngOnInit(): void {
@@ -40,7 +40,10 @@ export class CreateReferralsComponent implements OnInit, OnChanges {
     this.submitted = true;
     if ( this.referralForm.valid ) {
       this.shopService.updateAffiliate( this.store._id, this.referralForm.value ).subscribe( store => {
-        console.log( store );
+        this.toastr.info( 'Información actualizada con exito' );
+        this.referralForm.reset();
+        this.submitted = false;
+        this.reload.emit( true );
       } );
     }
   }

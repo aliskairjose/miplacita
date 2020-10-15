@@ -47,6 +47,12 @@ export class AccountManageComponent implements OnInit, OnChanges {
     this.init();
   }
 
+  reload( event: boolean ): void {
+    console.log(event);
+    
+    if ( event ) { this.init(); }
+  }
+
   init(): void {
     this.route.url.subscribe( url => {
       this.active = url[ 2 ].path;
