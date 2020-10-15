@@ -4,6 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { ShopComponent } from './shop/shop.component';
 import { PagesComponent } from './pages/pages.component';
 import { ElementsComponent } from './elements/elements.component';
+import { StorePageComponent } from './pages/shops/store-page/store-page.component';
 // import { AuthGuard } from './shared/guard/auth.guard';
 
 const routes: Routes = [
@@ -30,6 +31,10 @@ const routes: Routes = [
     path: 'elements',
     component: ElementsComponent,
     loadChildren: () => import( './elements/elements.module' ).then( m => m.ElementsModule )
+  },
+  {
+    path: ':url/:id/home',
+    component: StorePageComponent,
   },
   {
     path: '**', // Navigate to Home Page if not found any page

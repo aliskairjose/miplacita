@@ -25,9 +25,9 @@ export class ShopDesignComponent implements OnInit, OnChanges {
   bannersDelete = [];
   changeLogo = false;
   fonts = [
-    { value: 'Raleway Bold', name: 'Raleway Bold' },
-    { value: 'Roboto Bold', name: 'Roboto Bold' },
-    { value: 'Source Sans Pro', name: 'Source Sans Pro' }
+    { style: {'font-family':'Raleway'}, name: 'Raleway Bold' },
+    { style: {'font-family':'Roboto', 'font-weight':'bold'}, name: 'Roboto Bold' },
+    { style: {'font-family':'Source Sans Pro'}, name: 'Source Sans Pro' }
   ];
 
   @Input() store: Store;
@@ -43,9 +43,12 @@ export class ShopDesignComponent implements OnInit, OnChanges {
   ngOnChanges( changes: SimpleChanges ): void {
     this.shopService.storeObserver().subscribe( ( store: Store ) => {
       this.store = store;
-      if(this.store.config.color){
-        this.color = this.store.config.color;
+      if(this.store.config){
+        if(this.store.config.color){
+          this.color = this.store.config.color;
+        }
       }
+      
       this.fontSelected = this.store.config.font;
     } );
   }
