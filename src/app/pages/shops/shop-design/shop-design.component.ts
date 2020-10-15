@@ -93,7 +93,7 @@ export class ShopDesignComponent implements OnInit, OnChanges {
       this.updateConfig();
     }
   }
-  
+
   updateLogo() {
     this.shopService.uploadImages( { images: this.imageLogo } ).subscribe( result => {
       if ( result.status === 'isOk' ) {
@@ -138,7 +138,7 @@ export class ShopDesignComponent implements OnInit, OnChanges {
         this.shopService.addBanner( this.store._id, result.images[ 0 ] ).subscribe( _result => {
           if ( _result.success ) {
             this.toastrService.info( _result.message[ 0 ] );
-          };
+          }
         } );
       }
     } );
