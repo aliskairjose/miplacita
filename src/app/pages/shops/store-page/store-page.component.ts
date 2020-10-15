@@ -16,6 +16,11 @@ export class StorePageComponent implements OnInit {
   store: Store;
   idStore: string;
   sliders = [];
+  verticalBanners = [
+    '../../../../assets/images/marketplace/images/banners/recibe.png',
+    '../../../../assets/images/marketplace/images/banners/administra.png',
+    '../../../../assets/images/marketplace/images/banners/envia.png'
+  ];
   constructor(
     private route: ActivatedRoute,
     private storeService: ShopService,

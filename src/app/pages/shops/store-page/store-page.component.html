@@ -12,7 +12,36 @@
         </ngb-carousel>
     </section>
 
+    <!-- Banner verticales start -->
+    <section class="section-b-space">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <div class="title-purple text-center">
+                        <h2>Crea tu tienda</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-3 d-flex justify-content-center vertical-banners">
+                <div class="row justify-content-center">
+                    <div class="col-md-3 " *ngFor="let image of verticalBanners">
+                        <div class="media ">
+                            <img class="h-100 w-100" id="" [src]="image" />
 
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <ngb-carousel class="vertical-banners-carousel" *ngIf="verticalBanners.length>0" #ngcarousel>
+                <ng-template *ngFor="let image of verticalBanners" ngbSlide>
+                    <div class="picsum-img-wrapper w-100">
+                        <img [src]="image" class="vertical-banner-img ">
+                    </div>
+                </ng-template>
+            </ngb-carousel>
+        </div>
+    </section>
+    <!-- Banner verticales end -->
     <!-- Product slider start-->
     <div class="title1 section-t-space" *ngIf="products.length">
         <h2 class="title-inner1">Productos Destacados</h2>
