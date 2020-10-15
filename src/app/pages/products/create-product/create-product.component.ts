@@ -2,7 +2,7 @@
 import { ToastrService } from 'ngx-toastr';
 import { forkJoin } from 'rxjs';
 
-import { Component, Input, OnDestroy, OnInit, TemplateRef, ViewChild, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit, TemplateRef, ViewChild, OnChanges, SimpleChanges, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgbModal, NgbModalOptions, NgbDateParserFormatter, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
 
@@ -14,7 +14,6 @@ import { Result } from '../../../shared/classes/response';
 import { Store } from '../../../shared/classes/store';
 import { ProductService } from '../../../shared/services/product.service';
 import { ShopService } from '../../../shared/services/shop.service';
-import { ProductsComponent } from '../products.component';
 import { ModalNewElementComponent } from 'src/app/shared/components/modal-new-element/modal-new-element.component';
 import { VariableProduct } from '../../../shared/classes/variable-product';
 import { CategoryService } from 'src/app/shared/services/category.service';
@@ -76,7 +75,10 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
   disabled = true;
   plan: Plan;
   changeImage = false;
+
   @Input() store: Store = {};
+  @Output() reload: EventEmitter<boolean> = new EventEmitter<boolean>();
+
 
   constructor(
     public modalService: NgbModal,
@@ -84,7 +86,6 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
     private formBuilder: FormBuilder,
     private toastrService: ToastrService,
     private productService: ProductService,
-    public productsComponent: ProductsComponent,
     private categoryService: CategoryService,
     private calendar: NgbCalendar, public formatter: NgbDateParserFormatter
   ) {
@@ -143,7 +144,7 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
     }
 
     if ( this.productForm.valid ) {
-      //this.modal.close();
+      // this.modal.close();
       if ( this.status === 'add' ) {
         if ( this.productImages.length === 0 ) {
           this.toastrService.warning( 'Debe cargar al menos una imagen de producto' );
@@ -166,7 +167,7 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
           }
         } );
       } else if ( !this.changeImage ) {
-        this.updateProduct( this.productForm.value )
+        this.updateProduct( this.productForm.value );
       }
 
     }
@@ -208,7 +209,7 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
   createProductVariable(): void {
     this.productService.addProduct( this.variableForm.value ).subscribe( response => {
       this.toastrService.info( 'El producto variable se ha creado con exito' );
-      this.productsComponent.reloadData();
+      this.reload.emit(true);
       this.close();
     } );
   }
@@ -217,7 +218,7 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
     this.productService.updateProduct( this.productData._id, data ).subscribe( ( response ) => {
       if ( response.success ) {
         this.toastrService.info( response.message[ 0 ] );
-        this.productsComponent.reloadData();
+        this.reload.emit( true );
         this.close();
       }
     } );
@@ -255,7 +256,7 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
     this.productService.addProduct( data ).subscribe( ( product: Product ) => {
       this.toastrService.info( 'El producto se ha creado con exito' );
       this.productService.productSubject( product );
-      this.productsComponent.reloadData();
+      this.reload.emit(true);
       this.close();
     } );
   }
@@ -442,7 +443,7 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
           break;
 
         case 2:
-          this.addSubCategory(item);
+          this.addSubCategory( item );
           break;
 
         default:
@@ -451,23 +452,23 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
       }
     } );
   }
-  changeCategorySelection(){
-    let param = 'store'+this.store._id+'&category='+this.selectedCategory
-    this.categoryService.getSubcategory(param).subscribe((response)=>{
-      if(response.success){
+  changeCategorySelection() {
+    const param = 'store' + this.store._id + '&category=' + this.selectedCategory;
+    this.categoryService.getSubcategory( param ).subscribe( ( response ) => {
+      if ( response.success ) {
         this.subcategories = response.categories;
       }
-    })
+    } )
   }
-  addSubCategory(item){
-    item['category'] = this.selectedCategory;
-    item['store'] = this.store._id;
+  addSubCategory( item ) {
+    item[ 'category' ] = this.selectedCategory;
+    item[ 'store' ] = this.store._id;
 
-    this.categoryService.addSubcategory(item).subscribe(result=>{
-      if(result.success){
-        this.subcategories.push(result.category);
+    this.categoryService.addSubcategory( item ).subscribe( result => {
+      if ( result.success ) {
+        this.subcategories.push( result.category );
       }
-    })
+    } )
 
   }
   checkVariable( event ): void {
@@ -496,7 +497,7 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
 
   selectVariable( variable: VariableProduct, type: string ): void {
     if ( type === 'color' ) {
-      this.selectedColor = { ...variable }
+      this.selectedColor = { ...variable };
       this.variableForm.value.color = this.selectedColor._id;
     } else if ( type === 'size' ) {
       this.selectedSize = { ...variable };

@@ -24,7 +24,8 @@
               "hammerjs",
               "rxjs/operators",
               "rxjs/Subject",
-              "rxjs/Subscription"
+              "rxjs/Subscription",
+              "ngx-google-places-autocomplete"
             ],
             "outputPath": "dist/",
             "index": "src/index.html",

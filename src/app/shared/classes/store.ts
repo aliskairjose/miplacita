@@ -13,6 +13,7 @@ export interface Store {
   active?: boolean;
   created_at?: string;
   config?: Config;
+  affiliate_program?: boolean;
 }
 
 export interface Config {
