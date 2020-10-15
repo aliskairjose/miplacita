@@ -1,0 +1,29 @@
+.explore-btn {
+    position: fixed;
+}
+ngb-carousel {
+    max-height: 550px;
+}
+
+.img-main-banner {
+    width: 100%;
+    height: auto;   
+    max-height: 550px; 
+}
+
+@supports(object-fit: cover){
+    .img-main-banner {
+        height: 100%;
+        object-fit: contain;
+        object-position: center center;
+    }
+}
+
+@media (min-width: 768px) { 
+
+  
+}
+
+@media (min-width: 992px) { 
+
+}

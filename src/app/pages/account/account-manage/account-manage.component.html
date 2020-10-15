@@ -146,7 +146,7 @@
 				</div>
 				<div *ngIf="active==='stores'" class="" id="contact" user.role="tabpanel">
 					<div *ngIf="user.role==='merchant'">
-						<div class="page-title">
+						<!-- <div class="page-title">
 							<h2 class="mp-title">
 								<span>Mis tiendas</span>
 							</h2>
@@ -181,7 +181,8 @@
 									</div>
 								</div>
 							</div>
-						</div>
+						</div> -->
+						<app-stores-list [stores]="stores"></app-stores-list>
 					</div>
 					<app-shops *ngIf="user.role==='admin'"></app-shops>
 				</div>
