@@ -12,6 +12,7 @@ export interface Product {
   store_id?: string;
   status?: string;
   category?: string;
+  subcategory?: string;
   images?: Images[];
   stock?: number;
   store?: any;
