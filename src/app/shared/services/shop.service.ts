@@ -246,7 +246,6 @@ export class ShopService {
   getDebts( id: string, params = '' ): Observable<number> {
     return this.http.get( `debts/${id}?${params}` ).pipe(
       map( result => {
-        console.log(result);
         if ( result.success ) { 
           if(result.totalAmount.length){
             return result.totalAmount[ 0 ].amount; 
