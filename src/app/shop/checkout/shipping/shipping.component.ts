@@ -63,6 +63,7 @@ export class ShippingComponent implements OnInit {
   ) {
 
     this.user = this.auth.getUserActive();
+
     this.productService.cartItems.subscribe( products => {
       ( products.length ) ? this._products = [ ...products ] : this.router.navigate( [ '/home' ] );
     } );
@@ -90,6 +91,16 @@ export class ShippingComponent implements OnInit {
       if ( this.user ) {
         this.order.user = this.user._id;
       }
+      // Usuario invitado
+      if ( !this.user ) {
+        this.userService.userInvited().subscribe( response => {
+          console.log( response )
+          if ( response.success ) {
+            this.storage.setItem( 'token', response.token );
+            this.order.user = response.user._id;
+          }
+        } );
+      }
 
     } );
   }
@@ -104,16 +115,7 @@ export class ShippingComponent implements OnInit {
   }
 
   checkout(): void {
-    // Usuario invitado
-    if ( !this.user ) {
-      this.userService.userInvited().subscribe( response => {
-        if ( response.success ) {
-          this.storage.setLoginData( 'data', response );
-          this.auth.authSubject( response.success );
-          this.order.user = response.user._id;
-        }
-      } );
-    }
+
     const data = this.address.onSubmit();
     if ( data?.saveAddress ) {
       if ( Object.keys( data?.shippingAddress ).length !== 0 && data.addressExist ) {
