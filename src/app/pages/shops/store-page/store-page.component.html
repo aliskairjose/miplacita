@@ -1,0 +1,45 @@
+<app-header-one [sticky]="true" [isHidde]="false" [topbar]="false" [isSideMenu]="true" [hasSearchBar]="true" [themeLogo]="store.logo"></app-header-one>
+
+<div class="pb-5">
+    <section class="p-0">
+        <ngb-carousel *ngIf="sliders.length>0" #ngcarousel>
+            <ng-template *ngFor="let image of sliders" ngbSlide>
+                <div class="picsum-img-wrapper w-100">
+                    <img class="img-main-banner" [src]="image.url" alt="banner">
+                </div>
+            </ng-template>
+            
+        </ngb-carousel>
+    </section>
+
+
+    <!-- Product slider start-->
+    <div class="title1 section-t-space" *ngIf="products.length">
+        <h2 class="title-inner1">Productos Destacados</h2>
+    </div>
+    
+    <section class="section-b-space p-t-0 mt-4" *ngIf="products.length">
+        <div class="container">
+        <div class="row">
+            <div class="col theme-tab">
+            <div >
+                <div class="no-slider row">
+                <ng-container *ngFor="let product of products | slice:0:8">
+                    <div class="product-box">
+                    <app-product-box-one 
+                        [product]="product" 
+                        [thumbnail]="false"
+                        [cartModal]="false"
+                        [horizontal]="true">
+                    </app-product-box-one>
+                    </div>
+                </ng-container>
+                </div>
+            </div>
+            </div>
+        </div>
+        </div>
+    </section>
+</div>
+  
+<app-footer-one></app-footer-one>

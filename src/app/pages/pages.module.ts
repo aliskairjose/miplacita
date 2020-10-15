@@ -70,6 +70,8 @@ import { ClientsComponent } from './shops/clients/clients.component';
 import { BestSellersComponent } from './shops/best-sellers/best-sellers.component';
 import { TotalSalesComponent } from './shops/total-sales/total-sales.component';
 import { InterestsComponent } from './interests/interests.component';
+import { StoresListComponent } from './shops/stores-list/stores-list.component';
+import { StorePageComponent } from './shops/store-page/store-page.component';
 
 // export let options: Partial<IConfig> | (() => Partial<IConfig>);
 const maskConfig: Partial<IConfig> = {
@@ -148,6 +150,8 @@ export const customCurrencyMaskConfig = {
     BestSellersComponent,
     TotalSalesComponent,
     InterestsComponent,
+    StoresListComponent,
+    StorePageComponent,
   ],
   imports: [
     SharedModule,
