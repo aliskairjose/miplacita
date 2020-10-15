@@ -68,7 +68,6 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
   ];
   statusSelected = 'active';
   selectedCategory = '';
-  // selectedSubcategory = '';
   productImages: Array<string> = [];
   images = [];
   productData: Product = {};
