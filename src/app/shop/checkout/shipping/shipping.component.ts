@@ -94,7 +94,6 @@ export class ShippingComponent implements OnInit {
       // Usuario invitado
       if ( !this.user ) {
         this.userService.userInvited().subscribe( response => {
-          console.log( response )
           if ( response.success ) {
             this.storage.setItem( 'token', response.token );
             this.order.user = response.user._id;
