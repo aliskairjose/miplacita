@@ -5,7 +5,7 @@ import {
 } from '@angular/core';
 import { NgbCarousel } from '@ng-bootstrap/ng-bootstrap';
 
-import { Store } from '../../../shared/classes/store';
+import { Store, Config } from '../../../shared/classes/store';
 import { ShopService } from '../../../shared/services/shop.service';
 import { forkJoin } from 'rxjs';
 
@@ -30,9 +30,10 @@ export class ShopDesignComponent implements OnInit, OnChanges {
     { style: { 'font-family': 'Source Sans Pro' }, name: 'Source Sans Pro' }
   ];
 
+  config: Config = {};
+
   @Input() store: Store;
   @Output() updateShop: EventEmitter<Store> = new EventEmitter<Store>();
-
 
   constructor(
     private shopService: ShopService,
@@ -42,22 +43,19 @@ export class ShopDesignComponent implements OnInit, OnChanges {
   }
   ngOnChanges( changes: SimpleChanges ): void {
     this.shopService.storeObserver().subscribe( ( store: Store ) => {
-      this.store = store;
-      if ( this.store.config ) {
-        if ( this.store.config.color ) {
-          this.color = this.store.config.color;
-        }
-      }
+      console.log( store );
 
-      this.fontSelected = this.store.config.font;
+      this.store = store;
+      // this.color = this.store.config.color;
+      // this.banners = this.store.config.images;
+      this.config = this.store.config;
+      this.imageLogo = [ this.store.logo ];
+
+      this.fontSelected = this.store.config?.font;
     } );
   }
 
   ngOnInit(): void {
-    // const user: User = this.storage.getItem( 'user' );
-    // this.store = user.stores[ 0 ];
-    this.banners = this.store.config.images;
-    this.imageLogo = [ this.store.logo ];
   }
 
   updateShopConfig(): void {

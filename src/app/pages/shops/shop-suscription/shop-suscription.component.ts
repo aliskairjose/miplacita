@@ -35,6 +35,7 @@ export class ShopSuscriptionComponent implements OnInit, OnChanges {
     'Cupones de descuentos'
   ];
   enabled = false;
+
   @Input() store: Store;
 
   constructor(
@@ -48,7 +49,7 @@ export class ShopSuscriptionComponent implements OnInit, OnChanges {
 
   ngOnChanges( changes: SimpleChanges ): void {
     this.shopService.storeObserver().subscribe( ( store: Store ) => {
-      console.log(store);
+      console.log( store );
       if ( store ) {
         this.store = store;
         this.enabled = true;

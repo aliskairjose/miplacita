@@ -20,5 +20,5 @@ export interface Config {
   font?: string;
   color?: string;
   _id?: string;
-  images: [];
+  images?: [];
 }
