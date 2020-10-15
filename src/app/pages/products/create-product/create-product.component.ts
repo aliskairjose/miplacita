@@ -270,7 +270,7 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
       price: [ '', [ Validators.required ] ],
       tax: [ '', [ Validators.required ] ],
       category: [ '', [ Validators.required ] ],
-      subcategory: [ '', [ Validators.required ] ],
+      // subcategory: [ '', [ Validators.required ] ],
       status: [ this.statusSelected, [ Validators.required ] ],
       deliveryDays: [ '', [ Validators.required ] ],
       stock: [ '', ],
