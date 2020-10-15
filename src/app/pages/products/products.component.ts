@@ -78,7 +78,7 @@ export class ProductsComponent implements OnChanges, AfterViewInit {
   }
 
   reload( event: boolean ): void {
-    this.reloadData();
+    if ( event ) { this.reloadData(); }
   }
 
   reloadData(): void {
