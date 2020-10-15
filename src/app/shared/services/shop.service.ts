@@ -274,6 +274,14 @@ export class ShopService {
     );
   }
 
+  deleteBanner( id: string, idphoto: string ) {
+    return this.http.delete( `stores/${id}/config/photo/${idphoto}` );
+  }
+
+  getStore( id: string ) {
+    return this.http.get( `stores/${id}` );
+  }
+
   /*
     ---------------------------------------------
     --------------  SubjectBehaviors  -----------
@@ -294,11 +302,5 @@ export class ShopService {
     return this.$store.asObservable();
   }
 
-  deleteBanner( id, idphoto ) {
-    return this.http.delete( 'stores/' + id + '/config/photo/' + idphoto );
-  }
 
-  getStore(id){
-    return this.http.get('stores/'+id);
-  }
 }

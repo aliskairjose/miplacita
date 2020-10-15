@@ -58,11 +58,10 @@ export class ProductLeftSidebarComponent implements OnInit {
     private viewScroller: ViewportScroller,
     private categoryService: CategoryService,
   ) {
-    
+
   }
 
   ngOnInit(): void {
-    window.scrollTo();
     this.spinner.show();
     const id = this.route.snapshot.paramMap.get( 'id' );
     const params = `product=${id}`;
@@ -100,7 +99,6 @@ export class ProductLeftSidebarComponent implements OnInit {
         this.product = this.sizes[ 0 ].product;
         this.size = this.sizes[ 0 ].name;
       }
-
     } );
 
   }
@@ -112,7 +110,6 @@ export class ProductLeftSidebarComponent implements OnInit {
       this.sizes = products;
       this.product = products[ 0 ].product;
     }
-
     this.color = this.product.color;
     this.size = this.product.size?.name;
   }
@@ -122,7 +119,6 @@ export class ProductLeftSidebarComponent implements OnInit {
     this.sizes = sizes;
     this.product = sizes[ 0 ].product;
     this.color = this.product.color;
-
   }
 
   // Selecciona la talla desde el selector
@@ -146,17 +142,6 @@ export class ProductLeftSidebarComponent implements OnInit {
     } );
   }
 
-  // Get Product Color
-  Color( variants ) {
-    const uniqColor = [];
-    for ( let i = 0; i < Object.keys( variants ).length; i++ ) {
-      if ( uniqColor.indexOf( variants[ i ].color ) === -1 && variants[ i ].color ) {
-        uniqColor.push( variants[ i ].color );
-      }
-    }
-    return uniqColor;
-  }
-
   // Get Product Size
   Size( variants ) {
     const uniqSize = [];
@@ -167,10 +152,6 @@ export class ProductLeftSidebarComponent implements OnInit {
     }
     return uniqSize;
   }
-
-  // selectSize( size ) {
-  //   this.selectedSize = size;
-  // }
 
   // Increament
   increment() {
