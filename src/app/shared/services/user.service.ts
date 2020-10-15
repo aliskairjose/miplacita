@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpService } from './http.service';
 import { Observable, Observer } from 'rxjs';
 import { User } from '../classes/user';
+import { map } from 'rxjs/operators';
 
 @Injectable( {
   providedIn: 'root'
@@ -114,6 +115,18 @@ export class UserService {
    */
   generateAffiliateCode( storeId: string, userId: string ): Observable<any> {
     return this.http.get( `users/affiliate//program?store=${storeId}&user=${userId}` );
+  }
+
+  /**
+   * @description Actualiza la data de referido
+   * @param id Id de la tienda
+   */
+  updateAffiliate( id: string, data: any ): Observable<any> {
+    return this.http.put( `stores/${id}/affiliate`, data ).pipe(
+      map( response => {
+        if ( response.success ) { return response.store; }
+      } )
+    );
   }
 
   /**
