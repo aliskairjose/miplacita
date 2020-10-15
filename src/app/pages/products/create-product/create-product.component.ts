@@ -17,6 +17,7 @@ import { ShopService } from '../../../shared/services/shop.service';
 import { ProductsComponent } from '../products.component';
 import { ModalNewElementComponent } from 'src/app/shared/components/modal-new-element/modal-new-element.component';
 import { VariableProduct } from '../../../shared/classes/variable-product';
+import { CategoryService } from 'src/app/shared/services/category.service';
 
 @Component( {
   selector: 'app-create-product',
@@ -84,6 +85,7 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
     private toastrService: ToastrService,
     private productService: ProductService,
     public productsComponent: ProductsComponent,
+    private categoryService: CategoryService,
     private calendar: NgbCalendar, public formatter: NgbDateParserFormatter
   ) {
     this.createForm();
@@ -115,6 +117,7 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
       this.productService.categoryList(),
       this.productService.getVariableProduct( this.store._id, 'color' ),
       this.productService.getVariableProduct( this.store._id, 'size' )
+
     ] )
       .subscribe( ( [ response, categories, colorResponse, sizeResponse ] ) => {
         this.plan = response.docs[ 0 ].plan;
@@ -266,6 +269,7 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
       price: [ '', [ Validators.required ] ],
       tax: [ '', [ Validators.required ] ],
       category: [ '', [ Validators.required ] ],
+      subcategory: [ '', [ Validators.required ] ],
       status: [ this.statusSelected, [ Validators.required ] ],
       deliveryDays: [ '', [ Validators.required ] ],
       stock: [ '', ],
@@ -438,8 +442,7 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
           break;
 
         case 2:
-          this.addVariation( item, 'color' );
-          this.subcategories.push( item );
+          this.addSubCategory(item);
           break;
 
         default:
@@ -448,7 +451,29 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
       }
     } );
   }
+  changeCategorySelection(){
+    console.log("seleccions de categoria", this.selectedCategory);
+    let param = 'store'+this.store._id+'&category='+this.selectedCategory
+    this.categoryService.getSubcategory(param).subscribe((response)=>{
+      console.log(response);
+      if(response.success){
+        this.subcategories = response.categories;
+      }
+    })
+  }
+  addSubCategory(item){
+    item['category'] = this.selectedCategory;
+    item['store'] = this.store._id;
+    console.log("sub-categoria",item);
 
+    this.categoryService.addSubcategory(item).subscribe(result=>{
+      console.log("result",result);
+      if(result.success){
+        this.subcategories.push(result.category);
+      }
+    })
+
+  }
   checkVariable( event ): void {
 
     if ( event.target.id === 'color' ) { this.colorChecked = event.target.checked; }
@@ -485,7 +510,12 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   selectSubcategory( subcategory ): void {
+    console.log("seleccion", subcategory);
+    //"5f847809688f7e50c8e99bb2"
     this.selectedSubcategory = subcategory;
+    this.productForm.value.subcategory = this.selectedSubcategory._id;
+    console.log("seleccion", this.productForm.value);
+
   }
 
   variableOptionSelected( value: string ): void {
