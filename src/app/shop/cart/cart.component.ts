@@ -39,7 +39,9 @@ export class CartComponent implements OnInit {
   }
 
   removeItem( product: Product ) {
-    this.productService.removeCartItem( product );
+    console.log('removeItem');
+    
+    // this.productService.removeCartItem( product );
   }
 
 }

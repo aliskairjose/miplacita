@@ -275,7 +275,6 @@ export class ProductService {
 
   // Add to Cart
   addToCart( product: Product ): any {
-    console.log( 'addCart' )
     const cartItem = state.cart.find( item => item._id === product._id );
     const qty = product.quantity ? product.quantity : 1;
     const items = cartItem ? cartItem : product;
@@ -332,8 +331,6 @@ export class ProductService {
   }
 
   emptyCartItem(): any {
-    console.log( 'emptyCartItem' );
-
     state.cart = [];
     this.storage.setItem( 'cartItems', state.cart );
     // this.storage.removeItem('cartItems');
