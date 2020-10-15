@@ -292,4 +292,8 @@ export class ShopService {
   deleteBanner( id, idphoto ) {
     return this.http.delete( 'stores/' + id + '/config/photo/' + idphoto );
   }
+
+  getStore(id){
+    return this.http.get('stores/'+id);
+  }
 }

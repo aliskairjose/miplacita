@@ -8,6 +8,7 @@ import { ShopService } from '../../../shared/services/shop.service';
 import { RegisterStoreComponent } from 'src/app/shared/custom-components/register-store/register-store.component';
 import { NgbModalOptions, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { environment } from '../../../../environments/environment.prod';
+import { log } from 'console';
 
 @Component( {
   selector: 'app-account-manage',
@@ -65,7 +66,6 @@ export class AccountManageComponent implements OnInit, OnChanges {
     if ( this.user.role === 'merchant' ) {
 
       this.shopService.getMyStores( this.user._id ).subscribe( stores => {
-
         if ( stores.docs.length ) {
           const _store = JSON.parse( sessionStorage.getItem( 'store' ) );
           this.stores = [ ...stores.docs ];
