@@ -37,7 +37,6 @@ export class CreateReferralsComponent implements OnInit, OnChanges {
   get f() { return this.referralForm.controls; }
 
   onSubmit(): void {
-    console.log( this.referralForm.value );
     this.submitted = true;
     if ( this.referralForm.valid ) {
       this.shopService.updateAffiliate( this.store._id, this.referralForm.value ).subscribe( store => {
