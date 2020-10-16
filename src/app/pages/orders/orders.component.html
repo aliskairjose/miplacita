@@ -5,7 +5,7 @@
 	<div class="container">
 		<div class="page-title mb-5">
 			<h2 class="mp-title">
-			   Órdenes
+				Órdenes
 			</h2>
 		</div>
 		<form class="theme-form">
@@ -57,7 +57,7 @@
 
 		<!-- Data de usuario -->
 		<ng-container *ngIf="store || role === 'admin'; else elseTemplate">
-			<div class="table-responsive mt-3" >
+			<div class="table-responsive mt-3">
 				<table class="table cart-table table-responsive-xs">
 					<thead>
 						<tr class="table-head text-center">
@@ -65,7 +65,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr *ngFor="let order of orders">
+						<tr *ngFor="let order of orders; let i=index">
 							<td class="text-center">{{order.user.fullname}}</td>
 							<td *ngIf="role === 'admin' " class="text-center">{{order.store.name}}</td>
 							<td>
@@ -76,10 +76,19 @@
 							<td class="text-center">{{ order.amount | currency }}</td>
 							<td class="text-center">{{ order.created_at | date }}</td>
 							<td class="text-center">{{ order.shipment_option.name }}</td>
-							<td class="text-center text-capitalize">{{order.status }}</td>
+							<td class="text-center text-capitalize" *ngIf="!isUpdatable || index !== i">{{ order.status }}</td>
+							<td class="text-center text-capitalize" *ngIf="isUpdatable && index === i">
+								<select class="form-select" aria-label="Default select example" [(ngModel)]="statusSelected">
+									<option *ngFor="let status of statuses" [value]="status">{{ status }}</option>
+								</select>
+							</td>
 							<td class="text-center">
-								<!-- <button class="btn btn-table-action" (click)="OrderDetails.openModal(order)">Editar</button> -->
-								<a (click)="OrderDetails.openModal(order)" class="btn btn-table-action">
+								<a (click)="updateStatus(order, i)" class="btn btn-table-action" ngbPopover="Actualizar status"
+									triggers="mouseenter:mouseleave">
+									<i class="fa fa-edit fa-lg" style="color: rgb(9, 190, 33)"></i>
+								</a>
+								<a (click)="OrderDetails.openModal(order)" class="btn btn-table-action" ngbPopover="Ver detalle"
+									triggers="mouseenter:mouseleave">
 									<i class="fa fa-edit fa-lg" style="color: Dodgerblue"></i>
 								</a>
 							</td>
@@ -87,7 +96,7 @@
 					</tbody>
 				</table>
 			</div>
-			
+
 			<app-custom-pagination [items]="orders" [paginate]="paginate" (setPage)="setPage($event)">
 			</app-custom-pagination>
 			<div class="form-row container justify-content-center " *ngIf="orders.length==0">
@@ -103,21 +112,21 @@
 
 		<ng-template #elseTemplate>
 			<div class="form-row container justify-content-center " *ngIf="orders.length==0 ">
-                <div class="col-md-5">
-                    <div class="card text-center mx-auto mb-2">
-                        <div class="card-body">
-                            <p *ngIf="orders.length==0 && !store">
-                                Aún no has configurado tu tienda
-                                <a  class="btn btn-solid-purple mt-3" [routerLink]="['/pages/account/user/admin-store']">
-                                    Configurar tienda
-                                </a>
-                            </p>
-                            <p *ngIf="orders.length==0 && store">Aún no has agregado productos a tu tienda</p>
-                        
-                        </div>
-                    </div>
-                </div>
-            </div>   
+				<div class="col-md-5">
+					<div class="card text-center mx-auto mb-2">
+						<div class="card-body">
+							<p *ngIf="orders.length==0 && !store">
+								Aún no has configurado tu tienda
+								<a class="btn btn-solid-purple mt-3" [routerLink]="['/pages/account/user/admin-store']">
+									Configurar tienda
+								</a>
+							</p>
+							<p *ngIf="orders.length==0 && store">Aún no has agregado productos a tu tienda</p>
+
+						</div>
+					</div>
+				</div>
+			</div>
 		</ng-template>
 
 

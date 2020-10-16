@@ -22,6 +22,7 @@ export class LoginComponent implements OnInit {
   invalidEmail = 'Email inválido';
   role = 'admin';
   title: string;
+  mustReturn = false; // variable que indica que debe retornar al origen despues de login
 
   constructor(
     private router: Router,
@@ -29,9 +30,9 @@ export class LoginComponent implements OnInit {
     private route: ActivatedRoute,
     private storage: StorageService,
     private formBuilder: FormBuilder,
+    private toastrService: ToastrService,
     private socialService: SocialAuthService,
     private platformLocation: PlatformLocation,
-    private toastrService: ToastrService
 
   ) {
     this.platformLocation.pushState( null, '', '/login' );
@@ -39,6 +40,7 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
     const role = this.route.queryParams.subscribe( params => {
       if ( Object.keys( params ).length !== 0 ) {
         this.role = params.role;
@@ -46,7 +48,7 @@ export class LoginComponent implements OnInit {
         if ( params.role === 'merchant' ) { this.title = 'como Vendedor'; }
 
         if ( params.role === 'client' ) { this.title = 'como Comprador'; }
-
+        if ( params.status ) { this.mustReturn = true; }
       }
     } );
 
@@ -101,7 +103,6 @@ export class LoginComponent implements OnInit {
       if ( result.success ) {
         this.storage.setLoginData( 'data', result );
         this.auth.authSubject( result.success );
-        this.router.navigate( [ '/shop/checkout/shipping' ] );
         this.redirectAfterLogin();
 
       }
@@ -109,24 +110,24 @@ export class LoginComponent implements OnInit {
   }
 
   private redirectAfterLogin(): void {
-    // Redireccionamiento al dashboard
-    this.router.navigate( [ 'home' ] );
+    ( this.mustReturn ) ? this.router.navigate( [ 'shop/checkout/shipping' ] ) : this.router.navigate( [ 'home' ] );
   }
 
-  public passwordRecovery() {
+  passwordRecovery() {
     this.loginForm.value.role = this.role;
-    this.loginForm.value['password_url'] = window.location.hostname +':4200/pages/password';
-    if(this.loginForm.value.email == ''){
-      this.toastrService.info( 'Ingresa tu correo para recuperar tu contraseña' );
+    this.loginForm.value.password_url = `${window.location.origin}/pages/password`;
 
-    } else {
-       this.auth.passwordRecovery(this.loginForm.value).subscribe((result) => {
-        if(result.success){
-          this.toastrService.info( 'Le enviamos un correo para iniciar el proceso de cambio de contraseña' );
-
-        }
-      })
+    // Si no tiene email en el fomulario, informa con mensaje
+    if ( !this.loginForm.value.email ) {
+      this.toastrService.warning( 'Ingresa tu correo para recuperar tu contraseña' );
+      return;
     }
-   
+
+    this.auth.passwordRecovery( this.loginForm.value ).subscribe( ( result ) => {
+      if ( result.success ) {
+        this.toastrService.info( 'Le enviamos un correo para iniciar el proceso de cambio de contraseña' );
+      }
+    } );
+
   }
 }

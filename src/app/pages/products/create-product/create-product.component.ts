@@ -305,6 +305,7 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
       this.productData = { ...response.docs[ 0 ] };
       this.images = this.productData.images;
       this.selectedCategory = this.productData.category;
+      this.statusSelected = this.productData.status;
     } );
   }
 

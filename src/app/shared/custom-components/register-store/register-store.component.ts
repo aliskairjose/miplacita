@@ -136,7 +136,7 @@ export class RegisterStoreComponent implements OnInit, OnChanges {
             ( index > 0 ) ? image.principal = false : image.principal = true;
             data.images.push( image );
           } );
-          this.productForm.value.image = data.images;
+          this.productForm.value.images = data.images;
           this.createProduct();
         }
       } );
