@@ -115,18 +115,19 @@ export class LoginComponent implements OnInit {
 
   public passwordRecovery() {
     this.loginForm.value.role = this.role;
-    this.loginForm.value['password_url'] = window.location.hostname +':4200/pages/password';
-    if(this.loginForm.value.email == ''){
-      this.toastrService.info( 'Ingresa tu correo para recuperar tu contraseña' );
+    this.loginForm.value.password_url = `${window.location.origin}/pages/password`;
 
-    } else {
-       this.auth.passwordRecovery(this.loginForm.value).subscribe((result) => {
-        if(result.success){
-          this.toastrService.info( 'Le enviamos un correo para iniciar el proceso de cambio de contraseña' );
-
-        }
-      })
+    // Si no tiene email en el fomulario, informa con mensaje
+    if ( !this.loginForm.value.email ) {
+      this.toastrService.warning( 'Ingresa tu correo para recuperar tu contraseña' );
+      return;
     }
-   
+
+    this.auth.passwordRecovery( this.loginForm.value ).subscribe( ( result ) => {
+      if ( result.success ) {
+        this.toastrService.info( 'Le enviamos un correo para iniciar el proceso de cambio de contraseña' );
+      }
+    } );
+
   }
 }
