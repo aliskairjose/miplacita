@@ -113,7 +113,7 @@ export class LoginComponent implements OnInit {
     this.router.navigate( [ 'home' ] );
   }
 
-  public passwordRecovery() {
+  passwordRecovery() {
     this.loginForm.value.role = this.role;
     this.loginForm.value.password_url = `${window.location.origin}/pages/password`;
 
