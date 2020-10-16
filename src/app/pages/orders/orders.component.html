@@ -83,10 +83,25 @@
 								</select>
 							</td>
 							<td class="text-center">
+								<!-- Update Status -->
 								<a (click)="updateStatus(order, i)" class="btn btn-table-action" ngbPopover="Actualizar status"
 									triggers="mouseenter:mouseleave">
-									<i [class]="icon" style="color: rgb(9, 190, 33)"></i>
+
+									<!-- Spinner -->
+									<span class="spinner-border spinner-border-sm text-success" role="status" aria-hidden="true"
+										*ngIf="isUpdating && index === i"></span>
+									<!-- Spinner -->
+
+									<span *ngIf="!isUpdating">
+										<i class="fa fa-refresh fa-lg" style="color: rgb(9, 190, 33)"
+											*ngIf="isUpdatable && index === i"></i>
+										<i class="fa fa-edit fa-lg" style="color: rgb(9, 190, 33)" *ngIf="!isUpdatable || index !== i "></i>
+									</span>
+									<span *ngIf="isUpdating && index !== i">
+										<i class="fa fa-edit fa-lg" style="color: rgb(9, 190, 33)"></i>
+									</span>
 								</a>
+								<!-- Ver detalles -->
 								<a (click)="OrderDetails.openModal(order)" class="btn btn-table-action" ngbPopover="Ver detalle"
 									triggers="mouseenter:mouseleave">
 									<i class="fa fa-edit fa-lg" style="color: Dodgerblue"></i>
