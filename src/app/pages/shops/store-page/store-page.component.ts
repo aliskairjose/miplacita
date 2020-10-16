@@ -17,9 +17,9 @@ export class StorePageComponent implements OnInit {
   idStore: string;
   sliders = [];
   verticalBanners = [
-    '../../../../assets/images/marketplace/images/banners/recibe.png',
-    '../../../../assets/images/marketplace/images/banners/administra.png',
-    '../../../../assets/images/marketplace/images/banners/envia.png'
+    '../../../../assets/images/banner/1.jpg',
+    '../../../../assets/images/banner/1.jpg',
+    '../../../../assets/images/banner/1.jpg'
   ];
   constructor(
     private route: ActivatedRoute,
@@ -31,6 +31,7 @@ export class StorePageComponent implements OnInit {
       this.idStore = url[ 1 ].path;
     })
     this.storeService.getStore(this.idStore).subscribe((response)=>{
+      console.log("store", response);
       if(response.success){
         this.store = response.result;
         this.sliders = this.store.config.images;

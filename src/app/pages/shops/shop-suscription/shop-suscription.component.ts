@@ -17,6 +17,7 @@ export class ShopSuscriptionComponent implements OnInit, OnChanges {
   uncheckIcon = 'bi bi-x';
   planPro: any;
   plans = [];
+  colorFill = '#c6410f';
   basicBenefits = [
     'Catálogo limitado a 10 productos',
     'Inventario de 10 productos',

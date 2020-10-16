@@ -1,4 +1,9 @@
-<app-header-one [sticky]="true" [isHidde]="false" [topbar]="false" [isSideMenu]="true" [hasSearchBar]="true" [themeLogo]="store.logo"></app-header-one>
+<ngx-spinner bdColor="rgba(0, 0, 0, 0.3)" size="medium" color="#fff" type="ball-spin-clockwise" [fullScreen]="true">
+    <p style="color: white"> Por favor espere... </p>
+</ngx-spinner>
+
+
+<app-header-one [sticky]="true" [isHidde]="false" [topbar]="false" [isSideMenu]="true" [hasSearchBar]="true" ></app-header-one>
 
 <div class="pb-5">
     <section class="p-0">
@@ -15,13 +20,7 @@
     <!-- Banner verticales start -->
     <section class="section-b-space">
         <div class="container">
-            <div class="row">
-                <div class="col">
-                    <div class="title-purple text-center">
-                        <h2>Crea tu tienda</h2>
-                    </div>
-                </div>
-            </div>
+            
             <div class="row mt-3 d-flex justify-content-center vertical-banners">
                 <div class="row justify-content-center">
                     <div class="col-md-3 " *ngFor="let image of verticalBanners">
@@ -44,7 +43,13 @@
     <!-- Banner verticales end -->
     <!-- Product slider start-->
     <div class="title1 section-t-space" *ngIf="products.length">
-        <h2 class="title-inner1">Productos Destacados</h2>
+        <div class="row">
+            <div class="col">
+                <div class="title-purple text-center">
+                    <h2>Productos Destacados</h2>
+                </div>
+            </div>
+        </div>
     </div>
     
     <section class="section-b-space p-t-0 mt-4" *ngIf="products.length">

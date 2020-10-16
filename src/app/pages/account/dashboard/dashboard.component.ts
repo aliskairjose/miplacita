@@ -44,7 +44,7 @@ export class DashboardComponent implements OnInit {
   doughnutChartLabels: Label[] = [];
   doughnutChartData: SingleDataSet = [];
   doughnutChartType: ChartType = 'doughnut';
-  doughnutColors: Color[] = [ { backgroundColor: [ '#d0260f', '#eca89e' ] } ];
+  doughnutColors: Color[] = [ { backgroundColor: [ '#c6410f', '#eca89e' ] } ];
   salesChart = [];
   adminPieChart = [];
   storePieChart = [];
