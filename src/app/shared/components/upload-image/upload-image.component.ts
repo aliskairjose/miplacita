@@ -32,11 +32,6 @@ export class UploadImageComponent implements OnInit, AfterViewInit, OnChanges, O
   ) { }
 
   ngOnInit(): void {
-    if(this.imagesObject.length){
-      this.imagesObject.map((image: any)=>{
-        this.images.push(image.url);
-      });
-    };
   }
 
   ngAfterViewInit() {

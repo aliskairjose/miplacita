@@ -36,6 +36,12 @@ export class OrdersComponent implements OnInit, OnChanges {
   fechaFin = '';
   modelTo: NgbDateStruct;
   modelFrom: NgbDateStruct;
+  isUpdatable = false;
+  statuses = environment.orderStatus;
+  index: number;
+  statusSelected = '';
+  icon = 'fa fa-edit fa-lg';
+  isUpdating = false;
 
   @Input() store: Store;
 
@@ -70,6 +76,33 @@ export class OrdersComponent implements OnInit, OnChanges {
 
   changeStatus(): void {
     this.loadData();
+  }
+
+  // Actualiza el estado de la orden desde el listado
+  updateStatus( order: Order, index: number ): void {
+    this.index = index;
+    this.isUpdatable = !this.isUpdatable;
+
+    if ( this.isUpdatable ) {
+      this.icon = 'fa fa-refresh fa-lg';
+      this.statusSelected = order.status;
+    } else {
+      this.icon = 'fa fa-edit fa-lg';
+    }
+
+    if ( !this.isUpdatable ) {
+      if ( this.statusSelected !== order.status ) {
+        this.isUpdating = !this.isUpdating;
+        this.orderService.updateStatus( { status: this.statusSelected }, order._id ).subscribe( response => {
+          if ( response.message ) {
+            this.isUpdating = !this.isUpdating;
+            this.toastr.info( response.message[ 0 ] );
+            this.icon = 'fa fa-edit fa-lg';
+            this.init();
+          }
+        } );
+      }
+    }
   }
 
   filtrar(): void {

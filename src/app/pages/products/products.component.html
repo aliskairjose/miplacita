@@ -65,31 +65,35 @@
 									<img class="product-image" *ngIf="image.principal" [src]="image.url" />
 								</div>
 							</td>
-	
+
 							<td class="text-center" *ngIf="!product.images.length">
 								<img class="product-image" [src]="standardImage" />
 							</td>
-	
+
 							<td class="text-center">{{ product.name }}</td>
-							<td *ngIf="role==='admin' " class="text-center"> {{ product.store ? product.store.name : 'Sin tienda' }}</td>
+							<td *ngIf="role==='admin' " class="text-center"> {{ product.store ? product.store.name : 'Sin tienda' }}
+							</td>
 							<td class="text-center">{{ product.description }}</td>
 							<td class="text-center">{{ product.price | currency }}</td>
 							<td class="text-center">{{ product.tax | currency }}</td>
 							<td class="text-center">{{ product.status }}</td>
-	
+
 							<td class="text-center" *ngIf="role==='merchant'">
-								<a type="button" (click)="CreateProduct.openModal(3,product)" class="btn btn-table-action">
+								<a type="button" (click)="CreateProduct.openModal(3,product)" class="btn btn-table-action"
+									ngbPopover="Agregar variación" triggers="mouseenter:mouseleave">
 									<i class="fa fa-plus-circle fa-lg" style="color: rgb(9, 190, 33)"></i>
 								</a>
-								<a type="button" (click)="CreateProduct.openModal(2,product)" class="btn btn-table-action">
+								<a type="button" (click)="CreateProduct.openModal(2,product)" class="btn btn-table-action"
+									ngbPopover="Editar producto" triggers="mouseenter:mouseleave">
 									<i class="fa fa-edit fa-lg" style="color: Dodgerblue"></i>
 								</a>
-								<button class="btn btn-table-action" (click)="deleteItem(product)">
+								<button class="btn btn-table-action" (click)="deleteItem(product)"
+									ngbPopover="Eliminar producto" triggers="mouseenter:mouseleave">
 									<i class="fa fa-close fa-lg" style="color: Tomato"></i>
 								</button>
 							</td>
 							<td class="text-center" *ngIf="role==='admin'">
-								<button class="btn btn-table-action">Desactivar</button>
+								<button class="btn btn-table-action" 	ngbPopover="Desactivar" triggers="mouseenter:mouseleave">Desactivar</button>
 							</td>
 						</tr>
 					</tbody>
@@ -126,4 +130,5 @@
 		</ng-template>
 	</div>
 </section>
-<app-create-product #createProduct *ngIf="role === 'merchant'" [store]="store" (reload)="reload($event)"></app-create-product>
+<app-create-product #createProduct *ngIf="role === 'merchant'" [store]="store" (reload)="reload($event)">
+</app-create-product>
