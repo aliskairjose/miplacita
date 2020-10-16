@@ -61,8 +61,7 @@ export class CheckoutComponent implements OnInit {
     shipment.cart.forEach( detail => {
       this.shipmentPrice += detail.shipment_price;
     } );
-    this.productService.cartItems.subscribe( response => {
-      this.products = response} );
+    this.productService.cartItems.subscribe( response => { this.products = response; } );
 
     this.subTotal.subscribe( amount => {
       this.amount = amount;
