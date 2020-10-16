@@ -40,6 +40,8 @@ export class OrdersComponent implements OnInit, OnChanges {
   statuses = environment.orderStatus;
   index: number;
   statusSelected = '';
+  icon = 'fa fa-edit fa-lg';
+
   @Input() store: Store;
 
   @ViewChild( 'orderDetails' ) OrderDetails: OrderDetailsComponent;
@@ -81,6 +83,7 @@ export class OrdersComponent implements OnInit, OnChanges {
     this.isUpdatable = !this.isUpdatable;
 
     if ( this.isUpdatable ) {
+      this.icon = 'fa fa-refresh fa-lg';
       this.statusSelected = order.status;
     }
 
@@ -89,6 +92,7 @@ export class OrdersComponent implements OnInit, OnChanges {
         this.orderService.updateStatus( { status: this.statusSelected }, order._id ).subscribe( response => {
           if ( response.message ) {
             this.toastr.info( response.message[ 0 ] );
+            this.icon = 'fa fa-edit fa-lg';
             this.init();
           }
         } );

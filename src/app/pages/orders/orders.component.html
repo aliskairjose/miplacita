@@ -85,7 +85,7 @@
 							<td class="text-center">
 								<a (click)="updateStatus(order, i)" class="btn btn-table-action" ngbPopover="Actualizar status"
 									triggers="mouseenter:mouseleave">
-									<i class="fa fa-edit fa-lg" style="color: rgb(9, 190, 33)"></i>
+									<i [class]="icon" style="color: rgb(9, 190, 33)"></i>
 								</a>
 								<a (click)="OrderDetails.openModal(order)" class="btn btn-table-action" ngbPopover="Ver detalle"
 									triggers="mouseenter:mouseleave">
