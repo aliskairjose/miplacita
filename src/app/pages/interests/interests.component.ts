@@ -27,6 +27,8 @@ export class InterestsComponent implements OnInit, OnDestroy {
   userform: any;
   interestsList: Category[] = [];
   user: User;
+  mustReturn = false; // variable que indica que debe retornar al origen despues de login
+
   @Input() type = 'register';
   @ViewChild( 'interests', { static: false } ) Interests: TemplateRef<any>;
 
@@ -49,29 +51,36 @@ export class InterestsComponent implements OnInit, OnDestroy {
   get f() { return this.interestForm.controls; }
 
   ngOnInit(): void {
-    if(this.type == 'register'){
+    if ( this.type === 'register' ) {
       this.userform = JSON.parse( sessionStorage.userForm );
       this.categoryService.categoryList().subscribe( ( response: Category[] ) => {
         this.interestsList = [ ...response ];
       } );
-    }  
+    }
     this.role = this.auth.getUserRol();
     this.route.url.subscribe( url => {
       if ( url.length === 2 ) {
         this.isPage = true;
       }
     } );
+
+    const role = this.route.queryParams.subscribe( params => {
+      if ( Object.keys( params ).length !== 0 ) {
+        this.role = params.role;
+        if ( params.status ) { this.mustReturn = true; }
+      }
+    } );
   }
 
-  openModal(user): void {
+  openModal( user ): void {
     this.user = user;
     this.modalOpen = true;
     this.modal = this.modalService.open( this.Interests );
-    this.userService.getUserInterest(this.user._id).subscribe((response)=>{
-      if(response.success){
+    this.userService.getUserInterest( this.user._id ).subscribe( ( response ) => {
+      if ( response.success ) {
         this.interestsList = response.users.config;
-      } 
-    });
+      }
+    } );
   }
 
   close(): void {
@@ -99,14 +108,14 @@ export class InterestsComponent implements OnInit, OnDestroy {
 
   saveInterests(): void {
     sessionStorage.removeItem( 'userForm' );
-    this.router.navigate( [ '/shop/register/success' ] );
+    ( this.mustReturn ) ? this.router.navigate( [ 'shop/checkout/shipping' ] ) : this.router.navigate( [ '/shop/register/success' ] );
   }
 
   onSubmit(): void {
     this.submitted = true;
 
     if ( this.interestForm.valid ) {
-      this.userService.addUserInterest( this.userform._id, {interest: this.interests} ).subscribe( response => {
+      this.userService.addUserInterest( this.userform._id, { interest: this.interests } ).subscribe( response => {
 
         if ( response.success ) {
           this.toastrService.info( response.message[ 0 ] );

@@ -8,7 +8,8 @@
               <h3>Mis datos/ Dirección</h3>
               <p> Completa estos datos para que tu vendedor sepa donde te encuentras ubicado</p>
               <div class="alert alert-primary" role="alert" [hidden]="hideMessage">
-                ¿Desea continuar como invitado o <a [routerLink]="[ '/pages/login']" [queryParams]="{ role: 'client' }"><b>iniciar sesión</b></a> / <a [routerLink]="[ '/pages/register']" [queryParams]="{ role: 'client' }"><b>registrarse</b></a> ?
+                ¿Desea continuar como invitado o <a [routerLink]="[ '/pages/login']" [queryParams]="{ role: 'client', status: 'void' }"><b>iniciar sesión</b></a> / 
+                <a [routerLink]="[ '/pages/register']" [queryParams]="{ role: 'client', status: 'void' }"><b>registrarse</b></a> ?
               </div>
             </div>
             <form [formGroup]="addressForm" class="theme-form border-box">
