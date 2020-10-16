@@ -9,7 +9,7 @@ export const environment = {
   paypal_token: 'PAYPAL_CLIENT_ID',
   apiUrl: 'https://marketplace.dev.cronapis.com:3020/api/',
   standardImage: '../../../../assets/images/marketplace/images/placeholder.jpg',
-  orderStatus: [ 'Por aprobar', 'aprobado', 'en proceso', 'cancelado', 'pagado', 'entregado', 'devuelto' ],
+  orderStatus: [ 'por aprobar', 'aprobado', 'en proceso', 'cancelado', 'pagado', 'entregado', 'devuelto' ],
   maxProducts: 8,
   errorForm: {
     invalidEmail: 'Email inválido.',
