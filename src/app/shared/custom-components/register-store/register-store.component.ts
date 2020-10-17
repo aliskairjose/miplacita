@@ -203,7 +203,7 @@ export class RegisterStoreComponent implements OnInit, OnChanges {
   }
 
   makeUrl( valor: string ): void {
-    this.urlStore = valor.toLocaleLowerCase().replace( /\s/g, '-' );
+    this.urlStore = `${window.location.origin}/${valor.toLocaleLowerCase().replace( /\s/g, '-' )}`;
   }
 
   private createStore(): void {
