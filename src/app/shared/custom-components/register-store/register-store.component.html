@@ -72,7 +72,7 @@
 								<!-- Url -->
 								<div class="form-group">
 									<div class="field-label" for="name">URL</div>
-									<input type="url" class="form-control" id="url_store" placeholder="Ej. www.store.com"
+									<input type="url" class="form-control" id="url_store" [placeholder]="urlStore"
 										formControlName="url_store" [(ngModel)]="urlStore">
 									<div *ngIf="submitted && f.url_store.errors" class="invalid-feedback d-block">
 										<div *ngIf="f.url_store.errors.required"> {{ required }} </div>

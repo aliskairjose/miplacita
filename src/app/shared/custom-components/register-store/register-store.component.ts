@@ -35,7 +35,7 @@ export class RegisterStoreComponent implements OnInit, OnChanges {
   plans: Plan[] = [];
   images: Array<string> = [];
   disabled = true;
-  urlStore = '';
+  urlStore = `${window.location.origin}/`;
   isShow = true;
   imageLogo1 = [];
   private user: User = {};
@@ -203,7 +203,7 @@ export class RegisterStoreComponent implements OnInit, OnChanges {
   }
 
   makeUrl( valor: string ): void {
-    this.urlStore = `${window.location.origin}/${valor.toLocaleLowerCase().replace( /\s/g, '-' )}`;
+    this.urlStore = `${this.urlStore}${valor.toLocaleLowerCase().replace( /\s/g, '-' )}`;
   }
 
   private createStore(): void {
