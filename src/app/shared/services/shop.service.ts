@@ -246,13 +246,13 @@ export class ShopService {
   getDebts( id: string, params = '' ): Observable<number> {
     return this.http.get( `debts/${id}?${params}` ).pipe(
       map( result => {
-        if ( result.success ) { 
-          if(result.totalAmount.length){
-            return result.totalAmount[ 0 ].amount; 
-          }            
-          return 0; 
+        if ( result.success ) {
+          if ( result.totalAmount.length ) {
+            return result.totalAmount[ 0 ].amount;
+          }
+          return 0;
         }
-      })
+      } )
     );
   }
 

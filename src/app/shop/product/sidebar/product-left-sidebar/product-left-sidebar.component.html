@@ -141,7 +141,9 @@
                     <div class="my-3 ">
                       <h6 class="product-title mb-3">Calificación del producto</h6>
                       <div class="d-flex justify-content-mobile-first">
-                        <bar-rating [readOnly]="true" [rate]="0" name="rating" [max]="5" disabled>
+                        <!-- <bar-rating [readOnly]="true" [rate]="0" name="rating" [max]="5" disabled>
+                        </bar-rating> -->
+                        <bar-rating [readOnly] name="rating" [(rate)]="productRate" [max]="5" disabled>
                         </bar-rating>
                       </div>
 

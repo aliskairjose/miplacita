@@ -39,7 +39,7 @@ export class ProductLeftSidebarComponent implements OnInit {
   sizes = [];
   colors = [];
   productDetail: ProductDetail;
-
+  productRate = 0;
   color: any;
   size = '';
 
@@ -83,7 +83,9 @@ export class ProductLeftSidebarComponent implements OnInit {
       this.product = { ...productResult.docs[ 0 ] };
       this.endDate = new Date();
       this.endDate.setDate( this.today.getDate() + parseInt( this.product.deliveryDays, 10 ) );
-      this.comment.loadReviews( this.product._id );
+
+      // Carga los comentarios del producto
+      this.comment.loadReviews( this.product._id ).subscribe( rate => { this.productRate = rate; } );
 
       if ( variationResult?.primary_key === 'color' ) {
         variationResult.keys.forEach( key => {
