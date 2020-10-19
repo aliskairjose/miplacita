@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { UserService } from '../../../shared/services/user.service';
 import { User } from '../../../shared/classes/user';
 import { AuthService } from '../../../shared/services/auth.service';
+import { StorageService } from '../../../shared/services/storage.service';
 
 @Component( {
   selector: 'app-success',
@@ -16,14 +17,16 @@ export class SuccessComponent implements OnInit, AfterViewInit {
 
   public orderDetails: Order = {};
   url: string;
+
   constructor(
     private router: Router,
     private auth: AuthService,
-    private userService: UserService,
+    private storage: StorageService,
     private orderService: OrderService,
     public productService: ProductService,
   ) {
     this.url = this.router.url;
+
   }
 
   ngOnInit(): void {
@@ -32,6 +35,16 @@ export class SuccessComponent implements OnInit, AfterViewInit {
     } );
   }
 
+  goTo(): void {
+    if ( this.url === '/shop/register/success' ) {
+      const login = JSON.parse( sessionStorage.prelogin );
+      this.auth.login( login ).subscribe( data => {
+        this.storage.setLoginData( 'data', data );
+        this.auth.authSubject( data.success );
+        this.router.navigate( [ '/pages/account/user/profile' ] );
+      } );
+    }
+  }
   ngAfterViewInit() {
 
   }

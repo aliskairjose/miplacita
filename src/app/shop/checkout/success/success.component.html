@@ -32,7 +32,8 @@
 					<img id="icon-register-success" src="assets/images/marketplace/images/register_success.png"
 						class="img-fluid mb-4">
 					<h3><strong>Tu perfil ha sido registrado con éxito</strong></h3>
-					<a [routerLink]="['/pages/account/user/profile']" class="btn btn-solid">Ir a mi perfil</a>
+					<!-- <a [routerLink]="['/pages/account/user/profile']" class="btn btn-solid">Ir a mi perfil</a> -->
+					<button type="button" class="btn btn-solid" (click)="goTo()">Ir a mi perfil</button>
 				</div>
 			</div>
 		</div>
