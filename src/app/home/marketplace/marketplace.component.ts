@@ -198,16 +198,6 @@ export class MarketplaceComponent implements OnInit, OnDestroy {
     private _sanitizer: DomSanitizer,
     public productService: ProductService,
   ) {
-    // this.productService.getProducts.subscribe( response => {
-    //   this.products = response.filter( item => item.type === 'watch' );
-    //   // Get Product Collection
-    //   this.products.filter( ( item ) => {
-    //     item.collection.filter( ( collection ) => {
-    //       const index = this.productCollections.indexOf( collection );
-    //       if ( index === -1 ) { this.productCollections.push( collection ); }
-    //     } );
-    //   } );
-    // } );
   }
 
 
@@ -221,14 +211,5 @@ export class MarketplaceComponent implements OnInit, OnDestroy {
     // Remove Color
     document.documentElement.style.removeProperty( '--theme-deafult' );
   }
-
-  // Product Tab collection
-  // getCollectionProducts( collection ) {
-  //   return this.products.filter( ( item ) => {
-  //     if ( item.collection.find( i => i === collection ) ) {
-  //       return item;
-  //     }
-  //   } );
-  // }
 
 }
