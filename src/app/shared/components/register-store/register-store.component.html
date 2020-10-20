@@ -54,7 +54,12 @@
 								<!-- Phone -->
 								<div class="form-group">
 									<div class="field-label" for="name">Teléfono de la tienda</div>
-									<input mask="(+000) 000-00-00" type="tel" class="form-control" id="review" formControlName="phone">
+									<div class="d-flex">
+										<input mask="(+000) 000-00-00" type="tel" class="col-md-11 form-control" id="review" formControlName="phone">
+										<button placement="top" ngbTooltip="Este número debe tener conexión a Whatsapp">
+											<i class="fa fa-info-circle"></i>
+										</button>
+									</div>
 									<div *ngIf="submitted && f.phone.errors" class="invalid-feedback d-block">
 										<div *ngIf="f.phone.errors.required"> {{ required }} </div>
 									</div>

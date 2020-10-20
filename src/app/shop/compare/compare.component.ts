@@ -1,34 +1,34 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ProductService } from "../../shared/services/tm.product.service";
-import { Product } from "../../shared/classes/tm.product";
+import { ProductService } from '../../shared/services/tm.product.service';
+import { Product } from '../../shared/classes/product';
 
-@Component({
+@Component( {
   selector: 'app-compare',
   templateUrl: './compare.component.html',
-  styleUrls: ['./compare.component.scss']
-})
+  styleUrls: [ './compare.component.scss' ]
+} )
 export class CompareComponent implements OnInit {
 
   public products: Product[] = [];
 
-  constructor(private router: Router, 
-    public productService: ProductService) {
-    this.productService.compareItems.subscribe(response => this.products = response);
+  constructor( private router: Router,
+    public productService: ProductService ) {
+    this.productService.compareItems.subscribe( response => this.products = response );
   }
 
   ngOnInit(): void {
   }
 
-  async addToCart(product: any) {
-    const status = await this.productService.addToCart(product);
-    if(status) {
-      this.router.navigate(['/shop/cart']);
+  async addToCart( product: any ) {
+    const status = await this.productService.addToCart( product );
+    if ( status ) {
+      this.router.navigate( [ '/shop/cart' ] );
     }
   }
 
-  removeItem(product: any) {
-    this.productService.removeCompareItem(product);
+  removeItem( product: any ) {
+    this.productService.removeCompareItem( product );
   }
 
 }

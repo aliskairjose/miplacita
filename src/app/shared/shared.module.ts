@@ -26,14 +26,8 @@ import { SettingsComponent } from './components/settings/settings.component';
 import { CategoriesComponent } from './components/categories/categories.component';
 import { BreadcrumbComponent } from './components/breadcrumb/breadcrumb.component';
 import { ProductBoxOneComponent } from './components/product/product-box-one/product-box-one.component';
-import { ProductBoxTwoComponent } from './components/product/product-box-two/product-box-two.component';
-import { ProductBoxThreeComponent } from './components/product/product-box-three/product-box-three.component';
-import { ProductBoxFourComponent } from './components/product/product-box-four/product-box-four.component';
-import { ProductBoxFiveComponent } from './components/product/product-box-five/product-box-five.component';
-import { ProductBoxVerticalComponent } from './components/product/product-box-vertical/product-box-vertical.component';
-import { ProductBoxVerticalSliderComponent } from './components/product/product-box-vertical-slider/product-box-vertical-slider.component';
 // custom components
-import { RegisterStoreComponent } from './custom-components/register-store/register-store.component';
+import { RegisterStoreComponent } from './components/register-store/register-store.component';
 
 // Modals Components
 import { NewsletterComponent } from './components/modal/newsletter/newsletter.component';
@@ -41,7 +35,6 @@ import { QuickViewComponent } from './components/modal/quick-view/quick-view.com
 import { CartModalComponent } from './components/modal/cart-modal/cart-modal.component';
 import { CartVariationComponent } from './components/modal/cart-variation/cart-variation.component';
 import { VideoModalComponent } from './components/modal/video-modal/video-modal.component';
-import { SizeModalComponent } from './components/modal/size-modal/size-modal.component';
 import { AgeVerificationComponent } from './components/modal/age-verification/age-verification.component';
 
 // Skeleton Loader Components
@@ -57,18 +50,18 @@ import { TapToTopComponent } from './components/tap-to-top/tap-to-top.component'
 import { FilterPipe } from './pipes/filter.pipe';
 import { DiscountPipe } from './pipes/discount.pipe';
 
-import { CustomPaginationComponent } from './custom-components/custom-pagination/custom-pagination/custom-pagination.component';
+import { CustomPaginationComponent } from './components/custom-pagination/custom-pagination.component';
 import { AlertModule } from 'ngx-alerts';
 import { NgxCurrencyModule, CurrencyMaskInputMode } from 'ngx-currency';
-import { SuccessModalComponent } from './custom-component/success-modal/success-modal.component';
-import { ShopDetailsComponent } from './custom-components/shop-details/shop-details.component';
-import { OrderDetailsComponent } from './custom-components/order-details/order-details.component';
+import { SuccessModalComponent } from './components/success-modal/success-modal.component';
+import { ShopDetailsComponent } from './components/shop-details/shop-details.component';
+import { OrderDetailsComponent } from './components/order-details/order-details.component';
 import { UploadImageComponent } from './components/upload-image/upload-image.component';
-import { ShopSubmenuComponent } from './custom-component/shop-submenu/shop-submenu.component';
-import { TimelineComponent } from './custom-component/timeline/timeline.component';
+import { ShopSubmenuComponent } from './components/shop-submenu/shop-submenu.component';
+import { TimelineComponent } from './components/timeline/timeline.component';
 
 import { NgxMaskModule, IConfig } from 'ngx-mask';
-import { ConfirmationDialogComponent } from './custom-components/confirmation-dialog/confirmation-dialog.component';
+import { ConfirmationDialogComponent } from './components/confirmation-dialog/confirmation-dialog.component';
 import { ConfirmationDialogService } from './services/confirmation-dialog.service';
 import { SearchComponent } from './components/search/search.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
@@ -117,18 +110,11 @@ export const customCurrencyMaskConfig = {
     BreadcrumbComponent,
     CategoriesComponent,
     ProductBoxOneComponent,
-    ProductBoxTwoComponent,
-    ProductBoxThreeComponent,
-    ProductBoxFourComponent,
-    ProductBoxFiveComponent,
-    ProductBoxVerticalComponent,
-    ProductBoxVerticalSliderComponent,
     NewsletterComponent,
     QuickViewComponent,
     CartModalComponent,
     CartVariationComponent,
     VideoModalComponent,
-    SizeModalComponent,
     AgeVerificationComponent,
     SkeletonProductBoxComponent,
     LayoutBoxComponent,
@@ -197,18 +183,11 @@ export const customCurrencyMaskConfig = {
     BreadcrumbComponent,
     CategoriesComponent,
     ProductBoxOneComponent,
-    ProductBoxTwoComponent,
-    ProductBoxThreeComponent,
-    ProductBoxFourComponent,
-    ProductBoxFiveComponent,
-    ProductBoxVerticalComponent,
-    ProductBoxVerticalSliderComponent,
     NewsletterComponent,
     QuickViewComponent,
     CartModalComponent,
     CartVariationComponent,
     VideoModalComponent,
-    SizeModalComponent,
     AgeVerificationComponent,
     SkeletonProductBoxComponent,
     LayoutBoxComponent,

@@ -6,6 +6,8 @@ import { ProductService } from '../../services/product.service';
 import { Review } from '../../classes/review';
 import { ToastrService } from 'ngx-toastr';
 import { User } from '../../classes/user';
+import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 @Component( {
   selector: 'app-comments',
@@ -56,21 +58,32 @@ export class CommentsComponent implements OnInit, OnChanges, OnDestroy {
       this.productService.addReview( this.reviewForm.value ).subscribe( ( review ) => {
         this.toastr.info( 'Gracias por dejar su comentario' );
         this.reviews.push( review );
-        this.cleatForm();
+        this.clearForm();
       } );
     }
   }
 
-  loadReviews( id: string ): void {
+  loadReviews( id: string ): Observable<number> {
 
     this._productId = id;
-    this.productService.productReviews( id ).subscribe( reviews => {
-      this.reviews = [ ...reviews ];
-      this.cleatForm();
-    } );
+    return this.productService.productReviews( id ).pipe(
+      map( reviews => {
+        this.reviews = [ ...reviews ];
+        this.clearForm();
+        return this.calculateRate( reviews );
+      } )
+    );
   }
 
-  private cleatForm(): void {
+  private calculateRate( reviews: Review[] ): number {
+    let rate = 0;
+    reviews.forEach( review => {
+      rate += review.qualification;
+    } );
+    return rate / reviews.length;
+  }
+
+  private clearForm(): void {
     this.reviewForm.reset();
   }
 

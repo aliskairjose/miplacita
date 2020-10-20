@@ -1,11 +1,11 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Product } from '../../../../shared/classes/tm.product';
+import { Product } from '../../../../shared/classes/product';
 
-@Component({
+@Component( {
   selector: 'app-grid',
   templateUrl: './grid.component.html',
-  styleUrls: ['./grid.component.scss']
-})
+  styleUrls: [ './grid.component.scss' ]
+} )
 export class GridComponent implements OnInit {
 
   @Input() products: Product[] = [];
@@ -22,17 +22,17 @@ export class GridComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  setGridLayout(value: string) {
-    this.setGrid.emit(value);  // Set Grid Size
+  setGridLayout( value: string ) {
+    this.setGrid.emit( value );  // Set Grid Size
   }
 
-  setLayoutView(value: string) {
+  setLayoutView( value: string ) {
     this.layoutView = value
-    this.setLayout.emit(value); // Set layout view
+    this.setLayout.emit( value ); // Set layout view
   }
 
-  sorting(event) {
-    this.sortedBy.emit(event.target.value)
+  sorting( event ) {
+    this.sortedBy.emit( event.target.value )
   }
 
 }

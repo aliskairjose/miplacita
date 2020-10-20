@@ -2,9 +2,6 @@ import moment from 'moment';
 import { ToastrService } from 'ngx-toastr';
 import { Paginate } from 'src/app/shared/classes/paginate';
 import { Store } from 'src/app/shared/classes/store';
-import {
-  OrderDetailsComponent
-} from 'src/app/shared/custom-components/order-details/order-details.component';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { ExportService } from 'src/app/shared/services/export.service';
 import { ShopService } from 'src/app/shared/services/shop.service';
@@ -14,10 +11,8 @@ import {
 } from '@angular/core';
 import { NgbCalendar, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 
-import {
-  CustomDateParserFormatterService
-} from '../../../shared/adapter/custom-date-parser-formatter.service';
-
+import { CustomDateParserFormatterService } from '../../../shared/adapter/custom-date-parser-formatter.service';
+import { OrderDetailsComponent } from '../../../shared/components/order-details/order-details.component';
 @Component( {
   selector: 'app-total-sales',
   templateUrl: './total-sales.component.html',

@@ -5,10 +5,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { User } from '../../../shared/classes/user';
 import { AuthService } from '../../../shared/services/auth.service';
 import { ShopService } from '../../../shared/services/shop.service';
-import { RegisterStoreComponent } from 'src/app/shared/custom-components/register-store/register-store.component';
 import { NgbModalOptions, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { environment } from '../../../../environments/environment.prod';
-import { log } from 'console';
+import { RegisterStoreComponent } from '../../../shared/components/register-store/register-store.component';
 
 @Component( {
   selector: 'app-account-manage',
@@ -28,7 +27,7 @@ export class AccountManageComponent implements OnInit, OnChanges {
   modal: any;
   modalOpen = false;
   modalOption: NgbModalOptions = {}; // not null!
-  
+
   constructor(
     private router: Router,
     private auth: AuthService,
@@ -95,7 +94,7 @@ export class AccountManageComponent implements OnInit, OnChanges {
     this.active = tab;
     if ( this.active === 'reports' ) {
       this.updateSubtab( 'daily-sales' );
-    } else if( this.active === 'admin-store'){
+    } else if ( this.active === 'admin-store' ) {
       this.subtab = 'store-profile'
     } else {
       this.router.navigateByUrl( `pages/account/user/${tab}`, { skipLocationChange: false } );
