@@ -101,6 +101,10 @@ export class DailySalesReportComponent implements OnInit {
 
     } );
   }
+  /*Venta por producto*/
+  private sellsByProduct(){
+
+  }
 
   setPage( page: number ) {
     this.loadData( page );
