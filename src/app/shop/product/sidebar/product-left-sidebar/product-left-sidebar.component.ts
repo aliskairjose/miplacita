@@ -3,8 +3,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ProductDetailsMainSlider, ProductDetailsThumbSlider } from '../../../../shared/data/slider';
 import { Product } from '../../../../shared/classes/product';
 import { ProductService } from '../../../../shared/services/product.service';
-import { SizeModalComponent } from '../../../../shared/components/modal/size-modal/size-modal.component';
-import { Result } from '../../../../shared/classes/response';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ShopService } from '../../../../shared/services/shop.service';
 import { CategoryService } from '../../../../shared/services/category.service';
@@ -43,7 +41,6 @@ export class ProductLeftSidebarComponent implements OnInit {
   color: any;
   size = '';
 
-  @ViewChild( 'sizeChart' ) SizeChart: SizeModalComponent;
   @ViewChild( 'comments' ) comment: CommentsComponent;
 
   ProductDetailsMainSliderConfig: any = ProductDetailsMainSlider;

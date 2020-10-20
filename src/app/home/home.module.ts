@@ -3,9 +3,6 @@ import { CommonModule } from '@angular/common';
 import { SharedModule } from '../shared/shared.module';
 import { HomeRoutingModule } from './home-routing.module';
 
-import { FashionOneComponent } from './fashion/fashion-one/fashion-one.component';
-import { FashionTwoComponent } from './fashion/fashion-two/fashion-two.component';
-import { FashionThreeComponent } from './fashion/fashion-three/fashion-three.component';
 
 // Widgest Components
 import { SliderComponent } from './widgets/slider/slider.component';
@@ -22,9 +19,6 @@ import { RegisterComponent } from './marketplace-shop/register/register.componen
 
 @NgModule( {
   declarations: [
-    FashionOneComponent,
-    FashionTwoComponent,
-    FashionThreeComponent,
     MarketplaceComponent,
     MarketplaceShopComponent,
     // Widgest Components

@@ -1,5 +1,5 @@
 import { Component, OnInit, Output, Input, EventEmitter, DoCheck, OnChanges } from '@angular/core';
-import { Paginate } from '../../../classes/paginate';
+import { Paginate } from '../../classes/paginate';
 
 @Component( {
   selector: 'app-custom-pagination',

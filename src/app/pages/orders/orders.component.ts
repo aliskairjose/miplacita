@@ -12,7 +12,7 @@ import { Paginate } from '../../shared/classes/paginate';
 import { Store } from '../../shared/classes/store';
 import {
   OrderDetailsComponent
-} from '../../shared/custom-components/order-details/order-details.component';
+} from '../../shared/components/order-details/order-details.component';
 import { AuthService } from '../../shared/services/auth.service';
 import { OrderService } from '../../shared/services/order.service';
 import { ShopService } from '../../shared/services/shop.service';

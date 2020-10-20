@@ -8,7 +8,7 @@ import { Category } from '../../classes/category';
 import { Plan } from '../../classes/plan';
 import { Store } from '../../classes/store';
 import { User } from '../../classes/user';
-import { PaymentComponent } from '../../components/payment/payment.component';
+import { PaymentComponent } from '../payment/payment.component';
 import { ProductService } from '../../services/product.service';
 import { ShopService } from '../../services/shop.service';
 import { Product, Images } from '../../classes/product';

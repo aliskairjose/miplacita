@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 import {
   ShopDetailsComponent
-} from '../shared/custom-components/shop-details/shop-details.component';
+} from '../shared/components/shop-details/shop-details.component';
 import { AuthGuard } from '../shared/guard/auth.guard';
 import { AboutUsComponent } from './about-us/about-us.component';
 import { CartComponent } from './account/cart/cart.component';

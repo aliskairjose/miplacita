@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ProductService } from '../../shared/services/tm.product.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ShopDetailsComponent } from '../../shared/custom-components/shop-details/shop-details.component';
+import { ShopDetailsComponent } from '../../shared/components/shop-details/shop-details.component';
 import { Paginate } from '../../shared/classes/paginate';
 import { ShopService } from '../../shared/services/shop.service';
 import { Store } from '../../shared/classes/store';
