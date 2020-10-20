@@ -3,15 +3,11 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { ProductLeftSidebarComponent } from './product/sidebar/product-left-sidebar/product-left-sidebar.component';
 import { ProductRightSidebarComponent } from './product/sidebar/product-right-sidebar/product-right-sidebar.component';
-import { ProductNoSidebarComponent } from './product/sidebar/product-no-sidebar/product-no-sidebar.component';
 import { ThreeColumnComponent } from './product/three-column/three-column.component';
-import { FourImageComponent } from './product/four-image/four-image.component';
 import { BundleProductComponent } from './product/bundle-product/bundle-product.component';
 import { ImageOutsideComponent } from './product/image-outside/image-outside.component';
 
 import { CollectionLeftSidebarComponent } from './collection/collection-left-sidebar/collection-left-sidebar.component';
-import { CollectionRightSidebarComponent } from './collection/collection-right-sidebar/collection-right-sidebar.component';
-import { CollectionNoSidebarComponent } from './collection/collection-no-sidebar/collection-no-sidebar.component';
 
 import { CartComponent } from './cart/cart.component';
 import { WishlistComponent } from './wishlist/wishlist.component';
@@ -35,22 +31,8 @@ const routes: Routes = [
     }
   },
   {
-    path: 'product/no/sidebar/:slug',
-    component: ProductNoSidebarComponent,
-    resolve: {
-      data: Resolver
-    }
-  },
-  {
     path: 'product/three/column/:slug',
     component: ThreeColumnComponent,
-    resolve: {
-      data: Resolver
-    }
-  },
-  {
-    path: 'product/four/image/:slug',
-    component: FourImageComponent,
     resolve: {
       data: Resolver
     }
@@ -72,14 +54,6 @@ const routes: Routes = [
   {
     path: 'collection/left/sidebar',
     component: CollectionLeftSidebarComponent
-  },
-  {
-    path: 'collection/right/sidebar',
-    component: CollectionRightSidebarComponent
-  },
-  {
-    path: 'collection/no/sidebar',
-    component: CollectionNoSidebarComponent
   },
   {
     path: 'cart',
@@ -111,8 +85,8 @@ const routes: Routes = [
   }
 ];
 
-@NgModule({
-  imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
-})
+@NgModule( {
+  imports: [ RouterModule.forChild( routes ) ],
+  exports: [ RouterModule ]
+} )
 export class ShopRoutingModule { }

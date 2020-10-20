@@ -6,18 +6,6 @@ import { HomeRoutingModule } from './home-routing.module';
 import { FashionOneComponent } from './fashion/fashion-one/fashion-one.component';
 import { FashionTwoComponent } from './fashion/fashion-two/fashion-two.component';
 import { FashionThreeComponent } from './fashion/fashion-three/fashion-three.component';
-import { VegetableComponent } from './vegetable/vegetable.component';
-import { WatchComponent } from './watch/watch.component';
-import { FurnitureComponent } from './furniture/furniture.component';
-import { FlowerComponent } from './flower/flower.component';
-import { BeautyComponent } from './beauty/beauty.component';
-import { ElectronicsComponent } from './electronics/electronics.component';
-import { PetsComponent } from './pets/pets.component';
-import { GymComponent } from './gym/gym.component';
-import { ToolsComponent } from './tools/tools.component';
-import { ShoesComponent } from './shoes/shoes.component';
-import { BagsComponent } from './bags/bags.component';
-import { MarijuanaComponent } from './marijuana/marijuana.component';
 
 // Widgest Components
 import { SliderComponent } from './widgets/slider/slider.component';
@@ -32,23 +20,11 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { AlertModule } from 'ngx-alerts';
 import { RegisterComponent } from './marketplace-shop/register/register.component';
 
-@NgModule({
+@NgModule( {
   declarations: [
     FashionOneComponent,
     FashionTwoComponent,
     FashionThreeComponent,
-    VegetableComponent,
-    WatchComponent,
-    FurnitureComponent,
-    FlowerComponent,
-    BeautyComponent,
-    ElectronicsComponent,
-    PetsComponent,
-    GymComponent,
-    ToolsComponent,
-    ShoesComponent,
-    BagsComponent,
-    MarijuanaComponent,
     MarketplaceComponent,
     MarketplaceShopComponent,
     // Widgest Components
@@ -70,5 +46,5 @@ import { RegisterComponent } from './marketplace-shop/register/register.componen
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 
-})
+} )
 export class HomeModule { }

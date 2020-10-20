@@ -9,7 +9,6 @@ import { ShopRoutingModule } from './shop-routing.module';
 import { ProductLeftSidebarComponent } from './product/sidebar/product-left-sidebar/product-left-sidebar.component';
 import { ProductRightSidebarComponent } from './product/sidebar/product-right-sidebar/product-right-sidebar.component';
 import { ProductNoSidebarComponent } from './product/sidebar/product-no-sidebar/product-no-sidebar.component';
-import { FourImageComponent } from './product/four-image/four-image.component';
 import { ThreeColumnComponent } from './product/three-column/three-column.component';
 import { BundleProductComponent } from './product/bundle-product/bundle-product.component';
 import { ImageOutsideComponent } from './product/image-outside/image-outside.component';
@@ -23,8 +22,6 @@ import { RelatedProductComponent } from './product/widgets/related-product/relat
 
 // Collection Components
 import { CollectionLeftSidebarComponent } from './collection/collection-left-sidebar/collection-left-sidebar.component';
-import { CollectionRightSidebarComponent } from './collection/collection-right-sidebar/collection-right-sidebar.component';
-import { CollectionNoSidebarComponent } from './collection/collection-no-sidebar/collection-no-sidebar.component';
 
 // Collection Widgets
 import { GridComponent } from './collection/widgets/grid/grid.component';
@@ -51,13 +48,12 @@ import { NgxMaskModule, IConfig } from 'ngx-mask';
 const maskConfig: Partial<IConfig> = {
   validation: false,
 };
-@NgModule({
+@NgModule( {
   declarations: [
     ProductLeftSidebarComponent,
     ProductRightSidebarComponent,
     ProductNoSidebarComponent,
     ThreeColumnComponent,
-    FourImageComponent,
     BundleProductComponent,
     ImageOutsideComponent,
     ServicesComponent,
@@ -66,8 +62,6 @@ const maskConfig: Partial<IConfig> = {
     StockInventoryComponent,
     RelatedProductComponent,
     CollectionLeftSidebarComponent,
-    CollectionRightSidebarComponent,
-    CollectionNoSidebarComponent,
     GridComponent,
     PaginationComponent,
     BrandsComponent,
@@ -80,7 +74,7 @@ const maskConfig: Partial<IConfig> = {
     CheckoutComponent,
     SuccessComponent,
     ShopsComponent,
-    ShippingComponent  ],
+    ShippingComponent ],
   imports: [
     CommonModule,
     GooglePlaceModule,
@@ -89,11 +83,11 @@ const maskConfig: Partial<IConfig> = {
     Ng5SliderModule,
     SharedModule,
     ShopRoutingModule,
-    NgxMaskModule.forRoot(maskConfig),
-    AgmCoreModule.forRoot({apiKey: 'AIzaSyC7YdhqPz4rB-D8U7F4qxVokWDb8EWYOB4'}),
-    AlertModule.forRoot({maxMessages: 5, timeout: 3000, position: 'left'}),
+    NgxMaskModule.forRoot( maskConfig ),
+    AgmCoreModule.forRoot( { apiKey: 'AIzaSyC7YdhqPz4rB-D8U7F4qxVokWDb8EWYOB4' } ),
+    AlertModule.forRoot( { maxMessages: 5, timeout: 3000, position: 'left' } ),
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 
-})
+} )
 export class ShopModule { }
