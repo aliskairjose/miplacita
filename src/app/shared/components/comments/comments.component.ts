@@ -57,6 +57,7 @@ export class CommentsComponent implements OnInit, OnChanges, OnDestroy {
     if ( this.reviewForm.valid ) {
       this.productService.addReview( this.reviewForm.value ).subscribe( ( review ) => {
         this.toastr.info( 'Gracias por dejar su comentario' );
+        review.user = user;
         this.reviews.push( review );
         this.clearForm();
       } );

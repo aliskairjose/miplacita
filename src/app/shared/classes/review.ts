@@ -1,6 +1,6 @@
 export interface Review {
   _id?: string;
-  user?: string;
+  user?: any;
   uuid?: string;
   product?: string;
   commentary?: string;
