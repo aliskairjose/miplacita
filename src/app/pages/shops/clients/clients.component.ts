@@ -30,19 +30,33 @@ export class ClientsComponent implements OnInit, OnChanges {
     private exportDoc: ExportService ) { }
 
   ngOnInit(): void {
+    this.role = this.auth.getUserRol();
+    this.init();
   }
   ngOnChanges( changes: SimpleChanges ): void {
-    this.store = JSON.parse( sessionStorage.getItem( 'store' ) );
+    this.role = this.auth.getUserRol();
+
+    if(this.role == 'merchant'){
+      this.store = JSON.parse( sessionStorage.getItem( 'store' ) );
+
+    }
     this.init();
   }
 
   private init(): void {
-    this.role = this.auth.getUserRol();
-    this.loadData();
+    if(this.role == 'merchant'){
+      this.loadData();
+    } else {
+      this.loadDataForAdmin();
+    }
   }
 
+  private loadDataForAdmin( ): void {
+    console.log("admin");
+  }
+  
   private loadData( page = 1 ): void {
-
+    
     const params = `store=${this.store._id}`;
 
     this.shopService.clientsList( params ).subscribe( result => {

@@ -3,6 +3,11 @@
 </ngx-spinner>
 <section class="section-b-space">
 	<div class="container">
+		<div class="page-title mb-5">
+			<h2 class="mp-title">
+				Ventas diarias
+			</h2>
+		</div>
 		<form class="theme-form">
 			<div class="d-flex search justify-content-mobile-first">
 				<div class="box-mobile-first">
@@ -57,7 +62,7 @@
 		</form>
 
 		<!-- Data de usuario -->
-		<ng-container  *ngIf="store; else elseTemplate">
+		<ng-container  *ngIf="(store && role=='merchant') || role=='admin'; else elseTemplate">
 			<div class="table-responsive-sm mt-3">
 				<table class="table cart-table table-responsive-xs" id="mp-table" #TABLE>
 					<thead>
@@ -100,7 +105,7 @@
 				<div class="col-md-5">
 					<div class="card text-center mx-auto mb-2">
 						<div class="card-body">
-							<p *ngIf="orders.length==0 && !store">
+							<p *ngIf="orders.length==0 && !store && role=='merchant'">
 								Aún no has configurado tu tienda
 								<a class="btn btn-solid-purple mt-3" [routerLink]="['/pages/account/user/admin-store']">
 									Configurar tienda

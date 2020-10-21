@@ -58,16 +58,22 @@ export class OrdersComponent implements OnInit, OnChanges {
   ) { }
 
   ngOnChanges( changes: SimpleChanges ): void {
-    this.shopService.storeObserver().subscribe( ( store: Store ) => {
-      if ( this.auth.getUserRol() === 'merchant' ) {
-        this.store = store;
-      }
-    } );
-
+    this.role = this.auth.getUserRol();
+    if(this.role == 'merchant'){
+      this.shopService.storeObserver().subscribe( ( store: Store ) => {
+        if ( this.role === 'merchant' ) {
+          this.store = store;
+        }
+      } );
+  
+    }
+    
     this.init();
   }
 
   ngOnInit(): void {
+    this.role = this.auth.getUserRol();
+  
   }
 
   setPage( page: number ) {
@@ -121,7 +127,6 @@ export class OrdersComponent implements OnInit, OnChanges {
 
   private init(): void {
     this.modelFrom = this.modelTo = this.ngbCalendar.getToday();
-    this.role = this.auth.getUserRol();
 
     if ( this.role === 'admin' ) { this.fields.splice( 1, 0, 'Tienda' ); }
 

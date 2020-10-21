@@ -22,6 +22,8 @@ import { OrderDetailsComponent } from '../../../shared/components/order-details/
 } )
 export class DailySalesReportComponent implements OnInit {
   @ViewChild( 'orderDetails' ) OrderDetails: OrderDetailsComponent;
+  @Input() store: Store;
+  @ViewChild( 'TABLE', { read: ElementRef } ) table: ElementRef;
 
   fields = [ 'Número de orden', 'Monto', 'Cliente', 'Fecha', 'Estado', '' ];
   orders: Order[] = [];
@@ -34,12 +36,6 @@ export class DailySalesReportComponent implements OnInit {
   modelTo: NgbDateStruct;
   modelFrom: NgbDateStruct;
 
-  @Input() store: Store;
-  /****************/
-
-  @ViewChild( 'TABLE', { read: ElementRef } ) table: ElementRef;
-
-  /**/
   constructor(
     private auth: AuthService,
     private toastr: ToastrService,
@@ -51,12 +47,17 @@ export class DailySalesReportComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.shopService.storeObserver().subscribe( ( store: Store ) => {
-      if ( store ) {
-        this.store = { ...store };
-        this.init();
-      }
-    } );
+    if(this.store){
+      this.shopService.storeObserver().subscribe( ( store: Store ) => {
+        if ( store ) {
+          this.store = { ...store };
+          this.init();
+        }
+      } );
+    } else {
+      this.init();
+    }
+    
   }
 
   filtrar(): void {
