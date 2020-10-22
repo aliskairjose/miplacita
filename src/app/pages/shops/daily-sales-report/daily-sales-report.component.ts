@@ -13,6 +13,7 @@ import { CustomDateParserFormatterService } from '../../../shared/adapter/custom
 import { ToastrService } from 'ngx-toastr';
 import { OrderDetailsComponent } from '../../../shared/components/order-details/order-details.component';
 import { ReportsService } from '../../../shared/services/reports.service';
+import { ActivatedRoute } from '@angular/router';
 
 
 @Component( {
@@ -22,8 +23,9 @@ import { ReportsService } from '../../../shared/services/reports.service';
 } )
 export class DailySalesReportComponent implements OnInit {
   @ViewChild( 'orderDetails' ) OrderDetails: OrderDetailsComponent;
-  @Input() store: Store;
   @ViewChild( 'TABLE', { read: ElementRef } ) table: ElementRef;
+  @Input() store: Store;
+  @Input() type: string;
 
   fields = [ 'Número de orden', 'Monto', 'Cliente', 'Fecha', 'Estado', '' ];
   fieldsAdmin = [ 'Tienda', 'Producto', 'Monto', 'Cantidades vendidas', 'Estado' ];
@@ -47,9 +49,11 @@ export class DailySalesReportComponent implements OnInit {
     private ngbCalendar: NgbCalendar,
     private shopService: ShopService,
     private parseDate: CustomDateParserFormatterService,
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
+
     if(this.store){
       this.shopService.storeObserver().subscribe( ( store: Store ) => {
         if ( store ) {
@@ -79,7 +83,6 @@ export class DailySalesReportComponent implements OnInit {
   }
 
   private init(): void {
-    console.log("init daily")
     this.modelFrom = this.modelTo = this.ngbCalendar.getToday();
     this.fechaIni = this.fechaFin = this.parseDate.format( this.modelFrom );
     this.role = this.auth.getUserRol();
@@ -105,9 +108,19 @@ export class DailySalesReportComponent implements OnInit {
   
       } );
     } else {
-      this.reports.dailySalesProductsMP().subscribe(result => {
-        //
-      })
+      if(this.type == 'daily-sales'){
+
+        this.reports.dailySalesProducts().subscribe(result => {
+          console.log("daily sales all",result);
+          //
+        })
+      } else if(this.type == 'daily-sales-mp'){
+
+        this.reports.dailySalesProductsMP().subscribe(result => {
+          console.log("daily sales mp",result);
+
+        })
+      }
     }
   }
 

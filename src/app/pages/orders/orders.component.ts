@@ -16,6 +16,7 @@ import {
 import { AuthService } from '../../shared/services/auth.service';
 import { OrderService } from '../../shared/services/order.service';
 import { ShopService } from '../../shared/services/shop.service';
+import { ReportsService } from 'src/app/shared/services/reports.service';
 
 @Component( {
   selector: 'app-orders',
@@ -55,6 +56,7 @@ export class OrdersComponent implements OnInit, OnChanges {
     private shopService: ShopService,
     private orderService: OrderService,
     private parseDate: CustomDateParserFormatterService,
+    private reportService: ReportsService
   ) { }
 
   ngOnChanges( changes: SimpleChanges ): void {
@@ -141,20 +143,24 @@ export class OrdersComponent implements OnInit, OnChanges {
     // const params = `store=${this.store._id}&status=${this.status}&from=${this.fechaIni}&to=${this.fechaFin}`;
     if ( this.role === 'merchant' ) {
       params = `store=${this.store._id}&status=${this.status}&from=${this.fechaIni}&to=${this.fechaFin}`;
+      this.orderService.orderList( page, params ).subscribe( result => {
+        this.orders = [ ...result.docs ];
+        this.paginate = { ...result };
+        this.paginate.pages = [];
+        for ( let i = 1; i <= this.paginate.totalPages; i++ ) {
+          this.paginate.pages.push( i );
+        }
+      } );
     }
 
     if ( this.role === 'admin' ) {
       params = `status=${this.status}&from=${this.fechaIni}&to=${this.fechaFin}`;
+      this.reportService.ordersMP().subscribe(result =>{
+        console.log("ordenes de Marketplace", result);
+      });
     }
 
-    this.orderService.orderList( page, params ).subscribe( result => {
-      this.orders = [ ...result.docs ];
-      this.paginate = { ...result };
-      this.paginate.pages = [];
-      for ( let i = 1; i <= this.paginate.totalPages; i++ ) {
-        this.paginate.pages.push( i );
-      }
-    } );
+   
   }
 
 

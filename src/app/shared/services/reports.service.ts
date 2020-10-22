@@ -37,6 +37,13 @@ export class ReportsService {
     return this.http.get( `` );
   }
 
+    /**
+   * @description Reorte de ventas diarias por producto 
+   */
+  dailySalesProducts(): Observable<any> {
+    return this.http.get( `` );
+  }
+
   /**
    * @description Reporte de Ordenes MP
    */
@@ -71,7 +78,6 @@ export class ReportsService {
       } )
     );
   }
-
 
   /*
     ---------------------------------------------
