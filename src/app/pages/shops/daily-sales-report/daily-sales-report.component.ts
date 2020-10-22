@@ -22,9 +22,14 @@ import { ReportsService } from '../../../shared/services/reports.service';
 } )
 export class DailySalesReportComponent implements OnInit {
   @ViewChild( 'orderDetails' ) OrderDetails: OrderDetailsComponent;
+  @Input() store: Store;
+  @ViewChild( 'TABLE', { read: ElementRef } ) table: ElementRef;
 
   fields = [ 'Número de orden', 'Monto', 'Cliente', 'Fecha', 'Estado', '' ];
+  fieldsAdmin = [ 'Tienda', 'Producto', 'Monto', 'Cantidades vendidas', 'Estado' ];
+  
   orders: Order[] = [];
+  products = [];
   paginate: Paginate;
   orderStatus = environment.orderStatus;
   role: string;
@@ -34,12 +39,6 @@ export class DailySalesReportComponent implements OnInit {
   modelTo: NgbDateStruct;
   modelFrom: NgbDateStruct;
 
-  @Input() store: Store;
-  /****************/
-
-  @ViewChild( 'TABLE', { read: ElementRef } ) table: ElementRef;
-
-  /**/
   constructor(
     private auth: AuthService,
     private toastr: ToastrService,
@@ -51,12 +50,17 @@ export class DailySalesReportComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.shopService.storeObserver().subscribe( ( store: Store ) => {
-      if ( store ) {
-        this.store = { ...store };
-        this.init();
-      }
-    } );
+    if(this.store){
+      this.shopService.storeObserver().subscribe( ( store: Store ) => {
+        if ( store ) {
+          this.store = { ...store };
+          this.init();
+        }
+      } );
+    } else {
+      this.init();
+    }
+    
   }
 
   filtrar(): void {
@@ -75,7 +79,7 @@ export class DailySalesReportComponent implements OnInit {
   }
 
   private init(): void {
-
+    console.log("init daily")
     this.modelFrom = this.modelTo = this.ngbCalendar.getToday();
     this.fechaIni = this.fechaFin = this.parseDate.format( this.modelFrom );
     this.role = this.auth.getUserRol();
@@ -88,19 +92,25 @@ export class DailySalesReportComponent implements OnInit {
   }
 
   private loadData( page = 1 ): void {
-
-    const params = `store=${this.store._id}&from=${this.fechaIni}&to=${this.fechaFin}`;
-
-    this.reports.dailySales( page, params ).subscribe( result => {
-      this.orders = [ ...result.docs ];
-      this.paginate = { ...result };
-      this.paginate.pages = [];
-      for ( let i = 1; i <= this.paginate.totalPages; i++ ) {
-        this.paginate.pages.push( i );
-      }
-
-    } );
+    let params = "";
+    if(this.role == 'merchant'){
+      params = `store=${this.store._id}&from=${this.fechaIni}&to=${this.fechaFin}`;
+      this.reports.dailySales( page, params ).subscribe( result => {
+        this.orders = [ ...result.docs ];
+        this.paginate = { ...result };
+        this.paginate.pages = [];
+        for ( let i = 1; i <= this.paginate.totalPages; i++ ) {
+          this.paginate.pages.push( i );
+        }
+  
+      } );
+    } else {
+      this.reports.dailySalesProductsMP().subscribe(result => {
+        //
+      })
+    }
   }
+
 
   setPage( page: number ) {
     this.loadData( page );

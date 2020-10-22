@@ -146,42 +146,6 @@
 				</div>
 				<div *ngIf="active==='stores'" class="" id="contact" user.role="tabpanel">
 					<div *ngIf="user.role==='merchant'">
-						<!-- <div class="page-title">
-							<h2 class="mp-title">
-								<span>Mis tiendas</span>
-							</h2>
-						</div>
-						<div class="container">
-							<div class="row">
-								<div class="col theme-tab">
-									<div>
-										<div class="no-slider row">
-											<ng-container *ngFor="let store of stores | slice:0:8">
-												<div class="store-box">
-													<app-shop-card [store]="store">
-													</app-shop-card>
-												</div>
-											</ng-container>
-										</div>
-										<div class="form-row container justify-content-center " *ngIf="stores.length==0">
-											<div class="col-md-5">
-												<div class="card text-center mx-auto mb-2">
-													<div class="card-body">
-														<p>
-															Aún no has creado tu primera tienda.
-															Configura una tienda y empieza a vender!
-														</p>
-														<a class="btn btn-solid-purple" [routerLink]="['/pages/account/user/admin-store']">
-															Configurar tienda
-														</a>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div> -->
 						<app-stores-list [stores]="stores"></app-stores-list>
 					</div>
 					<app-shops *ngIf="user.role==='admin'"></app-shops>
@@ -339,9 +303,9 @@
 				<div 
 					*ngIf="active==='reports'" 
 					class="" 
-					id="reports" 
-					user.role="tabpanel">
-					<app-reports [store]="selectedStore"></app-reports>
+					id="reports" >
+					<app-admin-reports *ngIf="user.role==='admin'"></app-admin-reports>
+					<app-reports *ngIf="user.role==='merchant'"  [store]="selectedStore"></app-reports>
 				</div>
 			</div>
 		</div>

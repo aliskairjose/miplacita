@@ -24,23 +24,45 @@ export class ClientsComponent implements OnInit, OnChanges {
   constructor(
     private auth: AuthService,
     private reposts: ReportsService,
-    private exportDoc: ExportService
+    private exportDoc: ExportService,
+  
   ) { }
 
   ngOnInit(): void {
+    this.role = this.auth.getUserRol();
+    this.init();
   }
   ngOnChanges( changes: SimpleChanges ): void {
-    this.store = JSON.parse( sessionStorage.getItem( 'store' ) );
+    this.role = this.auth.getUserRol();
+
+    if(this.role == 'merchant'){
+      this.store = JSON.parse( sessionStorage.getItem( 'store' ) );
+
+    }
     this.init();
   }
 
   private init(): void {
-    this.role = this.auth.getUserRol();
-    this.loadData();
+    if(this.role == 'merchant'){
+      this.loadData();
+    } else {
+      this.reposts.clientsMP().subscribe( result => {
+        this.clients = result;
+        this.paginate = { ...result };
+        this.paginate.pages = [];
+        for ( let i = 1; i <= this.paginate.totalPages; i++ ) {
+          this.paginate.pages.push( i );
+        }
+      } );
+    }
   }
 
+  private loadDataForAdmin( ): void {
+    console.log("admin");
+  }
+  
   private loadData( page = 1 ): void {
-
+    
     const params = `store=${this.store._id}`;
 
     this.reposts.clients( params ).subscribe( result => {

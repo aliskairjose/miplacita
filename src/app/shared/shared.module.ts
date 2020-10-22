@@ -137,7 +137,7 @@ export const customCurrencyMaskConfig = {
     PaymentComponent,
     CommentsComponent,
     ModalNewElementComponent,
-    AddressComponent
+    AddressComponent,
   ],
   imports: [
     NgxCurrencyModule.forRoot( customCurrencyMaskConfig ),
