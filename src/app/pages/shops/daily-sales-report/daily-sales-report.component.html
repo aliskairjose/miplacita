@@ -66,11 +66,14 @@
 			<div class="table-responsive-sm mt-3">
 				<table class="table cart-table table-responsive-xs" id="mp-table" #TABLE>
 					<thead>
-						<tr class="table-head text-center">
+						<tr class="table-head text-center" *ngIf="role=='merchant'">
 							<th *ngFor="let field of fields" scope="col">{{field}}</th>
 						</tr>
+						<tr class="table-head text-center" *ngIf="role=='admin'">
+							<th *ngFor="let field of fieldsAdmin" scope="col">{{field}}</th>
+						</tr>
 					</thead>
-					<tbody>
+					<tbody *ngIf="role == 'merchant'">
 						<tr *ngFor="let order of orders">
 							<td class="text-center">{{order._id}}</td>
 							<td class="text-center">{{ order.amount | currency }}</td>
@@ -82,6 +85,16 @@
 									<i class="fa fa-search fa-lg" style="color: Dodgerblue"></i>
 								</a>
 							</td>
+						</tr>
+					</tbody>
+					<tbody *ngIf="role == 'admin'">
+						<tr *ngFor="let product of products">
+							<td class="text-center">{{ product.store.name }}</td>
+							<td class="text-center">{{ product.name }}</td>
+							<td class="text-center">{{ product.price | currency}}</td>
+							<td class="text-center">{{ product.sold }}</td>
+							<td class="text-center text-capitalize">{{ product.status }}</td>
+							
 						</tr>
 					</tbody>
 				</table>
