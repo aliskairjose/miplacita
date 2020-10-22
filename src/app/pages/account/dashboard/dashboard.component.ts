@@ -24,6 +24,7 @@ export class DashboardComponent implements OnInit {
 
   /** Table fields */
   tableHeaders = [ 'PEDIDO NRO', 'CLIENTE', 'FECHA DE EMISIÓN', 'ESTATUS' ];
+  tableHeadersAdmin = [ 'TIENDA', 'MONTO', 'FECHA' ];
 
   paginate: any = {};
   pageNo = 1;
@@ -78,62 +79,69 @@ export class DashboardComponent implements OnInit {
     } );
 
     this.getLabelsInformation();
-    this.getChartInformation();
     this.loadData();
   }
   getLabelsInformation() {
       let params = ''
+    if(this.role == 'merchant'){
       params = `store=${this.store._id}`;
-
-
-    this.dashboardService.dashboard_store(params).subscribe( ( data: any ) => {
-      this.dashboardData = data.dashboard;
-      if(this.dashboardData.sold_products.length>0){
-        if(this.dashboardData.sold_products.length > 3){
-          this.dashboardData.sold_products.sort(function (a:any, b:any) {
-            if (a.quantitySold < b.quantitySold) {
-              return 1;
+      this.dashboardService.dashboard_store(params).subscribe( ( data: any ) => {
+        console.log("----->", data);
+        this.dashboardData = data.dashboard;
+        if(this.dashboardData.sold_products.length>0){
+          if(this.dashboardData.sold_products.length > 3){
+            this.dashboardData.sold_products.sort(function (a:any, b:any) {
+              if (a.quantitySold < b.quantitySold) {
+                return 1;
+              }
+              if (a.quantitySold > b.quantitySold) {
+                return -1;
+              }
+              // a must be equal to b
+              return 0;
+            });
+            for(let i= 0;i< 3;i++ ){
+              
+              let element: any = this.dashboardData.sold_products[i];
+              if(element.quantitySold>0){
+                this.doughnutChartLabels.push(element.name);
+                this.doughnutChartData.push(element.quantitySold);
+              }
             }
-            if (a.quantitySold > b.quantitySold) {
-              return -1;
-            }
-            // a must be equal to b
-            return 0;
-          });
-          for(let i= 0;i< 3;i++ ){
-            
-            let element: any = this.dashboardData.sold_products[i];
-            if(element.quantitySold>0){
+          } else {
+            this.dashboardData.sold_products.map((element:any) => {
               this.doughnutChartLabels.push(element.name);
-              this.doughnutChartData.push(element.quantitySold);
-            }
+              this.doughnutChartData.push(10);
+            })
           }
-        } else {
-          this.dashboardData.sold_products.map((element:any) => {
-            this.doughnutChartLabels.push(element.name);
-            this.doughnutChartData.push(10);
+          
+          
+        }
+        let barTemporal = [];
+        if(this.dashboardData.month_orders.length > 0){
+          this.dashboardData.month_orders.map((elemt:any) => {
+            let month = this.months[+elemt._id.month - 1];
+            this.barChartLabels.push(month + ' ' + elemt._id.year);
+            barTemporal.push(elemt.total);
           })
         }
-        
-        
-      }
-      let barTemporal = [];
-      if(this.dashboardData.month_orders.length > 0){
-        this.dashboardData.month_orders.map((elemt:any) => {
-          let month = this.months[+elemt._id.month - 1];
-          this.barChartLabels.push(month + ' ' + elemt._id.year);
-          barTemporal.push(elemt.total);
-        })
-      }
-      this.barChartData.push({data: barTemporal});
+        this.barChartData.push({data: barTemporal});
+  
+      });
+    } else {
+      this.dashboardService.dashboard().subscribe((response: any) =>{
+        console.log("admin ",response);
+        if(response.success){
+          this.dashboardData = response.result;
 
-    });
-  }
+        }
+      })
+    }
 
-  getChartInformation() {
-    /** carga de datos para las estadisticas */
+
 
   }
+
 
   slicePage( items ) {
     if ( items.length > this.pageSize ) {
@@ -157,7 +165,14 @@ export class DashboardComponent implements OnInit {
     // const params = `store=${this.store._id}&status=${this.status}&from=${this.fechaIni}&to=${this.fechaFin}`;
     if ( this.role === 'merchant' ) {
       params = `store=${this.store._id}`;
-
+      this.orderService.orderList( page, params ).subscribe( result => {
+        this.orders = [ ...result.docs ];
+        this.paginate = { ...result };
+        this.paginate.pages = [];
+        for ( let i = 1; i <= this.paginate.totalPages; i++ ) {
+          this.paginate.pages.push( i );
+        }
+      } );
     }
 
     if ( this.role === 'admin' ) {
@@ -165,14 +180,7 @@ export class DashboardComponent implements OnInit {
     }
     
 
-    this.orderService.orderList( page, params ).subscribe( result => {
-      this.orders = [ ...result.docs ];
-      this.paginate = { ...result };
-      this.paginate.pages = [];
-      for ( let i = 1; i <= this.paginate.totalPages; i++ ) {
-        this.paginate.pages.push( i );
-      }
-    } );
+
 
   }
 
