@@ -6,6 +6,7 @@ import { Order } from '../classes/order';
 import { map } from 'rxjs/operators';
 import { User } from '../classes/user';
 import { Product } from '../classes/product';
+import { ObsEvent } from 'ng-lazyload-image/src/types';
 
 @Injectable( {
   providedIn: 'root'
@@ -16,6 +17,39 @@ export class ReportsService {
     private http: HttpService
   ) { }
 
+  /*
+  ---------------------------------------------
+  -------------  MP Reports  ------------------
+  ---------------------------------------------
+  */
+
+  /**
+   * @description Reortes de clientes MP
+   */
+  clientsMP(): Observable<any> {
+    return this.http.get( `` );
+  }
+
+  /**
+   * @description Reorte de ventas diarias por producto MP
+   */
+  dailySalesProductsMP(): Observable<any> {
+    return this.http.get( `` );
+  }
+
+  /**
+   * @description Reporte de Ordenes MP
+   */
+  ordersMP(): Observable<any> {
+    return this.http.get( `` );
+  }
+
+  /**
+   * @description Reporte productos mas vendidos MP
+   */
+  bestSellersMP(): Observable<any> {
+    return this.http.get( `` );
+  }
 
   /*
     ---------------------------------------------
@@ -75,6 +109,19 @@ export class ReportsService {
     );
   }
 
+  /**
+   * @description Reporte de ventas con TDC
+   */
+  tdcSales(): Observable<any> {
+    return this.http.get( `` );
+  }
+
+  /**
+   * @description Reporte de tiendas activas con membresia
+   */
+  membershipActiveShop(): Observable<any> {
+    return this.http.get( `` );
+  }
 
 
   /*
