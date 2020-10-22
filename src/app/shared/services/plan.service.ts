@@ -50,4 +50,12 @@ export class PlanService {
       } )
     );
   }
+
+  /**
+   * @description Actualizacion de precios de planes
+   */
+  updatePlanPrice(): Observable<Plan> {
+    return this.http.put( `endpoint` );
+  }
+
 }
