@@ -2,7 +2,6 @@ import { Order } from 'src/app/shared/classes/order';
 import { Paginate } from 'src/app/shared/classes/paginate';
 import { Store } from 'src/app/shared/classes/store';
 import { AuthService } from 'src/app/shared/services/auth.service';
-import { OrderService } from 'src/app/shared/services/order.service';
 import { ExportService } from 'src/app/shared/services/export.service';
 
 import { environment } from 'src/environments/environment';
@@ -13,6 +12,7 @@ import { ShopService } from '../../../shared/services/shop.service';
 import { CustomDateParserFormatterService } from '../../../shared/adapter/custom-date-parser-formatter.service';
 import { ToastrService } from 'ngx-toastr';
 import { OrderDetailsComponent } from '../../../shared/components/order-details/order-details.component';
+import { ReportsService } from '../../../shared/services/reports.service';
 
 
 @Component( {
@@ -42,10 +42,10 @@ export class DailySalesReportComponent implements OnInit {
   constructor(
     private auth: AuthService,
     private toastr: ToastrService,
+    private reports: ReportsService,
     private exportDoc: ExportService,
     private ngbCalendar: NgbCalendar,
     private shopService: ShopService,
-    private orderService: OrderService,
     private parseDate: CustomDateParserFormatterService,
   ) { }
 
@@ -95,7 +95,7 @@ export class DailySalesReportComponent implements OnInit {
     let params = "";
     if(this.role == 'merchant'){
       params = `store=${this.store._id}&from=${this.fechaIni}&to=${this.fechaFin}`;
-      this.orderService.orderList( page, params ).subscribe( result => {
+      this.reports.dailySales( page, params ).subscribe( result => {
         this.orders = [ ...result.docs ];
         this.paginate = { ...result };
         this.paginate.pages = [];
@@ -105,12 +105,10 @@ export class DailySalesReportComponent implements OnInit {
   
       } );
     } else {
-      params = `from=${this.fechaIni}&to=${this.fechaFin}`;
-      // ventas por producto
-      // venats por producto MP
+      this.reports.dailySalesProductsMP().subscribe(result => {
+        //
+      })
     }
-
-   
   }
 
 

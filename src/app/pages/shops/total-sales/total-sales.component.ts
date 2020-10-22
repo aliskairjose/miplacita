@@ -4,7 +4,6 @@ import { Paginate } from 'src/app/shared/classes/paginate';
 import { Store } from 'src/app/shared/classes/store';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { ExportService } from 'src/app/shared/services/export.service';
-import { ShopService } from 'src/app/shared/services/shop.service';
 
 import {
   Component, ElementRef, Input, OnChanges, OnInit, SimpleChanges, ViewChild
@@ -13,6 +12,7 @@ import { NgbCalendar, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 
 import { CustomDateParserFormatterService } from '../../../shared/adapter/custom-date-parser-formatter.service';
 import { OrderDetailsComponent } from '../../../shared/components/order-details/order-details.component';
+import { ReportsService } from '../../../shared/services/reports.service';
 @Component( {
   selector: 'app-total-sales',
   templateUrl: './total-sales.component.html',
@@ -35,8 +35,8 @@ export class TotalSalesComponent implements OnInit, OnChanges {
   constructor(
     private auth: AuthService,
     private toastr: ToastrService,
+    private reports: ReportsService,
     private ngbCalendar: NgbCalendar,
-    private shopService: ShopService,
     private exportDoc: ExportService,
     private parseDate: CustomDateParserFormatterService
   ) {
@@ -63,7 +63,7 @@ export class TotalSalesComponent implements OnInit, OnChanges {
   private loadData( page = 1 ): void {
     const params = `store=${this.store._id}&from=${this.fechaIni}&to=${this.fechaFin}`;
 
-    this.shopService.totalSales( params ).subscribe( ( result ) => {
+    this.reports.totalSales( params ).subscribe( ( result ) => {
       this.sales = result;
       // this.paginate = { ...result };
       // this.paginate.pages = [];

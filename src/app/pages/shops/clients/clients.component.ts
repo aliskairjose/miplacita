@@ -1,12 +1,10 @@
 import { Component, OnInit, Input, ViewChild, SimpleChanges, ElementRef, OnChanges } from '@angular/core';
 import { AuthService } from 'src/app/shared/services/auth.service';
-import { OrderService } from 'src/app/shared/services/order.service';
 import { Store } from 'src/app/shared/classes/store';
 import { Paginate } from 'src/app/shared/classes/paginate';
-import { User } from 'src/app/shared/classes/user';
 import { InterestsComponent } from '../../interests/interests.component';
 import { ExportService } from 'src/app/shared/services/export.service';
-import { ShopService } from 'src/app/shared/services/shop.service';
+import { ReportsService } from '../../../shared/services/reports.service';
 
 @Component( {
   selector: 'app-clients',
@@ -25,9 +23,10 @@ export class ClientsComponent implements OnInit, OnChanges {
   @Input() store: Store;
   constructor(
     private auth: AuthService,
-    private orderService: OrderService,
-    private shopService: ShopService,
-    private exportDoc: ExportService ) { }
+    private reposts: ReportsService,
+    private exportDoc: ExportService,
+  
+  ) { }
 
   ngOnInit(): void {
     this.role = this.auth.getUserRol();
@@ -47,7 +46,7 @@ export class ClientsComponent implements OnInit, OnChanges {
     if(this.role == 'merchant'){
       this.loadData();
     } else {
-      this.shopService.clientsList( '' ).subscribe( result => {
+      this.reposts.clientsMP().subscribe( result => {
         this.clients = result;
         this.paginate = { ...result };
         this.paginate.pages = [];
@@ -66,7 +65,7 @@ export class ClientsComponent implements OnInit, OnChanges {
     
     const params = `store=${this.store._id}`;
 
-    this.shopService.clientsList( params ).subscribe( result => {
+    this.reposts.clients( params ).subscribe( result => {
       this.clients = result;
       this.paginate = { ...result };
       this.paginate.pages = [];
