@@ -37,7 +37,6 @@ export class AccountManageComponent implements OnInit, OnChanges {
     private modalService: NgbModal
   ) {
     this.user = this.auth.getUserActive();
-    console.log("USER ",this.user);
   }
   ngOnChanges( changes: SimpleChanges ): void {
     this.init();
