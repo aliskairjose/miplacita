@@ -47,7 +47,14 @@ export class ClientsComponent implements OnInit, OnChanges {
     if(this.role == 'merchant'){
       this.loadData();
     } else {
-      this.loadDataForAdmin();
+      this.shopService.clientsList( '' ).subscribe( result => {
+        this.clients = result;
+        this.paginate = { ...result };
+        this.paginate.pages = [];
+        for ( let i = 1; i <= this.paginate.totalPages; i++ ) {
+          this.paginate.pages.push( i );
+        }
+      } );
     }
   }
 
