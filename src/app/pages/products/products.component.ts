@@ -16,7 +16,6 @@ import { ConfirmationDialogService } from '../../shared/services/confirmation-di
 import { ProductService } from '../../shared/services/product.service';
 import { ShopService } from '../../shared/services/shop.service';
 import { CreateProductComponent } from './create-product/create-product.component';
-import { ReportsService } from 'src/app/shared/services/reports.service';
 
 @Component( {
   selector: 'app-products',
@@ -31,7 +30,6 @@ export class ProductsComponent implements OnChanges, AfterViewInit {
     private toastrService: ToastrService,
     private productService: ProductService,
     private confirmationDialogService: ConfirmationDialogService,
-    private reportService: ReportsService
   ) {
     this.role = this.auth.getUserRol();
   }
@@ -160,23 +158,20 @@ export class ProductsComponent implements OnChanges, AfterViewInit {
 
     if ( this.role === 'merchant' ) {
       this.params = `store=${this.store._id}&name=${this.name}&status=${this.status}`;
-      this.productService.productList( page, this.params ).subscribe( result => {
-        this.products = [ ...result.docs ];
-        this.paginate = { ...result };
-        this.paginate.pages = [];
-        for ( let i = 1; i <= this.paginate.totalPages; i++ ) {
-          this.paginate.pages.push( i );
-        }
-      } );
     }
 
     if ( this.role === 'admin' ) {
-      this.reportService.bestSellersMP().subscribe((result)=>{
-        console.log("mas vendidos MP", result);
-      })
+      this.params = `store=${this.storeSelected}&name=${this.name}&status=${this.status}`;
     }
 
-   
+    this.productService.productList( page, this.params ).subscribe( result => {
+      this.products = [ ...result.docs ];
+      this.paginate = { ...result };
+      this.paginate.pages = [];
+      for ( let i = 1; i <= this.paginate.totalPages; i++ ) {
+        this.paginate.pages.push( i );
+      }
+    } );
   }
 
 }

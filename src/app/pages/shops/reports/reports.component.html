@@ -48,7 +48,7 @@
             </div>
         </div>
         <div class="container">
-            <app-daily-sales-report *ngIf="subtab == 'daily-sales'"></app-daily-sales-report>
+            <app-daily-sales-report [store]="store" *ngIf="subtab == 'daily-sales'"></app-daily-sales-report>
             <app-clients [store]="store" *ngIf="subtab == 'clients'"></app-clients>
             <app-best-sellers [store]="store" *ngIf="subtab == 'best-sellers'"></app-best-sellers>
             <app-total-sales [store]="store" *ngIf="subtab == 'total-sales'"></app-total-sales>

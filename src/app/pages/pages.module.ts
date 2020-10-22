@@ -73,6 +73,10 @@ import { InterestsComponent } from './interests/interests.component';
 import { StoresListComponent } from './shops/stores-list/stores-list.component';
 import { StorePageComponent } from './shops/store-page/store-page.component';
 import { AdminReportsComponent } from './shops/admin-reports/admin-reports.component';
+import { StorePaymentsComponent } from './shops/store-payments/store-payments.component';
+import { StockComponent } from './shops/stock/stock.component';
+import { SalesTdcComponent } from './shops/sales-tdc/sales-tdc.component';
+import { PercentageMpProductsComponent } from './shops/percentage-mp-products/percentage-mp-products.component';
 
 // export let options: Partial<IConfig> | (() => Partial<IConfig>);
 const maskConfig: Partial<IConfig> = {
@@ -154,6 +158,10 @@ export const customCurrencyMaskConfig = {
     StoresListComponent,
     StorePageComponent,
     AdminReportsComponent,
+    StorePaymentsComponent,
+    StockComponent,
+    SalesTdcComponent,
+    PercentageMpProductsComponent,
   ],
   imports: [
     SharedModule,

@@ -32,6 +32,7 @@ export class ClientsComponent implements OnInit, OnChanges {
     this.role = this.auth.getUserRol();
     this.init();
   }
+
   ngOnChanges( changes: SimpleChanges ): void {
     this.role = this.auth.getUserRol();
 

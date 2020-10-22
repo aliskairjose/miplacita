@@ -13,9 +13,9 @@ export class AdminReportsComponent implements OnInit {
   subtab = 'daily-sales';
   tabs = [
     [
-      {name: '20% VS el % de la tienda', active: 'percent'},
+      {name: '20% VS el % de la tienda', active: 'sales-mp'},
       {name: 'Ventas con TDC', active: 'tdc'},
-      {name: 'Productos más vendidos', active: 'best-seller'},
+      {name: 'Productos más vendidos', active: 'best-sellers'},
       {name: 'Tiendas activas con membresía', active: 'store-membership'},
       {name: 'Ventas diarias por producto MP', active: 'daily-sell-mp'},
     ],[

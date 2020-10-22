@@ -94,7 +94,11 @@ export class AccountManageComponent implements OnInit, OnChanges {
   updateTab( tab: string ) {
     this.active = tab;
     if ( this.active === 'reports' ) {
-      this.updateSubtab( 'daily-sales' );
+      if(this.user.role == 'merchant'){
+        this.updateSubtab( 'daily-sales' );
+      } else {
+        this.updateSubtab( 'sales-mp' );
+      }
     } else if ( this.active === 'admin-store' ) {
       this.subtab = 'store-profile'
     } else {

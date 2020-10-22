@@ -79,6 +79,15 @@ export class ReportsService {
     );
   }
 
+  stockMP( ): Observable<Result<Product>> {
+    return this.http.get( `` );
+  }
+
+  percentageMpSales( ): Observable<Result<any>> {
+    return this.http.get( `` );
+  }
+  
+
   /*
     ---------------------------------------------
     -------------  Shop Reports  ----------------
@@ -126,6 +135,13 @@ export class ReportsService {
    * @description Reporte de tiendas activas con membresia
    */
   membershipActiveShop(): Observable<any> {
+    return this.http.get( `` );
+  }
+
+  /**
+   * @description Reporte de pagos de tiendas
+   */
+  storesPayment(): Observable<any> {
     return this.http.get( `` );
   }
 

@@ -143,23 +143,20 @@ export class OrdersComponent implements OnInit, OnChanges {
     // const params = `store=${this.store._id}&status=${this.status}&from=${this.fechaIni}&to=${this.fechaFin}`;
     if ( this.role === 'merchant' ) {
       params = `store=${this.store._id}&status=${this.status}&from=${this.fechaIni}&to=${this.fechaFin}`;
-      this.orderService.orderList( page, params ).subscribe( result => {
-        this.orders = [ ...result.docs ];
-        this.paginate = { ...result };
-        this.paginate.pages = [];
-        for ( let i = 1; i <= this.paginate.totalPages; i++ ) {
-          this.paginate.pages.push( i );
-        }
-      } );
+      
     }
 
     if ( this.role === 'admin' ) {
       params = `status=${this.status}&from=${this.fechaIni}&to=${this.fechaFin}`;
-      this.reportService.ordersMP().subscribe(result =>{
-        console.log("ordenes de Marketplace", result);
-      });
     }
-
+    this.orderService.orderList( page, params ).subscribe( result => {
+      this.orders = [ ...result.docs ];
+      this.paginate = { ...result };
+      this.paginate.pages = [];
+      for ( let i = 1; i <= this.paginate.totalPages; i++ ) {
+        this.paginate.pages.push( i );
+      }
+    } );
    
   }
 

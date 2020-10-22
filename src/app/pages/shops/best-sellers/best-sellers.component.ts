@@ -40,6 +40,8 @@ export class BestSellersComponent implements OnInit, OnChanges {
   ) { }
 
   ngOnInit(): void {
+    this.role = this.auth.getUserRol();
+
   }
 
   ngOnChanges( changes: SimpleChanges ): void {
@@ -54,16 +56,26 @@ export class BestSellersComponent implements OnInit, OnChanges {
   }
 
   private loadData( page = 1 ): void {
-    const params = `store=${this.store._id}&best=${this.order}`;
-    this.reports.bestSellers( page, params ).subscribe( result => {
-      this.bestSellers = [ ...result.docs ];
-      this.paginate = { ...result };
-      this.paginate.pages = [];
-      for ( let i = 1; i <= this.paginate.totalPages; i++ ) {
-        this.paginate.pages.push( i );
-      }
+    if(this.role == 'merchant'){
+      const params = `store=${this.store._id}&best=${this.order}`;
+      this.reports.bestSellers( page, params ).subscribe( result => {
+        this.bestSellers = [ ...result.docs ];
+        this.paginate = { ...result };
+        this.paginate.pages = [];
+        for ( let i = 1; i <= this.paginate.totalPages; i++ ) {
+          this.paginate.pages.push( i );
+        }
+  
+      } );
+    }
 
-    } );
+    if(this.role == 'admin'){
+      const params = `store=${this.store._id}&best=${this.order}`;
+      this.reports.bestSellersMP(  ).subscribe( result => {
+        console.log("mas vendidos MP");
+      } );
+    }
+    
   }
 
   setPage( page: number ) {

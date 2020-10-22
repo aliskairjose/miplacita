@@ -21,7 +21,7 @@
 			</div>
 		</form>
 
-		<ng-container class="table-responsive-sm mt-3" *ngIf="role === 'admin'; else elseTemplate">
+		<ng-container class="table-responsive-sm mt-3" *ngIf="store || role === 'admin'; else elseTemplate">
 			<div class="table-responsive mt-3">
 				<table class="table cart-table table-responsive-xs" id="mp-table" #TABLE>
 					<thead>

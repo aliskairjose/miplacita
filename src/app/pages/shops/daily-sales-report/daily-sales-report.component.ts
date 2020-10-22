@@ -6,7 +6,7 @@ import { ExportService } from 'src/app/shared/services/export.service';
 
 import { environment } from 'src/environments/environment';
 
-import { Component, OnInit, ViewChild, Input, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, Input, ElementRef, OnChanges, SimpleChanges } from '@angular/core';
 import { NgbCalendar, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { ShopService } from '../../../shared/services/shop.service';
 import { CustomDateParserFormatterService } from '../../../shared/adapter/custom-date-parser-formatter.service';
@@ -21,7 +21,7 @@ import { ActivatedRoute } from '@angular/router';
   templateUrl: './daily-sales-report.component.html',
   styleUrls: [ './daily-sales-report.component.scss' ]
 } )
-export class DailySalesReportComponent implements OnInit {
+export class DailySalesReportComponent implements OnInit, OnChanges {
   @ViewChild( 'orderDetails' ) OrderDetails: OrderDetailsComponent;
   @ViewChild( 'TABLE', { read: ElementRef } ) table: ElementRef;
   @Input() store: Store;
@@ -65,6 +65,16 @@ export class DailySalesReportComponent implements OnInit {
       this.init();
     }
     
+  }
+
+  ngOnChanges( changes: SimpleChanges ): void {
+    this.role = this.auth.getUserRol();
+
+    if(this.role == 'merchant'){
+      this.store = JSON.parse( sessionStorage.getItem( 'store' ) );
+
+    }
+    this.init();
   }
 
   filtrar(): void {
