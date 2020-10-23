@@ -37,8 +37,8 @@ export class ReportsService {
     return this.http.get( `` );
   }
 
-    /**
-   * @description Reorte de ventas diarias por producto 
+  /**
+   * @description Reorte de ventas diarias por producto
    */
   dailySalesProducts(): Observable<any> {
     return this.http.get( `` );
@@ -79,14 +79,14 @@ export class ReportsService {
     );
   }
 
-  stockMP( ): Observable<Result<Product>> {
+  stockMP(): Observable<Result<Product>> {
     return this.http.get( `` );
   }
 
-  percentageMpSales( ): Observable<Result<any>> {
+  percentageMpSales(): Observable<Result<any>> {
     return this.http.get( `` );
   }
-  
+
 
   /*
     ---------------------------------------------

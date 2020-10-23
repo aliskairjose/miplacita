@@ -4,15 +4,15 @@ import { AuthService } from 'src/app/shared/services/auth.service';
 import { ReportsService } from 'src/app/shared/services/reports.service';
 import { ExportService } from 'src/app/shared/services/export.service';
 
-@Component({
+@Component( {
   selector: 'app-percentage-mp-products',
   templateUrl: './percentage-mp-products.component.html',
-  styleUrls: ['./percentage-mp-products.component.scss']
-})
+  styleUrls: [ './percentage-mp-products.component.scss' ]
+} )
 export class PercentageMpProductsComponent implements OnInit {
   @ViewChild( 'TABLE', { read: ElementRef } ) table: ElementRef;
 
-  fields = ['Tienda','Dueño', 'Código de producto','Nombre del producto','Cantidad en existencia']
+  fields = [ 'Tienda', 'Dueño', 'Código de producto', 'Nombre del producto', 'Cantidad en existencia' ];
   products = [];
   role: string;
   paginate: Paginate;
@@ -28,15 +28,15 @@ export class PercentageMpProductsComponent implements OnInit {
     this.init();
   }
 
-  init(){
+  init() {
     this.loadData();
-    
+
   }
 
-  loadData(page = 1){
-    this.reportService.percentageMpSales().subscribe((result)=>{
-      console.log(result,"porcentaje de ventas en MP y venta en tienda");
-    })
+  loadData( page = 1 ) {
+    this.reportService.percentageMpSales().subscribe( ( result ) => {
+      console.log( result, 'porcentaje de ventas en MP y venta en tienda' );
+    } );
   }
   setPage( page: number ) {
     this.loadData( page );
