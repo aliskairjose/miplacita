@@ -72,6 +72,11 @@ export class RegisterComponent implements OnInit {
     } );
   }
 
+  goLogin(): void {
+    this.router.navigate( [ '/pages/login' ], { queryParams: { role: this.role } } );
+  }
+
+
   listen( r: boolean ) {
     this.registerSuccess = false;
     this.user = JSON.parse( sessionStorage.userForm );
