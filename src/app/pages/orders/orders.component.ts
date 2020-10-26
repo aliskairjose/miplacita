@@ -61,21 +61,20 @@ export class OrdersComponent implements OnInit, OnChanges {
 
   ngOnChanges( changes: SimpleChanges ): void {
     this.role = this.auth.getUserRol();
-    if(this.role == 'merchant'){
+    if ( this.role === 'merchant' ) {
       this.shopService.storeObserver().subscribe( ( store: Store ) => {
         if ( this.role === 'merchant' ) {
           this.store = store;
         }
       } );
-  
     }
-    
+
     this.init();
   }
 
   ngOnInit(): void {
     this.role = this.auth.getUserRol();
-  
+
   }
 
   setPage( page: number ) {
@@ -143,7 +142,7 @@ export class OrdersComponent implements OnInit, OnChanges {
     // const params = `store=${this.store._id}&status=${this.status}&from=${this.fechaIni}&to=${this.fechaFin}`;
     if ( this.role === 'merchant' ) {
       params = `store=${this.store._id}&status=${this.status}&from=${this.fechaIni}&to=${this.fechaFin}`;
-      
+
     }
 
     if ( this.role === 'admin' ) {
@@ -157,7 +156,7 @@ export class OrdersComponent implements OnInit, OnChanges {
         this.paginate.pages.push( i );
       }
     } );
-   
+
   }
 
 

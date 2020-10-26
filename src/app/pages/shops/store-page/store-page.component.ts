@@ -32,11 +32,11 @@ export class StorePageComponent implements OnInit {
         this.store = { ...store };
         this.sliders = this.store.config.images;
         this.getCollectionProducts( this.store._id );
+        this.storeService.storeSubject( this.store );
       } );
     } );
-
-
   }
+
   private getCollectionProducts( id: string ): void {
     const params = `store=${id}&featured=true`;
     this.productService.productList( 1, params ).subscribe( ( result: Result<Product> ) => {

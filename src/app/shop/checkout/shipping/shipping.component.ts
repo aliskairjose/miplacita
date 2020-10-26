@@ -68,6 +68,13 @@ export class ShippingComponent implements OnInit {
       ( products.length ) ? this._products = [ ...products ] : this.router.navigate( [ '/home' ] );
     } );
 
+    this.shopService.storeObserver().subscribe( store => {
+      if ( store ) {
+        const products = this._products.filter( item => item.store._id === store._id );
+        this._products = [ ...products ];
+      }
+    } );
+
     this.getStoresId().then( ( shops ) => {
       for ( const shop of shops as any ) {
         const detail = { ...this.detail };
