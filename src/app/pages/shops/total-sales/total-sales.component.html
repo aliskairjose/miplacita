@@ -3,12 +3,12 @@
 </ngx-spinner>
 <section class="section-b-space">
 	<div class="container">
+		
 		<form class="theme-form">
 			<div class="d-flex search justify-content-mobile-first">
-				<!-- <div class="box-mobile-first">
-				</div> -->
-				<div class="filters">
+				<div class="box-mobile-first">
 					<div class="form-group flex-fill mr-1">
+						<div class="field-label font-weight-bold">Fecha</div>
 						<div class="input-group">
 							<input class="form-control lighten-3" placeholder="dd/mm/yyyy" name="d2" ngbDatepicker #d1="ngbDatepicker"
 								[(ngModel)]="modelFrom">
@@ -24,6 +24,7 @@
 						</div>
 					</div>
 					<div class="form-group flex-fill">
+						<div class="field-label font-weight-bold">Fecha Fin</div>
 						<div class="input-group">
 							<input class="form-control lighten-3" placeholder="dd/mm/yyyy" name="d2" ngbDatepicker #d2="ngbDatepicker"
 								[(ngModel)]="modelTo">
@@ -38,10 +39,11 @@
 							</div>
 						</div>
 					</div>
+					<div class="d-flex align-items-center mt-3 ml-2">
+						<button class="btn btn-solid-purple btn-find flex-fill" (click)="filtrar()">Filtrar</button>
+					</div>
 				</div>
-				<div class="d-flex h-100">
-					<button class="btn btn-solid-purple btn-find flex-fill" (click)="filtrar()">Filtrar</button>
-				</div>
+
 			</div>
 			<div class="form-group mt-2 d-flex justify-content-mobile-first">
 				<button class="btn btn-outline btn-sm" (click)="ExportTOPDF()">
@@ -56,19 +58,38 @@
 		</form>
 
 		<!-- Data de usuario -->
-		<ng-container  *ngIf="store; else elseTemplate">
+		<ng-container  *ngIf="store || role == 'admin'; else elseTemplate">
 			<div class="table-responsive mt-3">
 				<table class="table cart-table table-responsive-xs" id="mp-table" #TABLE>
 					<thead>
-						<tr class="table-head text-center">
+						<tr class="table-head text-center" *ngIf="role =='merchant'">
 							<th *ngFor="let field of fields" scope="col">{{field}}</th>
 						</tr>
+						<tr class="table-head text-center" *ngIf="role =='admin'">
+							<th *ngFor="let field of fieldsAdmin" scope="col">{{field}}</th>
+						</tr>
 					</thead>
-					<tbody>
+					<tbody *ngIf="role == 'merchant'">
 						<tr *ngFor="let sale of sales">
 							<td class="text-center">{{ sale._id | date: 'mediumDate' }}</td>
 							<td class="text-center">{{ sale.qty }}</td>
 							<td class="text-center">{{ sale.amount | currency }}</td>
+							
+						</tr>
+					</tbody>
+					<tbody *ngIf="role == 'admin'">
+						<tr *ngFor="let order of orders">
+							<td class="text-center">{{ order._id }}</td>
+							<td class="text-center">{{ order.amount | currency }}</td>
+							<td class="text-center">{{ order.store.name }}</td>						
+							<td class="text-center">{{ order.status }}</td>
+							<td class="text-center">
+								<a (click)="OrderDetails.openModal(order)" class="btn btn-table-action" ngbPopover="Ver detalle"
+								triggers="mouseenter:mouseleave">
+								<i class="fa fa-eye fa-lg" style="color: Dodgerblue"></i>
+								</a>		
+							</td>
+							
 						</tr>
 					</tbody>
 				</table>
@@ -76,11 +97,20 @@
 			
 			<!-- <app-custom-pagination [items]="sales" [paginate]="paginate" (setPage)="setPage($event)">
 			</app-custom-pagination> -->
-			<div class="form-row container justify-content-center " *ngIf="sales.length==0">
+			<div class="form-row container justify-content-center " *ngIf="role=='merchant' && sales.length==0">
 				<div class="col-md-5">
 					<div class="card text-center mx-auto mb-2">
 						<div class="card-body">
 							<p>No hay ventas registradas</p>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="form-row container justify-content-center " *ngIf="role=='admin' && orders.length==0">
+				<div class="col-md-5">
+					<div class="card text-center mx-auto mb-2">
+						<div class="card-body">
+							<p>No hay órdenes registradas</p>
 						</div>
 					</div>
 				</div>
@@ -106,3 +136,5 @@
 		</ng-template>
 	</div>
 </section>
+
+<app-order-details #orderDetails></app-order-details>

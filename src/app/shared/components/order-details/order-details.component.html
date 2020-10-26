@@ -4,7 +4,7 @@
       <div class="modal-header">
         <div class="page-title row">
           <h4 class="px-3">
-             <span> <strong>Order #1 </strong>  </span> 
+             <span> <strong>Orden </strong>  </span> 
           </h4>
         </div>
         <button type="button" class="close" (click)="close()" >
@@ -14,19 +14,19 @@
       <div class="modal-body">
         <div class="theme-form">
           <form>
-            <div class="form-group" *ngIf="role!='merchant'">
+            <div class="form-group" *ngIf="role=='merchant'">
               <h4>Cliente: {{order.user.fullname}}</h4>
             </div>
-            <div class="form-group" *ngIf="role!='merchant'">
+            <div class="form-group" *ngIf="role=='merchant'">
               <h4>Entrega: {{order.shipment_option.name}}</h4>
             </div>
-            <div class="form-group" *ngIf="role!='merchant'">
+            <div class="form-group" *ngIf="role=='merchant'">
               <h4>Dirección:</h4>
             </div>
-            <div class="form-group" *ngIf="role!='merchant'">
+            <div class="form-group" *ngIf="role=='merchant'">
               <h4>Estado: {{order.status}}</h4>
             </div>
-            <div class="col-md-6" *ngIf="role!='merchant'">
+            <div class="col-md-6" *ngIf="role=='merchant'">
               <select name="model" class="form-control" [(ngModel)]="order.status">
                 <option [value]="state" *ngFor="let state of states">{{state}}</option>
             </select>

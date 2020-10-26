@@ -13,6 +13,7 @@ import { NgbCalendar, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { CustomDateParserFormatterService } from '../../../shared/adapter/custom-date-parser-formatter.service';
 import { OrderDetailsComponent } from '../../../shared/components/order-details/order-details.component';
 import { ReportsService } from '../../../shared/services/reports.service';
+import { Order } from 'src/app/shared/classes/order';
 @Component( {
   selector: 'app-total-sales',
   templateUrl: './total-sales.component.html',
@@ -23,7 +24,9 @@ export class TotalSalesComponent implements OnInit, OnChanges {
   @ViewChild( 'TABLE', { read: ElementRef } ) table: ElementRef;
 
   fields = [ 'Fecha', 'Cantidades ordenadas', 'Total de ventas' ];
+  fieldsAdmin = [ 'Numero de Orden', 'Monto', 'Tienda','Estado', '' ];
   sales: any = [];
+  orders: Order[] = [];
   paginate: Paginate;
   role: string;
   fechaIni = '';
@@ -43,10 +46,17 @@ export class TotalSalesComponent implements OnInit, OnChanges {
   }
 
   ngOnInit(): void {
+    this.role = this.auth.getUserRol();
+    this.init();
   }
 
   ngOnChanges( changes: SimpleChanges ): void {
-    this.store = JSON.parse( sessionStorage.getItem( 'store' ) );
+    this.role = this.auth.getUserRol();
+
+    if (this.role === 'merchant'){
+      this.store = JSON.parse( sessionStorage.getItem( 'store' ) );
+
+    }
     this.init();
   }
 
@@ -54,24 +64,23 @@ export class TotalSalesComponent implements OnInit, OnChanges {
     this.modelFrom = this.modelTo = this.ngbCalendar.getToday();
     this.fechaIni = this.parseDate.format( this.modelFrom );
     this.fechaFin = this.parseDate.format( this.modelTo );
-
-    this.role = this.auth.getUserRol();
-
     this.loadData();
   }
 
   private loadData( page = 1 ): void {
-    const params = `store=${this.store._id}&from=${this.fechaIni}&to=${this.fechaFin}`;
+    if (this.role === 'merchant'){
+      const params = `store=${this.store._id}&from=${this.fechaIni}&to=${this.fechaFin}`;
 
-    this.reports.totalSales( params ).subscribe( ( result ) => {
-      this.sales = result;
-      // this.paginate = { ...result };
-      // this.paginate.pages = [];
-      // for ( let i = 1; i <= this.paginate.totalPages; i++ ) {
-      //   this.paginate.pages.push( i );
-      // }
+      this.reports.totalSales( params ).subscribe( ( result ) => {
+        this.sales = result;
 
-    } );
+      } );
+    } else if (this.role === 'admin'){
+      this.reports.ordersMP().subscribe((result) => {
+
+      });
+    }
+
   }
 
   filtrar(): void {
