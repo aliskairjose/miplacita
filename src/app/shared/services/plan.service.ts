@@ -44,18 +44,22 @@ export class PlanService {
   getPlans(): Observable<Plan[]> {
     return this.http.get( 'plan' ).pipe(
       map( response => {
-        if ( response.success ) {
-          return response.planes;
-        }
+        if ( response.success ) { return response.planes; }
       } )
     );
   }
 
   /**
    * @description Actualizacion de precios de planes
+   * @param Id Id del plan a actualizar
+   * @returns String Mensaje
    */
-  updatePlanPrice(): Observable<Plan> {
-    return this.http.put( `endpoint` );
+  updatePlanPrice( id: string ): Observable<string> {
+    return this.http.put( `api/plan/${id}` ).pipe(
+      map( response => {
+        if ( response.success ) { return response.message; }
+      } )
+    );
   }
 
 }

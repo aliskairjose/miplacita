@@ -1,5 +1,4 @@
 import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
-import { Store } from 'src/app/shared/classes/store';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component( {

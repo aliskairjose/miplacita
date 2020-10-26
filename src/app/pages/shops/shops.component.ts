@@ -1,12 +1,11 @@
 import { Component, OnInit, ViewChild, Input, ElementRef } from '@angular/core';
 import { ProductService } from '../../shared/services/tm.product.service';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ShopDetailsComponent } from '../../shared/components/shop-details/shop-details.component';
 import { Paginate } from '../../shared/classes/paginate';
-import { ShopService } from '../../shared/services/shop.service';
 import { Store } from '../../shared/classes/store';
 import { Result } from '../../shared/classes/response';
 import { ExportService } from 'src/app/shared/services/export.service';
+import { ReportsService } from '../../shared/services/reports.service';
 
 @Component( {
   selector: 'app-shops',
@@ -20,15 +19,16 @@ export class ShopsComponent implements OnInit {
 
   searchText = '';
   fields = [ 'Tienda', 'Plan', 'Precio', 'Activo', 'Opciones' ];
-  fieldsAdmin = ['Tienda', 'Dueño', 'Tipo de Membresía', 'Monto de membresía', 'Estado'];
+  fieldsAdmin = [ 'Tienda', 'Dueño', 'Tipo de Membresía', 'Monto de membresía', 'Estado' ];
   shops: Store[] = [];
   paginate: Paginate;
   @Input() type = 'stores';
 
   constructor(
     public productService: ProductService,
-    private shopService: ShopService,
-    private exportDoc: ExportService) {
+    private reports: ReportsService,
+    private exportDoc: ExportService
+  ) {
   }
 
   ngOnInit(): void {
@@ -40,10 +40,8 @@ export class ShopsComponent implements OnInit {
   }
 
   private loadData( page = 1 ): void {
-    this.shopService.storeList( page ).subscribe( ( result: Result<Store> ) => {
+    this.reports.membershipActiveShop( page ).subscribe( ( result ) => {
       this.shops = [ ...result.docs ];
-      console.log(this.shops);
-
       this.paginate = { ...result };
       this.paginate.pages = [];
       for ( let i = 1; i <= this.paginate.totalPages; i++ ) {
@@ -53,7 +51,7 @@ export class ShopsComponent implements OnInit {
   }
 
   ExportTOExcel() {
-    this.exportDoc.ExportTOExcel( this.table.nativeElement, "daily-report" );
+    this.exportDoc.ExportTOExcel( this.table.nativeElement, 'daily-report' );
   }
 
   ExportTOPDF() {

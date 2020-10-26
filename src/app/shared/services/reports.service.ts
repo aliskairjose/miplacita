@@ -7,6 +7,7 @@ import { map } from 'rxjs/operators';
 import { User } from '../classes/user';
 import { Product } from '../classes/product';
 import { ObsEvent } from 'ng-lazyload-image/src/types';
+import { Store } from '../classes/store';
 
 @Injectable( {
   providedIn: 'root'
@@ -134,8 +135,14 @@ export class ReportsService {
   /**
    * @description Reporte de tiendas activas con membresia
    */
-  membershipActiveShop(): Observable<any> {
-    return this.http.get( `` );
+  membershipActiveShop( page = 1, params = '' ): Observable<Result<Store>> {
+    return this.http.get( `stores?page=${page}&${params}` ).pipe(
+      map( ( response: Response<Store> ) => {
+        if ( response.success ) {
+          return response.result;
+        }
+      } )
+    );
   }
 
   /**
