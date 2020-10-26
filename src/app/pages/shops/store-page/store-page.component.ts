@@ -13,8 +13,9 @@ import { Result } from 'src/app/shared/classes/response';
 } )
 export class StorePageComponent implements OnInit {
   products: Product[] = [];
-  store: Store;
+  store: Store = {};
   sliders = [];
+  categories = [{name: 'Mas Vendidos'},{name: 'accesorios'}];
   verticalBanners = [
     '../../../../assets/images/banner/1.jpg',
     '../../../../assets/images/banner/1.jpg',
@@ -23,13 +24,16 @@ export class StorePageComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private storeService: ShopService,
-    private productService: ProductService ) { }
+    private productService: ProductService ) {
+      console.log(this.categories[0].name[0]);
+     }
 
   ngOnInit(): void {
     this.route.url.subscribe( ( url ) => {
       const name = url[ 0 ].path.replace( '-', ' ' );
       this.storeService.getStoreByName( name ).subscribe( store => {
         this.store = { ...store };
+        console.log(this.store);
         this.sliders = this.store.config.images;
         this.getCollectionProducts( this.store._id );
         this.storeService.storeSubject( this.store );
