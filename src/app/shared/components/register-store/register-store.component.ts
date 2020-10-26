@@ -155,11 +155,6 @@ export class RegisterStoreComponent implements OnInit, OnChanges {
    * @description Valida que el nombre de la tienda no este en uso
    */
   validateName(): void {
-
-    if ( this.storeForm.value.name.length > 0 && this.storeForm.value.name.length < 4 ) {
-      this.toastrService.warning( 'El nombre debe tener un mínimo de 4 caracteres' );
-      return;
-    }
     if ( this.storeForm.value.name ) {
       this.shopService.validateName( this.storeForm.value.name ).subscribe( resp => {
         if ( resp.taken ) {
@@ -179,7 +174,7 @@ export class RegisterStoreComponent implements OnInit, OnChanges {
 
     // Formulario de tienda
     this.storeForm = this.formBuilder.group( {
-      name: [ '', [ Validators.required ] ],
+      name: [ '', [ Validators.required, Validators.minLength( 4 ) ] ],
       description: [ '', [ Validators.required ] ],
       url_store: [ '', [ Validators.required ] ],
       phone: [ '', [ Validators.required ] ],
@@ -192,7 +187,7 @@ export class RegisterStoreComponent implements OnInit, OnChanges {
 
     // Formulario de Producto
     this.productForm = this.formBuilder.group( {
-      name: [ '', [ Validators.required ] ],
+      name: [ '', [ Validators.required, Validators.minLength( 4 ) ] ],
       description: [ '', [ Validators.required ] ],
       price: [ '', [ Validators.required ] ],
       tax: [ '', [ Validators.required ] ],

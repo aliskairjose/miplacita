@@ -8,12 +8,12 @@
 						<i class="ti-close" (click)="close(true)"></i>
 					</div>
 				</div>
-				<div class="title-purple text-center" >
+				<div class="title-purple text-center">
 					<h2>Registra los datos de tu tienda</h2>
-				</div> 
+				</div>
 			</div>
 		</div>
-		
+
 		<div class="title-purple text-center" *ngIf="!modal">
 			<h2>Registra los datos de tienda</h2>
 			<p>Configura tu tienda</p>
@@ -40,6 +40,7 @@
 										(ngModelChange)="makeUrl($event)">
 									<div *ngIf="submitted && f.name.errors" class="invalid-feedback d-block">
 										<div *ngIf="f.name.errors.required"> {{ required }} </div>
+										<div *ngIf="f.name.errors.minlength"> El nombre debe tener 4 o más caracteres </div>
 									</div>
 								</div>
 								<!-- Shop name -->
@@ -55,7 +56,8 @@
 								<div class="form-group">
 									<div class="field-label" for="name">Teléfono de la tienda</div>
 									<div class="d-flex">
-										<input mask="(+000) 000-00-00" type="tel" class="col-md-11 form-control" id="review" formControlName="phone">
+										<input mask="(+000) 000-00-00" type="tel" class="col-md-11 form-control" id="review"
+											formControlName="phone">
 										<button placement="top" ngbTooltip="Este número debe tener conexión a Whatsapp">
 											<i class="fa fa-info-circle"></i>
 										</button>
@@ -64,7 +66,7 @@
 										<div *ngIf="f.phone.errors.required"> {{ required }} </div>
 									</div>
 								</div>
-								
+
 								<!-- Shop email -->
 								<div class="form-group ">
 									<div class="field-label" for="name">Correo electrónico de la tienda</div>
@@ -77,11 +79,12 @@
 								<!-- Url -->
 								<div class="form-group">
 									<div class="field-label" for="name">URL</div>
-									<input type="url" class="form-control" id="url_store" placeholder="Ej. www.store.com"
-										formControlName="url_store" [(ngModel)]="urlStore">
+									<input type="url" class="form-control" id="url_store" formControlName="url_store"
+										[(ngModel)]="urlStore">
 									<div *ngIf="submitted && f.url_store.errors" class="invalid-feedback d-block">
 										<div *ngIf="f.url_store.errors.required"> {{ required }} </div>
 									</div>
+									<p>https://www.miplacita.com/{{urlStore}}</p>
 								</div>
 								<div class="form-group">
 									<div class="field-label" for="name">Agregar logo</div>
@@ -137,12 +140,12 @@
 <section class="section-b-space" *ngIf="step==2">
 	<div class="container padding-cls">
 		<div *ngIf="modal" class="row justify-content-end">
-                            
+
 			<div class="col-1 d-flex justify-content-center">
 				<i class="ti-close" (click)="close(false)"></i>
 			</div>
 		</div>
-		
+
 		<div class="title-purple text-center">
 			<h2>Registra tus datos de tienda</h2>
 			<p>Configura tu primer producto</p>
@@ -168,6 +171,7 @@
 									<input formControlName="name" type="text" class="form-control" id="name">
 									<div *ngIf="submitted && p.name.errors" class="invalid-feedback d-block">
 										<div *ngIf="p.name.errors.required"> {{ required }} </div>
+										<div *ngIf="p.name.errors.minlength"> El nombre debe tener 4 o más caracteres </div>
 									</div>
 								</div>
 								<!-- Product Price -->
