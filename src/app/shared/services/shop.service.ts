@@ -77,6 +77,14 @@ export class ShopService {
     );
   }
 
+  getStoreByName( name: string ): Observable<Store> {
+    return this.http.get( `stores?name=${name}` ).pipe(
+      map( response => {
+        if ( response.success ) { return response.result.docs[ 0 ]; }
+      } )
+    );
+  }
+
   /**
    * @description Actualiza la data de la tienda
    * @param id Id de la tienda
