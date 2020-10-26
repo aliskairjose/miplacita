@@ -28,18 +28,17 @@ export class StorePageComponent implements OnInit {
   ngOnInit(): void {
     this.route.url.subscribe( ( url ) => {
       const name = url[ 0 ].path.replace( '-', ' ' );
-      console.log( name )
       this.storeService.getStoreByName( name ).subscribe( store => {
         this.store = { ...store };
         this.sliders = this.store.config.images;
+        this.getCollectionProducts( this.store._id );
       } );
     } );
 
 
-    this.getCollectionProducts();
   }
-  private getCollectionProducts(): void {
-    const params = `feature=true`;
+  private getCollectionProducts( id: string ): void {
+    const params = `store=${id}&featured=true`;
     this.productService.productList( 1, params ).subscribe( ( result: Result<Product> ) => {
       this.products = [ ...result.docs ];
     } );
