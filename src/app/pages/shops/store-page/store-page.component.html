@@ -1,79 +1,75 @@
 <ngx-spinner bdColor="rgba(0, 0, 0, 0.3)" size="medium" color="#fff" type="ball-spin-clockwise" [fullScreen]="true">
-    <p style="color: white"> Por favor espere... </p>
+	<p style="color: white"> Por favor espere... </p>
 </ngx-spinner>
 
 
-<app-header-one [sticky]="true" [isHidde]="false" [topbar]="false" [isSideMenu]="true" [hasSearchBar]="true" ></app-header-one>
+<app-header-one [sticky]="true" [isHidde]="false" [topbar]="false" [isSideMenu]="true" [hasSearchBar]="true">
+</app-header-one>
 
 <div class="pb-5">
-    <section class="p-0">
-        <ngb-carousel *ngIf="sliders.length>0" #ngcarousel>
-            <ng-template *ngFor="let image of sliders" ngbSlide>
-                <div class="picsum-img-wrapper w-100">
-                    <img class="img-main-banner" [src]="image.url" alt="banner">
-                </div>
-            </ng-template>
-            
-        </ngb-carousel>
-    </section>
+	<section class="p-0">
+		<ngb-carousel *ngIf="sliders.length>0" #ngcarousel>
+			<ng-template *ngFor="let image of sliders" ngbSlide>
+				<div class="picsum-img-wrapper w-100">
+					<img class="img-main-banner" [src]="image.url" alt="banner">
+				</div>
+			</ng-template>
 
-    <!-- Banner verticales start -->
-    <section class="section-b-space">
-        <div class="container">
-            
-            <div class="row mt-3 d-flex justify-content-center vertical-banners">
-                <div class="row justify-content-center">
-                    <div class="col-md-3 " *ngFor="let image of verticalBanners">
-                        <div class="media ">
-                            <img class="h-100 w-100" id="" [src]="image" />
+		</ngb-carousel>
+	</section>
 
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <ngb-carousel class="vertical-banners-carousel" *ngIf="verticalBanners.length>0" #ngcarousel>
-                <ng-template *ngFor="let image of verticalBanners" ngbSlide>
-                    <div class="picsum-img-wrapper w-100">
-                        <img [src]="image" class="vertical-banner-img ">
-                    </div>
-                </ng-template>
-            </ngb-carousel>
-        </div>
-    </section>
-    <!-- Banner verticales end -->
-    <!-- Product slider start-->
-    <div class="title1 section-t-space" *ngIf="products.length">
-        <div class="row">
-            <div class="col">
-                <div class="title-purple text-center">
-                    <h2>Productos Destacados</h2>
-                </div>
-            </div>
-        </div>
-    </div>
-    
-    <section class="section-b-space p-t-0 mt-4" *ngIf="products.length">
-        <div class="container">
-        <div class="row">
-            <div class="col theme-tab">
-            <div >
-                <div class="no-slider row">
-                <ng-container *ngFor="let product of products | slice:0:8">
-                    <div class="product-box">
-                    <app-product-box-one 
-                        [product]="product" 
-                        [thumbnail]="false"
-                        [cartModal]="false"
-                        [horizontal]="true">
-                    </app-product-box-one>
-                    </div>
-                </ng-container>
-                </div>
-            </div>
-            </div>
-        </div>
-        </div>
-    </section>
+	<!-- Banner verticales start -->
+	<section class="section-b-space">
+		<div class="container">
+
+			<div class="row mt-3 d-flex justify-content-center vertical-banners">
+				<div class="row justify-content-center">
+					<div class="col-md-3 " *ngFor="let image of verticalBanners">
+						<div class="media ">
+							<img class="h-100 w-100" id="" [src]="image" />
+						</div>
+					</div>
+				</div>
+			</div>
+			<ngb-carousel class="vertical-banners-carousel" *ngIf="verticalBanners.length>0" #ngcarousel>
+				<ng-template *ngFor="let image of verticalBanners" ngbSlide>
+					<div class="picsum-img-wrapper w-100">
+						<img [src]="image" class="vertical-banner-img ">
+					</div>
+				</ng-template>
+			</ngb-carousel>
+		</div>
+	</section>
+	<!-- Banner verticales end -->
+	<!-- Product slider start-->
+	<div class="title1 section-t-space" *ngIf="products.length">
+		<div class="row">
+			<div class="col">
+				<div class="title-purple text-center">
+					<h2>Productos Destacados</h2>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<section class="section-b-space p-t-0 mt-4" *ngIf="products.length">
+		<div class="container">
+			<div class="row">
+				<div class="col theme-tab">
+					<div>
+						<div class="no-slider row">
+							<ng-container *ngFor="let product of products | slice:0:8">
+								<div class="product-box">
+									<app-product-box-one [product]="product" [thumbnail]="false" [cartModal]="false" [horizontal]="true">
+									</app-product-box-one>
+								</div>
+							</ng-container>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
 </div>
-  
+
 <app-footer-one></app-footer-one>
