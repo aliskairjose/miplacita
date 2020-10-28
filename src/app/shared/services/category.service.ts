@@ -67,4 +67,12 @@ export class CategoryService {
       } )
     );
   }
+
+  getSubcategoriesByStore(storeId: string){
+    return this.http.get( `categories/subcategory_by_store?store=${storeId}` ).pipe(
+      map( response => {
+        if ( response.success ) { return response.categories; }
+      } )
+    );
+  }
 }

@@ -17,6 +17,6 @@ export class ShopCardComponent implements OnInit {
   }
 
   goToStore(){
-    this.router.navigate([this.store.url_store+'/' + this.store._id + '/home']);
+    this.router.navigate([this.store.url_store]);
   }
 }

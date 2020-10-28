@@ -10,6 +10,13 @@ ngb-carousel {
     height: auto;   
     max-height: 550px; 
 }
+.circle-btn {
+    margin-left: 10px;
+    margin-right: 10px;
+    .label {
+        max-width: 6rem;
+    }
+}
 .circle {
     width: 5rem;
     height: 5rem;
@@ -21,10 +28,13 @@ ngb-carousel {
     align-items: center;
     font-size: 2rem;
 }
-
+#wrap{
+    flex-wrap: wrap;
+}
 .all-option {
-    border-right: 1px solid var(--mp-gray);
+    border-right: 2px solid var(--mp-gray);
     padding-right: 10px;
+    height: 5rem;
 }
 @supports(object-fit: cover){
     .img-main-banner {

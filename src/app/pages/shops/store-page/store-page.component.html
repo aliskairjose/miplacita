@@ -25,9 +25,9 @@
 			<div class="form-row justify-content-center">
 				<h5>{{ store.description }}</h5>
 			</div>
-			<div class="d-flex justify-content-center">
+			<div class="d-flex col-lg-8 col-md-10 col-sm-12 mx-auto justify-content-center" id="wrap">
 				<div class="circle-btn">
-					<div class="all-option">
+					<div class="">
 						<div class="circle mx-auto">
 							T
 						</div>
@@ -36,9 +36,9 @@
 						<p>Todos</p>
 					</div>
 				</div>
-				<!-- <div class="vertical-separator all-option">
+				<div class="vertical-separator all-option" *ngIf="categories.length">
 
-				</div> -->
+				</div>
 				<div class="circle-btn" *ngFor="let category of categories">
 					<div class="circle mx-auto">
 						{{ category.name[0] }}
@@ -80,6 +80,28 @@
 			</div>
 		</div>
 	</section>
+	
+	<!-- <section class="section-b-space p-t-0 mt-4" *ngIf="products.length">
+		<div class="container">
+			<div class="row">
+				<div class="col theme-tab">
+					<div>
+						<div class="no-slider row">
+						
+							<ngb-carousel *ngIf="sliders.length>0" #ngcarousel>
+								<ng-template *ngFor="let product of products | slice:0:8"  ngbSlide>
+									<app-product-box-one [product]="product" [thumbnail]="false" [cartModal]="false" [horizontal]="true">
+									</app-product-box-one>
+								</ng-template>
+					
+							</ngb-carousel>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section> -->
+	
 </div>
 
 <app-footer-one></app-footer-one>
