@@ -19,23 +19,35 @@
 	<!-- Banner verticales start -->
 	<section class="section-b-space">
 		<div class="container">
-
-			<div class="row mt-3 d-flex justify-content-center vertical-banners">
-				<div class="row justify-content-center">
-					<div class="col-md-3 " *ngFor="let image of verticalBanners">
-						<div class="media ">
-							<img class="h-100 w-100" id="" [src]="image" />
+			<div class="form-row justify-content-center">
+				<h2>{{ store.name }}</h2>
+			</div>
+			<div class="form-row justify-content-center">
+				<h5>{{ store.description }}</h5>
+			</div>
+			<div class="d-flex justify-content-center">
+				<div class="circle-btn">
+					<div class="all-option">
+						<div class="circle mx-auto">
+							T
 						</div>
+					</div>
+					<div class="label text-center">
+						<p>Todos</p>
+					</div>
+				</div>
+				<!-- <div class="vertical-separator all-option">
+
+				</div> -->
+				<div class="circle-btn" *ngFor="let category of categories">
+					<div class="circle mx-auto">
+						{{ category.name[0] }}
+					</div>
+					<div class="label text-center">
+						<p>	{{ category.name }} </p>
 					</div>
 				</div>
 			</div>
-			<ngb-carousel class="vertical-banners-carousel" *ngIf="verticalBanners.length>0" #ngcarousel>
-				<ng-template *ngFor="let image of verticalBanners" ngbSlide>
-					<div class="picsum-img-wrapper w-100">
-						<img [src]="image" class="vertical-banner-img ">
-					</div>
-				</ng-template>
-			</ngb-carousel>
 		</div>
 	</section>
 	<!-- Banner verticales end -->

@@ -105,6 +105,20 @@
 							Tiendas
 						</button>
 					</div>
+					<div class="tab" (click)="updateTab('commissions')" *ngIf="user.role=='admin'"
+						[ngClass]="{'active': active=='commissions','btn tab': active!='commissions'}">
+						<button class="btn btn-tab">
+							<img src="assets/images/marketplace/images/icons/store.png" alt="">
+							Comisiones
+						</button>
+					</div>
+					<div class="tab" (click)="updateTab('plans')" *ngIf="user.role=='admin'"
+						[ngClass]="{'active': active=='plans','btn tab': active!='plans'}">
+						<button class="btn btn-tab">
+							<img src="assets/images/marketplace/images/icons/store.png" alt="">
+							Planes
+						</button>
+					</div>
 					<div class="tab" *ngIf="user.role=='merchant'" (click)="updateTab('admin-store')"
 						[ngClass]="{'active': active=='admin-store','btn tab': active!='admin-store'}">
 						<button class="btn btn-tab">
@@ -164,6 +178,12 @@
 				</div>
 				<div *ngIf="active==='support'" class="" id="support" >
 					<app-support [store]="selectedStore"></app-support>
+				</div>
+				<div *ngIf="active==='plans'" class="" id="plans" >
+					<app-memberships ></app-memberships>
+				</div>
+				<div *ngIf="active==='commissions'" class="" id="commissions" >
+					<app-commissions ></app-commissions>
 				</div>
 				<div *ngIf="active=='admin-store'" class="" id="admin-store" >
 					<div class="form-row labels mp-side-menu " *ngIf="stores.length > 0">
@@ -276,6 +296,7 @@
 						</div>
 					</div>
 				</div>
+				
 				<div class="container">
 					<app-shop-profile *ngIf="active=='admin-store' && subtab=='store-profile' && stores.length > 0"
 						(updateShop)="updateShop($event)" [store]="selectedStore">
@@ -298,6 +319,7 @@
 						[store]="selectedStore"
 						(reload)="reload($event)">
 					</app-create-referrals>
+					
 				</div>
 				<!-- Reportes -->
 				<div 

@@ -1,0 +1,67 @@
+<ngx-spinner bdColor="rgba(0, 0, 0, 0.3)" size="medium" color="#fff" type="ball-spin-clockwise" [fullScreen]="true">
+	<p style="color: white"> Por favor espere... </p>
+</ngx-spinner>
+<ngx-alerts></ngx-alerts>
+<section class="section-b-space">
+	<div class="container">
+		<div class="page-title mb-5">
+			<h2 class="mp-title">
+				Planes
+			</h2>
+		</div>
+		<div class="d-flex">
+			<form class="flex-fill theme-form">
+				<div class="d-flex justify-content-end">
+					<div class="d-flex  h-100 " >
+						<button type="button"
+							class="btn btn-solid-purple flex-fill" (click)="CreateMembership.openModal(1, null)">
+							Crear Plan
+						</button>
+					</div>
+				</div>
+			</form>
+		</div>
+		<ng-container *ngIf="role === 'admin'">
+			<div class="table-responsive mt-3">
+				<table class="table">
+					<thead>
+						<tr class="table-head text-center">
+							<th *ngFor="let field of fields" scope="col">{{field}}</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr *ngFor="let plan of plans">
+							<td class="text-center">
+								{{ plan.name }}
+							</td>
+							<td class="text-center">
+                                {{ plan.price | currency}}
+							</td>
+							<td class="text-center">
+								<a (click)="CreateMembership.openModal(2, plan)" class="btn btn-table-action" ngbPopover="Ver detalle"
+								triggers="mouseenter:mouseleave">
+								<i class="fa fa-eye fa-lg" style="color: Dodgerblue"></i>
+							</a>
+                            </td>
+                        </tr>
+					</tbody>
+				</table>
+			</div>
+
+			<!-- <app-custom-pagination [items]="plans" [paginate]="paginate" (setPage)="setPage($event)">
+			</app-custom-pagination> -->
+			<div class="form-row container justify-content-center " *ngIf="plans.length==0">
+				<div class="col-md-5">
+					<div class="card text-center mx-auto mb-2">
+						<div class="card-body">
+							<p>No hay planes</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</ng-container>
+		
+	</div>
+</section>
+<app-create-membership #createMembership *ngIf="role === 'admin'">
+</app-create-membership>

@@ -24,8 +24,8 @@ export class AdminReportsComponent implements OnInit {
       { name: 'Pago de tiendas', active: 'store-payment' },
       { name: 'Inventario Marketplace', active: 'inventory-mp' },
     ]
+  ];
 
-  ]
   constructor(
     private router: Router,
     private route: ActivatedRoute

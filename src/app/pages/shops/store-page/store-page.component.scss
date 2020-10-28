@@ -10,7 +10,22 @@ ngb-carousel {
     height: auto;   
     max-height: 550px; 
 }
+.circle {
+    width: 5rem;
+    height: 5rem;
+    border-radius: 50%;
+    background-color: var(--theme-deafult);
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+}
 
+.all-option {
+    border-right: 1px solid var(--mp-gray);
+    padding-right: 10px;
+}
 @supports(object-fit: cover){
     .img-main-banner {
         height: 100%;
