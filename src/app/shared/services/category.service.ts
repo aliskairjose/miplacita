@@ -60,7 +60,7 @@ export class CategoryService {
    * @param shopId Id de la tienda
    * @param categoryId Id de la categoria a consultar
    */
-  getSubcategory( shopId: string, categoryId: any ): Observable<any[]> {
+  getSubcategory( shopId: string, categoryId = '' ): Observable<Category[]> {
     return this.http.get( `categories/subcategory?store=${shopId}&category=${categoryId}` ).pipe(
       map( response => {
         if ( response.success ) { return response.categories; }
@@ -68,11 +68,4 @@ export class CategoryService {
     );
   }
 
-  getSubcategoriesByStore(storeId: string){
-    return this.http.get( `categories/subcategory_by_store?store=${storeId}` ).pipe(
-      map( response => {
-        if ( response.success ) { return response.categories; }
-      } )
-    );
-  }
 }

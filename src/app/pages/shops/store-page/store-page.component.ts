@@ -6,6 +6,7 @@ import { ShopService } from 'src/app/shared/services/shop.service';
 import { ProductService } from 'src/app/shared/services/product.service';
 import { Result } from 'src/app/shared/classes/response';
 import { CategoryService } from 'src/app/shared/services/category.service';
+import { Category } from '../../../shared/classes/category';
 
 @Component( {
   selector: 'app-store-page',
@@ -22,7 +23,7 @@ export class StorePageComponent implements OnInit {
     '../../../../assets/images/banner/1.jpg'
   ];
 
-  categories = [];
+  subCategories: Category[] = [];
 
   constructor(
     private route: ActivatedRoute,
@@ -39,7 +40,7 @@ export class StorePageComponent implements OnInit {
         this.sliders = this.store.config.images;
         this.getCollectionProducts( this.store._id );
 
-        this.getSubcateories( this.store._id );
+        this.subCategoryList( this.store._id );
         this.storeService.storeSubject( this.store );
       } );
     } );
@@ -53,11 +54,10 @@ export class StorePageComponent implements OnInit {
 
   }
 
-  private getSubcateories( id: string ): void {
-    this.categoriesSevice.getSubcategoriesByStore( id ).subscribe( ( result: any ) => {
-      console.log( result );
-      this.categories = result;
+  private subCategoryList( id: string ): void {
+    this.categoriesSevice.getSubcategory( this.store._id ).subscribe( subCategories => {
+      this.subCategories = [ ...subCategories ];
     } );
-
   }
+
 }
