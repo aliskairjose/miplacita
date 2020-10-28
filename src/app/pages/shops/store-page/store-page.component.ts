@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Product } from 'src/app/shared/classes/product';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from 'src/app/shared/classes/store';
@@ -11,7 +11,7 @@ import { Result } from 'src/app/shared/classes/response';
   templateUrl: './store-page.component.html',
   styleUrls: [ './store-page.component.scss' ]
 } )
-export class StorePageComponent implements OnInit {
+export class StorePageComponent implements OnInit, OnDestroy {
   products: Product[] = [];
   store: Store;
   sliders = [];
@@ -25,14 +25,18 @@ export class StorePageComponent implements OnInit {
     private storeService: ShopService,
     private productService: ProductService ) { }
 
+  ngOnDestroy(): void {
+    console.log( 'onDestroy' );
+  }
+
   ngOnInit(): void {
     this.route.url.subscribe( ( url ) => {
-      const name = url[ 0 ].path.replace( '-', ' ' );
-      this.storeService.getStoreByName( name ).subscribe( store => {
+      this.storeService.getStoreByUrl( url[ 0 ].path ).subscribe( store => {
         this.store = { ...store };
         this.sliders = this.store.config.images;
         this.getCollectionProducts( this.store._id );
         this.storeService.storeSubject( this.store );
+        this.storeService.selectedStore = this.store;
       } );
     } );
   }

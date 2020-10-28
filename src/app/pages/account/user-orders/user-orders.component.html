@@ -48,6 +48,8 @@
 							</tr>
 						</tbody>
 					</table>
+					<app-custom-pagination [items]="orders" [paginate]="paginate" (setPage)="setPage($event)">
+					</app-custom-pagination>
 					<div class="form-row container justify-content-center " *ngIf="orders.length==0">
 						<div class="col-md-5">
 							<div class="card text-center mx-auto mb-2">

@@ -9,6 +9,7 @@ import { ToastrService } from 'ngx-toastr';
 import { StorageService } from './storage.service';
 import { Review } from '../classes/review';
 import { VariableProduct } from '../classes/variable-product';
+import { ShopService } from './shop.service';
 
 const state = {
   products: JSON.parse( localStorage.products || '[]' ),
@@ -30,8 +31,10 @@ export class ProductService {
   constructor(
     private http: HttpService,
     private storage: StorageService,
+    private _shop: ShopService,
     private toastrService: ToastrService
-  ) { }
+  ) {
+  }
 
   /**
    * @description Retorna la lista de categorias!
@@ -267,8 +270,15 @@ export class ProductService {
   // Get Cart Items
   public get cartItems(): Observable<Product[]> {
     const itemsStream = new Observable( observer => {
-      observer.next( state.cart );
+      const shop = this._shop.selectedStore;
+      if ( shop ) {
+        const products = state.cart.filter( item => item.store._id === shop._id );
+        observer.next( products );
+      } else {
+        observer.next( state.cart );
+      }
       observer.complete();
+
     } );
     return itemsStream as Observable<Product[]>;
   }

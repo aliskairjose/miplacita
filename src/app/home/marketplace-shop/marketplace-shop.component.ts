@@ -2,8 +2,8 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ProductSlider } from '../../shared/data/slider';
 import { ProductService } from '../../shared/services/product.service';
 import { Product } from '../../shared/classes/product';
-import { Router } from '@angular/router';
 import { Result } from '../../shared/classes/response';
+import { ShopService } from '../../shared/services/shop.service';
 
 @Component( {
   selector: 'app-marketplace-shop',
@@ -28,10 +28,11 @@ export class MarketplaceShopComponent implements OnInit {
   ];
 
   constructor(
-    private router: Router,
+    private shopService: ShopService,
     public productService: ProductService,
   ) {
     this.getCollectionProducts();
+    this.shopService.selectedStore = null;
   } // Fin del constructor
 
   ProductSliderConfig: any = ProductSlider;
@@ -105,7 +106,7 @@ export class MarketplaceShopComponent implements OnInit {
   // Product Tab collection
   private getCollectionProducts(): void {
     const params = `feature=true`;
-    this.productService.productList(1, params ).subscribe( ( result: Result<Product> ) => {
+    this.productService.productList( 1, params ).subscribe( ( result: Result<Product> ) => {
       this.products = [ ...result.docs ];
     } );
 
