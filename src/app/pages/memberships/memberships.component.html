@@ -9,18 +9,6 @@
 				Planes
 			</h2>
 		</div>
-		<div class="d-flex">
-			<form class="flex-fill theme-form">
-				<div class="d-flex justify-content-end">
-					<div class="d-flex  h-100 " >
-						<button type="button"
-							class="btn btn-solid-purple flex-fill" (click)="CreateMembership.openModal(1, null)">
-							Crear Plan
-						</button>
-					</div>
-				</div>
-			</form>
-		</div>
 		<ng-container *ngIf="role === 'admin'">
 			<div class="table-responsive mt-3">
 				<table class="table">
@@ -35,15 +23,15 @@
 								{{ plan.name }}
 							</td>
 							<td class="text-center">
-                                {{ plan.price | currency}}
+								{{ plan.price | currency}}
 							</td>
 							<td class="text-center">
 								<a (click)="CreateMembership.openModal(2, plan)" class="btn btn-table-action" ngbPopover="Ver detalle"
-								triggers="mouseenter:mouseleave">
-								<i class="fa fa-eye fa-lg" style="color: Dodgerblue"></i>
-							</a>
-                            </td>
-                        </tr>
+									triggers="mouseenter:mouseleave">
+									<i class="fa fa-edit fa-lg" style="color: Dodgerblue"></i>
+								</a>
+							</td>
+						</tr>
 					</tbody>
 				</table>
 			</div>
@@ -60,8 +48,8 @@
 				</div>
 			</div>
 		</ng-container>
-		
+
 	</div>
 </section>
-<app-create-membership #createMembership *ngIf="role === 'admin'">
+<app-create-membership #createMembership *ngIf="role === 'admin'" (reload)="reloadPage($event)">
 </app-create-membership>

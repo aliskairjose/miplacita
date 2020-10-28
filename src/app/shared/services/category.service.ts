@@ -50,7 +50,7 @@ export class CategoryService {
     );
   }
 
-  
+
   addSubcategory( data: any ): Observable<any> {
     return this.http.post( 'categories/subcategory', data );
   }
