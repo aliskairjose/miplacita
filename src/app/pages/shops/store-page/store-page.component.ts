@@ -16,16 +16,20 @@ export class StorePageComponent implements OnInit {
   products: Product[] = [];
   store: Store = {};
   sliders = [];
-  categories = [ { name: 'Mas Vendidos' }, { name: 'accesorios' } ];
   verticalBanners = [
     '../../../../assets/images/banner/1.jpg',
     '../../../../assets/images/banner/1.jpg',
     '../../../../assets/images/banner/1.jpg'
   ];
+
+  categories = [];
+
   constructor(
     private route: ActivatedRoute,
     private storeService: ShopService,
-    private productService: ProductService ) {
+    private productService: ProductService,
+    private categoriesSevice: CategoryService ) {
+
   }
 
   ngOnInit(): void {
