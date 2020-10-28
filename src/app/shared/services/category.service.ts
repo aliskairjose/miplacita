@@ -50,7 +50,7 @@ export class CategoryService {
     );
   }
 
-  
+
   addSubcategory( data: any ): Observable<any> {
     return this.http.post( 'categories/subcategory', data );
   }
@@ -62,6 +62,14 @@ export class CategoryService {
    */
   getSubcategory( shopId: string, categoryId: any ): Observable<any[]> {
     return this.http.get( `categories/subcategory?store=${shopId}&category=${categoryId}` ).pipe(
+      map( response => {
+        if ( response.success ) { return response.categories; }
+      } )
+    );
+  }
+
+  getSubcategoriesByStore(storeId: string){
+    return this.http.get( `categories/subcategory_by_store?store=${storeId}` ).pipe(
       map( response => {
         if ( response.success ) { return response.categories; }
       } )
