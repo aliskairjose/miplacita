@@ -198,6 +198,7 @@ export class MarketplaceComponent implements OnInit, OnDestroy {
     private _sanitizer: DomSanitizer,
     public productService: ProductService,
   ) {
+    sessionStorage.removeItem( 'sessionStore' );
   }
 
 

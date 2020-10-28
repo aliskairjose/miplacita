@@ -32,6 +32,7 @@ export class MarketplaceShopComponent implements OnInit {
     public productService: ProductService,
   ) {
     this.getCollectionProducts();
+    sessionStorage.removeItem( 'sessionStore' );
   } // Fin del constructor
 
   ProductSliderConfig: any = ProductSlider;

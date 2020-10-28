@@ -24,7 +24,6 @@ export class SettingsComponent implements OnInit, OnChanges {
   constructor(
     @Inject( PLATFORM_ID ) private platformId: object,
     public auth: AuthService,
-    private shopService: ShopService,
     private translate: TranslateService,
     public productService: ProductService,
     private previousRoute: PreviousRouteService,
@@ -37,7 +36,6 @@ export class SettingsComponent implements OnInit, OnChanges {
   }
 
   ngOnInit(): void {
-
     this.role = this.auth.getUserRol();
     this.isLoggedIn = this.auth.isAuthenticated();
 

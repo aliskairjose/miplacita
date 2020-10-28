@@ -34,6 +34,7 @@ export class StorePageComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
     this.route.url.subscribe( ( url ) => {
       this.storeService.getStoreByUrl( url[ 0 ].path.toLocaleLowerCase() ).subscribe( store => {
         this.store = { ...store };
@@ -41,7 +42,7 @@ export class StorePageComponent implements OnInit {
         this.getCollectionProducts( this.store._id );
 
         this.subCategoryList( this.store._id );
-        this.storeService.storeSubject( this.store );
+        sessionStorage.setItem( 'sessionStore', JSON.stringify( this.store ) );
       } );
     } );
   }
