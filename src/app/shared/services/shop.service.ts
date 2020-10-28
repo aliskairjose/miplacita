@@ -16,11 +16,13 @@ export class ShopService {
   // $store: Subject<Store> = new Subject<Store>();
   store: Store;
   $store: BehaviorSubject<Store>;
+  selectedStore: Store;
 
   constructor(
     private http: HttpService
   ) {
     this.$store = new BehaviorSubject( this.store );
+    this.selectedStore = this.store;
   }
 
   getPlans(): Observable<Plan[]> {
@@ -77,10 +79,10 @@ export class ShopService {
     );
   }
 
-  getStoreByName( name: string ): Observable<Store> {
-    return this.http.get( `stores?name=${name}` ).pipe(
+  getStoreByUrl( url: string ): Observable<Store> {
+    return this.http.get( `stores/find_by_url/${url}` ).pipe(
       map( response => {
-        if ( response.success ) { return response.result.docs[ 0 ]; }
+        if ( response.success ) { return response.result; }
       } )
     );
   }
@@ -232,7 +234,7 @@ export class ShopService {
   }
 
   /**
-   * 
+   *
    * @param id Id de la tienda
    * @param params Fecha inicio, fecha fin
    */
@@ -286,6 +288,7 @@ export class ShopService {
    */
   storeSubject( store: Store ): void {
     this.$store.next( store );
+    this.$store.complete();
   }
 
   /**

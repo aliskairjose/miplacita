@@ -6,6 +6,7 @@ import { ProductService } from '../../services/product.service';
 import { Product } from '../../classes/product';
 import { AuthService } from '../../services/auth.service';
 import { PreviousRouteService } from '../../services/previous-route.service';
+import { Store } from '../../classes/store';
 import { ShopService } from '../../services/shop.service';
 
 @Component( {
@@ -28,23 +29,18 @@ export class SettingsComponent implements OnInit {
     public productService: ProductService,
     private previousRoute: PreviousRouteService,
   ) {
+    this.products = [];
     this.productService.cartItems.subscribe( response => { this.products = response; } );
   }
 
 
   ngOnInit(): void {
+
     this.role = this.auth.getUserRol();
     this.isLoggedIn = this.auth.isAuthenticated();
 
     this.auth.authObserver().subscribe( ( isAuth: boolean ) => {
       this.isLoggedIn = isAuth;
-    } );
-
-    this.shopService.storeObserver().subscribe( store => {
-      if ( store ) {
-        const products = this.products.filter( item => item.store._id === store._id );
-        this.products = [ ...products ];
-      }
     } );
 
     if ( this.previousRoute.getCurrentUrl() === '/home/marketplace' ) {

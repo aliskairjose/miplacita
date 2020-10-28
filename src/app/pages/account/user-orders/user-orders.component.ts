@@ -4,6 +4,7 @@ import { OrderService } from '../../../shared/services/order.service';
 import { User } from '../../../shared/classes/user';
 import { Result } from '../../../shared/classes/response';
 import { AuthService } from '../../../shared/services/auth.service';
+import { Paginate } from '../../../shared/classes/paginate';
 
 @Component( {
   selector: 'app-user-orders',
@@ -11,7 +12,9 @@ import { AuthService } from '../../../shared/services/auth.service';
   styleUrls: [ './user-orders.component.scss' ]
 } )
 export class UserOrdersComponent implements OnInit {
+
   orders: Order[] = [];
+  paginate: Paginate;
   private _user: User = {};
 
   constructor(
@@ -25,10 +28,20 @@ export class UserOrdersComponent implements OnInit {
     this.loadData();
   }
 
+  setPage( page: number ) {
+    this.loadData( page );
+  }
+
   loadData( page = 1 ): void {
     const params = `user=${this._user._id}`;
     this.orderService.orderList( page, params ).subscribe( ( result: Result<Order> ) => {
       this.orders = [ ...result.docs ];
+
+      this.paginate = { ...result };
+      this.paginate.pages = [];
+      for ( let i = 1; i <= this.paginate.totalPages; i++ ) {
+        this.paginate.pages.push( i );
+      }
     } );
 
   }

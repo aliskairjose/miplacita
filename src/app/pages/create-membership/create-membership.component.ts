@@ -1,15 +1,16 @@
-import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
-import { Paginate } from 'src/app/shared/classes/paginate';
 import { Plan } from 'src/app/shared/classes/plan';
 import { environment } from 'src/environments/environment';
+import { PlanService } from '../../shared/services/plan.service';
+import { ToastrService } from 'ngx-toastr';
 
-@Component({
+@Component( {
   selector: 'app-create-membership',
   templateUrl: './create-membership.component.html',
-  styleUrls: ['./create-membership.component.scss']
-})
+  styleUrls: [ './create-membership.component.scss' ]
+} )
 export class CreateMembershipComponent implements OnInit {
   @ViewChild( 'createMembership', { static: false } ) CreateMembership: TemplateRef<any>;
 
@@ -21,14 +22,19 @@ export class CreateMembershipComponent implements OnInit {
   required = environment.errorForm.required;
   type = 1; // 1- crear 2- editar
   plan: Plan = {};
+
+  @Output() reload: EventEmitter<boolean> = new EventEmitter<boolean>();
+
   constructor(
     private modalService: NgbModal,
-    private formBuilder: FormBuilder
+    private _toast: ToastrService,
+    private planService: PlanService,
+    private formBuilder: FormBuilder,
   ) {
     this.createForm();
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   createForm(): void {
 
@@ -42,9 +48,9 @@ export class CreateMembershipComponent implements OnInit {
 
   get f() { return this.planForm.controls; }
 
-  openModal(type: number, plan: Plan ) {
+  openModal( type: number, plan: Plan ) {
     this.type = type;
-    this.plan = plan;
+    this.plan = { ...plan };
     this.modalOpen = true;
     this.modalOption.backdrop = 'static';
     this.modalOption.keyboard = false;
@@ -58,7 +64,7 @@ export class CreateMembershipComponent implements OnInit {
     } );
   }
 
-  clear(){
+  clear() {
     this.submitted = false;
     this.plan = {};
   }
@@ -66,11 +72,20 @@ export class CreateMembershipComponent implements OnInit {
   close() {
     this.clear();
     this.modal.dismiss();
+    this.reload.emit( true );
 
   }
 
-  onSubmit(){
-
+  onSubmit() {
+    this.submitted = true;
+    if ( this.planForm.valid && this.planForm.dirty ) {
+      this.planService.updatePlan( this.plan._id, this.planForm.value ).subscribe( result => {
+        if ( result.success ) {
+          this._toast.info( result.message[ 0 ] );
+          this.close();
+        }
+      } );
+    }
   }
 
 }
