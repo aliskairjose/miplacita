@@ -270,13 +270,7 @@ export class ProductService {
   // Get Cart Items
   public get cartItems(): Observable<Product[]> {
     const itemsStream = new Observable( observer => {
-      const shop = this._shop.selectedStore;
-      if ( shop ) {
-        const products = state.cart.filter( item => item.store._id === shop._id );
-        observer.next( products );
-      } else {
-        observer.next( state.cart );
-      }
+      observer.next( state.cart );
       observer.complete();
 
     } );

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ProductSlider } from '../../shared/data/slider';
 import { ProductService } from '../../shared/services/product.service';
 import { Product } from '../../shared/classes/product';
@@ -32,7 +32,6 @@ export class MarketplaceShopComponent implements OnInit {
     public productService: ProductService,
   ) {
     this.getCollectionProducts();
-    this.shopService.selectedStore = null;
   } // Fin del constructor
 
   ProductSliderConfig: any = ProductSlider;

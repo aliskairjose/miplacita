@@ -1,4 +1,4 @@
-import { Component, OnInit, PLATFORM_ID, Inject } from '@angular/core';
+import { Component, OnInit, PLATFORM_ID, Inject, OnChanges, SimpleChanges } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { Observable } from 'rxjs';
 import { TranslateService } from '@ngx-translate/core';
@@ -6,7 +6,6 @@ import { ProductService } from '../../services/product.service';
 import { Product } from '../../classes/product';
 import { AuthService } from '../../services/auth.service';
 import { PreviousRouteService } from '../../services/previous-route.service';
-import { Store } from '../../classes/store';
 import { ShopService } from '../../services/shop.service';
 
 @Component( {
@@ -14,12 +13,13 @@ import { ShopService } from '../../services/shop.service';
   templateUrl: './settings.component.html',
   styleUrls: [ './settings.component.scss' ]
 } )
-export class SettingsComponent implements OnInit {
+export class SettingsComponent implements OnInit, OnChanges {
 
   products: Product[] = [];
   isLoggedIn: boolean;
   role: string;
   _role = 'client';
+  storeId: string;
 
   constructor(
     @Inject( PLATFORM_ID ) private platformId: object,
@@ -29,10 +29,12 @@ export class SettingsComponent implements OnInit {
     public productService: ProductService,
     private previousRoute: PreviousRouteService,
   ) {
-    this.products = [];
     this.productService.cartItems.subscribe( response => { this.products = response; } );
   }
 
+  ngOnChanges( changes: SimpleChanges ): void {
+    console.log( changes );
+  }
 
   ngOnInit(): void {
 
