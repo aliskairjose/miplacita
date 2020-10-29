@@ -1,31 +1,35 @@
-import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
+import { Component, Input, OnInit, SimpleChanges, OnChanges } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
-import { ShopService } from 'src/app/shared/services/shop.service';
 import { environment } from 'src/environments/environment';
+import { Commission } from '../../shared/classes/commissions';
+import { CommissionService } from '../../shared/services/commission.service';
 
-@Component({
+@Component( {
   selector: 'app-commissions',
   templateUrl: './commissions.component.html',
-  styleUrls: ['./commissions.component.scss']
-})
-export class CommissionsComponent implements OnInit {
+  styleUrls: [ './commissions.component.scss' ]
+} )
+export class CommissionsComponent implements OnInit, OnChanges {
 
 
   commissionsForm: FormGroup;
   submitted: boolean;
   required = environment.errorForm.required;
-
+  commission: Commission = {};
 
   constructor(
     private toastr: ToastrService,
-    private shopService: ShopService,
     private formBuilder: FormBuilder,
+    private commissionService: CommissionService,
   ) {
     this.createForm();
+    this.commissionService.getCommission().subscribe( commission => this.commission = commission );
+
   }
 
   ngOnChanges( changes: SimpleChanges ): void {
+
   }
 
   ngOnInit(): void {
@@ -35,12 +39,23 @@ export class CommissionsComponent implements OnInit {
 
   onSubmit(): void {
     this.submitted = true;
-
+    if ( this.commissionsForm.valid ) {
+      this.commissionService.updateCommission( this.commission._id, this.commissionsForm.value ).subscribe( response => {
+        console.log( response );
+        if ( response.success ) {
+          this.toastr.info( response.message[ 0 ] );
+          this.commission = response.commissions;
+        }
+      } );
+    }
   }
+
 
   private createForm(): void {
     this.commissionsForm = this.formBuilder.group( {
-
+      marketplace_commission: [ '', [ Validators.required ] ],
+      store_commission: [ '', [ Validators.required ] ],
+      payment_gateway_commission: [ '', [ Validators.required ] ]
     } );
   }
 
