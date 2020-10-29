@@ -26,9 +26,14 @@ export class ReportsService {
 
   /**
    * @description Reortes de clientes MP
+   * @param role client | merchant
+   * @param from Fecha de incio
+   * @param to Fecha final
    */
-  clientsMP(): Observable<any> {
-    return this.http.get( `` );
+  clientsMP( role: string, from: string, to: string ): Observable<any> {
+    const params = `from=${from}&to=${to}&role=${role}`;
+    console.log( params );
+    return this.http.get( `report/getClients?${params}` );
   }
 
   /**
@@ -96,6 +101,16 @@ export class ReportsService {
   */
 
   /**
+   * @description Reporte de clientes por Tienda
+   * @param id Id de a tienda
+   * @param from Fecha de incio
+   * @param to Fecha final
+   */
+  clientsByStore( id: string, from: string, to: string ): Observable<any> {
+    return this.http.get( `api/client?store=${id}&from=${from}&to=${to}` )
+  }
+
+  /**
    * @description lista de clientes de una tienda
    * @param Id Id de tienda
    */
@@ -133,6 +148,7 @@ export class ReportsService {
   }
 
   /**
+   * ! Esta temporalmente mostrando todas las tiendas, activas e inactivas, debe cambiarse el api
    * @description Reporte de tiendas activas con membresia
    */
   membershipActiveShop( page = 1, params = '' ): Observable<Result<Store>> {

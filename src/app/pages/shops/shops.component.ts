@@ -40,7 +40,7 @@ export class ShopsComponent implements OnInit {
   }
 
   private loadData( page = 1 ): void {
-    this.reports.membershipActiveShop( page ).subscribe( ( result ) => {
+    this.reports.membershipActiveShop( page, `active=true` ).subscribe( ( result ) => {
       this.shops = [ ...result.docs ];
       this.paginate = { ...result };
       this.paginate.pages = [];
