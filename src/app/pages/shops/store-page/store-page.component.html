@@ -36,15 +36,15 @@
 						<p>Todos</p>
 					</div>
 				</div>
-				<div class="vertical-separator all-option" *ngIf="categories.length">
+				<div class="vertical-separator all-option" *ngIf="subCategories.length">
 
 				</div>
-				<div class="circle-btn" *ngFor="let category of categories">
+				<div class="circle-btn" *ngFor="let subcategory of subCategories">
 					<div class="circle mx-auto">
-						{{ category.name[0] }}
+						{{ subcategory.name[0] }}
 					</div>
 					<div class="label text-center">
-						<p>	{{ category.name }} </p>
+						<p> {{ subcategory.name }} </p>
 					</div>
 				</div>
 			</div>
@@ -80,7 +80,7 @@
 			</div>
 		</div>
 	</section>
-	
+
 	<!-- <section class="section-b-space p-t-0 mt-4" *ngIf="products.length">
 		<div class="container">
 			<div class="row">
@@ -101,7 +101,7 @@
 			</div>
 		</div>
 	</section> -->
-	
+
 </div>
 
 <app-footer-one></app-footer-one>

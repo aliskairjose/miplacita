@@ -5,6 +5,10 @@ import { Product } from '../../shared/classes/product';
 import { environment } from '../../../environments/environment.prod';
 import { ShopService } from '../../shared/services/shop.service';
 
+const state = {
+  sessionStore: JSON.parse( sessionStorage.sessionStore || null ),
+};
+
 @Component( {
   selector: 'app-cart',
   templateUrl: './cart.component.html',
@@ -16,20 +20,13 @@ export class CartComponent implements OnInit {
   standardImage = environment.standardImage;
 
   constructor(
-    private shopService: ShopService,
     public productService: ProductService,
   ) {
 
   }
 
   ngOnInit(): void {
-    this.productService.cartItems.subscribe( products => { this.products = [ ...products ]; } );
-    this.shopService.storeObserver().subscribe( store => {
-      if ( store ) {
-        const products = this.products.filter( item => item.store._id === store._id );
-        this.products = [ ...products ];
-      }
-    } );
+    this.productService.cartItems.subscribe( products => { this.products = products; } );
   }
 
   public get getTotal(): Observable<number> {

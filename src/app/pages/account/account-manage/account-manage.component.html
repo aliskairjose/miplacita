@@ -23,7 +23,8 @@
 		<div class="col-lg-2 col-md-2 col-sm-0 mp-side-menu">
 			<div class="row user-row">
 				<div ngbDropdown *ngIf="user.role === 'merchant'" class="d-flex flex-column w-100">
-					<img class="rounded-circle store-logo mx-auto" id="store-img"[src]="selectedStore.logo ? selectedStore.logo : standardImage">
+					<img class="rounded-circle store-logo mx-auto" id="store-img"
+						[src]="selectedStore.logo ? selectedStore.logo : standardImage">
 					<button class="btn btn-link text-default-color" id="store-logo" ngbDropdownToggle>
 						{{ selectedStore.name ? selectedStore.name : 'Crear nueva tienda' }}
 					</button>
@@ -101,28 +102,28 @@
 					</div>
 					<app-shops *ngIf="user.role==='admin'"></app-shops>
 				</div>
-				<div *ngIf="active==='dashboard'" class="" id="dashboard" >
+				<div *ngIf="active==='dashboard'" class="" id="dashboard">
 					<app-dashboard [store]="selectedStore"></app-dashboard>
 				</div>
-				<div *ngIf="active==='products'" class="" id="products" >
+				<div *ngIf="active==='products'" class="" id="products">
 					<app-products [store]="selectedStore"></app-products>
 				</div>
-				<div *ngIf="active==='admin-orders'" class="" id="admin-orders" >
+				<div *ngIf="active==='admin-orders'" class="" id="admin-orders">
 					<app-orders [store]="selectedStore"></app-orders>
 				</div>
 				<div *ngIf="active==='referrals'" id="referrals">
-					<app-referrals ></app-referrals>
+					<app-referrals></app-referrals>
 				</div>
-				<div *ngIf="active==='support'" class="" id="support" >
+				<div *ngIf="active==='support'" class="" id="support">
 					<app-support [store]="selectedStore"></app-support>
 				</div>
-				<div *ngIf="active==='plans'" class="" id="plans" >
-					<app-memberships ></app-memberships>
+				<div *ngIf="active==='plans'" class="" id="plans">
+					<app-memberships></app-memberships>
 				</div>
-				<div *ngIf="active==='commissions'" class="" id="commissions" >
-					<app-commissions ></app-commissions>
+				<div *ngIf="active==='commissions'" class="" id="commissions">
+					<app-commissions></app-commissions>
 				</div>
-				<div *ngIf="active=='admin-store'" class="" id="admin-store" >
+				<div *ngIf="active=='admin-store'" class="" id="admin-store">
 					<div class="form-row labels mp-side-menu " *ngIf="stores.length > 0">
 						<div class="row col-lg-12">
 							<div class="col label card">
@@ -233,7 +234,7 @@
 						</div>
 					</div>
 				</div>
-				
+
 				<div class="container">
 					<app-shop-profile *ngIf="active=='admin-store' && subtab=='store-profile' && stores.length > 0"
 						(updateShop)="updateShop($event)" [store]="selectedStore">
@@ -248,23 +249,19 @@
 
 					<app-shop-suscription *ngIf="active=='admin-store' && subtab=='suscription'" [store]="selectedStore">
 					</app-shop-suscription>
-					<app-shop-withdrawal *ngIf="active=='admin-store' && subtab=='withdrawal'" [store]="selectedStore"></app-shop-withdrawal>
+					<app-shop-withdrawal *ngIf="active=='admin-store' && subtab=='withdrawal'" [store]="selectedStore">
+					</app-shop-withdrawal>
 					<app-shipping-zones *ngIf="active=='admin-store' && subtab=='shipping'" [store]="selectedStore">
 					</app-shipping-zones>
-					<app-create-referrals 
-						*ngIf="active=='admin-store' && subtab=='create-referrals'" 
-						[store]="selectedStore"
+					<app-create-referrals *ngIf="active=='admin-store' && subtab=='create-referrals'" [store]="selectedStore"
 						(reload)="reload($event)">
 					</app-create-referrals>
-					
+
 				</div>
 				<!-- Reportes -->
-				<div 
-					*ngIf="active==='reports'" 
-					class="" 
-					id="reports" >
+				<div *ngIf="active==='reports'" class="" id="reports">
 					<app-admin-reports *ngIf="user.role==='admin'"></app-admin-reports>
-					<app-reports *ngIf="user.role==='merchant'"  [store]="selectedStore"></app-reports>
+					<app-reports *ngIf="user.role==='merchant'" [store]="selectedStore"></app-reports>
 				</div>
 				<app-terms-and-conditions *ngIf="active==='terms'" [edit]="true">
 					

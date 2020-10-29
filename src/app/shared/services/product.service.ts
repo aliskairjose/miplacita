@@ -9,13 +9,13 @@ import { ToastrService } from 'ngx-toastr';
 import { StorageService } from './storage.service';
 import { Review } from '../classes/review';
 import { VariableProduct } from '../classes/variable-product';
-import { ShopService } from './shop.service';
 
 const state = {
   products: JSON.parse( localStorage.products || '[]' ),
   wishlist: JSON.parse( localStorage.wishlistItems || '[]' ),
   compare: JSON.parse( localStorage.compareItems || '[]' ),
-  cart: JSON.parse( localStorage.cartItems || '[]' )
+  cart: JSON.parse( localStorage.cartItems || '[]' ),
+  sessionStore: JSON.parse( sessionStorage.sessionStore || null )
 };
 
 @Injectable( {
@@ -31,9 +31,11 @@ export class ProductService {
   constructor(
     private http: HttpService,
     private storage: StorageService,
-    private _shop: ShopService,
     private toastrService: ToastrService
   ) {
+    if ( state.sessionStore ) {
+      state.cart = state.cart.filter( item => item.store._id === state.sessionStore._id );
+    }
   }
 
   /**
@@ -267,16 +269,14 @@ export class ProductService {
     ---------------------------------------------
   */
 
+
   // Get Cart Items
   public get cartItems(): Observable<Product[]> {
+    // if ( state.sessionStore ) {
+    //   state.cart = state.cart.filter( item => item.store._id === state.sessionStore._id );
+    // }
     const itemsStream = new Observable( observer => {
-      const shop = this._shop.selectedStore;
-      if ( shop ) {
-        const products = state.cart.filter( item => item.store._id === shop._id );
-        observer.next( products );
-      } else {
-        observer.next( state.cart );
-      }
+      observer.next( state.cart );
       observer.complete();
 
     } );

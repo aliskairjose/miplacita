@@ -6,8 +6,6 @@ import { ProductService } from '../../services/product.service';
 import { Product } from '../../classes/product';
 import { AuthService } from '../../services/auth.service';
 import { PreviousRouteService } from '../../services/previous-route.service';
-import { Store } from '../../classes/store';
-import { ShopService } from '../../services/shop.service';
 
 @Component( {
   selector: 'app-settings',
@@ -20,19 +18,17 @@ export class SettingsComponent implements OnInit {
   isLoggedIn: boolean;
   role: string;
   _role = 'client';
+  storeId: string;
 
   constructor(
     @Inject( PLATFORM_ID ) private platformId: object,
     public auth: AuthService,
-    private shopService: ShopService,
     private translate: TranslateService,
     public productService: ProductService,
     private previousRoute: PreviousRouteService,
   ) {
-    this.products = [];
     this.productService.cartItems.subscribe( response => { this.products = response; } );
   }
-
 
   ngOnInit(): void {
 

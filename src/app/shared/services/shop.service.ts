@@ -8,6 +8,10 @@ import { Response, Result } from '../classes/response';
 import { ShipmentOption } from '../classes/shipment-option';
 import { User } from '../classes/user';
 
+const state = {
+  sessionStore: JSON.parse( sessionStorage.sessionStore || null ),
+};
+
 @Injectable( {
   providedIn: 'root'
 } )
@@ -22,7 +26,6 @@ export class ShopService {
     private http: HttpService
   ) {
     this.$store = new BehaviorSubject( this.store );
-    this.selectedStore = this.store;
   }
 
   getPlans(): Observable<Plan[]> {
@@ -293,6 +296,7 @@ export class ShopService {
 
   /**
    * @description Creación del observer mediante el método asObserver(), el cual sera consumido por el componente
+   * @returns Observable de tipo store
    */
   storeObserver(): Observable<Store> {
     return this.$store.asObservable();

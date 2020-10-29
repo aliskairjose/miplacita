@@ -3,4 +3,6 @@ export interface Category {
   active?: boolean;
   name?: string;
   description?: string;
+  category?: string;
+  store?: string;
 }

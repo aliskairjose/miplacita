@@ -16,7 +16,6 @@ export class SearchComponent implements OnInit, OnChanges {
   textCategory = 'Explora';
 
   @Input() categories: Category[];
-  // @Output() productsFilter: EventEmitter<Product[]> = new EventEmitter<Product[]>();
   @Output() productsFilter: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(
