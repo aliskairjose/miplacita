@@ -26,9 +26,13 @@ export class ReportsService {
 
   /**
    * @description Reortes de clientes MP
+   * @param role client | merchant
+   * @param from Fecha de incio
+   * @param to Fecha final
    */
-  clientsMP( role: string, from = '', to = '' ): Observable<any> {
+  clientsMP( role: string, from: string, to: string ): Observable<any> {
     const params = `from=${from}&to=${to}&role=${role}`;
+    console.log( params );
     return this.http.get( `report/getClients?${params}` );
   }
 
