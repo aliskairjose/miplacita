@@ -43,8 +43,8 @@
 					</tbody>
 				</table>
 			</div>
-			<app-custom-pagination [items]="clients" [paginate]="paginate" (setPage)="setPage($event)">
-			</app-custom-pagination>
+			<!-- <app-custom-pagination [items]="clients" [paginate]="paginate" (setPage)="setPage($event)">
+			</app-custom-pagination> -->
 			<div class="form-row container justify-content-center " *ngIf="clients.length==0">
 				<div class="col-md-5">
 					<div class="card text-center mx-auto mb-2">
@@ -72,6 +72,6 @@
 				</div>
 			</div>
 		</ng-template>
-	</div> 
+	</div>
 </section>
 <app-interests #interests type="interestsList"></app-interests>

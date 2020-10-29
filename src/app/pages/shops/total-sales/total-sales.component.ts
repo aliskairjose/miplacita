@@ -24,7 +24,7 @@ export class TotalSalesComponent implements OnInit, OnChanges {
   @ViewChild( 'TABLE', { read: ElementRef } ) table: ElementRef;
 
   fields = [ 'Fecha', 'Cantidades ordenadas', 'Total de ventas' ];
-  fieldsAdmin = [ 'Numero de Orden', 'Monto', 'Tienda','Estado', '' ];
+  fieldsAdmin = [ 'Numero de Orden', 'Monto', 'Tienda', 'Estado', '' ];
   sales: any = [];
   orders: Order[] = [];
   paginate: Paginate;
@@ -53,7 +53,7 @@ export class TotalSalesComponent implements OnInit, OnChanges {
   ngOnChanges( changes: SimpleChanges ): void {
     this.role = this.auth.getUserRol();
 
-    if (this.role === 'merchant'){
+    if ( this.role === 'merchant' ) {
       this.store = JSON.parse( sessionStorage.getItem( 'store' ) );
 
     }
@@ -68,17 +68,16 @@ export class TotalSalesComponent implements OnInit, OnChanges {
   }
 
   private loadData( page = 1 ): void {
-    if (this.role === 'merchant'){
+    if ( this.role === 'merchant' ) {
       const params = `store=${this.store._id}&from=${this.fechaIni}&to=${this.fechaFin}`;
-
       this.reports.totalSales( params ).subscribe( ( result ) => {
         this.sales = result;
 
       } );
-    } else if (this.role === 'admin'){
-      this.reports.ordersMP().subscribe((result) => {
+    } else if ( this.role === 'admin' ) {
+      this.reports.ordersMP().subscribe( ( result ) => {
 
-      });
+      } );
     }
 
   }

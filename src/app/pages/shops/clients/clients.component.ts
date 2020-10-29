@@ -23,9 +23,9 @@ export class ClientsComponent implements OnInit, OnChanges {
   @Input() store: Store;
   constructor(
     private auth: AuthService,
-    private reposts: ReportsService,
+    private reports: ReportsService,
     private exportDoc: ExportService,
-  
+
   ) { }
 
   ngOnInit(): void {
@@ -36,7 +36,7 @@ export class ClientsComponent implements OnInit, OnChanges {
   ngOnChanges( changes: SimpleChanges ): void {
     this.role = this.auth.getUserRol();
 
-    if(this.role == 'merchant'){
+    if ( this.role === 'merchant' ) {
       this.store = JSON.parse( sessionStorage.getItem( 'store' ) );
 
     }
@@ -44,29 +44,26 @@ export class ClientsComponent implements OnInit, OnChanges {
   }
 
   private init(): void {
-    if(this.role == 'merchant'){
+    if ( this.role === 'merchant' ) {
       this.loadData();
     } else {
-      this.reposts.clientsMP().subscribe( result => {
-        this.clients = result;
-        this.paginate = { ...result };
-        this.paginate.pages = [];
-        for ( let i = 1; i <= this.paginate.totalPages; i++ ) {
-          this.paginate.pages.push( i );
-        }
+      this.reports.clientsMP( 'client' ).subscribe( response => {
+        this.clients = response.result;
+        console.log( response.result.length )
+        // this.paginate = { ...response };
+        // this.paginate.pages = [];
+        // for ( let i = 1; i <= this.paginate.totalPages; i++ ) {
+        //   this.paginate.pages.push( i );
+        // }
       } );
     }
   }
 
-  private loadDataForAdmin( ): void {
-    console.log("admin");
-  }
-  
   private loadData( page = 1 ): void {
-    
+
     const params = `store=${this.store._id}`;
 
-    this.reposts.clients( params ).subscribe( result => {
+    this.reports.clients( params ).subscribe( result => {
       this.clients = result;
       this.paginate = { ...result };
       this.paginate.pages = [];
