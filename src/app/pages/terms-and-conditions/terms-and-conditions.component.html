@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" *ngIf="!edit">
     <div class="page-title">
         <h4>
            <span> <strong> Términos y condiciones de uso </strong>  </span> 
@@ -20,4 +20,40 @@
     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt illum unde recusandae? Inventore placeat natus beatae dolorem quisquam ea quo totam odio quos saepe, pariatur ipsam voluptatum dolorum rem vel?</p>
     <h5>Privacidad</h5>
     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt illum unde recusandae? Inventore placeat natus beatae dolorem quisquam ea quo totam odio quos saepe, pariatur ipsam voluptatum dolorum rem vel?</p>
+  
 </div>
+
+<section class="" *ngIf="edit">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="page-title mb-5">
+          <h2 class="mp-title">
+            Términos y condiciones
+          </h2>
+        </div>
+        <div class="border-box">
+          <editor
+          [apiKey]="editorKey"
+          initialValue=""
+          [init]="{
+                  height: 500,
+                  menubar: false,
+                  plugins: [
+                    'advlist autolink lists link image charmap print',
+                    'preview anchor searchreplace visualblocks code',
+                    'fullscreen insertdatetime media table paste',
+                    'help wordcount'
+                  ],
+                  toolbar:
+                    'undo redo | formatselect | bold italic | \
+                    alignleft aligncenter alignright alignjustify | \
+                    bullist numlist outdent indent | help'
+                }"
+          >
+          </editor>
+        </div>
+      </div>
+    </div>
+  </div> 
+</section>

@@ -45,99 +45,36 @@
 				<div class="tab">
 					<button class="btn "></button>
 				</div>
-				<div class="user-menu">
-					<div class="tab" (click)="updateTab('profile')"
-						[ngClass]="{'active': active=='profile','btn tab': active!='profile'}">
-						<button class="btn btn-tab" id="profile-tab">
-							<img src="assets/images/marketplace/images/icons/profile.png" id="user-icon" alt="">
-							Mi perfil
-						</button>
-					</div>
-					<div class="tab" (click)="updateTab('orders')" *ngIf="user.role=='client'"
-						[ngClass]="{'active': active=='orders','btn tab': active!='orders'}">
-						<button class="btn btn-tab" id="order-tab">
-							<img src="assets/images/marketplace/images/icons/orders.png" alt="">
-							Mis Órdenes
-						</button>
-					</div>
-					<div class="tab" (click)="updateTab('referrals')" *ngIf="user.role=='client'"
-						[ngClass]="{'active': active=='referrals','btn tab': active!='referrals'}">
-						<button class="btn btn-tab" id="order-tab">
-							<img src="assets/images/marketplace/images/icons/orders.png" alt="">
-							Referidos
-						</button>
-					</div>
-					<div class="tab" (click)="updateTab('stores')"
-						[ngClass]="{'active': active==='stores','btn tab': active!=='stores'}" *ngIf="user.role == 'merchant'">
+				<div class="user-menu" *ngIf="user.role == 'client'">
+					<div *ngFor="let tab of clientOptions" 
+						class="tab" (click)="updateTab(tab.key)"
+						[ngClass]="{'active': active===tab.key,'btn tab': active!==tab.key}" 
+						>
 						<button class="btn btn-tab">
-							<img src="assets/images/marketplace/images/icons/store.png" alt="">
-							Mis tiendas
+							<img [src]="tab.icon" alt="" [id]="tab.id">
+							{{ tab.name }}
 						</button>
 					</div>
 				</div>
-
-				<div class="admin-menu">
-					<div class="tab" (click)="updateTab('dashboard')" *ngIf="user.role=='merchant' || user.role=='admin'"
-						[ngClass]="{'active': active==='dashboard','btn tab': active!=='dashboard'}">
+				<div class="admin-store-menu" *ngIf="user.role == 'merchant'">
+					<div *ngFor="let tab of adminStoreOptions" 
+						class="tab" (click)="updateTab(tab.key)"
+						[ngClass]="{'active': active===tab.key,'btn tab': active!==tab.key}" 
+						>
 						<button class="btn btn-tab">
-							<img src="assets/images/marketplace/images/icons/tablero.png" alt="">
-							Tablero
+							<img [src]="tab.icon" alt="" [id]="tab.id">
+							{{ tab.name }}
 						</button>
 					</div>
-					<div class="tab" (click)="updateTab('products')" *ngIf="user.role=='merchant' || user.role=='admin'"
-						[ngClass]="{'active': active==='products','btn tab': active!=='products'}">
+				</div>
+				<div class="admin-menu" *ngIf="user.role == 'admin'">
+					<div *ngFor="let tab of adminOptions" 
+						class="tab" (click)="updateTab(tab.key)"
+						[ngClass]="{'active': active===tab.key,'btn tab': active!==tab.key}" 
+						>
 						<button class="btn btn-tab">
-							<img src="assets/images/marketplace/images/icons/productos.png" alt="">
-							Productos
-						</button>
-					</div>
-					<div class="tab" (click)="updateTab('admin-orders')" *ngIf="user.role=='merchant' || user.role=='admin'"
-						[ngClass]="{'active': active==='admin-orders','btn tab': active!=='admin-orders'}">
-						<button class="btn btn-tab">
-							<img src="assets/images/marketplace/images/icons/orders.png" alt="">
-							Órdenes
-						</button>
-					</div>
-					<div class="tab" (click)="updateTab('stores')" *ngIf="user.role=='admin'"
-						[ngClass]="{'active': active=='stores','btn tab': active!='stores'}">
-						<button class="btn btn-tab">
-							<img src="assets/images/marketplace/images/icons/store.png" alt="">
-							Tiendas
-						</button>
-					</div>
-					<div class="tab" (click)="updateTab('commissions')" *ngIf="user.role=='admin'"
-						[ngClass]="{'active': active=='commissions','btn tab': active!='commissions'}">
-						<button class="btn btn-tab">
-							<img src="assets/images/marketplace/images/icons/store.png" alt="">
-							Comisiones
-						</button>
-					</div>
-					<div class="tab" (click)="updateTab('plans')" *ngIf="user.role=='admin'"
-						[ngClass]="{'active': active=='plans','btn tab': active!='plans'}">
-						<button class="btn btn-tab">
-							<img src="assets/images/marketplace/images/icons/store.png" alt="">
-							Planes
-						</button>
-					</div>
-					<div class="tab" *ngIf="user.role=='merchant'" (click)="updateTab('admin-store')"
-						[ngClass]="{'active': active=='admin-store','btn tab': active!='admin-store'}">
-						<button class="btn btn-tab">
-							<img src="assets/images/marketplace/images/icons/store.png" alt="">
-							Tienda
-						</button>
-					</div>
-					<div class="tab" (click)="updateTab('reports')" *ngIf="user.role=='merchant' || user.role=='admin'"
-						[ngClass]="{'active': active==='reports','btn tab': active!=='reports'}">
-						<button class="btn btn-tab">
-							<img src="assets/images/marketplace/images/icons/report.png" alt="">
-							Reportes
-						</button>
-					</div>
-					<div class="tab" (click)="updateTab('support')" *ngIf="user.role=='merchant' || user.role=='client'"
-						[ngClass]="{'active': active==='support','btn tab': active!=='support'}">
-						<button class="btn btn-tab">
-							<img src="assets/images/marketplace/images/icons/help.png" id="big-icon"alt="">
-							Ayuda
+							<img [src]="tab.icon" alt="" [id]="tab.id">
+							{{ tab.name }}
 						</button>
 					</div>
 				</div>
@@ -329,6 +266,9 @@
 					<app-admin-reports *ngIf="user.role==='admin'"></app-admin-reports>
 					<app-reports *ngIf="user.role==='merchant'"  [store]="selectedStore"></app-reports>
 				</div>
+				<app-terms-and-conditions *ngIf="active==='terms'" [edit]="true">
+					
+				</app-terms-and-conditions>
 			</div>
 		</div>
 	</div>

@@ -28,6 +28,39 @@ export class AccountManageComponent implements OnInit, OnChanges {
   modalOpen = false;
   modalOption: NgbModalOptions = {}; // not null!
 
+  clientOptions = [
+    { name: 'Mi Perfil', id:"user-icon", key: 'profile', icon: 'assets/images/marketplace/images/icons/profile.png'},
+    { name: 'Mis Órdenes', key: 'orders', icon: 'assets/images/marketplace/images/icons/orders.png' },
+    { name: 'Referidos', key: 'referrals', icon: 'assets/images/marketplace/images/icons/orders.png' },
+    // { name: 'Mis Tiendas', key: 'stores', icon: 'assets/images/marketplace/images/icons/store.png' },
+    { name: 'Ayuda',  id: "big-icon", key: 'support', icon: 'assets/images/marketplace/images/icons/help.png'},
+
+  ];
+  adminStoreOptions = [
+    { name: 'Mi Perfil', id:"user-icon", key: 'profile', icon: 'assets/images/marketplace/images/icons/profile.png'},
+    { name: 'Tablero', key: 'dashboard', icon: 'assets/images/marketplace/images/icons/tablero.png'},
+    { name: 'Productos', key: 'products', icon: 'assets/images/marketplace/images/icons/productos.png'},
+    { name: 'Órdenes', key: 'admin-orders', icon: 'assets/images/marketplace/images/icons/orders.png'},
+    { name: 'Tienda', key: 'admin-store', icon: 'assets/images/marketplace/images/icons/store.png'},
+    { name: 'Reportes', key: 'reports', icon: 'assets/images/marketplace/images/icons/report.png'},
+    { name: 'Ayuda', id: "big-icon", key: 'support', icon: 'assets/images/marketplace/images/icons/help.png'},
+
+
+  ];
+  adminOptions = [
+    { name: 'Mi Perfil', id:"user-icon", key: 'profile', icon: 'assets/images/marketplace/images/icons/profile.png'},
+    { name: 'Tablero', key: 'dashboard', icon: 'assets/images/marketplace/images/icons/tablero.png'},
+    { name: 'Productos', key: 'products', icon: 'assets/images/marketplace/images/icons/productos.png'},
+    { name: 'Órdenes', key: 'admin-orders', icon: 'assets/images/marketplace/images/icons/orders.png'},
+    { name: 'Tiendas', key: 'stores', icon: 'assets/images/marketplace/images/icons/store.png'},
+    { name: 'Comisiones', key: 'commissions', icon: 'assets/images/marketplace/images/icons/store.png'},
+    { name: 'Planes', key: 'plans', icon: 'assets/images/marketplace/images/icons/store.png'},
+    { name: 'Reportes', key: 'reports', icon: 'assets/images/marketplace/images/icons/report.png'},
+    { name: 'Términos y condiciones', key: 'terms', icon: 'assets/images/marketplace/images/icons/report.png'},
+
+  ];
+    
+
   constructor(
     private router: Router,
     private auth: AuthService,

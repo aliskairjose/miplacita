@@ -80,7 +80,7 @@ import { PercentageMpProductsComponent } from './shops/percentage-mp-products/pe
 import { CommissionsComponent } from './commissions/commissions.component';
 import { MembershipsComponent } from './memberships/memberships.component';
 import { CreateMembershipComponent } from './create-membership/create-membership.component';
-
+import { EditorModule } from "@tinymce/tinymce-angular";
 // export let options: Partial<IConfig> | (() => Partial<IConfig>);
 const maskConfig: Partial<IConfig> = {
   validation: false,
@@ -182,7 +182,8 @@ export const customCurrencyMaskConfig = {
     NgxCurrencyModule.forRoot(customCurrencyMaskConfig),
     ColorPickerModule,
     AlertModule.forRoot({maxMessages: 5, timeout: 3000, position: 'left'}),
-    ChartsModule
+    ChartsModule,
+    EditorModule
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 
