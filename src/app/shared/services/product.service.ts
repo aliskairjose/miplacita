@@ -9,7 +9,6 @@ import { ToastrService } from 'ngx-toastr';
 import { StorageService } from './storage.service';
 import { Review } from '../classes/review';
 import { VariableProduct } from '../classes/variable-product';
-import { ShopService } from './shop.service';
 
 const state = {
   products: JSON.parse( localStorage.products || '[]' ),
@@ -32,9 +31,11 @@ export class ProductService {
   constructor(
     private http: HttpService,
     private storage: StorageService,
-    private _shop: ShopService,
     private toastrService: ToastrService
   ) {
+    if ( state.sessionStore ) {
+      state.cart = state.cart.filter( item => item.store._id === state.sessionStore._id );
+    }
   }
 
   /**
@@ -271,9 +272,9 @@ export class ProductService {
 
   // Get Cart Items
   public get cartItems(): Observable<Product[]> {
-    if ( state.sessionStore ) {
-      state.cart = state.cart.filter( item => item.store._id === state.sessionStore._id );
-    }
+    // if ( state.sessionStore ) {
+    //   state.cart = state.cart.filter( item => item.store._id === state.sessionStore._id );
+    // }
     const itemsStream = new Observable( observer => {
       observer.next( state.cart );
       observer.complete();

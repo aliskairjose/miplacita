@@ -455,7 +455,8 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   changeCategorySelection() {
-    this.categoryService.getSubcategory( this.store._id, this.selectedCategory ).subscribe( subCategories => {
+    const params = `store=${this.store._id}&category=${this.selectedCategory}`;
+    this.categoryService.getSubcategory( params ).subscribe( subCategories => {
       this.subcategories = [ ...subCategories ];
     } );
   }

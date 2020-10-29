@@ -58,8 +58,9 @@ export class StorePageComponent implements OnInit {
   }
 
   private subCategoryList( id: string ): void {
-    this.categoriesSevice.getSubcategory( this.store._id ).subscribe( subCategories => {
-      this.subCategories = [ ...subCategories ];
+    const params = `store=${this.store._id}`;
+    this.categoriesSevice.getSubcategory( params ).subscribe( subcategories => {
+      this.subCategories = [ ...subcategories ];
     } );
   }
 

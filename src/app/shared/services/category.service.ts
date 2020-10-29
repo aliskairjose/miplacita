@@ -60,10 +60,10 @@ export class CategoryService {
    * @param shopId Id de la tienda
    * @param categoryId Id de la categoria a consultar
    */
-  getSubcategory( shopId: string, categoryId = '' ): Observable<Category[]> {
-    return this.http.get( `categories/subcategory?store=${shopId}&category=${categoryId}` ).pipe(
+  getSubcategory( params = '' ): Observable<Category[]> {
+    return this.http.get( `categories/subcategory?${params}` ).pipe(
       map( response => {
-        if ( response.success ) { return response.categories; }
+        if ( response.success ) { return response.subcategories; }
       } )
     );
   }
