@@ -15,7 +15,8 @@ const state = {
   products: JSON.parse( localStorage.products || '[]' ),
   wishlist: JSON.parse( localStorage.wishlistItems || '[]' ),
   compare: JSON.parse( localStorage.compareItems || '[]' ),
-  cart: JSON.parse( localStorage.cartItems || '[]' )
+  cart: JSON.parse( localStorage.cartItems || '[]' ),
+  sessionStore: JSON.parse( sessionStorage.sessionStore || null )
 };
 
 @Injectable( {
@@ -267,8 +268,12 @@ export class ProductService {
     ---------------------------------------------
   */
 
+
   // Get Cart Items
   public get cartItems(): Observable<Product[]> {
+    if ( state.sessionStore ) {
+      state.cart = state.cart.filter( item => item.store._id === state.sessionStore._id );
+    }
     const itemsStream = new Observable( observer => {
       observer.next( state.cart );
       observer.complete();

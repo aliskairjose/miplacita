@@ -29,22 +29,24 @@ export class StorePageComponent implements OnInit {
     private route: ActivatedRoute,
     private storeService: ShopService,
     private productService: ProductService,
-    private categoriesSevice: CategoryService ) {
-
-  }
-
-  ngOnInit(): void {
+    private categoriesSevice: CategoryService
+  ) {
 
     this.route.url.subscribe( ( url ) => {
       this.storeService.getStoreByUrl( url[ 0 ].path.toLocaleLowerCase() ).subscribe( store => {
+        sessionStorage.setItem( 'sessionStore', JSON.stringify( store ) );
+
         this.store = { ...store };
         this.sliders = this.store.config.images;
         this.getCollectionProducts( this.store._id );
-
         this.subCategoryList( this.store._id );
-        sessionStorage.setItem( 'sessionStore', JSON.stringify( this.store ) );
       } );
     } );
+
+  }
+
+
+  ngOnInit(): void {
   }
 
   private getCollectionProducts( id: string ): void {

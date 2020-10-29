@@ -8,6 +8,10 @@ import { Response, Result } from '../classes/response';
 import { ShipmentOption } from '../classes/shipment-option';
 import { User } from '../classes/user';
 
+const state = {
+  sessionStore: JSON.parse( sessionStorage.sessionStore || null ),
+};
+
 @Injectable( {
   providedIn: 'root'
 } )
