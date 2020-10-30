@@ -5,10 +5,10 @@
 <section class="section-b-space">
     <div class="container">
         <div class="page-title mb-5">
-			<h2 class="mp-title">
-				Tiendas
-			</h2>
-		</div>
+            <h2 class="mp-title">
+                Tiendas
+            </h2>
+        </div>
         <form action="" class="form-inline">
             <div class="input-group md-form form-sm form-1 pl-0">
                 <div class="input-group-prepend">
@@ -102,12 +102,12 @@
                                 </svg>
                             </div>
                         </td>
-                        
+
                     </tr>
                 </tbody>
             </table>
         </div>
-        <app-custom-pagination [items]="shops" [paginate]="paginate" (setPage)="setPage($event)">
+        <app-custom-pagination [items]="shops" [paginate]="paginate" (setPage)="setPage($event)" [hidden]="isReport">
         </app-custom-pagination>
     </div>
 </section>
