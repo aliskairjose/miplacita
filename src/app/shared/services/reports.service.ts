@@ -151,9 +151,9 @@ export class ReportsService {
    * ! Esta temporalmente mostrando todas las tiendas, activas e inactivas, debe cambiarse el api
    * @description Reporte de tiendas activas con membresia
    */
-  membershipActiveShop( page = 1, params = '' ): Observable<Result<Store>> {
+  membershipActiveShop( page = 1, params = '' ): Observable<Store[]> {
     return this.http.get( `stores?page=${page}&${params}` ).pipe(
-      map( ( response: Response<Store> ) => {
+      map( response => {
         if ( response.success ) {
           return response.result;
         }

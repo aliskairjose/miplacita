@@ -79,12 +79,13 @@
 						<tr *ngFor="let client of clients">
 							<td class="text-center">{{client.fullname}}</td>
 							<td class="text-center">{{ client.email }}</td>
-							<!-- <td class="text-center text-capitalize">{{ _role }}</td>
+							<td class="text-center">{{ client.created_at | date }}</td>
+							<td class="text-center text-capitalize">{{ client.role }}</td>
 							<td class="text-center">
 								<a class="btn btn-table-action" (click)="Interests.openModal(client)">
 									<i class="fa fa-search fa-lg" style="color: Dodgerblue"></i>
 								</a>
-							</td> -->
+							</td>
 						</tr>
 					</tbody>
 				</table>

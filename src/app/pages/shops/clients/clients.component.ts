@@ -18,7 +18,7 @@ export class ClientsComponent implements OnInit, OnChanges {
   @ViewChild( 'interests' ) Interests: InterestsComponent;
   @ViewChild( 'TABLE', { read: ElementRef } ) table: ElementRef;
 
-  fields = [ 'Cliente', 'Email' ];
+  fields = [ 'Cliente', 'Email', 'Fecha de registro', 'Role', 'Acción' ];
   clients: any = [];
   paginate: Paginate;
   roles = [
@@ -43,8 +43,8 @@ export class ClientsComponent implements OnInit, OnChanges {
   modelTo: NgbDateStruct;
   modelFrom: NgbDateStruct;
 
-
   @Input() store: Store;
+
   constructor(
     private auth: AuthService,
     private toastr: ToastrService,

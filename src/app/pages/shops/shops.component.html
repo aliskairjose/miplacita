@@ -107,7 +107,7 @@
                 </tbody>
             </table>
         </div>
-        <app-custom-pagination [items]="shops" [paginate]="paginate" (setPage)="setPage($event)" [hidden]="isReport">
+        <app-custom-pagination [items]="shops" [paginate]="paginate" (setPage)="setPage($event)" *ngIf="!isReport">
         </app-custom-pagination>
     </div>
 </section>

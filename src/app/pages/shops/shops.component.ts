@@ -42,9 +42,9 @@ export class ShopsComponent implements OnInit {
 
   private loadData( page = 1 ): void {
     // Reportes no llevan paginacion
-    this.reports.membershipActiveShop( page, `active=true&report=true` ).subscribe( ( result ) => {
+    this.reports.membershipActiveShop( page, `active=true&report=true` ).subscribe( result => {
       this.isReport = true;
-      this.shops = [ ...result.docs ];
+      this.shops = result;
     } );
   }
 
