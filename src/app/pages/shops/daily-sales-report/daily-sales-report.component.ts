@@ -29,7 +29,7 @@ export class DailySalesReportComponent implements OnInit, OnChanges {
 
   fields = [ 'Número de orden', 'Monto', 'Cliente', 'Fecha', 'Estado', '' ];
   fieldsAdmin = [ 'Tienda', 'Producto', 'Monto', 'Cantidades vendidas', 'Estado' ];
-  
+
   orders: Order[] = [];
   products = [];
   paginate: Paginate;
@@ -54,7 +54,7 @@ export class DailySalesReportComponent implements OnInit, OnChanges {
 
   ngOnInit(): void {
 
-    if(this.store){
+    if ( this.store ) {
       this.shopService.storeObserver().subscribe( ( store: Store ) => {
         if ( store ) {
           this.store = { ...store };
@@ -64,13 +64,13 @@ export class DailySalesReportComponent implements OnInit, OnChanges {
     } else {
       this.init();
     }
-    
+
   }
 
   ngOnChanges( changes: SimpleChanges ): void {
     this.role = this.auth.getUserRol();
 
-    if(this.role == 'merchant'){
+    if ( this.role == 'merchant' ) {
       this.store = JSON.parse( sessionStorage.getItem( 'store' ) );
 
     }
@@ -105,8 +105,8 @@ export class DailySalesReportComponent implements OnInit, OnChanges {
   }
 
   private loadData( page = 1 ): void {
-    let params = "";
-    if(this.role == 'merchant'){
+    let params = '';
+    if ( this.role === 'merchant' ) {
       params = `store=${this.store._id}&from=${this.fechaIni}&to=${this.fechaFin}`;
       this.reports.dailySales( page, params ).subscribe( result => {
         this.orders = [ ...result.docs ];
@@ -115,21 +115,21 @@ export class DailySalesReportComponent implements OnInit, OnChanges {
         for ( let i = 1; i <= this.paginate.totalPages; i++ ) {
           this.paginate.pages.push( i );
         }
-  
+
       } );
     } else {
-      if(this.type == 'daily-sales'){
+      if ( this.type == 'daily-sales' ) {
 
-        this.reports.dailySalesProducts().subscribe(result => {
-          console.log("daily sales all",result);
+        this.reports.dailySalesProducts().subscribe( result => {
+          console.log( "daily sales all", result );
           //
-        })
-      } else if(this.type == 'daily-sales-mp'){
+        } )
+      } else if ( this.type == 'daily-sales-mp' ) {
 
-        this.reports.dailySalesProductsMP().subscribe(result => {
-          console.log("daily sales mp",result);
+        this.reports.dailySalesProductsMP().subscribe( result => {
+          console.log( "daily sales mp", result );
 
-        })
+        } )
       }
     }
   }
