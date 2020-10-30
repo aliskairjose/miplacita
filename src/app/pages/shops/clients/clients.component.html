@@ -10,7 +10,7 @@
 		</div>
 		<form class="theme-form">
 			<!-- Filtros -->
-			<div class="d-flex search">
+			<div class="d-flex search" *ngIf="role === 'admin'">
 				<div class="form-group" id="state">
 					<select name="model" class="form-control" [(ngModel)]="_role" (change)="onRoleChange($event.target.value)">
 						<option [value]="role.value" *ngFor="let role of roles" class="text-capitalize">{{ role.name }}
