@@ -97,7 +97,7 @@
 					<app-user-orders></app-user-orders>
 				</div>
 				<div *ngIf="active==='stores'" class="" id="contact" user.role="tabpanel">
-					<div *ngIf="user.role==='merchant'">
+					<div *ngIf="user.role==='merchant' || user.role==='client' ">
 						<app-stores-list [stores]="stores"></app-stores-list>
 					</div>
 					<app-shops *ngIf="user.role==='admin'"></app-shops>

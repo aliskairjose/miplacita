@@ -31,7 +31,8 @@ export class AccountManageComponent implements OnInit, OnChanges {
   clientOptions = [
     { name: 'Mi Perfil', id: 'user-icon', key: 'profile', icon: 'assets/images/marketplace/images/icons/profile.png'},
     { name: 'Mis Órdenes', key: 'orders', icon: 'assets/images/marketplace/images/icons/orders.png' },
-    { name: 'Referidos', key: 'referrals', icon: 'assets/images/marketplace/images/icons/orders.png' },
+    { name: 'Mis Tiendas', key: 'stores', icon: 'assets/images/marketplace/images/icons/store.png' },
+    // { name: 'Referidos', key: 'referrals', icon: 'assets/images/marketplace/images/icons/orders.png' },
     { name: 'Tarjetas', key: 'card', icon: 'assets/images/marketplace/images/icons/store.png' },
     { name: 'Ayuda',  id: 'big-icon', key: 'support', icon: 'assets/images/marketplace/images/icons/help.png'},
 
