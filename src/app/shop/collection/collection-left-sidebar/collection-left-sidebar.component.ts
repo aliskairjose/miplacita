@@ -109,6 +109,7 @@ export class CollectionLeftSidebarComponent implements OnInit {
   }
 
   loadProductList( page = 1 ): void {
+    this.params = `${this.params}&stock=true`;
     this.productService.productList( page, this.params ).subscribe( ( result: Result<Product> ) => {
       if ( state.sessionStore ) {
         this.products = result.docs.filter( item => item.store._id === state.sessionStore._id );

@@ -17,6 +17,7 @@ export class ShopsComponent implements OnInit {
   @ViewChild( 'shopDetails' ) ShopDetails: ShopDetailsComponent;
   @ViewChild( 'TABLE', { read: ElementRef } ) table: ElementRef;
 
+  isReport = false;
   searchText = '';
   fields = [ 'Tienda', 'Plan', 'Precio', 'Activo', 'Opciones' ];
   fieldsAdmin = [ 'Tienda', 'Dueño', 'Tipo de Membresía', 'Monto de membresía', 'Estado' ];
@@ -40,13 +41,10 @@ export class ShopsComponent implements OnInit {
   }
 
   private loadData( page = 1 ): void {
-    this.reports.membershipActiveShop( page, `active=true` ).subscribe( ( result ) => {
-      this.shops = [ ...result.docs ];
-      this.paginate = { ...result };
-      this.paginate.pages = [];
-      for ( let i = 1; i <= this.paginate.totalPages; i++ ) {
-        this.paginate.pages.push( i );
-      }
+    // Reportes no llevan paginacion
+    this.reports.membershipActiveShop( page, `active=true&report=true` ).subscribe( result => {
+      this.isReport = true;
+      this.shops = result;
     } );
   }
 
