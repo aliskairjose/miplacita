@@ -59,7 +59,6 @@ export class AccountManageComponent implements OnInit, OnChanges {
     { name: 'Términos y condiciones', key: 'terms', icon: 'assets/images/marketplace/images/icons/report.png'},
 
   ];
-    
 
   constructor(
     private router: Router,
@@ -99,7 +98,7 @@ export class AccountManageComponent implements OnInit, OnChanges {
     } );
 
     // Se cargas las tiendas solo de merchant
-    if ( this.user.role === 'merchant' ) {
+    if ( this.user.role === 'merchant' || this.user.role === 'client' ) {
 
       this.shopService.getMyStores( this.user._id ).subscribe( stores => {
         if ( stores.docs.length ) {
@@ -126,13 +125,13 @@ export class AccountManageComponent implements OnInit, OnChanges {
   updateTab( tab: string ) {
     this.active = tab;
     if ( this.active === 'reports' ) {
-      if(this.user.role == 'merchant'){
+      if (this.user.role === 'merchant'){
         this.updateSubtab( 'daily-sales' );
       } else {
         this.updateSubtab( 'sales-mp' );
       }
     } else if ( this.active === 'admin-store' ) {
-      this.subtab = 'store-profile'
+      this.subtab = 'store-profile';
     } else {
       this.router.navigateByUrl( `pages/account/user/${tab}`, { skipLocationChange: false } );
     }
