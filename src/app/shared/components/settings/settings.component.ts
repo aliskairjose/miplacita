@@ -1,4 +1,4 @@
-import { Component, OnInit, PLATFORM_ID, Inject, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, OnInit, PLATFORM_ID, Inject } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { Observable } from 'rxjs';
 import { TranslateService } from '@ngx-translate/core';
@@ -7,20 +7,21 @@ import { Product } from '../../classes/product';
 import { AuthService } from '../../services/auth.service';
 import { PreviousRouteService } from '../../services/previous-route.service';
 import { ShopService } from '../../services/shop.service';
-
+import { Store } from 'src/app/shared/classes/store';
 
 @Component( {
   selector: 'app-settings',
   templateUrl: './settings.component.html',
   styleUrls: [ './settings.component.scss' ]
 } )
-export class SettingsComponent implements OnInit, OnChanges {
+export class SettingsComponent implements OnInit {
 
   products: Product[] = [];
   isLoggedIn: boolean;
   role: string;
   _role = 'client';
   balance: number;
+  showBalance = false;
 
   constructor(
     @Inject( PLATFORM_ID ) private platformId: object,
@@ -31,13 +32,6 @@ export class SettingsComponent implements OnInit, OnChanges {
     private previousRoute: PreviousRouteService,
   ) {
     this.productService.cartItems.subscribe( response => { this.products = response; } );
-    this.shopService.storeObserver().subscribe( store => {
-      if ( store ) {
-        this.getAffiliate( store._id );
-      }
-    } );
-  }
-  ngOnChanges( changes: SimpleChanges ): void {
   }
 
   ngOnInit(): void {
@@ -45,6 +39,16 @@ export class SettingsComponent implements OnInit, OnChanges {
     this.role = this.auth.getUserRol();
     this.isLoggedIn = this.auth.isAuthenticated();
 
+    this.shopService.storeObserver().subscribe( store => {
+      if ( store ) {
+        this.getAffiliate( store._id );
+      }
+    } );
+
+    if ( sessionStorage.sessionStore ) {
+      const store: Store = JSON.parse( sessionStorage.sessionStore );
+      this.getAffiliate( store._id );
+    }
     this.auth.authObserver().subscribe( ( isAuth: boolean ) => {
       this.isLoggedIn = isAuth;
     } );
@@ -81,6 +85,8 @@ export class SettingsComponent implements OnInit, OnChanges {
   }
 
   private getAffiliate( storeId: string ): void {
+    this.showBalance = true;
+
     this.shopService.getAffiliate( storeId, this.auth.getUserActive()._id ).subscribe( response => {
       this.balance = response.amount;
     } );
