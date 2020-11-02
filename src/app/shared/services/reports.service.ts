@@ -32,7 +32,6 @@ export class ReportsService {
    */
   clientsMP( role: string, from: string, to: string ): Observable<any> {
     const params = `from=${from}&to=${to}&role=${role}`;
-    console.log( params );
     return this.http.get( `report/getClients?${params}` );
   }
 
@@ -40,7 +39,6 @@ export class ReportsService {
    * @description Reorte de ventas diarias por producto
    */
   dailySalesProducts( params = '' ): Observable<any> {
-    console.log( params );
     return this.http.get( `report/getSalesReport?${params}` );
   }
 
