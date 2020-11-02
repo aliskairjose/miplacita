@@ -145,7 +145,7 @@ export class ReportsService {
    *
    * @description Reporte de tiendas activas con membresia
    */
-  membershipActiveShop( page = 1, params = '' ): Observable<Store[]> {
+  membershipActiveShop( page = 1, params = '' ): Observable<any> {
     return this.http.get( `stores?page=${page}&${params}` ).pipe(
       map( response => {
         if ( response.success ) {

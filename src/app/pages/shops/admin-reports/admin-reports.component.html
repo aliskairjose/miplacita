@@ -17,7 +17,7 @@
             <app-percentage-mp-products *ngIf="subtab == 'sales-mp'"></app-percentage-mp-products>
             <app-sales-tdc *ngIf="subtab == 'tdc'"></app-sales-tdc>
             <app-best-sellers *ngIf="subtab == 'best-sellers'"></app-best-sellers>
-            <app-shops type="report" *ngIf="subtab == 'store-membership'"></app-shops>
+            <app-shops [isReport]="true" *ngIf="subtab == 'store-membership'"></app-shops>
             <app-daily-sales-report type="daily-sales" *ngIf="subtab == 'daily-sales'"></app-daily-sales-report>
 
             <app-daily-sales-report type="daily-sales-mp" *ngIf="subtab == 'daily-sell-mp'"></app-daily-sales-report>
