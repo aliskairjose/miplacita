@@ -31,7 +31,7 @@ export class ReferralsComponent implements OnInit {
 
   }
   get f() { return this.referralForm.controls; }
-  
+
   setPage( page: number ) {
     this.loadData( page );
   }

@@ -39,10 +39,10 @@
 		<div class="table-responsive-sm mt-3">
 			<table class="table " id="mp-table" #TABLE>
 				<thead>
-					<tr class="table-head text-center" *ngIf="type == 'stores'">
+					<tr class="table-head text-center" *ngIf="!isReport">
 						<th *ngFor="let field of fields" scope="col">{{field}}</th>
 					</tr>
-					<tr class="table-head text-center" *ngIf="type == 'report'">
+					<tr class="table-head text-center" *ngIf="isReport">
 						<th *ngFor="let field of fieldsAdmin" scope="col">{{field}}</th>
 					</tr>
 				</thead>
