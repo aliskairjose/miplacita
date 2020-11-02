@@ -104,31 +104,30 @@ export class DailySalesReportComponent implements OnInit, OnChanges {
   private loadData( page = 1 ): void {
     let params = '';
     if ( this.role === 'merchant' ) {
-      params = `store=${this.store._id}&from=${this.fechaIni}&to=${this.fechaFin}`;
-      this.reports.dailySales( page, params ).subscribe( result => {
-        this.orders = [ ...result.docs ];
-        this.paginate = { ...result };
-        this.paginate.pages = [];
-        for ( let i = 1; i <= this.paginate.totalPages; i++ ) {
-          this.paginate.pages.push( i );
-        }
-
-      } );
+      params = `store=${this.store._id}&from=${this.fechaIni}&to=${this.fechaFin}&report=true`;
+      this.dailySales( params );
     } else {
-      if ( this.type == 'daily-sales' ) {
-
-        this.reports.dailySalesProducts().subscribe( result => {
-          console.log( "daily sales all", result );
-          //
-        } )
-      } else if ( this.type == 'daily-sales-mp' ) {
-
-        this.reports.dailySalesProductsMP().subscribe( result => {
-          console.log( "daily sales mp", result );
-
-        } )
+      if ( this.type === 'daily-sales' ) {
+        // Ventas diarias por productos
+        params = `from=${this.fechaIni}&to=${this.fechaFin}&store${this.store._id}`;
+      } else if ( this.type === 'daily-sales-mp' ) {
+        // Ventas diarias por productos MP
+        params = `from=${this.fechaIni}&to=${this.fechaFin}`;
       }
+      this.dailySalesProducts( params );
     }
+  }
+
+  private dailySales( params: string ): void {
+    this.reports.dailySales( params ).subscribe( result => {
+      this.orders = [ ...result ];
+    } );
+  }
+
+  private dailySalesProducts( params ): void {
+    this.reports.dailySalesProducts( params ).subscribe( response => {
+      this.orders = response.result;
+    } );
   }
 
 
@@ -138,7 +137,7 @@ export class DailySalesReportComponent implements OnInit, OnChanges {
 
   /************************************** */
   ExportTOExcel() {
-    this.exportDoc.ExportTOExcel( this.table.nativeElement, "daily-report" );
+    this.exportDoc.ExportTOExcel( this.table.nativeElement, 'daily-report' );
   }
 
   ExportTOPDF() {

@@ -37,17 +37,11 @@ export class ReportsService {
   }
 
   /**
-   * @description Reorte de ventas diarias por producto MP
-   */
-  dailySalesProductsMP(): Observable<any> {
-    return this.http.get( `` );
-  }
-
-  /**
    * @description Reorte de ventas diarias por producto
    */
-  dailySalesProducts(): Observable<any> {
-    return this.http.get( `` );
+  dailySalesProducts( params = '' ): Observable<any> {
+    console.log( params );
+    return this.http.get( `report/getSalesReport?${params}` );
   }
 
   /**
@@ -60,8 +54,8 @@ export class ReportsService {
   /**
    * @description Reporte productos mas vendidos MP
    */
-  bestSellersMP(): Observable<any> {
-    return this.http.get( `` );
+  bestSellersMP( params = '' ): Observable<any> {
+    return this.http.get( `products?${params}` );
   }
 
   /*
@@ -75,9 +69,9 @@ export class ReportsService {
    * @param page Pagina que desea mostrar
    * @param params ID Id de la tienda
    */
-  bestSellers( page = 1, params = '' ): Observable<Result<Product>> {
+  bestSellers( page = 1, params = '' ): Observable<Product[]> {
     return this.http.get( `products?page=${page}&${params}` ).pipe(
-      map( ( response: Response<Product> ) => {
+      map( ( response ) => {
         if ( response.success ) {
           return response.result;
         }
@@ -148,10 +142,10 @@ export class ReportsService {
   }
 
   /**
-   * ! Esta temporalmente mostrando todas las tiendas, activas e inactivas, debe cambiarse el api
+   *
    * @description Reporte de tiendas activas con membresia
    */
-  membershipActiveShop( page = 1, params = '' ): Observable<Store[]> {
+  membershipActiveShop( page = 1, params = '' ): Observable<any> {
     return this.http.get( `stores?page=${page}&${params}` ).pipe(
       map( response => {
         if ( response.success ) {
@@ -180,10 +174,10 @@ export class ReportsService {
    * @param page Pagina a consultar
    * @param params Id de la tienda | Fecha
    */
-  dailySales( page = 1, params = '' ): Observable<Result<Order>> {
-    return this.http.get( `order?page=${page}&${params}` ).pipe(
-      map( ( response: Response<Order> ) => {
-        return response.result;
+  dailySales( params = '' ): Observable<any> {
+    return this.http.get( `order?page=${params}` ).pipe(
+      map( ( response ) => {
+        if ( response.success ) { return response.result; }
       } )
     );
   }
