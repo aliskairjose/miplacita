@@ -174,10 +174,10 @@ export class ReportsService {
    * @param page Pagina a consultar
    * @param params Id de la tienda | Fecha
    */
-  dailySales( page = 1, params = '' ): Observable<Result<Order>> {
-    return this.http.get( `order?page=${page}&${params}` ).pipe(
-      map( ( response: Response<Order> ) => {
-        return response.result;
+  dailySales( params = '' ): Observable<any> {
+    return this.http.get( `order?page=${params}` ).pipe(
+      map( ( response ) => {
+        if ( response.success ) { return response.result; }
       } )
     );
   }

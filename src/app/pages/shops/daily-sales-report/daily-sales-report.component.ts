@@ -119,13 +119,8 @@ export class DailySalesReportComponent implements OnInit, OnChanges {
   }
 
   private dailySales( params: string ): void {
-    this.reports.dailySales( 1, params ).subscribe( result => {
-      this.orders = [ ...result.docs ];
-      this.paginate = { ...result };
-      this.paginate.pages = [];
-      for ( let i = 1; i <= this.paginate.totalPages; i++ ) {
-        this.paginate.pages.push( i );
-      }
+    this.reports.dailySales( params ).subscribe( result => {
+      this.orders = [ ...result ];
     } );
   }
 
