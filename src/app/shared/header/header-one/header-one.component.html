@@ -23,7 +23,7 @@
               <!-- Mi cuenta -->
               <ul class="onhover-show-div">
                 <!-- Cuando no ha iniciado sesión -->
-                <div >
+                <div>
                   <li>
                     <!-- <i class="fa fa-sign-in" aria-hidden="true"></i>  -->
                     <a [routerLink]="[ '/pages/login' ]">Iniciar sesión</a>
@@ -72,8 +72,8 @@
               </a>
             </div>
           </div>
-          <div class="d-flex col-sm-8 col-md-8 col-lg-8 align-items-center" 
-              [ngClass]="{'lg-device':hasSearchBar, 'no-show': !hasSearchBar}" >
+          <div class="d-flex col-sm-8 col-md-8 col-lg-8 align-items-center"
+            [ngClass]="{'lg-device':hasSearchBar, 'no-show': !hasSearchBar}">
             <div class="b pt-2 w-100 ">
               <div class="search-bar" [hidden]="!hasSearchBar">
                 <app-search [categories]="categories"></app-search>
@@ -85,7 +85,7 @@
               <app-menu [hidden]="!isHidde"></app-menu>
             </div>
             <div [hidden]="isHidde">
-              <app-settings [showBalance]="showBalance"></app-settings>
+              <app-settings></app-settings>
             </div>
           </div>
         </div>

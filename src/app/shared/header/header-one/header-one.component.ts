@@ -14,7 +14,6 @@ import { StorageService } from '../../services/storage.service';
   styleUrls: [ './header-one.component.scss' ]
 } )
 export class HeaderOneComponent implements OnInit {
-  @Input() showBalance = false;
   stick = false;
   isLoggedIn: boolean;
   role: string;
