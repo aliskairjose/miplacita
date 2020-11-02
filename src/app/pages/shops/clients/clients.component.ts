@@ -90,21 +90,16 @@ export class ClientsComponent implements OnInit, OnChanges {
     this.modelFrom = this.modelTo = this.ngbCalendar.getToday();
     this.fechaIni = this.parseDate.format( this.modelFrom );
     this.fechaFin = this.parseDate.format( this.modelTo );
-
+    this.loadData();
   }
 
-  private loadData( page = 1 ): void {
+  private loadData(): void {
 
     if ( this.role === 'merchant' ) {
       const params = `store=${this.store._id}`;
 
       this.reports.clients( params ).subscribe( result => {
         this.clients = result;
-        this.paginate = { ...result };
-        this.paginate.pages = [];
-        for ( let i = 1; i <= this.paginate.totalPages; i++ ) {
-          this.paginate.pages.push( i );
-        }
       } );
     }
 
@@ -114,11 +109,6 @@ export class ClientsComponent implements OnInit, OnChanges {
       } );
     }
 
-  }
-
-
-  setPage( page: number ) {
-    this.loadData( page );
   }
 
   ExportTOExcel() {
