@@ -260,6 +260,16 @@ export class ShopService {
     ---------------------------------------------
   */
 
+  getAffiliate( storeId: string, userId: string ): Observable<any> {
+    return this.http.get( `users/affiliate/program?store=${storeId}&user=${userId}` ).pipe(
+      map( response => {
+        if ( response.success ) {
+          return response.result;
+        }
+      } )
+    );
+  }
+
   /**
    * @description Actualiza la data de referido
    * @param id Id de la tienda

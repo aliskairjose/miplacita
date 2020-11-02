@@ -40,6 +40,7 @@ export class StorePageComponent implements OnInit {
         this.sliders = this.store.config.images;
         this.getCollectionProducts( this.store._id );
         this.subCategoryList( this.store._id );
+        this.storeService.storeSubject( this.store );
       } );
     } );
 

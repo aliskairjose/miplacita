@@ -43,7 +43,6 @@ export class ShopsComponent implements OnInit, OnChanges {
 
   ngOnInit(): void {
     this.loadData();
-
   }
 
   deactivateStore( store: Store ): void {

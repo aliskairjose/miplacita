@@ -1,4 +1,4 @@
-import { Component, OnInit, PLATFORM_ID, Inject } from '@angular/core';
+import { Component, OnInit, PLATFORM_ID, Inject, OnChanges, SimpleChanges } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { Observable } from 'rxjs';
 import { TranslateService } from '@ngx-translate/core';
@@ -6,28 +6,38 @@ import { ProductService } from '../../services/product.service';
 import { Product } from '../../classes/product';
 import { AuthService } from '../../services/auth.service';
 import { PreviousRouteService } from '../../services/previous-route.service';
+import { ShopService } from '../../services/shop.service';
+
 
 @Component( {
   selector: 'app-settings',
   templateUrl: './settings.component.html',
   styleUrls: [ './settings.component.scss' ]
 } )
-export class SettingsComponent implements OnInit {
+export class SettingsComponent implements OnInit, OnChanges {
 
   products: Product[] = [];
   isLoggedIn: boolean;
   role: string;
   _role = 'client';
-  storeId: string;
-  balance = 0;
+  balance: number;
+
   constructor(
     @Inject( PLATFORM_ID ) private platformId: object,
     public auth: AuthService,
+    private shopService: ShopService,
     private translate: TranslateService,
     public productService: ProductService,
     private previousRoute: PreviousRouteService,
   ) {
     this.productService.cartItems.subscribe( response => { this.products = response; } );
+    this.shopService.storeObserver().subscribe( store => {
+      if ( store ) {
+        this.getAffiliate( store._id );
+      }
+    } );
+  }
+  ngOnChanges( changes: SimpleChanges ): void {
   }
 
   ngOnInit(): void {
@@ -43,6 +53,7 @@ export class SettingsComponent implements OnInit {
       this._role = 'merchant';
     }
   }
+
 
   changeLanguage( code ) {
     if ( isPlatformBrowser( this.platformId ) ) {
@@ -67,6 +78,12 @@ export class SettingsComponent implements OnInit {
    */
   loggOut(): void {
     this.auth.logout();
+  }
+
+  private getAffiliate( storeId: string ): void {
+    this.shopService.getAffiliate( storeId, this.auth.getUserActive()._id ).subscribe( response => {
+      this.balance = response.amount;
+    } );
   }
 
 }
