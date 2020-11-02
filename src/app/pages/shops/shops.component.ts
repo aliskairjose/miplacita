@@ -47,12 +47,13 @@ export class ShopsComponent implements OnInit, OnChanges {
   }
 
   deactivateStore( store: Store ): void {
+    console.log( store );
     this.confirmationDialogService
       .confirm(
         'Por favor confirme...',
         `¿Realmente desea activar/desactivar la tienda ${store.name}?`,
-        'Si, aplicar!',
-        'No aplicar',
+        'Si, desactivar!',
+        'No desactivar',
         'lg'
       )
       .then( ( confirmed ) => {
