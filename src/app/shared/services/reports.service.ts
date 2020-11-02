@@ -37,17 +37,11 @@ export class ReportsService {
   }
 
   /**
-   * @description Reorte de ventas diarias por producto MP
-   */
-  dailySalesProductsMP(): Observable<any> {
-    return this.http.get( `` );
-  }
-
-  /**
    * @description Reorte de ventas diarias por producto
    */
-  dailySalesProducts(): Observable<any> {
-    return this.http.get( `` );
+  dailySalesProducts( params = '' ): Observable<any> {
+    console.log( params );
+    return this.http.get( `report/getSalesReport?${params}` );
   }
 
   /**
@@ -60,8 +54,8 @@ export class ReportsService {
   /**
    * @description Reporte productos mas vendidos MP
    */
-  bestSellersMP(): Observable<any> {
-    return this.http.get( `` );
+  bestSellersMP( params = '' ): Observable<any> {
+    return this.http.get( `products?${params}` );
   }
 
   /*
@@ -148,7 +142,7 @@ export class ReportsService {
   }
 
   /**
-   * ! Esta temporalmente mostrando todas las tiendas, activas e inactivas, debe cambiarse el api
+   *
    * @description Reporte de tiendas activas con membresia
    */
   membershipActiveShop( page = 1, params = '' ): Observable<Store[]> {

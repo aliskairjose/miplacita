@@ -69,10 +69,10 @@ export class BestSellersComponent implements OnInit, OnChanges {
       } );
     }
 
-    if ( this.role == 'admin' ) {
-      const params = `store=${this.store._id}&best=${this.order}`;
+    if ( this.role === 'admin' ) {
+      const params = `best=${this.order}&report=true`;
       this.reports.bestSellersMP().subscribe( result => {
-        console.log( "mas vendidos MP" );
+        console.log( result );
       } );
     }
 
