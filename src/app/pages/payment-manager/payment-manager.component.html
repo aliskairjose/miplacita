@@ -1,0 +1,41 @@
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 ">
+                <div class="page-title mb-5">
+                    <h2 class="mp-title">
+                        Método de pago
+                    </h2>
+                </div>
+                <div class="row border-box">
+                    <div class="col-lg-6 col-md-12 col-sm-12 ">
+                        <h5>Tarjetas registradas</h5>
+                       
+                        <div *ngFor="let card of cards; let i=index">
+                            <div class="row mb-3">
+                                <div class="option-box d-flex mx-auto py-3">
+                                    <div class="col-md-12">
+                                        <p class="my-auto">{{card.name}} {{ card.numberCard }} {{card.type}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row col-lg-12 col-sm-12 align-items-center mp-side-menu-responsive ">
+                            <input type="checkbox">
+                            <p>Actualizar tarjeta</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-sm-0 ">
+                        <app-payment ></app-payment>
+                        <div class="row justify-content-end">
+                            <button class="btn btn-solid-purple">
+                                Actualizar tarjeta
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</section>

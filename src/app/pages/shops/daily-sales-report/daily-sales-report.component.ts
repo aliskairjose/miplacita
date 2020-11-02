@@ -29,7 +29,6 @@ export class DailySalesReportComponent implements OnInit, OnChanges {
 
   fields = [ 'Número de orden', 'Monto', 'Cliente', 'Fecha', 'Estado', '' ];
   fieldsAdmin = [ 'Tienda', 'Producto', 'Monto', 'Cantidades vendidas', 'Estado' ];
-
   orders: Order[] = [];
   products = [];
   paginate: Paginate;
@@ -64,7 +63,6 @@ export class DailySalesReportComponent implements OnInit, OnChanges {
     } else {
       this.init();
     }
-
   }
 
   ngOnChanges( changes: SimpleChanges ): void {
@@ -72,9 +70,9 @@ export class DailySalesReportComponent implements OnInit, OnChanges {
 
     if ( this.role == 'merchant' ) {
       this.store = JSON.parse( sessionStorage.getItem( 'store' ) );
-
+      this.init();
     }
-    this.init();
+
   }
 
   filtrar(): void {
@@ -88,7 +86,6 @@ export class DailySalesReportComponent implements OnInit, OnChanges {
       this.toastr.warning( 'La fecha inicial no debe ser menor a la final' );
       return;
     }
-
     this.loadData();
   }
 

@@ -19,7 +19,7 @@ export class SettingsComponent implements OnInit {
   role: string;
   _role = 'client';
   storeId: string;
-
+  balance = 0;
   constructor(
     @Inject( PLATFORM_ID ) private platformId: object,
     public auth: AuthService,

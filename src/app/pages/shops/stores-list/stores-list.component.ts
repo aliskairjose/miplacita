@@ -1,5 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Store } from 'src/app/shared/classes/store';
+import { User } from 'src/app/shared/classes/user';
+import { AuthService } from 'src/app/shared/services/auth.service';
 
 @Component({
   selector: 'app-stores-list',
@@ -8,7 +10,13 @@ import { Store } from 'src/app/shared/classes/store';
 })
 export class StoresListComponent implements OnInit {
   @Input() stores: Store[] = [];
-  constructor() { }
+  user: User;
+  constructor(
+    private auth: AuthService
+  ) {
+    this.user = this.auth.getUserActive();
+
+   }
 
   ngOnInit(): void {
   }

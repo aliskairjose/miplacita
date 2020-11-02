@@ -81,9 +81,10 @@ export class DashboardComponent implements OnInit {
     this.getLabelsInformation();
     this.loadData();
   }
+
   getLabelsInformation() {
-      let params = ''
-    if(this.role == 'merchant'){
+    let params = '';
+    if (this.role === 'merchant'){
       params = `store=${this.store._id}`;
       this.dashboardService.dashboard_store(params).subscribe( ( data: any ) => {
         console.log("----->", data);
@@ -126,20 +127,15 @@ export class DashboardComponent implements OnInit {
           })
         }
         this.barChartData.push({data: barTemporal});
-  
+
       });
     } else {
       this.dashboardService.dashboard().subscribe((response: any) =>{
-        console.log("admin ",response);
-        if(response.success){
+        if (response.success){
           this.dashboardData = response.result;
-
         }
-      })
+      });
     }
-
-
-
   }
 
 
@@ -161,8 +157,6 @@ export class DashboardComponent implements OnInit {
 
   private loadData( page = 1 ): void {
     let params = '';
-   
-    // const params = `store=${this.store._id}&status=${this.status}&from=${this.fechaIni}&to=${this.fechaFin}`;
     if ( this.role === 'merchant' ) {
       params = `store=${this.store._id}`;
       this.orderService.orderList( page, params ).subscribe( result => {
@@ -174,14 +168,9 @@ export class DashboardComponent implements OnInit {
         }
       } );
     }
-
     if ( this.role === 'admin' ) {
       params = `status=&from=&to=`;
     }
-    
-
-
-
   }
 
 }

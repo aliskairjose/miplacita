@@ -27,7 +27,7 @@
                                 <div class="form-row container justify-content-center " *ngIf="stores.length==0">
                                     <div class="col-md-5">
                                         <div class="card text-center mx-auto mb-2">
-                                            <div class="card-body">
+                                            <div class="card-body" *ngIf="user.role == 'merchant'">
                                                 <p>
                                                     Aún no has creado tu primera tienda.
                                                     Configura una tienda y empieza a vender!
@@ -35,6 +35,11 @@
                                                 <a class="btn btn-solid-purple" [routerLink]="['/pages/account/user/admin-store']">
                                                     Configurar tienda
                                                 </a>
+                                            </div>
+                                            <div class="card-body" *ngIf="user.role == 'client'">
+                                                <p>
+                                                    Aún no has realizado ninguna compra.
+                                                </p>
                                             </div>
                                         </div>
                                     </div>

@@ -71,5 +71,31 @@
         </div>
       </div>
     </li>
+    <!-- Saldo referido -->
+    <li  *ngIf="isLoggedIn && role === 'client'" class="onhover-div mobile-balance ">
+      <div>
+        <img src="assets/images/marketplace/images/icons/saldo.png" class="img-fluid" id="user-icon-header" alt="">
+        <i class="ti-money" aria-hidden="true"></i>
+      </div>
+      <div class="show-div setting mp-setting">
+        <div>
+          <div class="total d-flex ">
+            <div class="balance">
+              <h5>Saldo</h5>
+            </div>
+            <div class="mx-auto">
+              <h5><span>{{ balance | currency}}</span></h5>
+            </div>
+          </div>
+          <hr>
+          <div class="text-center">
+            <div class="mp-item-menu text-referred">
+              <strong>Referir a un amigo</strong>
+            </div>
+          </div>
+        </div>
+        
+      </div>
+    </li>
   </ul>
 </div>

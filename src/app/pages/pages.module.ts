@@ -81,6 +81,7 @@ import { CommissionsComponent } from './commissions/commissions.component';
 import { MembershipsComponent } from './memberships/memberships.component';
 import { CreateMembershipComponent } from './create-membership/create-membership.component';
 import { EditorModule } from "@tinymce/tinymce-angular";
+import { PaymentManagerComponent } from './payment-manager/payment-manager.component';
 // export let options: Partial<IConfig> | (() => Partial<IConfig>);
 const maskConfig: Partial<IConfig> = {
   validation: false,
@@ -168,6 +169,7 @@ export const customCurrencyMaskConfig = {
     CommissionsComponent,
     MembershipsComponent,
     CreateMembershipComponent,
+    PaymentManagerComponent,
   ],
   imports: [
     SharedModule,
