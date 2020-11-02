@@ -69,9 +69,9 @@ export class ReportsService {
    * @param page Pagina que desea mostrar
    * @param params ID Id de la tienda
    */
-  bestSellers( page = 1, params = '' ): Observable<Result<Product>> {
+  bestSellers( page = 1, params = '' ): Observable<Product[]> {
     return this.http.get( `products?page=${page}&${params}` ).pipe(
-      map( ( response: Response<Product> ) => {
+      map( ( response ) => {
         if ( response.success ) {
           return response.result;
         }
