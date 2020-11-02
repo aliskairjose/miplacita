@@ -1,4 +1,4 @@
-import { Component, OnInit, PLATFORM_ID, Inject } from '@angular/core';
+import { Component, OnInit, PLATFORM_ID, Inject, Input } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { Observable } from 'rxjs';
 import { TranslateService } from '@ngx-translate/core';
@@ -8,6 +8,7 @@ import { AuthService } from '../../services/auth.service';
 import { PreviousRouteService } from '../../services/previous-route.service';
 import { ShopService } from '../../services/shop.service';
 import { Store } from 'src/app/shared/classes/store';
+import { ActivatedRoute } from '@angular/router';
 
 @Component( {
   selector: 'app-settings',
@@ -15,7 +16,6 @@ import { Store } from 'src/app/shared/classes/store';
   styleUrls: [ './settings.component.scss' ]
 } )
 export class SettingsComponent implements OnInit {
-
   products: Product[] = [];
   isLoggedIn: boolean;
   role: string;
@@ -30,12 +30,12 @@ export class SettingsComponent implements OnInit {
     private translate: TranslateService,
     public productService: ProductService,
     private previousRoute: PreviousRouteService,
+    private router: ActivatedRoute
   ) {
     this.productService.cartItems.subscribe( response => { this.products = response; } );
   }
 
   ngOnInit(): void {
-
     this.role = this.auth.getUserRol();
     this.isLoggedIn = this.auth.isAuthenticated();
 

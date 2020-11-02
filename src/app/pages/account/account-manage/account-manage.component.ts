@@ -68,6 +68,7 @@ export class AccountManageComponent implements OnInit, OnChanges {
     private shopService: ShopService,
     private modalService: NgbModal
   ) {
+    console.log("----------- referidos merchant -----------");
     this.user = this.auth.getUserActive();
   }
   ngOnChanges( changes: SimpleChanges ): void {

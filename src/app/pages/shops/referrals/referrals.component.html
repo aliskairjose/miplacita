@@ -8,7 +8,7 @@
                 <span>Referidos</span>
             </h2>
         </div>
-        <div class="row justify-content-center">
+        <div class="row justify-content-center" *ngIf="user.role === 'client' ">
             <div class="col-lg-5 col-md-12 col-sm-12 border-box mb-2">
                 <div class="page-title">
                     <h2 class="mp-title">
@@ -40,6 +40,39 @@
                         </div>
                     </div>
                 </form>
+            </div>
+        </div>
+        <div class="row justify-content-center" *ngIf="user.role === 'merchant' ">
+            <div class="form-row flex-fill flex-column mt-5 px-1">
+                <div class="table-responsive">
+                    <table class="table table-responsive-sm" >
+                        <thead>
+                            <tr class="table-head">
+                                <th class="text-center text-uppercase" *ngFor="let field of fields" scope="col">{{field}}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let referral of referrals">
+                                
+
+                            </tr>
+                        </tbody>
+
+                    </table>
+
+                </div>
+                <app-custom-pagination [items]="referrals" [paginate]="paginate" (setPage)="setPage($event)"></app-custom-pagination>
+                <div class="form-row container justify-content-center " *ngIf="referrals.length==0 ">
+                    <div class="col-md-5">
+                        <div class="card text-center mx-auto mb-2">
+                            <div class="card-body">
+                                <p *ngIf="referrals.length==0">
+                                    No hay referidos para esta tienda
+                                </p>    
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
