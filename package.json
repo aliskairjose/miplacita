@@ -71,6 +71,7 @@
     "ng5-slider": "^1.2.4",
     "ngx-alerts": "^10.0.0",
     "ngx-bar-rating": "^1.1.0",
+    "ngx-clipboard": "^14.0.1",
     "ngx-color-picker": "^10.0.1",
     "ngx-currency": "^2.3.3",
     "ngx-google-places-autocomplete": "^2.0.4",
