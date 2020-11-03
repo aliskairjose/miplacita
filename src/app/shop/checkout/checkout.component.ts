@@ -30,6 +30,8 @@ export class CheckoutComponent implements OnInit {
   amount: any;
   shipmentPrice = 0;
   totalPrice = 0;
+  referedAmount = 0;
+  private _totalPrice: number;
 
   @ViewChild( 'payment' ) payment: PaymentComponent;
 
@@ -73,7 +75,7 @@ export class CheckoutComponent implements OnInit {
 
     this.subTotal.subscribe( amount => {
       this.amount = amount;
-      this.totalPrice = amount + this.shipmentPrice;
+      this._totalPrice = this.totalPrice = amount + this.shipmentPrice;
     } );
 
 
@@ -85,6 +87,16 @@ export class CheckoutComponent implements OnInit {
 
   public get total(): Observable<number> {
     return this.productService.cartTotalAmount();
+  }
+
+  getAmount( amount: number ): void {
+    if ( !amount ) {
+      this.totalPrice = this._totalPrice;
+      this.referedAmount = 0;
+      return;
+    }
+    this.referedAmount = amount;
+    this.totalPrice = this.totalPrice - amount;
   }
 
   onSubmit(): void {

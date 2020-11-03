@@ -22,18 +22,25 @@ export class PaymentComponent implements OnInit {
   { value: 11, name: 'Noviembre' },
   { value: 12, name: 'Diciembre' } ];
   years = [];
+  showReferedAmmount = false;
+  showInputAmount = false;
 
   @Input() submitted: boolean;
   @Output() enviado: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Output() amount: EventEmitter<number> = new EventEmitter<number>();
 
   constructor(
-    private _formBuilder: FormBuilder
+    private _formBuilder: FormBuilder,
   ) {
     this.createForm();
   }
 
 
   ngOnInit(): void {
+
+    if ( JSON.parse( sessionStorage.sessionStore ) ) {
+      this.showReferedAmmount = true;
+    }
     const date = new Date();
 
     this.years.push( date.getFullYear() );
@@ -47,6 +54,15 @@ export class PaymentComponent implements OnInit {
   onSubmit(): boolean {
     this.submitted = true;
     return this.paymentForm.valid;
+  }
+
+  onChange( event: boolean ): void {
+    this.showInputAmount = event;
+    if ( !event ) { this.amount.emit( 0 ); }
+  }
+
+  onInputChange( val: number ): void {
+    this.amount.emit( val );
   }
 
   private createForm(): void {
