@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 import { PaymentComponent } from '../../shared/components/payment/payment.component';
 import { StorageService } from '../../shared/services/storage.service';
 import { ShopService } from '../../shared/services/shop.service';
+import { Store } from '../../shared/classes/store';
 
 const state = {
   user: JSON.parse( localStorage.getItem( 'user' ) || null )
@@ -32,6 +33,7 @@ export class CheckoutComponent implements OnInit {
   totalPrice = 0;
   referedAmount = 0;
   private _totalPrice: number;
+  private _store: Store;
 
   @ViewChild( 'payment' ) payment: PaymentComponent;
 
@@ -60,18 +62,13 @@ export class CheckoutComponent implements OnInit {
   ngOnInit(): void {
     const date = new Date();
     const shipment = JSON.parse( sessionStorage.order );
-
+    if ( JSON.parse( sessionStorage.sessionStore ) ) {
+      this._store = JSON.parse( sessionStorage.sessionStore );
+    }
     shipment.cart.forEach( detail => {
       this.shipmentPrice += detail.shipment_price;
     } );
     this.productService.cartItems.subscribe( response => { this.products = response; } );
-
-    this.shopService.storeObserver().subscribe( store => {
-      if ( store ) {
-        const products = this.products.filter( item => item.store._id === store._id );
-        this.products = [ ...products ];
-      }
-    } );
 
     this.subTotal.subscribe( amount => {
       this.amount = amount;
@@ -102,9 +99,18 @@ export class CheckoutComponent implements OnInit {
 
   onSubmit(): void {
     this.submitted = true;
-    const order = JSON.parse( sessionStorage.order );
+    const payment = [];
+    let data: any = { valid: false, fullname: '' };
 
-    if ( this.payment.onSubmit() ) {
+    data = this.payment.onSubmit();
+    // Metodo de pago
+    payment.push( { credit_card: this.referedAmount, store: this._store._id, fullname: data.fullname } );
+    payment.push( { refered_amount: this.referedAmount, store: this._store._id } );
+
+    const order = JSON.parse( sessionStorage.order );
+    order.payment = payment;
+    // console.log( order )
+    if ( data.valid ) {
       this.orderService.createOrder( order ).subscribe( response => {
         if ( response.success ) {
           sessionStorage.removeItem( 'order' );

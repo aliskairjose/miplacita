@@ -56,7 +56,10 @@ export class PaymentComponent implements OnInit {
 
   onSubmit(): boolean {
     this.submitted = true;
-    return this.paymentForm.valid;
+    const data: any = { valid: false, fullname: '' };
+    data.valid = this.paymentForm.valid;
+    data.fullname = this.paymentForm.value.owner;
+    return data;
   }
 
   onChange( event: boolean ): void {
