@@ -9,7 +9,7 @@
         </label> </div>
       <div class="col">
         <input class="form-control" type="number" name="amount" value="" placeholder="Ingrese monto" autocomplete="off"
-          (keyup)="onInputChange($event.target.value)" [hidden]="!showInputAmount">
+          (keyup)="onInputChange($event.target.value)" [hidden]="!showInputAmount" min="0">
       </div>
     </div>
   </form>

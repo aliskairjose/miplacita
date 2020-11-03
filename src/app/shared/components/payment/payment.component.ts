@@ -1,5 +1,6 @@
-import { Component, OnInit, Input, EventEmitter, Output, OnChanges, SimpleChanges, AfterViewChecked } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output, ViewChild, AfterViewInit } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { SettingsComponent } from '../settings/settings.component';
 
 @Component( {
   selector: 'app-payment',
@@ -28,6 +29,8 @@ export class PaymentComponent implements OnInit {
   @Input() submitted: boolean;
   @Output() enviado: EventEmitter<boolean> = new EventEmitter<boolean>();
   @Output() amount: EventEmitter<number> = new EventEmitter<number>();
+
+  @ViewChild( 'settings' ) settings: SettingsComponent;
 
   constructor(
     private _formBuilder: FormBuilder,

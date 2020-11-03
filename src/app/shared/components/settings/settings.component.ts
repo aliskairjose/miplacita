@@ -82,6 +82,10 @@ export class SettingsComponent implements OnInit {
     return this.productService.cartTotalAmount();
   }
 
+  get getBalance(): number {
+    return this.balance;
+  }
+
   removeItem( product: any ) {
     this.productService.removeCartItem( product );
   }
