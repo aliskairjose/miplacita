@@ -95,6 +95,7 @@ export class CheckoutComponent implements OnInit {
       this.referedAmount = 0;
       return;
     }
+    this.totalPrice = this._totalPrice;
     this.referedAmount = amount;
     this.totalPrice = this.totalPrice - amount;
   }
