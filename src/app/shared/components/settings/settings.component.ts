@@ -9,6 +9,8 @@ import { PreviousRouteService } from '../../services/previous-route.service';
 import { ShopService } from '../../services/shop.service';
 import { Store } from 'src/app/shared/classes/store';
 import { ActivatedRoute } from '@angular/router';
+import { ClipboardService } from 'ngx-clipboard';
+import { ToastrService } from 'ngx-toastr';
 
 @Component( {
   selector: 'app-settings',
@@ -22,20 +24,28 @@ export class SettingsComponent implements OnInit {
   _role = 'client';
   balance: number;
   showBalance = false;
+  private _referedCode: string;
 
   constructor(
     @Inject( PLATFORM_ID ) private platformId: object,
     public auth: AuthService,
+    private toast: ToastrService,
     private shopService: ShopService,
     private translate: TranslateService,
     public productService: ProductService,
     private previousRoute: PreviousRouteService,
-    private router: ActivatedRoute
+    private _clipboardService: ClipboardService,
   ) {
     this.productService.cartItems.subscribe( response => { this.products = response; } );
   }
 
   ngOnInit(): void {
+    this._clipboardService.copyResponse$.subscribe( re => {
+      if ( re.isSuccess ) {
+        this.toast.info( 'El código se ha copiado al portapapeles!' );
+      }
+    } );
+
     this.role = this.auth.getUserRol();
     this.isLoggedIn = this.auth.isAuthenticated();
 
@@ -58,6 +68,9 @@ export class SettingsComponent implements OnInit {
     }
   }
 
+  callServiceToCopy() {
+    this._clipboardService.copy( this._referedCode );
+  }
 
   changeLanguage( code ) {
     if ( isPlatformBrowser( this.platformId ) ) {
@@ -89,6 +102,7 @@ export class SettingsComponent implements OnInit {
 
     this.shopService.getAffiliate( storeId, this.auth.getUserActive()._id ).subscribe( response => {
       this.balance = response.amount;
+      this._referedCode = response.code;
     } );
   }
 
