@@ -3,6 +3,11 @@ import { Observable } from 'rxjs';
 import { ProductService } from '../../shared/services/product.service';
 import { Product } from '../../shared/classes/product';
 import { environment } from '../../../environments/environment.prod';
+import { ShopService } from '../../shared/services/shop.service';
+
+const state = {
+  sessionStore: JSON.parse( sessionStorage.sessionStore || null ),
+};
 
 @Component( {
   selector: 'app-cart',
@@ -15,13 +20,13 @@ export class CartComponent implements OnInit {
   standardImage = environment.standardImage;
 
   constructor(
-    public productService: ProductService
+    public productService: ProductService,
   ) {
 
   }
 
   ngOnInit(): void {
-    this.productService.cartItems.subscribe( products => { this.products = [ ...products ]; } );
+    this.productService.cartItems.subscribe( products => { this.products = products; } );
   }
 
   public get getTotal(): Observable<number> {
@@ -40,7 +45,7 @@ export class CartComponent implements OnInit {
 
   removeItem( product: Product ) {
     const index = this.products.indexOf( product );
-    this.products.splice(index, 1);
+    this.products.splice( index, 1 );
     this.productService.removeCartItem( product );
   }
 

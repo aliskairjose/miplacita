@@ -143,8 +143,7 @@
 													<div class="field-label">Días de entrega</div>
 													<input type="number" class="form-control" id="available" required=""
 														formControlName="deliveryDays" [(ngModel)]="productData.deliveryDays">
-													<div *ngIf="submitted && f.deliveryDays.errors?.required"
-														class="invalid-feedback d-block">
+													<div *ngIf="submitted && f.deliveryDays.errors?.required" class="invalid-feedback d-block">
 														{{required}}
 													</div>
 												</div>
@@ -156,7 +155,8 @@
 											</p>
 										</div>
 										<div class="form-group d-flex justify-content-center">
-											<app-upload-image [multiple]="true" [imagesObject]="images" (uploadImage)="upload($event)" style="width: 100%;">
+											<app-upload-image [multiple]="true" [imagesObject]="images" (uploadImage)="upload($event)"
+												style="width: 100%;">
 											</app-upload-image>
 										</div>
 									</div>
@@ -341,7 +341,8 @@
 												</div>
 											</div>
 										</div>
-										<app-upload-image [multiple]="true" [imagesObject]="images" (uploadImage)="upload($event)" style="width: 100%;">
+										<app-upload-image [multiple]="true" [imagesObject]="images" (uploadImage)="upload($event)"
+											style="width: 100%;">
 										</app-upload-image>
 										<div class="save text-center p-3">
 											<button class="btn btn-solid-purple" type="button" (click)="saveVariable()">

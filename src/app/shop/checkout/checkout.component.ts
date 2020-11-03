@@ -9,6 +9,7 @@ import { OrderService } from '../../shared/services/order.service';
 import { Router } from '@angular/router';
 import { PaymentComponent } from '../../shared/components/payment/payment.component';
 import { StorageService } from '../../shared/services/storage.service';
+import { ShopService } from '../../shared/services/shop.service';
 
 const state = {
   user: JSON.parse( localStorage.getItem( 'user' ) || null )
@@ -36,7 +37,7 @@ export class CheckoutComponent implements OnInit {
   constructor(
     private router: Router,
     private fb: FormBuilder,
-    private storage: StorageService,
+    private shopService: ShopService,
     private orderService: OrderService,
     public productService: ProductService,
   ) {
@@ -63,10 +64,18 @@ export class CheckoutComponent implements OnInit {
     } );
     this.productService.cartItems.subscribe( response => { this.products = response; } );
 
+    this.shopService.storeObserver().subscribe( store => {
+      if ( store ) {
+        const products = this.products.filter( item => item.store._id === store._id );
+        this.products = [ ...products ];
+      }
+    } );
+
     this.subTotal.subscribe( amount => {
       this.amount = amount;
       this.totalPrice = amount + this.shipmentPrice;
     } );
+
 
   }
 

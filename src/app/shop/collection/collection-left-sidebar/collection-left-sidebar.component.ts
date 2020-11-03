@@ -11,6 +11,10 @@ import { Product } from '../../../shared/classes/product';
 import { forkJoin } from 'rxjs';
 import { Paginate } from '../../../shared/classes/paginate';
 
+const state = {
+  sessionStore: JSON.parse( sessionStorage.sessionStore || null ),
+};
+
 @Component( {
   selector: 'app-collection-left-sidebar',
   templateUrl: './collection-left-sidebar.component.html',
@@ -33,6 +37,8 @@ export class CollectionLeftSidebarComponent implements OnInit {
   mobileSidebar = false;
   loader = true;
   params: string;
+
+  private _store: Store;
 
   constructor(
     private router: Router,
@@ -99,11 +105,17 @@ export class CollectionLeftSidebarComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
   }
 
   loadProductList( page = 1 ): void {
+    this.params = `${this.params}&stock=true`;
     this.productService.productList( page, this.params ).subscribe( ( result: Result<Product> ) => {
-      this.products = [ ...result.docs ];
+      if ( state.sessionStore ) {
+        this.products = result.docs.filter( item => item.store._id === state.sessionStore._id );
+      } else {
+        this.products = [ ...result.docs ];
+      }
       this.paginate = { ...result };
       this.paginate.pages = [];
       for ( let i = 1; i <= this.paginate.totalPages; i++ ) {

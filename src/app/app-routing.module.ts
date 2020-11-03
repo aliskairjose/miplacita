@@ -33,7 +33,7 @@ const routes: Routes = [
     loadChildren: () => import( './elements/elements.module' ).then( m => m.ElementsModule )
   },
   {
-    path: ':url/:id/home',
+    path: ':name',
     component: StorePageComponent,
   },
   {

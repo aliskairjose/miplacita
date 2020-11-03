@@ -72,6 +72,11 @@ export class RegisterComponent implements OnInit {
     } );
   }
 
+  goLogin(): void {
+    this.router.navigate( [ '/pages/login' ], { queryParams: { role: this.role } } );
+  }
+
+
   listen( r: boolean ) {
     this.registerSuccess = false;
     this.user = JSON.parse( sessionStorage.userForm );
@@ -84,6 +89,7 @@ export class RegisterComponent implements OnInit {
     if ( this.registerForm.valid ) {
       this.auth.register( this.registerForm.value ).subscribe( ( data: AuthResponse ) => {
         if ( data.success ) {
+          sessionStorage.setItem( 'prelogin', JSON.stringify( this.registerForm.value ) );
           sessionStorage.setItem( 'userForm', JSON.stringify( data.user ) );
           this.storage.setItem( 'token', data.token );
           if ( this.role === 'merchant' ) {

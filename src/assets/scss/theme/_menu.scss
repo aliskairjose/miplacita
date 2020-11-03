@@ -1302,6 +1302,7 @@ header {
         .menu-right {
             .icon-nav {
                 .mobile-search,
+                .mobile-balance,
                 .mobile-cart,
                 .mobile-setting {
                     i {
@@ -1424,6 +1425,7 @@ header {
             .icon-nav {
                 .mobile-setting,
                 .mobile-cart,
+                .mobile-balance,
                 .mobile-search {
                     position: fixed;
                     bottom: 20px;
@@ -1499,6 +1501,31 @@ header {
                         }
                     }
                 }
+                .mobile-balance {
+                    right: 45%;
+                    z-index: 1;
+                    i {
+                        display: inline-block;
+                        font-size: 22px;
+                        color: $header-font;
+                    }
+                    img {
+                        display: none;
+                    }
+                    .show-div {
+                        .form-group {
+                            margin-bottom: 0;
+                        }
+                        .form-inline {
+                            button {
+                                i {
+                                    font-size: 14px;
+                                }
+                            }
+                        }
+                    }
+                }
+
             }
         }
     }

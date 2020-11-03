@@ -7,7 +7,10 @@ import { Plan } from '../classes/plan';
 import { Response, Result } from '../classes/response';
 import { ShipmentOption } from '../classes/shipment-option';
 import { User } from '../classes/user';
-import { Order } from '../classes/order';
+
+const state = {
+  sessionStore: JSON.parse( sessionStorage.sessionStore || null ),
+};
 
 @Injectable( {
   providedIn: 'root'
@@ -17,6 +20,7 @@ export class ShopService {
   // $store: Subject<Store> = new Subject<Store>();
   store: Store;
   $store: BehaviorSubject<Store>;
+  selectedStore: Store;
 
   constructor(
     private http: HttpService
@@ -74,6 +78,14 @@ export class ShopService {
         if ( response.success ) {
           return response.result;
         }
+      } )
+    );
+  }
+
+  getStoreByUrl( url: string ): Observable<Store> {
+    return this.http.get( `stores/find_by_url/${url}` ).pipe(
+      map( response => {
+        if ( response.success ) { return response.result; }
       } )
     );
   }
@@ -225,34 +237,20 @@ export class ShopService {
   }
 
   /**
-   * @description lista de ventas totales de la tienda
    *
-   */
-  totalSales( params: string ): Observable<Array<any>> {
-    return this.http.get( `sales?${params}` ).pipe(
-      map( ( response ) => {
-        if ( response.success ) {
-          return response.result;
-        }
-      } )
-    );
-  }
-
-  /**
-   * 
    * @param id Id de la tienda
    * @param params Fecha inicio, fecha fin
    */
   getDebts( id: string, params = '' ): Observable<number> {
     return this.http.get( `debts/${id}?${params}` ).pipe(
       map( result => {
-        if ( result.success ) { 
-          if(result.totalAmount.length){
-            return result.totalAmount[ 0 ].amount; 
-          }            
-          return 0; 
+        if ( result.success ) {
+          if ( result.totalAmount.length ) {
+            return result.totalAmount[ 0 ].amount;
+          }
+          return 0;
         }
-      })
+      } )
     );
   }
 
@@ -261,6 +259,16 @@ export class ShopService {
     --------------  Affiliado de tienda  --------
     ---------------------------------------------
   */
+
+  getAffiliate( storeId: string, userId: string ): Observable<any> {
+    return this.http.get( `users/affiliate/program?store=${storeId}&user=${userId}` ).pipe(
+      map( response => {
+        if ( response.success ) {
+          return response.result;
+        }
+      } )
+    );
+  }
 
   /**
    * @description Actualiza la data de referido
@@ -293,10 +301,12 @@ export class ShopService {
    */
   storeSubject( store: Store ): void {
     this.$store.next( store );
+    this.$store.complete();
   }
 
   /**
    * @description Creación del observer mediante el método asObserver(), el cual sera consumido por el componente
+   * @returns Observable de tipo store
    */
   storeObserver(): Observable<Store> {
     return this.$store.asObservable();

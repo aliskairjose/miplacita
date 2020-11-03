@@ -12,10 +12,11 @@ import { Paginate } from '../../shared/classes/paginate';
 import { Store } from '../../shared/classes/store';
 import {
   OrderDetailsComponent
-} from '../../shared/custom-components/order-details/order-details.component';
+} from '../../shared/components/order-details/order-details.component';
 import { AuthService } from '../../shared/services/auth.service';
 import { OrderService } from '../../shared/services/order.service';
 import { ShopService } from '../../shared/services/shop.service';
+import { ReportsService } from 'src/app/shared/services/reports.service';
 
 @Component( {
   selector: 'app-orders',
@@ -55,19 +56,25 @@ export class OrdersComponent implements OnInit, OnChanges {
     private shopService: ShopService,
     private orderService: OrderService,
     private parseDate: CustomDateParserFormatterService,
+    private reportService: ReportsService
   ) { }
 
   ngOnChanges( changes: SimpleChanges ): void {
-    this.shopService.storeObserver().subscribe( ( store: Store ) => {
-      if ( this.auth.getUserRol() === 'merchant' ) {
-        this.store = store;
-      }
-    } );
+    this.role = this.auth.getUserRol();
+    if ( this.role === 'merchant' ) {
+      this.shopService.storeObserver().subscribe( ( store: Store ) => {
+        if ( this.role === 'merchant' ) {
+          this.store = store;
+        }
+      } );
+    }
 
     this.init();
   }
 
   ngOnInit(): void {
+    this.role = this.auth.getUserRol();
+
   }
 
   setPage( page: number ) {
@@ -121,7 +128,6 @@ export class OrdersComponent implements OnInit, OnChanges {
 
   private init(): void {
     this.modelFrom = this.modelTo = this.ngbCalendar.getToday();
-    this.role = this.auth.getUserRol();
 
     if ( this.role === 'admin' ) { this.fields.splice( 1, 0, 'Tienda' ); }
 
@@ -133,15 +139,14 @@ export class OrdersComponent implements OnInit, OnChanges {
   private loadData( page = 1 ): void {
     let params = '';
 
-    // const params = `store=${this.store._id}&status=${this.status}&from=${this.fechaIni}&to=${this.fechaFin}`;
     if ( this.role === 'merchant' ) {
       params = `store=${this.store._id}&status=${this.status}&from=${this.fechaIni}&to=${this.fechaFin}`;
+
     }
 
     if ( this.role === 'admin' ) {
       params = `status=${this.status}&from=${this.fechaIni}&to=${this.fechaFin}`;
     }
-
     this.orderService.orderList( page, params ).subscribe( result => {
       this.orders = [ ...result.docs ];
       this.paginate = { ...result };
@@ -150,6 +155,7 @@ export class OrdersComponent implements OnInit, OnChanges {
         this.paginate.pages.push( i );
       }
     } );
+
   }
 
 

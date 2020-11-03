@@ -1,14 +1,15 @@
-<app-header-one [sticky]="true" [isHidde]="false" [topbar]="false" [isSideMenu]="true" [hasSearchBar]="true"></app-header-one>
+<app-header-one [sticky]="true" [isHidde]="false" [topbar]="false" [isSideMenu]="true" [hasSearchBar]="true">
+</app-header-one>
 
 <div class="pb-5">
   <section class="p-0">
     <ngb-carousel *ngIf="sliders.length>0" #ngcarousel>
-        <ng-template *ngFor="let image of sliders" ngbSlide>
-            <div class="picsum-img-wrapper w-100">
-                <img class="img-main-banner" [src]="image.image" alt="Angular Carousel 1">
-            </div>
-        </ng-template>
-        
+      <ng-template *ngFor="let image of sliders" ngbSlide>
+        <div class="picsum-img-wrapper w-100">
+          <img class="img-main-banner" [src]="image.image" alt="Angular Carousel 1">
+        </div>
+      </ng-template>
+
     </ngb-carousel>
     <div class="btn-inside-slider">
       <a class="btn btn-solid" [routerLink]="['/shop/collection/left/sidebar']">Explora</a>
@@ -21,7 +22,7 @@
     <div class="container">
       <div class="row partition2">
         <div class="col-md-6" *ngFor="let option of options">
-          <a [routerLink]="option.url" >
+          <a [routerLink]="option.url">
             <div class="collection-banner p-right text-center">
               <img [src]="option.image" class="img-fluid" alt="collection-banner">
               <div class="contain-banner">
@@ -43,7 +44,7 @@
       <div class="col-lg-6 offset-lg-3">
         <div class="product-para">
           <p class="col-md-10 mx-auto text-center">
-            Consigue lo que necesitas e incluso lo que no sabías lo que necesitabas, 
+            Consigue lo que necesitas e incluso lo que no sabías lo que necesitabas,
             explora nuestro market y conoce los productos destacados.
           </p>
         </div>
@@ -58,11 +59,7 @@
             <ng-container *ngFor="let product of products | slice:0:16">
               <ng-template carouselSlide>
                 <div class="product-box">
-                  <app-product-box-one 
-                    [product]="product" 
-                    [thumbnail]="false"
-                    [cartModal]="false"
-                    [horizontal]="true">
+                  <app-product-box-one [product]="product" [thumbnail]="false" [cartModal]="false" [horizontal]="true">
                   </app-product-box-one>
                 </div>
               </ng-template>
@@ -93,15 +90,11 @@
     <div class="container">
       <div class="row">
         <div class="col theme-tab">
-          <div >
+          <div>
             <div class="no-slider row">
               <ng-container *ngFor="let product of products | slice:0:8">
                 <div class="product-box">
-                  <app-product-box-one 
-                    [product]="product" 
-                    [thumbnail]="false"
-                    [cartModal]="false"
-                    [horizontal]="true">
+                  <app-product-box-one [product]="product" [thumbnail]="false" [cartModal]="false" [horizontal]="true">
                   </app-product-box-one>
                 </div>
               </ng-container>

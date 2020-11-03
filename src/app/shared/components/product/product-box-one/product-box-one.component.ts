@@ -69,7 +69,7 @@ export class ProductBoxOneComponent implements OnInit {
 
   addToCart( product: Product ) {
     this.productService.addToCart( product );
-    this.showMessage( 'Producto agregado al carrito' )
+    this.showMessage( 'Producto agregado al carrito' );
   }
 
   addToWishlist( product: Product ) {

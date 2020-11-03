@@ -1,0 +1,242 @@
+<!-- Register Store Section -->
+<section class="section-b-space" *ngIf="step==1">
+	<div class="container padding-cls px-3">
+		<div *ngIf="modal" class="form-row">
+			<div class="d-flex w-100 flex-column">
+				<div class="d-flex justify-content-end">
+					<div class="col-1 d-flex justify-content-center">
+						<i class="ti-close" (click)="close(true)"></i>
+					</div>
+				</div>
+				<div class="title-purple text-center">
+					<h2>Registra los datos de tu tienda</h2>
+				</div>
+			</div>
+		</div>
+
+		<div class="title-purple text-center" *ngIf="!modal">
+			<h2>Registra los datos de tienda</h2>
+			<p>Configura tu tienda</p>
+		</div>
+		<!-- TIMELINE -->
+		<div class="d-flex mb-3" style="height: 10vh;" *ngIf="register">
+			<app-timeline *ngIf="step==1" class="mx-auto" [active]="step+1"></app-timeline>
+		</div>
+		<!-- TIMELINE-->
+		<div class="checkout-page">
+			<div class="checkout-form">
+				<form [formGroup]="storeForm" class="theme-form">
+					<div class="row">
+						<div class="col-lg-6 col-sm-12 col-xs-12 mb-3">
+							<div class="border-box h-100">
+								<div class="checkout-title">
+									<h3>Mis datos</h3>
+									<p> Completa los datos para configurar tu tienda</p>
+								</div>
+								<!-- Shop name -->
+								<div class="form-group">
+									<div class="field-label" for="name">Nombre de la tienda</div>
+									<input type="text" class="form-control" id="name" formControlName="name" (blur)="validateName()"
+										(ngModelChange)="makeUrl($event)">
+									<div *ngIf="submitted && f.name.errors" class="invalid-feedback d-block">
+										<div *ngIf="f.name.errors.required"> {{ required }} </div>
+										<div *ngIf="f.name.errors.minlength"> El nombre debe tener 4 o más caracteres </div>
+									</div>
+								</div>
+								<!-- Shop name -->
+								<div class="form-group">
+									<div class="field-label" for="name">Descripción</div>
+									<textarea type="text" class="form-control" id="description" formControlName="description" cols="30"
+										rows="10"></textarea>
+									<div *ngIf="submitted && f.description.errors" class="invalid-feedback d-block">
+										<div *ngIf="f.description.errors.required"> {{ required }} </div>
+									</div>
+								</div>
+								<!-- Phone -->
+								<div class="form-group">
+									<div class="field-label" for="name">Teléfono de la tienda</div>
+									<div class="d-flex">
+										<input mask="(+000) 000-00-00" type="tel" class="col-md-11 form-control" id="review"
+											formControlName="phone">
+										<button placement="top" ngbTooltip="Este número debe tener conexión a Whatsapp">
+											<i class="fa fa-info-circle"></i>
+										</button>
+									</div>
+									<div *ngIf="submitted && f.phone.errors" class="invalid-feedback d-block">
+										<div *ngIf="f.phone.errors.required"> {{ required }} </div>
+									</div>
+								</div>
+
+								<!-- Shop email -->
+								<div class="form-group ">
+									<div class="field-label" for="name">Correo electrónico de la tienda</div>
+									<input type="email" class="form-control" id="review" formControlName="email">
+									<div *ngIf="submitted && f.email.errors" class="invalid-feedback d-block">
+										<div *ngIf="f.email.errors.required"> {{ required }} </div>
+										<div *ngIf="f.email.errors.email"> {{ invalidEmail }} </div>
+									</div>
+								</div>
+								<!-- Url -->
+								<div class="form-group">
+									<div class="field-label" for="name">URL</div>
+									<input type="url" class="form-control" id="url_store" formControlName="url_store"
+										[(ngModel)]="urlStore">
+									<div *ngIf="submitted && f.url_store.errors" class="invalid-feedback d-block">
+										<div *ngIf="f.url_store.errors.required"> {{ required }} </div>
+									</div>
+									<p>https://www.miplacita.com/{{urlStore}}</p>
+								</div>
+								<div class="form-group">
+									<div class="field-label" for="name">Agregar logo</div>
+									<app-upload-image (uploadImage)="uploadImage($event)"></app-upload-image>
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-6 col-sm-12 col-xs-12">
+							<div class="border-box h-100">
+								<div class="shipping-options d-flex flex-column h-100">
+									<div class="checkout-title">
+										<h3>Mi Plan/ Logo</h3>
+										<p> Selecciona el tipo de plan que requiere tu negocio y por último
+											añade el logo de tu tienda para personalizarla
+										</p>
+									</div>
+									<div class="shipping-option" *ngIf="plans.length">
+										<div class="row mb-3" *ngFor="let plan of plans; let i=index">
+											<div class="option-box d-flex mx-auto py-3">
+												<div class="col-md-6">
+													<p class="my-auto">{{plan.name}} - {{ plan.price | currency }}</p>
+												</div>
+												<div class="col offset-xl-4 text-center">
+													<input class="my-auto" formControlName="plan" type="radio" [value]="plan._id" name="plan"
+														[(ngModel)]="planSelected" (change)="isShow=changePlan(plan.price)">
+												</div>
+											</div>
+										</div>
+									</div>
+									<!-- Payment Component -->
+									<div *ngIf="isShow">
+										<div class="checkout-title">
+											<h3>Formulario de pago</h3>
+										</div>
+										<app-payment #payment></app-payment>
+									</div>
+									<div class="form-group text-right">
+										<button class="btn btn-solid-purple" (click)="storeRegister()" [disabled]="disabled">
+											Regístrate
+										</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</section>
+
+<!-- Register Product Section -->
+<section class="section-b-space" *ngIf="step==2">
+	<div class="container padding-cls">
+		<div *ngIf="modal" class="row justify-content-end">
+
+			<div class="col-1 d-flex justify-content-center">
+				<i class="ti-close" (click)="close(false)"></i>
+			</div>
+		</div>
+
+		<div class="title-purple text-center">
+			<h2>Registra tus datos de tienda</h2>
+			<p>Configura tu primer producto</p>
+		</div>
+		<!-- TIMELINE -->
+		<div class="d-flex mb-3" style="height: 10vh;" *ngIf="register">
+			<app-timeline *ngIf="step==2" class="mx-auto" [active]="step+1"></app-timeline>
+		</div>
+		<!-- TIMELINE-->
+		<div class="checkout-page">
+			<div class="checkout-form">
+				<form [formGroup]="productForm" class="theme-form">
+					<div class="row">
+						<div class="col-lg-6 col-sm-12 col-xs-12 mb-3">
+							<div class="border-box h-100">
+								<div class="checkout-title">
+									<h3>Datos del producto</h3>
+									<p> Completa estos datos para añadir tu producto</p>
+								</div>
+								<!-- Product name -->
+								<div class="form-group">
+									<div class="field-label" for="name">Nombre del producto</div>
+									<input formControlName="name" type="text" class="form-control" id="name">
+									<div *ngIf="submitted && p.name.errors" class="invalid-feedback d-block">
+										<div *ngIf="p.name.errors.required"> {{ required }} </div>
+										<div *ngIf="p.name.errors.minlength"> El nombre debe tener 4 o más caracteres </div>
+									</div>
+								</div>
+								<!-- Product Price -->
+								<div class="form-group ">
+									<div class="field-label" for="name">Precio del producto</div>
+									<input currencyMask formControlName="price" type="text" class="form-control" id="price"
+										placeholder="">
+									<div *ngIf="submitted && p.price.errors" class="invalid-feedback d-block">
+										<div *ngIf="p.price.errors.required"> {{ required }} </div>
+									</div>
+								</div>
+								<!-- Prodcut tax -->
+								<div class="form-group ">
+									<div class="field-label" for="name">Impuesto del producto</div>
+									<input currencyMask formControlName="tax" type="text" class="form-control" id="review">
+									<div *ngIf="submitted && p.tax.errors" class="invalid-feedback d-block">
+										<div *ngIf="p.tax.errors.required"> {{ required }} </div>
+									</div>
+								</div>
+								<!-- Categoria -->
+								<div class="mx-auto form-group">
+									<div class="field-label" for="name">Categoría del producto</div>
+									<select formControlName="category" class="form-control" name="category">
+										<option value="" selected>Seleccione una categoría</option>
+										<option *ngFor="let category of categories" [value]="category._id">
+											{{category.name}}</option>
+									</select>
+									<div *ngIf="submitted && p.category.errors" class="invalid-feedback d-block">
+										<div *ngIf="p.category.errors.required"> {{ required }} </div>
+									</div>
+								</div>
+								<!-- Descripcion del producto -->
+								<div class="form-group mx-auto mb-2">
+									<div class="field-label" for="name">Descripción del producto</div>
+									<textarea formControlName="description" type="text" class="form-control"
+										id="descriptionProduct"></textarea>
+									<div *ngIf="submitted && p.description.errors" class="invalid-feedback d-block">
+										<div *ngIf="p.description.errors.required"> {{ required }} </div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-6 col-sm-12 col-xs-12">
+							<div class="border-box h-100">
+								<div class="shipping-options d-flex flex-column h-100">
+									<div class="checkout-title">
+										<h3>Foto del producto</h3>
+										<p> Selecciona una foto de tu producto para que tus clientes puedan ver el
+											detalle del mismo
+										</p>
+									</div>
+									<div class="form-group text-center">
+										<app-upload-image (uploadImage)="uploadImage($event)"></app-upload-image>
+									</div>
+									<div class="form-gruop text-right">
+										<button class="btn btn-solid-purple" (click)="productRegister()">
+											Regístrate
+										</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</section>

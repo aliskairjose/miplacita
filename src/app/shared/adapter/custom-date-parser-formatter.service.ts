@@ -6,7 +6,7 @@ import { NgbDateParserFormatter, NgbDateStruct } from '@ng-bootstrap/ng-bootstra
 } )
 export class CustomDateParserFormatterService extends NgbDateParserFormatter {
 
-  readonly DELIMITER = '/';
+  readonly DELIMITER = '-';
 
   parse( value: string ): NgbDateStruct | null {
     if ( value ) {

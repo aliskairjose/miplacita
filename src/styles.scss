@@ -623,6 +623,7 @@ ngb-carousel {
   margin: 0 0 !important;
   margin-top: -15px !important;
 }
+
 // Media Queries 
 /* Smartphones (portrait & landscape) */
 @media (min-width : 320px) and (max-width : 575px) {
@@ -647,21 +648,11 @@ ngb-carousel {
   }
 }
 
-@media (max-width : 320px) {
-  .search {
-    height: 100%;
-    padding-left: 1px !important;
-    padding-right: 1px !important;
-  }
+@media (min-width: 360px) {
 
-  
-}
-
-// Small devices (landscape phones, 576px and up)
-@media (min-width: 576px) { 
   .btn-inside-slider{
     position: relative;
-    bottom: 20vh;
+    bottom: 10vh;
     left: 50px;
   }
   .container {
@@ -671,7 +662,21 @@ ngb-carousel {
   .preview-box {
     visibility: visible;
   }
- 
+}
+
+@media (min-device-width: 375px) and (max-device-width: 812px) and (-webkit-min-device-pixel-ratio: 3) {
+  .btn-inside-slider{
+    position: relative;
+    bottom: 10vh;
+    left: 50px;
+  }
+  .container {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+  .preview-box {
+    visibility: visible;
+  }
 }
 
 // Medium devices (tablets, 768px and up)
@@ -764,6 +769,18 @@ ngb-carousel {
   }
 }
 
+@media (min-height: 800px) {
+  .btn-inside-slider{
+    bottom: 35vh;
+  }
+}
+
+@media (min-height: 960px) {
+  .btn-inside-slider{
+    bottom: 30vh;
+  }
+}
+
 // Large devices (desktops, 992px and up)
 @media (min-width: 992px) { 
   .box-mobile-first{
@@ -793,17 +810,34 @@ ngb-carousel {
       width: 40%;
     }
   }
-
-
- }
+}
 
 // Extra large devices (large desktops, 1200px and up)
-@media (min-width: 1200px) {  
+@media (min-width: 1200px) and (max-height: 1024px) {  
 
   .btn-inside-slider{
     position: relative;
-    bottom: 40vh;
-    left: 200px;
+    left: 25vw;
+    bottom: 30vh;
+  }
+}
+// Extra large devices (large desktops, 1200px and up)
+@media (min-width: 1200px) and (max-height: 960px) {  
+
+  .btn-inside-slider{
+    position: relative;
+    left: 25vw;
+    bottom: 30vh;
+  }
+}
+
+// Extra large devices (large desktops, 1200px and up)
+@media (min-width: 1200px) and (max-height: 800px) {  
+
+  .btn-inside-slider{
+    position: relative;
+    left: 25vw;
+    bottom: 42vh;
   }
 }
 

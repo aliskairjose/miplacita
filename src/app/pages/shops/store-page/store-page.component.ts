@@ -5,45 +5,64 @@ import { Store } from 'src/app/shared/classes/store';
 import { ShopService } from 'src/app/shared/services/shop.service';
 import { ProductService } from 'src/app/shared/services/product.service';
 import { Result } from 'src/app/shared/classes/response';
+import { CategoryService } from 'src/app/shared/services/category.service';
+import { Category } from '../../../shared/classes/category';
 
-@Component({
+@Component( {
   selector: 'app-store-page',
   templateUrl: './store-page.component.html',
-  styleUrls: ['./store-page.component.scss']
-})
+  styleUrls: [ './store-page.component.scss' ]
+} )
 export class StorePageComponent implements OnInit {
   products: Product[] = [];
-  store: Store;
-  idStore: string;
+  store: Store = {};
   sliders = [];
   verticalBanners = [
     '../../../../assets/images/banner/1.jpg',
     '../../../../assets/images/banner/1.jpg',
     '../../../../assets/images/banner/1.jpg'
   ];
+
+  subCategories: Category[] = [];
+
   constructor(
     private route: ActivatedRoute,
     private storeService: ShopService,
-    private productService: ProductService) { }
+    private productService: ProductService,
+    private categoriesSevice: CategoryService
+  ) {
+
+    this.route.url.subscribe( ( url ) => {
+      this.storeService.getStoreByUrl( url[ 0 ].path.toLocaleLowerCase() ).subscribe( store => {
+        sessionStorage.setItem( 'sessionStore', JSON.stringify( store ) );
+
+        this.store = { ...store };
+        this.sliders = this.store.config.images;
+        this.getCollectionProducts( this.store._id );
+        this.subCategoryList( this.store._id );
+        this.storeService.storeSubject( this.store );
+      } );
+    } );
+
+  }
+
 
   ngOnInit(): void {
-    this.route.url.subscribe((url)=>{
-      this.idStore = url[ 1 ].path;
-    })
-    this.storeService.getStore(this.idStore).subscribe((response)=>{
-      console.log("store", response);
-      if(response.success){
-        this.store = response.result;
-        this.sliders = this.store.config.images;
-      }
-    })
-    this.getCollectionProducts();
   }
-  private getCollectionProducts(): void {
-    const params = `feature=true`;
-    this.productService.productList(1, params ).subscribe( ( result: Result<Product> ) => {
+
+  private getCollectionProducts( id: string ): void {
+    const params = `store=${id}&featured=true`;
+    this.productService.productList( 1, params ).subscribe( ( result: Result<Product> ) => {
       this.products = [ ...result.docs ];
     } );
 
   }
+
+  private subCategoryList( id: string ): void {
+    const params = `store=${this.store._id}`;
+    this.categoriesSevice.getSubcategory( params ).subscribe( subcategories => {
+      this.subCategories = [ ...subcategories ];
+    } );
+  }
+
 }

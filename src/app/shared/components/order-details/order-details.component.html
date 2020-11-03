@@ -1,0 +1,58 @@
+<ng-template #orderDetails let-modal>
+ 
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="page-title row">
+          <h4 class="px-3">
+             <span> <strong>Orden </strong>  </span> 
+          </h4>
+        </div>
+        <button type="button" class="close" (click)="close()" >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="theme-form">
+          <form>
+            <div class="form-group" *ngIf="role=='merchant'">
+              <h4>Cliente: {{order.user.fullname}}</h4>
+            </div>
+            <div class="form-group" *ngIf="role=='merchant'">
+              <h4>Entrega: {{order.shipment_option.name}}</h4>
+            </div>
+            <div class="form-group" *ngIf="role=='merchant'">
+              <h4>Dirección:</h4>
+            </div>
+            <div class="form-group" *ngIf="role=='merchant'">
+              <h4>Estado: {{order.status}}</h4>
+            </div>
+            <div class="col-md-6" *ngIf="role=='merchant'">
+              <select name="model" class="form-control" [(ngModel)]="order.status">
+                <option [value]="state" *ngFor="let state of states">{{state}}</option>
+            </select>
+            </div>
+            <div class="table-responsive-sm mt-2">
+              <table class="table">
+                <thead>
+                  <th *ngFor="let field of fields" scope="col" class="text-center">{{field}}</th>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let product of order.items">
+                    <td class="text-center">{{ product.product_name }}</td>
+                    <td class="text-center">{{ product.total_price | currency }}</td>
+                    <td class="text-center">{{ product.quantity }}</td>
+                    <td class="text-center">{{ product.tax | currency }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="form-group d-flex justify-content-end" *ngIf="role!='merchant'">
+              <button class="btn btn-solid-purple" (click)="updateStatus()">Cambiar estado</button>
+            </div>
+          </form>
+        </div>
+        
+      </div>
+    </div>
+  
+</ng-template>

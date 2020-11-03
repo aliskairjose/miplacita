@@ -14,7 +14,8 @@ const state = {
   products: JSON.parse( localStorage.products || '[]' ),
   wishlist: JSON.parse( localStorage.wishlistItems || '[]' ),
   compare: JSON.parse( localStorage.compareItems || '[]' ),
-  cart: JSON.parse( localStorage.cartItems || '[]' )
+  cart: JSON.parse( localStorage.cartItems || '[]' ),
+  sessionStore: JSON.parse( sessionStorage.sessionStore || null )
 };
 
 @Injectable( {
@@ -31,7 +32,11 @@ export class ProductService {
     private http: HttpService,
     private storage: StorageService,
     private toastrService: ToastrService
-  ) { }
+  ) {
+    if ( state.sessionStore ) {
+      state.cart = state.cart.filter( item => item.store._id === state.sessionStore._id );
+    }
+  }
 
   /**
    * @description Retorna la lista de categorias!
@@ -264,11 +269,14 @@ export class ProductService {
     ---------------------------------------------
   */
 
+
   // Get Cart Items
   public get cartItems(): Observable<Product[]> {
+
     const itemsStream = new Observable( observer => {
       observer.next( state.cart );
       observer.complete();
+
     } );
     return itemsStream as Observable<Product[]>;
   }

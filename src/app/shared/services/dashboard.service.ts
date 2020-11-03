@@ -16,5 +16,9 @@ export class DashboardService {
     return this.http.get( 'dashboard/store?'+ param );
   }
 
+  dashboard(): Observable<any> {
+    return this.http.get( 'dashboard' );
+  }
+
 
 }

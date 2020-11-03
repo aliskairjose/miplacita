@@ -3,7 +3,7 @@
 <section class="section-b-space">
     <div class="container">
         <div class="form-row labels" *ngIf="user.role === 'admin'">
-            <div class="col-md-3">
+            <div class="col-md-4">
                 <div class="label card d-flex flex-row">
                     <div class="d-flex flex-fill justify-content-center align-items-center ">
                         <div class="col d-flex ">
@@ -16,7 +16,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-4">
                 <div class="label card d-flex flex-row">
                     <div class="d-flex flex-fill justify-content-center align-items-center ">
                         <div class="col d-flex ">
@@ -30,7 +30,8 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-3">
+
+            <div class="col-md-4" *ngIf="user.role == 'admin'">
                 <div class="label card d-flex flex-row">
                     <div class="d-flex flex-fill justify-content-center align-items-center ">
                         <div class="col d-flex ">
@@ -39,19 +40,6 @@
                         <div *ngIf="user.role=='admin'" class="d-flex flex-fill justify-content-center align-items-center ">
                             <p class="my-auto" *ngIf="dashboardData.totalProducts">{{ dashboardData.totalProducts }} productos</p>
                             <p class="my-auto" *ngIf="!dashboardData.totalProducts">0 productos</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="label card d-flex flex-row">
-                    <div class="d-flex flex-fill justify-content-center align-items-center ">
-                        <div class="col d-flex ">
-                            <img src="assets/images/marketplace/images/icons/stats.png"/>
-                        </div>
-                        <div *ngIf="user.role=='admin'" class="d-flex flex-fill justify-content-center align-items-center ">
-                            <p class="my-auto" *ngIf="dashboardData.totalRetirement">{{ dashboardData.totalRetirement }} retiros</p>
-                            <p class="my-auto" *ngIf="!dashboardData.totalRetirement">0 retiros</p>
                         </div>
                     </div>
                 </div>
@@ -109,7 +97,7 @@
                 </div>
             </div>
         </div>
-        <div class="form-row charts" >
+        <div class="form-row charts" *ngIf="user.role === 'merchant'">
             <div class="col-lg-6 col-md-6 col-sm-6" *ngIf="dashboardData.month_orders.length > 0">
                 <h5 class="text-center">Ventas</h5>
                 <canvas baseChart
@@ -141,11 +129,14 @@
                 
                 <table class="table cart-table table-responsive-xs">
                     <thead>
-                        <tr class="table-head text-center">
+                        <tr class="table-head text-center" *ngIf="user.role == 'merchant'">
                             <th *ngFor="let item of tableHeaders" scope="col">{{item}}</th>
                         </tr>
+                        <tr class="table-head text-center" *ngIf="user.role == 'admin'">
+                            <th *ngFor="let item of tableHeadersAdmin" scope="col">{{item}}</th>
+                        </tr>
                     </thead>
-                    <tbody>
+                    <tbody *ngFor="user.role == 'merchant'">
                         <tr *ngFor="let order of orders">
                             <td class="text-center">
                                 ID: {{order._id}}

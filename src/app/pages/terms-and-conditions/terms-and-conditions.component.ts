@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-terms-and-conditions',
@@ -6,8 +7,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./terms-and-conditions.component.scss']
 })
 export class TermsAndConditionsComponent implements OnInit {
+  @Input() edit: boolean = false;
+  editorKey = '';
 
-  constructor() { }
+  constructor() {
+    this.editorKey = environment.editorKey;
+  }
 
   ngOnInit(): void {
   }

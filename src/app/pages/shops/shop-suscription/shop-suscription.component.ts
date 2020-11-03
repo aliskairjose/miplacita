@@ -35,7 +35,7 @@ export class ShopSuscriptionComponent implements OnInit, OnChanges {
     'Plan de compensaciones a clientes referidos',
     'Cupones de descuentos'
   ];
-  enabled = false;
+  enabled = true;
 
   @Input() store: Store;
 
@@ -50,18 +50,16 @@ export class ShopSuscriptionComponent implements OnInit, OnChanges {
 
   ngOnChanges( changes: SimpleChanges ): void {
     this.shopService.storeObserver().subscribe( ( store: Store ) => {
-      console.log( store );
       if ( store ) {
         this.store = store;
         this.enabled = true;
-        this.getShopPlan();
       }
     } );
+    this.getShopPlan();
 
   }
 
   ngOnInit(): void {
-
   }
 
   getShopPlan(): void {

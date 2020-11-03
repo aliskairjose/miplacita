@@ -1,8 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ProductSlider, CollectionSlider } from '../../shared/data/slider';
-import { Product } from '../../shared/classes/tm.product';
-import { ProductService } from '../../shared/services/tm.product.service';
+import { Product } from '../../shared/classes/product';
+import { ProductService } from '../../shared/services/product.service';
 
 @Component( {
   selector: 'app-marketplace',
@@ -108,55 +108,63 @@ export class MarketplaceComponent implements OnInit, OnDestroy {
     }
   ];
 
-  // preguntas frecuentes 
+  // preguntas frecuentes
   questions = [
-    { id:1,
+    {
+      id: 1,
       isCollapsed: true,
       question: '¿Cómo Empiezo?',
-      answer: 'Muy fácil! Descarga el app, Crea tu Tienda Online en sólo 3 pasos y empieza a vender.'+
-              'Sólo te toma 3 minutos!' + 'Agrega tus primeros productos, empieza a compartir tu catálogo y a Vender.' 
+      answer: 'Muy fácil! Descarga el app, Crea tu Tienda Online en sólo 3 pasos y empieza a vender.' +
+        'Sólo te toma 3 minutos!' + 'Agrega tus primeros productos, empieza a compartir tu catálogo y a Vender.'
     },
-    { id:2,
+    {
+      id: 2,
       isCollapsed: true,
       question: '¿Cómo puedo cobrar a mi cliente?',
-      answer: 'Muy fácil! Descarga el app, Crea tu Tienda Online en sólo 3 pasos y empieza a vender.'+
-              'Sólo te toma 3 minutos!' + 'Agrega tus primeros productos, empieza a compartir tu catálogo y a Vender.' 
+      answer: 'Muy fácil! Descarga el app, Crea tu Tienda Online en sólo 3 pasos y empieza a vender.' +
+        'Sólo te toma 3 minutos!' + 'Agrega tus primeros productos, empieza a compartir tu catálogo y a Vender.'
     },
-    { id:3,
+    {
+      id: 3,
       isCollapsed: true,
       question: '¿Cómo cuesta la aplicación?',
-      answer: 'Muy fácil! Descarga el app, Crea tu Tienda Online en sólo 3 pasos y empieza a vender.'+
-              'Sólo te toma 3 minutos!' + 'Agrega tus primeros productos, empieza a compartir tu catálogo y a Vender.' 
+      answer: 'Muy fácil! Descarga el app, Crea tu Tienda Online en sólo 3 pasos y empieza a vender.' +
+        'Sólo te toma 3 minutos!' + 'Agrega tus primeros productos, empieza a compartir tu catálogo y a Vender.'
     },
-    { id:4,
+    {
+      id: 4,
       isCollapsed: true,
       question: '¿Hay alguna comisión adicional?',
-      answer: 'Muy fácil! Descarga el app, Crea tu Tienda Online en sólo 3 pasos y empieza a vender.'+
-              'Sólo te toma 3 minutos!' + 'Agrega tus primeros productos, empieza a compartir tu catálogo y a Vender.' 
+      answer: 'Muy fácil! Descarga el app, Crea tu Tienda Online en sólo 3 pasos y empieza a vender.' +
+        'Sólo te toma 3 minutos!' + 'Agrega tus primeros productos, empieza a compartir tu catálogo y a Vender.'
     },
-    { id:5,
+    {
+      id: 5,
       isCollapsed: true,
       question: '¿Cómo puedo crear y compartir mi catálogo?',
-      answer: 'Muy fácil! Descarga el app, Crea tu Tienda Online en sólo 3 pasos y empieza a vender.'+
-              'Sólo te toma 3 minutos!' + 'Agrega tus primeros productos, empieza a compartir tu catálogo y a Vender.' 
+      answer: 'Muy fácil! Descarga el app, Crea tu Tienda Online en sólo 3 pasos y empieza a vender.' +
+        'Sólo te toma 3 minutos!' + 'Agrega tus primeros productos, empieza a compartir tu catálogo y a Vender.'
     },
-    { id:6,
+    {
+      id: 6,
       isCollapsed: true,
       question: '¿Puedo tener tenderos propios?',
-      answer: 'Muy fácil! Descarga el app, Crea tu Tienda Online en sólo 3 pasos y empieza a vender.'+
-              'Sólo te toma 3 minutos!' + 'Agrega tus primeros productos, empieza a compartir tu catálogo y a Vender.' 
+      answer: 'Muy fácil! Descarga el app, Crea tu Tienda Online en sólo 3 pasos y empieza a vender.' +
+        'Sólo te toma 3 minutos!' + 'Agrega tus primeros productos, empieza a compartir tu catálogo y a Vender.'
     },
-    { id:7,
+    {
+      id: 7,
       isCollapsed: true,
       question: '¿Cómo puedo generar más ingresos?',
-      answer: 'Muy fácil! Descarga el app, Crea tu Tienda Online en sólo 3 pasos y empieza a vender.'+
-              'Sólo te toma 3 minutos!' + 'Agrega tus primeros productos, empieza a compartir tu catálogo y a Vender.' 
+      answer: 'Muy fácil! Descarga el app, Crea tu Tienda Online en sólo 3 pasos y empieza a vender.' +
+        'Sólo te toma 3 minutos!' + 'Agrega tus primeros productos, empieza a compartir tu catálogo y a Vender.'
     },
-    { id:8,
+    {
+      id: 8,
       isCollapsed: true,
       question: '¿Tengo algún soporte, si necesito ayuda?',
-      answer: 'Muy fácil! Descarga el app, Crea tu Tienda Online en sólo 3 pasos y empieza a vender.'+
-              'Sólo te toma 3 minutos!' + 'Agrega tus primeros productos, empieza a compartir tu catálogo y a Vender.' 
+      answer: 'Muy fácil! Descarga el app, Crea tu Tienda Online en sólo 3 pasos y empieza a vender.' +
+        'Sólo te toma 3 minutos!' + 'Agrega tus primeros productos, empieza a compartir tu catálogo y a Vender.'
     }
   ]
 
@@ -177,9 +185,10 @@ export class MarketplaceComponent implements OnInit, OnDestroy {
     'Gestión de imagen de tienda',
     'Plan de compensaciones a clientes referidos',
     'Cupones de descuentos'
-  ]
-  isCollapsed =false;
-  // banners 
+  ];
+
+  isCollapsed = false;
+  // banners
   verticalBanners = [
     '../../../../assets/images/marketplace/images/banners/recibe.png',
     '../../../../assets/images/marketplace/images/banners/administra.png',
@@ -189,16 +198,7 @@ export class MarketplaceComponent implements OnInit, OnDestroy {
     private _sanitizer: DomSanitizer,
     public productService: ProductService,
   ) {
-    this.productService.getProducts.subscribe( response => {
-      this.products = response.filter( item => item.type === 'watch' );
-      // Get Product Collection
-      this.products.filter( ( item ) => {
-        item.collection.filter( ( collection ) => {
-          const index = this.productCollections.indexOf( collection );
-          if ( index === -1 ) { this.productCollections.push( collection ); }
-        } );
-      } );
-    } );
+    sessionStorage.removeItem( 'sessionStore' );
   }
 
 
@@ -211,15 +211,6 @@ export class MarketplaceComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     // Remove Color
     document.documentElement.style.removeProperty( '--theme-deafult' );
-  }
-
-  // Product Tab collection
-  getCollectionProducts( collection ) {
-    return this.products.filter( ( item ) => {
-      if ( item.collection.find( i => i === collection ) ) {
-        return item;
-      }
-    } );
   }
 
 }

@@ -3,8 +3,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ProductDetailsMainSlider, ProductDetailsThumbSlider } from '../../../../shared/data/slider';
 import { Product } from '../../../../shared/classes/product';
 import { ProductService } from '../../../../shared/services/product.service';
-import { SizeModalComponent } from '../../../../shared/components/modal/size-modal/size-modal.component';
-import { Result } from '../../../../shared/classes/response';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ShopService } from '../../../../shared/services/shop.service';
 import { CategoryService } from '../../../../shared/services/category.service';
@@ -39,11 +37,10 @@ export class ProductLeftSidebarComponent implements OnInit {
   sizes = [];
   colors = [];
   productDetail: ProductDetail;
-
+  productRate = 0;
   color: any;
   size = '';
 
-  @ViewChild( 'sizeChart' ) SizeChart: SizeModalComponent;
   @ViewChild( 'comments' ) comment: CommentsComponent;
 
   ProductDetailsMainSliderConfig: any = ProductDetailsMainSlider;
@@ -83,7 +80,9 @@ export class ProductLeftSidebarComponent implements OnInit {
       this.product = { ...productResult.docs[ 0 ] };
       this.endDate = new Date();
       this.endDate.setDate( this.today.getDate() + parseInt( this.product.deliveryDays, 10 ) );
-      this.comment.loadReviews( this.product._id );
+
+      // Carga los comentarios del producto
+      this.comment.loadReviews( this.product._id ).subscribe( rate => { this.productRate = rate; } );
 
       if ( variationResult?.primary_key === 'color' ) {
         variationResult.keys.forEach( key => {

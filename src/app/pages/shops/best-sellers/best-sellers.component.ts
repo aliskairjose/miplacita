@@ -8,6 +8,7 @@ import { ProductService } from 'src/app/shared/services/product.service';
 import { CustomDateParserFormatterService } from '../../../shared/adapter/custom-date-parser-formatter.service';
 import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
+import { ReportsService } from '../../../shared/services/reports.service';
 
 @Component( {
   selector: 'app-best-sellers',
@@ -33,12 +34,14 @@ export class BestSellersComponent implements OnInit, OnChanges {
   constructor(
     private auth: AuthService,
     private toastr: ToastrService,
+    private reports: ReportsService,
     private exportDoc: ExportService,
-    private productService: ProductService,
     private parseDate: CustomDateParserFormatterService
-    ) { }
+  ) { }
 
   ngOnInit(): void {
+    this.role = this.auth.getUserRol();
+
   }
 
   ngOnChanges( changes: SimpleChanges ): void {
@@ -53,16 +56,20 @@ export class BestSellersComponent implements OnInit, OnChanges {
   }
 
   private loadData( page = 1 ): void {
-    const params = `store=${this.store._id}&best=${this.order}`;
-    this.productService.productList( page, params ).subscribe( result => {
-      this.bestSellers = [ ...result.docs ];
-      this.paginate = { ...result };
-      this.paginate.pages = [];
-      for ( let i = 1; i <= this.paginate.totalPages; i++ ) {
-        this.paginate.pages.push( i );
-      }
+    if ( this.role === 'merchant' ) {
+      const params = `store=${this.store._id}&best=${this.order}&report=true`;
+      this.reports.bestSellers( page, params ).subscribe( result => {
+        this.bestSellers = [ ...result ];
+      } );
+    }
 
-    } );
+    if ( this.role === 'admin' ) {
+      const params = `best=${this.order}&report=true`;
+      this.reports.bestSellersMP().subscribe( result => {
+        console.log( result );
+      } );
+    }
+
   }
 
   setPage( page: number ) {

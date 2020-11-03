@@ -72,7 +72,16 @@ import { TotalSalesComponent } from './shops/total-sales/total-sales.component';
 import { InterestsComponent } from './interests/interests.component';
 import { StoresListComponent } from './shops/stores-list/stores-list.component';
 import { StorePageComponent } from './shops/store-page/store-page.component';
-
+import { AdminReportsComponent } from './shops/admin-reports/admin-reports.component';
+import { StorePaymentsComponent } from './shops/store-payments/store-payments.component';
+import { StockComponent } from './shops/stock/stock.component';
+import { SalesTdcComponent } from './shops/sales-tdc/sales-tdc.component';
+import { PercentageMpProductsComponent } from './shops/percentage-mp-products/percentage-mp-products.component';
+import { CommissionsComponent } from './commissions/commissions.component';
+import { MembershipsComponent } from './memberships/memberships.component';
+import { CreateMembershipComponent } from './create-membership/create-membership.component';
+import { EditorModule } from "@tinymce/tinymce-angular";
+import { PaymentManagerComponent } from './payment-manager/payment-manager.component';
 // export let options: Partial<IConfig> | (() => Partial<IConfig>);
 const maskConfig: Partial<IConfig> = {
   validation: false,
@@ -152,6 +161,15 @@ export const customCurrencyMaskConfig = {
     InterestsComponent,
     StoresListComponent,
     StorePageComponent,
+    AdminReportsComponent,
+    StorePaymentsComponent,
+    StockComponent,
+    SalesTdcComponent,
+    PercentageMpProductsComponent,
+    CommissionsComponent,
+    MembershipsComponent,
+    CreateMembershipComponent,
+    PaymentManagerComponent,
   ],
   imports: [
     SharedModule,
@@ -166,7 +184,8 @@ export const customCurrencyMaskConfig = {
     NgxCurrencyModule.forRoot(customCurrencyMaskConfig),
     ColorPickerModule,
     AlertModule.forRoot({maxMessages: 5, timeout: 3000, position: 'left'}),
-    ChartsModule
+    ChartsModule,
+    EditorModule
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 

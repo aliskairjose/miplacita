@@ -16,6 +16,8 @@ export const environment = {
     onlyDigits: 'Sólo se permiten números',
     maxStock: 'Su plan sólo permite un máximo de 8 en su inventario'
   },
-  whatsappContact: '+584141236547'
+  whatsappContact: '+584141236547',
+  editorKey: '3gm63w53b8mw3o2nagwgdo0mt6mpeq6qg59bzub6j6ael646'
+
 
 };

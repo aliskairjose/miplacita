@@ -1,0 +1,52 @@
+<ng-template #createMembership let-modal>
+
+  <div class="modal-content">
+    <div class="modal-header">
+      <div class="page-title row">
+        <h4 class="px-3">
+          <span *ngIf="type === 1"> <strong>Crear Plan </strong> </span>
+          <span *ngIf="type === 2"> <strong>Actualizar Plan </strong> </span>
+
+        </h4>
+      </div>
+      <button type="button" class="close" (click)="close()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form action="" [formGroup]="planForm" (ngSubmit)="onSubmit()">
+        <div class="form-group ">
+          <div class="field-label">Nombre</div>
+          <input formControlName="name" type="text" class="form-control" id="name" required="" [(ngModel)]="plan.name">
+          <div *ngIf="submitted && f.name.errors?.required" class="invalid-feedback d-block">
+            {{ required }}
+          </div>
+        </div>
+        <!-- Price -->
+        <div class="form-group ">
+          <div class="field-label">Precio</div>
+          <input formControlName="price" currencyMask type="text" class="form-control" id="price" required=""
+            [(ngModel)]="plan.price">
+          <div *ngIf="submitted && f.price.errors?.required" class="invalid-feedback d-block">
+            {{ required }}
+          </div>
+        </div>
+        <div class="form-group ">
+          <div class="field-label">Descripción</div>
+          <textarea formControlName="description" type="text" class="form-control" id="description" required=""
+            [(ngModel)]="plan.description"></textarea>
+          <div *ngIf="submitted && f.description.errors?.required" class="invalid-feedback d-block">
+            {{ required }}
+          </div>
+        </div>
+        <div class="d-flex justify-content-end">
+          <div class="d-flex  h-100 ">
+            <button type="submit" class="btn btn-solid-purple flex-fill" [disabled]="!planForm.dirty">
+              Guardar
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</ng-template>
