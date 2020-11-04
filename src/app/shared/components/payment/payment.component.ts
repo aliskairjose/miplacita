@@ -1,6 +1,9 @@
 import { Component, OnInit, Input, EventEmitter, Output, ViewChild, AfterViewInit } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { SettingsComponent } from '../settings/settings.component';
+import { ShopService } from '../../services/shop.service';
+import { AuthService } from '../../services/auth.service';
+import { Store } from '../../classes/store';
 
 @Component( {
   selector: 'app-payment',
@@ -25,6 +28,8 @@ export class PaymentComponent implements OnInit {
   years = [];
   showReferedAmmount = false;
   showInputAmount = false;
+  balance = 0;
+  showBalanceAlert = false;
 
   @Input() submitted: boolean;
   @Output() enviado: EventEmitter<boolean> = new EventEmitter<boolean>();
@@ -33,6 +38,8 @@ export class PaymentComponent implements OnInit {
   @ViewChild( 'settings' ) settings: SettingsComponent;
 
   constructor(
+    private auth: AuthService,
+    private shopService: ShopService,
     private _formBuilder: FormBuilder,
   ) {
     this.createForm();
@@ -43,6 +50,8 @@ export class PaymentComponent implements OnInit {
 
     if ( JSON.parse( sessionStorage.sessionStore ) ) {
       this.showReferedAmmount = true;
+      const store: Store = JSON.parse( sessionStorage.sessionStore );
+      this.getAffiliate( store._id );
     }
     const date = new Date();
 
@@ -68,6 +77,11 @@ export class PaymentComponent implements OnInit {
   }
 
   onInputChange( val: number ): void {
+    if ( val > this.balance ) {
+      this.showBalanceAlert = true;
+      return;
+    }
+    this.showBalanceAlert = false;
     this.amount.emit( val );
   }
 
@@ -76,6 +90,12 @@ export class PaymentComponent implements OnInit {
       owner: [ '', [ Validators.required, Validators.pattern( '[a-zA-Z][a-zA-Z ]+[a-zA-Z]$' ) ] ],
       cvv: [ '', [ Validators.required, Validators.pattern( '[0-9]+' ) ] ],
       cardnumber: [ '', [ Validators.required ] ],
+    } );
+  }
+
+  private getAffiliate( storeId: string ): void {
+    this.shopService.getAffiliate( storeId, this.auth.getUserActive()._id ).subscribe( response => {
+      this.balance = response.amount;
     } );
   }
 

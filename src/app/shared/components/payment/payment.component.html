@@ -9,7 +9,10 @@
         </label> </div>
       <div class="col">
         <input class="form-control" type="number" name="amount" value="" placeholder="Ingrese monto" autocomplete="off"
-          (keyup)="onInputChange($event.target.value)" [hidden]="!showInputAmount" min="0">
+          (keyup)="onInputChange($event.target.value)" [hidden]="!showInputAmount" min="0" [max]="balance">
+        <div *ngIf="showBalanceAlert" class="text text-danger small mt-1">
+          El monto excede el saldo disponible: {{ balance | currency }}
+        </div>
       </div>
     </div>
   </form>
@@ -21,10 +24,10 @@
           <div class="field-label">Propietario</div>
           <input class="form-control" type="text" formControlName="owner" name="owner" value="" placeholder=""
             autocomplete="off">
-          <div *ngIf="submitted && paymentForm.controls.owner.errors?.required" class="text text-danger">
+          <div *ngIf="submitted && paymentForm.controls.owner.errors?.required" class="text text-danger small">
             Campo requerido
           </div>
-          <div *ngIf="submitted && paymentForm.controls.owner.errors?.pattern" class="text text-danger">
+          <div *ngIf="submitted && paymentForm.controls.owner.errors?.pattern" class="text text-danger small">
             Sólo catacteres
           </div>
         </div>
@@ -32,10 +35,10 @@
           <div class="field-label">CVV</div>
           <input class="form-control" type="password" mask="000" formControlName="cvv" name="cvv" value=""
             placeholder="" autocomplete="off" maxlength="3">
-          <div *ngIf="submitted && paymentForm.controls.cvv.errors?.required" class="text text-danger">
+          <div *ngIf="submitted && paymentForm.controls.cvv.errors?.required" class="text text-danger small">
             Campo requerido
           </div>
-          <div *ngIf="submitted && paymentForm.controls.cvv.errors?.pattern" class="text text-danger">
+          <div *ngIf="submitted && paymentForm.controls.cvv.errors?.pattern" class="text text-danger small">
             Sólo dígitos
           </div>
         </div>
@@ -45,7 +48,7 @@
           <div class="field-label">Número de tarjeta</div>
           <input class="form-control" type="number" formControlName="cardnumber" name="cardnumber" value=""
             placeholder="" autocomplete="off">
-          <div *ngIf="submitted && paymentForm.controls.cardnumber.errors?.required" class="text text-danger">
+          <div *ngIf="submitted && paymentForm.controls.cardnumber.errors?.required" class="text text-danger small">
             Campo requerido
           </div>
         </div>

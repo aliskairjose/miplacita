@@ -35,10 +35,8 @@ export class CheckoutComponent implements OnInit {
   referedAmount = 0;
   private _totalPrice: number;
   private _store: Store;
-  private _balance: number;
 
   @ViewChild( 'payment' ) payment: PaymentComponent;
-
 
   constructor(
     private router: Router,
@@ -67,11 +65,6 @@ export class CheckoutComponent implements OnInit {
   ngOnInit(): void {
     const date = new Date();
     const shipment = JSON.parse( sessionStorage.order );
-
-    if ( JSON.parse( sessionStorage.sessionStore ) ) {
-      this._store = JSON.parse( sessionStorage.sessionStore );
-      this.getAffiliate( this._store._id );
-    }
 
     shipment.cart.forEach( detail => {
       this.shipmentPrice += detail.shipment_price;
@@ -104,12 +97,6 @@ export class CheckoutComponent implements OnInit {
     this.totalPrice = this.totalPrice - amount;
   }
 
-  public get showAlert(): boolean {
-    console.log( this._balance, this.referedAmount );
-    console.log( this._balance > this.referedAmount );
-    return this._balance != this.referedAmount;
-  }
-
   onSubmit(): void {
     this.submitted = true;
     const payment = [];
@@ -132,13 +119,6 @@ export class CheckoutComponent implements OnInit {
         }
       } );
     }
-  }
-
-  private getAffiliate( storeId: string ): void {
-
-    this.shopService.getAffiliate( storeId, this.auth.getUserActive()._id ).subscribe( response => {
-      this._balance = response.amount;
-    } );
   }
 
 }
