@@ -51,7 +51,7 @@ export class PaymentComponent implements OnInit {
 
   ngOnInit(): void {
 
-    if ( JSON.parse( sessionStorage.sessionStore ) ) {
+    if ( JSON.parse( sessionStorage.sessionStore || null ) ) {
       this.showReferedAmmount = true;
       const store: Store = JSON.parse( sessionStorage.sessionStore );
       this.getAffiliate( store._id );
@@ -68,7 +68,7 @@ export class PaymentComponent implements OnInit {
 
   onSubmit(): boolean {
     this.submitted = true;
-    const data: any = { valid: false, fullname: '' };
+    const data: any = { valid: false, tdc: {} };
     data.valid = this.paymentForm.valid;
     data.tdc = this.paymentForm.value;
     return data;

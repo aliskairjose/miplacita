@@ -34,7 +34,7 @@ export class CheckoutComponent implements OnInit {
   totalPrice = 0;
   referedAmount = 0;
   private _totalPrice: number;
-  private _store: Store;
+  private _store: Store = {}
 
   @ViewChild( 'payment' ) payment: PaymentComponent;
 
@@ -66,7 +66,7 @@ export class CheckoutComponent implements OnInit {
     const date = new Date();
     const shipment = JSON.parse( sessionStorage.order );
 
-    if ( JSON.parse( sessionStorage.sessionStore ) ) {
+    if ( JSON.parse( sessionStorage.sessionStore || null ) ) {
       this._store = JSON.parse( sessionStorage.sessionStore );
     }
 
@@ -105,6 +105,7 @@ export class CheckoutComponent implements OnInit {
     const payment = [];
     let data: any = { valid: false, tdc: {} };
     data = this.payment.onSubmit();
+    console.log( data );
     // Metodo de pago
     payment.push( { credit_card_amount: this.referedAmount, store: this._store._id, info: data.tdc } );
     payment.push( { refered_amount: this.referedAmount, store: this._store._id } );
