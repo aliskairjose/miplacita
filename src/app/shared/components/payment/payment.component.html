@@ -76,7 +76,7 @@
     </form>
   </div>
   <!-- Pago con saldo -->
-  <div class="row mb-3">
+  <div class="row my-3" [hidden]="!showReferedAmmount">
     <div class="option-box d-flex mx-auto py-3" style="width: 100% !important">
       <div class="col-md-6">
         <p class="my-auto">Deseo usar mi saldo acumulado: {{ balance | currency }}</p>
