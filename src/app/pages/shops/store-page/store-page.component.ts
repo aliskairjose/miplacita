@@ -7,6 +7,7 @@ import { ProductService } from 'src/app/shared/services/product.service';
 import { Result } from 'src/app/shared/classes/response';
 import { CategoryService } from 'src/app/shared/services/category.service';
 import { Category } from '../../../shared/classes/category';
+import { ProductSlider } from 'src/app/shared/data/slider';
 
 @Component( {
   selector: 'app-store-page',
@@ -24,6 +25,7 @@ export class StorePageComponent implements OnInit {
   ];
 
   subCategories: Category[] = [];
+  ProductSliderConfig: any = ProductSlider;
 
   constructor(
     private route: ActivatedRoute,
