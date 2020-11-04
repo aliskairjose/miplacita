@@ -5,7 +5,7 @@
         <input class="form-check-input" type="checkbox" value="" id="defaultCheck1"
           (change)="onChange($event.target.checked)">
         <label class="form-check-label" for="defaultCheck1" style="margin-left: 2rem;">
-          Deseo usar mi saldo acumulado
+          Deseo usar mi saldo acumulado: {{ balance | currency }}
         </label> </div>
       <div class="col">
         <input class="form-control" type="number" name="amount" value="" placeholder="Ingrese monto" autocomplete="off"
