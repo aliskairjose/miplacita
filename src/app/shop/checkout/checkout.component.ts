@@ -66,10 +66,13 @@ export class CheckoutComponent implements OnInit {
     const date = new Date();
     const shipment = JSON.parse( sessionStorage.order );
 
+    if ( JSON.parse( sessionStorage.sessionStore ) ) {
+      this._store = JSON.parse( sessionStorage.sessionStore );
+    }
+
     shipment.cart.forEach( detail => {
       this.shipmentPrice += detail.shipment_price;
     } );
-    // this.productService.cartItems.subscribe( response => { this.products = response; } );
 
     this.subTotal.subscribe( amount => {
       this.amount = amount;
@@ -100,16 +103,15 @@ export class CheckoutComponent implements OnInit {
   onSubmit(): void {
     this.submitted = true;
     const payment = [];
-    let data: any = { valid: false, fullname: '' };
-
+    let data: any = { valid: false, tdc: {} };
     data = this.payment.onSubmit();
     // Metodo de pago
-    payment.push( { credit_card: this.referedAmount, store: this._store._id, fullname: data.fullname } );
+    payment.push( { credit_card_amount: this.referedAmount, store: this._store._id, info: data.tdc } );
     payment.push( { refered_amount: this.referedAmount, store: this._store._id } );
 
     const order = JSON.parse( sessionStorage.order );
     order.payment = payment;
-    // console.log( order )
+    console.log( order );
     if ( data.valid ) {
       this.orderService.createOrder( order ).subscribe( response => {
         if ( response.success ) {
