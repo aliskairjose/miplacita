@@ -1,21 +1,5 @@
 <div class="m-3">
-  <form class="mb-5">
-    <div class="row">
-      <div class="col" [hidden]="!showReferedAmmount">
-        <input class="form-check-input" type="checkbox" value="" id="defaultCheck1"
-          (change)="onChange($event.target.checked)">
-        <label class="form-check-label" for="defaultCheck1" style="margin-left: 2rem;">
-          Deseo usar mi saldo acumulado: {{ balance | currency }}
-        </label> </div>
-      <div class="col">
-        <input class="form-control" type="number" name="amount" value="" placeholder="Ingrese monto" autocomplete="off"
-          (keyup)="onInputChange($event.target.value)" [hidden]="!showInputAmount" min="0" [max]="balance">
-        <div *ngIf="showBalanceAlert" class="text text-danger small mt-1">
-          El monto excede el saldo disponible: {{ balance | currency }}
-        </div>
-      </div>
-    </div>
-  </form>
+
   <!-- Credit Card Form -->
   <div class="d-flex flex-column h-100">
     <form [formGroup]="paymentForm" class="theme-form">
@@ -83,4 +67,22 @@
       </div>
     </form>
   </div>
+  <!-- Pago con saldo -->
+  <form class="mb-5">
+    <div class="row">
+      <div class="col" [hidden]="!showReferedAmmount">
+        <input class="form-check-input" type="checkbox" value="" id="defaultCheck1"
+          (change)="onChange($event.target.checked)">
+        <label class="form-check-label" for="defaultCheck1" style="margin-left: 2rem;">
+          Deseo usar mi saldo acumulado: {{ balance | currency }}
+        </label> </div>
+      <div class="col">
+        <input class="form-control" type="number" name="amount" value="" placeholder="Ingrese monto" autocomplete="off"
+          (keyup)="onInputChange($event.target.value)" [hidden]="!showInputAmount" min="0" [max]="balance">
+        <div *ngIf="showBalanceAlert" class="text text-danger small mt-1">
+          El monto excede el saldo disponible: {{ balance | currency }}
+        </div>
+      </div>
+    </div>
+  </form>
 </div>
