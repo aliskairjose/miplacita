@@ -11,6 +11,7 @@ import { PaymentComponent } from '../../shared/components/payment/payment.compon
 import { StorageService } from '../../shared/services/storage.service';
 import { ShopService } from '../../shared/services/shop.service';
 import { Store } from '../../shared/classes/store';
+import { AuthService } from '../../shared/services/auth.service';
 
 const state = {
   user: JSON.parse( localStorage.getItem( 'user' ) || null )
@@ -28,12 +29,13 @@ export class CheckoutComponent implements OnInit {
   submitted: boolean;
   payPalConfig?: IPayPalConfig;
   // payment = 'Stripe';
-  amount: any;
+  amount: number;
   shipmentPrice = 0;
   totalPrice = 0;
   referedAmount = 0;
   private _totalPrice: number;
   private _store: Store;
+  private _balance: number;
 
   @ViewChild( 'payment' ) payment: PaymentComponent;
 
@@ -41,6 +43,7 @@ export class CheckoutComponent implements OnInit {
   constructor(
     private router: Router,
     private fb: FormBuilder,
+    private auth: AuthService,
     private shopService: ShopService,
     private orderService: OrderService,
     public productService: ProductService,
@@ -57,24 +60,28 @@ export class CheckoutComponent implements OnInit {
       state: [ '', Validators.required ],
       postalcode: [ '', Validators.required ]
     } );
+    this.productService.cartItems.subscribe( response => { this.products = response; } );
+
   }
 
   ngOnInit(): void {
     const date = new Date();
     const shipment = JSON.parse( sessionStorage.order );
+
     if ( JSON.parse( sessionStorage.sessionStore ) ) {
       this._store = JSON.parse( sessionStorage.sessionStore );
+      this.getAffiliate( this._store._id );
     }
+
     shipment.cart.forEach( detail => {
       this.shipmentPrice += detail.shipment_price;
     } );
-    this.productService.cartItems.subscribe( response => { this.products = response; } );
+    // this.productService.cartItems.subscribe( response => { this.products = response; } );
 
     this.subTotal.subscribe( amount => {
       this.amount = amount;
       this._totalPrice = this.totalPrice = amount + this.shipmentPrice;
     } );
-
 
   }
 
@@ -86,7 +93,7 @@ export class CheckoutComponent implements OnInit {
     return this.productService.cartTotalAmount();
   }
 
-  getAmount( amount: number ): void {
+  getAmount( amount ): void {
     if ( !amount ) {
       this.totalPrice = this._totalPrice;
       this.referedAmount = 0;
@@ -95,6 +102,12 @@ export class CheckoutComponent implements OnInit {
     this.totalPrice = this._totalPrice;
     this.referedAmount = amount;
     this.totalPrice = this.totalPrice - amount;
+  }
+
+  public get showAlert(): boolean {
+    console.log( this._balance, this.referedAmount );
+    console.log( this._balance > this.referedAmount );
+    return this._balance != this.referedAmount;
   }
 
   onSubmit(): void {
@@ -119,6 +132,13 @@ export class CheckoutComponent implements OnInit {
         }
       } );
     }
+  }
+
+  private getAffiliate( storeId: string ): void {
+
+    this.shopService.getAffiliate( storeId, this.auth.getUserActive()._id ).subscribe( response => {
+      this._balance = response.amount;
+    } );
   }
 
 }
