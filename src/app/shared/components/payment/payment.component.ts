@@ -12,6 +12,7 @@ import { Store } from '../../classes/store';
 } )
 export class PaymentComponent implements OnInit {
 
+  balaceForm: FormGroup;
   paymentForm: FormGroup;
   months = [ { value: 1, name: 'Enero' },
   { value: 2, name: 'Febreo' },
@@ -67,13 +68,17 @@ export class PaymentComponent implements OnInit {
     this.submitted = true;
     const data: any = { valid: false, fullname: '' };
     data.valid = this.paymentForm.valid;
-    data.fullname = this.paymentForm.value.owner;
+    data.tdc = this.paymentForm.value;
     return data;
   }
 
   onChange( event: boolean ): void {
     this.showInputAmount = event;
-    if ( !event ) { this.amount.emit( 0 ); }
+    if ( !event ) {
+      this.balaceForm.reset();
+      this.showBalanceAlert = false;
+      this.amount.emit( 0 );
+    }
   }
 
   onInputChange( val: number ): void {
@@ -86,6 +91,10 @@ export class PaymentComponent implements OnInit {
   }
 
   private createForm(): void {
+    this.balaceForm = this._formBuilder.group( {
+      amount: [ '' ]
+    } );
+
     this.paymentForm = this._formBuilder.group( {
       owner: [ '', [ Validators.required, Validators.pattern( '[a-zA-Z][a-zA-Z ]+[a-zA-Z]$' ) ] ],
       cvv: [ '', [ Validators.required, Validators.pattern( '[0-9]+' ) ] ],

@@ -103,25 +103,25 @@ export class CheckoutComponent implements OnInit {
   onSubmit(): void {
     this.submitted = true;
     const payment = [];
-    let data: any = { valid: false, fullname: '' };
+    let data: any = { valid: false, tdc: {} };
 
     data = this.payment.onSubmit();
     // Metodo de pago
-    payment.push( { credit_card: this.referedAmount, store: this._store._id, fullname: data.fullname } );
+    payment.push( { credit_card: this.referedAmount, store: this._store._id, info: data.tdc } );
     payment.push( { refered_amount: this.referedAmount, store: this._store._id } );
 
     const order = JSON.parse( sessionStorage.order );
     order.payment = payment;
-    // console.log( order )
-    if ( data.valid ) {
-      this.orderService.createOrder( order ).subscribe( response => {
-        if ( response.success ) {
-          sessionStorage.removeItem( 'order' );
-          this.productService.emptyCartItem();
-          this.router.navigate( [ '/shop/checkout/success' ] );
-        }
-      } );
-    }
+    console.log( order )
+    // if ( data.valid ) {
+    //   this.orderService.createOrder( order ).subscribe( response => {
+    //     if ( response.success ) {
+    //       sessionStorage.removeItem( 'order' );
+    //       this.productService.emptyCartItem();
+    //       this.router.navigate( [ '/shop/checkout/success' ] );
+    //     }
+    //   } );
+    // }
   }
 
 }

@@ -68,7 +68,7 @@
     </form>
   </div>
   <!-- Pago con saldo -->
-  <form class="mb-5">
+  <!-- <form class="mb-5">
     <div class="row">
       <div class="col" [hidden]="!showReferedAmmount">
         <input class="form-check-input" type="checkbox" value="" id="defaultCheck1"
@@ -84,5 +84,25 @@
         </div>
       </div>
     </div>
-  </form>
+  </form> -->
+  <div class="row mb-3">
+    <div class="option-box d-flex mx-auto py-3">
+      <div class="col-md-6">
+        <p class="my-auto">Deseo usar mi saldo acumulado: {{ balance | currency }}</p>
+        <form action="" [formGroup]="balaceForm">
+          <div [hidden]="!showInputAmount">
+            <input class="form-control mt-1" type="number" name="amount" value="" placeholder="Ingrese monto"
+              autocomplete="off" (keyup)="onInputChange($event.target.value)" min="0" [max]="balance"
+              formControlName="amount">
+            <div *ngIf="showBalanceAlert" class="text text-danger small mt-1">
+              El monto excede el saldo disponible: {{ balance | currency }}
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="col offset-xl-4 text-center">
+        <input class="my-auto" type="checkbox" (change)="onChange($event.target.checked)">
+      </div>
+    </div>
+  </div>
 </div>
