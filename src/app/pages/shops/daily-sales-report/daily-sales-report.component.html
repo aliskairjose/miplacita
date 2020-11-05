@@ -88,13 +88,12 @@
 						</tr>
 					</tbody>
 					<tbody *ngIf="role == 'admin'">
-						<tr *ngFor="let product of products">
-							<td class="text-center">{{ product.store.name }}</td>
-							<td class="text-center">{{ product.name }}</td>
-							<td class="text-center">{{ product.price | currency}}</td>
-							<td class="text-center">{{ product.sold }}</td>
-							<td class="text-center text-capitalize">{{ product.status }}</td>
-
+						<tr *ngFor="let item of products">
+							<td class="text-center">{{ item.store.name }}</td>
+							<td class="text-center">{{ item.product.name }}</td>
+							<td class="text-center">{{ item.amount | currency}}</td>
+							<td class="text-center">{{ item.quantity }}</td>
+							<!-- <td class="text-center text-capitalize">{{ product.status }}</td> -->
 						</tr>
 					</tbody>
 				</table>

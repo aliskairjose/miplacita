@@ -28,7 +28,7 @@ export class DailySalesReportComponent implements OnInit, OnChanges {
   @Input() type: string;
 
   fields = [ 'Número de orden', 'Monto', 'Cliente', 'Fecha', 'Estado', '' ];
-  fieldsAdmin = [ 'Tienda', 'Producto', 'Monto', 'Cantidades vendidas', 'Estado' ];
+  fieldsAdmin = [ 'Tienda', 'Producto', 'Monto', 'Cantidades vendidas' ];
   orders: Order[] = [];
   products = [];
   stores: Store[] = [];
@@ -41,6 +41,7 @@ export class DailySalesReportComponent implements OnInit, OnChanges {
   modelTo: NgbDateStruct;
   modelFrom: NgbDateStruct;
   storeSelected: Store = {};
+  private _storeId = '';
 
   constructor(
     private auth: AuthService,
@@ -78,8 +79,6 @@ export class DailySalesReportComponent implements OnInit, OnChanges {
 
   filtrar(): void {
     this.fechaIni = this.fechaFin = this.parseDate.format( this.modelFrom );
-    // this.fechaIni = this.parseDate.format( this.modelFrom );
-    // this.fechaFin = this.parseDate.format( this.modelTo );
     const from = new Date( this.fechaIni );
     const to = new Date( this.fechaFin );
 
@@ -105,7 +104,7 @@ export class DailySalesReportComponent implements OnInit, OnChanges {
     }
   }
 
-  private loadData( page = 1 ): void {
+  private loadData(): void {
     let params = '';
     if ( this.role === 'merchant' ) {
       params = `store=${this.store._id}&from=${this.fechaIni}&to=${this.fechaFin}&report=true`;
@@ -113,8 +112,7 @@ export class DailySalesReportComponent implements OnInit, OnChanges {
     } else {
       if ( this.type === 'daily-sales' ) {
         // Ventas diarias por productos
-        // params = `from=${this.fechaIni}&to=${this.fechaFin}&store${this.store._id}`;
-        params = `from=${this.fechaIni}&to=${this.fechaFin}&store${this.storeSelected._id}`;
+        params = `from=${this.fechaIni}&to=${this.fechaFin}&store=${this._storeId}`;
       } else if ( this.type === 'daily-sales-mp' ) {
         // Ventas diarias por productos MP
         params = `from=${this.fechaIni}&to=${this.fechaFin}`;
@@ -131,7 +129,6 @@ export class DailySalesReportComponent implements OnInit, OnChanges {
 
   private dailySalesProducts( params ): void {
     this.reports.dailySalesProducts( params ).subscribe( response => {
-      console.log( response.result );
       this.products = response.result;
     } );
   }
@@ -152,11 +149,8 @@ export class DailySalesReportComponent implements OnInit, OnChanges {
     } );
   }
 
-  setPage( page: number ) {
-    this.loadData( page );
-  }
-
-  selectStore( store ) {
+  selectStore( store: Store ) {
+    this._storeId = store._id;
     this.storeSelected = store;
   }
 
