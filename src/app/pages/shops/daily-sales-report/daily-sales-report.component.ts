@@ -41,7 +41,7 @@ export class DailySalesReportComponent implements OnInit, OnChanges {
   modelTo: NgbDateStruct;
   modelFrom: NgbDateStruct;
   storeSelected: Store = {};
-  showalert = true;
+  showalert: boolean;
   private _storeId = '';
 
   constructor(
