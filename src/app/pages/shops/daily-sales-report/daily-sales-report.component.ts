@@ -41,6 +41,7 @@ export class DailySalesReportComponent implements OnInit, OnChanges {
   modelTo: NgbDateStruct;
   modelFrom: NgbDateStruct;
   storeSelected: Store = {};
+  showalert = true;
   private _storeId = '';
 
   constructor(
@@ -124,12 +125,14 @@ export class DailySalesReportComponent implements OnInit, OnChanges {
   private dailySales( params: string ): void {
     this.reports.dailySales( params ).subscribe( result => {
       this.orders = [ ...result ];
+      this.showalert = result.length;
     } );
   }
 
   private dailySalesProducts( params ): void {
     this.reports.dailySalesProducts( params ).subscribe( response => {
       this.products = response.result;
+      this.showalert = response.result.length;
     } );
   }
 
