@@ -35,8 +35,8 @@
 							</button>
 							<div ngbDropdownMenu aria-labelledby="dropdownBasic1">
 								<div>
-									<button type="button" class="drop-button" *ngFor="let store of stores"
-										[value]="store._id" (click)="selectStore(store)" ngbDropdownItem>
+									<button type="button" class="drop-button" *ngFor="let store of stores" [value]="store._id"
+										(click)="selectStore(store)" ngbDropdownItem>
 										{{store.name}}
 									</button>
 								</div>

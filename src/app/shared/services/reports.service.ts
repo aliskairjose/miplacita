@@ -2,12 +2,10 @@ import { Injectable } from '@angular/core';
 import { HttpService } from './http.service';
 import { Observable } from 'rxjs';
 import { Response, Result } from '../classes/response';
-import { Order } from '../classes/order';
 import { map } from 'rxjs/operators';
 import { User } from '../classes/user';
 import { Product } from '../classes/product';
-import { ObsEvent } from 'ng-lazyload-image/src/types';
-import { Store } from '../classes/store';
+import { UserService } from './user.service';
 
 @Injectable( {
   providedIn: 'root'
@@ -15,7 +13,7 @@ import { Store } from '../classes/store';
 export class ReportsService {
 
   constructor(
-    private http: HttpService
+    private http: HttpService,
   ) { }
 
   /*
@@ -77,8 +75,10 @@ export class ReportsService {
     );
   }
 
-  stockMP(): Observable<Result<Product>> {
-    return this.http.get( `` );
+  stockMP(): Observable<any> {
+    return this.http.get( `products?marketplace=true&report=true` ).pipe(
+      map( response => response.result )
+    );
   }
 
   percentageMpSales(): Observable<Result<any>> {
@@ -99,7 +99,7 @@ export class ReportsService {
    * @param to Fecha final
    */
   clientsByStore( id: string, from: string, to: string ): Observable<any> {
-    return this.http.get( `api/client?store=${id}&from=${from}&to=${to}` )
+    return this.http.get( `api/client?store=${id}&from=${from}&to=${to}` );
   }
 
   /**

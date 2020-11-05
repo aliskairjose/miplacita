@@ -8,6 +8,7 @@ import { Result } from 'src/app/shared/classes/response';
 import { CategoryService } from 'src/app/shared/services/category.service';
 import { Category } from '../../../shared/classes/category';
 import { ProductSlider } from 'src/app/shared/data/slider';
+import { async } from '@angular/core/testing';
 
 @Component( {
   selector: 'app-store-page',
@@ -37,7 +38,6 @@ export class StorePageComponent implements OnInit {
     this.route.url.subscribe( ( url ) => {
       this.storeService.getStoreByUrl( url[ 0 ].path.toLocaleLowerCase() ).subscribe( store => {
         sessionStorage.setItem( 'sessionStore', JSON.stringify( store ) );
-
         this.store = { ...store };
         this.sliders = this.store.config.images;
         this.getCollectionProducts( this.store._id );
@@ -47,7 +47,6 @@ export class StorePageComponent implements OnInit {
     } );
 
   }
-
 
   ngOnInit(): void {
   }

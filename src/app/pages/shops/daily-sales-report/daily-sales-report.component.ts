@@ -41,6 +41,7 @@ export class DailySalesReportComponent implements OnInit, OnChanges {
   modelTo: NgbDateStruct;
   modelFrom: NgbDateStruct;
   storeSelected: Store = {};
+
   constructor(
     private auth: AuthService,
     private toastr: ToastrService,
@@ -49,7 +50,6 @@ export class DailySalesReportComponent implements OnInit, OnChanges {
     private ngbCalendar: NgbCalendar,
     private shopService: ShopService,
     private parseDate: CustomDateParserFormatterService,
-    private route: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
@@ -131,8 +131,8 @@ export class DailySalesReportComponent implements OnInit, OnChanges {
 
   private dailySalesProducts( params ): void {
     this.reports.dailySalesProducts( params ).subscribe( response => {
-      console.log(response);
-      this.orders = response.result;
+      console.log( response.result );
+      this.products = response.result;
     } );
   }
 
@@ -143,12 +143,12 @@ export class DailySalesReportComponent implements OnInit, OnChanges {
     params = `report=false`;
 
     this.reports.membershipActiveShop( page, params ).subscribe( result => {
-        this.stores = result.docs;
-        this.paginate = { ...result };
-        this.paginate.pages = [];
-        for ( let i = 1; i <= this.paginate.totalPages; i++ ) {
-          this.paginate.pages.push( i );
-        }
+      this.stores = result.docs;
+      this.paginate = { ...result };
+      this.paginate.pages = [];
+      for ( let i = 1; i <= this.paginate.totalPages; i++ ) {
+        this.paginate.pages.push( i );
+      }
     } );
   }
 
@@ -156,7 +156,7 @@ export class DailySalesReportComponent implements OnInit, OnChanges {
     this.loadData( page );
   }
 
-  selectStore(store){
+  selectStore( store ) {
     this.storeSelected = store;
   }
 
