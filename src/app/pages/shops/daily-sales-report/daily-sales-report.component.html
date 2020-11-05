@@ -30,13 +30,13 @@
 					<div class="form-group flex-fill" *ngIf="type === 'daily-sales'">
 						<div class="field-label font-weight-bold">Tienda</div>
 						<div ngbDropdown>
-							<button class="form-control" id="select-btn" ngbDropdownToggle>
+							<button class="form-control" id="select-btn" ngbDropdownToggle style="width: 15rem;">
 								{{ storeSelected.name ? storeSelected.name : 'Selecciona una tienda' }}
 							</button>
 							<div ngbDropdownMenu aria-labelledby="dropdownBasic1">
 								<div>
-									<button type="button" class="drop-button" *ngFor="let store of stores"
-										[value]="store._id" (click)="selectStore(store)" ngbDropdownItem>
+									<button type="button" class="drop-button" *ngFor="let store of stores" [value]="store._id"
+										(click)="selectStore(store)" ngbDropdownItem>
 										{{store.name}}
 									</button>
 								</div>
@@ -88,19 +88,18 @@
 						</tr>
 					</tbody>
 					<tbody *ngIf="role == 'admin'">
-						<tr *ngFor="let product of products">
-							<td class="text-center">{{ product.store.name }}</td>
-							<td class="text-center">{{ product.name }}</td>
-							<td class="text-center">{{ product.price | currency}}</td>
-							<td class="text-center">{{ product.sold }}</td>
-							<td class="text-center text-capitalize">{{ product.status }}</td>
-
+						<tr *ngFor="let item of products">
+							<td class="text-center">{{ item.store.name }}</td>
+							<td class="text-center">{{ item.product.name }}</td>
+							<td class="text-center">{{ item.amount | currency}}</td>
+							<td class="text-center">{{ item.quantity }}</td>
+							<!-- <td class="text-center text-capitalize">{{ product.status }}</td> -->
 						</tr>
 					</tbody>
 				</table>
 			</div>
 
-			<div class="form-row container justify-content-center " *ngIf="orders.length==0">
+			<div class="form-row container justify-content-center " [hidden]="showalert">
 				<div class="col-md-5">
 					<div class="card text-center mx-auto mb-2">
 						<div class="card-body">

@@ -2,16 +2,12 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { IPayPalConfig } from 'ngx-paypal';
-import { environment } from '../../../environments/environment';
 import { Product } from '../../shared/classes/product';
 import { ProductService } from '../../shared/services/product.service';
 import { OrderService } from '../../shared/services/order.service';
 import { Router } from '@angular/router';
 import { PaymentComponent } from '../../shared/components/payment/payment.component';
-import { StorageService } from '../../shared/services/storage.service';
-import { ShopService } from '../../shared/services/shop.service';
 import { Store } from '../../shared/classes/store';
-import { AuthService } from '../../shared/services/auth.service';
 
 const state = {
   user: JSON.parse( localStorage.getItem( 'user' ) || null )
@@ -34,15 +30,13 @@ export class CheckoutComponent implements OnInit {
   totalPrice = 0;
   referedAmount = 0;
   private _totalPrice: number;
-  private _store: Store = {}
+  store: Store = {};
 
   @ViewChild( 'payment' ) payment: PaymentComponent;
 
   constructor(
     private router: Router,
     private fb: FormBuilder,
-    private auth: AuthService,
-    private shopService: ShopService,
     private orderService: OrderService,
     public productService: ProductService,
   ) {
@@ -67,7 +61,7 @@ export class CheckoutComponent implements OnInit {
     const shipment = JSON.parse( sessionStorage.order );
 
     if ( JSON.parse( sessionStorage.sessionStore || null ) ) {
-      this._store = JSON.parse( sessionStorage.sessionStore );
+      this.store = JSON.parse( sessionStorage.sessionStore );
     }
 
     shipment.cart.forEach( detail => {
@@ -105,14 +99,19 @@ export class CheckoutComponent implements OnInit {
     const payment = [];
     let data: any = { valid: false, tdc: {} };
     data = this.payment.onSubmit();
-    console.log( data );
+
     // Metodo de pago
-    payment.push( { credit_card_amount: this.referedAmount, store: this._store._id, info: data.tdc } );
-    payment.push( { refered_amount: this.referedAmount, store: this._store._id } );
+    payment.push( { credit_card_amount: this.referedAmount, store: this.store._id, info: data.tdc } );
+    payment.push( { refered_amount: this.referedAmount, store: this.store._id } );
 
     const order = JSON.parse( sessionStorage.order );
+
+    ( this.store._id ) ? order.type = 'store' : order.type = 'marketplace';
+
     order.payment = payment;
-    console.log( order );
+
+    // console.log( data );
+    // console.log( order );
     if ( data.valid ) {
       this.orderService.createOrder( order ).subscribe( response => {
         if ( response.success ) {

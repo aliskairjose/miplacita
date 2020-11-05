@@ -28,7 +28,7 @@ export class DailySalesReportComponent implements OnInit, OnChanges {
   @Input() type: string;
 
   fields = [ 'Número de orden', 'Monto', 'Cliente', 'Fecha', 'Estado', '' ];
-  fieldsAdmin = [ 'Tienda', 'Producto', 'Monto', 'Cantidades vendidas', 'Estado' ];
+  fieldsAdmin = [ 'Tienda', 'Producto', 'Monto', 'Cantidades vendidas' ];
   orders: Order[] = [];
   products = [];
   stores: Store[] = [];
@@ -41,6 +41,9 @@ export class DailySalesReportComponent implements OnInit, OnChanges {
   modelTo: NgbDateStruct;
   modelFrom: NgbDateStruct;
   storeSelected: Store = {};
+  showalert: boolean;
+  private _storeId = '';
+
   constructor(
     private auth: AuthService,
     private toastr: ToastrService,
@@ -49,7 +52,6 @@ export class DailySalesReportComponent implements OnInit, OnChanges {
     private ngbCalendar: NgbCalendar,
     private shopService: ShopService,
     private parseDate: CustomDateParserFormatterService,
-    private route: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
@@ -78,8 +80,6 @@ export class DailySalesReportComponent implements OnInit, OnChanges {
 
   filtrar(): void {
     this.fechaIni = this.fechaFin = this.parseDate.format( this.modelFrom );
-    // this.fechaIni = this.parseDate.format( this.modelFrom );
-    // this.fechaFin = this.parseDate.format( this.modelTo );
     const from = new Date( this.fechaIni );
     const to = new Date( this.fechaFin );
 
@@ -105,7 +105,7 @@ export class DailySalesReportComponent implements OnInit, OnChanges {
     }
   }
 
-  private loadData( page = 1 ): void {
+  private loadData(): void {
     let params = '';
     if ( this.role === 'merchant' ) {
       params = `store=${this.store._id}&from=${this.fechaIni}&to=${this.fechaFin}&report=true`;
@@ -113,8 +113,7 @@ export class DailySalesReportComponent implements OnInit, OnChanges {
     } else {
       if ( this.type === 'daily-sales' ) {
         // Ventas diarias por productos
-        // params = `from=${this.fechaIni}&to=${this.fechaFin}&store${this.store._id}`;
-        params = `from=${this.fechaIni}&to=${this.fechaFin}&store${this.storeSelected._id}`;
+        params = `from=${this.fechaIni}&to=${this.fechaFin}&store=${this._storeId}`;
       } else if ( this.type === 'daily-sales-mp' ) {
         // Ventas diarias por productos MP
         params = `from=${this.fechaIni}&to=${this.fechaFin}`;
@@ -126,13 +125,14 @@ export class DailySalesReportComponent implements OnInit, OnChanges {
   private dailySales( params: string ): void {
     this.reports.dailySales( params ).subscribe( result => {
       this.orders = [ ...result ];
+      this.showalert = result.length;
     } );
   }
 
   private dailySalesProducts( params ): void {
     this.reports.dailySalesProducts( params ).subscribe( response => {
-      console.log(response);
-      this.orders = response.result;
+      this.products = response.result;
+      this.showalert = response.result.length;
     } );
   }
 
@@ -143,20 +143,17 @@ export class DailySalesReportComponent implements OnInit, OnChanges {
     params = `report=false`;
 
     this.reports.membershipActiveShop( page, params ).subscribe( result => {
-        this.stores = result.docs;
-        this.paginate = { ...result };
-        this.paginate.pages = [];
-        for ( let i = 1; i <= this.paginate.totalPages; i++ ) {
-          this.paginate.pages.push( i );
-        }
+      this.stores = result.docs;
+      this.paginate = { ...result };
+      this.paginate.pages = [];
+      for ( let i = 1; i <= this.paginate.totalPages; i++ ) {
+        this.paginate.pages.push( i );
+      }
     } );
   }
 
-  setPage( page: number ) {
-    this.loadData( page );
-  }
-
-  selectStore(store){
+  selectStore( store: Store ) {
+    this._storeId = store._id;
     this.storeSelected = store;
   }
 
