@@ -68,9 +68,19 @@ export class PaymentComponent implements OnInit {
 
   onSubmit(): boolean {
     this.submitted = true;
+    const tdc = {
+      cardnumber: 0,
+      cvv: 0,
+      owner: '',
+      date: ''
+    };
     const data: any = { valid: false, tdc: {} };
+    tdc.cardnumber = this.paymentForm.value.cardnumber;
+    tdc.cvv = this.paymentForm.value.cvv;
+    tdc.owner = this.paymentForm.value.owner;
+    tdc.date = `${this.paymentForm.value.month}/${this.paymentForm.value.year}`
     data.valid = this.paymentForm.valid;
-    data.tdc = this.paymentForm.value;
+    data.tdc = { ...tdc };
     return data;
   }
 
