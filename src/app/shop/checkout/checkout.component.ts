@@ -105,7 +105,6 @@ export class CheckoutComponent implements OnInit {
     const payment = [];
     let data: any = { valid: false, tdc: {} };
     data = this.payment.onSubmit();
-    console.log( data );
 
     // Metodo de pago
     payment.push( { credit_card_amount: this.referedAmount, store: this._store._id, info: data.tdc } );
@@ -116,16 +115,18 @@ export class CheckoutComponent implements OnInit {
     ( this._store._id ) ? order.type = 'store' : order.type = 'marketplace';
 
     order.payment = payment;
-    console.log( order );
-    // if ( data.valid ) {
-    //   this.orderService.createOrder( order ).subscribe( response => {
-    //     if ( response.success ) {
-    //       sessionStorage.removeItem( 'order' );
-    //       this.productService.emptyCartItem();
-    //       this.router.navigate( [ '/shop/checkout/success' ] );
-    //     }
-    //   } );
-    // }
+
+    // console.log( data );
+    // console.log( order );
+    if ( data.valid ) {
+      this.orderService.createOrder( order ).subscribe( response => {
+        if ( response.success ) {
+          sessionStorage.removeItem( 'order' );
+          this.productService.emptyCartItem();
+          this.router.navigate( [ '/shop/checkout/success' ] );
+        }
+      } );
+    }
   }
 
 }
