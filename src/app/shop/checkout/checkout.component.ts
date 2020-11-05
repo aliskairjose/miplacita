@@ -111,17 +111,20 @@ export class CheckoutComponent implements OnInit {
     payment.push( { refered_amount: this.referedAmount, store: this._store._id } );
 
     const order = JSON.parse( sessionStorage.order );
+
+    ( this._store._id ) ? order.type = 'store' : order.type = 'marketplace';
+
     order.payment = payment;
     console.log( order );
-    if ( data.valid ) {
-      this.orderService.createOrder( order ).subscribe( response => {
-        if ( response.success ) {
-          sessionStorage.removeItem( 'order' );
-          this.productService.emptyCartItem();
-          this.router.navigate( [ '/shop/checkout/success' ] );
-        }
-      } );
-    }
+    // if ( data.valid ) {
+    //   this.orderService.createOrder( order ).subscribe( response => {
+    //     if ( response.success ) {
+    //       sessionStorage.removeItem( 'order' );
+    //       this.productService.emptyCartItem();
+    //       this.router.navigate( [ '/shop/checkout/success' ] );
+    //     }
+    //   } );
+    // }
   }
 
 }

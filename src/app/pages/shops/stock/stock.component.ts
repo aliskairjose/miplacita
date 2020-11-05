@@ -42,5 +42,4 @@ export class StockComponent implements OnInit {
     this.exportDoc.ExportTOPDF( '#mp-table', 'Inventario', 'stock-report' );
   }
 
-
 }
