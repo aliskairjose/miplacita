@@ -35,6 +35,7 @@ export class PaymentComponent implements OnInit {
   showBalanceAlert = false;
 
   @Input() submitted: boolean;
+  @Input() card: any;
   @Output() enviado: EventEmitter<boolean> = new EventEmitter<boolean>();
   @Output() amount: EventEmitter<number> = new EventEmitter<number>();
 
@@ -50,7 +51,6 @@ export class PaymentComponent implements OnInit {
 
 
   ngOnInit(): void {
-
     if ( JSON.parse( sessionStorage.sessionStore || null ) ) {
       this.showReferedAmmount = true;
       const store: Store = JSON.parse( sessionStorage.sessionStore );
@@ -63,6 +63,17 @@ export class PaymentComponent implements OnInit {
     for ( let i = 0; i < 12; i++ ) {
       date.setMonth( date.getMonth() + 12 );
       this.years.push( date.getFullYear() );
+    }
+    if (this.card){
+      this.paymentForm.setValue(
+        {
+          owner: this.card.owner ,
+          cvv: this.card.cvv,
+          cardnumber: this.card.cardnumber,
+          month: this.card.month,
+          year: this.card.year
+        }
+      );
     }
   }
 
@@ -114,6 +125,7 @@ export class PaymentComponent implements OnInit {
       month: [ '', [ Validators.required ] ],
       year: [ '', [ Validators.required ] ]
     } );
+    
   }
 
   private getAffiliate( storeId: string ): void {

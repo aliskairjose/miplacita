@@ -6,9 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./payment-manager.component.scss']
 })
 export class PaymentManagerComponent implements OnInit {
-  cards = [
-    { name: 'Nairelys Hernandez', numberCard: '****0321', type: 'Mastercard'}
-  ];
+  card: any;
   constructor() { }
 
   ngOnInit(): void {
