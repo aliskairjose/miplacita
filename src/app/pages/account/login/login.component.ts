@@ -21,8 +21,10 @@ export class LoginComponent implements OnInit {
   required = 'Campo obligatorio';
   invalidEmail = 'Email inválido';
   role = 'admin';
+  url = '';
   title: string;
   mustReturn = false; // variable que indica que debe retornar al origen despues de login
+  mustReturnStore = false; // variable que indica que debe retornar al origen despues de login
 
   constructor(
     private router: Router,
@@ -41,14 +43,15 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
 
-    const role = this.route.queryParams.subscribe( params => {
+    this.route.queryParams.subscribe( params => {
       if ( Object.keys( params ).length !== 0 ) {
         this.role = params.role;
-
+        this.url = params.url;
         if ( params.role === 'merchant' ) { this.title = 'como Vendedor'; }
 
         if ( params.role === 'client' ) { this.title = 'como Comprador'; }
         if ( params.status ) { this.mustReturn = true; }
+        if ( params.url ) { this.mustReturnStore = true; }
       }
     } );
 
@@ -77,7 +80,6 @@ export class LoginComponent implements OnInit {
           this.storage.setLoginData( 'data', data );
           this.auth.authSubject( data.success );
 
-          // this.router.navigate( [ '/shop/checkout/shipping' ] );
           // Redireccionamiento al dashboard
           this.redirectAfterLogin();
         }
@@ -111,6 +113,8 @@ export class LoginComponent implements OnInit {
 
   private redirectAfterLogin(): void {
     ( this.mustReturn ) ? this.router.navigate( [ 'shop/checkout/shipping' ] ) : this.router.navigate( [ 'home' ] );
+    if ( this.mustReturnStore ) { this.router.navigate( [ this.url ] ); }
+
   }
 
   passwordRecovery() {

@@ -18,12 +18,15 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: [ './settings.component.scss' ]
 } )
 export class SettingsComponent implements OnInit {
+
   products: Product[] = [];
   isLoggedIn: boolean;
   role: string;
   _role = 'client';
   balance: number;
   showBalance = false;
+  store: Store = {};
+
   private _referedCode: string;
 
   constructor(
@@ -50,15 +53,19 @@ export class SettingsComponent implements OnInit {
     this.isLoggedIn = this.auth.isAuthenticated();
 
     this.shopService.storeObserver().subscribe( store => {
-      if ( store ) {
+      this.store = store;
+      if ( store && this.auth.getUserActive() ) {
         this.getAffiliate( store._id );
       }
     } );
 
     if ( sessionStorage.sessionStore ) {
-      const store: Store = JSON.parse( sessionStorage.sessionStore );
-      this.getAffiliate( store._id );
+      this.store = JSON.parse( sessionStorage.sessionStore );
+      if ( this.auth.getUserActive() ) {
+        this.getAffiliate( this.store._id );
+      }
     }
+
     this.auth.authObserver().subscribe( ( isAuth: boolean ) => {
       this.isLoggedIn = isAuth;
     } );
@@ -66,6 +73,7 @@ export class SettingsComponent implements OnInit {
     if ( this.previousRoute.getCurrentUrl() === '/home/marketplace' ) {
       this._role = 'merchant';
     }
+    console.log( this.store );
   }
 
   callServiceToCopy() {
