@@ -54,7 +54,7 @@ export class StockComponent implements OnInit {
   }
 
   filtrar(){
-
+    this.loadData();
   }
 
   selectStore( store: Store ) {
