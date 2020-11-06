@@ -4,6 +4,7 @@ import { ReportsService } from 'src/app/shared/services/reports.service';
 import { ExportService } from 'src/app/shared/services/export.service';
 import { Paginate } from 'src/app/shared/classes/paginate';
 import { Store } from 'src/app/shared/classes/store';
+import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 
 @Component( {
   selector: 'app-stock',
@@ -20,6 +21,7 @@ export class StockComponent implements OnInit {
   storeSelected: Store = {};
   stores: Store[];
   _storeId: string;
+  modelFrom: NgbDateStruct;
   constructor(
     private auth: AuthService,
     private reportService: ReportsService,
@@ -49,6 +51,10 @@ export class StockComponent implements OnInit {
       this.stores = result.docs;
 
     } );
+  }
+
+  filtrar(){
+
   }
 
   selectStore( store: Store ) {
