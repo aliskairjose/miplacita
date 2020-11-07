@@ -3,6 +3,10 @@ import { Paginate } from 'src/app/shared/classes/paginate';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { ReportsService } from 'src/app/shared/services/reports.service';
 import { ExportService } from 'src/app/shared/services/export.service';
+import { Store } from '../../../shared/classes/store';
+import { NgbDateStruct, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
+import { CustomDateParserFormatterService } from '../../../shared/adapter/custom-date-parser-formatter.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component( {
   selector: 'app-percentage-mp-products',
@@ -15,12 +19,21 @@ export class PercentageMpProductsComponent implements OnInit {
   fields = [ 'Tienda', 'Dueño', 'Código de producto', 'Nombre del producto', 'Cantidad en existencia' ];
   products = [];
   role: string;
-  paginate: Paginate;
+  stores: Store[] = [];
+  storeSelected: Store = {};
+  modelTo: NgbDateStruct;
+  modelFrom: NgbDateStruct;
+  fechaIni = '';
+  fechaFin = '';
+  private _storeID = '';
 
   constructor(
     private auth: AuthService,
-    private reportService: ReportsService,
+    private toastr: ToastrService,
+    private ngbCalendar: NgbCalendar,
     private exportDoc: ExportService,
+    private reportService: ReportsService,
+    private parseDate: CustomDateParserFormatterService,
   ) { }
 
   ngOnInit(): void {
@@ -29,18 +42,48 @@ export class PercentageMpProductsComponent implements OnInit {
   }
 
   init() {
+    this.modelFrom = this.modelTo = this.ngbCalendar.getToday();
+    this.fechaIni = this.parseDate.format( this.modelFrom );
+    this.fechaFin = this.parseDate.format( this.modelTo );
     this.loadData();
-
+    this.loadStores();
   }
 
-  loadData( page = 1 ) {
-    this.reportService.percentageMpSales().subscribe( ( result ) => {
-      console.log( result, 'porcentaje de ventas en MP y venta en tienda' );
+  filtrar(): void {
+    this.fechaIni = this.parseDate.format( this.modelFrom );
+    this.fechaFin = this.parseDate.format( this.modelTo );
+    const from = new Date( this.fechaIni );
+    const to = new Date( this.fechaFin );
+
+    if ( from > to ) {
+      this.toastr.warning( 'La fecha inicial no debe ser menor a la final' );
+      return;
+    }
+
+    this.loadData();
+  }
+
+  selectStore( store: Store ): void {
+    this.storeSelected = store;
+    this._storeID = store._id;
+  }
+
+  private loadData() {
+    const params = `from=${this.fechaIni}&to=${this.fechaFin}&store=${this._storeID}`;
+    this.reportService.percentageMpSales( params ).subscribe( ( result ) => {
+      console.log( '------> porcentaje de ventas en MP y venta en tienda', result );
     } );
   }
-  setPage( page: number ) {
-    this.loadData( page );
+
+  private loadStores(): void {
+    let params = '';
+    params = `report=false`;
+    this.reportService.membershipActiveShop( 1, params ).subscribe( result => {
+      console.log( result );
+      this.stores = result.docs;
+    } );
   }
+
 
   ExportTOExcel() {
     this.exportDoc.ExportTOExcel( this.table.nativeElement, 'stock-report' );
