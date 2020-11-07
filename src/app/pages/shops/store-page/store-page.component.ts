@@ -55,8 +55,10 @@ export class StorePageComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
   }
 
-  onClick(): void {
-    alert( 'mensaje' );
+  // Open chat whatsapp web
+  openChat(): void {
+    window.open( `https://wa.me/${this.store.phone}`, '_blank' );
+
   }
 
   private getCollectionProducts( id: string ): void {
