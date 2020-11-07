@@ -2,7 +2,8 @@
 	<p style="color: white"> Por favor espere... </p>
 </ngx-spinner>
 
-<app-header-one [showBalance]="true" [sticky]="true" [isHidde]="false" [topbar]="false" [isSideMenu]="true" [hasSearchBar]="true">
+<app-header-one [showBalance]="true" [sticky]="true" [isHidde]="false" [topbar]="false" [isSideMenu]="true"
+	[hasSearchBar]="true">
 </app-header-one>
 
 <div class="pb-5">
@@ -61,7 +62,7 @@
 			</div>
 		</div>
 	</div>
-<!-- 
+	<!-- 
 	<section class="section-b-space p-t-0 mt-4" *ngIf="products.length">
 		<div class="container">
 			<div class="row">
@@ -83,22 +84,22 @@
 
 	<section class="section-b-space p-t-0">
 		<div class="container">
-		  <div class="row">
-			<div class="col">
-			  <owl-carousel-o class="product-m no-arrow" [options]="ProductSliderConfig">
-				<ng-container *ngFor="let product of products | slice:0:16">
-				  <ng-template carouselSlide>
-					<div class="product-box">
-					  <app-product-box-one [product]="product" [thumbnail]="false" [cartModal]="false" [horizontal]="true">
-					  </app-product-box-one>
-					</div>
-				  </ng-template>
-				</ng-container>
-			  </owl-carousel-o>
+			<div class="row">
+				<div class="col">
+					<owl-carousel-o class="product-m no-arrow" [options]="ProductSliderConfig">
+						<ng-container *ngFor="let product of products | slice:0:16">
+							<ng-template carouselSlide>
+								<div class="product-box">
+									<app-product-box-one [product]="product" [thumbnail]="false" [cartModal]="false" [horizontal]="true">
+									</app-product-box-one>
+								</div>
+							</ng-template>
+						</ng-container>
+					</owl-carousel-o>
+				</div>
 			</div>
-		  </div>
 		</div>
-	  </section>
+	</section>
 	<!-- <section class="section-b-space p-t-0 mt-4" *ngIf="products.length">
 		<div class="container">
 			<div class="row">
@@ -121,5 +122,11 @@
 	</section> -->
 
 </div>
-
+<div class="whatsapp clearfix">
+	<button type="button" class="btn btn-success rounded-circle p-4 waves-effect px-3 mr-5 float-right"
+		(click)="onClick()">
+		<i class="fa fa-whatsapp fa-4x" aria-hidden="true"></i>
+	</button>
+	<!-- <img src="assets/images/marketplace/svg/whatsapp_.svg" alt="" class="mr-5 float-right"> -->
+</div>
 <app-footer-one></app-footer-one>

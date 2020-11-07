@@ -55,6 +55,10 @@ export class StorePageComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
   }
 
+  onClick(): void {
+    alert( 'mensaje' );
+  }
+
   private getCollectionProducts( id: string ): void {
     const params = `store=${id}&featured=true`;
     this.productService.productList( 1, params ).subscribe( ( result: Result<Product> ) => {

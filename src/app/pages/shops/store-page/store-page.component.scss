@@ -7,8 +7,8 @@ ngb-carousel {
 
 .img-main-banner {
     width: 100%;
-    height: auto;   
-    max-height: 550px; 
+    height: auto;
+    max-height: 550px;
 }
 .circle-btn {
     margin-left: 10px;
@@ -28,7 +28,7 @@ ngb-carousel {
     align-items: center;
     font-size: 2rem;
 }
-#wrap{
+#wrap {
     flex-wrap: wrap;
 }
 .all-option {
@@ -36,7 +36,30 @@ ngb-carousel {
     padding-right: 10px;
     height: 5rem;
 }
-@supports(object-fit: cover){
+
+.btn-success {
+    color: #fff;
+    background-color: #25d366;
+    border-color: #25d366;
+}
+
+.btn-success:hover {
+    color: #fff;
+    border-color: #28a745;
+    background-color: #28a745;
+}
+
+.whatsapp {
+    position: -webkit-sticky;
+    position: sticky;
+    bottom: 10rem;
+    padding: 5px;
+    z-index: 10000;
+    img {
+        height: 4rem;
+    }
+}
+@supports (object-fit: cover) {
     .img-main-banner {
         height: 100%;
         object-fit: cover;
@@ -44,11 +67,8 @@ ngb-carousel {
     }
 }
 
-@media (min-width: 768px) { 
-
-  
+@media (min-width: 768px) {
 }
 
-@media (min-width: 992px) { 
-
+@media (min-width: 992px) {
 }
