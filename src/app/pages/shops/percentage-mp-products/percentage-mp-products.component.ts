@@ -16,7 +16,7 @@ import { ToastrService } from 'ngx-toastr';
 export class PercentageMpProductsComponent implements OnInit {
   @ViewChild( 'TABLE', { read: ElementRef } ) table: ElementRef;
 
-  fields = [ 'Fecha', 'Tienda', 'Ganancia Total' ];
+  fields = [ 'Fecha', 'Tipo', 'Tienda', 'Ganancia Total' ];
   fieldsHeader = [ '20% MP', '% Tienda' ];
   data: any = {};
   role: string;
@@ -75,7 +75,6 @@ export class PercentageMpProductsComponent implements OnInit {
     const params = `from=${this.fechaIni}&to=${this.fechaFin}&store=${this._storeID}`;
     this.reportService.percentageMpSales( params ).subscribe( response => {
       this.data = { ...response };
-      console.log( this.data )
       this.noData = response.result.length;
     } );
   }

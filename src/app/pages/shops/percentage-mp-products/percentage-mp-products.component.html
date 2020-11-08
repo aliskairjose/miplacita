@@ -102,7 +102,8 @@
 				</thead>
 				<tbody>
 					<tr *ngFor="let d of data.result">
-						<td class="text-center text-capitalize">{{d.created_at | date }} {{ d.type? d.type : '' }}</td>
+						<td class="text-center text-capitalize">{{d.created_at | date }}</td>
+						<td class="text-center text-capitalize">{{ d.type? d.type : '' }}</td>
 						<td class="text-center">{{d.store_data.name}}</td>
 						<td class="text-center" *ngIf="data.earning">{{ data.earning  | currency }}</td>
 						<td class="text-center" *ngIf="!data.earning">{{ 0  | currency }}</td>
