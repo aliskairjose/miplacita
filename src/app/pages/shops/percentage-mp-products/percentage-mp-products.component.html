@@ -105,8 +105,8 @@
 						<td class="text-center text-capitalize">{{d.created_at | date }}</td>
 						<td class="text-center text-capitalize">{{ d.type? d.type : '' }}</td>
 						<td class="text-center">{{d.store_data.name}}</td>
-						<td class="text-center" *ngIf="data.earning">{{ data.earning  | currency }}</td>
-						<td class="text-center" *ngIf="!data.earning">{{ 0  | currency }}</td>
+						<td class="text-center" *ngIf="d.earning">{{ d.earning  | currency }}</td>
+						<td class="text-center" *ngIf="!d.earning">{{ 0  | currency }}</td>
 					</tr>
 				</tbody>
 			</table>

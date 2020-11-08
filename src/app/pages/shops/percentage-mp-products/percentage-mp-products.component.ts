@@ -27,7 +27,6 @@ export class PercentageMpProductsComponent implements OnInit {
   fechaIni = '';
   fechaFin = '';
   noData: boolean;
-
   private _storeID = '';
 
   constructor(
@@ -80,9 +79,7 @@ export class PercentageMpProductsComponent implements OnInit {
   }
 
   private loadStores(): void {
-    let params = '';
-    params = `report=false`;
-    this.reportService.membershipActiveShop( 1, params ).subscribe( result => {
+    this.reportService.membershipActiveShop( 1, `report=false` ).subscribe( result => {
       this.stores = result.docs;
     } );
   }

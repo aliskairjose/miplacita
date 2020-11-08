@@ -1,36 +1,42 @@
+// export class StorePaymentsComponent implements OnInit {
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Paginate } from 'src/app/shared/classes/paginate';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { ReportsService } from 'src/app/shared/services/reports.service';
 import { ExportService } from 'src/app/shared/services/export.service';
-import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
-import { CustomDateParserFormatterService } from 'src/app/shared/adapter/custom-date-parser-formatter.service';
+import { Store } from '../../../shared/classes/store';
+import { NgbDateStruct, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
+import { CustomDateParserFormatterService } from '../../../shared/adapter/custom-date-parser-formatter.service';
 import { ToastrService } from 'ngx-toastr';
-
-@Component({
+@Component( {
   selector: 'app-store-payments',
   templateUrl: './store-payments.component.html',
-  styleUrls: ['./store-payments.component.scss']
-})
-export class StorePaymentsComponent implements OnInit {
+  styleUrls: [ './store-payments.component.scss' ]
+} )
 
+
+export class StorePaymentsComponent implements OnInit {
   @ViewChild( 'TABLE', { read: ElementRef } ) table: ElementRef;
 
-  fields = ['Tienda','Fecha de pago','Monto a pagar','Comisiones MP', ''];
-  stores = [];
+  fields = [ 'Tienda', 'Fecha de pago', 'Monto a pagar', 'Comisiones MP', '' ];
+  data: any = {};
   role: string;
-  paginate: Paginate;
+  stores: Store[] = [];
+  storeSelected: Store = {};
+  modelTo: NgbDateStruct;
+  modelFrom: NgbDateStruct;
   fechaIni = '';
   fechaFin = '';
-  modelFrom: NgbDateStruct;
-  searchText = '';
+  noData: boolean;
+  private _storeID = '';
 
   constructor(
     private auth: AuthService,
-    private reportService: ReportsService,
-    private exportDoc: ExportService,
     private toastr: ToastrService,
-    private parseDate: CustomDateParserFormatterService
+    private ngbCalendar: NgbCalendar,
+    private exportDoc: ExportService,
+    private reportService: ReportsService,
+    private parseDate: CustomDateParserFormatterService,
   ) { }
 
   ngOnInit(): void {
@@ -38,18 +44,17 @@ export class StorePaymentsComponent implements OnInit {
     this.init();
   }
 
-  init(){
+  init() {
+    this.modelFrom = this.modelTo = this.ngbCalendar.getToday();
+    this.fechaIni = this.parseDate.format( this.modelFrom );
+    this.fechaFin = this.parseDate.format( this.modelTo );
     this.loadData();
-    
+    this.loadStores();
   }
 
-  loadData(page = 1){
-    // this.reportService.storesPayment().subscribe((result)=>{
-    //   console.log(result,"pagos de tiendas");
-    // })
-  }
   filtrar(): void {
     this.fechaIni = this.parseDate.format( this.modelFrom );
+    this.fechaFin = this.parseDate.format( this.modelTo );
     const from = new Date( this.fechaIni );
     const to = new Date( this.fechaFin );
 
@@ -60,9 +65,26 @@ export class StorePaymentsComponent implements OnInit {
 
     this.loadData();
   }
-  setPage( page: number ) {
-    this.loadData( page );
+
+  selectStore( store: Store ): void {
+    this.storeSelected = store;
+    this._storeID = store._id;
   }
+
+  private loadData() {
+    const params = `from=${this.fechaIni}&to=${this.fechaFin}&store=${this._storeID}`;
+    this.reportService.percentageMpSales( params ).subscribe( response => {
+      this.data = { ...response };
+      this.noData = response.result.length;
+    } );
+  }
+
+  private loadStores(): void {
+    this.reportService.membershipActiveShop( 1, `report=false` ).subscribe( result => {
+      this.stores = result.docs;
+    } );
+  }
+
 
   ExportTOExcel() {
     this.exportDoc.ExportTOExcel( this.table.nativeElement, 'stock-report' );
