@@ -79,6 +79,21 @@
 		</form>
 
 		<div class="table-responsive mt-3">
+
+			<table class="table cart-table table-responsive-xs" id="mp-table">
+				<thead>
+					<tr class="table-head text-center">
+						<th *ngFor="let field of fieldsHeader" scope="col">{{field}}</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td class="text-center">{{data.amount_market?.amount | currency}}</td>
+						<td class="text-center">{{data.amount_store?.amount | currency}}</td>
+					</tr>
+				</tbody>
+			</table>
+
 			<table class="table cart-table table-responsive-xs" id="mp-table" #TABLE>
 				<thead>
 					<tr class="table-head text-center">
@@ -86,17 +101,16 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr *ngFor="let product of products">
-						<td class="text-center">{{product.store.name}}</td>
-						<td class="text-center">{{ product.store.owner_id.fullname }}</td>
-						<td class="text-center"></td>
-						<td class="text-center">{{ product.name }}</td>
-						<td class="text-center text-capitalize">{{ product.stock }}</td>
+					<tr *ngFor="let d of data.result">
+						<td class="text-center text-capitalize">{{d.created_at | date }} {{ d.type? d.type : '' }}</td>
+						<td class="text-center">{{d.store_data.name}}</td>
+						<td class="text-center" *ngIf="data.earning">{{ data.earning  | currency }}</td>
+						<td class="text-center" *ngIf="!data.earning">{{ 0  | currency }}</td>
 					</tr>
 				</tbody>
 			</table>
 		</div>
-		<div class="form-row container justify-content-center " *ngIf="products.length==0">
+		<div class="form-row container justify-content-center " [hidden]="noData">
 			<div class="col-md-5">
 				<div class="card text-center mx-auto mb-2">
 					<div class="card-body">

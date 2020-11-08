@@ -16,8 +16,9 @@ import { ToastrService } from 'ngx-toastr';
 export class PercentageMpProductsComponent implements OnInit {
   @ViewChild( 'TABLE', { read: ElementRef } ) table: ElementRef;
 
-  fields = [ 'Tienda', 'Dueño', 'Código de producto', 'Nombre del producto', 'Cantidad en existencia' ];
-  products = [];
+  fields = [ 'Fecha', 'Tienda', 'Ganancia Total' ];
+  fieldsHeader = [ '20% MP', '% Tienda' ];
+  data: any = {};
   role: string;
   stores: Store[] = [];
   storeSelected: Store = {};
@@ -25,6 +26,8 @@ export class PercentageMpProductsComponent implements OnInit {
   modelFrom: NgbDateStruct;
   fechaIni = '';
   fechaFin = '';
+  noData: boolean;
+
   private _storeID = '';
 
   constructor(
@@ -70,8 +73,10 @@ export class PercentageMpProductsComponent implements OnInit {
 
   private loadData() {
     const params = `from=${this.fechaIni}&to=${this.fechaFin}&store=${this._storeID}`;
-    this.reportService.percentageMpSales( params ).subscribe( ( result ) => {
-      console.log( '------> porcentaje de ventas en MP y venta en tienda', result );
+    this.reportService.percentageMpSales( params ).subscribe( response => {
+      this.data = { ...response };
+      console.log( this.data )
+      this.noData = response.result.length;
     } );
   }
 
@@ -79,7 +84,6 @@ export class PercentageMpProductsComponent implements OnInit {
     let params = '';
     params = `report=false`;
     this.reportService.membershipActiveShop( 1, params ).subscribe( result => {
-      console.log( result );
       this.stores = result.docs;
     } );
   }
