@@ -1,7 +1,9 @@
-.table {
-    table-layout: fixed;
-}
+#cart-component {
+    .table {
+        table-layout: fixed;
+    }
 
-#small-col {
-    width: 10%;
+    #small-col {
+        width: 10%;
+    }
 }

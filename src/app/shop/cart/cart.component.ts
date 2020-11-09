@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { ProductService } from '../../shared/services/product.service';
 import { Product } from '../../shared/classes/product';
 import { environment } from '../../../environments/environment.prod';
-import { ShopService } from '../../shared/services/shop.service';
+import { Store } from '../../shared/classes/store';
 
 const state = {
   sessionStore: JSON.parse( sessionStorage.sessionStore || null ),
@@ -18,6 +18,7 @@ export class CartComponent implements OnInit {
 
   products: Product[] = [];
   standardImage = environment.standardImage;
+  storeFont = '';
 
   constructor(
     public productService: ProductService,
@@ -27,6 +28,12 @@ export class CartComponent implements OnInit {
 
   ngOnInit(): void {
     this.productService.cartItems.subscribe( products => { this.products = products; } );
+
+    if ( sessionStorage.sessionStore ) {
+      const store: Store = JSON.parse( sessionStorage.sessionStore );
+      this.storeFont = store.config.font;
+    }
+
   }
 
   public get getTotal(): Observable<number> {
