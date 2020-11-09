@@ -18,7 +18,7 @@ import { ToastrService } from 'ngx-toastr';
 export class StorePaymentsComponent implements OnInit {
   @ViewChild( 'TABLE', { read: ElementRef } ) table: ElementRef;
 
-  fields = [ 'Tienda', 'Fecha de pago', 'Monto a pagar', 'Comisiones MP', '' ];
+  fields = [ 'Tienda', 'Fecha de pago', 'Monto a pagar', '' ];
   data: any = {};
   role: string;
   stores: Store[] = [];

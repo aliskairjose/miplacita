@@ -33,6 +33,7 @@ export class MarketplaceShopComponent implements OnInit {
   ) {
     this.getCollectionProducts();
     sessionStorage.removeItem( 'sessionStore' );
+    this.customizeThemeColor();
   } // Fin del constructor
 
   ProductSliderConfig: any = ProductSlider;
@@ -106,6 +107,11 @@ export class MarketplaceShopComponent implements OnInit {
       this.products = [ ...result.docs ];
     } );
 
+  }
+
+  // Set Theme color
+  private customizeThemeColor() {
+    document.documentElement.style.setProperty( '--theme-deafult', '#ff4c3b' );
   }
 
 }

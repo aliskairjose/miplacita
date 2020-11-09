@@ -43,8 +43,8 @@ export class ReportsService {
   /**
    * @description Reporte de Ordenes MP
    */
-  ordersMP(): Observable<any> {
-    return this.http.get( `order?report=true` );
+  ordersMP( params: string ): Observable<any> {
+    return this.http.get( params );
   }
 
   /**

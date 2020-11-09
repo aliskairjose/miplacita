@@ -31,7 +31,6 @@ export class CheckoutComponent implements OnInit {
   referedAmount = 0;
   private _totalPrice: number;
   store: Store = {};
-  storeFont = '';
 
   @ViewChild( 'payment' ) payment: PaymentComponent;
 
@@ -62,7 +61,6 @@ export class CheckoutComponent implements OnInit {
     const shipment = JSON.parse( sessionStorage.order );
     if ( sessionStorage.sessionStore ) {
       this.store = JSON.parse( sessionStorage.sessionStore );
-      this.storeFont = this.store.config.font;
     }
 
     if ( JSON.parse( sessionStorage.sessionStore || null ) ) {

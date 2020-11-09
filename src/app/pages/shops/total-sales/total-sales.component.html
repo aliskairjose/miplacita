@@ -81,6 +81,7 @@
 							<!-- <td class="text-center">{{ order._id }}</td> -->
 							<td class="text-center">{{ order.store.name }}</td>
 							<td class="text-center">{{ order.amount | currency }}</td>
+							<td class="text-center">{{ order.created_at | date }}</td>
 							<td class="text-center text-capitalize">{{ order.status }}</td>
 							<td class="text-center">
 								<a (click)="OrderDetails.openModal(order)" class="btn btn-table-action" ngbPopover="Ver detalle"

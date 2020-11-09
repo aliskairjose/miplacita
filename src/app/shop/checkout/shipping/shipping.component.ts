@@ -48,7 +48,6 @@ export class ShippingComponent implements OnInit {
     shipment_option: '',
     shipment_price: 0,
   };
-  storeFont = '';
   private _products: Product[] = [];
 
   @ViewChild( 'address' ) address: AddressComponent;
@@ -73,13 +72,11 @@ export class ShippingComponent implements OnInit {
       if ( store ) {
         const products = this._products.filter( item => item.store._id === store._id );
         this._products = [ ...products ];
-        this.storeFont = store.config.font;
       }
     } );
 
     if ( sessionStorage.sessionStore ) {
       const store: Store = JSON.parse( sessionStorage.sessionStore );
-      this.storeFont = store.config.font;
     }
 
     this.getStoresId().then( ( shops ) => {

@@ -26,7 +26,6 @@ export class SettingsComponent implements OnInit {
   balance: number;
   showBalance = false;
   store: Store = {};
-  storeFont = '';
 
   private _referedCode: string;
 
@@ -57,7 +56,6 @@ export class SettingsComponent implements OnInit {
 
       if ( store && this.auth.getUserActive() && this.auth.getUserRol() === 'client' ) {
         this.store = store;
-        this.storeFont = this.store.config.font;
         this.getAffiliate( store._id );
       }
     } );

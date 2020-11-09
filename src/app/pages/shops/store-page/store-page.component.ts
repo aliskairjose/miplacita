@@ -19,7 +19,6 @@ import { SettingsComponent } from '../../../shared/components/settings/settings.
 export class StorePageComponent implements OnInit, AfterViewInit {
   products: Product[] = [];
   store: Store = {};
-  storeFont = '';
   sliders = [];
   verticalBanners = [
     '../../../../assets/images/banner/1.jpg',
@@ -43,10 +42,11 @@ export class StorePageComponent implements OnInit, AfterViewInit {
         sessionStorage.setItem( 'sessionStore', JSON.stringify( store ) );
         this.store = { ...store };
         this.sliders = this.store.config.images;
-        this.storeFont = this.store.config.font;
         this.getCollectionProducts( this.store._id );
         this.subCategoryList( this.store._id );
         this.storeService.storeSubject( this.store );
+        this.customizeThemeColor( this.store.config.color );
+        this.customizeThemeFont( this.store.config.font );
       } );
     } );
 
@@ -62,6 +62,16 @@ export class StorePageComponent implements OnInit, AfterViewInit {
     window.open( `https://wa.me/${this.store.phone}`, '_blank' );
 
   }
+
+  // Set Theme color
+  private customizeThemeColor( color: string ): void {
+    document.documentElement.style.setProperty( '--theme-deafult', color );
+  }
+
+  private customizeThemeFont( font: string ): void {
+    document.documentElement.style.setProperty( 'font-family', font );
+  }
+
 
   private getCollectionProducts( id: string ): void {
     const params = `store=${id}&featured=true`;
