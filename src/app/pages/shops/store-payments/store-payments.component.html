@@ -78,7 +78,7 @@
 					<tr *ngFor="let d of data.result">
 						<td class="text-center">{{d.store_data.name}}</td>
 						<td class="text-center">{{d.amount | date }}</td>
-						<td class="text-center" *ngIf="d.payment_gateway">{{ d.payment_gateway  | currency }}</td>
+						<td class="text-center" *ngIf="d.payment_gateway">{{ d.amount  | currency }}</td>
 						<td class="text-center" *ngIf="!d.payment_gateway">{{ 0  | currency }}</td>
 						<td class="text-center" *ngIf="d.earning">{{ d.earning  | currency }}</td>
 						<td class="text-center" *ngIf="!d.earning">{{ 0  | currency }}</td>
