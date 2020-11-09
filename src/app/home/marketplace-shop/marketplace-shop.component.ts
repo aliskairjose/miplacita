@@ -34,6 +34,7 @@ export class MarketplaceShopComponent implements OnInit {
     this.getCollectionProducts();
     sessionStorage.removeItem( 'sessionStore' );
     this.customizeThemeColor();
+    this.customizeThemeFont();
   } // Fin del constructor
 
   ProductSliderConfig: any = ProductSlider;
@@ -112,6 +113,10 @@ export class MarketplaceShopComponent implements OnInit {
   // Set Theme color
   private customizeThemeColor() {
     document.documentElement.style.setProperty( '--theme-deafult', '#e4604a' );
+  }
+
+  private customizeThemeFont(): void {
+    document.getElementById( 'body' ).style.fontFamily = '';
   }
 
 }
