@@ -2,14 +2,12 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { IPayPalConfig } from 'ngx-paypal';
-import { environment } from '../../../environments/environment';
 import { Product } from '../../shared/classes/product';
 import { ProductService } from '../../shared/services/product.service';
 import { OrderService } from '../../shared/services/order.service';
 import { Router } from '@angular/router';
 import { PaymentComponent } from '../../shared/components/payment/payment.component';
-import { StorageService } from '../../shared/services/storage.service';
-import { ShopService } from '../../shared/services/shop.service';
+import { Store } from '../../shared/classes/store';
 
 const state = {
   user: JSON.parse( localStorage.getItem( 'user' ) || null )
@@ -27,17 +25,18 @@ export class CheckoutComponent implements OnInit {
   submitted: boolean;
   payPalConfig?: IPayPalConfig;
   // payment = 'Stripe';
-  amount: any;
+  amount: number;
   shipmentPrice = 0;
   totalPrice = 0;
+  referedAmount = 0;
+  private _totalPrice: number;
+  store: Store = {};
 
   @ViewChild( 'payment' ) payment: PaymentComponent;
-
 
   constructor(
     private router: Router,
     private fb: FormBuilder,
-    private shopService: ShopService,
     private orderService: OrderService,
     public productService: ProductService,
   ) {
@@ -53,29 +52,26 @@ export class CheckoutComponent implements OnInit {
       state: [ '', Validators.required ],
       postalcode: [ '', Validators.required ]
     } );
+    this.productService.cartItems.subscribe( response => { this.products = response; } );
+
   }
 
   ngOnInit(): void {
     const date = new Date();
     const shipment = JSON.parse( sessionStorage.order );
 
+    if ( JSON.parse( sessionStorage.sessionStore || null ) ) {
+      this.store = JSON.parse( sessionStorage.sessionStore );
+    }
+
     shipment.cart.forEach( detail => {
       this.shipmentPrice += detail.shipment_price;
-    } );
-    this.productService.cartItems.subscribe( response => { this.products = response; } );
-
-    this.shopService.storeObserver().subscribe( store => {
-      if ( store ) {
-        const products = this.products.filter( item => item.store._id === store._id );
-        this.products = [ ...products ];
-      }
     } );
 
     this.subTotal.subscribe( amount => {
       this.amount = amount;
-      this.totalPrice = amount + this.shipmentPrice;
+      this._totalPrice = this.totalPrice = amount + this.shipmentPrice;
     } );
-
 
   }
 
@@ -87,11 +83,36 @@ export class CheckoutComponent implements OnInit {
     return this.productService.cartTotalAmount();
   }
 
+  getAmount( amount ): void {
+    if ( !amount ) {
+      this.totalPrice = this._totalPrice;
+      this.referedAmount = 0;
+      return;
+    }
+    this.totalPrice = this._totalPrice;
+    this.referedAmount = amount;
+    this.totalPrice = this.totalPrice - amount;
+  }
+
   onSubmit(): void {
     this.submitted = true;
+    const payment = [];
+    let data: any = { valid: false, tdc: {} };
+    data = this.payment.onSubmit();
+
+    // Metodo de pago
+    payment.push( { credit_card_amount: this.referedAmount, store: this.store._id, info: data.tdc } );
+    payment.push( { refered_amount: this.referedAmount, store: this.store._id } );
+
     const order = JSON.parse( sessionStorage.order );
 
-    if ( this.payment.onSubmit() ) {
+    ( this.store._id ) ? order.type = 'store' : order.type = 'marketplace';
+
+    order.payment = payment;
+
+    // console.log( data );
+    // console.log( order );
+    if ( data.valid ) {
       this.orderService.createOrder( order ).subscribe( response => {
         if ( response.success ) {
           sessionStorage.removeItem( 'order' );

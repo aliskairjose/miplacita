@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
 import { Product } from 'src/app/shared/classes/product';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from 'src/app/shared/classes/store';
@@ -7,23 +7,29 @@ import { ProductService } from 'src/app/shared/services/product.service';
 import { Result } from 'src/app/shared/classes/response';
 import { CategoryService } from 'src/app/shared/services/category.service';
 import { Category } from '../../../shared/classes/category';
+import { ProductSlider } from 'src/app/shared/data/slider';
+import { async } from '@angular/core/testing';
+import { SettingsComponent } from '../../../shared/components/settings/settings.component';
 
 @Component( {
   selector: 'app-store-page',
   templateUrl: './store-page.component.html',
   styleUrls: [ './store-page.component.scss' ]
 } )
-export class StorePageComponent implements OnInit {
+export class StorePageComponent implements OnInit, AfterViewInit {
   products: Product[] = [];
   store: Store = {};
+  storeFont = '';
   sliders = [];
   verticalBanners = [
     '../../../../assets/images/banner/1.jpg',
     '../../../../assets/images/banner/1.jpg',
     '../../../../assets/images/banner/1.jpg'
   ];
-
   subCategories: Category[] = [];
+  ProductSliderConfig: any = ProductSlider;
+
+  @ViewChild( 'settings' ) setting: SettingsComponent;
 
   constructor(
     private route: ActivatedRoute,
@@ -35,9 +41,9 @@ export class StorePageComponent implements OnInit {
     this.route.url.subscribe( ( url ) => {
       this.storeService.getStoreByUrl( url[ 0 ].path.toLocaleLowerCase() ).subscribe( store => {
         sessionStorage.setItem( 'sessionStore', JSON.stringify( store ) );
-
         this.store = { ...store };
         this.sliders = this.store.config.images;
+        this.storeFont = this.store.config.font;
         this.getCollectionProducts( this.store._id );
         this.subCategoryList( this.store._id );
         this.storeService.storeSubject( this.store );
@@ -45,9 +51,16 @@ export class StorePageComponent implements OnInit {
     } );
 
   }
-
+  ngAfterViewInit(): void {
+  }
 
   ngOnInit(): void {
+  }
+
+  // Open chat whatsapp web
+  openChat(): void {
+    window.open( `https://wa.me/${this.store.phone}`, '_blank' );
+
   }
 
   private getCollectionProducts( id: string ): void {

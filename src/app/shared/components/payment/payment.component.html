@@ -1,34 +1,38 @@
 <div class="m-3">
+
+  <!-- Credit Card Form -->
   <div class="d-flex flex-column h-100">
     <form [formGroup]="paymentForm" class="theme-form">
       <div class="row">
         <div class="form-group col-md-8 col-sm-8 col-xs-12">
           <div class="field-label">Propietario</div>
-          <input class="form-control" type="text" formControlName="owner" name="owner" value="" placeholder="" autocomplete="off">
-          <div *ngIf="submitted && paymentForm.controls.owner.errors?.required" class="text text-danger">
+          <input class="form-control" type="text" formControlName="owner" name="owner" value="" placeholder=""
+            autocomplete="off">
+          <div *ngIf="submitted && paymentForm.controls.owner.errors?.required" class="text text-danger small">
             Campo requerido
           </div>
-          <div *ngIf="submitted && paymentForm.controls.owner.errors?.pattern" class="text text-danger">
+          <div *ngIf="submitted && paymentForm.controls.owner.errors?.pattern" class="text text-danger small">
             Sólo catacteres
           </div>
         </div>
         <div class="form-group col-md-4 col-sm-4 col-xs-12">
           <div class="field-label">CVV</div>
-          <input class="form-control" type="password"  mask="000" formControlName="cvv" name="cvv" value="" placeholder="" autocomplete="off" maxlength="3">
-          <div *ngIf="submitted && paymentForm.controls.cvv.errors?.required" class="text text-danger">
+          <input class="form-control" type="password" mask="000" formControlName="cvv" name="cvv" value=""
+            placeholder="" autocomplete="off" maxlength="3">
+          <div *ngIf="submitted && paymentForm.controls.cvv.errors?.required" class="text text-danger small">
             Campo requerido
           </div>
-          <div *ngIf="submitted && paymentForm.controls.cvv.errors?.pattern" class="text text-danger">
+          <div *ngIf="submitted && paymentForm.controls.cvv.errors?.pattern" class="text text-danger small">
             Sólo dígitos
           </div>
         </div>
       </div>
       <div class="row">
-        <div class="form-group col-md-6 col-sm-12 col-xs-12">
+        <div class="form-group col-md-8 col-sm-12 col-xs-12">
           <div class="field-label">Número de tarjeta</div>
-          <input class="form-control" type="number" formControlName="cardnumber" name="cardnumber" value="" placeholder=""
-            autocomplete="off">
-          <div *ngIf="submitted && paymentForm.controls.cardnumber.errors?.required" class="text text-danger">
+          <input class="form-control" type="number" formControlName="cardnumber" name="cardnumber" value=""
+            placeholder="" autocomplete="off">
+          <div *ngIf="submitted && paymentForm.controls.cardnumber.errors?.required" class="text text-danger small">
             Campo requerido
           </div>
         </div>
@@ -38,15 +42,23 @@
           <div class="field-label">Fecha</div>
           <div class="row">
             <div class="form-group col-md-4 col-sm-4 col-xs-8">
-              <select class="form-control">
-                <option *ngFor="let month of months" value="mount.value">
+              <select class="form-control" formControlName="month">
+                <option value="">Mes</option>
+                <option *ngFor="let month of months" [value]="month.value">
                   {{ month.name}}</option>
               </select>
+              <div *ngIf="submitted && paymentForm.controls.month.errors?.required" class="text text-danger small">
+                Campo requerido
+              </div>
             </div>
             <div class="form-group col-md-4 col-sm-4 col-xs-8">
-              <select class="form-control">
-                <option *ngFor="let year of years" value="year">{{ year}}</option>
+              <select class="form-control" formControlName="year">
+                <option value="">Año</option>
+                <option *ngFor="let year of years" [value]="year">{{ year}}</option>
               </select>
+              <div *ngIf="submitted && paymentForm.controls.year.errors?.required" class="text text-danger small">
+                Campo requerido
+              </div>
             </div>
             <div class="form-group col-md-4 col-sm-4 col-xs-12 d-flex justify-content-end">
               <ul>
@@ -62,5 +74,26 @@
         </div>
       </div>
     </form>
+  </div>
+  <!-- Pago con saldo -->
+  <div class="row my-3" [hidden]="!showReferedAmmount">
+    <div class="option-box d-flex mx-auto py-3" style="width: 100% !important">
+      <div class="col-md-6">
+        <p class="my-auto">Deseo usar mi saldo acumulado: {{ balance | currency }}</p>
+        <form action="" [formGroup]="balaceForm">
+          <div [hidden]="!showInputAmount">
+            <input class="form-control mt-1" type="number" name="amount" value="" placeholder="Ingrese monto"
+              autocomplete="off" (keyup)="onInputChange($event.target.value)" min="0" [max]="balance"
+              formControlName="amount">
+            <div *ngIf="showBalanceAlert" class="text text-danger small mt-1">
+              El monto excede el saldo disponible: {{ balance | currency }}
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="col offset-xl-4 text-center">
+        <input class="my-auto" type="checkbox" (change)="onChange($event.target.checked)">
+      </div>
+    </div>
   </div>
 </div>

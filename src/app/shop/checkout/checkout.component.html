@@ -18,6 +18,10 @@
 									<li *ngIf='products.length'>
 										<strong>Envío</strong> <span>{{ shipmentPrice | currency }}</span>
 									</li>
+									<li *ngIf='store._id'>
+										<strong>Pago con código</strong>
+										<span> -{{ referedAmount | currency }}</span>
+									</li>
 									<li class="mt-3">
 										<strong> Subtotal </strong> <span>{{ subTotal | async | currency }}</span>
 									</li>
@@ -33,7 +37,7 @@
 					</div>
 					<!-- Payment Form -->
 					<div class="col-lg-6 col-sm-12 col-xs-12">
-						<app-payment #payment></app-payment>
+						<app-payment #payment (amount)="getAmount($event)"></app-payment>
 					</div>
 				</div>
 				<div class="button-box h-100 d-flex justify-content-end">

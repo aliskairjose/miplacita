@@ -2,8 +2,6 @@ import { ToastrService } from 'ngx-toastr';
 
 import { Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import { NgbCalendar, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
-
-import { environment } from '../../../environments/environment';
 import {
   CustomDateParserFormatterService
 } from '../../shared/adapter/custom-date-parser-formatter.service';
@@ -17,6 +15,7 @@ import { AuthService } from '../../shared/services/auth.service';
 import { OrderService } from '../../shared/services/order.service';
 import { ShopService } from '../../shared/services/shop.service';
 import { ReportsService } from 'src/app/shared/services/reports.service';
+import { environment } from '../../../environments/environment.prod';
 
 @Component( {
   selector: 'app-orders',
@@ -25,12 +24,17 @@ import { ReportsService } from 'src/app/shared/services/reports.service';
 } )
 export class OrdersComponent implements OnInit, OnChanges {
 
-  fields = [ 'Cliente', 'Productos', 'Monto', 'Fecha', 'Zona de Entrega',
-    'Estado', 'Acción' ];
-
+  fields = [
+    'Cliente',
+    'Productos',
+    'Monto',
+    'Fecha',
+    'Zona de Entrega',
+    'Estado',
+    'Acción'
+  ];
   orders: Order[] = [];
   paginate: Paginate;
-  orderStatus = environment.orderStatus;
   role: string;
   status = '';
   fechaIni = '';
@@ -55,8 +59,8 @@ export class OrdersComponent implements OnInit, OnChanges {
     private ngbCalendar: NgbCalendar,
     private shopService: ShopService,
     private orderService: OrderService,
+    private reportService: ReportsService,
     private parseDate: CustomDateParserFormatterService,
-    private reportService: ReportsService
   ) { }
 
   ngOnChanges( changes: SimpleChanges ): void {
@@ -68,7 +72,6 @@ export class OrdersComponent implements OnInit, OnChanges {
         }
       } );
     }
-
     this.init();
   }
 

@@ -13,7 +13,7 @@
 				<div class="form-group flex-fill" id="state">
 					<select name="model" class="form-control" [(ngModel)]="status" (change)="changeStatus()">
 						<option value="">Estado</option>
-						<option [value]="status" *ngFor="let status of orderStatus" class="text-capitalize">{{ status }}
+						<option [value]="status" *ngFor="let status of statuses" class="text-capitalize">{{ status }}
 						</option>
 					</select>
 				</div>
@@ -81,7 +81,7 @@
 							<td class="text-center text-capitalize" *ngIf="!isUpdatable || index !== i">{{ order.status }}</td>
 							<td class="text-center text-capitalize" *ngIf="isUpdatable && index === i">
 								<select class="form-select" aria-label="Default select example" [(ngModel)]="statusSelected">
-									<option *ngFor="let status of statuses" [value]="status"></option>
+									<option *ngFor="let status of statuses" [value]="status">{{status}}</option>
 								</select>
 							</td>
 							<td class="text-center">

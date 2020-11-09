@@ -16,9 +16,9 @@ export class AdminReportsComponent implements OnInit {
       { name: 'Ventas con TDC', active: 'tdc' },
       { name: 'Productos más vendidos', active: 'best-sellers' },
       { name: 'Tiendas activas con membresía', active: 'store-membership' },
-      { name: 'Ventas diarias por producto MP', active: 'daily-sell-mp' },
-    ], [
-      { name: 'Ventas diarias por producto', active: 'daily-sales' },
+      { name: 'Ventas diarias por producto', active: 'daily-sales' }
+    ],
+    [
       { name: 'Clientes Marketplace', active: 'clients' },
       { name: 'Ordenes Marketplace', active: 'orders-mp' },
       { name: 'Pago de tiendas', active: 'store-payment' },

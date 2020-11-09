@@ -2,12 +2,10 @@ import { Injectable } from '@angular/core';
 import { HttpService } from './http.service';
 import { Observable } from 'rxjs';
 import { Response, Result } from '../classes/response';
-import { Order } from '../classes/order';
 import { map } from 'rxjs/operators';
 import { User } from '../classes/user';
 import { Product } from '../classes/product';
-import { ObsEvent } from 'ng-lazyload-image/src/types';
-import { Store } from '../classes/store';
+import { UserService } from './user.service';
 
 @Injectable( {
   providedIn: 'root'
@@ -15,7 +13,7 @@ import { Store } from '../classes/store';
 export class ReportsService {
 
   constructor(
-    private http: HttpService
+    private http: HttpService,
   ) { }
 
   /*
@@ -56,6 +54,14 @@ export class ReportsService {
     return this.http.get( `products?${params}` );
   }
 
+  /**
+   * @description 20% vs % de la tienda
+   * @param params from=2020-11-05&to=2020-11-06&store=IDTIENDA
+   */
+  percentageMpSales( params: string ): Observable<any> {
+    return this.http.get( `report/commissions/?${params}` );
+  }
+
   /*
     ---------------------------------------------
     -------------  Products Reports  ------------
@@ -77,14 +83,11 @@ export class ReportsService {
     );
   }
 
-  stockMP(): Observable<Result<Product>> {
-    return this.http.get( `` );
+  stockMP(): Observable<any> {
+    return this.http.get( `products?marketplace=true&report=true` ).pipe(
+      map( response => response.result )
+    );
   }
-
-  percentageMpSales(): Observable<Result<any>> {
-    return this.http.get( `` );
-  }
-
 
   /*
     ---------------------------------------------
@@ -99,7 +102,7 @@ export class ReportsService {
    * @param to Fecha final
    */
   clientsByStore( id: string, from: string, to: string ): Observable<any> {
-    return this.http.get( `api/client?store=${id}&from=${from}&to=${to}` )
+    return this.http.get( `api/client?store=${id}&from=${from}&to=${to}` );
   }
 
   /**

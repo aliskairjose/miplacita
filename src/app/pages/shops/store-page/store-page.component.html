@@ -1,107 +1,135 @@
-<ngx-spinner bdColor="rgba(0, 0, 0, 0.3)" size="medium" color="#fff" type="ball-spin-clockwise" [fullScreen]="true">
-	<p style="color: white"> Por favor espere... </p>
-</ngx-spinner>
+<div id="store-page" [ngStyle]="{'font-family': storeFont}">
+	<ngx-spinner bdColor="rgba(0, 0, 0, 0.3)" size="medium" color="#fff" type="ball-spin-clockwise" [fullScreen]="true">
+		<p style="color: white"> Por favor espere... </p>
+	</ngx-spinner>
 
-<app-header-one [showBalance]="true" [sticky]="true" [isHidde]="false" [topbar]="false" [isSideMenu]="true" [hasSearchBar]="true">
-</app-header-one>
+	<app-header-one [showBalance]="true" [sticky]="true" [isHidde]="false" [topbar]="false" [isSideMenu]="true"
+		[hasSearchBar]="true">
+	</app-header-one>
 
-<div class="pb-5">
-	<section class="p-0">
-		<ngb-carousel *ngIf="sliders.length>0" #ngcarousel>
-			<ng-template *ngFor="let image of sliders" ngbSlide>
-				<div class="picsum-img-wrapper w-100">
-					<img class="img-main-banner" [src]="image.url" alt="banner">
+	<div class="pb-5">
+		<section class="p-0">
+			<ngb-carousel *ngIf="sliders.length>0" #ngcarousel>
+				<ng-template *ngFor="let image of sliders" ngbSlide>
+					<div class="picsum-img-wrapper w-100">
+						<img class="img-main-banner" [src]="image.url" alt="banner">
+					</div>
+				</ng-template>
+			</ngb-carousel>
+		</section>
+
+		<!-- Banner verticales start -->
+		<section class="section-b-space">
+			<div class="container">
+				<div class="form-row justify-content-center">
+					<h2>{{ store.name }}</h2>
 				</div>
-			</ng-template>
-		</ngb-carousel>
-	</section>
+				<div class="form-row justify-content-center">
+					<h5>{{ store.description }}</h5>
+				</div>
+				<div class="d-flex col-lg-8 col-md-10 col-sm-12 mx-auto justify-content-center" id="wrap">
+					<div class="circle-btn">
+						<div class="">
+							<div class="circle mx-auto">
+								T
+							</div>
+						</div>
+						<div class="label text-center">
+							<p>Todos</p>
+						</div>
+					</div>
+					<div class="vertical-separator all-option" *ngIf="subCategories.length">
 
-	<!-- Banner verticales start -->
-	<section class="section-b-space">
-		<div class="container">
-			<div class="form-row justify-content-center">
-				<h2>{{ store.name }}</h2>
-			</div>
-			<div class="form-row justify-content-center">
-				<h5>{{ store.description }}</h5>
-			</div>
-			<div class="d-flex col-lg-8 col-md-10 col-sm-12 mx-auto justify-content-center" id="wrap">
-				<div class="circle-btn">
-					<div class="">
+					</div>
+					<div class="circle-btn" *ngFor="let subcategory of subCategories">
 						<div class="circle mx-auto">
-							T
+							{{ subcategory.name[0] }}
 						</div>
-					</div>
-					<div class="label text-center">
-						<p>Todos</p>
-					</div>
-				</div>
-				<div class="vertical-separator all-option" *ngIf="subCategories.length">
-
-				</div>
-				<div class="circle-btn" *ngFor="let subcategory of subCategories">
-					<div class="circle mx-auto">
-						{{ subcategory.name[0] }}
-					</div>
-					<div class="label text-center">
-						<p> {{ subcategory.name }} </p>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
-	<!-- Banner verticales end -->
-	<!-- Product slider start-->
-	<div class="title1 section-t-space" *ngIf="products.length">
-		<div class="row">
-			<div class="col">
-				<div class="title-purple text-center">
-					<h2>Productos Destacados</h2>
-				</div>
-			</div>
-		</div>
-	</div>
-
-	<section class="section-b-space p-t-0 mt-4" *ngIf="products.length">
-		<div class="container">
-			<div class="row">
-				<div class="col theme-tab">
-					<div>
-						<div class="no-slider row">
-							<ng-container *ngFor="let product of products | slice:0:8">
-								<div class="product-box">
-									<app-product-box-one [product]="product" [thumbnail]="false" [cartModal]="false" [horizontal]="true">
-									</app-product-box-one>
-								</div>
-							</ng-container>
+						<div class="label text-center">
+							<p> {{ subcategory.name }} </p>
 						</div>
 					</div>
 				</div>
 			</div>
-		</div>
-	</section>
-
-	<!-- <section class="section-b-space p-t-0 mt-4" *ngIf="products.length">
-		<div class="container">
+		</section>
+		<!-- Banner verticales end -->
+		<!-- Product slider start-->
+		<div class="title1 section-t-space" *ngIf="products.length">
 			<div class="row">
-				<div class="col theme-tab">
-					<div>
-						<div class="no-slider row">
-						
-							<ngb-carousel *ngIf="sliders.length>0" #ngcarousel>
-								<ng-template *ngFor="let product of products | slice:0:8"  ngbSlide>
-									<app-product-box-one [product]="product" [thumbnail]="false" [cartModal]="false" [horizontal]="true">
-									</app-product-box-one>
+				<div class="col">
+					<div class="title-purple text-center">
+						<h2>Productos Destacados</h2>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- 
+		<section class="section-b-space p-t-0 mt-4" *ngIf="products.length">
+			<div class="container">
+				<div class="row">
+					<div class="col theme-tab">
+						<div>
+							<div class="no-slider row">
+								<ng-container *ngFor="let product of products | slice:0:8">
+									<div class="product-box">
+										<app-product-box-one [product]="product" [thumbnail]="false" [cartModal]="false" [horizontal]="true">
+										</app-product-box-one>
+									</div>
+								</ng-container>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section> -->
+
+		<section class="section-b-space p-t-0">
+			<div class="container">
+				<div class="row">
+					<div class="col">
+						<owl-carousel-o class="product-m no-arrow" [options]="ProductSliderConfig">
+							<ng-container *ngFor="let product of products | slice:0:16">
+								<ng-template carouselSlide>
+									<div class="product-box">
+										<app-product-box-one [product]="product" [thumbnail]="false" [cartModal]="false"
+											[horizontal]="true">
+										</app-product-box-one>
+									</div>
 								</ng-template>
-					
-							</ngb-carousel>
+							</ng-container>
+						</owl-carousel-o>
+					</div>
+				</div>
+			</div>
+		</section>
+		<!-- <section class="section-b-space p-t-0 mt-4" *ngIf="products.length">
+			<div class="container">
+				<div class="row">
+					<div class="col theme-tab">
+						<div>
+							<div class="no-slider row">
+							
+								<ngb-carousel *ngIf="sliders.length>0" #ngcarousel>
+									<ng-template *ngFor="let product of products | slice:0:8"  ngbSlide>
+										<app-product-box-one [product]="product" [thumbnail]="false" [cartModal]="false" [horizontal]="true">
+										</app-product-box-one>
+									</ng-template>
+						
+								</ngb-carousel>
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-		</div>
-	</section> -->
+		</section> -->
 
+	</div>
+	<div class="whatsapp clearfix">
+		<button type="button" class="btn btn-success rounded-circle p-4 waves-effect px-3 mr-5 float-right"
+			(click)="openChat()">
+			<i class="fa fa-whatsapp fa-4x" aria-hidden="true"></i>
+		</button>
+		<!-- <img src="assets/images/marketplace/svg/whatsapp_.svg" alt="" class="mr-5 float-right"> -->
+	</div>
+	<app-footer-one></app-footer-one>
 </div>
-
-<app-footer-one></app-footer-one>

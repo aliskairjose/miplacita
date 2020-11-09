@@ -74,6 +74,7 @@ import { AddressComponent } from './components/address/address.component';
 import { GooglePlaceModule } from 'ngx-google-places-autocomplete';
 import { AgmCoreModule } from '@agm/core';
 import { ColorPickerModule } from 'ngx-color-picker';
+import { ClipboardModule } from 'ngx-clipboard';
 // export let options: Partial<IConfig> | (() => Partial<IConfig>);
 const maskConfig: Partial<IConfig> = {
   validation: false,
@@ -140,6 +141,7 @@ export const customCurrencyMaskConfig = {
     AddressComponent,
   ],
   imports: [
+    ClipboardModule,
     NgxCurrencyModule.forRoot( customCurrencyMaskConfig ),
     CommonModule,
     RouterModule,

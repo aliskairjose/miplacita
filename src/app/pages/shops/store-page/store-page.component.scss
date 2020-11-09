@@ -1,54 +1,77 @@
-.explore-btn {
-    position: fixed;
-}
-ngb-carousel {
-    max-height: 550px;
-}
-
-.img-main-banner {
-    width: 100%;
-    height: auto;   
-    max-height: 550px; 
-}
-.circle-btn {
-    margin-left: 10px;
-    margin-right: 10px;
-    .label {
-        max-width: 6rem;
+#store-page {
+    ngb-carousel {
+        max-height: 550px;
     }
-}
-.circle {
-    width: 5rem;
-    height: 5rem;
-    border-radius: 50%;
-    background-color: var(--theme-deafult);
-    color: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 2rem;
-}
-#wrap{
-    flex-wrap: wrap;
-}
-.all-option {
-    border-right: 2px solid var(--mp-gray);
-    padding-right: 10px;
-    height: 5rem;
-}
-@supports(object-fit: cover){
+
+    .explore-btn {
+        position: fixed;
+    }
+
     .img-main-banner {
-        height: 100%;
-        object-fit: cover;
-        object-position: center center;
+        width: 100%;
+        height: auto;
+        max-height: 550px;
     }
-}
+    .circle-btn {
+        margin-left: 10px;
+        margin-right: 10px;
+        .label {
+            max-width: 6rem;
+        }
+    }
+    .circle {
+        width: 5rem;
+        height: 5rem;
+        border-radius: 50%;
+        background-color: var(--theme-deafult);
+        color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 2rem;
+    }
+    #wrap {
+        flex-wrap: wrap;
+    }
+    .all-option {
+        border-right: 2px solid var(--mp-gray);
+        padding-right: 10px;
+        height: 5rem;
+    }
 
-@media (min-width: 768px) { 
+    .btn-success {
+        color: #fff;
+        background-color: #25d366;
+        border-color: #25d366;
+    }
 
-  
-}
+    .btn-success:hover {
+        color: #fff;
+        border-color: #28a745;
+        background-color: #28a745;
+    }
 
-@media (min-width: 992px) { 
+    .whatsapp {
+        position: -webkit-sticky;
+        position: sticky;
+        bottom: 5rem;
+        padding: 5px;
+        z-index: 10000;
+        img {
+            height: 4rem;
+        }
+    }
+    @supports (object-fit: cover) {
+        .img-main-banner {
+            height: 100%;
+            object-fit: cover;
+            object-position: center center;
+        }
+    }
 
+    @media (min-width: 768px) {
+    }
+
+    @media (min-width: 992px) {
+    }
 }
