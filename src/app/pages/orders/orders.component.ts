@@ -59,8 +59,8 @@ export class OrdersComponent implements OnInit, OnChanges {
     private ngbCalendar: NgbCalendar,
     private shopService: ShopService,
     private orderService: OrderService,
+    private reportService: ReportsService,
     private parseDate: CustomDateParserFormatterService,
-    private reportService: ReportsService
   ) { }
 
   ngOnChanges( changes: SimpleChanges ): void {
@@ -72,7 +72,6 @@ export class OrdersComponent implements OnInit, OnChanges {
         }
       } );
     }
-
     this.init();
   }
 

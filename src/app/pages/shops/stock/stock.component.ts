@@ -22,6 +22,7 @@ export class StockComponent implements OnInit {
   stores: Store[];
   _storeId: string;
   modelFrom: NgbDateStruct;
+
   constructor(
     private auth: AuthService,
     private reportService: ReportsService,
@@ -41,19 +42,15 @@ export class StockComponent implements OnInit {
   }
 
   private loadStores( page = 1 ): void {
-    console.log("cargar tiendas");
     let params = '';
-
     params = `report=false`;
-
     this.reportService.membershipActiveShop( page, params ).subscribe( result => {
-      console.log(result);
+      console.log( result );
       this.stores = result.docs;
-
     } );
   }
 
-  filtrar(){
+  filtrar() {
     this.loadData();
   }
 
