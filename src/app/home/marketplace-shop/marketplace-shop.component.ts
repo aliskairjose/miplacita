@@ -111,7 +111,7 @@ export class MarketplaceShopComponent implements OnInit {
 
   // Set Theme color
   private customizeThemeColor() {
-    document.documentElement.style.setProperty( '--theme-deafult', '#ff4c3b' );
+    document.documentElement.style.setProperty( '--theme-deafult', '#e4604a' );
   }
 
 }

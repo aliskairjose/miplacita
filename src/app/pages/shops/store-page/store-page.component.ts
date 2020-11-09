@@ -69,7 +69,7 @@ export class StorePageComponent implements OnInit, AfterViewInit {
   }
 
   private customizeThemeFont( font: string ): void {
-    document.documentElement.style.setProperty( 'font-family', font );
+    document.getElementById( 'body' ).style.fontFamily = font;
   }
 
 
