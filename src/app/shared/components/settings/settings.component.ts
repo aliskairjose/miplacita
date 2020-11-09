@@ -54,14 +54,14 @@ export class SettingsComponent implements OnInit {
 
     this.shopService.storeObserver().subscribe( store => {
       this.store = store;
-      if ( store && this.auth.getUserActive() ) {
+      if ( store && this.auth.getUserActive() && this.auth.getUserRol() === 'client' ) {
         this.getAffiliate( store._id );
       }
     } );
 
     if ( sessionStorage.sessionStore ) {
       this.store = JSON.parse( sessionStorage.sessionStore );
-      if ( this.auth.getUserActive() ) {
+      if ( this.auth.getUserActive() && this.auth.getUserRol() === 'client' ) {
         this.getAffiliate( this.store._id );
       }
     }
