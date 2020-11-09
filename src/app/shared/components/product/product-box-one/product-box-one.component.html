@@ -6,14 +6,11 @@
     </div> -->
     <div class="front my-auto">
       <a [routerLink]="['/shop/product/', product._id]">
-        <img 
-          [lazyLoad]="product.images[0]?.url" 
-          class="img-fluid lazy-loading" 
-          alt="{{ product.name }}" />
+        <img [lazyLoad]="product.images[0]?.url" class="img-fluid lazy-loading" alt="{{ product.name }}" />
       </a>
     </div>
     <div class="back" *ngIf="onHowerChangeImage">
-     
+
     </div>
     <ul class="product-thumb-list" *ngIf="thumbnail">
       <li class="grid_thumb_img" [class.active]="ImageSrc == image.src" *ngFor="let image of product.images">
@@ -23,12 +20,10 @@
       </li>
     </ul>
     <div class="cart-info cart-wrap">
-      <a href="javascript:void(0)" title="Agregar al carrito" (click)="addToCart(product)"
-        *ngIf="cartModal">
+      <a href="javascript:void(0)" title="Agregar al carrito" (click)="addToCart(product)" *ngIf="cartModal">
         <i class="ti-shopping-cart"></i>
       </a>
-      <a href="javascript:void(0)" title="Agregar al carrito" (click)="addToCart(product)"
-        *ngIf="!cartModal">
+      <a href="javascript:void(0)" title="Agregar al carrito" (click)="addToCart(product)" *ngIf="!cartModal">
         <i class="ti-shopping-cart"></i>
       </a>
       <!-- <a href="javascript:void(0)" title="Agregar a la lista de deseo" (click)="addToWishlist(product)">
@@ -46,7 +41,7 @@
     <div>
       <!-- <bar-rating [rate]="5" [readOnly]="true"></bar-rating> -->
       <a [routerLink]="['/shop/product/', product._id]">
-        <h6 >{{ product?.name | titlecase }}</h6>
+        <h6>{{ product?.name | titlecase }}</h6>
       </a>
       <p>{{ product?.description }}</p>
       <h4>
@@ -63,7 +58,7 @@
   <div class="product-detail" *ngIf="search">
     <div>
       <a [routerLink]="['/shop/product/', product._id]">
-        <h6 class="text-default-color">{{ product?.name | titlecase }}</h6>   
+        <h6 class="text-default-color">{{ product?.name | titlecase }}</h6>
       </a>
       <p>Tienda: {{ product.store.name }}</p>
       <p class="mt-2">{{ product?.description }}</p>
@@ -80,4 +75,3 @@
 <app-skeleton-product-box *ngIf="loader"></app-skeleton-product-box>
 <app-quick-view #quickView [product]="product" [currency]="currency"></app-quick-view>
 <app-cart-modal #cartModal [product]="product" [currency]="currency" *ngIf="cartModal"></app-cart-modal>
-

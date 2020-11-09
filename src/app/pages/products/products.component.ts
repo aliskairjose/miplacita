@@ -163,7 +163,6 @@ export class ProductsComponent implements OnChanges, AfterViewInit {
     if ( this.role === 'admin' ) {
       this.params = `store=${this.storeSelected}&name=${this.name}&status=${this.status}`;
     }
-    console.log( this.params )
     this.productService.productList( page, this.params ).subscribe( result => {
       this.products = [ ...result.docs ];
       this.paginate = { ...result };
