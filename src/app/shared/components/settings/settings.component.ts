@@ -54,10 +54,10 @@ export class SettingsComponent implements OnInit {
     this.isLoggedIn = this.auth.isAuthenticated();
 
     this.shopService.storeObserver().subscribe( store => {
-      this.store = store;
-      this.storeFont = this.store.config.font;
 
       if ( store && this.auth.getUserActive() && this.auth.getUserRol() === 'client' ) {
+        this.store = store;
+        this.storeFont = this.store.config.font;
         this.getAffiliate( store._id );
       }
     } );

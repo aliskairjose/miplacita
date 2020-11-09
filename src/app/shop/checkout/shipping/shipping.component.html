@@ -26,19 +26,24 @@
 									<div class="shipping-option" *ngIf="shipmentOptions.length">
 										<div *ngFor="let shipmentOption of shipmentOptions">
 											<p class="h5">{{shipmentOption.name}}</p>
-											<div *ngFor="let item of shipmentOption.shopOptions; let i=index">
-												<div class="row mb-3">
-													<div class="option-box d-flex mx-auto py-3">
-														<div class="col-md-6">
-															<p class="my-auto">{{item.name}} - {{item.price | currency }}</p>
-														</div>
-														<div class="col offset-xl-4 text-center">
-															<input class="my-auto" type="radio" [checked]="i === 0" [value]="item._id"
-																[name]="shipmentOption.name"
-																(change)="selectOption(shipmentOption.id, $event.target.value )">
+											<div *ngIf="shipmentOption.shopOptions.length">
+												<div *ngFor="let item of shipmentOption.shopOptions; let i=index">
+													<div class="row mb-3">
+														<div class="option-box d-flex mx-auto py-3">
+															<div class="col-md-6">
+																<p class="my-auto">{{item.name}} - {{item.price | currency }}</p>
+															</div>
+															<div class="col offset-xl-4 text-center">
+																<input class="my-auto" type="radio" [checked]="i === 0" [value]="item._id"
+																	[name]="shipmentOption.name"
+																	(change)="selectOption(shipmentOption.id, $event.target.value )">
+															</div>
 														</div>
 													</div>
 												</div>
+											</div>
+											<div *ngIf="!shipmentOption.shopOptions.length">
+												La tienda no posee opciones de envío
 											</div>
 										</div>
 									</div>

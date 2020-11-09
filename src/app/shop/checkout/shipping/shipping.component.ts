@@ -95,8 +95,8 @@ export class ShippingComponent implements OnInit {
           }
         } );
         detail.products = products;
-        detail.shipment_option = shop.shopOptions[ 0 ]._id;
-        detail.shipment_price = shop.shopOptions[ 0 ].price;
+        detail.shipment_option = shop.shopOptions[ 0 ]?._id;
+        detail.shipment_price = shop.shopOptions[ 0 ]?.price;
         this.cart.push( detail );
       }
       this.shipmentOptions = shops;

@@ -3,7 +3,7 @@
 </ngx-spinner>
 <section class="section-b-space">
 	<div class="container">
-		
+
 		<form class="theme-form">
 			<div class="d-flex search justify-content-mobile-first">
 				<div class="box-mobile-first">
@@ -58,7 +58,7 @@
 		</form>
 
 		<!-- Data de usuario -->
-		<ng-container  *ngIf="store || role == 'admin'; else elseTemplate">
+		<ng-container *ngIf="store || role === 'admin'; else elseTemplate">
 			<div class="table-responsive mt-3">
 				<table class="table cart-table table-responsive-xs" id="mp-table" #TABLE>
 					<thead>
@@ -69,32 +69,31 @@
 							<th *ngFor="let field of fieldsAdmin" scope="col">{{field}}</th>
 						</tr>
 					</thead>
-					<tbody *ngIf="role == 'merchant'">
+					<tbody *ngIf="role === 'merchant'">
 						<tr *ngFor="let sale of sales">
 							<td class="text-center">{{ sale._id | date: 'mediumDate' }}</td>
 							<td class="text-center">{{ sale.qty }}</td>
 							<td class="text-center">{{ sale.amount | currency }}</td>
-							
 						</tr>
 					</tbody>
-					<tbody *ngIf="role == 'admin'">
+					<tbody *ngIf="role === 'admin'">
 						<tr *ngFor="let order of orders">
-							<td class="text-center">{{ order._id }}</td>
+							<!-- <td class="text-center">{{ order._id }}</td> -->
+							<td class="text-center">{{ order.store.name }}</td>
 							<td class="text-center">{{ order.amount | currency }}</td>
-							<td class="text-center">{{ order.store.name }}</td>						
-							<td class="text-center">{{ order.status }}</td>
+							<td class="text-center text-capitalize">{{ order.status }}</td>
 							<td class="text-center">
 								<a (click)="OrderDetails.openModal(order)" class="btn btn-table-action" ngbPopover="Ver detalle"
-								triggers="mouseenter:mouseleave">
-								<i class="fa fa-eye fa-lg" style="color: Dodgerblue"></i>
-								</a>		
+									triggers="mouseenter:mouseleave">
+									<i class="fa fa-eye fa-lg" style="color: Dodgerblue"></i>
+								</a>
 							</td>
-							
+
 						</tr>
 					</tbody>
 				</table>
 			</div>
-			
+
 			<!-- <app-custom-pagination [items]="sales" [paginate]="paginate" (setPage)="setPage($event)">
 			</app-custom-pagination> -->
 			<div class="form-row container justify-content-center " *ngIf="role=='merchant' && sales.length==0">
