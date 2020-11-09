@@ -73,7 +73,7 @@ export class SettingsComponent implements OnInit {
     if ( this.previousRoute.getCurrentUrl() === '/home/marketplace' ) {
       this._role = 'merchant';
     }
-    console.log( this.store );
+    // console.log( this.store );
   }
 
   callServiceToCopy() {

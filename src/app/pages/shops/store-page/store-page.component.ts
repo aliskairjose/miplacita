@@ -19,6 +19,7 @@ import { SettingsComponent } from '../../../shared/components/settings/settings.
 export class StorePageComponent implements OnInit, AfterViewInit {
   products: Product[] = [];
   store: Store = {};
+  storeFont = '';
   sliders = [];
   verticalBanners = [
     '../../../../assets/images/banner/1.jpg',
@@ -42,6 +43,7 @@ export class StorePageComponent implements OnInit, AfterViewInit {
         sessionStorage.setItem( 'sessionStore', JSON.stringify( store ) );
         this.store = { ...store };
         this.sliders = this.store.config.images;
+        this.storeFont = this.store.config.font;
         this.getCollectionProducts( this.store._id );
         this.subCategoryList( this.store._id );
         this.storeService.storeSubject( this.store );
