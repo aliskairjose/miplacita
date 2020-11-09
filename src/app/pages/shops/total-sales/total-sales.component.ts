@@ -24,7 +24,7 @@ export class TotalSalesComponent implements OnInit, OnChanges {
   @ViewChild( 'TABLE', { read: ElementRef } ) table: ElementRef;
 
   fields = [ 'Fecha', 'Cantidades ordenadas', 'Total de ventas' ];
-  fieldsAdmin = [ 'Numero de Orden', 'Monto', 'Tienda', 'Estado', '' ];
+  fieldsAdmin = [ 'Tienda', 'Monto', 'Estado', 'Acción' ];
   sales: any = [];
   orders: Order[] = [];
   paginate: Paginate;
@@ -75,8 +75,8 @@ export class TotalSalesComponent implements OnInit, OnChanges {
 
       } );
     } else if ( this.role === 'admin' ) {
-      this.reports.ordersMP().subscribe( ( result ) => {
-
+      this.reports.ordersMP().subscribe( response => {
+        this.orders = [ ...response.result ];
       } );
     }
 
