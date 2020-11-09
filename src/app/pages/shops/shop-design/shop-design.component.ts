@@ -41,7 +41,6 @@ export class ShopDesignComponent implements OnInit, OnChanges {
   }
   ngOnChanges( changes: SimpleChanges ): void {
     this.shopService.storeObserver().subscribe( ( store: Store ) => {
-      console.log("tienda", store.config);
       this.store = store;
       this.color = this.store.config.color;
       this.banners = this.store.config.images;
@@ -54,6 +53,7 @@ export class ShopDesignComponent implements OnInit, OnChanges {
   ngOnInit(): void {
     this.color = this.store.config.color;
     this.banners = this.store.config.images;
+    this.fontSelected = this.store.config.font;
     this.imageLogo = [ this.store.logo ];
   }
 
@@ -80,7 +80,7 @@ export class ShopDesignComponent implements OnInit, OnChanges {
       this.updateShop.emit( this.store );
 
     }
-    console.log(this.bannersDelete);
+    console.log( this.bannersDelete );
     if ( this.bannersDelete.length ) {
       for ( const image of this.bannersDelete ) {
         this.shopService.deleteBanner( this.store._id, image._id ).subscribe( ( result ) => {
@@ -164,7 +164,7 @@ export class ShopDesignComponent implements OnInit, OnChanges {
   }
 
   deleteBanner( image ) {
-    console.log(image);
+    console.log( image );
     this.bannersDelete.push( image );
 
   }
