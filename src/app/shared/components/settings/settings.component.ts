@@ -26,6 +26,7 @@ export class SettingsComponent implements OnInit {
   balance: number;
   showBalance = false;
   store: Store = {};
+  storeFont = '';
 
   private _referedCode: string;
 
@@ -54,6 +55,8 @@ export class SettingsComponent implements OnInit {
 
     this.shopService.storeObserver().subscribe( store => {
       this.store = store;
+      this.storeFont = this.store.config.font;
+
       if ( store && this.auth.getUserActive() && this.auth.getUserRol() === 'client' ) {
         this.getAffiliate( store._id );
       }
@@ -61,6 +64,8 @@ export class SettingsComponent implements OnInit {
 
     if ( sessionStorage.sessionStore ) {
       this.store = JSON.parse( sessionStorage.sessionStore );
+      this.storeFont = this.store.config.font;
+
       if ( this.auth.getUserActive() && this.auth.getUserRol() === 'client' ) {
         this.getAffiliate( this.store._id );
       }
