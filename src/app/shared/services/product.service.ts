@@ -321,8 +321,10 @@ export class ProductService {
 
   // Calculate Stock Counts
   private calculateStockCounts( product: Product, quantity: number ) {
+    console.log(product.quantity + "cantidad",quantity);
     const qty = product.quantity + quantity;
     const stock = product.stock;
+    console.log(stock, qty);
     if ( stock < qty || stock === 0 ) {
       this.toastrService.error( 'No puede agregar más elementos de los disponibles. En stock ' + stock + ' items.' );
       return false;
