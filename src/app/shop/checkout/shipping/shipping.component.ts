@@ -13,6 +13,7 @@ import { UserService } from '../../../shared/services/user.service';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from '../../../shared/services/auth.service';
 import { StorageService } from '../../../shared/services/storage.service';
+import { Store } from 'src/app/shared/classes/store';
 
 
 @Component( {
@@ -47,7 +48,7 @@ export class ShippingComponent implements OnInit {
     shipment_option: '',
     shipment_price: 0,
   };
-
+  storeFont = '';
   private _products: Product[] = [];
 
   @ViewChild( 'address' ) address: AddressComponent;
@@ -72,8 +73,14 @@ export class ShippingComponent implements OnInit {
       if ( store ) {
         const products = this._products.filter( item => item.store._id === store._id );
         this._products = [ ...products ];
+        this.storeFont = store.config.font;
       }
     } );
+
+    if ( sessionStorage.sessionStore ) {
+      const store: Store = JSON.parse( sessionStorage.sessionStore );
+      this.storeFont = store.config.font;
+    }
 
     this.getStoresId().then( ( shops ) => {
       for ( const shop of shops as any ) {
