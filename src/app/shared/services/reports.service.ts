@@ -142,9 +142,10 @@ export class ReportsService {
 
   /**
    * @description Reporte de ventas con TDC
+   * @param params FECHA INI FECHA FIN
    */
-  tdcSales(): Observable<any> {
-    return this.http.get( `` );
+  tdcSales( params: string ): Observable<any> {
+    return this.http.get( `report/tdc?${params}` ).pipe( map( response => response.result ) );
   }
 
   /**

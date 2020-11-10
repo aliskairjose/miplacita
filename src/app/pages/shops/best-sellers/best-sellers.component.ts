@@ -103,7 +103,6 @@ export class BestSellersComponent implements OnInit, OnChanges {
   private loadData(): void {
     const params = `from=${this.fechaIni}&to=${this.fechaFin}&store=${this._storeID}&category=${this.categoryId}`;
     this.reports.bestSellers( params ).subscribe( response => {
-      console.log( response );
       this.bestSellers = [ ...response ];
     } );
 

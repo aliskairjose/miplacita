@@ -6,6 +6,7 @@ import { ExportService } from 'src/app/shared/services/export.service';
 import { NgbDateStruct, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
 import { CustomDateParserFormatterService } from 'src/app/shared/adapter/custom-date-parser-formatter.service';
 import { ToastrService } from 'ngx-toastr';
+import { Store } from '../../../shared/classes/store';
 
 @Component( {
   selector: 'app-sales-tdc',
@@ -16,21 +17,24 @@ export class SalesTdcComponent implements OnInit {
 
   @ViewChild( 'TABLE', { read: ElementRef } ) table: ElementRef;
 
-  fields = [ 'Cliente', 'Tienda', 'Fecha', 'Banco', 'Transacción', 'Monto' ];
-  products = [];
+  fields = [ 'Cliente', 'Tienda', 'Fecha', 'Monto', 'Status' ];
+  data = [];
   role: string;
   paginate: Paginate;
   fechaIni = '';
   fechaFin = '';
   modelTo: NgbDateStruct;
   modelFrom: NgbDateStruct;
+  stores: Store[] = [];
+  storeSelected: Store = {};
+  private _storeId = '';
 
   constructor(
     private auth: AuthService,
     private toastr: ToastrService,
     private ngbCalendar: NgbCalendar,
     private exportDoc: ExportService,
-    private reportService: ReportsService,
+    private reports: ReportsService,
     private parseDate: CustomDateParserFormatterService
 
   ) { }
@@ -44,7 +48,7 @@ export class SalesTdcComponent implements OnInit {
     this.modelFrom = this.modelTo = this.ngbCalendar.getToday();
     this.fechaIni = this.fechaFin = this.parseDate.format( this.modelFrom );
     this.role = this.auth.getUserRol();
-
+    this.loadStores();
     this.loadData();
   }
 
@@ -62,10 +66,23 @@ export class SalesTdcComponent implements OnInit {
     this.loadData();
   }
 
-  loadData( page = 1 ) {
-    this.reportService.tdcSales().subscribe( ( result ) => {
+  loadData() {
+    const params = `from=${this.fechaIni}&to=${this.fechaFin}&store=${this._storeId}`;
+    this.reports.tdcSales( params ).subscribe( ( result ) => {
       console.log( result, 'ventas con tdc' );
+      this.data = [ ...result ];
     } );
+  }
+
+  selectStore( store: Store ): void {
+    if ( store ) {
+      this.storeSelected = store;
+      this._storeId = store._id;
+    } else {
+      this.storeSelected.name = null;
+      this._storeId = '';
+    }
+
   }
 
   ExportTOExcel() {
@@ -76,5 +93,9 @@ export class SalesTdcComponent implements OnInit {
     this.exportDoc.ExportTOPDF( '#mp-table', 'Ventas con TDC', 'tdc-report' );
   }
 
-
+  private loadStores(): void {
+    this.reports.membershipActiveShop( 1, `report=false` ).subscribe( result => {
+      this.stores = result.docs;
+    } );
+  }
 }
