@@ -4,11 +4,11 @@ import { AuthService } from 'src/app/shared/services/auth.service';
 import { Store } from 'src/app/shared/classes/store';
 import { Product } from 'src/app/shared/classes/product';
 import { ExportService } from 'src/app/shared/services/export.service';
-import { ProductService } from 'src/app/shared/services/product.service';
 import { CustomDateParserFormatterService } from '../../../shared/adapter/custom-date-parser-formatter.service';
-import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDateStruct, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { ReportsService } from '../../../shared/services/reports.service';
+import { CategoryService } from '../../../shared/services/category.service';
 
 @Component( {
   selector: 'app-best-sellers',
@@ -19,8 +19,10 @@ export class BestSellersComponent implements OnInit, OnChanges {
   @ViewChild( 'TABLE', { read: ElementRef } ) table: ElementRef;
 
 
-  fields = [ 'ID del Producto', 'Nombre del Producto', 'Cantidad Vendida' ];
-  bestSellers: Product[] = [];
+  adminFields = [ 'ID', 'Producto', 'Tienda', 'Cantidad Vendida' ];
+  fields = [ 'ID', 'Producto', 'Categoria', 'Cantidad Vendida' ];
+
+  bestSellers = [];
   paginate: Paginate;
   role: string;
   order = 'desc';
@@ -28,6 +30,11 @@ export class BestSellersComponent implements OnInit, OnChanges {
   fechaFin = '';
   modelTo: NgbDateStruct;
   modelFrom: NgbDateStruct;
+  categoryId = '';
+  storeSelected: Store = {};
+  stores: Store[] = [];
+
+  private _storeID = '';
 
   @Input() store: Store;
 
@@ -35,45 +42,32 @@ export class BestSellersComponent implements OnInit, OnChanges {
     private auth: AuthService,
     private toastr: ToastrService,
     private reports: ReportsService,
+    private ngbCalendar: NgbCalendar,
     private exportDoc: ExportService,
+    private categoriesSevice: CategoryService,
     private parseDate: CustomDateParserFormatterService
   ) { }
 
   ngOnInit(): void {
     this.role = this.auth.getUserRol();
+    this.loadStores();
+    this.init();
 
   }
 
   ngOnChanges( changes: SimpleChanges ): void {
     this.store = JSON.parse( sessionStorage.getItem( 'store' ) );
-    this.init();
   }
 
-  private init(): void {
-    this.role = this.auth.getUserRol();
-
-    this.loadData();
-  }
-
-  private loadData( page = 1 ): void {
-    if ( this.role === 'merchant' ) {
-      const params = `store=${this.store._id}&best=${this.order}&report=true`;
-      this.reports.bestSellers( page, params ).subscribe( result => {
-        this.bestSellers = [ ...result ];
-      } );
+  selectStore( store: Store ): void {
+    if ( store ) {
+      this.storeSelected = store;
+      this._storeID = store._id;
+    } else {
+      this.storeSelected.name = null;
+      this._storeID = '';
     }
 
-    if ( this.role === 'admin' ) {
-      const params = `best=${this.order}&report=true`;
-      this.reports.bestSellersMP().subscribe( result => {
-        console.log( result );
-      } );
-    }
-
-  }
-
-  setPage( page: number ) {
-    this.loadData( page );
   }
 
   filtrar(): void {
@@ -98,4 +92,45 @@ export class BestSellersComponent implements OnInit, OnChanges {
     this.exportDoc.ExportTOPDF( '#mp-table', 'Productos más vendidos', 'best-sellers-report' );
   }
 
+  private init(): void {
+    this.modelFrom = this.modelTo = this.ngbCalendar.getToday();
+    this.fechaIni = this.fechaFin = this.parseDate.format( this.modelFrom );
+    this.role = this.auth.getUserRol();
+
+    this.loadData();
+  }
+
+  private loadData(): void {
+    const params = `from=${this.fechaIni}&to=${this.fechaFin}&store=${this._storeID}&category=${this.categoryId}`;
+    this.reports.bestSellers( params ).subscribe( response => {
+      this.bestSellers = [ ...response ];
+    } );
+
+    // if ( this.role === 'merchant' ) {
+    //   const params = `store=${this.store._id}&best=${this.order}&report=true&from=${this.fechaIni}&to=${this.fechaFin}`;
+    //   this.reports.bestSellers( page, params ).subscribe( result => {
+    //     this.bestSellers = [ ...result ];
+    //   } );
+    // }
+
+    // if ( this.role === 'admin' ) {
+    //   const params = `best=${this.order}&report=true&from=${this.fechaIni}&to=${this.fechaFin}`;
+    //   this.reports.bestSellersMP( params ).subscribe( response => {
+    //     this.bestSellers = [ ...response.result ];
+    //   } );
+    // }
+
+  }
+
+  private loadStores(): void {
+    this.reports.membershipActiveShop( 1, `report=false` ).subscribe( result => {
+      this.stores = result.docs;
+    } );
+  }
+
+  private loadStoreCategories(): void {
+    const params = `store=${this.store._id}`;
+    this.categoriesSevice.getSubcategory( params ).subscribe( subcategories => {
+    } );
+  }
 }

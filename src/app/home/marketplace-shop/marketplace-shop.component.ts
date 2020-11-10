@@ -33,8 +33,6 @@ export class MarketplaceShopComponent implements OnInit {
   ) {
     this.getCollectionProducts();
     sessionStorage.removeItem( 'sessionStore' );
-    this.customizeThemeColor();
-    this.customizeThemeFont();
   } // Fin del constructor
 
   ProductSliderConfig: any = ProductSlider;
@@ -99,6 +97,7 @@ export class MarketplaceShopComponent implements OnInit {
   } ];
 
   ngOnInit(): void {
+    this.shopService.customizeShop( { color: '#e4604a', font: '' } );
   }
 
   // Product Tab collection
@@ -108,15 +107,6 @@ export class MarketplaceShopComponent implements OnInit {
       this.products = [ ...result.docs ];
     } );
 
-  }
-
-  // Set Theme color
-  private customizeThemeColor() {
-    document.documentElement.style.setProperty( '--theme-deafult', '#e4604a' );
-  }
-
-  private customizeThemeFont(): void {
-    document.getElementById( 'body' ).style.fontFamily = '';
   }
 
 }

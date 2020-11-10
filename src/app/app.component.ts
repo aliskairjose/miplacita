@@ -1,4 +1,4 @@
-import { Component, Injectable, PLATFORM_ID, Inject } from '@angular/core';
+import { Component, Injectable, PLATFORM_ID, Inject, OnChanges, SimpleChanges } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { LoadingBarService } from '@ngx-loading-bar/core';
 import { map, delay, withLatestFrom, filter } from 'rxjs/operators';
@@ -10,7 +10,7 @@ declare var gtag;
   templateUrl: './app.component.html',
   styleUrls: [ './app.component.scss' ]
 } )
-export class AppComponent {
+export class AppComponent implements OnChanges {
 
   // For Progressbar
   loaders = this.loader.progress$.pipe(
@@ -30,14 +30,17 @@ export class AppComponent {
       translate.addLangs( [ 'en', 'fr' ] );
     }
     const navEndEvents$ = this.router.events.pipe(
-      filter(event => event instanceof NavigationEnd)
+      filter( event => event instanceof NavigationEnd )
     );
 
-    navEndEvents$.subscribe((event: NavigationEnd) => {
-      gtag('config', 'G-FNK35J6HGH', {
+    navEndEvents$.subscribe( ( event: NavigationEnd ) => {
+      gtag( 'config', 'G-FNK35J6HGH', {
         'page_path': event.urlAfterRedirects
-      });
-    });
+      } );
+    } );
+  }
+  ngOnChanges( changes: SimpleChanges ): void {
+    console.log( 'OnChanges', changes )
   }
 
 }

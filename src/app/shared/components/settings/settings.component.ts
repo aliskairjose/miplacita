@@ -8,7 +8,6 @@ import { AuthService } from '../../services/auth.service';
 import { PreviousRouteService } from '../../services/previous-route.service';
 import { ShopService } from '../../services/shop.service';
 import { Store } from 'src/app/shared/classes/store';
-import { ActivatedRoute } from '@angular/router';
 import { ClipboardService } from 'ngx-clipboard';
 import { ToastrService } from 'ngx-toastr';
 
@@ -26,7 +25,6 @@ export class SettingsComponent implements OnInit {
   balance: number;
   showBalance = false;
   store: Store = {};
-  storeFont: any;
   private _referedCode: string;
 
   constructor(
@@ -43,6 +41,10 @@ export class SettingsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    setTimeout( () => {
+      this.productService.cartItems.subscribe( response => { this.products = response; } );
+    }, 500 );
+
     this._clipboardService.copyResponse$.subscribe( re => {
       if ( re.isSuccess ) {
         this.toast.info( 'El código se ha copiado al portapapeles!' );
@@ -62,7 +64,6 @@ export class SettingsComponent implements OnInit {
 
     if ( sessionStorage.sessionStore ) {
       this.store = JSON.parse( sessionStorage.sessionStore );
-      this.storeFont = this.store.config.font;
 
       if ( this.auth.getUserActive() && this.auth.getUserRol() === 'client' ) {
         this.getAffiliate( this.store._id );
@@ -76,7 +77,6 @@ export class SettingsComponent implements OnInit {
     if ( this.previousRoute.getCurrentUrl() === '/home/marketplace' ) {
       this._role = 'merchant';
     }
-    // console.log( this.store );
   }
 
   callServiceToCopy() {

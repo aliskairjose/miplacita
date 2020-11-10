@@ -4,6 +4,8 @@ import { CartModalComponent } from '../../modal/cart-modal/cart-modal.component'
 import { Product } from '../../../classes/product';
 import { ProductService } from '../../../services/product.service';
 import { ToastrService } from 'ngx-toastr';
+import { Store } from 'src/app/shared/classes/store';
+import { Config } from '../../../classes/store';
 
 @Component( {
   selector: 'app-product-box-one',
@@ -12,6 +14,9 @@ import { ToastrService } from 'ngx-toastr';
 } )
 export class ProductBoxOneComponent implements OnInit {
 
+  config = '';
+
+  @Input() store: Store = {};
   @Input() product: Product;
   @Input() currency: any = this.productService.Currency; // Default Currency
   @Input() thumbnail = false; // Default False
@@ -33,6 +38,7 @@ export class ProductBoxOneComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.config = window.btoa( JSON.stringify( this.store.config ) );
     if ( this.loader ) {
       setTimeout( () => { this.loader = false; }, 2000 ); // Skeleton Loader
     }
