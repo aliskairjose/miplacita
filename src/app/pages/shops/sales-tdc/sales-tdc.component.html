@@ -81,7 +81,7 @@
 						<td class="text-center">{{d.user_data.fullname}}</td>
 						<td class="text-center">{{ d.store_data.name }}</td>
 						<td class="text-center">{{ d.created_at | date }}</td>
-						<td class="text-center text-capitalize">{{ d.payment.amount }}</td>
+						<td class="text-center text-capitalize">{{ d.payment.amount | currency }}</td>
 						<td class="text-center text-capitalize">{{ d.payment.status }}</td>
 					</tr>
 				</tbody>
