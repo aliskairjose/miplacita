@@ -14,7 +14,7 @@ import {
 } )
 export class UploadImageComponent implements OnInit, AfterViewInit, OnChanges, OnDestroy {
 
-  fakeImage = 'assets/images/marketplace/svg/plus-circle.svg';
+  fakeImage = 'assets/images/marketplace/images/placeholder_.jpg';
   @Input() images: Array<string> = [];
   @Input() imagesObject: Array<any> = [];
 
