@@ -71,8 +71,8 @@
 							<ng-container *ngFor="let product of products | slice:0:16">
 								<ng-template carouselSlide>
 									<div class="product-box">
-										<app-product-box-one [product]="product" [thumbnail]="false" [cartModal]="false"
-											[horizontal]="true">
+										<app-product-box-one [product]="product" [thumbnail]="false" [cartModal]="false" [horizontal]="true"
+											[store]="store">
 										</app-product-box-one>
 									</div>
 								</ng-template>

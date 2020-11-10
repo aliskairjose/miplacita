@@ -1,7 +1,8 @@
 <div *ngIf="!loader">
   <div class="img-wrapper d-flex align-items-center" [ngClass]="{ 'img-wrapper-fix': horizontal }">
     <div class="front my-auto">
-      <a [routerLink]="['/shop/product/', product._id]">
+      <a [routerLink]="['/shop/product/', product._id]"
+        [queryParams]="{ font: store?.config?.font, color: store?.config?.color }">
         <img [lazyLoad]="product.images[0]?.url" class="img-fluid lazy-loading" alt="{{ product.name }}" />
       </a>
     </div>
@@ -29,7 +30,8 @@
   </div>
   <div class="product-detail" *ngIf="!search">
     <div>
-      <a [routerLink]="['/shop/product/', product._id]">
+      <a [routerLink]="['/shop/product/', product._id]"
+        [queryParams]="{ font: store?.config?.font, color: store?.config?.color }">
         <h6>{{ product?.name | titlecase }}</h6>
       </a>
       <p>{{ product?.description }}</p>
@@ -38,7 +40,7 @@
       </h4>
     </div>
   </div>
-  <div class="product-detail" *ngIf="search">
+  <div class=" product-detail" *ngIf="search">
     <div>
       <a [routerLink]="['/shop/product/', product._id]">
         <h6 class="text-default-color">{{ product?.name | titlecase }}</h6>

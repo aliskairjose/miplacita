@@ -4,6 +4,7 @@ import { CartModalComponent } from '../../modal/cart-modal/cart-modal.component'
 import { Product } from '../../../classes/product';
 import { ProductService } from '../../../services/product.service';
 import { ToastrService } from 'ngx-toastr';
+import { Store } from 'src/app/shared/classes/store';
 
 @Component( {
   selector: 'app-product-box-one',
@@ -12,6 +13,7 @@ import { ToastrService } from 'ngx-toastr';
 } )
 export class ProductBoxOneComponent implements OnInit {
 
+  @Input() store: Store = {};
   @Input() product: Product;
   @Input() currency: any = this.productService.Currency; // Default Currency
   @Input() thumbnail = false; // Default False
