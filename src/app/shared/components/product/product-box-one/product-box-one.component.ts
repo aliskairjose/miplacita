@@ -39,11 +39,6 @@ export class ProductBoxOneComponent implements OnInit {
 
   ngOnInit(): void {
     this.config = window.btoa( JSON.stringify( this.store.config ) );
-    // const decod = window.atob( cod );
-    // console.log( this.store.config );
-    // console.log( cod );
-    // console.log( decod );
-    // console.log( JSON.parse( decod ) );
     if ( this.loader ) {
       setTimeout( () => { this.loader = false; }, 2000 ); // Skeleton Loader
     }
