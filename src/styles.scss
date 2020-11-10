@@ -9,6 +9,7 @@ $mp-red: #eba39a;
 $mp-purple: #68396d;
 $mp-pink-dark: #e37d6f;
 $mp-rosa: #fed3c3;
+$mp-rosa-light: #fee4da;
 $mp-white: #fff;
 $mp-gray: #f7f7f7;
 // radius
@@ -24,7 +25,11 @@ $radius: 5px;
 .background-rosa { 
   background-color: $mp-rosa;
   padding: 5% 0; 
+}
 
+.background-rosa-light {
+  background-color: $mp-rosa-light;
+  padding: 5% 0; 
 }
 
 .background-gray { 
