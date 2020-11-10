@@ -8,7 +8,6 @@ import { AuthService } from '../../services/auth.service';
 import { PreviousRouteService } from '../../services/previous-route.service';
 import { ShopService } from '../../services/shop.service';
 import { Store } from 'src/app/shared/classes/store';
-import { ActivatedRoute } from '@angular/router';
 import { ClipboardService } from 'ngx-clipboard';
 import { ToastrService } from 'ngx-toastr';
 
@@ -26,7 +25,6 @@ export class SettingsComponent implements OnInit {
   balance: number;
   showBalance = false;
   store: Store = {};
-
   private _referedCode: string;
 
   constructor(
@@ -62,7 +60,6 @@ export class SettingsComponent implements OnInit {
 
     if ( sessionStorage.sessionStore ) {
       this.store = JSON.parse( sessionStorage.sessionStore );
-      this.storeFont = this.store.config.font;
 
       if ( this.auth.getUserActive() && this.auth.getUserRol() === 'client' ) {
         this.getAffiliate( this.store._id );

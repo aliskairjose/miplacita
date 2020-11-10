@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpService } from './http.service';
 import { Observable, BehaviorSubject } from 'rxjs';
-import { Store } from '../classes/store';
+import { Store, Config } from '../classes/store';
 import { map } from 'rxjs/operators';
 import { Plan } from '../classes/plan';
 import { Response, Result } from '../classes/response';
@@ -288,6 +288,22 @@ export class ShopService {
 
   getStore( id: string ) {
     return this.http.get( `stores/${id}` );
+  }
+
+  /*
+    ---------------------------------------------
+    --------------  Customize Shop  -------------
+    ---------------------------------------------
+  */
+
+  /**
+   * @description Personaliza la tienda
+   * @param config Color y Font
+   */
+  customizeShop( config: Config ): void {
+    document.getElementById( 'body' ).style.fontFamily = config.font;
+    document.documentElement.style.setProperty( '--theme-deafult', config.color );
+
   }
 
   /*

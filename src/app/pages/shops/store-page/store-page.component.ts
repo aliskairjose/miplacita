@@ -8,7 +8,6 @@ import { Result } from 'src/app/shared/classes/response';
 import { CategoryService } from 'src/app/shared/services/category.service';
 import { Category } from '../../../shared/classes/category';
 import { ProductSlider } from 'src/app/shared/data/slider';
-import { async } from '@angular/core/testing';
 import { SettingsComponent } from '../../../shared/components/settings/settings.component';
 
 @Component( {
@@ -45,8 +44,7 @@ export class StorePageComponent implements OnInit, AfterViewInit {
         this.getCollectionProducts( this.store._id );
         this.subCategoryList( this.store._id );
         this.storeService.storeSubject( this.store );
-        this.customizeThemeColor( this.store.config.color );
-        this.customizeThemeFont( this.store.config.font );
+        this.storeService.customizeShop( this.store.config );
       } );
     } );
 
@@ -62,16 +60,6 @@ export class StorePageComponent implements OnInit, AfterViewInit {
     window.open( `https://wa.me/${this.store.phone}`, '_blank' );
 
   }
-
-  // Set Theme color
-  private customizeThemeColor( color: string ): void {
-    document.documentElement.style.setProperty( '--theme-deafult', color );
-  }
-
-  private customizeThemeFont( font: string ): void {
-    document.getElementById( 'body' ).style.fontFamily = font;
-  }
-
 
   private getCollectionProducts( id: string ): void {
     const params = `store=${id}&featured=true`;

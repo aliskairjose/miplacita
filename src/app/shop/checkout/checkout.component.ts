@@ -63,8 +63,7 @@ export class CheckoutComponent implements OnInit {
       this.store = JSON.parse( sessionStorage.sessionStore );
     }
 
-    if ( JSON.parse( sessionStorage.sessionStore || null ) ) {
-    }
+
 
     shipment.cart.forEach( detail => {
       this.shipmentPrice += detail.shipment_price;
