@@ -21,9 +21,16 @@ $radius: 5px;
 .text-default-color {color : var(--theme-deafult) }
 .text-purple { color : $mp-purple }
 
+.background-rosa { 
+  background-color: $mp-rosa;
+  padding: 5% 0; 
+
+}
+
 .background-gray { 
   background-color: $mp-gray;
-  padding: 10% 10% }
+  padding: 2% 2% 
+}
 
 .border-box {
   padding: 13px 13px;
@@ -262,6 +269,7 @@ input[type='checkbox']:checked {
 */
 .section-b-space {
   padding-top: 25px;
+  padding-bottom: 50px;
   //border-bottom: 1px solid #ccc;
 }
 .container-fill {
