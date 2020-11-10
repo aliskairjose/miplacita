@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 import { Category } from '../../classes/category';
 import { Product } from '../../classes/product';
 import { Router } from '@angular/router';
+import { Store } from '../../classes/store';
 
 @Component( {
   selector: 'app-search',
@@ -15,6 +16,7 @@ export class SearchComponent implements OnInit, OnChanges {
   products: Product[] = [];
   textCategory = 'Explora';
 
+  @Input() store: Store = {};
   @Input() categories: Category[];
   @Output() productsFilter: EventEmitter<any> = new EventEmitter<any>();
 
@@ -30,8 +32,9 @@ export class SearchComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges( changes: SimpleChanges ): void {
-    // Called before any other lifecycle hook. Use it to inject dependencies, but avoid any serious work here.
-    // Add '${implements OnChanges}' to the class.
+    if ( Object.entries( this.store ).length ) {
+      this.searchForm.value.id = this.store._id;
+    }
   }
 
   onSubmit(): void {
@@ -47,6 +50,7 @@ export class SearchComponent implements OnInit, OnChanges {
     this.searchForm = this.formBuilder.group( {
       name: [ '' ],
       category: [ '' ],
+      id: [ '' ]
     } );
   }
 

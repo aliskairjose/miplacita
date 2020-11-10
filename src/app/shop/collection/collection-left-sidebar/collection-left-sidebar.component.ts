@@ -37,7 +37,7 @@ export class CollectionLeftSidebarComponent implements OnInit {
   mobileSidebar = false;
   loader = true;
   params: string;
-
+  private _storeId = '';
   private _store: Store;
 
   constructor(
@@ -48,12 +48,15 @@ export class CollectionLeftSidebarComponent implements OnInit {
     private viewScroller: ViewportScroller,
     private categoryService: CategoryService,
   ) {
-
     // tslint:disable-next-line: max-line-length
     forkJoin( [ this.shopService.storeList(), this.categoryService.categoryList() ] ).subscribe( ( [ shopsResult, categoriesResult ] ) => {
       // Get Query params..
       this.route.queryParams.subscribe( params => {
+        if ( params.id ) {
+          this.shopService.getStore( params.id ).subscribe( response => this.shopService.customizeShop( response.result.config ) );
+        }
 
+        this._storeId = params.id;
         const shops = [ ...shopsResult.docs ];
         const categories = [ ...categoriesResult ];
         const prices = [
@@ -111,8 +114,9 @@ export class CollectionLeftSidebarComponent implements OnInit {
   loadProductList( page = 1 ): void {
     this.params = `${this.params}&stock=true`;
     this.productService.productList( page, this.params ).subscribe( ( result: Result<Product> ) => {
-      if ( state.sessionStore ) {
-        this.products = result.docs.filter( item => item.store._id === state.sessionStore._id );
+
+      if ( this._storeId ) {
+        this.products = result.docs.filter( item => item.store._id === this._storeId );
       } else {
         this.products = [ ...result.docs ];
       }
