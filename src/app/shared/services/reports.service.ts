@@ -73,15 +73,20 @@ export class ReportsService {
    * @param page Pagina que desea mostrar
    * @param params ID Id de la tienda
    */
-  bestSellers( page = 1, params = '' ): Observable<Product[]> {
-    return this.http.get( `products?page=${page}&${params}` ).pipe(
-      map( ( response ) => {
-        if ( response.success ) {
-          return response.result;
-        }
-      } )
+  bestSellers( params: string ): Observable<any[]> {
+    return this.http.get( `report/bestseller?${params}` ).pipe(
+      map( response => response.result )
     );
   }
+  // bestSellers( page = 1, params = '' ): Observable<Product[]> {
+  //   return this.http.get( `products?page=${page}&${params}` ).pipe(
+  //     map( ( response ) => {
+  //       if ( response.success ) {
+  //         return response.result;
+  //       }
+  //     } )
+  //   );
+  // }
 
   stockMP(): Observable<any> {
     return this.http.get( `products?marketplace=true&report=true` ).pipe(
