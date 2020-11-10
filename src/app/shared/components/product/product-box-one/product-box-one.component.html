@@ -1,19 +1,12 @@
 <div *ngIf="!loader">
   <div class="img-wrapper d-flex align-items-center" [ngClass]="{ 'img-wrapper-fix': horizontal }">
-    <!-- <div class="lable-block">
-      <span class="lable3 d-flex justify-content-center align-items-center" *ngIf="product.new">nuevo</span>
-      <span class="lable4" *ngIf="product.category"><strong>{{product.category}}</strong></span>
-    </div> -->
     <div class="front my-auto">
-      <a [routerLink]="['/shop/product/', product._id]">
-        <img 
-          [lazyLoad]="product.images[0]?.url" 
-          class="img-fluid lazy-loading" 
-          alt="{{ product.name }}" />
+      <a [routerLink]="['/shop/product/', product._id]" [queryParams]="{ config: config  }">
+        <img [lazyLoad]="product.images[0]?.url" class="img-fluid lazy-loading" alt="{{ product.name }}" />
       </a>
     </div>
     <div class="back" *ngIf="onHowerChangeImage">
-     
+
     </div>
     <ul class="product-thumb-list" *ngIf="thumbnail">
       <li class="grid_thumb_img" [class.active]="ImageSrc == image.src" *ngFor="let image of product.images">
@@ -23,54 +16,38 @@
       </li>
     </ul>
     <div class="cart-info cart-wrap">
-      <a href="javascript:void(0)" title="Agregar al carrito" (click)="addToCart(product)"
-        *ngIf="cartModal">
+      <a href="javascript:void(0)" title="Agregar al carrito" (click)="addToCart(product)" *ngIf="cartModal">
         <i class="ti-shopping-cart"></i>
       </a>
-      <a href="javascript:void(0)" title="Agregar al carrito" (click)="addToCart(product)"
-        *ngIf="!cartModal">
+      <a href="javascript:void(0)" title="Agregar al carrito" (click)="addToCart(product)" *ngIf="!cartModal">
         <i class="ti-shopping-cart"></i>
       </a>
-      <!-- <a href="javascript:void(0)" title="Agregar a la lista de deseo" (click)="addToWishlist(product)">
-        <i class="ti-heart" aria-hidden="true"></i>
-      </a> -->
       <a href="javascript:void(0)" title="Detalle del producto" (click)="QuickView.openModal()">
         <i class="ti-search" aria-hidden="true"></i>
       </a>
-      <!-- <a href="javascript:void(0)" title="Comprarar" (click)="addToCompare(product)">
-        <i class="ti-reload" aria-hidden="true"></i>
-      </a> -->
     </div>
   </div>
   <div class="product-detail" *ngIf="!search">
     <div>
-      <!-- <bar-rating [rate]="5" [readOnly]="true"></bar-rating> -->
-      <a [routerLink]="['/shop/product/', product._id]">
-        <h6 >{{ product?.name | titlecase }}</h6>
+      <a [routerLink]="['/shop/product/', product._id]" [queryParams]="{ config: config }">
+        <h6>{{ product?.name | titlecase }}</h6>
       </a>
       <p>{{ product?.description }}</p>
       <h4>
         {{ product?.price | currency:currency?.currency:'symbol' }}
-        <!-- <del *ngIf="product?.discount"><span class="money"> {{ product?.price * currency?.price | currency:currency?.currency:'symbol' }}</span></del> -->
       </h4>
-      <!-- <ul class="color-variant" *ngIf="Color(product?.variants).length">
-        <li [class]="color" *ngFor="let color of Color(product?.variants)" [ngStyle]="{'background-color': color}"
-          (click)="ChangeVariants(color, product)">
-        </li>
-      </ul> -->
     </div>
   </div>
-  <div class="product-detail" *ngIf="search">
+  <div class=" product-detail" *ngIf="search">
     <div>
       <a [routerLink]="['/shop/product/', product._id]">
-        <h6 class="text-default-color">{{ product?.name | titlecase }}</h6>   
+        <h6 class="text-default-color">{{ product?.name | titlecase }}</h6>
       </a>
       <p>Tienda: {{ product.store.name }}</p>
       <p class="mt-2">{{ product?.description }}</p>
       <div class="d-flex">
         <h4>
           {{ product?.price | currency  }}
-          <!-- <del *ngIf="product?.discount"><span class="money"> {{ product?.price | currency:currency?.currency:'symbol' }}</span></del> -->
         </h4>
         <p class="text-default-color pl-2">({{ product.stock }} unidades disponibles)</p>
       </div>
@@ -80,4 +57,3 @@
 <app-skeleton-product-box *ngIf="loader"></app-skeleton-product-box>
 <app-quick-view #quickView [product]="product" [currency]="currency"></app-quick-view>
 <app-cart-modal #cartModal [product]="product" [currency]="currency" *ngIf="cartModal"></app-cart-modal>
-

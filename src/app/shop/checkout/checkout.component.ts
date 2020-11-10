@@ -59,10 +59,11 @@ export class CheckoutComponent implements OnInit {
   ngOnInit(): void {
     const date = new Date();
     const shipment = JSON.parse( sessionStorage.order );
-
-    if ( JSON.parse( sessionStorage.sessionStore || null ) ) {
+    if ( sessionStorage.sessionStore ) {
       this.store = JSON.parse( sessionStorage.sessionStore );
     }
+
+
 
     shipment.cart.forEach( detail => {
       this.shipmentPrice += detail.shipment_price;
@@ -101,8 +102,8 @@ export class CheckoutComponent implements OnInit {
     data = this.payment.onSubmit();
 
     // Metodo de pago
-    payment.push( { credit_card_amount: this.referedAmount, store: this.store._id, info: data.tdc } );
-    payment.push( { refered_amount: this.referedAmount, store: this.store._id } );
+    payment.push( { type: 'TDC', amount: this.totalPrice, info: data.tdc } );
+    payment.push( { type: 'refered', refered_amount: this.referedAmount, store: this.store._id } );
 
     const order = JSON.parse( sessionStorage.order );
 
@@ -111,7 +112,7 @@ export class CheckoutComponent implements OnInit {
     order.payment = payment;
 
     // console.log( data );
-    // console.log( order );
+    console.log( order );
     if ( data.valid ) {
       this.orderService.createOrder( order ).subscribe( response => {
         if ( response.success ) {

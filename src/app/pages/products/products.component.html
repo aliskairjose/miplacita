@@ -87,13 +87,15 @@
 									ngbPopover="Editar producto" triggers="mouseenter:mouseleave">
 									<i class="fa fa-edit fa-lg" style="color: Dodgerblue"></i>
 								</a>
-								<button class="btn btn-table-action" (click)="deleteItem(product)"
-									ngbPopover="Eliminar producto" triggers="mouseenter:mouseleave">
+								<button class="btn btn-table-action" (click)="deleteItem(product)" ngbPopover="Eliminar producto"
+									triggers="mouseenter:mouseleave">
 									<i class="fa fa-close fa-lg" style="color: Tomato"></i>
 								</button>
 							</td>
 							<td class="text-center" *ngIf="role==='admin'">
-								<button class="btn btn-table-action" 	ngbPopover="Desactivar" triggers="mouseenter:mouseleave">Desactivar</button>
+								<button class="btn btn-table-action" ngbPopover="Eliminar" triggers="mouseenter:mouseleave"
+									(click)="deleteItem(product)">
+									Eliminar</button>
 							</td>
 						</tr>
 					</tbody>

@@ -97,6 +97,7 @@ export class MarketplaceShopComponent implements OnInit {
   } ];
 
   ngOnInit(): void {
+    this.shopService.customizeShop( { color: '#e4604a', font: '' } );
   }
 
   // Product Tab collection

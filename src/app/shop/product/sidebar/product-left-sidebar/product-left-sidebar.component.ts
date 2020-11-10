@@ -63,6 +63,13 @@ export class ProductLeftSidebarComponent implements OnInit {
     const id = this.route.snapshot.paramMap.get( 'id' );
     const params = `product=${id}`;
 
+    this.route.queryParams.subscribe( queryParams => {
+      console.log( queryParams )
+      const decod = window.atob( queryParams.config );
+      const config = JSON.parse( decod );
+      this.shopService.customizeShop( config );
+    } );
+
     forkJoin( [
       this.shopService.storeList(),
       this.categoryService.categoryList(),

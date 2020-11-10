@@ -2,40 +2,50 @@
 <html lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <title>Mi Placita</title>
-    <base href="/">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="utf-8">
+	<title>Mi Placita</title>
+	<base href="/">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="icon" type="image/x-icon" href="favicon.ico">
-    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500&display=swap" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css2?family=Raleway:wght@700&display=swap" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital@1&display=swap" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-FNK35J6HGH"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag() { dataLayer.push(arguments); }
+		gtag('js', new Date());
+	</script>
 </head>
 
-<body class="ltr">
-		<app-root></app-root>
-		<script src="node_modules/chart.js/src/chart.js"></script>
-		<script src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyC7YdhqPz4rB-D8U7F4qxVokWDb8EWYOB4"></script>
-    <script src="https://checkout.stripe.com/checkout.js"></script>
+<body class="ltr" id="body">
+	<app-root></app-root>
+	<script src="node_modules/chart.js/src/chart.js"></script>
+	<script
+		src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyC7YdhqPz4rB-D8U7F4qxVokWDb8EWYOB4"></script>
+	<script src="https://checkout.stripe.com/checkout.js"></script>
 
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/0.9.0rc1/jspdf.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/0.9.0rc1/jspdf.min.js"></script>
 
 	<!-- facebook chat section start -->
 	<div id="fb-root"></div>
 	<script>
-	  (function(d, s, id) {
-	    var js, fjs = d.getElementsByTagName(s)[0];
-	    if (d.getElementById(id)) return;
-	    js = d.createElement(s);
-	    js.id = id;
-	    js.src = 'https://connect.facebook.net/en_US/sdk/xfbml.customerchat.js#xfbml=1&version=v2.12&autoLogAppEvents=1';
-	    fjs.parentNode.insertBefore(js, fjs);
-	  }(document, 'script', 'facebook-jssdk'));
+		(function (d, s, id) {
+			var js, fjs = d.getElementsByTagName(s)[0];
+			if (d.getElementById(id)) return;
+			js = d.createElement(s);
+			js.id = id;
+			js.src = 'https://connect.facebook.net/en_US/sdk/xfbml.customerchat.js#xfbml=1&version=v2.12&autoLogAppEvents=1';
+			fjs.parentNode.insertBefore(js, fjs);
+		}(document, 'script', 'facebook-jssdk'));
 	</script>
 
 	<!-- Your customer chat code -->
-	<div id="fb-chat" class="fb-customerchat" attribution=setup_tool page_id="2123438804574660" theme_color="#ff4c3b" logged_in_greeting="Hi! Welcome to PixelStrap Themes  How can we help you?" logged_out_greeting="Hi! Welcome to PixelStrap Themes  How can we help you?">
+	<div id="fb-chat" class="fb-customerchat" attribution=setup_tool page_id="2123438804574660" theme_color="#ff4c3b"
+		logged_in_greeting="Hi! Welcome to PixelStrap Themes  How can we help you?"
+		logged_out_greeting="Hi! Welcome to PixelStrap Themes  How can we help you?">
 	</div>
 	<!-- facebook chat section end -->
 </body>

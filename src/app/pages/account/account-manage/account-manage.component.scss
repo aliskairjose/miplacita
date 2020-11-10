@@ -6,7 +6,7 @@
     flex-direction: row;
 }
 .tab {
-    border-bottom: 1px solid #ccc;
+    border-bottom: 1px solid var(--theme-deafult);
     width: 100%;
     display: flex;
     justify-content: flex-start;
@@ -16,13 +16,14 @@
     
 }
 .active {
-    border: 1px solid #ccc;
+    border: 1px solid var(--theme-deafult);
     border-bottom: 1px transparent;
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
     & button {
         color: var(--theme-deafult);
         font-size: 12px;
+        font-weight: 700;
 
     }
 
@@ -72,17 +73,18 @@ hr {
     
     .tab {
         border: 1px solid transparent;
-        border-right: 1px solid #ccc;
+        border-right: 1px solid var(--theme-deafult);
         width: 100%;
     }
     .active {
         border: 1px solid transparent;
-        border: 1px solid #ccc;
+        border: 1px solid var(--theme-deafult);
         border-right: 1px transparent;
         border-bottom-left-radius: 5px;
         border-top-left-radius: 5px;
         & button {
             color: var(--theme-deafult);
+            font-weight: 700;
         }
     }
     .account-menu {

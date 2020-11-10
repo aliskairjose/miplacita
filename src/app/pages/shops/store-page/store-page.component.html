@@ -1,10 +1,10 @@
-<div id="store-page" [ngStyle]="{'font-family': storeFont}">
+<div id="store-page">
 	<ngx-spinner bdColor="rgba(0, 0, 0, 0.3)" size="medium" color="#fff" type="ball-spin-clockwise" [fullScreen]="true">
 		<p style="color: white"> Por favor espere... </p>
 	</ngx-spinner>
 
 	<app-header-one [showBalance]="true" [sticky]="true" [isHidde]="false" [topbar]="false" [isSideMenu]="true"
-		[hasSearchBar]="true">
+		[hasSearchBar]="true" [themeLogo]="store.logo" [store]="store">
 	</app-header-one>
 
 	<div class="pb-5">
@@ -21,7 +21,7 @@
 		<!-- Banner verticales start -->
 		<section class="section-b-space">
 			<div class="container">
-				<div class="form-row justify-content-center">
+				<div class="form-row justify-content-center title-purple">
 					<h2>{{ store.name }}</h2>
 				</div>
 				<div class="form-row justify-content-center">
@@ -63,26 +63,6 @@
 				</div>
 			</div>
 		</div>
-		<!-- 
-		<section class="section-b-space p-t-0 mt-4" *ngIf="products.length">
-			<div class="container">
-				<div class="row">
-					<div class="col theme-tab">
-						<div>
-							<div class="no-slider row">
-								<ng-container *ngFor="let product of products | slice:0:8">
-									<div class="product-box">
-										<app-product-box-one [product]="product" [thumbnail]="false" [cartModal]="false" [horizontal]="true">
-										</app-product-box-one>
-									</div>
-								</ng-container>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</section> -->
-
 		<section class="section-b-space p-t-0">
 			<div class="container">
 				<div class="row">
@@ -91,8 +71,8 @@
 							<ng-container *ngFor="let product of products | slice:0:16">
 								<ng-template carouselSlide>
 									<div class="product-box">
-										<app-product-box-one [product]="product" [thumbnail]="false" [cartModal]="false"
-											[horizontal]="true">
+										<app-product-box-one [product]="product" [thumbnail]="false" [cartModal]="false" [horizontal]="true"
+											[store]="store">
 										</app-product-box-one>
 									</div>
 								</ng-template>
@@ -102,34 +82,12 @@
 				</div>
 			</div>
 		</section>
-		<!-- <section class="section-b-space p-t-0 mt-4" *ngIf="products.length">
-			<div class="container">
-				<div class="row">
-					<div class="col theme-tab">
-						<div>
-							<div class="no-slider row">
-							
-								<ngb-carousel *ngIf="sliders.length>0" #ngcarousel>
-									<ng-template *ngFor="let product of products | slice:0:8"  ngbSlide>
-										<app-product-box-one [product]="product" [thumbnail]="false" [cartModal]="false" [horizontal]="true">
-										</app-product-box-one>
-									</ng-template>
-						
-								</ngb-carousel>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</section> -->
-
 	</div>
 	<div class="whatsapp clearfix">
 		<button type="button" class="btn btn-success rounded-circle p-4 waves-effect px-3 mr-5 float-right"
 			(click)="openChat()">
 			<i class="fa fa-whatsapp fa-4x" aria-hidden="true"></i>
 		</button>
-		<!-- <img src="assets/images/marketplace/svg/whatsapp_.svg" alt="" class="mr-5 float-right"> -->
 	</div>
 	<app-footer-one></app-footer-one>
 </div>

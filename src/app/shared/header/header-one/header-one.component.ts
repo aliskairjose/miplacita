@@ -1,25 +1,27 @@
 import { ToastrService } from 'ngx-toastr';
 
-import { Component, HostListener, Input, OnInit } from '@angular/core';
+import { Component, HostListener, Input, OnInit, OnChanges, SimpleChanges } from '@angular/core';
 
 import { Category } from '../../classes/category';
 import { User } from '../../classes/user';
 import { AuthService } from '../../services/auth.service';
 import { CategoryService } from '../../services/category.service';
 import { StorageService } from '../../services/storage.service';
+import { Store } from '../../classes/store';
 
 @Component( {
   selector: 'app-header-one',
   templateUrl: './header-one.component.html',
   styleUrls: [ './header-one.component.scss' ]
 } )
-export class HeaderOneComponent implements OnInit {
+export class HeaderOneComponent implements OnInit, OnChanges {
   stick = false;
   isLoggedIn: boolean;
   role: string;
   user: User;
   categories: Category[] = [];
 
+  @Input() store: Store = {};
   @Input() class: string;
   @Input() themeLogo = 'assets/images/marketplace/images/logo-m.png'; // Default Logo
   @Input() isHidde = true;
@@ -43,7 +45,11 @@ export class HeaderOneComponent implements OnInit {
   constructor(
     private auth: AuthService,
     private categoryService: CategoryService
-  ) { }
+  ) {
+  }
+  ngOnChanges( changes: SimpleChanges ): void {
+
+  }
 
   ngOnInit(): void {
     this.isLoggedIn = this.auth.isAuthenticated();
