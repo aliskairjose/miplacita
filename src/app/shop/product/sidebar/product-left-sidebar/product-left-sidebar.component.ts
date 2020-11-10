@@ -64,10 +64,10 @@ export class ProductLeftSidebarComponent implements OnInit {
     const params = `product=${id}`;
 
     this.route.queryParams.subscribe( queryParams => {
-      if ( Object.entries( queryParams ).length ) {
-        console.log( queryParams );
-        this.shopService.customizeShop( queryParams );
-      }
+      console.log( queryParams )
+      const decod = window.atob( queryParams.config );
+      const config = JSON.parse( decod );
+      this.shopService.customizeShop( config );
     } );
 
     forkJoin( [

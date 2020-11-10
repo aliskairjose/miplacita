@@ -5,6 +5,7 @@ import { Product } from '../../../classes/product';
 import { ProductService } from '../../../services/product.service';
 import { ToastrService } from 'ngx-toastr';
 import { Store } from 'src/app/shared/classes/store';
+import { Config } from '../../../classes/store';
 
 @Component( {
   selector: 'app-product-box-one',
@@ -12,6 +13,8 @@ import { Store } from 'src/app/shared/classes/store';
   styleUrls: [ './product-box-one.component.scss' ]
 } )
 export class ProductBoxOneComponent implements OnInit {
+
+  config = '';
 
   @Input() store: Store = {};
   @Input() product: Product;
@@ -35,6 +38,12 @@ export class ProductBoxOneComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.config = window.btoa( JSON.stringify( this.store.config ) );
+    // const decod = window.atob( cod );
+    // console.log( this.store.config );
+    // console.log( cod );
+    // console.log( decod );
+    // console.log( JSON.parse( decod ) );
     if ( this.loader ) {
       setTimeout( () => { this.loader = false; }, 2000 ); // Skeleton Loader
     }
