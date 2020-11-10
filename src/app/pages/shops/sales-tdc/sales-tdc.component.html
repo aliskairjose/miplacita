@@ -7,8 +7,8 @@
 			<h2 class="mp-title">
 				Ventas con TDC
 			</h2>
-        </div>
-        <form class="theme-form">
+		</div>
+		<form class="theme-form">
 			<div class="d-flex search justify-content-mobile-first">
 				<div class="box-mobile-first">
 					<div class="form-group flex-fill mr-1">
@@ -60,37 +60,37 @@
 				</button>
 			</div>
 		</form>
-		
-        <div class="table-responsive mt-3">
-            <table class="table cart-table table-responsive-xs" id="mp-table" #TABLE>
-                <thead>
-                    <tr class="table-head text-center">
-                        <th *ngFor="let field of fields" scope="col">{{field}}</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let product of products">
-                        <td class="text-center">{{product.store.name}}</td>
-                        <td class="text-center">{{ product.store.owner_id.fullname }}</td>
-                        <td class="text-center"></td>
-                        <td class="text-center">{{ product.name }}</td>
-                        <td class="text-center text-capitalize">{{ product.stock }}</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-        <app-custom-pagination [items]="products" [paginate]="paginate" (setPage)="setPage($event)">
-        </app-custom-pagination>
-        <div class="form-row container justify-content-center " *ngIf="products.length==0">
-            <div class="col-md-5">
-                <div class="card text-center mx-auto mb-2">
-                    <div class="card-body">
-                        <p>No hay tiendas registrados</p>
-                    </div>
-                </div>
-            </div>
-        </div>
 
-		
-	</div> 
+		<div class="table-responsive mt-3">
+			<table class="table cart-table table-responsive-xs" id="mp-table" #TABLE>
+				<thead>
+					<tr class="table-head text-center">
+						<th *ngFor="let field of fields" scope="col">{{field}}</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr *ngFor="let product of products">
+						<td class="text-center">{{product.store.name}}</td>
+						<td class="text-center">{{ product.store.owner_id.fullname }}</td>
+						<td class="text-center"></td>
+						<td class="text-center">{{ product.name }}</td>
+						<td class="text-center text-capitalize">{{ product.stock }}</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<app-custom-pagination [items]="products" [paginate]="paginate" (setPage)="setPage($event)">
+		</app-custom-pagination>
+		<div class="form-row container justify-content-center " *ngIf="!products.length">
+			<div class="col-md-5">
+				<div class="card text-center mx-auto mb-2">
+					<div class="card-body">
+						<p>No hay resultado</p>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+	</div>
 </section>

@@ -3,20 +3,20 @@ import { Paginate } from 'src/app/shared/classes/paginate';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { ReportsService } from 'src/app/shared/services/reports.service';
 import { ExportService } from 'src/app/shared/services/export.service';
-import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDateStruct, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
 import { CustomDateParserFormatterService } from 'src/app/shared/adapter/custom-date-parser-formatter.service';
 import { ToastrService } from 'ngx-toastr';
 
-@Component({
+@Component( {
   selector: 'app-sales-tdc',
   templateUrl: './sales-tdc.component.html',
-  styleUrls: ['./sales-tdc.component.scss']
-})
+  styleUrls: [ './sales-tdc.component.scss' ]
+} )
 export class SalesTdcComponent implements OnInit {
 
   @ViewChild( 'TABLE', { read: ElementRef } ) table: ElementRef;
 
-  fields = ['Cliente','Tienda', 'Fecha','Banco','Transacción','Monto'];
+  fields = [ 'Cliente', 'Tienda', 'Fecha', 'Banco', 'Transacción', 'Monto' ];
   products = [];
   role: string;
   paginate: Paginate;
@@ -27,22 +27,27 @@ export class SalesTdcComponent implements OnInit {
 
   constructor(
     private auth: AuthService,
-    private reportService: ReportsService,
-    private exportDoc: ExportService,
     private toastr: ToastrService,
+    private ngbCalendar: NgbCalendar,
+    private exportDoc: ExportService,
+    private reportService: ReportsService,
     private parseDate: CustomDateParserFormatterService
 
-  ) { } 
+  ) { }
 
   ngOnInit(): void {
     this.role = this.auth.getUserRol();
     this.init();
   }
 
-  init(){
+  init() {
+    this.modelFrom = this.modelTo = this.ngbCalendar.getToday();
+    this.fechaIni = this.fechaFin = this.parseDate.format( this.modelFrom );
+    this.role = this.auth.getUserRol();
+
     this.loadData();
-    
   }
+
   filtrar(): void {
     this.fechaIni = this.parseDate.format( this.modelFrom );
     this.fechaFin = this.parseDate.format( this.modelTo );
@@ -56,13 +61,11 @@ export class SalesTdcComponent implements OnInit {
 
     this.loadData();
   }
-  loadData(page = 1){
-    this.reportService.tdcSales().subscribe((result)=>{
-      console.log(result,"ventas con tdc");
-    })
-  }
-  setPage( page: number ) {
-    this.loadData( page );
+
+  loadData( page = 1 ) {
+    this.reportService.tdcSales().subscribe( ( result ) => {
+      console.log( result, 'ventas con tdc' );
+    } );
   }
 
   ExportTOExcel() {
