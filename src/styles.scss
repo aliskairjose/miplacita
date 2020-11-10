@@ -22,6 +22,11 @@ $radius: 5px;
 .text-default-color {color : var(--theme-deafult) }
 .text-purple { color : $mp-purple }
 
+.page-title {
+  h2 {
+    color : $mp-purple
+  }
+}
 .background-rosa { 
   background-color: $mp-rosa;
   padding: 5% 0; 
@@ -50,10 +55,16 @@ $radius: 5px;
 .checkout-page .checkout-form input[type="number"],
 .checkout-page .checkout-form select,
 .checkout-page .checkout-form textarea,
-.card,
+
 .form-control {
   border: 1px solid var(--mp-pink-light);
+}
 
+.card {
+  border: 1px solid var(--theme-deafult);
+}
+.cart_qty_cls {
+  background-color: $mp-purple;
 }
 input[type='checkbox']{
   width: 15px !important;
