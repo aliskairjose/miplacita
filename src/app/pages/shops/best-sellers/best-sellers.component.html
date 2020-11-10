@@ -44,7 +44,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="form-group">
+				<div class="form-group" *ngIf="role === 'admin'">
 					<div class="field-label font-weight-bold">Tienda</div>
 					<div ngbDropdown>
 						<button class="form-control" id="select-btn" ngbDropdownToggle>
@@ -70,11 +70,14 @@
 		</form>
 
 		<!-- Data de usuario -->
-		<ng-container *ngIf="store || role=='admin'; else elseTemplate">
+		<ng-container *ngIf="store || role==='admin'; else elseTemplate">
 			<div class="table-responsive mt-3">
 				<table class="table cart-table table-responsive-xs" id="mp-table" #TABLE>
 					<thead>
-						<tr class="table-head text-center">
+						<tr class="table-head text-center" *ngIf="role === 'admin'">
+							<th *ngFor="let field of adminFields" scope="col">{{field}}</th>
+						</tr>
+						<tr class="table-head text-center" *ngIf="role === 'merchant'">
 							<th *ngFor="let field of fields" scope="col">{{field}}</th>
 						</tr>
 					</thead>
@@ -82,7 +85,8 @@
 						<tr *ngFor="let seller of bestSellers">
 							<td class="text-center">{{ seller._id }}</td>
 							<td class="text-center">{{ seller.product_data.name }}</td>
-							<td class="text-center">{{ seller.store_data.name }}</td>
+							<td class="text-center" *ngIf="role === 'merchant'">Categoria</td>
+							<td class="text-center" *ngIf="role === 'admin'">{{ seller.store_data.name }}</td>
 							<td class="text-center">{{ seller.quantity }}</td>
 						</tr>
 					</tbody>

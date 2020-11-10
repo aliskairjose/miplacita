@@ -8,6 +8,7 @@ import { CustomDateParserFormatterService } from '../../../shared/adapter/custom
 import { NgbDateStruct, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { ReportsService } from '../../../shared/services/reports.service';
+import { CategoryService } from '../../../shared/services/category.service';
 
 @Component( {
   selector: 'app-best-sellers',
@@ -18,7 +19,9 @@ export class BestSellersComponent implements OnInit, OnChanges {
   @ViewChild( 'TABLE', { read: ElementRef } ) table: ElementRef;
 
 
-  fields = [ 'ID', 'Producto', 'Tienda', 'Cantidad Vendida' ];
+  adminFields = [ 'ID', 'Producto', 'Tienda', 'Cantidad Vendida' ];
+  fields = [ 'ID', 'Producto', 'Categoria', 'Cantidad Vendida' ];
+
   bestSellers = [];
   paginate: Paginate;
   role: string;
@@ -41,6 +44,7 @@ export class BestSellersComponent implements OnInit, OnChanges {
     private reports: ReportsService,
     private ngbCalendar: NgbCalendar,
     private exportDoc: ExportService,
+    private categoriesSevice: CategoryService,
     private parseDate: CustomDateParserFormatterService
   ) { }
 
@@ -96,7 +100,7 @@ export class BestSellersComponent implements OnInit, OnChanges {
     this.loadData();
   }
 
-  private loadData( page = 1 ): void {
+  private loadData(): void {
     const params = `from=${this.fechaIni}&to=${this.fechaFin}&store=${this._storeID}&category=${this.categoryId}`;
     this.reports.bestSellers( params ).subscribe( response => {
       console.log( response );
@@ -122,6 +126,12 @@ export class BestSellersComponent implements OnInit, OnChanges {
   private loadStores(): void {
     this.reports.membershipActiveShop( 1, `report=false` ).subscribe( result => {
       this.stores = result.docs;
+    } );
+  }
+
+  private loadStoreCategories(): void {
+    const params = `store=${this.store._id}`;
+    this.categoriesSevice.getSubcategory( params ).subscribe( subcategories => {
     } );
   }
 }

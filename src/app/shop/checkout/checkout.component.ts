@@ -102,8 +102,8 @@ export class CheckoutComponent implements OnInit {
     data = this.payment.onSubmit();
 
     // Metodo de pago
-    payment.push( { credit_card_amount: this.referedAmount, store: this.store._id, info: data.tdc } );
-    payment.push( { refered_amount: this.referedAmount, store: this.store._id } );
+    payment.push( { type: 'credit_card', credit_card_amount: this.referedAmount, info: data.tdc } );
+    payment.push( { type: 'refered', refered_amount: this.referedAmount, store: this.store._id } );
 
     const order = JSON.parse( sessionStorage.order );
 
