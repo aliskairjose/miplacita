@@ -26,7 +26,7 @@ export class SettingsComponent implements OnInit {
   balance: number;
   showBalance = false;
   store: Store = {};
-
+  storeFont: any;
   private _referedCode: string;
 
   constructor(

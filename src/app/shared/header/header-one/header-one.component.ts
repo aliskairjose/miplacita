@@ -46,6 +46,7 @@ export class HeaderOneComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    console.log(this.themeLogo);
     this.isLoggedIn = this.auth.isAuthenticated();
     this.categoryService.categoryList().subscribe( ( response: Category[] ) => {
       this.categories = [ ...response ];
