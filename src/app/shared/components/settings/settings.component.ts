@@ -41,6 +41,9 @@ export class SettingsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    setTimeout( () => {
+      this.productService.cartItems.subscribe( response => { this.products = response; } );
+    }, 500 );
     this._clipboardService.copyResponse$.subscribe( re => {
       if ( re.isSuccess ) {
         this.toast.info( 'El código se ha copiado al portapapeles!' );

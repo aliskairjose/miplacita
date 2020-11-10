@@ -1,13 +1,15 @@
-import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
 import { Product } from 'src/app/shared/classes/product';
-import { ActivatedRoute } from '@angular/router';
-import { Store } from 'src/app/shared/classes/store';
-import { ShopService } from 'src/app/shared/services/shop.service';
-import { ProductService } from 'src/app/shared/services/product.service';
 import { Result } from 'src/app/shared/classes/response';
-import { CategoryService } from 'src/app/shared/services/category.service';
-import { Category } from '../../../shared/classes/category';
+import { Store } from 'src/app/shared/classes/store';
 import { ProductSlider } from 'src/app/shared/data/slider';
+import { CategoryService } from 'src/app/shared/services/category.service';
+import { ProductService } from 'src/app/shared/services/product.service';
+import { ShopService } from 'src/app/shared/services/shop.service';
+
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+
+import { Category } from '../../../shared/classes/category';
 import { SettingsComponent } from '../../../shared/components/settings/settings.component';
 
 @Component( {
@@ -38,7 +40,6 @@ export class StorePageComponent implements OnInit, AfterViewInit {
 
     this.route.url.subscribe( ( url ) => {
       this.storeService.getStoreByUrl( url[ 0 ].path.toLocaleLowerCase() ).subscribe( store => {
-        sessionStorage.setItem( 'sessionStore', JSON.stringify( store ) );
         this.store = { ...store };
         this.sliders = this.store.config.images;
         this.getCollectionProducts( this.store._id );
@@ -58,7 +59,6 @@ export class StorePageComponent implements OnInit, AfterViewInit {
   // Open chat whatsapp web
   openChat(): void {
     window.open( `https://wa.me/${this.store.phone}`, '_blank' );
-
   }
 
   private getCollectionProducts( id: string ): void {
