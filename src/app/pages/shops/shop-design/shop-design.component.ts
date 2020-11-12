@@ -107,7 +107,6 @@ export class ShopDesignComponent implements OnInit, OnChanges {
   }
 
   private updateStoreLogo( data: any ) {
-    console.log( data );
     this.shopService.updateStore( this.store._id, data ).subscribe( response => {
       if ( response.success ) {
         this.store = { ...response.store };
@@ -146,9 +145,14 @@ export class ShopDesignComponent implements OnInit, OnChanges {
    * @param images Banners
    */
   uploadBanner( images: string[] ): void {
+    console.log( images )
     this.images = [ ...images ];
   }
 
+  /**
+   * @description Carga un nuevo logo a la tienda
+   * @param images Nuevo logo
+   */
   uploadLogo( images: string[] ): void {
     this.changeLogo = true;
     this.imageLogo = [ ...images ];
