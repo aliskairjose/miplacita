@@ -79,7 +79,7 @@ export class LoginComponent implements OnInit {
         if ( data.success ) {
           this.storage.setLoginData( 'data', data );
           this.auth.authSubject( data.success );
-
+          this.toastrService.info( `Bienvenido ${data.user.fullname}` );
           // Redireccionamiento al dashboard
           this.redirectAfterLogin();
         }
