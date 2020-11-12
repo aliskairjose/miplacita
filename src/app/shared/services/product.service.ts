@@ -29,9 +29,9 @@ export class ProductService {
   OpenCart = false;
 
   constructor(
-    private http: HttpService,
-    private storage: StorageService,
-    private toastrService: ToastrService
+    private http?: HttpService,
+    private storage?: StorageService,
+    private toastrService?: ToastrService
   ) {
     if ( state.sessionStore ) {
       state.cart = state.cart.filter( item => item.store._id === state.sessionStore._id );
@@ -269,14 +269,11 @@ export class ProductService {
     ---------------------------------------------
   */
 
-
   // Get Cart Items
   public get cartItems(): Observable<Product[]> {
-
     const itemsStream = new Observable( observer => {
       observer.next( state.cart );
       observer.complete();
-
     } );
     return itemsStream as Observable<Product[]>;
   }

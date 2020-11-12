@@ -25,27 +25,22 @@
                 <!-- Cuando no ha iniciado sesión -->
                 <div>
                   <li>
-                    <!-- <i class="fa fa-sign-in" aria-hidden="true"></i>  -->
                     <a [routerLink]="[ '/pages/login' ]">Iniciar sesión</a>
                   </li>
                   <li>
-                    <!-- <i class="fa fa-edit" aria-hidden="true"></i> -->
                     <a [routerLink]="[ '/pages/register' ]">Registro</a>
                   </li>
                 </div>
                 <!-- Cuando ha iniciado sesión -->
                 <div *ngIf="isLoggedIn">
                   <li>
-                    <!-- <i class="fa fa-sliders" aria-hidden="true"></i> -->
                     <a [routerLink]="[ '/home' ]">Inicio</a>
                   </li>
                   <li *ngIf="role === 'merchant'">
-                    <!-- <i class="fa fa-sliders" aria-hidden="true"></i> -->
                     <a [routerLink]="[ '/pages/account/user/profile' ]">Mi Perfil</a>
                   </li>
                   <hr>
                   <li>
-                    <!-- <i class="fa fa-sign-out" aria-hidden="true"></i> -->
                     <a data-lng="es" href="javascript:void(0)" (click)="loggOut()">
                       Cerrar Sesión
                     </a>
@@ -85,7 +80,7 @@
               <app-menu [hidden]="!isHidde"></app-menu>
             </div>
             <div [hidden]="isHidde">
-              <app-settings></app-settings>
+              <app-settings #settings></app-settings>
             </div>
           </div>
         </div>
