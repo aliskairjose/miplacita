@@ -64,23 +64,22 @@ export class ShopDesignComponent implements OnInit, OnChanges {
       forkJoin( [
         this.shopService.config( this.store._id, data ),
         this.shopService.uploadImages( { images: this.images } )
-      ] ).subscribe( ( [ configResponse, imageResponse ] ) => {
-        if ( configResponse.success ) {
+      ] )
+        .subscribe( ( [ configResponse, imageResponse ] ) => {
+          if ( configResponse.success ) {
+            this.store = { ...configResponse.result };
+            this.toastrService.info( configResponse.message[ 0 ] );
+          }
 
-          this.store = { ...configResponse.result };
-          this.toastrService.info( configResponse.message[ 0 ] );
-        }
-
-        if ( imageResponse.status === 'isOk' ) {
-          this.shopService.addBanner( this.store._id, { url: imageResponse.images[ 0 ] } ).subscribe( _result => {
-            if ( _result.success ) { this.toastrService.info( _result.message[ 0 ] ); }
-          } );
-        }
-      } );
+          if ( imageResponse.status === 'isOk' ) {
+            this.shopService.addBanner( this.store._id, { url: imageResponse.images[ 0 ] } ).subscribe( _result => {
+              if ( _result.success ) { this.toastrService.info( _result.message[ 0 ] ); }
+            } );
+          }
+        } );
       this.updateShop.emit( this.store );
 
     }
-    console.log( this.bannersDelete );
     if ( this.bannersDelete.length ) {
       for ( const image of this.bannersDelete ) {
         this.shopService.deleteBanner( this.store._id, image._id ).subscribe( ( result ) => {
@@ -96,23 +95,19 @@ export class ShopDesignComponent implements OnInit, OnChanges {
     }
   }
 
-  updateLogo() {
+  private updateLogo() {
     this.shopService.uploadImages( { images: this.imageLogo } ).subscribe( result => {
       if ( result.status === 'isOk' ) {
-        const updateStore = {
-          logo: result.images[ 0 ],
-          name: this.store.name,
-          description: this.store.description,
-
-        };
-        this.updateStoreLogo( updateStore );
+        let storeData: Store = {};
+        storeData = { ...this.store, logo: result.images[ 0 ] };
+        this.updateStoreLogo( storeData );
       }
     } );
 
   }
 
-  updateStoreLogo( data: any ) {
-
+  private updateStoreLogo( data: any ) {
+    console.log( data );
     this.shopService.updateStore( this.store._id, data ).subscribe( response => {
       if ( response.success ) {
         this.store = { ...response.store };
