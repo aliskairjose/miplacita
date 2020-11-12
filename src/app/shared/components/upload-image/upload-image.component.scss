@@ -11,6 +11,14 @@ section {
   border: none;
 }
 
+.img-thumbnail-fake{
+  border: 1px solid #ccc;
+  max-height: 90px;
+  object-fit: contain;
+  width: 60% !important;
+  padding: 5px;
+}
+
 .fakeImage {
   width: 35%;
   max-width: 35%;

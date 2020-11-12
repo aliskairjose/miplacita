@@ -14,7 +14,7 @@ import {
 } )
 export class UploadImageComponent implements OnInit, AfterViewInit, OnChanges, OnDestroy {
 
-  fakeImage = 'assets/images/marketplace/svg/plus-circle.svg';
+  fakeImage = 'assets/images/marketplace/images/placeholder_.jpg';
   @Input() images: Array<string> = [];
   @Input() imagesObject: Array<any> = [];
 
@@ -65,7 +65,7 @@ export class UploadImageComponent implements OnInit, AfterViewInit, OnChanges, O
     if ( !this.multiple ) { this.images = []; }
     const image = files[ 0 ];
     const mimeType = image.type;
-
+    console.log("lista", this.images);
     if ( files.length > 4 || this.images.length === 3 ) {
       this.toastrService.warning( 'Máximo 4 imagenes' );
       return;

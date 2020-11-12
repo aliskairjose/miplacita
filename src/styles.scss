@@ -45,6 +45,7 @@ $radius: 5px;
 .background-rosa-light {
   background-color: $mp-rosa-light;
   padding: 5% 0;
+  margin-top: 2%;
 }
 
 .background-gray {
@@ -694,6 +695,7 @@ ngb-carousel {
   .preview-box {
     visibility: visible;
   }
+  
 }
 
 @media (min-device-width: 375px) and (max-device-width: 812px) and (-webkit-min-device-pixel-ratio: 3) {
@@ -713,6 +715,7 @@ ngb-carousel {
 
 // Medium devices (tablets, 768px and up)
 @media (min-width: 768px) {
+  
   .labels {
     flex-direction: row;
   }
