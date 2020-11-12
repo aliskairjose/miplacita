@@ -1,19 +1,21 @@
-import { ToastrService } from 'ngx-toastr';
 
-import { Component, HostListener, Input, OnInit, OnChanges, SimpleChanges } from '@angular/core';
+import {
+  Component, HostListener, Input, OnChanges, OnInit, SimpleChanges, ViewChild
+} from '@angular/core';
 
 import { Category } from '../../classes/category';
+import { Store } from '../../classes/store';
 import { User } from '../../classes/user';
+import { SettingsComponent } from '../../components/settings/settings.component';
 import { AuthService } from '../../services/auth.service';
 import { CategoryService } from '../../services/category.service';
-import { StorageService } from '../../services/storage.service';
-import { Store } from '../../classes/store';
 
 @Component( {
   selector: 'app-header-one',
   templateUrl: './header-one.component.html',
   styleUrls: [ './header-one.component.scss' ]
 } )
+
 export class HeaderOneComponent implements OnInit, OnChanges {
   stick = false;
   isLoggedIn: boolean;
@@ -29,6 +31,7 @@ export class HeaderOneComponent implements OnInit, OnChanges {
   @Input() sticky = false; // Default false
   @Input() hasSearchBar = false; // Default false
   @Input() isSideMenu = false;
+
 
   // @HostListener Decorator
   @HostListener( 'window:scroll', [] )
@@ -47,8 +50,10 @@ export class HeaderOneComponent implements OnInit, OnChanges {
     private categoryService: CategoryService
   ) {
   }
-  ngOnChanges( changes: SimpleChanges ): void {
 
+  ngOnChanges( changes: SimpleChanges ): void {
+    if ( changes?.store?.currentValue ) {
+    }
   }
 
   ngOnInit(): void {
