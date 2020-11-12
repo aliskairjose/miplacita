@@ -13,3 +13,25 @@
 h6 {
     color: var(--theme-deafult);
 }
+
+
+#mobile-cart-view {
+    border: none;
+}
+
+.btn-for-mobile {
+    display: flex;
+}
+
+.btn-for-big-screen {
+    display: none
+}
+
+@media (min-width: 768px) {
+    .btn-for-mobile {
+        display: none;
+    }
+    .btn-for-big-screen {
+        display: inline
+    }
+}

@@ -1,6 +1,6 @@
 <div *ngIf="!loader">
-  <div class="img-wrapper d-flex align-items-center" [ngClass]="{ 'img-wrapper-fix': horizontal }">
-    <div class="front my-auto">
+  <div class="img-wrapper d-flex align-items-center"  [ngClass]="{ 'img-wrapper-fix': horizontal }" [ngClass]="{'image-product-box-mobile': cartModal}">
+    <div class="front my-auto" >
       <a [routerLink]="['/shop/product/', product._id]" [queryParams]="{ config: config  }">
         <img [lazyLoad]="product.images[0]?.url" class="img-fluid lazy-loading" alt="{{ product.name }}" />
       </a>
@@ -15,20 +15,36 @@
         </a>
       </li>
     </ul>
-    <div class="cart-info cart-wrap">
-      <a href="javascript:void(0)" title="Agregar al carrito" (click)="addToCart(product)" *ngIf="cartModal">
+    <div class="cart-info cart-wrap btn-for-big-screen">
+      <a href="javascript:void(0)" id="mobile-cart-view" title="Agregar al carrito" (click)="addToCart(product)" *ngIf="cartModal">
         <i class="ti-shopping-cart"></i>
       </a>
-      <a href="javascript:void(0)" title="Agregar al carrito" (click)="addToCart(product)" *ngIf="!cartModal">
+      <a href="javascript:void(0)" id="2" title="Agregar al carrito" (click)="addToCart(product)" *ngIf="!cartModal">
         <i class="ti-shopping-cart"></i>
       </a>
-      <a href="javascript:void(0)" title="Detalle del producto" (click)="QuickView.openModal()">
+      <a href="javascript:void(0)" id="2" title="Detalle del producto" (click)="QuickView.openModal()">
         <i class="ti-search" aria-hidden="true"></i>
       </a>
     </div>
   </div>
+  <div class="row mt-3 btn-for-mobile">
+    <div class="col-6 d-flex justify-content-center">
+      <a href="javascript:void(0)" id="mobile-cart-view" title="Agregar al carrito" (click)="addToCart(product)" *ngIf="cartModal">
+        <i class="ti-shopping-cart"></i>
+      </a>
+      <a href="javascript:void(0)" id="2" title="Agregar al carrito" (click)="addToCart(product)" *ngIf="!cartModal">
+        <i class="ti-shopping-cart"></i>
+      </a>  
+    </div>
+    <div class="col-6 d-flex justify-content-center align-items-center">
+      <a href="javascript:void(0)" id="2" title="Detalle del producto" (click)="QuickView.openModal()">
+        <i class="ti-search" aria-hidden="true"></i>
+      </a>
+    </div>
+    
+  </div>
   <div class="product-detail" *ngIf="!search">
-    <div>
+    <div >
       <a [routerLink]="['/shop/product/', product._id]" [queryParams]="{ config: config }">
         <h6>{{ product?.name | titlecase }}</h6>
       </a>
@@ -39,7 +55,7 @@
     </div>
   </div>
   <div class=" product-detail" *ngIf="search">
-    <div>
+    <div class="py-2"> 
       <a [routerLink]="['/shop/product/', product._id]">
         <h6 class="text-default-color">{{ product?.name | titlecase }}</h6>
       </a>
