@@ -34,7 +34,7 @@
         </div>
       </div>
     </div>
-    <div class="form-group" id="state" *ngIf="hasRoles">
+    <div class="form-group" id="state" *ngIf="roleList">
       <div class="field-label font-weight-bold">Tipo</div>
       <select name="model" class="form-control" [(ngModel)]="role" (change)="onRoleChange($event.target.value)">
         <option [value]="role.value" *ngFor="let role of roles" class="text-capitalize">{{ role.name }}
