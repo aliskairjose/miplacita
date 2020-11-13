@@ -21,9 +21,26 @@ export class FiltersComponent implements OnInit {
   modelFrom: NgbDateStruct;
   fechaIni = '';
   fechaFin = '';
+  roles = [
+    {
+      value: '',
+      name: 'Todos'
+    },
+    {
+      value: 'client',
+      name: 'Cliente'
+    },
+    {
+      value: 'merchant',
+      name: 'Tienda'
+    },
+  ];
+
+  role = '';
   private _storeID = '';
 
-  @Input() hasStores: boolean;
+  @Input() storeList: boolean;
+  @Input() roleList: boolean;
   @Input() canExport: boolean;
 
   @Output() filter: EventEmitter<any> = new EventEmitter<any>();
@@ -41,12 +58,21 @@ export class FiltersComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if ( this.hasStores ) { this.storeList(); }
+    if ( this.storeList ) { this.loadStores(); }
   }
 
   selectStore( store: Store ): void {
-    this.storeSelected = store;
-    this._storeID = store._id;
+    if ( store ) {
+      this.storeSelected = store;
+      this._storeID = store._id;
+    } else {
+      this.storeSelected.name = null;
+      this._storeID = '';
+    }
+  }
+
+  onRoleChange( role: string ): void {
+    this.role = role;
   }
 
   ExportTOExcel() {
@@ -72,12 +98,13 @@ export class FiltersComponent implements OnInit {
     data.storeId = this._storeID;
     data.fechaIni = this.fechaIni;
     data.fechaFin = this.fechaFin;
+    data.role = this.role;
 
     this.filter.emit( data );
 
   }
 
-  private storeList(): void {
+  private loadStores(): void {
     this.report.membershipActiveShop( 1, `report=false` ).subscribe( res => {
       this.stores = res.docs;
     } );

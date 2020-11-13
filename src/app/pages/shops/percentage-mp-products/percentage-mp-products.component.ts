@@ -29,9 +29,7 @@ export class PercentageMpProductsComponent implements OnInit {
 
   constructor(
     private auth: AuthService,
-    private toastr: ToastrService,
     private ngbCalendar: NgbCalendar,
-    private exportDoc: ExportService,
     private reportService: ReportsService,
     private parseDate: CustomDateParserFormatterService,
   ) { }

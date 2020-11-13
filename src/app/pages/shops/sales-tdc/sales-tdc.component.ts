@@ -7,6 +7,7 @@ import { NgbDateStruct, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
 import { CustomDateParserFormatterService } from 'src/app/shared/adapter/custom-date-parser-formatter.service';
 import { ToastrService } from 'ngx-toastr';
 import { Store } from '../../../shared/classes/store';
+import { Filter } from '../../../shared/classes/filter';
 
 @Component( {
   selector: 'app-sales-tdc',
@@ -21,19 +22,15 @@ export class SalesTdcComponent implements OnInit {
   data = [];
   role: string;
   paginate: Paginate;
-  fechaIni = '';
-  fechaFin = '';
   modelTo: NgbDateStruct;
   modelFrom: NgbDateStruct;
   stores: Store[] = [];
-  storeSelected: Store = {};
-  private _storeId = '';
+  filters: Filter = {};
 
   constructor(
     private auth: AuthService,
     private toastr: ToastrService,
     private ngbCalendar: NgbCalendar,
-    private exportDoc: ExportService,
     private reports: ReportsService,
     private parseDate: CustomDateParserFormatterService
 
@@ -46,51 +43,25 @@ export class SalesTdcComponent implements OnInit {
 
   init() {
     this.modelFrom = this.modelTo = this.ngbCalendar.getToday();
-    this.fechaIni = this.fechaFin = this.parseDate.format( this.modelFrom );
+    this.filters.fechaIni = this.filters.fechaFin = this.parseDate.format( this.modelFrom );
+    this.filters.storeId = '';
     this.role = this.auth.getUserRol();
     this.loadStores();
     this.loadData();
   }
 
-  filtrar(): void {
-    this.fechaIni = this.parseDate.format( this.modelFrom );
-    this.fechaFin = this.parseDate.format( this.modelTo );
-    const from = new Date( this.fechaIni );
-    const to = new Date( this.fechaFin );
-
-    if ( from > to ) {
-      this.toastr.warning( 'La fecha inicial no debe ser menor a la final' );
-      return;
-    }
+  filtrar( filter: Filter ): void {
+    this.filters = filter;
 
     this.loadData();
   }
 
   loadData() {
-    const params = `from=${this.fechaIni}&to=${this.fechaFin}&store=${this._storeId}`;
+    const params = `from=${this.filters.fechaIni}&to=${this.filters.fechaFin}&store=${this.filters.storeId}`;
     this.reports.tdcSales( params ).subscribe( ( result ) => {
       console.log( result, 'ventas con tdc' );
       this.data = [ ...result ];
     } );
-  }
-
-  selectStore( store: Store ): void {
-    if ( store ) {
-      this.storeSelected = store;
-      this._storeId = store._id;
-    } else {
-      this.storeSelected.name = null;
-      this._storeId = '';
-    }
-
-  }
-
-  ExportTOExcel() {
-    this.exportDoc.ExportTOExcel( this.table.nativeElement, 'tdc-report' );
-  }
-
-  ExportTOPDF() {
-    this.exportDoc.ExportTOPDF( '#mp-table', 'Ventas con TDC', 'tdc-report' );
   }
 
   private loadStores(): void {

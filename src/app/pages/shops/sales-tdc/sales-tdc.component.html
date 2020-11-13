@@ -8,66 +8,8 @@
 				Ventas con TDC
 			</h2>
 		</div>
-		<form class="theme-form">
-			<div class="d-flex search">
-				<div class="filters">
-					<div class="form-group flex-fill mr-1">
-						<div class="field-label font-weight-bold">Fecha inicio</div>
-						<div class="input-group">
-							<input class="form-control lighten-3" placeholder="dd/mm/yyyy" name="d2" ngbDatepicker #d1="ngbDatepicker"
-								[(ngModel)]="modelFrom">
-							<div class="input-group-append">
-								<button class="btn btn-outline-secondary calendar" (click)="d1.toggle()" type="button">
-									<svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-calendar-week-fill"
-										fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-										<path fill-rule="evenodd"
-											d="M4 .5a.5.5 0 0 0-1 0V1H2a2 2 0 0 0-2 2v1h16V3a2 2 0 0 0-2-2h-1V.5a.5.5 0 0 0-1 0V1H4V.5zM0 5h16v9a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V5zm9.5 2a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1zm3 0a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1zM2 10.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm3.5-.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1z" />
-									</svg>
-								</button>
-							</div>
-						</div>
-					</div>
-					<div class="form-group flex-fill">
-						<div class="field-label font-weight-bold">Fecha fin</div>
-						<div class="input-group">
-							<input class="form-control lighten-3" placeholder="dd/mm/yyyy" name="d2" ngbDatepicker #d2="ngbDatepicker"
-								[(ngModel)]="modelTo">
-							<div class="input-group-append">
-								<button class="btn btn-outline-secondary calendar" (click)="d2.toggle()" type="button">
-									<svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-calendar-week-fill"
-										fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-										<path fill-rule="evenodd"
-											d="M4 .5a.5.5 0 0 0-1 0V1H2a2 2 0 0 0-2 2v1h16V3a2 2 0 0 0-2-2h-1V.5a.5.5 0 0 0-1 0V1H4V.5zM0 5h16v9a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V5zm9.5 2a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1zm3 0a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1zM2 10.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm3.5-.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1z" />
-									</svg>
-								</button>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="form-group">
-					<div class="field-label font-weight-bold">Tienda</div>
-					<div ngbDropdown>
-						<button class="form-control" id="select-btn" ngbDropdownToggle>
-							{{ storeSelected.name ? storeSelected.name : 'Todas las tiendas' }}
-						</button>
-						<div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-							<div>
-								<button type="button" class="drop-button" value="null" (click)="selectStore(null)" ngbDropdownItem>
-									Todas las tiendas
-								</button>
-								<button type="button" class="drop-button" *ngFor="let store of stores" [value]="store._id"
-									(click)="selectStore(store)" ngbDropdownItem>
-									{{store.name}}
-								</button>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="d-flex align-items-center mt-3 ml-2">
-					<button class="btn btn-solid-purple btn-find flex-fill" (click)="filtrar()">Buscar</button>
-				</div>
-			</div>
-		</form>
+		<!-- Filtros de busqueda -->
+		<app-filters [hasStores]="true" [canExport]="true" (filter)="filtrar($event)"></app-filters>
 
 		<div class="table-responsive mt-3">
 			<table class="table cart-table table-responsive-xs" id="mp-table" #TABLE>

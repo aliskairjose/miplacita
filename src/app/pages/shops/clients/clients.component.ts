@@ -8,6 +8,7 @@ import { ReportsService } from '../../../shared/services/reports.service';
 import { CustomDateParserFormatterService } from '../../../shared/adapter/custom-date-parser-formatter.service';
 import { NgbDateStruct, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
+import { Filter } from '../../../shared/classes/filter';
 
 @Component( {
   selector: 'app-clients',
@@ -37,9 +38,7 @@ export class ClientsComponent implements OnInit, OnChanges {
   ];
 
   role: string;
-  _role = '';
-  fechaIni = '';
-  fechaFin = '';
+  filters: Filter = {};
   modelTo: NgbDateStruct;
   modelFrom: NgbDateStruct;
 
@@ -47,7 +46,6 @@ export class ClientsComponent implements OnInit, OnChanges {
 
   constructor(
     private auth: AuthService,
-    private toastr: ToastrService,
     private reports: ReportsService,
     private exportDoc: ExportService,
     private ngbCalendar: NgbCalendar,
@@ -64,32 +62,18 @@ export class ClientsComponent implements OnInit, OnChanges {
 
     if ( this.role === 'merchant' ) {
       this.store = JSON.parse( sessionStorage.getItem( 'store' ) );
-
     }
     this.init();
   }
 
-  filtrar(): void {
-    this.fechaIni = this.parseDate.format( this.modelFrom );
-    this.fechaFin = this.parseDate.format( this.modelTo );
-    const from = new Date( this.fechaIni );
-    const to = new Date( this.fechaFin );
-
-    if ( from > to ) {
-      this.toastr.warning( 'La fecha inicial no debe ser menor a la final' );
-      return;
-    }
+  filtrar( filters: Filter ): void {
+    this.filters = filters;
     this.loadData();
-  }
-
-  onRoleChange( role: string ): void {
-    this._role = role;
   }
 
   private init(): void {
     this.modelFrom = this.modelTo = this.ngbCalendar.getToday();
-    this.fechaIni = this.parseDate.format( this.modelFrom );
-    this.fechaFin = this.parseDate.format( this.modelTo );
+    this.filters.fechaFin = this.filters.fechaIni = this.parseDate.format( this.modelFrom );
     this.loadData();
   }
 
@@ -104,19 +88,11 @@ export class ClientsComponent implements OnInit, OnChanges {
     }
 
     if ( this.role === 'admin' ) {
-      this.reports.clientsMP( this._role, this.fechaIni, this.fechaFin ).subscribe( response => {
+      this.reports.clientsMP( this.filters.role, this.filters.fechaIni, this.filters.fechaFin ).subscribe( response => {
         this.clients = response.result;
       } );
     }
 
-  }
-
-  ExportTOExcel() {
-    this.exportDoc.ExportTOExcel( this.table.nativeElement, 'clients-report' );
-  }
-
-  ExportTOPDF() {
-    this.exportDoc.ExportTOPDF( '#mp-table', 'Clientes', 'clients-report' );
   }
 
 }

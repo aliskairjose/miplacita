@@ -3,4 +3,5 @@ export class Filter {
   fechaFin?: string;
   storeId?: string;
   category?: string;
+  role?: string;
 }
