@@ -75,6 +75,7 @@ import { GooglePlaceModule } from 'ngx-google-places-autocomplete';
 import { AgmCoreModule } from '@agm/core';
 import { ColorPickerModule } from 'ngx-color-picker';
 import { ClipboardModule } from 'ngx-clipboard';
+import { FiltersComponent } from './components/filters/filters.component';
 // export let options: Partial<IConfig> | (() => Partial<IConfig>);
 const maskConfig: Partial<IConfig> = {
   validation: false,
@@ -139,6 +140,7 @@ export const customCurrencyMaskConfig = {
     CommentsComponent,
     ModalNewElementComponent,
     AddressComponent,
+    FiltersComponent,
   ],
   imports: [
     ClipboardModule,
@@ -210,7 +212,8 @@ export const customCurrencyMaskConfig = {
     SearchComponent,
     ShopCardComponent,
     CommentsComponent,
-    ModalNewElementComponent
+    ModalNewElementComponent,
+    FiltersComponent
   ],
   providers: [ ConfirmationDialogService ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
