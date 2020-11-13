@@ -14,6 +14,7 @@ import { CustomDateParserFormatterService } from '../../../shared/adapter/custom
 import { OrderDetailsComponent } from '../../../shared/components/order-details/order-details.component';
 import { ReportsService } from '../../../shared/services/reports.service';
 import { Order } from 'src/app/shared/classes/order';
+import { Filter } from '../../../shared/classes/filter';
 @Component( {
   selector: 'app-total-sales',
   templateUrl: './total-sales.component.html',
@@ -29,18 +30,16 @@ export class TotalSalesComponent implements OnInit, OnChanges {
   orders: Order[] = [];
   paginate: Paginate;
   role: string;
-  fechaIni = '';
-  fechaFin = '';
   modelTo: NgbDateStruct;
   modelFrom: NgbDateStruct;
+  filter: Filter = {};
+
   @Input() store: Store;
 
   constructor(
     private auth: AuthService,
-    private toastr: ToastrService,
     private reports: ReportsService,
     private ngbCalendar: NgbCalendar,
-    private exportDoc: ExportService,
     private parseDate: CustomDateParserFormatterService
   ) {
   }
@@ -62,20 +61,20 @@ export class TotalSalesComponent implements OnInit, OnChanges {
 
   private init(): void {
     this.modelFrom = this.modelTo = this.ngbCalendar.getToday();
-    this.fechaIni = this.parseDate.format( this.modelFrom );
-    this.fechaFin = this.parseDate.format( this.modelTo );
+    this.filter.fechaIni = this.filter.fechaFin = this.parseDate.format( this.modelFrom );
     this.loadData();
   }
 
   private loadData( page = 1 ): void {
     if ( this.role === 'merchant' ) {
-      const params = `store=${this.store._id}&from=${this.fechaIni}&to=${this.fechaFin}`;
+      const params = `store=${this.store._id}&from=${this.filter.fechaIni}&to=${this.filter.fechaFin}`;
       this.reports.totalSales( params ).subscribe( ( result ) => {
         this.sales = result;
-
       } );
-    } else if ( this.role === 'admin' ) {
-      const params = `order?report=true&from${this.fechaIni}&to${this.fechaFin}`;
+    }
+
+    if ( this.role === 'admin' ) {
+      const params = `order?report=true&from=${this.filter.fechaIni}&to=${this.filter.fechaFin}`;
       this.reports.ordersMP( params ).subscribe( response => {
         this.orders = [ ...response.result ];
       } );
@@ -83,17 +82,8 @@ export class TotalSalesComponent implements OnInit, OnChanges {
 
   }
 
-  filtrar(): void {
-    this.fechaIni = this.parseDate.format( this.modelFrom );
-    this.fechaFin = this.parseDate.format( this.modelTo );
-    const from = new Date( this.fechaIni );
-    const to = new Date( this.fechaFin );
-
-    if ( from > to ) {
-      this.toastr.warning( 'La fecha inicial no debe ser menor a la final' );
-      return;
-    }
-
+  filtrar( filter: Filter ): void {
+    this.filter = filter;
     this.loadData();
   }
 
@@ -102,11 +92,5 @@ export class TotalSalesComponent implements OnInit, OnChanges {
     this.loadData( page );
   }
 
-  ExportTOExcel() {
-    this.exportDoc.ExportTOExcel( this.table.nativeElement, 'total-sales-report' );
-  }
 
-  ExportTOPDF() {
-    this.exportDoc.ExportTOPDF( '#mp-table', 'Ventas totales', 'total-sales-report' );
-  }
 }
