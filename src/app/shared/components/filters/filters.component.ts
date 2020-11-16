@@ -42,6 +42,7 @@ export class FiltersComponent implements OnInit {
   @Input() storeList: boolean;
   @Input() roleList: boolean;
   @Input() canExport: boolean;
+  @Input() dateRange = true;
 
   @Output() filter: EventEmitter<any> = new EventEmitter<any>();
 
