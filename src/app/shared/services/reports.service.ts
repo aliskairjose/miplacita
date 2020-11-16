@@ -59,7 +59,7 @@ export class ReportsService {
    * @param params from=2020-11-05&to=2020-11-06&store=IDTIENDA
    */
   percentageMpSales( params: string ): Observable<any> {
-    return this.http.get( `report/commissions/?${params}` );
+    return this.http.get( `report/commissions?${params}` );
   }
 
   /*

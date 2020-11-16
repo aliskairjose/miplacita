@@ -2,7 +2,6 @@ import { Order } from 'src/app/shared/classes/order';
 import { Paginate } from 'src/app/shared/classes/paginate';
 import { Store } from 'src/app/shared/classes/store';
 import { AuthService } from 'src/app/shared/services/auth.service';
-import { ExportService } from 'src/app/shared/services/export.service';
 
 import { environment } from 'src/environments/environment';
 
@@ -10,10 +9,9 @@ import { Component, OnInit, ViewChild, Input, ElementRef, OnChanges, SimpleChang
 import { NgbCalendar, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { ShopService } from '../../../shared/services/shop.service';
 import { CustomDateParserFormatterService } from '../../../shared/adapter/custom-date-parser-formatter.service';
-import { ToastrService } from 'ngx-toastr';
 import { OrderDetailsComponent } from '../../../shared/components/order-details/order-details.component';
 import { ReportsService } from '../../../shared/services/reports.service';
-import { ActivatedRoute } from '@angular/router';
+import { Filter } from '../../../shared/classes/filter';
 
 
 @Component( {
@@ -36,19 +34,13 @@ export class DailySalesReportComponent implements OnInit, OnChanges {
   orderStatus = environment.orderStatus;
   role: string;
   status = '';
-  fechaIni = '';
-  fechaFin = '';
-  modelTo: NgbDateStruct;
   modelFrom: NgbDateStruct;
-  storeSelected: Store = {};
   showalert: boolean;
-  private _storeId = '';
+  filters: Filter = {};
 
   constructor(
     private auth: AuthService,
-    private toastr: ToastrService,
     private reports: ReportsService,
-    private exportDoc: ExportService,
     private ngbCalendar: NgbCalendar,
     private shopService: ShopService,
     private parseDate: CustomDateParserFormatterService,
@@ -78,21 +70,15 @@ export class DailySalesReportComponent implements OnInit, OnChanges {
 
   }
 
-  filtrar(): void {
-    this.fechaIni = this.fechaFin = this.parseDate.format( this.modelFrom );
-    const from = new Date( this.fechaIni );
-    const to = new Date( this.fechaFin );
-
-    if ( from > to ) {
-      this.toastr.warning( 'La fecha inicial no debe ser menor a la final' );
-      return;
-    }
+  filtrar( filters: Filter ): void {
+    this.filters = filters;
     this.loadData();
   }
 
   private init(): void {
-    this.modelFrom = this.modelTo = this.ngbCalendar.getToday();
-    this.fechaIni = this.fechaFin = this.parseDate.format( this.modelFrom );
+    this.modelFrom = this.ngbCalendar.getToday();
+    this.filters.fechaIni = this.parseDate.format( this.modelFrom );
+    this.filters.storeId = '';
     this.role = this.auth.getUserRol();
 
     if ( this.role === 'admin' ) {
@@ -108,15 +94,15 @@ export class DailySalesReportComponent implements OnInit, OnChanges {
   private loadData(): void {
     let params = '';
     if ( this.role === 'merchant' ) {
-      params = `store=${this.store._id}&from=${this.fechaIni}&to=${this.fechaFin}&report=true`;
+      params = `store=${this.store._id}&from=${this.filters.fechaIni}&to=${this.filters.fechaIni}&report=true`;
       this.dailySales( params );
     } else {
       if ( this.type === 'daily-sales' ) {
         // Ventas diarias por productos
-        params = `from=${this.fechaIni}&to=${this.fechaFin}&store=${this._storeId}`;
+        params = `from=${this.filters.fechaIni}&to=${this.filters.fechaIni}&store=${this.filters.storeId}`;
       } else if ( this.type === 'daily-sales-mp' ) {
         // Ventas diarias por productos MP
-        params = `from=${this.fechaIni}&to=${this.fechaFin}`;
+        params = `from=${this.filters.fechaIni}&to=${this.filters.fechaIni}`;
       }
       this.dailySalesProducts( params );
     }
@@ -152,17 +138,4 @@ export class DailySalesReportComponent implements OnInit, OnChanges {
     } );
   }
 
-  selectStore( store: Store ) {
-    this._storeId = store._id;
-    this.storeSelected = store;
-  }
-
-  /************************************** */
-  ExportTOExcel() {
-    this.exportDoc.ExportTOExcel( this.table.nativeElement, 'daily-report' );
-  }
-
-  ExportTOPDF() {
-    this.exportDoc.ExportTOPDF( '#mp-table', 'Ventas diarias', 'daily-report' );
-  }
 }

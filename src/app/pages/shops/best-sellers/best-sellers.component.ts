@@ -9,6 +9,7 @@ import { NgbDateStruct, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { ReportsService } from '../../../shared/services/reports.service';
 import { CategoryService } from '../../../shared/services/category.service';
+import { Filter } from '../../../shared/classes/filter';
 
 @Component( {
   selector: 'app-best-sellers',
@@ -26,21 +27,16 @@ export class BestSellersComponent implements OnInit, OnChanges {
   paginate: Paginate;
   role: string;
   order = 'desc';
-  fechaIni = '';
-  fechaFin = '';
   modelTo: NgbDateStruct;
   modelFrom: NgbDateStruct;
   categoryId = '';
-  storeSelected: Store = {};
   stores: Store[] = [];
-
-  private _storeID = '';
+  filters: Filter = {};
 
   @Input() store: Store;
 
   constructor(
     private auth: AuthService,
-    private toastr: ToastrService,
     private reports: ReportsService,
     private ngbCalendar: NgbCalendar,
     private exportDoc: ExportService,
@@ -50,6 +46,7 @@ export class BestSellersComponent implements OnInit, OnChanges {
 
   ngOnInit(): void {
     this.role = this.auth.getUserRol();
+    this.filters.storeId = '';
     this.loadStores();
     this.init();
 
@@ -59,67 +56,25 @@ export class BestSellersComponent implements OnInit, OnChanges {
     this.store = JSON.parse( sessionStorage.getItem( 'store' ) );
   }
 
-  selectStore( store: Store ): void {
-    if ( store ) {
-      this.storeSelected = store;
-      this._storeID = store._id;
-    } else {
-      this.storeSelected.name = null;
-      this._storeID = '';
-    }
 
-  }
-
-  filtrar(): void {
-    this.fechaIni = this.parseDate.format( this.modelFrom );
-    this.fechaFin = this.parseDate.format( this.modelTo );
-    const from = new Date( this.fechaIni );
-    const to = new Date( this.fechaFin );
-
-    if ( from > to ) {
-      this.toastr.warning( 'La fecha inicial no debe ser menor a la final' );
-      return;
-    }
-
+  filtrar( filter: Filter ): void {
+    this.filters = filter;
     this.loadData();
-  }
-
-  ExportTOExcel() {
-    this.exportDoc.ExportTOExcel( this.table.nativeElement, 'best-sellers-report' );
-  }
-
-  ExportTOPDF() {
-    this.exportDoc.ExportTOPDF( '#mp-table', 'Productos más vendidos', 'best-sellers-report' );
   }
 
   private init(): void {
     this.modelFrom = this.modelTo = this.ngbCalendar.getToday();
-    this.fechaIni = this.fechaFin = this.parseDate.format( this.modelFrom );
+    this.filters.fechaIni = this.filters.fechaFin = this.parseDate.format( this.modelFrom );
     this.role = this.auth.getUserRol();
 
     this.loadData();
   }
 
   private loadData(): void {
-    const params = `from=${this.fechaIni}&to=${this.fechaFin}&store=${this._storeID}&category=${this.categoryId}`;
+    const params = `from=${this.filters.fechaIni}&to=${this.filters.fechaFin}&store=${this.filters.storeId}&category=${this.categoryId}`;
     this.reports.bestSellers( params ).subscribe( response => {
       this.bestSellers = [ ...response ];
     } );
-
-    // if ( this.role === 'merchant' ) {
-    //   const params = `store=${this.store._id}&best=${this.order}&report=true&from=${this.fechaIni}&to=${this.fechaFin}`;
-    //   this.reports.bestSellers( page, params ).subscribe( result => {
-    //     this.bestSellers = [ ...result ];
-    //   } );
-    // }
-
-    // if ( this.role === 'admin' ) {
-    //   const params = `best=${this.order}&report=true&from=${this.fechaIni}&to=${this.fechaFin}`;
-    //   this.reports.bestSellersMP( params ).subscribe( response => {
-    //     this.bestSellers = [ ...response.result ];
-    //   } );
-    // }
-
   }
 
   private loadStores(): void {

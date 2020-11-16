@@ -8,6 +8,7 @@ import { Store } from '../../../shared/classes/store';
 import { NgbDateStruct, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
 import { CustomDateParserFormatterService } from '../../../shared/adapter/custom-date-parser-formatter.service';
 import { ToastrService } from 'ngx-toastr';
+import { Filter } from '../../../shared/classes/filter';
 @Component( {
   selector: 'app-store-payments',
   templateUrl: './store-payments.component.html',
@@ -22,13 +23,10 @@ export class StorePaymentsComponent implements OnInit {
   data: any = {};
   role: string;
   stores: Store[] = [];
-  storeSelected: Store = {};
   modelTo: NgbDateStruct;
   modelFrom: NgbDateStruct;
-  fechaIni = '';
-  fechaFin = '';
   noData: boolean;
-  private _storeID = '';
+  filter: Filter = {};
 
   constructor(
     private auth: AuthService,
@@ -46,52 +44,23 @@ export class StorePaymentsComponent implements OnInit {
 
   init() {
     this.modelFrom = this.modelTo = this.ngbCalendar.getToday();
-    this.fechaIni = this.parseDate.format( this.modelFrom );
-    this.fechaFin = this.parseDate.format( this.modelTo );
-    this.loadData();
-    this.loadStores();
-  }
-
-  filtrar(): void {
-    this.fechaIni = this.parseDate.format( this.modelFrom );
-    this.fechaFin = this.parseDate.format( this.modelTo );
-    const from = new Date( this.fechaIni );
-    const to = new Date( this.fechaFin );
-
-    if ( from > to ) {
-      this.toastr.warning( 'La fecha inicial no debe ser menor a la final' );
-      return;
-    }
-
+    this.filter.fechaIni = this.filter.fechaFin = this.parseDate.format( this.modelFrom );
+    this.filter.storeId = '';
     this.loadData();
   }
 
-  selectStore( store: Store ): void {
-    this.storeSelected = store;
-    this._storeID = store._id;
+  filtrar( filter: Filter ): void {
+    this.filter = filter;
+    this.loadData();
   }
+
 
   private loadData() {
-    const params = `from=${this.fechaIni}&to=${this.fechaFin}&store=${this._storeID}`;
+    const params = `from=${this.filter.fechaIni}&to=${this.filter.fechaFin}&store=${this.filter.storeId}`;
     this.reportService.percentageMpSales( params ).subscribe( response => {
       this.data = { ...response };
       this.noData = response.result.length;
     } );
-  }
-
-  private loadStores(): void {
-    this.reportService.membershipActiveShop( 1, `report=false` ).subscribe( result => {
-      this.stores = result.docs;
-    } );
-  }
-
-
-  ExportTOExcel() {
-    this.exportDoc.ExportTOExcel( this.table.nativeElement, 'stock-report' );
-  }
-
-  ExportTOPDF() {
-    this.exportDoc.ExportTOPDF( '#mp-table', 'Inventario', 'stock-report' );
   }
 
 }

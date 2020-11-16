@@ -8,7 +8,7 @@
 				Ventas diarias
 			</h2>
 		</div>
-		<form class="theme-form">
+		<!-- <form class="theme-form">
 			<div class="d-flex search justify-content-mobile-first">
 				<div class="box-mobile-first">
 					<div class="form-group flex-fill mr-1">
@@ -59,7 +59,10 @@
 					<i class="fa fa-file-excel-o fa-2x"></i>
 				</button>
 			</div>
-		</form>
+		</form> -->
+
+		<!-- Filtros de busqueda -->
+		<app-filters [storeList]="true" [canExport]="true" (filter)="filtrar($event)" [dateRange]="false"></app-filters>
 
 		<!-- Data de usuario -->
 		<ng-container *ngIf="store || role=='admin'; else elseTemplate">

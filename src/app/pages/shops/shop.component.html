@@ -1,0 +1,115 @@
+<ngx-spinner bdColor="rgba(0, 0, 0, 0.3)" size="medium" color="#fff" type="ball-spin-clockwise" [fullScreen]="true">
+	<p style="color: white"> Por favor espere... </p>
+</ngx-spinner>
+
+<section class="section-b-space">
+	<div class="container">
+		<div class="page-title mb-5">
+			<h2 class="mp-title">
+				Tiendas
+			</h2>
+		</div>
+		<form action="" class="form-inline">
+			<div class="input-group md-form form-sm form-1 pl-0">
+				<div class="input-group-prepend">
+					<span class="input-group-text lighten-3" id="basic-text1">
+						<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-search" fill="currentColor"
+							xmlns="http://www.w3.org/2000/svg">
+							<path fill-rule="evenodd"
+								d="M10.442 10.442a1 1 0 0 1 1.415 0l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1 1 0 0 1 0-1.415z" />
+							<path fill-rule="evenodd"
+								d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zM13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z" />
+						</svg>
+					</span>
+				</div>
+				<input class="form-control my-0 py-1" type="text" placeholder="Buscar tienda" [(ngModel)]="searchText"
+					[ngModelOptions]="{standalone: true}">
+			</div>
+		</form>
+		<div *ngIf="isReport" class="form-group mt-2 d-flex justify-content-mobile-first">
+			<button class="btn btn-outline btn-sm" (click)="ExportTOPDF()">
+				Reporte PDF
+				<i class="fa fa-file-pdf-o fa-2x"></i>
+			</button>
+			<button class="btn btn-outline btn-sm mx-1" (click)="ExportTOExcel()">
+				Reporte Excel
+				<i class="fa fa-file-excel-o fa-2x"></i>
+			</button>
+		</div>
+		<div class="table-responsive-sm mt-3">
+			<table class="table " id="mp-table" #TABLE>
+				<thead>
+					<tr class="table-head text-center" *ngIf="!isReport">
+						<th *ngFor="let field of fields" scope="col">{{field}}</th>
+					</tr>
+					<tr class="table-head text-center" *ngIf="isReport">
+						<th *ngFor="let field of fieldsAdmin" scope="col">{{field}}</th>
+					</tr>
+				</thead>
+				<tbody *ngIf="!isReport">
+					<tr class="text-center" *ngFor="let shop of shops | filter: searchText">
+						<td> {{ shop.name }} </td>
+						<td class="text-center"> {{ shop.plan ? shop.plan.name : '' }} </td>
+						<td *ngIf="shop.plan" class="text-center"> {{ shop.plan.price | currency }}</td>
+						<td *ngIf="!shop.plan"></td>
+						<td class="text-center">
+							<div *ngIf="shop.active">
+								<svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-check2" fill="#63b4f2"
+									xmlns="http://www.w3.org/2000/svg">
+									<path fill-rule="evenodd"
+										d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z" />
+								</svg>
+							</div>
+							<div *ngIf="!shop.active">
+								<svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-x" fill="#ff4c3b"
+									xmlns="http://www.w3.org/2000/svg">
+									<path fill-rule="evenodd"
+										d="M11.854 4.146a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708-.708l7-7a.5.5 0 0 1 .708 0z" />
+									<path fill-rule="evenodd"
+										d="M4.146 4.146a.5.5 0 0 0 0 .708l7 7a.5.5 0 0 0 .708-.708l-7-7a.5.5 0 0 0-.708 0z" />
+								</svg>
+							</div>
+						</td>
+						<td class="d-flex justify-content-center actions">
+							<button class="btn" (click)="ShopDetails.openModal(shop)">Suscripción</button>
+							<button class="btn" (click)="deactivateStore(shop)">
+								{{shop.active ? 'Desactivar': 'Activar'}}
+							</button>
+						</td>
+					</tr>
+				</tbody>
+				<tbody *ngIf="isReport">
+					<tr class="text-center" *ngFor="let shop of shops | filter: searchText">
+						<td> {{ shop.name }} </td>
+						<td> {{ shop.owner_id.fullname }} </td>
+						<td class="text-center"> {{ shop.plan ? shop.plan.name : '' }} </td>
+						<td *ngIf="shop.plan" class="text-center"> {{ shop.plan.price | currency }}</td>
+						<td *ngIf="!shop.plan"></td>
+						<td class="text-center">
+							<div *ngIf="shop.active">
+								<svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-check2" fill="#63b4f2"
+									xmlns="http://www.w3.org/2000/svg">
+									<path fill-rule="evenodd"
+										d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z" />
+								</svg>
+							</div>
+							<div *ngIf="!shop.active">
+								<svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-x" fill="#ff4c3b"
+									xmlns="http://www.w3.org/2000/svg">
+									<path fill-rule="evenodd"
+										d="M11.854 4.146a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708-.708l7-7a.5.5 0 0 1 .708 0z" />
+									<path fill-rule="evenodd"
+										d="M4.146 4.146a.5.5 0 0 0 0 .708l7 7a.5.5 0 0 0 .708-.708l-7-7a.5.5 0 0 0-.708 0z" />
+								</svg>
+							</div>
+						</td>
+
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<app-custom-pagination [items]="shops" [paginate]="paginate" (setPage)="setPage($event)" *ngIf="!isReport">
+		</app-custom-pagination>
+	</div>
+</section>
+<app-shop-details #shopDetails></app-shop-details>

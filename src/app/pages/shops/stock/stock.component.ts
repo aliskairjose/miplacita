@@ -1,10 +1,9 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { ReportsService } from 'src/app/shared/services/reports.service';
-import { ExportService } from 'src/app/shared/services/export.service';
 import { Paginate } from 'src/app/shared/classes/paginate';
-import { Store } from 'src/app/shared/classes/store';
 import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
+import { Filter } from '../../../shared/classes/filter';
 
 @Component( {
   selector: 'app-stock',
@@ -18,21 +17,17 @@ export class StockComponent implements OnInit {
   products = [];
   role: string;
   paginate: Paginate;
-  storeSelected: Store = {};
-  stores: Store[];
-  _storeId: string;
   modelFrom: NgbDateStruct;
+  filter: Filter = {};
 
   constructor(
     private auth: AuthService,
     private reportService: ReportsService,
-    private exportDoc: ExportService,
   ) { }
 
   ngOnInit(): void {
     this.role = this.auth.getUserRol();
     this.loadData();
-    this.loadStores();
   }
 
   loadData() {
@@ -41,30 +36,9 @@ export class StockComponent implements OnInit {
     } );
   }
 
-  private loadStores( page = 1 ): void {
-    let params = '';
-    params = `report=false`;
-    this.reportService.membershipActiveShop( page, params ).subscribe( result => {
-      console.log( result );
-      this.stores = result.docs;
-    } );
-  }
-
-  filtrar() {
+  filtrar( filter: Filter ) {
+    this.filter = filter;
     this.loadData();
-  }
-
-  selectStore( store: Store ) {
-    this._storeId = store._id;
-    this.storeSelected = store;
-  }
-
-  ExportTOExcel() {
-    this.exportDoc.ExportTOExcel( this.table.nativeElement, 'stock-report' );
-  }
-
-  ExportTOPDF() {
-    this.exportDoc.ExportTOPDF( '#mp-table', 'Inventario', 'stock-report' );
   }
 
 }

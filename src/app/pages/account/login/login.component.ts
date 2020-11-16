@@ -114,7 +114,7 @@ export class LoginComponent implements OnInit {
   private redirectAfterLogin(): void {
     ( this.mustReturn ) ? this.router.navigate( [ 'shop/checkout/shipping' ] ) : this.router.navigate( [ 'home' ] );
     if ( this.mustReturnStore ) { this.router.navigate( [ this.url ] ); }
-
+    if ( this.role === 'admin' ) { this.router.navigate( [ 'pages/account/user/profile' ] ); }
   }
 
   passwordRecovery() {
