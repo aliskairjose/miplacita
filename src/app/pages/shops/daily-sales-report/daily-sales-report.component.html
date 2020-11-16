@@ -62,7 +62,7 @@
 		</form> -->
 
 		<!-- Filtros de busqueda -->
-		<app-filters [storeList]="true" [canExport]="true" (filter)="filtrar($event)" [rangeDate]="false"></app-filters>
+		<app-filters [storeList]="true" [canExport]="true" (filter)="filtrar($event)" [dateRange]="false"></app-filters>
 
 		<!-- Data de usuario -->
 		<ng-container *ngIf="store || role=='admin'; else elseTemplate">
