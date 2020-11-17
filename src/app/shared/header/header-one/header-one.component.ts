@@ -61,6 +61,7 @@ export class HeaderOneComponent implements OnInit, OnChanges, AfterViewInit {
         const store: Store = JSON.parse( decod );
         this.shopService.customizeShop( store.config );
         this.settings.setStore( store );
+        this.themeLogo = store.logo;
       }
     } );
   }
