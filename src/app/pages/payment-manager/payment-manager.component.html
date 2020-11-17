@@ -1,28 +1,28 @@
 <section class="section-b-space">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12 ">
-                <div class="page-title mb-5">
-                    <h2 class="mp-title">
-                        Tarjeta Registrada
-                    </h2>
-                </div>
-                <div class="row border-box">
-                    <div class="col-12">
-                        <div class="col-lg-6 col-sm-12 ">
-                            <app-payment [card]="card" ></app-payment>
-                        </div>
-                        <div class="row justify-content-end">
-                            <button class="btn btn-solid-purple mr-2">
-                                Actualizar tarjeta
-                            </button>
-                            <button *ngIf="card" class="btn btn-outline">
-                                Desvincular tarjeta
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-12 ">
+				<div class="page-title mb-5">
+					<h2 class="mp-title">
+						Tarjeta Registrada
+					</h2>
+				</div>
+				<div class="row border-box">
+					<div class="col-12">
+						<div class="col-lg-6 col-sm-12 ">
+							<app-payment [card]="card"></app-payment>
+						</div>
+						<div class="row justify-content-end">
+							<button class="btn btn-solid-purple mr-2">
+								Actualizar tarjeta
+							</button>
+							<button *ngIf="card" class="btn btn-outline">
+								Desvincular tarjeta
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </section>

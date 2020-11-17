@@ -4,6 +4,7 @@ import { Store } from '../../../shared/classes/store';
 import { ToastrService } from 'ngx-toastr';
 import { environment } from '../../../../environments/environment.prod';
 import { ShopService } from '../../../shared/services/shop.service';
+import { AuthService } from '../../../shared/services/auth.service';
 
 @Component( {
   selector: 'app-create-referrals',
@@ -20,6 +21,7 @@ export class CreateReferralsComponent implements OnInit, OnChanges {
   @Output() reload: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   constructor(
+    private auth: AuthService,
     private toastr: ToastrService,
     private shopService: ShopService,
     private formBuilder: FormBuilder,
@@ -28,7 +30,11 @@ export class CreateReferralsComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges( changes: SimpleChanges ): void {
-    console.log( this.store );
+    this.shopService.storeObserver().subscribe( ( store: Store ) => {
+      if ( this.auth.getUserRol() === 'merchant' ) {
+        this.store = store;
+      }
+    } );
   }
 
   ngOnInit(): void {

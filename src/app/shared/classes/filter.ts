@@ -1,4 +1,4 @@
-export class Filter {
+export interface Filter {
   fechaIni?: string;
   fechaFin?: string;
   storeId?: string;

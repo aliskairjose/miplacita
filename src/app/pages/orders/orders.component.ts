@@ -67,9 +67,7 @@ export class OrdersComponent implements OnInit, OnChanges {
     this.role = this.auth.getUserRol();
     if ( this.role === 'merchant' ) {
       this.shopService.storeObserver().subscribe( ( store: Store ) => {
-        if ( this.role === 'merchant' ) {
-          this.store = store;
-        }
+        this.store = store;
       } );
     }
     this.init();
