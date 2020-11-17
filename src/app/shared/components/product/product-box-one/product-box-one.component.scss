@@ -5,10 +5,17 @@
 .img-wrapper-fix {
     height: 55vh;
 }
-
-.front a img {
-    max-height: 55vh;
+.front {
+    height: 50vh;
 }
+@supports (object-fit: contain) {
+    .front a img {
+        max-height: 55vh;
+        height: auto;
+        object-fit: contain;
+    }
+}
+
 
 h6 {
     color: var(--theme-deafult);
@@ -33,5 +40,10 @@ h6 {
     }
     .btn-for-big-screen {
         display: inline
+    }
+
+    .front a img {
+        max-height: 45vh;
+        height: auto;
     }
 }
