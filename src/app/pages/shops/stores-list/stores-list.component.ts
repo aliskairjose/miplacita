@@ -12,7 +12,8 @@ export class StoresListComponent implements OnInit {
   @Input() stores: Store[] = [];
   user: User;
   constructor(
-    private auth: AuthService
+    private auth: AuthService,
+    
   ) {
     this.user = this.auth.getUserActive();
 

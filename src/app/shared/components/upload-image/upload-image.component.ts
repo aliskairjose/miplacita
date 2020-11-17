@@ -38,11 +38,11 @@ export class UploadImageComponent implements OnInit, AfterViewInit, OnChanges, O
 
   }
   ngOnChanges( ): void {
-    if(this.imagesObject.length){
-      this.imagesObject.map((image: any)=>{
+    if (this.imagesObject.length){
+      this.imagesObject.map((image: any) => {
         this.images.push(image.url);
       });
-    };
+    }
   }
 
   ngOnDestroy(){
@@ -65,7 +65,6 @@ export class UploadImageComponent implements OnInit, AfterViewInit, OnChanges, O
     if ( !this.multiple ) { this.images = []; }
     const image = files[ 0 ];
     const mimeType = image.type;
-    console.log("lista", this.images);
     if ( files.length > 4 || this.images.length === 3 ) {
       this.toastrService.warning( 'Máximo 4 imagenes' );
       return;
