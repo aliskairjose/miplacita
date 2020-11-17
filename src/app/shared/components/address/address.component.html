@@ -8,8 +8,10 @@
               <h3>Mis datos/ Dirección</h3>
               <p> Completa estos datos para que tu vendedor sepa donde te encuentras ubicado</p>
               <div class="alert alert-primary" role="alert" [hidden]="hideMessage">
-                ¿Desea continuar como invitado o <a [routerLink]="[ '/pages/login']" [queryParams]="{ role: 'client', status: 'void' }"><b>iniciar sesión</b></a> / 
-                <a [routerLink]="[ '/pages/register']" [queryParams]="{ role: 'client', status: 'void' }"><b>registrarse</b></a> ?
+                ¿Desea continuar como invitado o <a [routerLink]="[ '/pages/login']"
+                  [queryParams]="{ role: 'client', status: 'void' }"><b>iniciar sesión</b></a> /
+                <a [routerLink]="[ '/pages/register']"
+                  [queryParams]="{ role: 'client', status: 'void' }"><b>registrarse</b></a> ?
               </div>
             </div>
             <form [formGroup]="addressForm" class="theme-form border-box">
@@ -84,7 +86,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="form-group col-md-12 col-sm-12 col-xs-12 mt-2">
+                <div class="form-group col-md-12 col-sm-12 col-xs-12 mt-4">
                   <div class="field-label">Punto de referencia</div>
                   <textarea id="exampleFormControlTextarea1" type="text" name="reference"
                     [formControl]="addressForm.controls['reference']" value="" placeholder=""

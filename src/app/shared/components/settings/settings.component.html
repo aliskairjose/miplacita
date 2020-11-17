@@ -43,7 +43,7 @@
         <li>
           <div class="buttons">
             <a [routerLink]="['/shop/cart']" class="view-cart">Ver carrito</a>
-            <a [routerLink]="['/shop/checkout']" class="checkout">Revisa</a>
+            <a [routerLink]="['/shop/checkout']" class="checkout">Finalizar compra</a>
           </div>
         </li>
       </ul>
@@ -81,7 +81,7 @@
         <div>
           <div class="total d-flex ">
             <div class="balance">
-              <h5>Saldo</h5>
+              <p style="font-size: 8pts;">Saldo por referido</p>
             </div>
             <div class="mx-auto">
               <h5><span>{{ balance | currency}}</span></h5>
