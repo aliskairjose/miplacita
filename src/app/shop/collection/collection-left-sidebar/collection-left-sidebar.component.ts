@@ -38,7 +38,6 @@ export class CollectionLeftSidebarComponent implements OnInit {
   loader = true;
   params: string;
   private _storeId = '';
-  private _store: Store;
 
   constructor(
     private router: Router,

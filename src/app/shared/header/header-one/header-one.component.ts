@@ -1,14 +1,13 @@
 
-import {
-  Component, HostListener, Input, OnChanges, OnInit, SimpleChanges, ViewChild
-} from '@angular/core';
-
+import { Component, HostListener, Input, OnChanges, OnInit, SimpleChanges, ViewChild, AfterViewInit } from '@angular/core';
 import { Category } from '../../classes/category';
 import { Store } from '../../classes/store';
 import { User } from '../../classes/user';
 import { SettingsComponent } from '../../components/settings/settings.component';
 import { AuthService } from '../../services/auth.service';
 import { CategoryService } from '../../services/category.service';
+import { ShopService } from '../../services/shop.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component( {
   selector: 'app-header-one',
@@ -16,7 +15,7 @@ import { CategoryService } from '../../services/category.service';
   styleUrls: [ './header-one.component.scss' ]
 } )
 
-export class HeaderOneComponent implements OnInit, OnChanges {
+export class HeaderOneComponent implements OnInit, OnChanges, AfterViewInit {
   stick = false;
   isLoggedIn: boolean;
   role: string;
@@ -32,6 +31,7 @@ export class HeaderOneComponent implements OnInit, OnChanges {
   @Input() hasSearchBar = false; // Default false
   @Input() isSideMenu = false;
 
+  @ViewChild( 'settings' ) settings: SettingsComponent;
 
   // @HostListener Decorator
   @HostListener( 'window:scroll', [] )
@@ -47,16 +47,33 @@ export class HeaderOneComponent implements OnInit, OnChanges {
 
   constructor(
     private auth: AuthService,
-    private categoryService: CategoryService
+    private route: ActivatedRoute,
+    private shopService: ShopService,
+    private categoryService: CategoryService,
   ) {
+
+  }
+
+  ngAfterViewInit(): void {
+    this.route.queryParams.subscribe( queryParams => {
+      if ( Object.entries( queryParams ).length !== 0 ) {
+        const decod = window.atob( queryParams.config );
+        const store: Store = JSON.parse( decod );
+        this.shopService.customizeShop( store.config );
+        this.settings.setStore( store );
+        this.themeLogo = store.logo;
+      }
+    } );
   }
 
   ngOnChanges( changes: SimpleChanges ): void {
-    if ( changes?.store?.currentValue ) {
+    if ( Object.entries( changes?.store?.currentValue ).length !== 0 ) {
+      this.settings.setStore( changes.store.currentValue );
     }
   }
 
   ngOnInit(): void {
+
     this.isLoggedIn = this.auth.isAuthenticated();
     this.categoryService.categoryList().subscribe( ( response: Category[] ) => {
       this.categories = [ ...response ];

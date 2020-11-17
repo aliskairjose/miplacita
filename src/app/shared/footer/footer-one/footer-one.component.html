@@ -37,10 +37,9 @@
 						</div>
 						<div class="footer-contant">
 							<ul>
-								<li *ngFor="let category of menuItems">
-									<a (click)='routerTo(category._id)'>{{category.name}}</a>
+								<li *ngFor="let category of menuItems; let i=index">
+									<a (click)='routerTo(category._id)' *ngIf="i<= 4">{{category.name}}</a>
 								</li>
-
 							</ul>
 						</div>
 					</div>
