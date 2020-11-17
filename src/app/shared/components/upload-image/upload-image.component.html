@@ -63,8 +63,8 @@
               </label>
               
               <div *ngIf="images.length && type=='logo'">
-                <div *ngFor="let image of images" class="d-flex align-items-center mx-auto">
-                  <img class="img-thumbnail mx-auto w-75 h-75" [src]="image">
+                <div *ngFor="let image of images" class="d-flex align-items-center mx-auto logo-box">
+                  <img class="img-thumbnail mx-auto " [src]="image">
                 </div>
               </div>
               <label for="file-input-logo" *ngIf="type=='logo'">

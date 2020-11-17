@@ -5,7 +5,7 @@
 .img-wrapper-fix {
     height: 55vh;
 }
-.front {
+.custom-front {
     height: 50vh;
 }
 @supports (object-fit: contain) {
@@ -33,7 +33,10 @@ h6 {
 .btn-for-big-screen {
     display: none
 }
+.img-mobile {
+    width: 100% !important
 
+}
 @media (min-width: 768px) {
     .btn-for-mobile {
         display: none;
@@ -46,4 +49,9 @@ h6 {
         max-height: 45vh;
         height: auto;
     }
+
+    .img-mobile {
+        width: 25% !important;
+    }
+
 }
