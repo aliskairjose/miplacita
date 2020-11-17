@@ -5,7 +5,10 @@
         <!-- Banner -->
         <div class="col-sm-12 col-lg-7">
           <div class="form-row d-flex flex-column mb-3" >
-            <label class="label mr-2 my-auto"><strong>Banner</strong> </label>
+            <label class="label mr-2 my-auto"><strong>Banner</strong> <br>
+              Para agregar un nuevo banner a su tienda, seleccione (<img class="icon-small" src="assets/images/marketplace/images/placeholder_.jpg"/>).
+            </label>
+            
             <app-upload-image #banner type="banner" multiple="true" (deleteImage)="deleteBanner($event)" [imagesObject]="banners" (uploadImage)="uploadBanner($event)"></app-upload-image>
           </div>
         </div>
@@ -36,7 +39,9 @@
             </div>
           </div>
           <div class="form-row d-flex flex-column mb-3" >
-            <label class="label mr-2 my-auto"><strong>Editar logo</strong> </label>
+            <label class="label mr-2 my-auto"><strong>Editar logo</strong> <br>
+              Para agregar un nuevo logo a su tienda, seleccione (<img class="icon-small" src="assets/images/marketplace/images/placeholder_.jpg"/>).
+            </label>
             <app-upload-image #logo [images]="imageLogo" type="logo"  (uploadImage)="uploadLogo($event)"></app-upload-image>
           </div>
         </div>
