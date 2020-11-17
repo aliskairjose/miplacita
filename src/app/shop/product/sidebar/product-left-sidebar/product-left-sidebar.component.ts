@@ -58,7 +58,11 @@ export class ProductLeftSidebarComponent implements OnInit {
   ) {
 
     this.route.queryParams.subscribe( queryParams => {
-      this.hideFilters = Object.entries( queryParams ).length !== 0;
+      if ( Object.entries( queryParams ).length !== 0 ) {
+        const decod = window.atob( queryParams.config );
+        const store: Store = JSON.parse( decod );
+        this.hideFilters = Object.entries( store ).length !== 0;
+      }
     } );
 
   }
