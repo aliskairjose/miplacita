@@ -75,8 +75,10 @@
       </div>
     </form>
   </div>
+  <hr class="mx-2">
   <!-- Pago con saldo -->
-  <div class="row my-3" [hidden]="!showReferedAmmount">
+  <div class="d-flex flex-column h-100 mt-4" [hidden]="!showReferedAmmount">
+    <h4>Saldo de referido</h4>
     <div class="option-box d-flex mx-auto py-3" style="width: 100% !important">
       <div class="col-md-6">
         <p class="my-auto">Deseo usar mi saldo acumulado: {{ balance | currency }}</p>
