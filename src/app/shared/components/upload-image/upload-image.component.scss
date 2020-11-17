@@ -89,6 +89,13 @@ ngb-carousel {
   height: auto;
 }
 
+.logo-box {
+  max-height: 220px;
+  img {
+    max-height: 220px;
+  }
+}
+
 @supports(object-fit: cover){
   .store-design-img {
       height: 100%;
