@@ -11,9 +11,9 @@ import { Category } from '../../classes/category';
 } )
 export class FooterOneComponent implements OnInit {
 
-  @Input() class: string = 'footer-light' // Default class 
-  @Input() themeLogo: string = 'assets/images/icon/logo.png' // Default Logo
-  @Input() newsletter: boolean = true; // Default True
+  @Input() class = 'footer-light';
+  @Input() themeLogo = 'assets/images/icon/logo.png';
+  @Input() newsletter = true;
   path = '/shop/collection/left/sidebar?name=&category=';
   menuItems: Category[] = [];
   public today: number = Date.now();
@@ -27,16 +27,8 @@ export class FooterOneComponent implements OnInit {
   ngOnInit(): void {
     this.categoryService.categoryList().subscribe( ( result: Category[] ) => {
       result.map( e => {
-        if ( e.name === 'Ropa' ||
-          e.name === 'joyeria y bisuteria' ||
-          e.name === 'Electronica' ||
-          e.name === 'Hogar y cocina' ||
-          e.name === 'Articulos de belleza' ||
-          e.name === 'Salud' ||
-          e.name === 'Vehiculos' ) {
-          this.menuItems.push( e );
-        }
-      } )
+        this.menuItems.push( e );
+      } );
     } );
   }
 
