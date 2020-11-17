@@ -7,7 +7,7 @@ import { ProductService } from 'src/app/shared/services/product.service';
 import { ShopService } from 'src/app/shared/services/shop.service';
 
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 
 import { Category } from '../../../shared/classes/category';
 import { SettingsComponent } from '../../../shared/components/settings/settings.component';
@@ -32,7 +32,6 @@ export class StorePageComponent implements OnInit, AfterViewInit {
   @ViewChild( 'settings' ) setting: SettingsComponent;
 
   constructor(
-    private router: Router,
     private route: ActivatedRoute,
     private storeService: ShopService,
     private productService: ProductService,
@@ -48,8 +47,6 @@ export class StorePageComponent implements OnInit, AfterViewInit {
         this.subCategoryList( this.store._id );
         this.storeService.storeSubject( this.store );
         this.storeService.customizeShop( this.store.config );
-
-
       } );
     } );
 

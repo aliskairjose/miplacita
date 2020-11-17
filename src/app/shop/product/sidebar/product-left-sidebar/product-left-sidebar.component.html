@@ -8,7 +8,7 @@
       <div class="row">
         <div class="col-sm-3">
           <div class="collection-filter" [class.openFilterbar]="mobileSidebar">
-            <div class="collection-filter-block">
+            <div class="collection-filter-block" [hidden]="hideFilters">
               <div class="collection-mobile-back" (click)="toggleMobileSidebar()">
                 <span class="filter-back">
                   <i class="fa fa-angle-left" aria-hidden="true"></i> volver
@@ -17,7 +17,7 @@
               <app-categories [categories]="categories" (categoryFilter)="updateFilter($event)">
               </app-categories>
             </div>
-            <div class="collection-filter-block">
+            <div class="collection-filter-block" [hidden]="hideFilters">
               <div class="collection-mobile-back" (click)="toggleMobileSidebar()">
                 <span class="filter-back">
                   <i class="fa fa-angle-left" aria-hidden="true"></i> volver

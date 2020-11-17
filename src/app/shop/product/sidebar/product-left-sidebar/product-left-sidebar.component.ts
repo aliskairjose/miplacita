@@ -40,6 +40,7 @@ export class ProductLeftSidebarComponent implements OnInit {
   productRate = 0;
   color: any;
   size = '';
+  hideFilters = false;
 
   @ViewChild( 'comments' ) comment: CommentsComponent;
 
@@ -56,19 +57,16 @@ export class ProductLeftSidebarComponent implements OnInit {
     private categoryService: CategoryService,
   ) {
 
+    this.route.queryParams.subscribe( queryParams => {
+      this.hideFilters = Object.entries( queryParams ).length !== 0;
+    } );
+
   }
 
   ngOnInit(): void {
     this.spinner.show();
     const id = this.route.snapshot.paramMap.get( 'id' );
     const params = `product=${id}`;
-
-    this.route.queryParams.subscribe( queryParams => {
-      console.log( queryParams )
-      const decod = window.atob( queryParams.config );
-      const config = JSON.parse( decod );
-      this.shopService.customizeShop( config );
-    } );
 
     forkJoin( [
       this.shopService.storeList(),
