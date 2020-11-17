@@ -4,11 +4,11 @@ import { NavService, Menu } from '../../services/nav.service';
 import { CategoryService } from '../../services/category.service';
 import { Category } from '../../classes/category';
 
-@Component({
+@Component( {
   selector: 'app-footer-one',
   templateUrl: './footer-one.component.html',
-  styleUrls: ['./footer-one.component.scss']
-})
+  styleUrls: [ './footer-one.component.scss' ]
+} )
 export class FooterOneComponent implements OnInit {
 
   @Input() class: string = 'footer-light' // Default class 
@@ -18,29 +18,30 @@ export class FooterOneComponent implements OnInit {
   menuItems: Category[] = [];
   public today: number = Date.now();
 
-  constructor( private router: Router,
-                private categoryService: CategoryService) {
-    
+  constructor(
+    private router: Router,
+    private categoryService: CategoryService ) {
+
   }
 
   ngOnInit(): void {
     this.categoryService.categoryList().subscribe( ( result: Category[] ) => {
-			result.map(e => {
-        if(e.name === 'Ropa' ||
-            e.name === 'joyeria y bisuteria' ||
+      result.map( e => {
+        if ( e.name === 'Ropa' ||
+          e.name === 'joyeria y bisuteria' ||
           e.name === 'Electronica' ||
           e.name === 'Hogar y cocina' ||
           e.name === 'Articulos de belleza' ||
           e.name === 'Salud' ||
-          e.name === 'Vehiculos' ){
-          this.menuItems.push(e);
+          e.name === 'Vehiculos' ) {
+          this.menuItems.push( e );
         }
-      })
-		} );
+      } )
+    } );
   }
 
   routerTo( id ): void {
-    this.router.navigateByUrl(`${this.path}${id}`);
+    this.router.navigateByUrl( `${this.path}${id}` );
   }
 
 }
