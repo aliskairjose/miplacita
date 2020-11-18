@@ -51,11 +51,12 @@ export class UploadImageComponent implements OnInit, AfterViewInit, OnChanges, O
 
   async upload( files ) {
 
-    const limit = 102400;
+    const limit = 4000000;
 
     for ( const key in files ) {
       if ( Object.prototype.hasOwnProperty.call( files, key ) ) {
         const file = files[ key ];
+        console.log(file.size, file.size > limit, limit);
         if ( file.size > limit ) {
           this.toast.warning( 'La imagen es demasiado grande' );
           return;
@@ -66,7 +67,7 @@ export class UploadImageComponent implements OnInit, AfterViewInit, OnChanges, O
     if ( !this.multiple ) { this.images = []; }
     const image = files[ 0 ];
     const mimeType = image.type;
-    if ( files.length > 4 || this.images.length === 3 ) {
+    if ( files.length > 4 || this.images.length === 4 ) {
       this.toastrService.warning( 'Máximo 4 imagenes' );
       return;
     }

@@ -70,9 +70,18 @@ export class ShopDesignComponent implements OnInit, OnChanges {
           }
 
           if ( imageResponse.status === 'isOk' ) {
-            this.shopService.addBanner( this.store._id, { url: imageResponse.images[ 0 ] } ).subscribe( _result => {
-              if ( _result.success ) { this.toastrService.info( _result.message[ 0 ] ); }
-            } );
+            console.log(imageResponse.status, imageResponse.images);
+            const promises = [];
+            imageResponse.images.forEach(image => {
+              promises.push(
+                this.shopService.addBanner( this.store._id, { url: image } ).subscribe( _result => {
+                  if ( _result.success ) { this.toastrService.info( _result.message[ 0 ] ); }
+                } )
+              );
+            });
+            Promise.all(promises).then(promisesAll => {
+              console.log(promisesAll, "adding");
+            });
           }
         } );
       this.updateShop.emit( this.store );
