@@ -31,6 +31,7 @@ export class CheckoutComponent implements OnInit {
   referedAmount = 0;
   private _totalPrice: number;
   store: Store = {};
+  itms = 0;
 
   @ViewChild( 'payment' ) payment: PaymentComponent;
 
@@ -63,17 +64,22 @@ export class CheckoutComponent implements OnInit {
       this.store = JSON.parse( sessionStorage.sessionStore );
     }
 
-
-
     shipment.cart.forEach( detail => {
       this.shipmentPrice += detail.shipment_price;
     } );
 
     this.subTotal.subscribe( amount => {
       this.amount = amount;
-      this._totalPrice = this.totalPrice = amount + this.shipmentPrice;
+      this._totalPrice = this.totalPrice = amount + this.shipmentPrice + this.getItms;
     } );
 
+  }
+
+  get getItms(): number {
+    this.products.forEach( ( product: Product ) => {
+      this.itms += product.tax;
+    } );
+    return this.itms;
   }
 
   public get subTotal(): Observable<number> {

@@ -64,10 +64,10 @@ export class PaymentComponent implements OnInit {
       date.setMonth( date.getMonth() + 12 );
       this.years.push( date.getFullYear() );
     }
-    if (this.card){
+    if ( this.card ) {
       this.paymentForm.setValue(
         {
-          owner: this.card.owner ,
+          owner: this.card.owner,
           cvv: this.card.cvv,
           cardnumber: this.card.cardnumber,
           month: this.card.month,
@@ -125,7 +125,7 @@ export class PaymentComponent implements OnInit {
       month: [ '', [ Validators.required ] ],
       year: [ '', [ Validators.required ] ]
     } );
-    
+
   }
 
   private getAffiliate( storeId: string ): void {

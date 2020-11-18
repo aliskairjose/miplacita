@@ -1,102 +1,100 @@
-
 <!-- section start -->
 <section class="section-b-space">
-    <div class="collection-wrapper">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-3">
-                    <div class="collection-filter" [class.openFilterbar]="mobileSidebar">
-                        <!-- side-bar colleps block stat -->
-                        <div class="collection-filter-block">
-                            <div class="collection-mobile-back" (click)="toggleMobileSidebar()">
-                                <span class="filter-back">
-                                    <i class="fa fa-angle-left" aria-hidden="true"></i> back
-                                </span>
-                            </div>
-                            <!-- Category filter start -->
-                            <app-categories [categories]="categories" (categoryFilter)="updateFilter($event)">
-                            </app-categories>
-                        </div>
-                        <div class="collection-filter-block">
-                            <div class="collection-mobile-back" (click)="toggleMobileSidebar()">
-                                <span class="filter-back">
-                                    <i class="fa fa-angle-left" aria-hidden="true"></i> back
-                                </span>
-                            </div>
-                            <!-- Shops filter start -->
-                            <app-shops [shops]="shops" (shopsFilter)="updateFilter($event)">
-                            </app-shops>
-                        </div>
-                        <div class="collection-filter-block">
-                            <div class="collection-mobile-back" (click)="toggleMobileSidebar()">
-                                <span class="filter-back">
-                                    <i class="fa fa-angle-left" aria-hidden="true"></i> back
-                                </span>
-                            </div>
-                            <!-- Price filter start here -->
-                            <app-price [prices]="prices" (priceFilter)="updateFilter($event)">
-                            </app-price>
-                        </div>
-                        <!-- brand filter start -->
-                        <app-brands [products]="products" [brands]="brands" (brandsFilter)="updateFilter($event)">
-                        </app-brands>
-                    </div>
-                </div>
-                <div class="collection-content col">
-                    <div class="page-main-content">
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <div class="row">
-                                    <div class="col-xl-12">
-                                        <div class="filter-main-btn" (click)="toggleMobileSidebar()">
-                                            <span class="filter-btn btn btn-theme">
-                                                <i class="fa fa-filter" aria-hidden="true"></i> Filtro
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <ul class="product-filter-tags">
-                                    <li class="mr-1" *ngFor="let tag of tags">
-                                        <a href="javascript:void(0)" class="filter_tag">
-                                            {{tag}} <i class="ti-close" (click)="removeTag(tag)"></i>
-                                        </a>
-                                    </li>
-                                    <li class="clear_filter" *ngIf="tags.length > 0">
-                                        <a href="javascript:void(0)" class="clear_filter" (click)="removeAllTags()">
-                                            Clear all
-                                        </a>
-                                    </li>
-                                </ul>
-                                <div class="collection-product-wrapper" id="products">
-                                    <div class="product-wrapper-grid" [ngClass]="layoutView">
-                                        <div class="row">
-                                            <div class="col-grid-box" [ngClass]="grid" *ngFor="let product of products">
-                                                <div class="product-box">
-                                                    <app-product-box-one [product]="product"
-                                                        [thumbnail]="false"
-                                                        [cartModal]="true" [loader]="true" [search]="true">
-                                                    </app-product-box-one>
-                                                </div>
-                                                <hr>
-                                            </div>
-                                            <div class="col-sm-12 text-center section-b-space mt-5 no-found"
-                                                *ngIf="!products.length">
-                                                <img src="assets/images/empty-search.jpg" class="img-fluid mb-4">
-                                                <h3>Lo sentimos! no hay resultados para tu búsqueda</h3>
-                                                <a [routerLink]="['/shop/collection/left/sidebar']"
-                                                    class="btn btn-solid">Continuar comprando</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <app-custom-pagination [items]="products" [paginate]="paginate" (setPage)="setPage($event)">
-                                    </app-custom-pagination>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+	<div class="collection-wrapper">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-3">
+					<div class="collection-filter" [class.openFilterbar]="mobileSidebar">
+						<!-- side-bar colleps block stat -->
+						<div class="collection-filter-block" [hidden]="hideFilters">
+							<div class="collection-mobile-back" (click)="toggleMobileSidebar()">
+								<span class="filter-back">
+									<i class="fa fa-angle-left" aria-hidden="true"></i> back
+								</span>
+							</div>
+							<!-- Category filter start -->
+							<app-categories [categories]="categories" (categoryFilter)="updateFilter($event)">
+							</app-categories>
+						</div>
+						<div class="collection-filter-block" [hidden]="hideFilters">
+							<div class="collection-mobile-back" (click)="toggleMobileSidebar()">
+								<span class="filter-back">
+									<i class="fa fa-angle-left" aria-hidden="true"></i> back
+								</span>
+							</div>
+							<!-- Shops filter start -->
+							<app-shops [shops]="shops" (shopsFilter)="updateFilter($event)">
+							</app-shops>
+						</div>
+						<div class="collection-filter-block">
+							<div class="collection-mobile-back" (click)="toggleMobileSidebar()">
+								<span class="filter-back">
+									<i class="fa fa-angle-left" aria-hidden="true"></i> back
+								</span>
+							</div>
+							<!-- Price filter start here -->
+							<app-price [prices]="prices" (priceFilter)="updateFilter($event)">
+							</app-price>
+						</div>
+						<!-- brand filter start -->
+						<app-brands [products]="products" [brands]="brands" (brandsFilter)="updateFilter($event)">
+						</app-brands>
+					</div>
+				</div>
+				<div class="collection-content col">
+					<div class="page-main-content">
+						<div class="row">
+							<div class="col-sm-12">
+								<div class="row">
+									<div class="col-xl-12">
+										<div class="filter-main-btn" (click)="toggleMobileSidebar()">
+											<span class="filter-btn btn btn-theme">
+												<i class="fa fa-filter" aria-hidden="true"></i> Filtro
+											</span>
+										</div>
+									</div>
+								</div>
+								<ul class="product-filter-tags">
+									<li class="mr-1" *ngFor="let tag of tags">
+										<a href="javascript:void(0)" class="filter_tag">
+											{{tag}}
+											<!-- <i class="ti-close" (click)="removeTag(tag)"></i> -->
+										</a>
+									</li>
+									<li class="clear_filter" *ngIf="tags.length > 0">
+										<a href="javascript:void(0)" class="clear_filter" (click)="removeAllTags()">
+											Clear all
+										</a>
+									</li>
+								</ul>
+								<div class="collection-product-wrapper" id="products">
+									<div class="product-wrapper-grid" [ngClass]="layoutView">
+										<div class="row">
+											<div class="col-grid-box" [ngClass]="grid" *ngFor="let product of products">
+												<div class="product-box">
+													<app-product-box-one [product]="product" [thumbnail]="false" [cartModal]="true"
+														[loader]="true" [search]="true">
+													</app-product-box-one>
+												</div>
+												<hr>
+											</div>
+											<div class="col-sm-12 text-center section-b-space mt-5 no-found" *ngIf="noData">
+												<img src="assets/images/empty-search.jpg" class="img-fluid mb-4">
+												<h3>Lo sentimos! no hay resultados para tu búsqueda</h3>
+												<a [routerLink]="['/shop/collection/left/sidebar']" class="btn btn-solid">Continuar
+													comprando</a>
+											</div>
+										</div>
+									</div>
+									<app-custom-pagination [items]="products" [paginate]="paginate" (setPage)="setPage($event)">
+									</app-custom-pagination>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </section>
 <!-- section End -->

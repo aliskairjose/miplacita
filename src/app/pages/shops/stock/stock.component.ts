@@ -31,7 +31,7 @@ export class StockComponent implements OnInit {
   }
 
   loadData() {
-    this.reportService.stockMP().subscribe( ( products ) => {
+    this.reportService.stockMP( this.filter.storeId ).subscribe( ( products ) => {
       this.products = [ ...products ];
     } );
   }

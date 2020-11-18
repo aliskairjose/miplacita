@@ -30,11 +30,13 @@ export class CreateReferralsComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges( changes: SimpleChanges ): void {
-    this.shopService.storeObserver().subscribe( ( store: Store ) => {
-      if ( this.auth.getUserRol() === 'merchant' ) {
-        this.store = store;
-      }
-    } );
+
+    // this.shopService.storeObserver().subscribe( ( store: Store ) => {
+    //   if ( this.auth.getUserRol() === 'merchant' ) {
+    //     this.store = store;
+    //     console.log( this.store );
+    //   }
+    // } );
   }
 
   ngOnInit(): void {

@@ -28,19 +28,18 @@
                 <!-- Acccount -->
                 <div class="form-group">
                     <div class="field-label font-weight-bold">Número de la cuenta</div>
-                    <input formControlName="account" type="text" class="form-control" id="bank-account" mask="0000-0000"
-                        required="">
+                    <input formControlName="account" type="number" class="form-control" id="bank-account" maxlength="20">
                     <div *ngIf="submitted && f.account.errors?.required" class="invalid-feedback d-block">
                         {{ required }}
                     </div>
-                    <!-- <div *ngIf="submitted && f.account.errors?.minlength" class="invalid-feedback d-block">
-                        El campo debe contener todos los dígitos
-                    </div> -->
                 </div>
                 <!-- Tipo de cuenta -->
                 <div class="form-group">
                     <div class="field-label font-weight-bold">Tipo de cuenta</div>
-                    <input formControlName="type" type="text" class="form-control" id="titular" required="">
+                    <select formControlName="type" class="form-control" required="">
+                        <option value="ahorro">Ahorro</option>
+                        <option value="corriente">Corriente</option>
+                    </select>
                     <div *ngIf="submitted && f.type.errors?.required" class="invalid-feedback d-block">
                         {{ required }}
                     </div>

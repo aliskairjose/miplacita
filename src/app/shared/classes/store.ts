@@ -14,6 +14,7 @@ export interface Store {
   created_at?: string;
   config?: Config;
   affiliate_program?: boolean;
+  affiliate_program_amount?: number;
 }
 
 export interface Config {

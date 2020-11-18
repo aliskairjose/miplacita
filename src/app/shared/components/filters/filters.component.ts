@@ -6,6 +6,7 @@ import { CustomDateParserFormatterService } from '../../adapter/custom-date-pars
 import { ExportService } from '../../services/export.service';
 import { ToastrService } from 'ngx-toastr';
 import { Filter } from '../../classes/filter';
+import { AuthService } from '../../services/auth.service';
 
 @Component( {
   selector: 'app-filters',
@@ -47,6 +48,7 @@ export class FiltersComponent implements OnInit {
   @Output() filter: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(
+    public auth: AuthService,
     private toastr: ToastrService,
     private report: ReportsService,
     private exportDoc: ExportService,

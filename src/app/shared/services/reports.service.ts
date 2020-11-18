@@ -78,18 +78,9 @@ export class ReportsService {
       map( response => response.result )
     );
   }
-  // bestSellers( page = 1, params = '' ): Observable<Product[]> {
-  //   return this.http.get( `products?page=${page}&${params}` ).pipe(
-  //     map( ( response ) => {
-  //       if ( response.success ) {
-  //         return response.result;
-  //       }
-  //     } )
-  //   );
-  // }
 
-  stockMP(): Observable<any> {
-    return this.http.get( `products?marketplace=true&report=true` ).pipe(
+  stockMP( storeId: string ): Observable<any> {
+    return this.http.get( `products?marketplace=true&report=true&store=${storeId}` ).pipe(
       map( response => response.result )
     );
   }
@@ -182,7 +173,7 @@ export class ReportsService {
    * @param params Id de la tienda | Fecha
    */
   dailySales( params = '' ): Observable<any> {
-    return this.http.get( `order?page=${params}` ).pipe(
+    return this.http.get( `order?${params}` ).pipe(
       map( ( response ) => {
         if ( response.success ) { return response.result; }
       } )

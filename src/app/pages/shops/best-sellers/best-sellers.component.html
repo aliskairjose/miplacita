@@ -9,7 +9,7 @@
 			</h2>
 		</div>
 		<!-- Filtros de busqueda -->
-		<app-filters [storeList]="true" [canExport]="true" (filter)="filtrar($event)"></app-filters>
+		<app-filters [storeList]="hasStores" [canExport]="true" (filter)="filtrar($event)"></app-filters>
 
 		<!-- Data de usuario -->
 		<ng-container *ngIf="store || role==='admin'; else elseTemplate">

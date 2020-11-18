@@ -15,6 +15,9 @@
 											{{ (product.price | discount:product) * productService?.Currency.price | currency }}
 										</span>
 									</li>
+									<li>
+										<strong>ITMS</strong> <span>{{ itms | currency }}</span>
+									</li>
 									<li *ngIf='products.length'>
 										<strong>Envío</strong> <span>{{ shipmentPrice | currency }}</span>
 									</li>

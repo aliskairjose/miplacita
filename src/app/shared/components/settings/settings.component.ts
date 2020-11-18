@@ -25,6 +25,7 @@ export class SettingsComponent implements OnInit {
   balance: number;
   showBalance = false;
   store: Store = {};
+
   private _referedCode: string;
 
   constructor(
@@ -41,6 +42,7 @@ export class SettingsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
     this._clipboardService.copyResponse$.subscribe( re => {
       if ( re.isSuccess ) {
         this.toast.info( 'El código se ha copiado al portapapeles!' );
@@ -50,22 +52,6 @@ export class SettingsComponent implements OnInit {
     this.role = this.auth.getUserRol();
     this.isLoggedIn = this.auth.isAuthenticated();
 
-    this.shopService.storeObserver().subscribe( store => {
-
-      if ( store && this.auth.getUserActive() && this.auth.getUserRol() === 'client' ) {
-        this.store = store;
-        this.getAffiliate( store._id );
-      }
-    } );
-
-    if ( sessionStorage.sessionStore ) {
-      this.store = JSON.parse( sessionStorage.sessionStore );
-
-      if ( this.auth.getUserActive() && this.auth.getUserRol() === 'client' ) {
-        this.getAffiliate( this.store._id );
-      }
-    }
-
     this.auth.authObserver().subscribe( ( isAuth: boolean ) => {
       this.isLoggedIn = isAuth;
     } );
@@ -74,6 +60,13 @@ export class SettingsComponent implements OnInit {
       this._role = 'merchant';
     }
   }
+
+  public setStore( store: Store ) {
+    if ( this.auth.getUserActive() && this.auth.getUserRol() === 'client' ) {
+      this.getAffiliate( store._id );
+    }
+  }
+
 
   callServiceToCopy() {
     this._clipboardService.copy( this._referedCode );

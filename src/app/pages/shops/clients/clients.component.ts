@@ -3,11 +3,9 @@ import { AuthService } from 'src/app/shared/services/auth.service';
 import { Store } from 'src/app/shared/classes/store';
 import { Paginate } from 'src/app/shared/classes/paginate';
 import { InterestsComponent } from '../../interests/interests.component';
-import { ExportService } from 'src/app/shared/services/export.service';
 import { ReportsService } from '../../../shared/services/reports.service';
 import { CustomDateParserFormatterService } from '../../../shared/adapter/custom-date-parser-formatter.service';
 import { NgbDateStruct, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
-import { ToastrService } from 'ngx-toastr';
 import { Filter } from '../../../shared/classes/filter';
 
 @Component( {
@@ -19,7 +17,8 @@ export class ClientsComponent implements OnInit, OnChanges {
   @ViewChild( 'interests' ) Interests: InterestsComponent;
   @ViewChild( 'TABLE', { read: ElementRef } ) table: ElementRef;
 
-  fields = [ 'Cliente', 'Email', 'Fecha de registro', 'Role', 'Acción' ];
+  adminFields = [ 'Cliente', 'Email', 'Fecha de registro', 'Role', 'Acción' ];
+  fields = [ 'Cliente', 'Email', 'Acción' ];
   clients: any = [];
   paginate: Paginate;
   roles = [
@@ -47,7 +46,6 @@ export class ClientsComponent implements OnInit, OnChanges {
   constructor(
     private auth: AuthService,
     private reports: ReportsService,
-    private exportDoc: ExportService,
     private ngbCalendar: NgbCalendar,
     private parseDate: CustomDateParserFormatterService,
   ) { }

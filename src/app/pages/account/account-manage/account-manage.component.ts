@@ -42,8 +42,8 @@ export class AccountManageComponent implements OnInit, OnChanges {
     { name: 'Tablero', key: 'dashboard', icon: 'assets/images/marketplace/images/icons/tablero.png' },
     { name: 'Productos', key: 'products', icon: 'assets/images/marketplace/images/icons/productos.png' },
     { name: 'Órdenes', key: 'admin-orders', icon: 'assets/images/marketplace/images/icons/orders.png' },
+    { name: 'Perfil de tienda', key: 'admin-store', icon: 'assets/images/marketplace/images/icons/store.png' },
     { name: 'Mis Tiendas', key: 'stores', icon: 'assets/images/marketplace/images/icons/store.png' },
-    { name: 'Tienda', key: 'admin-store', icon: 'assets/images/marketplace/images/icons/store.png' },
     { name: 'Tarjetas', key: 'card', icon: 'assets/images/marketplace/images/icons/store.png' },
     { name: 'Reportes', key: 'reports', icon: 'assets/images/marketplace/images/icons/report.png' },
     { name: 'Ayuda', id: 'big-icon', key: 'support', icon: 'assets/images/marketplace/images/icons/help.png' },
@@ -100,7 +100,6 @@ export class AccountManageComponent implements OnInit, OnChanges {
 
     // Se cargas las tiendas solo de merchant
     if ( this.user.role === 'merchant' || this.user.role === 'client' ) {
-
       this.shopService.getMyStores( this.user._id ).subscribe( stores => {
         if ( stores.docs.length ) {
           const _store = JSON.parse( sessionStorage.getItem( 'store' ) );

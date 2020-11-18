@@ -37,6 +37,11 @@
     flex-direction: column;
 }
 
+
+label {
+    line-height: 25px;
+    word-break: word-break;
+}
 @media(min-width: 576px){
     .color-fonts {
         display: flex;

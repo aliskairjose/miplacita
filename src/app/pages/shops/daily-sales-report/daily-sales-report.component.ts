@@ -29,7 +29,6 @@ export class DailySalesReportComponent implements OnInit, OnChanges {
   fieldsAdmin = [ 'Tienda', 'Producto', 'Monto', 'Cantidades vendidas' ];
   orders: Order[] = [];
   products = [];
-  stores: Store[] = [];
   paginate: Paginate;
   orderStatus = environment.orderStatus;
   role: string;
@@ -37,6 +36,7 @@ export class DailySalesReportComponent implements OnInit, OnChanges {
   modelFrom: NgbDateStruct;
   showalert: boolean;
   filters: Filter = {};
+  hasStores = false;
 
   constructor(
     private auth: AuthService,
@@ -44,7 +44,9 @@ export class DailySalesReportComponent implements OnInit, OnChanges {
     private ngbCalendar: NgbCalendar,
     private shopService: ShopService,
     private parseDate: CustomDateParserFormatterService,
-  ) { }
+  ) {
+    this.hasStores = this.auth.getUserRol() === 'admin';
+  }
 
   ngOnInit(): void {
 
@@ -65,8 +67,10 @@ export class DailySalesReportComponent implements OnInit, OnChanges {
 
     if ( this.role === 'merchant' ) {
       this.store = JSON.parse( sessionStorage.getItem( 'store' ) );
+      console.log( this.store );
       this.init();
     }
+    this.init();
 
   }
 
@@ -81,12 +85,9 @@ export class DailySalesReportComponent implements OnInit, OnChanges {
     this.filters.storeId = '';
     this.role = this.auth.getUserRol();
 
-    if ( this.role === 'admin' ) {
-      this.loadStores();
-      this.fields.splice( 1, 0, 'Tienda' );
-    }
+    if ( this.role === 'admin' ) { this.fields.splice( 1, 0, 'Tienda' ); }
 
-    if ( this.store || this.role === 'admin' ) {
+    if ( Object.entries( this.store ).length !== 0 || this.role === 'admin' ) {
       this.loadData();
     }
   }
@@ -119,22 +120,6 @@ export class DailySalesReportComponent implements OnInit, OnChanges {
     this.reports.dailySalesProducts( params ).subscribe( response => {
       this.products = response.result;
       this.showalert = response.result.length;
-    } );
-  }
-
-  private loadStores( page = 1 ): void {
-    // Reportes no llevan paginacion
-    let params = '';
-
-    params = `report=false`;
-
-    this.reports.membershipActiveShop( page, params ).subscribe( result => {
-      this.stores = result.docs;
-      this.paginate = { ...result };
-      this.paginate.pages = [];
-      for ( let i = 1; i <= this.paginate.totalPages; i++ ) {
-        this.paginate.pages.push( i );
-      }
     } );
   }
 
