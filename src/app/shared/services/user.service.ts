@@ -4,6 +4,7 @@ import { Observable, Observer } from 'rxjs';
 import { User } from '../classes/user';
 import { map } from 'rxjs/operators';
 import { AuthResponse } from '../classes/auth-response';
+import { Store } from '../classes/store';
 
 @Injectable( {
   providedIn: 'root'
@@ -15,7 +16,7 @@ export class UserService {
   ) { }
 
 
-  userInvited( ): Observable<AuthResponse> {
+  userInvited(): Observable<AuthResponse> {
     return this.http.post( `users/invited` );
   }
 
@@ -140,6 +141,23 @@ export class UserService {
    */
   generateAffiliateCode( storeId: string, userId: string ): Observable<any> {
     return this.http.get( `users/affiliate//program?store=${storeId}&user=${userId}` );
+  }
+
+  /*
+   ---------------------------------------------
+   ---------------  UserStores  -----------------
+   ---------------------------------------------
+  */
+
+  myStores(): Observable<Store[]> {
+    console.log( this.getUserActive()._id )
+    return this.http.get( `users/mystores/registered?user=${this.getUserActive()._id}` ).pipe(
+      map( res => {
+        const stores: Store[] = [];
+        res.result.forEach( res => stores.push( res.store_data[ 0 ] ) );
+        return stores;
+      } )
+    );
   }
 
 }

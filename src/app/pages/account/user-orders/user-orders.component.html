@@ -11,12 +11,8 @@
 				<div class="table-responsive">
 					<table class="table table-responsive-xs">
 						<thead>
-							<tr class="table-head">
-								<!-- <th scope="col">pedido nro</th> -->
-								<th scope="col">tienda</th>
-								<th id="small-col" scope="col">total</th>
-								<th scope="col">fecha de emisión</th>
-								<th scope="col">estatus de entrega</th>
+							<tr class="table-head text-center">
+								<th *ngFor="let field of fields" scope="col">{{field}}</th>
 							</tr>
 						</thead>
 						<tbody *ngFor="let order of orders">
@@ -35,15 +31,20 @@
 									</div>
 								</td>
 								<td>
-									<p class="td-color">
-										{{ order.amount | currency }}
-									</p>
+									<p class="td-color">{{ order.amount | currency }}</p>
 								</td>
 								<td>
 									<p>{{ order.created_at | date }}</p>
 								</td>
 								<td>
 									<p class="font-weight-bold text-capitalize">{{ order.status }}</p>
+								</td>
+								<td>
+									<!-- Ver detalles -->
+									<a (click)="OrderDetails.openModal(order)" class="btn btn-table-action" ngbPopover="Ver detalle"
+										triggers="mouseenter:mouseleave">
+										<i class="fa fa-eye fa-lg" style="color: Dodgerblue"></i>
+									</a>
 								</td>
 							</tr>
 						</tbody>
@@ -64,3 +65,5 @@
 		</div>
 	</div>
 </section>
+
+<app-order-details #orderDetails></app-order-details>
