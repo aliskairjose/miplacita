@@ -59,14 +59,9 @@ export class ProductsComponent implements OnChanges, AfterViewInit {
   role: string;
   storeSelected = '';
 
-  @Input() store: Store;
+  @Input() store: Store = {};
 
   ngOnChanges( changes: SimpleChanges ): void {
-    this.shopService.storeObserver().subscribe( ( store: Store ) => {
-      if ( this.auth.getUserRol() === 'merchant' ) {
-        this.store = store;
-      }
-    } );
     this.init();
   }
 
@@ -118,11 +113,11 @@ export class ProductsComponent implements OnChanges, AfterViewInit {
   }
 
   private init(): void {
-    if ( this.store || this.role === 'admin' ) {
+    if ( Object.entries( this.store ).length !== 0 || this.role === 'admin' ) {
       this.loadData();
     }
 
-    if ( this.store ) {
+    if ( Object.entries( this.store ).length !== 0 ) {
       const params = `store=${this.store._id}`;
 
       forkJoin(
