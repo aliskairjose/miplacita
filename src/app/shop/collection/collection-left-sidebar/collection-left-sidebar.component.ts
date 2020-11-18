@@ -37,6 +37,7 @@ export class CollectionLeftSidebarComponent implements OnInit {
   mobileSidebar = false;
   loader = true;
   params: string;
+  noData = false;
   private _storeId = '';
 
   constructor(
@@ -113,12 +114,16 @@ export class CollectionLeftSidebarComponent implements OnInit {
   loadProductList( page = 1 ): void {
     this.params = `${this.params}&stock=true`;
     this.productService.productList( page, this.params ).subscribe( ( result: Result<Product> ) => {
+      console.log( result.docs.length );
+      ( result.docs.length ) ? this.noData = false : this.noData = true;
+      console.log( this.noData );
 
       if ( this._storeId ) {
         this.products = result.docs.filter( item => item.store._id === this._storeId );
       } else {
         this.products = [ ...result.docs ];
       }
+
       this.paginate = { ...result };
       this.paginate.pages = [];
       for ( let i = 1; i <= this.paginate.totalPages; i++ ) {

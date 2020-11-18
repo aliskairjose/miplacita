@@ -78,7 +78,7 @@
 												</div>
 												<hr>
 											</div>
-											<div class="col-sm-12 text-center section-b-space mt-5 no-found" *ngIf="!products.length">
+											<div class="col-sm-12 text-center section-b-space mt-5 no-found" *ngIf="noData">
 												<img src="assets/images/empty-search.jpg" class="img-fluid mb-4">
 												<h3>Lo sentimos! no hay resultados para tu búsqueda</h3>
 												<a [routerLink]="['/shop/collection/left/sidebar']" class="btn btn-solid">Continuar
