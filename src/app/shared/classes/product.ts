@@ -7,7 +7,7 @@ export interface Product {
   color?: any; // Id del color
   size?: any; // Id del tamaño,
   description?: string;
-  price?: string;
+  price?: number;
   colors?: string[];
   store_id?: string;
   status?: string;
@@ -16,7 +16,7 @@ export interface Product {
   images?: Images[];
   stock?: number;
   store?: any;
-  tax?: string;
+  tax?: number;
   marketplace?: boolean;
   featured?: boolean;
   sold?: number;

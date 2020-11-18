@@ -48,7 +48,7 @@ export class OrdersComponent implements OnInit, OnChanges {
   icon = 'fa fa-edit fa-lg';
   isUpdating = false;
 
-  @Input() store: Store;
+  @Input() store: Store = {};
 
   @ViewChild( 'orderDetails' ) OrderDetails: OrderDetailsComponent;
   /** variable provisional */
@@ -65,11 +65,6 @@ export class OrdersComponent implements OnInit, OnChanges {
 
   ngOnChanges( changes: SimpleChanges ): void {
     this.role = this.auth.getUserRol();
-    if ( this.role === 'merchant' ) {
-      this.shopService.storeObserver().subscribe( ( store: Store ) => {
-        this.store = store;
-      } );
-    }
     this.init();
   }
 
@@ -132,7 +127,7 @@ export class OrdersComponent implements OnInit, OnChanges {
 
     if ( this.role === 'admin' ) { this.fields.splice( 1, 0, 'Tienda' ); }
 
-    if ( this.store || this.role === 'admin' ) {
+    if ( Object.entries( this.store ).length !== 0 || this.role === 'admin' ) {
       this.loadData();
     }
   }

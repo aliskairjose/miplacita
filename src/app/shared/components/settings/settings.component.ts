@@ -10,7 +10,6 @@ import { ShopService } from '../../services/shop.service';
 import { Store } from 'src/app/shared/classes/store';
 import { ClipboardService } from 'ngx-clipboard';
 import { ToastrService } from 'ngx-toastr';
-import { ActivatedRoute } from '@angular/router';
 
 @Component( {
   selector: 'app-settings',
@@ -32,7 +31,6 @@ export class SettingsComponent implements OnInit {
   constructor(
     @Inject( PLATFORM_ID ) private platformId: object,
     public auth: AuthService,
-    private route: ActivatedRoute,
     private toast: ToastrService,
     private shopService: ShopService,
     private translate: TranslateService,
@@ -104,7 +102,6 @@ export class SettingsComponent implements OnInit {
   }
 
   private getAffiliate( storeId: string ): void {
-    console.log( 'getAffiliate', storeId )
     this.showBalance = true;
 
     this.shopService.getAffiliate( storeId, this.auth.getUserActive()._id ).subscribe( response => {
