@@ -38,6 +38,8 @@ export class CollectionLeftSidebarComponent implements OnInit {
   loader = true;
   params: string;
   noData = false;
+  hideFilters = false;
+
   private _storeId = '';
 
   constructor(
@@ -57,6 +59,8 @@ export class CollectionLeftSidebarComponent implements OnInit {
         }
 
         this._storeId = params.id;
+        if ( params.id ) { this.hideFilters = true; }
+
         const shops = [ ...shopsResult.docs ];
         const categories = [ ...categoriesResult ];
         const prices = [
