@@ -87,7 +87,6 @@ export class DashboardComponent implements OnInit {
     if (this.role === 'merchant'){
       params = `store=${this.store._id}`;
       this.dashboardService.dashboard_store(params).subscribe( ( data: any ) => {
-        console.log("----->", data);
         this.dashboardData = data.dashboard;
         if(this.dashboardData.sold_products.length>0){
           if(this.dashboardData.sold_products.length > 3){
@@ -101,10 +100,10 @@ export class DashboardComponent implements OnInit {
               // a must be equal to b
               return 0;
             });
-            for(let i= 0;i< 3;i++ ){
-              
-              let element: any = this.dashboardData.sold_products[i];
-              if(element.quantitySold>0){
+            for (let i = 0; i < 3; i++ ){
+
+              const element: any = this.dashboardData.sold_products[i];
+              if(element.quantitySold > 0){
                 this.doughnutChartLabels.push(element.name);
                 this.doughnutChartData.push(element.quantitySold);
               }

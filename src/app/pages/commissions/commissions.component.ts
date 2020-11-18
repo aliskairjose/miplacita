@@ -41,7 +41,6 @@ export class CommissionsComponent implements OnInit, OnChanges {
     this.submitted = true;
     if ( this.commissionsForm.valid ) {
       this.commissionService.updateCommission( this.commission._id, this.commissionsForm.value ).subscribe( response => {
-        console.log( response );
         if ( response.success ) {
           this.toastr.info( response.message[ 0 ] );
           this.commission = response.commissions;
