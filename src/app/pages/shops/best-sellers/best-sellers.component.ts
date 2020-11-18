@@ -2,11 +2,8 @@ import { Component, OnInit, Input, SimpleChanges, ViewChild, ElementRef, OnChang
 import { Paginate } from 'src/app/shared/classes/paginate';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { Store } from 'src/app/shared/classes/store';
-import { Product } from 'src/app/shared/classes/product';
-import { ExportService } from 'src/app/shared/services/export.service';
 import { CustomDateParserFormatterService } from '../../../shared/adapter/custom-date-parser-formatter.service';
 import { NgbDateStruct, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
-import { ToastrService } from 'ngx-toastr';
 import { ReportsService } from '../../../shared/services/reports.service';
 import { CategoryService } from '../../../shared/services/category.service';
 import { Filter } from '../../../shared/classes/filter';
@@ -32,6 +29,7 @@ export class BestSellersComponent implements OnInit, OnChanges {
   categoryId = '';
   stores: Store[] = [];
   filters: Filter = {};
+  hasStores: boolean;
 
   @Input() store: Store;
 
@@ -39,15 +37,15 @@ export class BestSellersComponent implements OnInit, OnChanges {
     private auth: AuthService,
     private reports: ReportsService,
     private ngbCalendar: NgbCalendar,
-    private exportDoc: ExportService,
     private categoriesSevice: CategoryService,
     private parseDate: CustomDateParserFormatterService
-  ) { }
+  ) {
+    this.hasStores = this.auth.getUserRol() === 'admin';
+  }
 
   ngOnInit(): void {
     this.role = this.auth.getUserRol();
     this.filters.storeId = '';
-    this.loadStores();
     this.init();
 
   }
@@ -71,21 +69,13 @@ export class BestSellersComponent implements OnInit, OnChanges {
   }
 
   private loadData(): void {
-    const params = `from=${this.filters.fechaIni}&to=${this.filters.fechaFin}&store=${this.filters.storeId}&category=${this.categoryId}`;
+    // const params = `from=${this.filters.fechaIni}&to=${this.filters.fechaFin}&store=${this.filters.storeId}&category=${this.categoryId}`;
+    let storeId = '';
+    ( this.auth.getUserRol() === 'admin' ) ? storeId = this.filters.storeId : storeId = this.store._id;
+    const params = `from=${this.filters.fechaIni}&to=${this.filters.fechaFin}&store=${storeId}`;
     this.reports.bestSellers( params ).subscribe( response => {
       this.bestSellers = [ ...response ];
     } );
   }
 
-  private loadStores(): void {
-    this.reports.membershipActiveShop( 1, `report=false` ).subscribe( result => {
-      this.stores = result.docs;
-    } );
-  }
-
-  private loadStoreCategories(): void {
-    const params = `store=${this.store._id}`;
-    this.categoriesSevice.getSubcategory( params ).subscribe( subcategories => {
-    } );
-  }
 }
