@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Order } from 'src/app/shared/classes/order';
 import { OrderService } from '../../../shared/services/order.service';
 import { User } from '../../../shared/classes/user';
 import { Result } from '../../../shared/classes/response';
 import { AuthService } from '../../../shared/services/auth.service';
 import { Paginate } from '../../../shared/classes/paginate';
+import { OrderDetailsComponent } from '../../../shared/components/order-details/order-details.component';
 
 @Component( {
   selector: 'app-user-orders',
@@ -13,9 +14,17 @@ import { Paginate } from '../../../shared/classes/paginate';
 } )
 export class UserOrdersComponent implements OnInit {
 
-  orders: Order[] = [];
+  fields = [
+    'Tienda',
+    'Total',
+    'Fecha de emisión',
+    'Estado',
+    'Acción'
+  ]; orders: Order[] = [];
   paginate: Paginate;
   private _user: User = {};
+
+  @ViewChild( 'orderDetails' ) OrderDetails: OrderDetailsComponent;
 
   constructor(
     private auth: AuthService,
