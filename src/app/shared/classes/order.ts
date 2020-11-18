@@ -1,7 +1,7 @@
-import { Product } from './product';
 import { User } from './user';
 import { Store } from './store';
 import { ShipmentOption } from './shipment-option';
+
 export interface Order {
   _id?: string;
   status?: string;
@@ -13,6 +13,7 @@ export interface Order {
   store?: Store;
   shipment_option?: ShipmentOption;
   items?: Item[];
+  address?: Address;
 }
 
 export interface Item {
@@ -24,5 +25,14 @@ export interface Item {
   unit_price?: number;
   total_price?: number; // unit_price   x quantity
 }
+
+export interface Address {
+  id: string;
+  address?: string;
+  landMark?: string;
+  location?: [];
+  phone?: number;
+}
+
 
 
