@@ -56,7 +56,6 @@ export class HeaderOneComponent implements OnInit, OnChanges, AfterViewInit {
 
   ngAfterViewInit(): void {
     this.route.queryParams.subscribe( queryParams => {
-      console.log( queryParams )
       if ( Object.entries( queryParams ).length !== 0 ) {
         if ( queryParams.config ) {
           const decod = window.atob( queryParams.config );
