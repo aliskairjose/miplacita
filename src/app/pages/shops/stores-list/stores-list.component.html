@@ -1,54 +1,54 @@
 <ngx-spinner bdColor="rgba(0, 0, 0, 0.3)" size="medium" color="#fff" type="ball-spin-clockwise" [fullScreen]="true">
-    <p style="color: white"> Por favor espere... </p>
+	<p style="color: white"> Por favor espere... </p>
 </ngx-spinner>
 
 <!-- section start -->
 <section class="section-b-space">
-    <div class="container ">
-        <div class="checkout-page">
+	<div class="container ">
+		<div class="checkout-page">
 			<div class="checkout-form">
-                <div class="page-title">
-                    <h2 class="mp-title">
-                        <span>Mis tiendas</span>
-                    </h2>
-                </div>
-                <div class="container">
-                    <div class="row">
-                        <div class="col theme-tab">
-                            <div>
-                                <div class="no-slider row">
-                                    <ng-container *ngFor="let store of stores | slice:0:8">
-                                        <div class="store-box">
-                                            <app-shop-card [store]="store">
-                                            </app-shop-card>
-                                        </div>
-                                    </ng-container>
-                                </div>
-                                <div class="form-row container justify-content-center " *ngIf="stores.length==0">
-                                    <div class="col-md-5">
-                                        <div class="card text-center mx-auto mb-2">
-                                            <div class="card-body" *ngIf="user.role == 'merchant'">
-                                                <p>
-                                                    Aún no has creado tu primera tienda.
-                                                    Configura una tienda y empieza a vender!
-                                                </p>
-                                                <a class="btn btn-solid-purple" [routerLink]="['/pages/account/user/admin-store']">
-                                                    Configurar tienda
-                                                </a>
-                                            </div>
-                                            <div class="card-body" *ngIf="user.role == 'client'">
-                                                <p>
-                                                    Aún no has realizado ninguna compra.
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+				<div class="page-title">
+					<h2 class="mp-title">
+						<span>Mis tiendas</span>
+					</h2>
+				</div>
+				<div class="container">
+					<div class="row">
+						<div class="col theme-tab">
+							<div>
+								<div class="no-slider row">
+									<ng-container *ngFor="let store of stores | slice:0:8">
+										<div class="store-box">
+											<app-shop-card [store]="store">
+											</app-shop-card>
+										</div>
+									</ng-container>
+								</div>
+								<div class="form-row container justify-content-center " *ngIf="stores.length==0">
+									<div class="col-md-5">
+										<div class="card text-center mx-auto mb-2">
+											<div class="card-body" *ngIf="user.role == 'merchant'">
+												<p>
+													Aún no has creado tu primera tienda.
+													Configura una tienda y empieza a vender!
+												</p>
+												<a class="btn btn-solid-purple" [routerLink]="['/pages/account/user/admin-store']">
+													Configurar tienda
+												</a>
+											</div>
+											<div class="card-body" *ngIf="user.role == 'client'">
+												<p>
+													Aún no has realizado ninguna compra.
+												</p>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
-    </div>
+	</div>
 </section>
