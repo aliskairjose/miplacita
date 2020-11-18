@@ -65,11 +65,6 @@ export class OrdersComponent implements OnInit, OnChanges {
 
   ngOnChanges( changes: SimpleChanges ): void {
     this.role = this.auth.getUserRol();
-    // if ( this.role === 'merchant' ) {
-    //   this.shopService.storeObserver().subscribe( ( store: Store ) => {
-    //     this.store = store;
-    //   } );
-    // }
     this.init();
   }
 
