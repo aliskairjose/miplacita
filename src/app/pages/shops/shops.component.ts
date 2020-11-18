@@ -46,7 +46,6 @@ export class ShopsComponent implements OnInit, OnChanges {
   }
 
   deactivateStore( store: Store ): void {
-    console.log( store );
     this.confirmationDialogService
       .confirm(
         'Por favor confirme...',

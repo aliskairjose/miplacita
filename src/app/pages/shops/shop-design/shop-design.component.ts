@@ -8,6 +8,9 @@ import { NgbCarousel } from '@ng-bootstrap/ng-bootstrap';
 import { Store, Config } from '../../../shared/classes/store';
 import { ShopService } from '../../../shared/services/shop.service';
 import { forkJoin } from 'rxjs';
+import { AuthService } from 'src/app/shared/services/auth.service';
+import { User } from 'src/app/shared/classes/user';
+import { auth } from 'firebase';
 
 @Component( {
   selector: 'app-shop-design',
@@ -32,29 +35,24 @@ export class ShopDesignComponent implements OnInit, OnChanges {
 
   @Input() store: Store;
   @Output() updateShop: EventEmitter<Store> = new EventEmitter<Store>();
-
+  user: User;
   constructor(
     private shopService: ShopService,
     private toastrService: ToastrService,
+    private authService: AuthService
   ) {
 
   }
   ngOnChanges( changes: SimpleChanges ): void {
     this.shopService.storeObserver().subscribe( ( store: Store ) => {
       this.store = store;
-      this.color = this.store.config.color;
-      this.banners = this.store.config.images;
-      this.imageLogo = [ this.store.logo ];
-
-      this.fontSelected = this.store.config.font;
+      this.getStoreInfo();
     } );
   }
 
   ngOnInit(): void {
-    this.color = this.store.config.color;
-    this.banners = this.store.config.images;
-    this.fontSelected = this.store.config.font;
-    this.imageLogo = [ this.store.logo ];
+    this.user = this.authService.getUserActive();
+    this.getStoreInfo();
   }
 
   updateShopConfig(): void {
@@ -80,19 +78,19 @@ export class ShopDesignComponent implements OnInit, OnChanges {
       this.updateShop.emit( this.store );
 
     }
+
     if ( this.bannersDelete.length ) {
       for ( const image of this.bannersDelete ) {
         this.shopService.deleteBanner( this.store._id, image._id ).subscribe( ( result ) => {
-          if ( result.success ) { this.toastrService.info( result.message[ 0 ] ); }
+          if ( result.success ) { 
+            this.toastrService.info( result.message[ 0 ] ); }
         } );
       }
     }
-
     if ( this.imageLogo.length && this.changeLogo ) {
       this.updateLogo();
-    } else {
-      this.updateConfig();
     }
+
   }
 
   private updateLogo() {
@@ -145,7 +143,6 @@ export class ShopDesignComponent implements OnInit, OnChanges {
    * @param images Banners
    */
   uploadBanner( images: string[] ): void {
-    console.log( images )
     this.images = [ ...images ];
   }
 
@@ -163,10 +160,20 @@ export class ShopDesignComponent implements OnInit, OnChanges {
   }
 
   deleteBanner( image ) {
-    console.log( image );
     this.bannersDelete.push( image );
 
   }
 
+  getStoreInfo(){
+    const params = `store=${this.store._id}&owner_id=${this.user._id}`;
+    this.shopService.storeList(1, params).subscribe((response) => {
+      const tmpStore = response.docs[0];
+      this.color = tmpStore.config.color;
+      this.banners = tmpStore.config.images;
+      this.fontSelected = tmpStore.config.font;
+      this.imageLogo = [ tmpStore.logo ];
+      this.store = tmpStore;
+    });
+  }
 
 }

@@ -25,7 +25,7 @@ export class UploadImageComponent implements OnInit, AfterViewInit, OnChanges, O
   @Input() type = '';
   @Output() uploadImage: EventEmitter<Array<string>> = new EventEmitter<Array<string>>();
   @Output() deleteImage: EventEmitter<Array<any>> = new EventEmitter<Array<any>>();
-
+  imagesToSend = [];
   constructor(
     private toastrService: ToastrService,
     private toast: ToastrService,
@@ -48,7 +48,8 @@ export class UploadImageComponent implements OnInit, AfterViewInit, OnChanges, O
   ngOnDestroy(){
     this.imagesObject = [];
   }
-  upload( files ): void {
+
+  async upload( files ) {
 
     const limit = 102400;
 
@@ -74,26 +75,26 @@ export class UploadImageComponent implements OnInit, AfterViewInit, OnChanges, O
       this.toastrService.warning( 'Solo se permiten archivos de tipo imagen' );
       return;
     }
-
+    this.imagesToSend = [];
     if ( files && files.length ) {
       for ( const file of files ) {
-        const reader = new FileReader();
+        const reader = await  new FileReader();
         reader.readAsDataURL( file );
-        reader.onload = () => {
-          const imageBase64 = reader.result as string;
-          this.imageBase( imageBase64, files.length );
+        reader.onload = async () => {
+          const imageBase64 = await reader.result as string;
+          this.images.push( imageBase64 );
+          this.imagesToSend.push( imageBase64 );
+          this.imageBase( this.imagesToSend, files.length );
         };
       }
+
     }
   }
 
-  private imageBase( image: string, length: number ): void {
-    let images = [];
-    this.images.push( image );
-    images.push( image );
-    if ( images.length === length ) {
-      this.uploadImage.emit( images );
-      images = [];
+  private imageBase( image: string[], length: number ): void {
+    if ( this.imagesToSend.length === length ) {
+      this.uploadImage.emit( this.imagesToSend );
+      this.imagesToSend = [];
     }
   }
 

@@ -41,6 +41,11 @@
     height: 40px;
     margin-top: -7px;
 }
+
+label {
+    line-height: 25px;
+    word-break: word-break;
+}
 @media(min-width: 576px){
     .color-fonts {
         display: flex;
