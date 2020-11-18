@@ -15,16 +15,19 @@
 			<div class="table-responsive mt-3">
 				<table class="table cart-table table-responsive-xs" id="mp-table" #TABLE>
 					<thead>
-						<tr class="table-head text-center">
+						<tr class="table-head text-center" *ngIf="role === 'merchant'">
 							<th *ngFor="let field of fields" scope="col">{{field}}</th>
+						</tr>
+						<tr class="table-head text-center" *ngIf="role === 'admin'">
+							<th *ngFor="let field of adminFields" scope="col">{{field}}</th>
 						</tr>
 					</thead>
 					<tbody>
 						<tr *ngFor="let client of clients">
 							<td class="text-center">{{client.fullname}}</td>
 							<td class="text-center">{{ client.email }}</td>
-							<td class="text-center">{{ client.created_at | date }}</td>
-							<td class="text-center text-capitalize">{{ client.role }}</td>
+							<td class="text-center" *ngIf="role === 'admin'">{{ client.created_at | date }}</td>
+							<td class="text-center text-capitalize" *ngIf="role === 'admin'">{{ client.role }}</td>
 							<td class="text-center">
 								<a class="btn btn-table-action" (click)="Interests.openModal(client)">
 									<i class="fa fa-search fa-lg" style="color: Dodgerblue"></i>
