@@ -114,15 +114,14 @@ export class CollectionLeftSidebarComponent implements OnInit {
   loadProductList( page = 1 ): void {
     this.params = `${this.params}&stock=true`;
     this.productService.productList( page, this.params ).subscribe( ( result: Result<Product> ) => {
-      console.log( result.docs.length );
-      ( result.docs.length ) ? this.noData = false : this.noData = true;
-      console.log( this.noData );
 
       if ( this._storeId ) {
         this.products = result.docs.filter( item => item.store._id === this._storeId );
       } else {
         this.products = [ ...result.docs ];
       }
+
+      ( this.products.length ) ? this.noData = false : this.noData = true;
 
       this.paginate = { ...result };
       this.paginate.pages = [];

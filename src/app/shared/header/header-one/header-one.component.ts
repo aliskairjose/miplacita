@@ -56,18 +56,22 @@ export class HeaderOneComponent implements OnInit, OnChanges, AfterViewInit {
 
   ngAfterViewInit(): void {
     this.route.queryParams.subscribe( queryParams => {
+      console.log( queryParams )
       if ( Object.entries( queryParams ).length !== 0 ) {
-        const decod = window.atob( queryParams.config );
-        const store: Store = JSON.parse( decod );
-        this.shopService.customizeShop( store.config );
-        this.settings.setStore( store );
-        this.themeLogo = store.logo;
+        if ( queryParams.config ) {
+          const decod = window.atob( queryParams.config );
+          const store: Store = JSON.parse( decod );
+          this.shopService.customizeShop( store.config );
+          this.settings.setStore( store );
+          this.themeLogo = store.logo;
+        }
+        if ( queryParams.id ) { this.storeInfo( queryParams.id ); }
       }
     } );
   }
 
   ngOnChanges( changes: SimpleChanges ): void {
-    if ( Object.entries( changes?.store?.currentValue ).length !== 0 ) {
+    if ( changes.store && Object.entries( changes?.store?.currentValue ).length !== 0 ) {
       this.settings.setStore( changes.store.currentValue );
     }
   }
@@ -93,6 +97,14 @@ export class HeaderOneComponent implements OnInit, OnChanges, AfterViewInit {
     } );
   }
 
+  private storeInfo( id: string ) {
+    this.shopService.getStore( id ).subscribe( res => {
+      console.log( res.result );
+      this.settings.setStore( res.result );
+      this.shopService.customizeShop( res.result.config );
+      this.themeLogo = res.result.logo;
+    } );
+  }
   /**
    * @description Cierra sesión
    */
