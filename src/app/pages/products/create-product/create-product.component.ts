@@ -77,6 +77,7 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
   disabled = true;
   plan: Plan;
   changeImage = false;
+  marketplaceCheck = false;
 
   @Input() store: Store = {};
   @Output() reload: EventEmitter<boolean> = new EventEmitter<boolean>();
@@ -319,6 +320,7 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
   private loadProductData( id: string ): void {
     this.productService.productList( 1, `product=${id}` ).subscribe( ( response: Result<Product> ) => {
       this.productData = { ...response.docs[ 0 ] };
+      this.marketplaceCheck = this.productData.marketplace;
       this.images = this.productData.images;
       this.selectedCategory = this.productData.category;
       this.statusSelected = this.productData.status;
