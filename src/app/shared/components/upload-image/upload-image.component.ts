@@ -38,7 +38,9 @@ export class UploadImageComponent implements OnInit, AfterViewInit, OnChanges, O
 
   }
   ngOnChanges( ): void {
+    console.log("change", this.imagesObject);
     if (this.imagesObject.length){
+      this.images = [];
       this.imagesObject.map((image: any) => {
         this.images.push(image.url);
       });
@@ -56,7 +58,6 @@ export class UploadImageComponent implements OnInit, AfterViewInit, OnChanges, O
     for ( const key in files ) {
       if ( Object.prototype.hasOwnProperty.call( files, key ) ) {
         const file = files[ key ];
-        console.log(file.size, file.size > limit, limit);
         if ( file.size > limit ) {
           this.toast.warning( 'La imagen es demasiado grande' );
           return;
@@ -104,8 +105,13 @@ export class UploadImageComponent implements OnInit, AfterViewInit, OnChanges, O
   }
 
   delete( idItem ) {
-    this.deleteImage.emit(this.imagesObject[idItem]);
-    this.images.splice( idItem, 1 );
+    if (this.images.length === 1){
+      this.toastrService.warning( 'Debes conservar al menos una imagen para tu tienda' );
+    } else {
+      console.log("imagesObject",this.imagesObject, this.images, idItem, this.imagesObject[idItem]);
+      this.deleteImage.emit(this.imagesObject[idItem]);
+      this.images.splice( idItem, 1 );
+    }
   }
 
 }
