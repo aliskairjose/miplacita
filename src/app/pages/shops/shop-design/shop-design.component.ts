@@ -58,41 +58,43 @@ export class ShopDesignComponent implements OnInit, OnChanges {
   updateShopConfig(): void {
     const data = { color: this.color, font: this.fontSelected };
 
-    if ( this.images.length ) {
-      forkJoin( [
-        this.shopService.config( this.store._id, data ),
-        this.shopService.uploadImages( { images: this.images } )
-      ] )
-        .subscribe( ( [ configResponse, imageResponse ] ) => {
-          if ( configResponse.success ) {
-            this.store = { ...configResponse.result };
-            this.toastrService.info( configResponse.message[ 0 ] );
-          }
+    // if ( this.images.length ) {
 
-          if ( imageResponse.status === 'isOk' ) {
-            console.log(imageResponse.status, imageResponse.images);
-            const promises = [];
-            imageResponse.images.forEach(image => {
-              promises.push(
-                this.shopService.addBanner( this.store._id, { url: image } ).subscribe( _result => {
-                  if ( _result.success ) { this.toastrService.info( _result.message[ 0 ] ); }
-                } )
-              );
-            });
-            Promise.all(promises).then(promisesAll => {
-              console.log(promisesAll, "adding");
-            });
-          }
-        } );
-      this.updateShop.emit( this.store );
+    // }
 
-    }
+    forkJoin( [
+      this.shopService.config( this.store._id, data ),
+      this.shopService.uploadImages( { images: this.images } )
+    ] )
+      .subscribe( ( [ configResponse, imageResponse ] ) => {
+        if ( configResponse.success ) {
+          this.store = { ...configResponse.result };
+          this.toastrService.info( configResponse.message[ 0 ] );
+        }
+
+        if ( imageResponse.status === 'isOk' ) {
+          console.log( imageResponse.status, imageResponse.images );
+          const promises = [];
+          imageResponse.images.forEach( image => {
+            promises.push(
+              this.shopService.addBanner( this.store._id, { url: image } ).subscribe( _result => {
+                if ( _result.success ) { this.toastrService.info( _result.message[ 0 ] ); }
+              } )
+            );
+          } );
+          Promise.all( promises ).then( promisesAll => {
+            console.log( promisesAll, 'adding' );
+          } );
+        }
+      } );
+    this.updateShop.emit( this.store );
 
     if ( this.bannersDelete.length ) {
       for ( const image of this.bannersDelete ) {
         this.shopService.deleteBanner( this.store._id, image._id ).subscribe( ( result ) => {
-          if ( result.success ) { 
-            this.toastrService.info( result.message[ 0 ] ); }
+          if ( result.success ) {
+            this.toastrService.info( result.message[ 0 ] );
+          }
         } );
       }
     }
@@ -173,16 +175,16 @@ export class ShopDesignComponent implements OnInit, OnChanges {
 
   }
 
-  getStoreInfo(){
+  getStoreInfo() {
     const params = `store=${this.store._id}&owner_id=${this.user._id}`;
-    this.shopService.storeList(1, params).subscribe((response) => {
-      const tmpStore = response.docs[0];
+    this.shopService.storeList( 1, params ).subscribe( ( response ) => {
+      const tmpStore = response.docs[ 0 ];
       this.color = tmpStore.config.color;
       this.banners = tmpStore.config.images;
       this.fontSelected = tmpStore.config.font;
       this.imageLogo = [ tmpStore.logo ];
       this.store = tmpStore;
-    });
+    } );
   }
 
 }
