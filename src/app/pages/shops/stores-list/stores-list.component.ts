@@ -22,7 +22,9 @@ export class StoresListComponent implements OnInit, OnChanges {
     this.user = this.auth.getUserActive();
   }
   ngOnChanges( changes: SimpleChanges ): void {
-    this.myStores();
+    if (this.user.role === 'client') {
+      this.myStores();
+    }
   }
 
   ngOnInit(): void {
