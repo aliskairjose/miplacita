@@ -44,10 +44,11 @@ export class ShopDesignComponent implements OnInit, OnChanges {
 
   }
   ngOnChanges( changes: SimpleChanges ): void {
-    this.shopService.storeObserver().subscribe( ( store: Store ) => {
-      this.store = store;
+    if ( changes.store.currentValue.name !== changes.store.previousValue.name ) {
+      this.banners.length = 0;
+      this.user = this.authService.getUserActive();
       this.getStoreInfo();
-    } );
+    }
   }
 
   ngOnInit(): void {
@@ -73,7 +74,7 @@ export class ShopDesignComponent implements OnInit, OnChanges {
 
     // actualiza los banners si hay banners nuevos para agregar
     if ( this.images.length ) {
-      this.shopService.uploadImages( { images: this.images } ).subscribe( ( [ imageResponse ] ) => {
+      this.shopService.uploadImages( { images: this.images } ).subscribe( imageResponse => {
         if ( imageResponse.status === 'isOk' ) {
           const promises = [];
           imageResponse.images.forEach( image => {
@@ -84,7 +85,6 @@ export class ShopDesignComponent implements OnInit, OnChanges {
             );
           } );
           Promise.all( promises ).then( promisesAll => {
-            console.log( promisesAll );
             this.ngOnInit();
           } );
         }
@@ -93,7 +93,6 @@ export class ShopDesignComponent implements OnInit, OnChanges {
     }
     // actualiza los banners si hay que eliminar alguno ya existente
     if ( this.bannersDelete.length ) {
-      console.log( 'banners para eliminar', this.bannersDelete );
       const promises = [];
       for ( const image of this.bannersDelete ) {
         promises.push(
@@ -105,7 +104,6 @@ export class ShopDesignComponent implements OnInit, OnChanges {
         );
       }
       Promise.all( promises ).then( promisesResponse => {
-        console.log( 'deleted' );
         this.ngOnInit();
       } );
     }
@@ -132,9 +130,7 @@ export class ShopDesignComponent implements OnInit, OnChanges {
   private updateStoreLogo( data: any ) {
     this.shopService.updateStore( this.store._id, data ).subscribe( response => {
       if ( response.success ) {
-        // this.store = { ...response.store };
         this.toastrService.info( response.message[ 0 ] );
-        //this.updateShop.emit( this.store );
         this.getStoreInfo();
       }
     } );
@@ -170,6 +166,7 @@ export class ShopDesignComponent implements OnInit, OnChanges {
    */
   uploadBanner( images: string[] ): void {
     this.images = [ ...images ];
+    console.log( this.images )
   }
 
   /**
@@ -186,15 +183,12 @@ export class ShopDesignComponent implements OnInit, OnChanges {
   }
 
   deleteBanner( image ) {
-    console.log( image, this.bannersDelete );
     if ( image !== undefined ) {
       this.bannersDelete.push( image );
-      console.log( image, this.bannersDelete );
     }
   }
 
   getStoreInfo() {
-    console.log( 'actualiza la tienda' );
     const params = `store=${this.store._id}&owner_id=${this.user._id}`;
     this.shopService.storeList( 1, params ).subscribe( ( response ) => {
       const tmpStore = response.docs[ 0 ];
@@ -203,7 +197,6 @@ export class ShopDesignComponent implements OnInit, OnChanges {
       this.fontSelected = tmpStore.config.font;
       this.imageLogo = [ tmpStore.logo ];
       this.store = tmpStore;
-      console.log( this.banners, this.store );
       this.updateShop.emit( this.store );
     } );
   }

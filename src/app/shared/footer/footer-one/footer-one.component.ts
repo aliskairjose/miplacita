@@ -16,6 +16,7 @@ export class FooterOneComponent implements OnInit {
   @Input() newsletter = true;
   path = '/shop/collection/left/sidebar?name=&category=';
   menuItems: Category[] = [];
+
   public today: number = Date.now();
 
   constructor(
