@@ -56,12 +56,8 @@ export class ShopDesignComponent implements OnInit, OnChanges {
   }
 
   updateShopConfig(): void {
-    console.log( 'updateShopConfig', this.store.config.font !== this.fontSelected )
-    console.log( 'updateShopConfig', this.store.config.color !== this.color )
     // actualiza el color y la fuente si hay cambios
-    if ( this.store.config.font !== this.fontSelected ||
-      this.store.config.color !== this.color ) {
-
+    if ( this.store.config.font !== this.fontSelected || this.store.config.color !== this.color ) {
       const data = { color: this.color, font: this.fontSelected };
       this.shopService.config( this.store._id, data ).subscribe( ( result ) => {
         if ( result.success ) {
