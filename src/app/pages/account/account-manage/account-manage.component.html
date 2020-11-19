@@ -91,7 +91,7 @@
 					<app-user-orders></app-user-orders>
 				</div>
 				<div *ngIf="active==='stores'" class="" id="contact" user.role="tabpanel">
-					<div *ngIf="user.role==='merchant' || user.role==='client' ">
+					<div *ngIf="user.role !== 'admin'">
 						<app-stores-list [stores]="stores"></app-stores-list>
 					</div>
 					<app-shops *ngIf="user.role==='admin'"></app-shops>
@@ -253,7 +253,7 @@
 					<div *ngIf="active=='admin-store' && subtab=='referrals-list'" id="referrals">
 						<app-referrals [store]="selectedStore"></app-referrals>
 					</div>
-					
+
 				</div>
 				<!-- Reportes -->
 				<div *ngIf="active==='reports'" class="" id="reports">

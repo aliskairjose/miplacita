@@ -24,25 +24,10 @@ export class StoresListComponent implements OnInit, OnChanges {
     this.user = this.auth.getUserActive();
   }
   ngOnChanges( changes: SimpleChanges ): void {
-    if ( this.auth.getUserRol() === 'client' ) {
-      this.myStores();
-    }
-
-    if ( this.auth.getUserRol() === 'merchant' ) {
-      this.myOwnStores();
-    }
+    if ( this.auth.getUserRol() === 'client' ) { this.myStores(); }
   }
 
   ngOnInit(): void {
-  }
-
-  /**
-   * @description Tiendas propiedad del merchant
-   */
-  myOwnStores(): void {
-    // this.shopService.getMyStores( this.auth.getUserActive()._id ).subscribe( res => {
-    //   console.log( res );
-    // } )
   }
 
   /**
