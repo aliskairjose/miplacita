@@ -24,7 +24,7 @@ export class StoresListComponent implements OnInit, OnChanges {
     this.user = this.auth.getUserActive();
   }
   ngOnChanges( changes: SimpleChanges ): void {
-    if ( this.auth.getUserRol() === 'cliente' ) {
+    if ( this.auth.getUserRol() === 'client' ) {
       this.myStores();
     }
 
@@ -49,7 +49,6 @@ export class StoresListComponent implements OnInit, OnChanges {
    * @description Tiendas donde el cliente ha comprado
    */
   private myStores(): void {
-    console.log( 'Mis tiendas' );
     this.userService.myStores().subscribe( stores => {
       this.stores = [ ...stores ];
     } );

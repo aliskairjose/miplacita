@@ -56,7 +56,20 @@ export class ShopDesignComponent implements OnInit, OnChanges {
   }
 
   updateShopConfig(): void {
-    const data = { color: this.color, font: this.fontSelected };
+    // actualiza el color y la fuente si hay cambios
+    if ( this.store.config.font !== this.fontSelected ||
+      this.store.config.color !== this.color ) {
+
+      const data = { color: this.color, font: this.fontSelected };
+      this.shopService.config( this.store._id, data ).subscribe( ( result ) => {
+        if ( result.success ) {
+          this.store.config.color = this.color;
+          this.store.config.font = this.fontSelected;
+          // actualizar store output
+          this.updateShop.emit( this.store );
+        }
+      } );
+    }
 
     // if ( this.images.length ) {
 
@@ -90,14 +103,24 @@ export class ShopDesignComponent implements OnInit, OnChanges {
     this.updateShop.emit( this.store );
 
     if ( this.bannersDelete.length ) {
+      console.log( 'banners para eliminar', this.bannersDelete );
+      const promises = [];
       for ( const image of this.bannersDelete ) {
-        this.shopService.deleteBanner( this.store._id, image._id ).subscribe( ( result ) => {
-          if ( result.success ) {
-            this.toastrService.info( result.message[ 0 ] );
-          }
-        } );
+        promises.push(
+          this.shopService.deleteBanner( this.store._id, image._id ).subscribe( ( result ) => {
+            if ( result.success ) {
+              this.toastrService.info( result.message[ 0 ] );
+            }
+          } )
+        );
       }
+      Promise.all( promises ).then( promisesResponse => {
+        console.log( 'deleted' );
+        this.ngOnInit();
+      } );
     }
+
+    // actualiza el logo de la tienda si hay uno nuevo
     if ( this.imageLogo.length && this.changeLogo ) {
       this.updateLogo();
     }
@@ -110,6 +133,7 @@ export class ShopDesignComponent implements OnInit, OnChanges {
         let storeData: Store = {};
         storeData = { ...this.store, logo: result.images[ 0 ] };
         this.updateStoreLogo( storeData );
+
       }
     } );
 
@@ -118,9 +142,10 @@ export class ShopDesignComponent implements OnInit, OnChanges {
   private updateStoreLogo( data: any ) {
     this.shopService.updateStore( this.store._id, data ).subscribe( response => {
       if ( response.success ) {
-        this.store = { ...response.store };
+        // this.store = { ...response.store };
         this.toastrService.info( response.message[ 0 ] );
-        this.updateShop.emit( this.store );
+        //this.updateShop.emit( this.store );
+        this.getStoreInfo();
       }
     } );
   }
@@ -171,8 +196,11 @@ export class ShopDesignComponent implements OnInit, OnChanges {
   }
 
   deleteBanner( image ) {
-    this.bannersDelete.push( image );
-
+    console.log( image, this.bannersDelete );
+    if ( image !== undefined ) {
+      this.bannersDelete.push( image );
+      console.log( image, this.bannersDelete );
+    }
   }
 
   getStoreInfo() {
@@ -184,6 +212,7 @@ export class ShopDesignComponent implements OnInit, OnChanges {
       this.fontSelected = tmpStore.config.font;
       this.imageLogo = [ tmpStore.logo ];
       this.store = tmpStore;
+      this.updateShop.emit( this.store );
     } );
   }
 
