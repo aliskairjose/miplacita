@@ -3,6 +3,7 @@ import { Store } from 'src/app/shared/classes/store';
 import { User } from 'src/app/shared/classes/user';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { UserService } from '../../../shared/services/user.service';
+import { ShopService } from '../../../shared/services/shop.service';
 
 @Component( {
   selector: 'app-stores-list',
@@ -17,17 +18,36 @@ export class StoresListComponent implements OnInit, OnChanges {
   constructor(
     private auth: AuthService,
     private userService: UserService,
+    private shopService: ShopService,
 
   ) {
     this.user = this.auth.getUserActive();
   }
   ngOnChanges( changes: SimpleChanges ): void {
-    this.myStores();
+    if ( this.auth.getUserRol() === 'cliente' ) {
+      this.myStores();
+    }
+
+    if ( this.auth.getUserRol() === 'merchant' ) {
+      this.myOwnStores();
+    }
   }
 
   ngOnInit(): void {
   }
 
+  /**
+   * @description Tiendas propiedad del merchant
+   */
+  myOwnStores(): void {
+    // this.shopService.getMyStores( this.auth.getUserActive()._id ).subscribe( res => {
+    //   console.log( res );
+    // } )
+  }
+
+  /**
+   * @description Tiendas donde el cliente ha comprado
+   */
   private myStores(): void {
     console.log( 'Mis tiendas' );
     this.userService.myStores().subscribe( stores => {
