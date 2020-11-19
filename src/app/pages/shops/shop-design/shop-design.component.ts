@@ -44,10 +44,11 @@ export class ShopDesignComponent implements OnInit, OnChanges {
 
   }
   ngOnChanges( changes: SimpleChanges ): void {
-    this.shopService.storeObserver().subscribe( ( store: Store ) => {
-      this.store = store;
+    if ( changes.store.currentValue.name !== changes.store.previousValue.name ) {
+      this.banners.length = 0;
+      this.user = this.authService.getUserActive();
       this.getStoreInfo();
-    } );
+    }
   }
 
   ngOnInit(): void {
@@ -57,9 +58,7 @@ export class ShopDesignComponent implements OnInit, OnChanges {
 
   updateShopConfig(): void {
     // actualiza el color y la fuente si hay cambios
-    if ( this.store.config.font !== this.fontSelected ||
-      this.store.config.color !== this.color ) {
-
+    if ( this.store.config.font !== this.fontSelected || this.store.config.color !== this.color ) {
       const data = { color: this.color, font: this.fontSelected };
       this.shopService.config( this.store._id, data ).subscribe( ( result ) => {
         if ( result.success ) {
@@ -75,7 +74,7 @@ export class ShopDesignComponent implements OnInit, OnChanges {
 
     // actualiza los banners si hay banners nuevos para agregar
     if ( this.images.length ) {
-      this.shopService.uploadImages( { images: this.images } ).subscribe( ( [ imageResponse ] ) => {
+      this.shopService.uploadImages( { images: this.images } ).subscribe( imageResponse => {
         if ( imageResponse.status === 'isOk' ) {
           const promises = [];
           imageResponse.images.forEach( image => {
@@ -131,9 +130,7 @@ export class ShopDesignComponent implements OnInit, OnChanges {
   private updateStoreLogo( data: any ) {
     this.shopService.updateStore( this.store._id, data ).subscribe( response => {
       if ( response.success ) {
-        // this.store = { ...response.store };
         this.toastrService.info( response.message[ 0 ] );
-        //this.updateShop.emit( this.store );
         this.getStoreInfo();
       }
     } );
@@ -169,6 +166,7 @@ export class ShopDesignComponent implements OnInit, OnChanges {
    */
   uploadBanner( images: string[] ): void {
     this.images = [ ...images ];
+    console.log( this.images )
   }
 
   /**

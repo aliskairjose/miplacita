@@ -40,6 +40,7 @@ export class StorePageComponent implements OnInit, AfterViewInit {
 
     this.route.url.subscribe( ( url ) => {
       this.storeService.getStoreByUrl( url[ 0 ].path.toLocaleLowerCase() ).subscribe( store => {
+        console.log( store )
         this.store = { ...store };
         sessionStorage.setItem( 'sessionStore', JSON.stringify( store ) );
         this.sliders = this.store.config.images;

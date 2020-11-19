@@ -248,7 +248,7 @@
 					<app-shipping-zones *ngIf="active=='admin-store' && subtab=='shipping'" [store]="selectedStore">
 					</app-shipping-zones>
 					<app-create-referrals *ngIf="active=='admin-store' && subtab=='create-referrals'" [store]="selectedStore"
-						(reload)="reload($event)">
+						(updateShop)="updateShop($event)">
 					</app-create-referrals>
 					<div *ngIf="active=='admin-store' && subtab=='referrals-list'" id="referrals">
 						<app-referrals [store]="selectedStore"></app-referrals>

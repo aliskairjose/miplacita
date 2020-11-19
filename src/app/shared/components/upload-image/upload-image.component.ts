@@ -37,16 +37,16 @@ export class UploadImageComponent implements OnInit, AfterViewInit, OnChanges, O
   ngAfterViewInit() {
 
   }
-  ngOnChanges( ): void {
-    if (this.imagesObject.length){
+  ngOnChanges(): void {
+    if ( this.imagesObject.length ) {
       this.images = [];
-      this.imagesObject.map((image: any) => {
-        this.images.push(image.url);
-      });
+      this.imagesObject.map( ( image: any ) => {
+        this.images.push( image.url );
+      } );
     }
   }
 
-  ngOnDestroy(){
+  ngOnDestroy() {
     this.imagesObject = [];
   }
 
@@ -79,7 +79,7 @@ export class UploadImageComponent implements OnInit, AfterViewInit, OnChanges, O
     this.imagesToSend = [];
     if ( files && files.length ) {
       for ( const file of files ) {
-        const reader = await  new FileReader();
+        const reader = await new FileReader();
         reader.readAsDataURL( file );
         reader.onload = async () => {
           const imageBase64 = await reader.result as string;
@@ -104,10 +104,10 @@ export class UploadImageComponent implements OnInit, AfterViewInit, OnChanges, O
   }
 
   delete( idItem ) {
-    if (this.images.length === 1){
+    if ( this.images.length === 1 ) {
       this.toastrService.warning( 'Debes conservar al menos una imagen para tu tienda' );
     } else {
-      this.deleteImage.emit(this.imagesObject[idItem]);
+      this.deleteImage.emit( this.imagesObject[ idItem ] );
       this.images.splice( idItem, 1 );
     }
   }
