@@ -71,37 +71,31 @@ export class ShopDesignComponent implements OnInit, OnChanges {
       } );
     }
 
-    // if ( this.images.length ) {
+    // actualiza los banners si hay banners nuevos para agregar
+    if ( this.images.length ) {
+      forkJoin( [
+        this.shopService.uploadImages( { images: this.images } )
+      ] )
+        .subscribe( ( [ imageResponse ] ) => {
 
-    // }
+          if ( imageResponse.status === 'isOk' ) {
+            const promises = [];
+            imageResponse.images.forEach( image => {
+              promises.push(
+                this.shopService.addBanner( this.store._id, { url: image } ).subscribe( _result => {
+                  if ( _result.success ) { this.toastrService.info( _result.message[ 0 ] ); }
+                } )
+              );
+            } );
+            Promise.all( promises ).then( promisesAll => {
+              console.log( promisesAll );
+              this.ngOnInit();
+            } );
+          }
+        } );
 
-    forkJoin( [
-      this.shopService.config( this.store._id, data ),
-      this.shopService.uploadImages( { images: this.images } )
-    ] )
-      .subscribe( ( [ configResponse, imageResponse ] ) => {
-        if ( configResponse.success ) {
-          this.store = { ...configResponse.result };
-          this.toastrService.info( configResponse.message[ 0 ] );
-        }
-
-        if ( imageResponse.status === 'isOk' ) {
-          console.log( imageResponse.status, imageResponse.images );
-          const promises = [];
-          imageResponse.images.forEach( image => {
-            promises.push(
-              this.shopService.addBanner( this.store._id, { url: image } ).subscribe( _result => {
-                if ( _result.success ) { this.toastrService.info( _result.message[ 0 ] ); }
-              } )
-            );
-          } );
-          Promise.all( promises ).then( promisesAll => {
-            console.log( promisesAll, 'adding' );
-          } );
-        }
-      } );
-    this.updateShop.emit( this.store );
-
+    }
+    // actualiza los banners si hay que eliminar alguno ya existente
     if ( this.bannersDelete.length ) {
       console.log( 'banners para eliminar', this.bannersDelete );
       const promises = [];
@@ -204,6 +198,7 @@ export class ShopDesignComponent implements OnInit, OnChanges {
   }
 
   getStoreInfo() {
+    console.log( 'actualiza la tienda' );
     const params = `store=${this.store._id}&owner_id=${this.user._id}`;
     this.shopService.storeList( 1, params ).subscribe( ( response ) => {
       const tmpStore = response.docs[ 0 ];
@@ -212,6 +207,7 @@ export class ShopDesignComponent implements OnInit, OnChanges {
       this.fontSelected = tmpStore.config.font;
       this.imageLogo = [ tmpStore.logo ];
       this.store = tmpStore;
+      console.log( this.banners, this.store );
       this.updateShop.emit( this.store );
     } );
   }
