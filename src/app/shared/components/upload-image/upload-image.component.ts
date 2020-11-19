@@ -38,7 +38,6 @@ export class UploadImageComponent implements OnInit, AfterViewInit, OnChanges, O
 
   }
   ngOnChanges( ): void {
-    console.log("change", this.imagesObject);
     if (this.imagesObject.length){
       this.images = [];
       this.imagesObject.map((image: any) => {
@@ -108,7 +107,6 @@ export class UploadImageComponent implements OnInit, AfterViewInit, OnChanges, O
     if (this.images.length === 1){
       this.toastrService.warning( 'Debes conservar al menos una imagen para tu tienda' );
     } else {
-      console.log("imagesObject",this.imagesObject, this.images, idItem, this.imagesObject[idItem]);
       this.deleteImage.emit(this.imagesObject[idItem]);
       this.images.splice( idItem, 1 );
     }

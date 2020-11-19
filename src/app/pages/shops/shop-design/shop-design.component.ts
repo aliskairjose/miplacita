@@ -56,8 +56,6 @@ export class ShopDesignComponent implements OnInit, OnChanges {
   }
 
   updateShopConfig(): void {
-    console.log( 'updateShopConfig', this.store.config.font !== this.fontSelected )
-    console.log( 'updateShopConfig', this.store.config.color !== this.color )
     // actualiza el color y la fuente si hay cambios
     if ( this.store.config.font !== this.fontSelected ||
       this.store.config.color !== this.color ) {
@@ -88,7 +86,6 @@ export class ShopDesignComponent implements OnInit, OnChanges {
             );
           } );
           Promise.all( promises ).then( promisesAll => {
-            console.log( promisesAll );
             this.ngOnInit();
           } );
         }
@@ -97,7 +94,6 @@ export class ShopDesignComponent implements OnInit, OnChanges {
     }
     // actualiza los banners si hay que eliminar alguno ya existente
     if ( this.bannersDelete.length ) {
-      console.log( 'banners para eliminar', this.bannersDelete );
       const promises = [];
       for ( const image of this.bannersDelete ) {
         promises.push(
@@ -109,7 +105,6 @@ export class ShopDesignComponent implements OnInit, OnChanges {
         );
       }
       Promise.all( promises ).then( promisesResponse => {
-        console.log( 'deleted' );
         this.ngOnInit();
       } );
     }
@@ -190,15 +185,12 @@ export class ShopDesignComponent implements OnInit, OnChanges {
   }
 
   deleteBanner( image ) {
-    console.log( image, this.bannersDelete );
     if ( image !== undefined ) {
       this.bannersDelete.push( image );
-      console.log( image, this.bannersDelete );
     }
   }
 
   getStoreInfo() {
-    console.log( 'actualiza la tienda' );
     const params = `store=${this.store._id}&owner_id=${this.user._id}`;
     this.shopService.storeList( 1, params ).subscribe( ( response ) => {
       const tmpStore = response.docs[ 0 ];
@@ -207,7 +199,6 @@ export class ShopDesignComponent implements OnInit, OnChanges {
       this.fontSelected = tmpStore.config.font;
       this.imageLogo = [ tmpStore.logo ];
       this.store = tmpStore;
-      console.log( this.banners, this.store );
       this.updateShop.emit( this.store );
     } );
   }
