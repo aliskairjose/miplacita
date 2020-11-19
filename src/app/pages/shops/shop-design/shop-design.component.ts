@@ -56,6 +56,8 @@ export class ShopDesignComponent implements OnInit, OnChanges {
   }
 
   updateShopConfig(): void {
+    console.log( 'updateShopConfig', this.store.config.font !== this.fontSelected )
+    console.log( 'updateShopConfig', this.store.config.color !== this.color )
     // actualiza el color y la fuente si hay cambios
     if ( this.store.config.font !== this.fontSelected ||
       this.store.config.color !== this.color ) {
@@ -63,36 +65,34 @@ export class ShopDesignComponent implements OnInit, OnChanges {
       const data = { color: this.color, font: this.fontSelected };
       this.shopService.config( this.store._id, data ).subscribe( ( result ) => {
         if ( result.success ) {
+          this.toastrService.info( 'Se ha actualizado el estilo de la tienda' );
           this.store.config.color = this.color;
           this.store.config.font = this.fontSelected;
           // actualizar store output
           this.updateShop.emit( this.store );
+          this.ngOnInit();
         }
       } );
     }
 
     // actualiza los banners si hay banners nuevos para agregar
     if ( this.images.length ) {
-      forkJoin( [
-        this.shopService.uploadImages( { images: this.images } )
-      ] )
-        .subscribe( ( [ imageResponse ] ) => {
-
-          if ( imageResponse.status === 'isOk' ) {
-            const promises = [];
-            imageResponse.images.forEach( image => {
-              promises.push(
-                this.shopService.addBanner( this.store._id, { url: image } ).subscribe( _result => {
-                  if ( _result.success ) { this.toastrService.info( _result.message[ 0 ] ); }
-                } )
-              );
-            } );
-            Promise.all( promises ).then( promisesAll => {
-              console.log( promisesAll );
-              this.ngOnInit();
-            } );
-          }
-        } );
+      this.shopService.uploadImages( { images: this.images } ).subscribe( ( [ imageResponse ] ) => {
+        if ( imageResponse.status === 'isOk' ) {
+          const promises = [];
+          imageResponse.images.forEach( image => {
+            promises.push(
+              this.shopService.addBanner( this.store._id, { url: image } ).subscribe( _result => {
+                if ( _result.success ) { this.toastrService.info( _result.message[ 0 ] ); }
+              } )
+            );
+          } );
+          Promise.all( promises ).then( promisesAll => {
+            console.log( promisesAll );
+            this.ngOnInit();
+          } );
+        }
+      } );
 
     }
     // actualiza los banners si hay que eliminar alguno ya existente
