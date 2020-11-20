@@ -180,6 +180,9 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
       this.deleted.map(image => {
         promises.push(
           this.productService.deletePhoto(this.productData._id, image._id).subscribe((result) => {
+            if (result.success) {
+              this.toastrService.info('Foto elminada con éxito');
+            }
           })
         );
       });
@@ -232,13 +235,27 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   private updateProduct( data: Product ): void {
-    this.productService.updateProduct( this.productData._id, data ).subscribe( ( response ) => {
-      if ( response.success ) {
-        this.toastrService.info( response.message[ 0 ] );
-        this.reload.emit( true );
-        this.close();
-      }
-    } );
+    const promises = [];
+    if (data.images) {
+      data.images.forEach(urlimage => {
+        promises.push(
+          this.productService.addProductoPhoto(this.productData._id, {url: urlimage.url}).subscribe(result => {
+            if (result.success) {
+              this.toastrService.info('Foto agregada al producto');
+            }
+          })
+        );
+      });
+      Promise.all(promises).then(result => {
+        this.productService.updateProduct( this.productData._id, data ).subscribe( ( response ) => {
+          if ( response.success ) {
+            this.toastrService.info( response.message[ 0 ] );
+            this.reload.emit( true );
+            this.close();
+          }
+        } );
+      });
+    }
   }
 
   /**
@@ -415,6 +432,8 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
     this.sizeChecked = false;
     this.productData = {};
     this.productData.name = '';
+    this.deleted = [];
+    this.deletePhoto = false;
 
     this.variableForm.reset();
     // this.variableForm.clearValidators();
@@ -540,13 +559,10 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
     if (image !== undefined){
       this.deletePhoto = true;
 
-      for(let i = 0; i < this.images.length; i++){
+      for (let i = 0; i < this.images.length; i++){
         if (this.images[i]._id === image._id) {
           this.deleted.push(image);
-          // this.images.splice(i, 1);
           i = this.images.length;
-          // this.productImages = this.images;
-          // this.productForm.value.images = this.images;
         }
       }
     }
