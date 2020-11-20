@@ -49,6 +49,10 @@
               </div>
             </div>
           </form>
+          <div class="row justify-content-center">
+            <a (click)="changeUser('merchant')" *ngIf="role === 'client'">Ingresar como vendedor</a>
+            <a (click)="changeUser('client')" *ngIf="role === 'merchant'">Ingresar como comprador</a>
+          </div>
         </div>
       </div>
     </div>

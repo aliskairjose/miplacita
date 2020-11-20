@@ -134,4 +134,8 @@ export class LoginComponent implements OnInit {
     } );
 
   }
+
+  changeUser(typeUser: string){
+    this.router.navigate(['pages/login'], {queryParams: {role: typeUser }});
+  }
 }
