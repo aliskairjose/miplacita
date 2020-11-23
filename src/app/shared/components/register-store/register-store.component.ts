@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
@@ -58,7 +58,7 @@ export class RegisterStoreComponent implements OnInit, OnChanges {
   ) {
     this.createForm();
   }
-  ngOnChanges( changes: SimpleChanges ): void {
+  ngOnChanges(): void {
     if ( !sessionStorage.userForm ) {
       this.user = { ...this._user };
     }
