@@ -45,7 +45,6 @@ export class LoginComponent implements OnInit {
 
     this.route.queryParams.subscribe( params => {
       if ( Object.keys( params ).length !== 0 ) {
-        console.log( params )
         this.url = params.url;
 
         if ( params.status ) { this.mustReturn = true; }
