@@ -140,11 +140,6 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   onSubmit(): void {
-<<<<<<< HEAD
-    console.log( "submit edit" );
-=======
-
->>>>>>> ac15b852adba57d655974f4e91777ba3a3f8eea5
     this.submitted = true;
     this.productForm.value.store = this.store._id;
     if ( !this.productForm.value.marketplace ) {
@@ -160,10 +155,6 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
         }
       }
       if ( this.changeImage && this.productImages.length ) {
-<<<<<<< HEAD
-        console.log( "change image" );
-=======
->>>>>>> ac15b852adba57d655974f4e91777ba3a3f8eea5
         this.productService.uploadImages( { images: this.productImages } ).subscribe( response => {
           if ( response.status === 'isOk' ) {
             const data: Product = { ...this.productForm.value };
@@ -183,20 +174,20 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
       }
 
     }
-    if (this.deletePhoto && this.deleted.length){
+    if ( this.deletePhoto && this.deleted.length ) {
       const promises = [];
-      this.deleted.map(image => {
+      this.deleted.map( image => {
         promises.push(
-          this.productService.deletePhoto(this.productData._id, image._id).subscribe((result) => {
-            if (result.success) {
-              this.toastrService.info('Foto elminada con éxito');
+          this.productService.deletePhoto( this.productData._id, image._id ).subscribe( ( result ) => {
+            if ( result.success ) {
+              this.toastrService.info( 'Foto elminada con éxito' );
             }
-          })
+          } )
         );
-      });
+      } );
 
-      Promise.all(promises).then(promisesAll => {
-      });
+      Promise.all( promises ).then( promisesAll => {
+      } );
 
     }
   }
@@ -243,8 +234,6 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   private updateProduct( data: Product ): void {
-<<<<<<< HEAD
-    console.log( data );
     this.productService.updateProduct( this.productData._id, data ).subscribe( ( response ) => {
       if ( response.success ) {
         this.toastrService.info( response.message[ 0 ] );
@@ -252,19 +241,18 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
         this.close();
       }
     } );
-=======
     const promises = [];
-    if (data.images) {
-      data.images.forEach(urlimage => {
+    if ( data.images ) {
+      data.images.forEach( urlimage => {
         promises.push(
-          this.productService.addProductoPhoto(this.productData._id, {url: urlimage.url}).subscribe(result => {
-            if (result.success) {
-              this.toastrService.info('Foto agregada al producto');
+          this.productService.addProductoPhoto( this.productData._id, { url: urlimage.url } ).subscribe( result => {
+            if ( result.success ) {
+              this.toastrService.info( 'Foto agregada al producto' );
             }
-          })
+          } )
         );
-      });
-      Promise.all(promises).then(result => {
+      } );
+      Promise.all( promises ).then( result => {
         this.productService.updateProduct( this.productData._id, data ).subscribe( ( response ) => {
           if ( response.success ) {
             this.toastrService.info( response.message[ 0 ] );
@@ -272,9 +260,8 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
             this.close();
           }
         } );
-      });
+      } );
     }
->>>>>>> ac15b852adba57d655974f4e91777ba3a3f8eea5
   }
 
   /**
@@ -571,21 +558,13 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
     if ( value === 'addSize' ) { this.openModalNewElement( 1 ); }
   }
 
-<<<<<<< HEAD
   deleteImage( image ) {
     if ( image !== undefined ) {
-      for ( let i = 0; i < this.images.length; i++ ) {
-        if ( this.images[ i ]._id === image._id ) {
-          this.images.splice( i, 1 );
-=======
-  deleteImage(image) {
-    if (image !== undefined){
       this.deletePhoto = true;
 
-      for (let i = 0; i < this.images.length; i++){
-        if (this.images[i]._id === image._id) {
-          this.deleted.push(image);
->>>>>>> ac15b852adba57d655974f4e91777ba3a3f8eea5
+      for ( let i = 0; i < this.images.length; i++ ) {
+        if ( this.images[ i ]._id === image._id ) {
+          this.deleted.push( image );
           i = this.images.length;
         }
       }
