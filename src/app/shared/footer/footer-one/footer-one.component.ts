@@ -1,8 +1,10 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { NavService, Menu } from '../../services/nav.service';
 import { CategoryService } from '../../services/category.service';
 import { Category } from '../../classes/category';
+import { Store } from '../../classes/store';
+import { ShopService } from '../../services/shop.service';
 
 @Component( {
   selector: 'app-footer-one',
@@ -16,10 +18,13 @@ export class FooterOneComponent implements OnInit {
   @Input() newsletter = true;
   path = '/shop/collection/left/sidebar?name=&category=';
   menuItems: Category[] = [];
+
   public today: number = Date.now();
 
   constructor(
     private router: Router,
+    private route: ActivatedRoute,
+    private shopService: ShopService,
     private categoryService: CategoryService ) {
 
   }
@@ -30,10 +35,26 @@ export class FooterOneComponent implements OnInit {
         this.menuItems.push( e );
       } );
     } );
+    this.route.queryParams.subscribe( queryParams => {
+      if ( Object.entries( queryParams ).length !== 0 ) {
+        if ( queryParams.config ) {
+          const decod = window.atob( queryParams.config );
+          const store: Store = JSON.parse( decod );
+          this.themeLogo = store.logo;
+        }
+        if ( queryParams.id ) { this.storeInfo( queryParams.id ); }
+      }
+    } );
   }
 
   routerTo( id ): void {
     this.router.navigateByUrl( `${this.path}${id}` );
+  }
+
+  private storeInfo( id: string ) {
+    this.shopService.getStore( id ).subscribe( res => {
+      this.themeLogo = res.result.logo;
+    } );
   }
 
 }

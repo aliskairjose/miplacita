@@ -84,10 +84,10 @@
                     <div class="my-3">
                       <p>{{ product?.description?.substring(0, 200)+'...' }}</p>
                     </div>
-                    <h6 class="product-title mb-2">Colores disponibles</h6>
+                    <h6 *ngIf="colors.length" class="product-title mb-2">Colores disponibles</h6>
                     <ul class="color-variant" *ngIf="colors.length">
-                      <li [class]="color" [class.active]="activeSlide == i.toString()"
-                        *ngFor="let color of colors; index as i" [ngStyle]="{'background-color': color.value}"
+                      <li [class]="color" *ngFor="let color of colors; index as i" 
+                      [class.active]="color.value == product.color.value" [ngStyle]="{'background-color': color.value}"
                         (click)="selectColor(color.products)">
                       </li>
                     </ul>
@@ -140,7 +140,7 @@
                   <div class="d-flex flex-column justify-content-end pb-3">
                     <h6 class="product-title">share it</h6>
                     <div class="product-icon">
-                      <app-social></app-social>
+                      <app-social [product]="product"></app-social>
                     </div>
                   </div>
                 </div>

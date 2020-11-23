@@ -32,6 +32,7 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
   showForm = false;
   newElement = true;
   disabledBtn = true;
+  deletePhoto = false;
   modal: any;
   modal2: any;
   modalOpen = false;
@@ -43,6 +44,7 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
   allVariations = [];
   subcategories = [];
   colors = [];
+  deleted = [];
   color = null;
   selectedColor: VariableProduct = {};
   colorChecked = false;
@@ -75,6 +77,7 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
   disabled = true;
   plan: Plan;
   changeImage = false;
+  marketplaceCheck = false;
 
   @Input() store: Store = {};
   @Output() reload: EventEmitter<boolean> = new EventEmitter<boolean>();
@@ -137,7 +140,6 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   onSubmit(): void {
-    console.log("submit edit");
     this.submitted = true;
     this.productForm.value.store = this.store._id;
     if ( !this.productForm.value.marketplace ) {
@@ -153,7 +155,6 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
         }
       }
       if ( this.changeImage && this.productImages.length ) {
-        console.log("change image");
         this.productService.uploadImages( { images: this.productImages } ).subscribe( response => {
           if ( response.status === 'isOk' ) {
             const data: Product = { ...this.productForm.value };
@@ -171,6 +172,22 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
       } else if ( !this.changeImage ) {
         this.updateProduct( this.productForm.value );
       }
+
+    }
+    if ( this.deletePhoto && this.deleted.length ) {
+      const promises = [];
+      this.deleted.map( image => {
+        promises.push(
+          this.productService.deletePhoto( this.productData._id, image._id ).subscribe( ( result ) => {
+            if ( result.success ) {
+              this.toastrService.info( 'Foto elminada con éxito' );
+            }
+          } )
+        );
+      } );
+
+      Promise.all( promises ).then( promisesAll => {
+      } );
 
     }
   }
@@ -217,7 +234,6 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   private updateProduct( data: Product ): void {
-    console.log(data);
     this.productService.updateProduct( this.productData._id, data ).subscribe( ( response ) => {
       if ( response.success ) {
         this.toastrService.info( response.message[ 0 ] );
@@ -225,6 +241,27 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
         this.close();
       }
     } );
+    const promises = [];
+    if ( data.images ) {
+      data.images.forEach( urlimage => {
+        promises.push(
+          this.productService.addProductoPhoto( this.productData._id, { url: urlimage.url } ).subscribe( result => {
+            if ( result.success ) {
+              this.toastrService.info( 'Foto agregada al producto' );
+            }
+          } )
+        );
+      } );
+      Promise.all( promises ).then( result => {
+        this.productService.updateProduct( this.productData._id, data ).subscribe( ( response ) => {
+          if ( response.success ) {
+            this.toastrService.info( response.message[ 0 ] );
+            this.reload.emit( true );
+            this.close();
+          }
+        } );
+      } );
+    }
   }
 
   /**
@@ -306,6 +343,7 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
   private loadProductData( id: string ): void {
     this.productService.productList( 1, `product=${id}` ).subscribe( ( response: Result<Product> ) => {
       this.productData = { ...response.docs[ 0 ] };
+      this.marketplaceCheck = this.productData.marketplace;
       this.images = this.productData.images;
       this.selectedCategory = this.productData.category;
       this.statusSelected = this.productData.status;
@@ -400,16 +438,16 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
     this.sizeChecked = false;
     this.productData = {};
     this.productData.name = '';
+    this.deleted = [];
+    this.deletePhoto = false;
 
     this.variableForm.reset();
-    // this.variableForm.clearValidators();
 
     this.productForm.reset();
     this.productForm.clearValidators();
     this.images = [];
     this.changeImage = false;
 
-    // this.productForm.updateValueAndValidity();
   }
 
   ngOnDestroy(): void {
@@ -513,7 +551,6 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
   selectSubcategory( subcategory ): void {
     this.selectedSubcategory = subcategory;
     this.productForm.value.subcategory = this.selectedSubcategory._id;
-
   }
 
   variableOptionSelected( value: string ): void {
@@ -521,19 +558,16 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
     if ( value === 'addSize' ) { this.openModalNewElement( 1 ); }
   }
 
-  deleteImage(image) {
-    console.log("createproduct",image);
-    if (image !== undefined){
-      for(let i = 0;i< this.images.length;i++){
-        if (this.images[i]._id === image._id) {
-          this.images.splice(i, 1);
+  deleteImage( image ) {
+    if ( image !== undefined ) {
+      this.deletePhoto = true;
+
+      for ( let i = 0; i < this.images.length; i++ ) {
+        if ( this.images[ i ]._id === image._id ) {
+          this.deleted.push( image );
           i = this.images.length;
-          this.changeImage = false;
-          this.productImages = this.images;
-          this.productForm.value.images = this.images;
         }
       }
-      console.log(this.images,this.productImages, this.productForm.value.images);
     }
   }
 }

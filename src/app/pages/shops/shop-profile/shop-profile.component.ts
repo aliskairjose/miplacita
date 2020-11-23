@@ -33,9 +33,7 @@ export class ShopProfileComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges( changes: SimpleChanges ): void {
-    this.shopService.storeObserver().subscribe( ( store: Store ) => {
-      this.store = store;
-    } );
+
   }
 
 

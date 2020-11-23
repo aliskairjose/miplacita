@@ -114,6 +114,7 @@ export class RegisterComponent implements OnInit {
   }
 
   registerFacebook(): void {
+    console.log( '------> Register Facebook', FacebookLoginProvider.PROVIDER_ID )
     this.socialService.signIn( FacebookLoginProvider.PROVIDER_ID );
   }
 

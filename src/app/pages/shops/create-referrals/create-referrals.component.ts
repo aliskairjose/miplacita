@@ -17,11 +17,10 @@ export class CreateReferralsComponent implements OnInit, OnChanges {
   submitted: boolean;
   required = environment.errorForm.required;
 
-  @Input() store: Store;
-  @Output() reload: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Input() store: Store = {};
+  @Output() updateShop: EventEmitter<Store> = new EventEmitter<Store>();
 
   constructor(
-    private auth: AuthService,
     private toastr: ToastrService,
     private shopService: ShopService,
     private formBuilder: FormBuilder,
@@ -30,13 +29,7 @@ export class CreateReferralsComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges( changes: SimpleChanges ): void {
-
-    // this.shopService.storeObserver().subscribe( ( store: Store ) => {
-    //   if ( this.auth.getUserRol() === 'merchant' ) {
-    //     this.store = store;
-    //     console.log( this.store );
-    //   }
-    // } );
+    console.log( this.store )
   }
 
   ngOnInit(): void {
@@ -48,10 +41,13 @@ export class CreateReferralsComponent implements OnInit, OnChanges {
     this.submitted = true;
     if ( this.referralForm.valid ) {
       this.shopService.updateAffiliate( this.store._id, this.referralForm.value ).subscribe( store => {
+        console.log( store );
+        store.affiliate_program_amount = this.referralForm.value.affiliate_program_amount;
         this.toastr.info( 'Información actualizada con exito' );
-        this.referralForm.reset();
+        // this.referralForm.reset();
         this.submitted = false;
-        this.reload.emit( true );
+        // this.store = store;
+        this.updateShop.emit( store );
       } );
     }
   }

@@ -131,7 +131,7 @@ export class ProductService {
    * @param id Id del producto al cual se agrega photo
    * @param data Url de la photo
    */
-  addProductoPhoto( id: string, data: string ): Observable<any> {
+  addProductoPhoto( id: string, data: any ): Observable<any> {
     return this.http.post( `products/${id}/photo`, data );
   }
 

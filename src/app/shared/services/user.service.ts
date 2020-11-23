@@ -150,11 +150,10 @@ export class UserService {
   */
 
   myStores(): Observable<Store[]> {
-    console.log( this.getUserActive()._id )
     return this.http.get( `users/mystores/registered?user=${this.getUserActive()._id}` ).pipe(
       map( res => {
         const stores: Store[] = [];
-        res.result.forEach( res => stores.push( res.store_data[ 0 ] ) );
+        res.result.forEach( ( res: any ) => stores.push( res.store_data[ 0 ] ) );
         return stores;
       } )
     );

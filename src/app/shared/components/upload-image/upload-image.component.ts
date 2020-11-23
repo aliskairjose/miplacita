@@ -15,6 +15,8 @@ import {
 export class UploadImageComponent implements OnInit, AfterViewInit, OnChanges, OnDestroy {
 
   fakeImage = 'assets/images/marketplace/images/placeholder_.jpg';
+  imagesToSend = [];
+
   @Input() images: Array<string> = [];
   @Input() imagesObject: Array<any> = [];
 
@@ -25,9 +27,8 @@ export class UploadImageComponent implements OnInit, AfterViewInit, OnChanges, O
   @Input() type = '';
   @Output() uploadImage: EventEmitter<Array<string>> = new EventEmitter<Array<string>>();
   @Output() deleteImage: EventEmitter<Array<any>> = new EventEmitter<Array<any>>();
-  imagesToSend = [];
+
   constructor(
-    private toastrService: ToastrService,
     private toast: ToastrService,
   ) { }
 
@@ -37,17 +38,16 @@ export class UploadImageComponent implements OnInit, AfterViewInit, OnChanges, O
   ngAfterViewInit() {
 
   }
-  ngOnChanges( ): void {
-    console.log("change", this.imagesObject);
-    if (this.imagesObject.length){
+  ngOnChanges(): void {
+    if ( this.imagesObject.length ) {
       this.images = [];
-      this.imagesObject.map((image: any) => {
-        this.images.push(image.url);
-      });
+      this.imagesObject.map( ( image: any ) => {
+        this.images.push( image.url );
+      } );
     }
   }
 
-  ngOnDestroy(){
+  ngOnDestroy() {
     this.imagesObject = [];
   }
 
@@ -69,18 +69,18 @@ export class UploadImageComponent implements OnInit, AfterViewInit, OnChanges, O
     const image = files[ 0 ];
     const mimeType = image.type;
     if ( files.length > 4 || this.images.length === 4 ) {
-      this.toastrService.warning( 'Máximo 4 imagenes' );
+      this.toast.warning( 'Máximo 4 imagenes' );
       return;
     }
 
     if ( mimeType.match( /image\/*/ ) == null ) {
-      this.toastrService.warning( 'Solo se permiten archivos de tipo imagen' );
+      this.toast.warning( 'Solo se permiten archivos de tipo imagen' );
       return;
     }
     this.imagesToSend = [];
     if ( files && files.length ) {
       for ( const file of files ) {
-        const reader = await  new FileReader();
+        const reader = await new FileReader();
         reader.readAsDataURL( file );
         reader.onload = async () => {
           const imageBase64 = await reader.result as string;
@@ -105,11 +105,10 @@ export class UploadImageComponent implements OnInit, AfterViewInit, OnChanges, O
   }
 
   delete( idItem ) {
-    if (this.images.length === 1){
-      this.toastrService.warning( 'Debes conservar al menos una imagen para tu tienda' );
+    if ( this.images.length === 1 ) {
+      this.toast.warning( 'Debes conservar al menos una imagen para tu tienda' );
     } else {
-      console.log("imagesObject",this.imagesObject, this.images, idItem, this.imagesObject[idItem]);
-      this.deleteImage.emit(this.imagesObject[idItem]);
+      this.deleteImage.emit( this.imagesObject[ idItem ] );
       this.images.splice( idItem, 1 );
     }
   }

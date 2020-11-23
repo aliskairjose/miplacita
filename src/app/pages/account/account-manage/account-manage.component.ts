@@ -79,10 +79,6 @@ export class AccountManageComponent implements OnInit, OnChanges {
     this.init();
   }
 
-  reload( event: boolean ): void {
-    if ( event ) { this.init(); }
-  }
-
   init(): void {
     let provisionalSubtab = '';
     this.route.url.subscribe( url => {
@@ -99,8 +95,9 @@ export class AccountManageComponent implements OnInit, OnChanges {
     } );
 
     // Se cargas las tiendas solo de merchant
-    if ( this.user.role === 'merchant' || this.user.role === 'client' ) {
+    if ( this.user.role === 'merchant' ) {
       this.shopService.getMyStores( this.user._id ).subscribe( stores => {
+        console.log( stores )
         if ( stores.docs.length ) {
           const _store = JSON.parse( sessionStorage.getItem( 'store' ) );
           this.stores = [ ...stores.docs ];
