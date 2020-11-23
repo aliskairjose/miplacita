@@ -45,7 +45,7 @@ export class LoginComponent implements OnInit {
 
     this.route.queryParams.subscribe( params => {
       if ( Object.keys( params ).length !== 0 ) {
-
+        console.log( params )
         this.url = params.url;
 
         if ( params.status ) { this.mustReturn = true; }
@@ -53,11 +53,11 @@ export class LoginComponent implements OnInit {
       }
     } );
 
-    this.route.url.subscribe((url) => {
-      if (url.length === 2) {
+    this.route.url.subscribe( ( url ) => {
+      if ( url.length === 2 ) {
         this.role = 'admin';
       }
-    });
+    } );
 
     this.socialService.authState.subscribe( ( response: FacebookLoginResponse ) => {
       const data = { fullname: '', token: '', email: '', role: '' };
@@ -114,11 +114,26 @@ export class LoginComponent implements OnInit {
   }
 
   private redirectAfterLogin(): void {
-    if ( this.mustReturn ) { this.router.navigate( [ 'shop/checkout/shipping' ] ); }
-    if ( this.mustReturnStore ) { this.router.navigate( [ this.url ] ); }
-    if ( this.role === 'client') { this.router.navigate( [ 'home' ] ); }
-    if ( this.role === 'merchant') { this.router.navigate( [ 'pages/account/user/profile' ] ); }
-    if ( this.role === 'admin' ) { this.router.navigate( [ 'pages/account/user/profile' ] ); }
+    if ( this.mustReturn ) {
+      this.router.navigate( [ 'shop/checkout/shipping' ] );
+      return;
+    }
+    if ( this.mustReturnStore ) {
+      this.router.navigate( [ this.url ] );
+      return;
+    }
+    if ( this.role === 'client' ) {
+      this.router.navigate( [ 'home' ] );
+      return;
+    }
+    if ( this.role === 'merchant' ) {
+      this.router.navigate( [ 'pages/account/user/profile' ] );
+      return;
+    }
+    if ( this.role === 'admin' ) {
+      this.router.navigate( [ 'pages/account/user/profile' ] );
+      return;
+    }
   }
 
   passwordRecovery() {
@@ -139,7 +154,7 @@ export class LoginComponent implements OnInit {
 
   }
 
-  changeUser(typeUser: string){
+  changeUser( typeUser: string ) {
     this.role = typeUser;
     if ( this.role === 'merchant' ) { this.title = 'como Vendedor'; }
 
