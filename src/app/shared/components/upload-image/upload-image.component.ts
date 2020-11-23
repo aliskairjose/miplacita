@@ -15,6 +15,8 @@ import {
 export class UploadImageComponent implements OnInit, AfterViewInit, OnChanges, OnDestroy {
 
   fakeImage = 'assets/images/marketplace/images/placeholder_.jpg';
+  imagesToSend = [];
+
   @Input() images: Array<string> = [];
   @Input() imagesObject: Array<any> = [];
 
@@ -25,9 +27,8 @@ export class UploadImageComponent implements OnInit, AfterViewInit, OnChanges, O
   @Input() type = '';
   @Output() uploadImage: EventEmitter<Array<string>> = new EventEmitter<Array<string>>();
   @Output() deleteImage: EventEmitter<Array<any>> = new EventEmitter<Array<any>>();
-  imagesToSend = [];
+
   constructor(
-    private toastrService: ToastrService,
     private toast: ToastrService,
   ) { }
 
@@ -68,12 +69,12 @@ export class UploadImageComponent implements OnInit, AfterViewInit, OnChanges, O
     const image = files[ 0 ];
     const mimeType = image.type;
     if ( files.length > 4 || this.images.length === 4 ) {
-      this.toastrService.warning( 'Máximo 4 imagenes' );
+      this.toast.warning( 'Máximo 4 imagenes' );
       return;
     }
 
     if ( mimeType.match( /image\/*/ ) == null ) {
-      this.toastrService.warning( 'Solo se permiten archivos de tipo imagen' );
+      this.toast.warning( 'Solo se permiten archivos de tipo imagen' );
       return;
     }
     this.imagesToSend = [];
@@ -105,7 +106,7 @@ export class UploadImageComponent implements OnInit, AfterViewInit, OnChanges, O
 
   delete( idItem ) {
     if ( this.images.length === 1 ) {
-      this.toastrService.warning( 'Debes conservar al menos una imagen para tu tienda' );
+      this.toast.warning( 'Debes conservar al menos una imagen para tu tienda' );
     } else {
       this.deleteImage.emit( this.imagesObject[ idItem ] );
       this.images.splice( idItem, 1 );

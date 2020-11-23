@@ -98,12 +98,12 @@ export class HeaderOneComponent implements OnInit, OnChanges, AfterViewInit {
 
   private storeInfo( id: string ) {
     this.shopService.getStore( id ).subscribe( res => {
-      console.log( res.result );
       this.settings.setStore( res.result );
       this.shopService.customizeShop( res.result.config );
       this.themeLogo = res.result.logo;
     } );
   }
+
   /**
    * @description Cierra sesión
    */

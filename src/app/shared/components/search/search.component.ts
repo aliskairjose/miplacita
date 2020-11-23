@@ -2,7 +2,7 @@ import { Component, OnInit, SimpleChanges, OnChanges, Output, EventEmitter, Inpu
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { Category } from '../../classes/category';
 import { Product } from '../../classes/product';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Store } from '../../classes/store';
 
 @Component( {
@@ -21,8 +21,9 @@ export class SearchComponent implements OnInit, OnChanges {
   @Output() productsFilter: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(
-    private formBuilder: FormBuilder,
     private router: Router,
+    private route: ActivatedRoute,
+    private formBuilder: FormBuilder,
   ) {
     this.createForm();
   }
@@ -32,6 +33,8 @@ export class SearchComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges( changes: SimpleChanges ): void {
+    this.route.queryParams.subscribe( q => this.searchForm.get( 'id' ).setValue( q?.id ) );
+
     if ( Object.entries( this.store ).length ) {
       this.searchForm.value.id = this.store._id;
     }
