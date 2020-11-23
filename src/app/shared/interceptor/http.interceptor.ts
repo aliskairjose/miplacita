@@ -50,7 +50,9 @@ export class HttpInterceptor implements HttpInterceptor {
             break;
           case 404:
             // this.router.navigate( [ 'pages/404' ] );
-            this.router.navigate( [ 'home' ] );
+            if (!response.url.includes('login')) {
+              this.router.navigate( [ 'home' ] );
+            }
             break;
           case 500:
             // Manejor de error

@@ -6,11 +6,11 @@
     height: 55vh;
 }
 .custom-front {
-    height: 50vh;
+    height: 30vh;
 }
 @supports (object-fit: contain) {
     .front a img {
-        max-height: 55vh;
+        max-height: 30vh;
         height: auto;
         object-fit: contain;
     }
@@ -46,7 +46,7 @@ h6 {
     }
 
     .front a img {
-        max-height: 45vh;
+        max-height: 30vh;
         height: auto;
     }
 

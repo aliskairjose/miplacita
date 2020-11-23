@@ -7,48 +7,105 @@
 <section class="login-page section-b-space">
   <div class="container">
     <div class="row justify-content-center">
+      <!-- TABS-->
       <div class="col-lg-5">
         <h3>Iniciar Sesión {{ title }}</h3>
-        <div class="theme-card">
-          <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="theme-form">
-            <div class="form-group ">
-              <label for="name">Correo electrónico</label>
-              <input type="email" formControlName="email" class="form-control" id="email" placeholder="" required
-                [ngClass]="{ 'is-invalid': submitted && f.email.errors }">
-              <div *ngIf="submitted && f.email.errors" class="invalid-feedback d-block">
-                <div *ngIf="f.email.errors.required"> {{ required }} </div>
-                <div *ngIf="f.email.errors.email"> {{ invalidEmail }} </div>
+        <ul ngbNav #nav="ngbNav" class="nav-tabs">
+          <li ngbNavItem>
+            <a ngbNavLink (click)="changeUser('client')">Comprador</a>
+            <ng-template ngbNavContent>
+              <div class="theme-card border-top-none">
+                <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="theme-form">
+                  <div class="form-group ">
+                    <label for="name">Correo electrónico</label>
+                    <input type="email" formControlName="email" class="form-control" id="email" placeholder="" required
+                      [ngClass]="{ 'is-invalid': submitted && f.email.errors }">
+                    <div *ngIf="submitted && f.email.errors" class="invalid-feedback d-block">
+                      <div *ngIf="f.email.errors.required"> {{ required }} </div>
+                      <div *ngIf="f.email.errors.email"> {{ invalidEmail }} </div>
+                    </div>
+                  </div>
+                  <div class="form-group ">
+                    <label for="name">Ingrese su contraseña</label>
+                    <input type="password" formControlName="password" class="form-control" id="review" placeholder=""
+                      required [ngClass]="{ 'is-invalid': submitted && f.password.errors }">
+                    <div *ngIf="submitted && f.password.errors" class="invalid-feedback d-block">
+                      <div *ngIf="f.password.errors.required"> {{ required }}
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group d-flex justify-content-end">
+                    <p>¿Olvidó su contraseña?, haga click <a href="javascript:void(0)" (click)="passwordRecovery()">
+                        aquí</a></p>
+                  </div>
+                  <div class="form-group text-center">
+
+                    <button type="submit" class="btn btn-login btn-lg w-100">Inciar sesión</button>
+                    <div class="row mt-1 mb-1 align-items-center separador">
+                      <hr>
+                      o
+                      <hr>
+                    </div>
+                    <div class="btn btn-fb btn-lg btn-block" (click)="loginFacebook()">
+                      <div class="row">
+                        <div class="col-md-1"> <i class="fa fa-facebook-square"></i> </div>
+                        <div class="col justify-content-center">Continuar con Facebook</div>
+                      </div>
+                    </div>
+                  </div>
+                </form>
               </div>
-            </div>
-            <div class="form-group ">
-              <label for="name">Ingrese su contraseña</label>
-              <input type="password" formControlName="password" class="form-control" id="review" placeholder="" required
-                [ngClass]="{ 'is-invalid': submitted && f.password.errors }">
-              <div *ngIf="submitted && f.password.errors" class="invalid-feedback d-block">
-                <div *ngIf="f.password.errors.required"> {{ required }}
-                </div>
+            </ng-template>
+          </li>
+          <li ngbNavItem>
+            <a ngbNavLink (click)="changeUser('merchant')">Vendedor</a>
+            <ng-template ngbNavContent>
+              <div class="theme-card border-top-none">
+                <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="theme-form">
+                  <div class="form-group ">
+                    <label for="name">Correo electrónico</label>
+                    <input type="email" formControlName="email" class="form-control" id="email" placeholder="" required
+                      [ngClass]="{ 'is-invalid': submitted && f.email.errors }">
+                    <div *ngIf="submitted && f.email.errors" class="invalid-feedback d-block">
+                      <div *ngIf="f.email.errors.required"> {{ required }} </div>
+                      <div *ngIf="f.email.errors.email"> {{ invalidEmail }} </div>
+                    </div>
+                  </div>
+                  <div class="form-group ">
+                    <label for="name">Ingrese su contraseña</label>
+                    <input type="password" formControlName="password" class="form-control" id="review" placeholder=""
+                      required [ngClass]="{ 'is-invalid': submitted && f.password.errors }">
+                    <div *ngIf="submitted && f.password.errors" class="invalid-feedback d-block">
+                      <div *ngIf="f.password.errors.required"> {{ required }}
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group d-flex justify-content-end">
+                    <p>¿Olvidó su contraseña?, haga click <a href="javascript:void(0)" (click)="passwordRecovery()">
+                        aquí</a></p>
+                  </div>
+                  <div class="form-group text-center">
+
+                    <button type="submit" class="btn btn-login btn-lg w-100">Inciar sesión</button>
+                    <div class="row mt-1 mb-1 align-items-center separador">
+                      <hr>
+                      o
+                      <hr>
+                    </div>
+                    <div class="btn btn-fb btn-lg btn-block" (click)="loginFacebook()">
+                      <div class="row">
+                        <div class="col-md-1"> <i class="fa fa-facebook-square"></i> </div>
+                        <div class="col justify-content-center">Continuar con Facebook</div>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+
               </div>
-            </div>
-            <div class="form-group d-flex justify-content-end">
-              <p>¿Olvidó su contraseña?, haga click <a href="javascript:void(0)" (click)="passwordRecovery()"> aquí</a>
-              </p>
-            </div>
-            <div class="form-group text-center">
-              <button type="submit" class="btn btn-login btn-lg w-100">Inciar sesión</button>
-              <div class="row mt-1 mb-1 align-items-center separador">
-                <hr>
-                o
-                <hr>
-              </div>
-              <div class="btn btn-fb btn-lg btn-block" (click)="loginFacebook()">
-                <div class="row">
-                  <div class="col-md-1"> <i class="fa fa-facebook-square"></i> </div>
-                  <div class="col justify-content-center">Continuar con Facebook</div>
-                </div>
-              </div>
-            </div>
-          </form>
-        </div>
+            </ng-template>
+          </li>
+        </ul>
+        <div [ngbNavOutlet]="nav"></div>
       </div>
     </div>
   </div>

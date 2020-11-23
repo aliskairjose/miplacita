@@ -20,9 +20,9 @@ export class LoginComponent implements OnInit {
   submitted: boolean;
   required = 'Campo obligatorio';
   invalidEmail = 'Email inválido';
-  role = 'admin';
+  role = 'client';
   url = '';
-  title: string;
+  title = 'como Comprador';
   mustReturn = false; // variable que indica que debe retornar al origen despues de login
   mustReturnStore = false; // variable que indica que debe retornar al origen despues de login
 
@@ -45,15 +45,19 @@ export class LoginComponent implements OnInit {
 
     this.route.queryParams.subscribe( params => {
       if ( Object.keys( params ).length !== 0 ) {
-        this.role = params.role;
-        this.url = params.url;
-        if ( params.role === 'merchant' ) { this.title = 'como Vendedor'; }
 
-        if ( params.role === 'client' ) { this.title = 'como Comprador'; }
+        this.url = params.url;
+
         if ( params.status ) { this.mustReturn = true; }
         if ( params.url ) { this.mustReturnStore = true; }
       }
     } );
+
+    this.route.url.subscribe((url) => {
+      if (url.length === 2) {
+        this.role = 'admin';
+      }
+    });
 
     this.socialService.authState.subscribe( ( response: FacebookLoginResponse ) => {
       const data = { fullname: '', token: '', email: '', role: '' };
@@ -83,7 +87,6 @@ export class LoginComponent implements OnInit {
           // Redireccionamiento al dashboard
           this.redirectAfterLogin();
         }
-
       } );
     }
   }
@@ -106,14 +109,15 @@ export class LoginComponent implements OnInit {
         this.storage.setLoginData( 'data', result );
         this.auth.authSubject( result.success );
         this.redirectAfterLogin();
-
       }
     } );
   }
 
   private redirectAfterLogin(): void {
-    ( this.mustReturn ) ? this.router.navigate( [ 'shop/checkout/shipping' ] ) : this.router.navigate( [ 'home' ] );
+    if ( this.mustReturn ) { this.router.navigate( [ 'shop/checkout/shipping' ] ); }
     if ( this.mustReturnStore ) { this.router.navigate( [ this.url ] ); }
+    if ( this.role === 'client') { this.router.navigate( [ 'home' ] ); }
+    if ( this.role === 'merchant') { this.router.navigate( [ 'pages/account/user/profile' ] ); }
     if ( this.role === 'admin' ) { this.router.navigate( [ 'pages/account/user/profile' ] ); }
   }
 
@@ -133,5 +137,12 @@ export class LoginComponent implements OnInit {
       }
     } );
 
+  }
+
+  changeUser(typeUser: string){
+    this.role = typeUser;
+    if ( this.role === 'merchant' ) { this.title = 'como Vendedor'; }
+
+    if ( this.role === 'client' ) { this.title = 'como Comprador'; }
   }
 }
