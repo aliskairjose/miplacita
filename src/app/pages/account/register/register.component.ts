@@ -34,7 +34,7 @@ export class RegisterComponent implements OnInit {
     password: '',
     passwordConfirmation: ''
   };
-  role: string;
+  role = 'client';
   url = '';
   title: string;
   mustReturnStore = false;
@@ -58,11 +58,8 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit(): void {
     const role = this.route.queryParams.subscribe( params => {
-      this.role = params.role;
       this.url = params.url;
 
-      if ( params.role === 'merchant' ) { this.title = 'como Vendedor'; }
-      if ( params.role === 'client' ) { this.title = 'como Comprador'; }
       if ( params.url ) { this.mustReturnStore = true; }
 
     } );
@@ -137,6 +134,13 @@ export class RegisterComponent implements OnInit {
         this.registerSuccess = true;
       }
     } );
+  }
+
+  changeUser( typeUser: string ) {
+    this.role = typeUser;
+    if ( this.role === 'merchant' ) { this.title = 'como Vendedor'; }
+
+    if ( this.role === 'client' ) { this.title = 'como Comprador'; }
   }
 
 }

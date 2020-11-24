@@ -19,6 +19,11 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {
+    path: 'register',
+    redirectTo: 'pages/register',
+    pathMatch: 'full'
+  },
+  {
     path: 'home',
     loadChildren: () => import( './home/home.module' ).then( m => m.HomeModule )
   },
