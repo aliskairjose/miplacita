@@ -39,6 +39,8 @@ export class RegisterComponent implements OnInit {
   title: string;
   mustReturnStore = false;
 
+  private emailPattern = environment.emailPattern;
+
   constructor(
     private router: Router,
     private auth: AuthService,
@@ -121,7 +123,7 @@ export class RegisterComponent implements OnInit {
       fullname: [ '', [ Validators.required, Validators.pattern( '[a-zA-Z ]*' ) ] ],
       password: [ '', [ Validators.required, Validators.minLength( 8 ) ] ],
       passwordConfirmation: [ '', Validators.required ],
-      email: [ '', [ Validators.required, Validators.email ] ],
+      email: [ '', [ Validators.required, Validators.pattern( this.emailPattern ) ] ],
     }, {
       validator: MustMatch( 'password', 'passwordConfirmation' )
     } );

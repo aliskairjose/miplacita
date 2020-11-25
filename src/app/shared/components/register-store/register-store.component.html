@@ -73,7 +73,7 @@
 									<input type="email" class="form-control" id="review" formControlName="email">
 									<div *ngIf="submitted && f.email.errors" class="invalid-feedback d-block">
 										<div *ngIf="f.email.errors.required"> {{ required }} </div>
-										<div *ngIf="f.email.errors.email"> {{ invalidEmail }} </div>
+										<div *ngIf="f.email.errors.pattern"> {{ invalidEmail }} </div>
 									</div>
 								</div>
 								<!-- Url -->

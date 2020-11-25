@@ -39,6 +39,7 @@ export class RegisterStoreComponent implements OnInit, OnChanges {
   isShow = true;
   imageLogo1 = [];
   private user: User = {};
+  private emailPattern = environment.emailPattern;
 
   @Input() register = true;
   @Input() modal = false;
@@ -178,7 +179,7 @@ export class RegisterStoreComponent implements OnInit, OnChanges {
       description: [ '', [ Validators.required ] ],
       url_store: [ '', [ Validators.required ] ],
       phone: [ '', [ Validators.required ] ],
-      email: [ '', [ Validators.required, Validators.email ] ],
+      email: [ '', [ Validators.required, Validators.pattern( this.emailPattern ) ] ],
       plan: [ '', [ Validators.required ] ],
       owner_id: [ '', [ Validators.nullValidator ] ],
       logo: [ '', [ Validators.nullValidator ] ]

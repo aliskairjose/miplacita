@@ -37,7 +37,7 @@
 										<label for="name">Correo electrónico</label>
 										<input type="email" formControlName="email" class="form-control" id="email" required=""
 											[(ngModel)]="user.email" [ngClass]="{ 'is-invalid': submitted && f.email.errors }">
-				
+
 										<div *ngIf="submitted && f.email.errors" class="invalid-feedback d-block">
 											<div *ngIf="f.email.errors.required"> {{ required }} </div>
 											<div *ngIf="f.email.errors.email"> {{ invalidEmail }} </div>
@@ -48,7 +48,7 @@
 										<label for="name">Ingrese su contraseña</label>
 										<input type="password" formControlName="password" class="form-control" id="password" required=""
 											[(ngModel)]="user.password" [ngClass]="{ 'is-invalid': submitted && f.password.errors }">
-				
+
 										<div *ngIf="submitted && f.password.errors" class="invalid-feedback d-block">
 											<div *ngIf="f.password.errors.required"> {{ required }}</div>
 											<div *ngIf="f.password.errors.minlength"> {{ minlength }}</div>
@@ -84,7 +84,7 @@
 											</div>
 										</div>
 									</div>
-				
+
 								</form>
 							</div>
 						</ng-template>
@@ -109,10 +109,10 @@
 										<label for="name">Correo electrónico</label>
 										<input type="email" formControlName="email" class="form-control" id="email" required=""
 											[(ngModel)]="user.email" [ngClass]="{ 'is-invalid': submitted && f.email.errors }">
-				
+
 										<div *ngIf="submitted && f.email.errors" class="invalid-feedback d-block">
 											<div *ngIf="f.email.errors.required"> {{ required }} </div>
-											<div *ngIf="f.email.errors.email"> {{ invalidEmail }} </div>
+											<div *ngIf="f.email.errors.pattern"> {{ invalidEmail }} </div>
 										</div>
 									</div>
 									<!-- Password -->
@@ -120,7 +120,7 @@
 										<label for="name">Ingrese su contraseña</label>
 										<input type="password" formControlName="password" class="form-control" id="password" required=""
 											[(ngModel)]="user.password" [ngClass]="{ 'is-invalid': submitted && f.password.errors }">
-				
+
 										<div *ngIf="submitted && f.password.errors" class="invalid-feedback d-block">
 											<div *ngIf="f.password.errors.required"> {{ required }}</div>
 											<div *ngIf="f.password.errors.minlength"> {{ minlength }}</div>
@@ -156,7 +156,7 @@
 											</div>
 										</div>
 									</div>
-				
+
 								</form>
 							</div>
 						</ng-template>

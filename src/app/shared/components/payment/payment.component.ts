@@ -69,7 +69,7 @@ export class PaymentComponent implements OnInit {
         {
           owner: this.card.owner,
           cvv: this.card.cvv,
-          cardnumber: this.card.cardnumber,
+          card_number: this.card.card_number,
           month: this.card.month,
           year: this.card.year
         }
@@ -80,16 +80,16 @@ export class PaymentComponent implements OnInit {
   onSubmit(): boolean {
     this.submitted = true;
     const tdc = {
-      cardnumber: 0,
+      card_number: 0,
       cvv: 0,
       owner: '',
       date: ''
     };
     const data: any = { valid: false, tdc: {} };
-    tdc.cardnumber = this.paymentForm.value.cardnumber;
+    tdc.card_number = this.paymentForm.value.card_number;
     tdc.cvv = this.paymentForm.value.cvv;
     tdc.owner = this.paymentForm.value.owner;
-    tdc.date = `${this.paymentForm.value.month}/${this.paymentForm.value.year}`
+    tdc.date = `${this.paymentForm.value.month}/${this.paymentForm.value.year}`;
     data.valid = this.paymentForm.valid;
     data.tdc = { ...tdc };
     return data;
@@ -121,7 +121,7 @@ export class PaymentComponent implements OnInit {
     this.paymentForm = this._formBuilder.group( {
       owner: [ '', [ Validators.required, Validators.pattern( '[a-zA-Z][a-zA-Z ]+[a-zA-Z]$' ) ] ],
       cvv: [ '', [ Validators.required, Validators.pattern( '[0-9]+' ) ] ],
-      cardnumber: [ '', [ Validators.required ] ],
+      card_number: [ '', [ Validators.required ] ],
       month: [ '', [ Validators.required ] ],
       year: [ '', [ Validators.required ] ]
     } );

@@ -20,10 +20,11 @@
                     <label for="name">Correo electrónico</label>
                     <input type="email" formControlName="email" class="form-control" id="email" placeholder="" required
                       [ngClass]="{ 'is-invalid': submitted && f.email.errors }">
-                    <div *ngIf="submitted && f.email.errors" class="invalid-feedback d-block">
-                      <div *ngIf="f.email.errors.required"> {{ required }} </div>
-                      <div *ngIf="f.email.errors.email"> {{ invalidEmail }} </div>
+                    <div *ngIf="submitted && f.email.errors?.required" class="invalid-feedback d-block">
+                      {{ required }}
                     </div>
+                    <div *ngIf="submitted && f.email.errors?.pattern" class="invalid-feedback d-block">
+                      {{ invalidEmail }} </div>
                   </div>
                   <div class="form-group ">
                     <label for="name">Ingrese su contraseña</label>
@@ -66,10 +67,11 @@
                     <label for="name">Correo electrónico</label>
                     <input type="email" formControlName="email" class="form-control" id="email" placeholder="" required
                       [ngClass]="{ 'is-invalid': submitted && f.email.errors }">
-                    <div *ngIf="submitted && f.email.errors" class="invalid-feedback d-block">
-                      <div *ngIf="f.email.errors.required"> {{ required }} </div>
-                      <div *ngIf="f.email.errors.email"> {{ invalidEmail }} </div>
+                    <div *ngIf="submitted && f.email.errors?.required" class="invalid-feedback d-block">
+                      {{ required }}
                     </div>
+                    <div *ngIf="submitted && f.email.errors?.pattern" class="invalid-feedback d-block">
+                      {{ invalidEmail }} </div>
                   </div>
                   <div class="form-group ">
                     <label for="name">Ingrese su contraseña</label>
