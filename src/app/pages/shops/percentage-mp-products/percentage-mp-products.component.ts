@@ -1,21 +1,21 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { Paginate } from 'src/app/shared/classes/paginate';
+import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { ReportsService } from 'src/app/shared/services/reports.service';
-import { ExportService } from 'src/app/shared/services/export.service';
 import { Store } from '../../../shared/classes/store';
 import { NgbDateStruct, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
 import { CustomDateParserFormatterService } from '../../../shared/adapter/custom-date-parser-formatter.service';
-import { ToastrService } from 'ngx-toastr';
 import { Filter } from '../../../shared/classes/filter';
+import { FiltersComponent } from '../../../shared/components/filters/filters.component';
 
 @Component( {
   selector: 'app-percentage-mp-products',
   templateUrl: './percentage-mp-products.component.html',
   styleUrls: [ './percentage-mp-products.component.scss' ]
 } )
-export class PercentageMpProductsComponent implements OnInit {
+export class PercentageMpProductsComponent implements OnInit, AfterViewInit {
+
   @ViewChild( 'TABLE', { read: ElementRef } ) table: ElementRef;
+  @ViewChild( 'filter' ) filterComponnt: FiltersComponent;
 
   fields = [ 'Fecha', 'Tipo', 'Tienda', 'Ganancia Total' ];
   fieldsHeader = [ '20% MP', '% Tienda' ];
@@ -33,6 +33,10 @@ export class PercentageMpProductsComponent implements OnInit {
     private reportService: ReportsService,
     private parseDate: CustomDateParserFormatterService,
   ) { }
+
+  ngAfterViewInit(): void {
+    this.filterComponnt.setElement( this.table )
+  }
 
   ngOnInit(): void {
     this.role = this.auth.getUserRol();
