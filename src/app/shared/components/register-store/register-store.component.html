@@ -77,22 +77,19 @@
 									</div>
 								</div>
 								<!-- Url -->
-								<div class="form-group">
+								<!-- <div class="form-group">
 									<div class="field-label" for="name">URL</div>
 									<input type="url" class="form-control" id="url_store" formControlName="url_store"
 										[(ngModel)]="urlStore">
 									<div *ngIf="submitted && f.url_store.errors?.required" class="invalid-feedback d-block">
 										{{ required }}
 									</div>
-									<div *ngIf="submitted && f.url_store.errors?.pattern" class="invalid-feedback d-block">
-										{{ invalidEmail }}
-									</div>
 									<p>https://www.miplacita.com/{{urlStore}}</p>
 								</div>
 								<div class="form-group">
 									<div class="field-label" for="name">Agregar logo</div>
 									<app-upload-image (uploadImage)="uploadImage($event)"></app-upload-image>
-								</div>
+								</div> -->
 							</div>
 						</div>
 						<div class="col-lg-6 col-sm-12 col-xs-12">
