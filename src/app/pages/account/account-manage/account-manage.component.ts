@@ -97,7 +97,6 @@ export class AccountManageComponent implements OnInit, OnChanges {
     // Se cargas las tiendas solo de merchant
     if ( this.user.role === 'merchant' ) {
       this.shopService.getMyStores( this.user._id ).subscribe( stores => {
-        console.log( stores )
         if ( stores.docs.length ) {
           const _store = JSON.parse( sessionStorage.getItem( 'store' ) );
           this.stores = [ ...stores.docs ];

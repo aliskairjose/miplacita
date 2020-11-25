@@ -14,7 +14,6 @@ import { AuthService } from '../../services/auth.service';
   styleUrls: [ './filters.component.scss' ]
 } )
 export class FiltersComponent implements OnInit {
-  @ViewChild( 'TABLE', { read: ElementRef } ) table: ElementRef;
 
   storeSelected: Store = {};
   stores: Store[] = [];
@@ -44,8 +43,11 @@ export class FiltersComponent implements OnInit {
   @Input() roleList: boolean;
   @Input() canExport: boolean;
   @Input() dateRange = true;
+  @Input() title = 'Reporte';
 
   @Output() filter: EventEmitter<any> = new EventEmitter<any>();
+
+  @ViewChild( 'TABLE', { read: ElementRef } ) table: ElementRef;
 
   constructor(
     public auth: AuthService,
@@ -83,7 +85,7 @@ export class FiltersComponent implements OnInit {
   }
 
   ExportTOPDF() {
-    this.exportDoc.ExportTOPDF( '#mp-table', 'Inventario', 'stock-report' );
+    this.exportDoc.ExportTOPDF( '#mp-table', this.title, this.title );
   }
 
   filtrar(): void {

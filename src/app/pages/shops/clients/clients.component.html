@@ -9,7 +9,8 @@
 			</h2>
 		</div>
 		<!-- Filtros -->
-		<app-filters [storeList]="false" [canExport]="true" [roleList]="true" (filter)="filtrar($event)"></app-filters>
+		<app-filters [storeList]="false" [canExport]="true" [roleList]="true" (filter)="filtrar($event)"
+			[title]="'Reporte clientes'"></app-filters>
 
 		<ng-container class="table-responsive-sm mt-3" *ngIf="store || role === 'admin'; else elseTemplate">
 			<div class="table-responsive mt-3">

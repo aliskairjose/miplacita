@@ -3,7 +3,12 @@
 </ngx-spinner>
 <section class="section-b-space">
 	<div class="container">
-		<app-filters (filter)="filtrar($event)" [canExport]="true"></app-filters>
+		<div class="page-title mb-5">
+			<h2 class="mp-title">
+				Ventas totales
+			</h2>
+		</div>
+		<app-filters (filter)="filtrar($event)" [canExport]="true" [title]="'Reporte Ventas totales'"></app-filters>
 
 		<!-- Data de usuario -->
 		<ng-container *ngIf="store || role === 'admin'; else elseTemplate">
