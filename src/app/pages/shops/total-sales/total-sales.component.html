@@ -8,7 +8,7 @@
 				Ventas totales
 			</h2>
 		</div>
-		<app-filters (filter)="filtrar($event)" [canExport]="true" [title]="'Reporte Ventas totales'"></app-filters>
+		<app-filters (filter)="filtrar($event)" [canExport]="true" [title]="'Reporte Ventas totales'" #filter></app-filters>
 
 		<!-- Data de usuario -->
 		<ng-container *ngIf="store || role === 'admin'; else elseTemplate">

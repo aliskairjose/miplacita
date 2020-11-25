@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild, SimpleChanges, ElementRef, OnChanges } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, SimpleChanges, ElementRef, OnChanges, AfterViewInit } from '@angular/core';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { Store } from 'src/app/shared/classes/store';
 import { Paginate } from 'src/app/shared/classes/paginate';
@@ -7,15 +7,18 @@ import { ReportsService } from '../../../shared/services/reports.service';
 import { CustomDateParserFormatterService } from '../../../shared/adapter/custom-date-parser-formatter.service';
 import { NgbDateStruct, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
 import { Filter } from '../../../shared/classes/filter';
+import { FiltersComponent } from '../../../shared/components/filters/filters.component';
 
 @Component( {
   selector: 'app-clients',
   templateUrl: './clients.component.html',
   styleUrls: [ './clients.component.scss' ]
 } )
-export class ClientsComponent implements OnInit, OnChanges {
+export class ClientsComponent implements OnInit, OnChanges, AfterViewInit {
+
   @ViewChild( 'interests' ) Interests: InterestsComponent;
   @ViewChild( 'TABLE', { read: ElementRef } ) table: ElementRef;
+  @ViewChild( 'filter' ) filterComponent: FiltersComponent;
 
   adminFields = [ 'Cliente', 'Email', 'Fecha de registro', 'Role', 'Acción' ];
   fields = [ 'Cliente', 'Email', 'Acción' ];
@@ -49,6 +52,10 @@ export class ClientsComponent implements OnInit, OnChanges {
     private ngbCalendar: NgbCalendar,
     private parseDate: CustomDateParserFormatterService,
   ) { }
+
+  ngAfterViewInit(): void {
+    this.filterComponent.setElement( this.table );
+  }
 
   ngOnInit(): void {
     this.role = this.auth.getUserRol();

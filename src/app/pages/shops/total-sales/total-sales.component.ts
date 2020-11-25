@@ -3,11 +3,8 @@ import { ToastrService } from 'ngx-toastr';
 import { Paginate } from 'src/app/shared/classes/paginate';
 import { Store } from 'src/app/shared/classes/store';
 import { AuthService } from 'src/app/shared/services/auth.service';
-import { ExportService } from 'src/app/shared/services/export.service';
 
-import {
-  Component, ElementRef, Input, OnChanges, OnInit, SimpleChanges, ViewChild
-} from '@angular/core';
+import { Component, ElementRef, Input, OnChanges, OnInit, SimpleChanges, ViewChild, AfterViewInit } from '@angular/core';
 import { NgbCalendar, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 
 import { CustomDateParserFormatterService } from '../../../shared/adapter/custom-date-parser-formatter.service';
@@ -15,14 +12,17 @@ import { OrderDetailsComponent } from '../../../shared/components/order-details/
 import { ReportsService } from '../../../shared/services/reports.service';
 import { Order } from 'src/app/shared/classes/order';
 import { Filter } from '../../../shared/classes/filter';
+import { FiltersComponent } from '../../../shared/components/filters/filters.component';
 @Component( {
   selector: 'app-total-sales',
   templateUrl: './total-sales.component.html',
   styleUrls: [ './total-sales.component.scss' ]
 } )
-export class TotalSalesComponent implements OnInit, OnChanges {
+export class TotalSalesComponent implements OnInit, OnChanges, AfterViewInit {
+
   @ViewChild( 'orderDetails' ) OrderDetails: OrderDetailsComponent;
   @ViewChild( 'TABLE', { read: ElementRef } ) table: ElementRef;
+  @ViewChild( 'filter', ) filterComponent: FiltersComponent;
 
   fields = [ 'Fecha', 'Cantidades ordenadas', 'Total de ventas' ];
   fieldsAdmin = [ 'Tienda', 'Monto', 'Fecha', 'Estado', 'Acción' ];
@@ -42,6 +42,10 @@ export class TotalSalesComponent implements OnInit, OnChanges {
     private ngbCalendar: NgbCalendar,
     private parseDate: CustomDateParserFormatterService
   ) {
+  }
+
+  ngAfterViewInit(): void {
+    this.filterComponent.setElement( this.table );
   }
 
   ngOnInit(): void {

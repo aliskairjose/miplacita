@@ -11,7 +11,7 @@
 
 		<!-- Filtros de busqueda -->
 		<app-filters [storeList]="hasStores" [canExport]="true" (filter)="filtrar($event)" [dateRange]="false"
-			[title]="'Reporte diario'">
+			[title]="'Reporte diario'" #filter>
 		</app-filters>
 
 		<!-- Data de usuario -->

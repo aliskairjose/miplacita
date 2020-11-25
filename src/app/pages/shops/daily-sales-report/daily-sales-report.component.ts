@@ -5,13 +5,14 @@ import { AuthService } from 'src/app/shared/services/auth.service';
 
 import { environment } from 'src/environments/environment';
 
-import { Component, OnInit, ViewChild, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, OnInit, ViewChild, Input, OnChanges, SimpleChanges, ElementRef, AfterViewInit } from '@angular/core';
 import { NgbCalendar, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { ShopService } from '../../../shared/services/shop.service';
 import { CustomDateParserFormatterService } from '../../../shared/adapter/custom-date-parser-formatter.service';
 import { OrderDetailsComponent } from '../../../shared/components/order-details/order-details.component';
 import { ReportsService } from '../../../shared/services/reports.service';
 import { Filter } from '../../../shared/classes/filter';
+import { FiltersComponent } from '../../../shared/components/filters/filters.component';
 
 
 @Component( {
@@ -19,8 +20,11 @@ import { Filter } from '../../../shared/classes/filter';
   templateUrl: './daily-sales-report.component.html',
   styleUrls: [ './daily-sales-report.component.scss' ]
 } )
-export class DailySalesReportComponent implements OnInit, OnChanges {
+export class DailySalesReportComponent implements OnInit, OnChanges, AfterViewInit {
   @ViewChild( 'orderDetails' ) OrderDetails: OrderDetailsComponent;
+  @ViewChild( 'TABLE', { read: ElementRef } ) table: ElementRef;
+  @ViewChild( 'filter' ) filterComponent: FiltersComponent;
+
   @Input() store: Store;
   @Input() type: string;
 
@@ -45,6 +49,10 @@ export class DailySalesReportComponent implements OnInit, OnChanges {
     private parseDate: CustomDateParserFormatterService,
   ) {
     this.hasStores = this.auth.getUserRol() === 'admin';
+  }
+
+  ngAfterViewInit(): void {
+    this.filterComponent.setElement( this.table );
   }
 
   ngOnInit(): void {

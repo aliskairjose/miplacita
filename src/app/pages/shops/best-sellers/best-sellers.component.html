@@ -10,7 +10,7 @@
 		</div>
 		<!-- Filtros de busqueda -->
 		<app-filters [storeList]="hasStores" [canExport]="true" (filter)="filtrar($event)"
-			[title]="'Reporte Productos Más Vendidos'">
+			[title]="'Reporte Productos Más Vendidos'" #filter>
 		</app-filters>
 
 		<!-- Data de usuario -->
