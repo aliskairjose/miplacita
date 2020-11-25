@@ -22,7 +22,7 @@ export class RegisterStoreComponent implements OnInit, OnChanges {
 
   planSelected = '';
   step = 1;
-  imageLogo: any = '../../../../assets/images/marketplace/svg/upload-image.svg';;
+  imageLogo: any = '../../../../assets/images/marketplace/svg/upload-image.svg';
   imageProduct: any = '../../../../assets/images/marketplace/svg/upload-image.svg';
   storeForm: FormGroup;
   productForm: FormGroup;

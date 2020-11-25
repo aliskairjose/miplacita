@@ -50,22 +50,15 @@
               <h2 class="mp-title">
                 <span>Selecciona tus intereses</span>
                 <div *ngIf="submitted && f.interest.errors?.required" class="invalid-feedback d-block">
-                  Debe marcar al menos un interes
+                  <small>Debe marcar al menos un interes</small>
                 </div>
               </h2>
             </div>
-            <a (click)="saveInterests()" routerLinkActive="router-link-active" class="mp-side-menu">Omitir ahora</a>
+            <a href="javascript:void(0)" (click)="saveInterests()" routerLinkActive="router-link-active"
+              class="mp-side-menu">Omitir ahora</a>
           </div>
           <div class="border-box w-100 px-3 py-3">
             <form [formGroup]="interestForm" (ngSubmit)="onSubmit()" class="theme-form">
-              <!-- <div class="row mb-2">
-                <div class="option-box d-flex mx-auto py-2 px-2">
-                  <span style="color: #b8b3b3" class="mr-2">
-                    <i class="fa fa-search"></i>
-                  </span>
-                  <input type="text" placeholder="Buscar intereses" id="search-input" class="w-100 h-100">
-                </div>
-              </div> -->
               <div class="shipping-option" *ngIf="interestsList.length">
                 <div class="row mb-3" *ngFor="let interest of interestsList; let i=index">
                   <div class="option-box d-flex mx-auto py-2">
@@ -83,11 +76,14 @@
                 <button type="submit" class="btn background-default-color" id="btn-save">
                   Guardar interses
                 </button>
+                <div *ngIf="submitted && f.interest.errors?.required" class="invalid-feedback d-block">
+                  Debe marcar al menos un interes
+                </div>
               </div>
             </form>
           </div>
           <div class="row mp-side-menu-responsive text-center">
-            <p class="" (click)="saveInterests()">Omitir ahora</p>
+            <a href="javascript:void(0)" (click)="saveInterests()">Omitir ahora</a>
           </div>
         </div>
       </div>
