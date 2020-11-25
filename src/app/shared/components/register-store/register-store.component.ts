@@ -177,7 +177,7 @@ export class RegisterStoreComponent implements OnInit, OnChanges {
     this.storeForm = this.formBuilder.group( {
       name: [ '', [ Validators.required, Validators.minLength( 4 ) ] ],
       description: [ '', [ Validators.required ] ],
-      url_store: [ '', [ Validators.required ] ],
+      url_store: [ '', [ Validators.required, Validators.pattern( this.emailPattern ) ] ],
       phone: [ '', [ Validators.required ] ],
       email: [ '', [ Validators.required, Validators.pattern( this.emailPattern ) ] ],
       plan: [ '', [ Validators.required ] ],
