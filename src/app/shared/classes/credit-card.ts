@@ -1,6 +1,6 @@
 export interface CreditCard {
   owner?: string;
-  cvv?: number;
-  cardnumber?: number;
+  cvv?: string;
+  card_number?: number;
   date?: string;
 }

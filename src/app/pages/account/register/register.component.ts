@@ -34,10 +34,12 @@ export class RegisterComponent implements OnInit {
     password: '',
     passwordConfirmation: ''
   };
-  role: string;
+  role = 'client';
   url = '';
   title: string;
   mustReturnStore = false;
+
+  private emailPattern = environment.emailPattern;
 
   constructor(
     private router: Router,
@@ -58,11 +60,8 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit(): void {
     const role = this.route.queryParams.subscribe( params => {
-      this.role = params.role;
       this.url = params.url;
 
-      if ( params.role === 'merchant' ) { this.title = 'como Vendedor'; }
-      if ( params.role === 'client' ) { this.title = 'como Comprador'; }
       if ( params.url ) { this.mustReturnStore = true; }
 
     } );
@@ -124,7 +123,7 @@ export class RegisterComponent implements OnInit {
       fullname: [ '', [ Validators.required, Validators.pattern( '[a-zA-Z ]*' ) ] ],
       password: [ '', [ Validators.required, Validators.minLength( 8 ) ] ],
       passwordConfirmation: [ '', Validators.required ],
-      email: [ '', [ Validators.required, Validators.email ] ],
+      email: [ '', [ Validators.required, Validators.pattern( this.emailPattern ) ] ],
     }, {
       validator: MustMatch( 'password', 'passwordConfirmation' )
     } );
@@ -137,6 +136,13 @@ export class RegisterComponent implements OnInit {
         this.registerSuccess = true;
       }
     } );
+  }
+
+  changeUser( typeUser: string ) {
+    this.role = typeUser;
+    if ( this.role === 'merchant' ) { this.title = 'como Vendedor'; }
+
+    if ( this.role === 'client' ) { this.title = 'como Comprador'; }
   }
 
 }
