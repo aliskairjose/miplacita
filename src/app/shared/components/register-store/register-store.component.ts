@@ -22,7 +22,7 @@ export class RegisterStoreComponent implements OnInit, OnChanges {
 
   planSelected = '';
   step = 1;
-  imageLogo: any = '../../../../assets/images/marketplace/svg/upload-image.svg';;
+  imageLogo: any = '../../../../assets/images/marketplace/svg/upload-image.svg';
   imageProduct: any = '../../../../assets/images/marketplace/svg/upload-image.svg';
   storeForm: FormGroup;
   productForm: FormGroup;
@@ -35,7 +35,7 @@ export class RegisterStoreComponent implements OnInit, OnChanges {
   plans: Plan[] = [];
   images: Array<string> = [];
   disabled = true;
-  urlStore = `${window.location.origin}/`;
+  storeUrl = '';
   isShow = true;
   imageLogo1 = [];
   private user: User = {};
@@ -199,7 +199,7 @@ export class RegisterStoreComponent implements OnInit, OnChanges {
   }
 
   makeUrl( valor: string ): void {
-    this.urlStore = `${this.urlStore}${valor.toLocaleLowerCase().replace( /\s/g, '-' )}`;
+    this.storeUrl = valor.toLocaleLowerCase().replace( /\s/g, '-' );
   }
 
   private createStore(): void {

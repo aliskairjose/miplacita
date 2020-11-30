@@ -9,7 +9,7 @@
 			</h2>
 		</div>
 		<!-- Filtros de busqueda -->
-		<app-filters [storeList]="true" [canExport]="true" (filter)="filtrar($event)"></app-filters>
+		<app-filters [storeList]="true" [canExport]="true" (filter)="filtrar($event)" #filter></app-filters>
 
 		<div class="table-responsive mt-3">
 

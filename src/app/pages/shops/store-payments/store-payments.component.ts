@@ -1,5 +1,5 @@
 // export class StorePaymentsComponent implements OnInit {
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { Paginate } from 'src/app/shared/classes/paginate';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { ReportsService } from 'src/app/shared/services/reports.service';
@@ -9,6 +9,7 @@ import { NgbDateStruct, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
 import { CustomDateParserFormatterService } from '../../../shared/adapter/custom-date-parser-formatter.service';
 import { ToastrService } from 'ngx-toastr';
 import { Filter } from '../../../shared/classes/filter';
+import { FiltersComponent } from '../../../shared/components/filters/filters.component';
 @Component( {
   selector: 'app-store-payments',
   templateUrl: './store-payments.component.html',
@@ -16,8 +17,10 @@ import { Filter } from '../../../shared/classes/filter';
 } )
 
 
-export class StorePaymentsComponent implements OnInit {
+export class StorePaymentsComponent implements OnInit, AfterViewInit {
+
   @ViewChild( 'TABLE', { read: ElementRef } ) table: ElementRef;
+  @ViewChild( 'filter' ) filterComponent: FiltersComponent;
 
   fields = [ 'Tienda', 'Fecha de pago', 'Monto a pagar', '' ];
   data: any = {};
@@ -30,12 +33,14 @@ export class StorePaymentsComponent implements OnInit {
 
   constructor(
     private auth: AuthService,
-    private toastr: ToastrService,
     private ngbCalendar: NgbCalendar,
-    private exportDoc: ExportService,
     private reportService: ReportsService,
     private parseDate: CustomDateParserFormatterService,
   ) { }
+
+  ngAfterViewInit(): void {
+    this.filterComponent.setElement( this.table );
+  }
 
   ngOnInit(): void {
     this.role = this.auth.getUserRol();

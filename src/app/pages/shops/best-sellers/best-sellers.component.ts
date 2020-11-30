@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, SimpleChanges, ViewChild, ElementRef, OnChanges } from '@angular/core';
+import { Component, OnInit, Input, SimpleChanges, ViewChild, ElementRef, OnChanges, AfterViewInit } from '@angular/core';
 import { Paginate } from 'src/app/shared/classes/paginate';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { Store } from 'src/app/shared/classes/store';
@@ -7,14 +7,16 @@ import { NgbDateStruct, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
 import { ReportsService } from '../../../shared/services/reports.service';
 import { CategoryService } from '../../../shared/services/category.service';
 import { Filter } from '../../../shared/classes/filter';
+import { FiltersComponent } from '../../../shared/components/filters/filters.component';
 
 @Component( {
   selector: 'app-best-sellers',
   templateUrl: './best-sellers.component.html',
   styleUrls: [ './best-sellers.component.scss' ]
 } )
-export class BestSellersComponent implements OnInit, OnChanges {
+export class BestSellersComponent implements OnInit, OnChanges, AfterViewInit {
   @ViewChild( 'TABLE', { read: ElementRef } ) table: ElementRef;
+  @ViewChild( 'filter' ) filterComponent: FiltersComponent;
 
 
   adminFields = [ 'ID', 'Producto', 'Tienda', 'Cantidad Vendida' ];
@@ -37,10 +39,13 @@ export class BestSellersComponent implements OnInit, OnChanges {
     private auth: AuthService,
     private reports: ReportsService,
     private ngbCalendar: NgbCalendar,
-    private categoriesSevice: CategoryService,
     private parseDate: CustomDateParserFormatterService
   ) {
     this.hasStores = this.auth.getUserRol() === 'admin';
+  }
+
+  ngAfterViewInit(): void {
+    this.filterComponent.setElement( this.table );
   }
 
   ngOnInit(): void {

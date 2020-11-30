@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, ViewChild, ElementRef, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, ElementRef, EventEmitter, AfterViewInit, ViewChild } from '@angular/core';
 import { Store } from '../../classes/store';
 import { ReportsService } from '../../services/reports.service';
 import { NgbDateStruct, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
@@ -13,8 +13,7 @@ import { AuthService } from '../../services/auth.service';
   templateUrl: './filters.component.html',
   styleUrls: [ './filters.component.scss' ]
 } )
-export class FiltersComponent implements OnInit {
-  @ViewChild( 'TABLE', { read: ElementRef } ) table: ElementRef;
+export class FiltersComponent implements OnInit, AfterViewInit {
 
   storeSelected: Store = {};
   stores: Store[] = [];
@@ -39,13 +38,17 @@ export class FiltersComponent implements OnInit {
 
   role = '';
   private _storeID = '';
+  table: ElementRef;
 
   @Input() storeList: boolean;
   @Input() roleList: boolean;
   @Input() canExport: boolean;
   @Input() dateRange = true;
+  @Input() title = 'Reporte';
 
   @Output() filter: EventEmitter<any> = new EventEmitter<any>();
+
+  // @ViewChild( 'TABLE', { read: ElementRef } ) table: ElementRef;
 
   constructor(
     public auth: AuthService,
@@ -58,6 +61,8 @@ export class FiltersComponent implements OnInit {
     this.modelFrom = this.modelTo = this.ngbCalendar.getToday();
     this.fechaIni = this.parseDate.format( this.modelFrom );
     this.fechaFin = this.parseDate.format( this.modelTo );
+  }
+  ngAfterViewInit(): void {
   }
 
   ngOnInit(): void {
@@ -79,11 +84,11 @@ export class FiltersComponent implements OnInit {
   }
 
   ExportTOExcel() {
-    this.exportDoc.ExportTOExcel( this.table.nativeElement, 'stock-report' );
+    this.exportDoc.ExportTOExcel( this.table.nativeElement, this.title );
   }
 
   ExportTOPDF() {
-    this.exportDoc.ExportTOPDF( '#mp-table', 'Inventario', 'stock-report' );
+    this.exportDoc.ExportTOPDF( '#mp-table', this.title, this.title );
   }
 
   filtrar(): void {
@@ -105,6 +110,10 @@ export class FiltersComponent implements OnInit {
 
     this.filter.emit( data );
 
+  }
+
+  setElement( element: ElementRef ): void {
+    this.table = element;
   }
 
   private loadStores(): void {

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { Paginate } from 'src/app/shared/classes/paginate';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { ReportsService } from 'src/app/shared/services/reports.service';
@@ -8,15 +8,17 @@ import { CustomDateParserFormatterService } from 'src/app/shared/adapter/custom-
 import { ToastrService } from 'ngx-toastr';
 import { Store } from '../../../shared/classes/store';
 import { Filter } from '../../../shared/classes/filter';
+import { FiltersComponent } from '../../../shared/components/filters/filters.component';
 
 @Component( {
   selector: 'app-sales-tdc',
   templateUrl: './sales-tdc.component.html',
   styleUrls: [ './sales-tdc.component.scss' ]
 } )
-export class SalesTdcComponent implements OnInit {
+export class SalesTdcComponent implements OnInit, AfterViewInit {
 
   @ViewChild( 'TABLE', { read: ElementRef } ) table: ElementRef;
+  @ViewChild( 'filter' ) filterComponent: FiltersComponent;
 
   fields = [ 'Cliente', 'Tienda', 'Fecha', 'Monto', 'Status' ];
   data = [];
@@ -35,6 +37,10 @@ export class SalesTdcComponent implements OnInit {
     private parseDate: CustomDateParserFormatterService
 
   ) { }
+
+  ngAfterViewInit(): void {
+    this.filterComponent.setElement( this.table );
+  }
 
   ngOnInit(): void {
     this.role = this.auth.getUserRol();
@@ -59,7 +65,6 @@ export class SalesTdcComponent implements OnInit {
   loadData() {
     const params = `from=${this.filters.fechaIni}&to=${this.filters.fechaFin}&store=${this.filters.storeId}`;
     this.reports.tdcSales( params ).subscribe( ( result ) => {
-      console.log( result, 'ventas con tdc' );
       this.data = [ ...result ];
     } );
   }

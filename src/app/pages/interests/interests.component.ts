@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, TemplateRef, Input, OnDestroy } from '@angular/core';
+import { Component, OnInit, ViewChild, TemplateRef, Input, OnDestroy, Inject } from '@angular/core';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
@@ -122,6 +122,7 @@ export class InterestsComponent implements OnInit, OnDestroy {
           this.saveInterests();
         }
       } );
+    } else {
     }
   }
 

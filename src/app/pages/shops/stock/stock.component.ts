@@ -1,19 +1,22 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { ReportsService } from 'src/app/shared/services/reports.service';
 import { Paginate } from 'src/app/shared/classes/paginate';
 import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { Filter } from '../../../shared/classes/filter';
+import { FiltersComponent } from '../../../shared/components/filters/filters.component';
 
 @Component( {
   selector: 'app-stock',
   templateUrl: './stock.component.html',
   styleUrls: [ './stock.component.scss' ]
 } )
-export class StockComponent implements OnInit {
-  @ViewChild( 'TABLE', { read: ElementRef } ) table: ElementRef;
+export class StockComponent implements OnInit, AfterViewInit {
 
-  fields = [ 'Tienda', 'Dueño', 'Nombre del producto', 'Cantidad en existencia' ]
+  @ViewChild( 'TABLE', { read: ElementRef } ) table: ElementRef;
+  @ViewChild( 'filter' ) filterComponent: FiltersComponent;
+
+  fields = [ 'Tienda', 'Dueño', 'Nombre del producto', 'Cantidad en existencia' ];
   products = [];
   role: string;
   paginate: Paginate;
@@ -24,6 +27,10 @@ export class StockComponent implements OnInit {
     private auth: AuthService,
     private reportService: ReportsService,
   ) { }
+
+  ngAfterViewInit(): void {
+    this.filterComponent.setElement( this.table );
+  }
 
   ngOnInit(): void {
     this.role = this.auth.getUserRol();
