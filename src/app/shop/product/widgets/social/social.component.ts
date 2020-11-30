@@ -17,13 +17,12 @@ export class SocialComponent implements OnInit, OnChanges {
   constructor() { }
 
   ngOnInit(): void {
-    console.log("share",this.product);
   }
 
   ngOnChanges( changes: SimpleChanges ): void {
-    if (changes.product) {
+    if ( changes.product ) {
       this.product = changes.product.currentValue;
-      this.image = this.product.images[0].url;
+      this.image = this.product.images[ 0 ].url;
     }
   }
 
