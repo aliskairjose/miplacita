@@ -129,7 +129,7 @@ export class PaymentComponent implements OnInit {
     this.paymentForm = this._formBuilder.group( {
       owner: [ '', [ Validators.required, Validators.pattern( '[a-zA-Z][a-zA-Z ]+[a-zA-Z]$' ) ] ],
       cvv: [ '', [ Validators.required, Validators.pattern( '[0-9]+' ) ] ],
-      card_number: [ '', [ Validators.required ] ],
+      card_number: [ '', [ Validators.required, Validators.minLength( 16 ), Validators.pattern( '[0-9]+' ) ] ],
       month: [ '', [ Validators.required ] ],
       year: [ '', [ Validators.required ] ]
     } );

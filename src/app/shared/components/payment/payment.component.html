@@ -31,9 +31,15 @@
         <div class="form-group col-md-12 col-sm-12 col-xs-12">
           <div class="field-label">Número de tarjeta</div>
           <input class="form-control" type="text" formControlName="card_number" name="card_number" value=""
-            placeholder="" autocomplete="off">
+            placeholder="" autocomplete="off" maxlength="16">
           <div *ngIf="submitted && paymentForm.controls.card_number.errors?.required" class="text text-danger small">
             Campo requerido
+          </div>
+          <div *ngIf="submitted && paymentForm.controls.card_number.errors?.minlength" class="text text-danger small">
+            16 caracteres minimo
+          </div>
+          <div *ngIf="submitted && paymentForm.controls.card_number.errors?.pattern" class="text text-danger small">
+            Sólo dígitos
           </div>
         </div>
       </div>
