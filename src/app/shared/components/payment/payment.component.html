@@ -77,7 +77,7 @@
   </div>
   <hr class="mx-2">
   <!-- Pago con saldo -->
-  <div class="d-flex flex-column h-100 mt-4" [hidden]="!showReferedAmmount">
+  <div class="d-flex flex-column h-100 mt-4" *ngIf="showReferedAmmount">
     <h4>Saldo de referido</h4>
     <div class="option-box d-flex mx-auto py-3" style="width: 100% !important">
       <div class="col-md-6">

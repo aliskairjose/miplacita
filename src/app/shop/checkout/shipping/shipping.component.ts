@@ -2,7 +2,7 @@ import { IPayPalConfig } from 'ngx-paypal';
 import { Observable } from 'rxjs';
 
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 import { Product } from '../../../shared/classes/product';
 import { User } from '../../../shared/classes/user';
@@ -48,6 +48,8 @@ export class ShippingComponent implements OnInit {
     shipment_option: '',
     shipment_price: 0,
   };
+  config = '';
+
   private _products: Product[] = [];
 
   @ViewChild( 'address' ) address: AddressComponent;
@@ -55,6 +57,7 @@ export class ShippingComponent implements OnInit {
   constructor(
     private router: Router,
     private auth: AuthService,
+    private route: ActivatedRoute,
     private toastr: ToastrService,
     private storage: StorageService,
     private userService: UserService,
@@ -118,6 +121,13 @@ export class ShippingComponent implements OnInit {
   ngOnInit(): void {
     // this.productService.cartItems.subscribe( response => this.products = response );
     this.getTotal.subscribe( amount => this.amount = amount );
+    this.route.queryParams.subscribe( queryParams => {
+      if ( Object.entries( queryParams ).length !== 0 ) {
+        if ( queryParams.config ) {
+          this.config = queryParams.config;
+        }
+      }
+    } );
   }
 
   public get getTotal(): Observable<number> {
@@ -161,7 +171,7 @@ export class ShippingComponent implements OnInit {
     this.order.address.location = shippingAddress.coord;
 
     sessionStorage.setItem( 'order', JSON.stringify( this.order ) );
-    this.router.navigate( [ 'shop/checkout' ] );
+    this.router.navigate( [ 'shop/checkout' ], { queryParams: { config: this.config } } );
   }
 
   selectOption( shopId: string, optionId: string ): void {
