@@ -4,6 +4,7 @@ import { SettingsComponent } from '../settings/settings.component';
 import { ShopService } from '../../services/shop.service';
 import { AuthService } from '../../services/auth.service';
 import { Store } from '../../classes/store';
+import { ActivatedRoute } from '@angular/router';
 
 @Component( {
   selector: 'app-payment',
@@ -43,6 +44,7 @@ export class PaymentComponent implements OnInit {
 
   constructor(
     private auth: AuthService,
+    private route: ActivatedRoute,
     private shopService: ShopService,
     private _formBuilder: FormBuilder,
   ) {
@@ -51,11 +53,17 @@ export class PaymentComponent implements OnInit {
 
 
   ngOnInit(): void {
-    if ( JSON.parse( sessionStorage.sessionStore || null ) ) {
-      this.showReferedAmmount = true;
-      const store: Store = JSON.parse( sessionStorage.sessionStore );
-      this.getAffiliate( store._id );
-    }
+    this.route.queryParams.subscribe( queryParams => {
+      if ( Object.entries( queryParams ).length !== 0 ) {
+        const decod = window.atob( queryParams.config );
+        const store: Store = JSON.parse( decod );
+        if ( Object.entries( store ).length !== 0 && this.auth.getUserRol() === 'client' ) {
+          this.showReferedAmmount = true;
+          this.getAffiliate( store._id );
+        }
+      }
+    } );
+
     const date = new Date();
 
     this.years.push( date.getFullYear() );
@@ -121,7 +129,7 @@ export class PaymentComponent implements OnInit {
     this.paymentForm = this._formBuilder.group( {
       owner: [ '', [ Validators.required, Validators.pattern( '[a-zA-Z][a-zA-Z ]+[a-zA-Z]$' ) ] ],
       cvv: [ '', [ Validators.required, Validators.pattern( '[0-9]+' ) ] ],
-      card_number: [ '', [ Validators.required ] ],
+      card_number: [ '', [ Validators.required, Validators.minLength( 16 ), Validators.pattern( '[0-9]+' ) ] ],
       month: [ '', [ Validators.required ] ],
       year: [ '', [ Validators.required ] ]
     } );

@@ -25,6 +25,7 @@ export class SettingsComponent implements OnInit {
   balance: number;
   showBalance = false;
   store: Store = {};
+  config = '';
 
   private _referedCode: string;
 
@@ -42,6 +43,7 @@ export class SettingsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.config = window.btoa( JSON.stringify( this.store ) );
 
     this._clipboardService.copyResponse$.subscribe( re => {
       if ( re.isSuccess ) {
@@ -62,6 +64,7 @@ export class SettingsComponent implements OnInit {
   }
 
   public setStore( store: Store ) {
+    this.config = window.btoa( JSON.stringify( store ) );
     if ( this.auth.getUserActive() && this.auth.getUserRol() === 'client' ) {
       this.getAffiliate( store._id );
     }

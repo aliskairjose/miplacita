@@ -4,6 +4,7 @@ import { ProductService } from '../../shared/services/product.service';
 import { Product } from '../../shared/classes/product';
 import { environment } from '../../../environments/environment.prod';
 import { Store } from '../../shared/classes/store';
+import { ActivatedRoute } from '@angular/router';
 
 const state = {
   sessionStore: JSON.parse( sessionStorage.sessionStore || null ),
@@ -19,9 +20,11 @@ export class CartComponent implements OnInit {
   products: Product[] = [];
   standardImage = environment.standardImage;
   storeFont = '';
+  config = '';
 
   constructor(
     public productService: ProductService,
+    private route: ActivatedRoute
   ) {
 
   }
@@ -29,10 +32,13 @@ export class CartComponent implements OnInit {
   ngOnInit(): void {
     this.productService.cartItems.subscribe( products => { this.products = products; } );
 
-    if ( sessionStorage.sessionStore ) {
-      const store: Store = JSON.parse( sessionStorage.sessionStore );
-      this.storeFont = store.config.font;
-    }
+    this.route.queryParams.subscribe( queryParams => {
+      if ( Object.entries( queryParams ).length !== 0 ) {
+        if ( queryParams.config ) {
+          this.config = queryParams.config;
+        }
+      }
+    } );
 
   }
 

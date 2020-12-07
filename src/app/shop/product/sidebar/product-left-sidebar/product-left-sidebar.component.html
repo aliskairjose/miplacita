@@ -8,7 +8,7 @@
       <div class="row">
         <div class="col-sm-3">
           <div class="collection-filter" [class.openFilterbar]="mobileSidebar">
-            <div class="collection-filter-block" [hidden]="hideFilters">
+            <!-- <div class="collection-filter-block" [hidden]="hideFilters">
               <div class="collection-mobile-back" (click)="toggleMobileSidebar()">
                 <span class="filter-back">
                   <i class="fa fa-angle-left" aria-hidden="true"></i> volver
@@ -34,7 +34,7 @@
               </div>
               <app-price [prices]="prices" (priceFilter)="updateFilter($event)">
               </app-price>
-            </div>
+            </div> -->
             <div class="collection-filter-block">
               <app-services></app-services>
             </div>
@@ -86,9 +86,9 @@
                     </div>
                     <h6 *ngIf="colors.length" class="product-title mb-2">Colores disponibles</h6>
                     <ul class="color-variant" *ngIf="colors.length">
-                      <li [class]="color" *ngFor="let color of colors; index as i" 
-                      [class.active]="color.value == product.color.value" [ngStyle]="{'background-color': color.value}"
-                        (click)="selectColor(color.products)">
+                      <li [class]="color" *ngFor="let color of colors; index as i"
+                        [class.active]="color.value == product.color.value"
+                        [ngStyle]="{'background-color': color.value}" (click)="selectColor(color.products)">
                       </li>
                     </ul>
                     <div *ngIf="sizes.length" class="mt-3">
