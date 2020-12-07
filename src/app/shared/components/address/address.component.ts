@@ -31,7 +31,7 @@ export class AddressComponent implements OnInit {
     componentRestrictions: { country: 'PA' }
   };
   @Input() isProfile = false;
-  
+
   private _addressExist = false;
   private geoCoder;
   private _saveAddress: boolean;
@@ -41,7 +41,7 @@ export class AddressComponent implements OnInit {
 
   constructor(
     private ngZone: NgZone,
-    private auth: AuthService,
+    public auth: AuthService,
     private formBuilder: FormBuilder,
     private userService: UserService,
     private toastrService: ToastrService,
