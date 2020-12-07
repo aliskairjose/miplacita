@@ -21,6 +21,7 @@ export class HeaderOneComponent implements OnInit, OnChanges, AfterViewInit {
   role: string;
   user: User;
   categories: Category[] = [];
+  link = '/home';
 
   @Input() store: Store = {};
   @Input() class: string;
@@ -51,7 +52,6 @@ export class HeaderOneComponent implements OnInit, OnChanges, AfterViewInit {
     private shopService: ShopService,
     private categoryService: CategoryService,
   ) {
-
   }
 
   ngAfterViewInit(): void {
@@ -63,6 +63,7 @@ export class HeaderOneComponent implements OnInit, OnChanges, AfterViewInit {
           this.shopService.customizeShop( store.config );
           this.settings.setStore( store );
           this.themeLogo = store.logo;
+          this.link = `/${store.url_store}`;
         }
         if ( queryParams.id ) { this.storeInfo( queryParams.id ); }
       }
@@ -70,13 +71,13 @@ export class HeaderOneComponent implements OnInit, OnChanges, AfterViewInit {
   }
 
   ngOnChanges( changes: SimpleChanges ): void {
+    this.link = `/${this.store.url_store}`;
     if ( changes.store && Object.entries( changes?.store?.currentValue ).length !== 0 ) {
       this.settings.setStore( changes.store.currentValue );
     }
   }
 
   ngOnInit(): void {
-
     this.isLoggedIn = this.auth.isAuthenticated();
     this.categoryService.categoryList().subscribe( ( response: Category[] ) => {
       this.categories = [ ...response ];
@@ -98,9 +99,11 @@ export class HeaderOneComponent implements OnInit, OnChanges, AfterViewInit {
 
   private storeInfo( id: string ) {
     this.shopService.getStore( id ).subscribe( res => {
+      console.log( res )
       this.settings.setStore( res.result );
       this.shopService.customizeShop( res.result.config );
       this.themeLogo = res.result.logo;
+      this.link = `/${res.result.url_store}`;
     } );
   }
 
