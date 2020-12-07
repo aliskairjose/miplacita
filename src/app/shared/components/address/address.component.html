@@ -92,12 +92,11 @@
                     [formControl]="addressForm.controls['reference']" value="" placeholder=""
                     autocomplete="off"></textarea>
                 </div>
-                <div class="form-check" *ngIf="!isProfile">
+                <div class="form-check" *ngIf="!isProfile && auth.isAuthenticated()">
                   <p>
                     <input type="checkbox" name="saveAddressChkBox" (change)="saveAddress( $event )">
                     ¿Desea guardar esta dirección como predeterminada?
                   </p>
-
                 </div>
               </div>
             </form>

@@ -12,6 +12,7 @@ import { PaymentComponent } from '../payment/payment.component';
 import { ProductService } from '../../services/product.service';
 import { ShopService } from '../../services/shop.service';
 import { Product, Images } from '../../classes/product';
+import { StorageService } from '../../services/storage.service';
 
 @Component( {
   selector: 'app-register-store',
@@ -53,6 +54,7 @@ export class RegisterStoreComponent implements OnInit, OnChanges {
   constructor(
     private router: Router,
     private formBuilder: FormBuilder,
+    private storage: StorageService,
     private shopService: ShopService,
     private toastrService: ToastrService,
     private productService: ProductService,
@@ -60,7 +62,7 @@ export class RegisterStoreComponent implements OnInit, OnChanges {
     this.createForm();
   }
   ngOnChanges(): void {
-    if ( !sessionStorage.userForm ) {
+    if ( !this.storage.getItem( 'userForm' ) ) {
       this.user = { ...this._user };
     }
   }
@@ -72,8 +74,8 @@ export class RegisterStoreComponent implements OnInit, OnChanges {
 
   ngOnInit(): void {
 
-    if ( sessionStorage.userForm ) {
-      this.user = JSON.parse( sessionStorage.userForm );
+    if ( this.storage.getItem( 'userForm' ) ) {
+      this.user = this.storage.getItem( 'userForm' );
     }
 
     if ( sessionStorage.registerStore ) {

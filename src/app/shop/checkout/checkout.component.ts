@@ -5,7 +5,7 @@ import { IPayPalConfig } from 'ngx-paypal';
 import { Product } from '../../shared/classes/product';
 import { ProductService } from '../../shared/services/product.service';
 import { OrderService } from '../../shared/services/order.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { PaymentComponent } from '../../shared/components/payment/payment.component';
 import { Store } from '../../shared/classes/store';
 
@@ -118,7 +118,7 @@ export class CheckoutComponent implements OnInit {
     order.payment = payment;
 
     // console.log( data );
-    console.log( order );
+    // console.log( order );
     if ( data.valid ) {
       this.orderService.createOrder( order ).subscribe( response => {
         if ( response.success ) {

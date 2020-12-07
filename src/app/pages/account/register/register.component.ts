@@ -93,8 +93,8 @@ export class RegisterComponent implements OnInit {
     if ( this.registerForm.valid ) {
       this.auth.register( this.registerForm.value ).subscribe( ( data: AuthResponse ) => {
         if ( data.success ) {
-          sessionStorage.setItem( 'prelogin', JSON.stringify( this.registerForm.value ) );
-          sessionStorage.setItem( 'userForm', JSON.stringify( data.user ) );
+          this.storage.setItem( 'prelogin', this.registerForm.value );
+          this.storage.setItem( 'userForm', data.user );
           this.storage.setItem( 'token', data.token );
           if ( this.mustReturnStore ) {
             this.router.navigate( [ this.url ] );
@@ -113,7 +113,6 @@ export class RegisterComponent implements OnInit {
   }
 
   registerFacebook(): void {
-    console.log( '------> Register Facebook', FacebookLoginProvider.PROVIDER_ID )
     this.socialService.signIn( FacebookLoginProvider.PROVIDER_ID );
   }
 

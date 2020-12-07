@@ -3,8 +3,6 @@ import { Order } from '../../../shared/classes/order';
 import { OrderService } from '../../../shared/services/order.service';
 import { ProductService } from '../../../shared/services/product.service';
 import { Router } from '@angular/router';
-import { UserService } from '../../../shared/services/user.service';
-import { User } from '../../../shared/classes/user';
 import { AuthService } from '../../../shared/services/auth.service';
 import { StorageService } from '../../../shared/services/storage.service';
 
@@ -36,8 +34,9 @@ export class SuccessComponent implements OnInit, AfterViewInit {
   }
 
   goTo(): void {
+    console.log( this.url );
     if ( this.url === '/shop/register/success' ) {
-      const login = JSON.parse( sessionStorage.prelogin );
+      const login = this.storage.getItem( 'prelogin' );
       this.auth.login( login ).subscribe( data => {
         this.storage.setLoginData( 'data', data );
         this.auth.authSubject( data.success );
