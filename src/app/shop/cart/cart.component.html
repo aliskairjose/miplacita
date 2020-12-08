@@ -60,9 +60,8 @@
 								</td>
 								<td>
 									<!-- enlace a tienda -->
-									<a>
-										{{ product.store.name }}
-									</a>
+									<a [routerLink]="'../../'+product.store.url_store"
+										routerLinkActive="router-link-active">{{ product.store.name }}</a>
 								</td>
 								<td>
 									<h2>
