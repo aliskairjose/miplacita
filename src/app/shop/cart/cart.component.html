@@ -59,15 +59,11 @@
 									</div>
 								</td>
 								<td>
-									<!-- enlace a tienda -->
-									<a>
-										{{ product.store.name }}
-									</a>
+									<a [routerLink]="'../../'+product.store.url_store"
+										routerLinkActive="router-link-active">{{ product.store.name }}</a>
 								</td>
 								<td>
-									<h2>
-										{{ product.price | currency }}
-									</h2>
+									<h2>{{ product.price | currency }}</h2>
 								</td>
 								<td>
 									<div class="qty-box">

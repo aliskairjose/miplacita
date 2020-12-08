@@ -304,7 +304,7 @@ export class ProductService {
   // Update Cart Quantity
   updateCartQuantity( product: Product, quantity: number ): Product | boolean {
     return state.cart.find( ( items, index ) => {
-      if ( items.id === product._id ) {
+      if ( items._id === product._id ) {
         const qty = state.cart[ index ].quantity + quantity;
         const stock = this.calculateStockCounts( state.cart[ index ], quantity );
         if ( qty !== 0 && stock ) {
