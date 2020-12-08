@@ -35,12 +35,13 @@ export class FooterOneComponent implements OnInit {
         this.menuItems.push( e );
       } );
     } );
+
     this.route.queryParams.subscribe( queryParams => {
       if ( Object.entries( queryParams ).length !== 0 ) {
         if ( queryParams.config ) {
           const decod = window.atob( queryParams.config );
           const store: Store = JSON.parse( decod );
-          this.themeLogo = store.logo;
+          if ( Object.entries( store ).length !== 0 ) { this.themeLogo = store.logo; }
         }
         if ( queryParams.id ) { this.storeInfo( queryParams.id ); }
       }
