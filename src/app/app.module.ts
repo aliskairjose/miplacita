@@ -84,7 +84,13 @@ export const customCurrencyMaskConfig = {
     AlertModule.forRoot( { maxMessages: 5, timeout: 3000, position: 'left' } ),
     BrowserModule.withServerTransition( { appId: 'serverApp' } ),
     ToastrModule.forRoot( { timeOut: 3000, progressBar: false, enableHtml: true, } ),
-    TranslateModule.forRoot( { loader: { provide: TranslateLoader, useFactory: HttpLoaderFactory, deps: [ HttpClient ] } } ),
+    TranslateModule.forRoot( {
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [ HttpClient ]
+      }
+    } ),
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: HttpInterceptor, multi: true },

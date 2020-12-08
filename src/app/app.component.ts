@@ -26,8 +26,8 @@ export class AppComponent implements OnChanges {
     private router: Router
   ) {
     if ( isPlatformBrowser( this.platformId ) ) {
-      translate.setDefaultLang( 'en' );
-      translate.addLangs( [ 'en', 'fr' ] );
+      translate.setDefaultLang( 'es' );
+      translate.addLangs( [ 'en', 'fr', 'es' ] );
     }
     const navEndEvents$ = this.router.events.pipe(
       filter( event => event instanceof NavigationEnd )
@@ -35,12 +35,11 @@ export class AppComponent implements OnChanges {
 
     navEndEvents$.subscribe( ( event: NavigationEnd ) => {
       gtag( 'config', 'G-FNK35J6HGH', {
-        'page_path': event.urlAfterRedirects
+        page_path: event.urlAfterRedirects
       } );
     } );
   }
   ngOnChanges( changes: SimpleChanges ): void {
-    console.log( 'OnChanges', changes )
   }
 
 }
