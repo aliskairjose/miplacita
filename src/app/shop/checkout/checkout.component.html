@@ -10,7 +10,7 @@
 							<div class="order-box">
 								<ul class="qty" *ngIf='products.length'>
 									<li *ngFor="let product of products">
-										<strong> {{ product.name }} × {{ product.quantity }} </strong>
+										<strong> {{ product.name }} ( {{ product.quantity }} ) </strong>
 										<span>
 											{{ (product.price | discount:product) * productService?.Currency.price | currency }}
 										</span>
