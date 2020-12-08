@@ -3,8 +3,8 @@ import { Observable } from 'rxjs';
 import { ProductService } from '../../shared/services/product.service';
 import { Product } from '../../shared/classes/product';
 import { environment } from '../../../environments/environment.prod';
-import { Store } from '../../shared/classes/store';
 import { ActivatedRoute } from '@angular/router';
+import { Store } from '../../shared/classes/store';
 
 const state = {
   sessionStore: JSON.parse( sessionStorage.sessionStore || null ),
@@ -36,6 +36,14 @@ export class CartComponent implements OnInit {
       if ( Object.entries( queryParams ).length !== 0 ) {
         if ( queryParams.config ) {
           this.config = queryParams.config;
+          const decod = window.atob( queryParams.config );
+          const store: Store = JSON.parse( decod );
+          if ( Object.entries( store ).length === 0 && sessionStorage.sessionStore ) {
+            sessionStorage.removeItem( 'sessionStore' );
+            setTimeout( (): void => {
+              window.location.reload();
+            }, 10 );
+          }
         }
       }
     } );
