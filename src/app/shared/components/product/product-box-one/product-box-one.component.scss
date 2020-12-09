@@ -16,11 +16,9 @@
     }
 }
 
-
 h6 {
     color: var(--theme-deafult);
 }
-
 
 #mobile-cart-view {
     border: none;
@@ -31,18 +29,19 @@ h6 {
 }
 
 .btn-for-big-screen {
-    display: none
+    background-color: rgba(255, 255, 255, 0.6);
+    display: none;
 }
 .img-mobile {
-    width: 100% !important
-
+    width: 100% !important;
 }
 @media (min-width: 768px) {
     .btn-for-mobile {
         display: none;
     }
     .btn-for-big-screen {
-        display: inline
+        background-color: rgba(255, 255, 255, 0.6);
+        display: inline;
     }
 
     .front a img {
@@ -53,5 +52,4 @@ h6 {
     .img-mobile {
         width: 25% !important;
     }
-
 }
