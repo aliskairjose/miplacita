@@ -61,9 +61,7 @@ export class RegisterComponent implements OnInit {
   ngOnInit(): void {
     const role = this.route.queryParams.subscribe( params => {
       this.url = params.url;
-
       if ( params.url ) { this.mustReturnStore = true; }
-
     } );
 
     if ( state.user ) { this.registerSuccess = true; }

@@ -8,6 +8,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { CategoryService } from '../../shared/services/category.service';
 import { Category } from '../../shared/classes/category';
 import { User } from 'src/app/shared/classes/user';
+import { StorageService } from 'src/app/shared/services/storage.service';
 
 @Component( {
   selector: 'app-interests',
@@ -38,6 +39,7 @@ export class InterestsComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private modalService: NgbModal,
     private formBuilder: FormBuilder,
+    private storage: StorageService,
     private userService: UserService,
     private toastrService: ToastrService,
     private categoryService: CategoryService
@@ -52,7 +54,8 @@ export class InterestsComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     if ( this.type === 'register' ) {
-      this.userform = JSON.parse( sessionStorage.userForm );
+      // this.userform = JSON.parse( sessionStorage.userForm );
+      this.userform = this.storage.getItem( 'userForm' );
       this.categoryService.categoryList().subscribe( ( response: Category[] ) => {
         this.interestsList = [ ...response ];
       } );

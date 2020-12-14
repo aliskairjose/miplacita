@@ -100,7 +100,11 @@ export class PaymentComponent implements OnInit {
     tdc.date = `${this.paymentForm.value.month}/${this.paymentForm.value.year}`;
     data.valid = this.paymentForm.valid;
     data.tdc = { ...tdc };
-    return data;
+    if ( this.paymentForm.valid ) {
+      return data;
+    } else {
+      return false;
+    }
   }
 
   onChange( event: boolean ): void {
