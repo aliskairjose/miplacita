@@ -84,10 +84,13 @@
 		</section>
 	</div>
 	<div class="whatsapp clearfix">
-		<button type="button" class="btn btn-success rounded-circle p-4 waves-effect px-3 mr-5 float-right"
-			(click)="openChat()">
-			<i class="fa fa-whatsapp fa-4x" aria-hidden="true"></i>
-		</button>
+		<div class="d-flex align-items-center whatsapp-container">
+			<button type="button" class="btn btn-success rounded-circle px-1 mr-1 py-0 ml-3  waves-effect float-left"
+				(click)="openChat()">
+				<i class="fa fa-whatsapp fa-4x" aria-hidden="true"></i>
+			</button>
+			<label class="font-weight-light" style="color: white;">Escribenos al Whatsapp</label>
+		</div>
 	</div>
 	<app-footer-one [themeLogo]="store.logo"></app-footer-one>
 </div>

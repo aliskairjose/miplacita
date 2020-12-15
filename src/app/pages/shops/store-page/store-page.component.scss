@@ -43,12 +43,14 @@
         color: #fff;
         background-color: #25d366;
         border-color: #25d366;
+        font-size: 6px;
+        margin-left: 5px !important;
     }
 
     .btn-success:hover {
         color: #fff;
-        border-color: #28a745;
-        background-color: #28a745;
+        border-color: #36b546;
+        background-color: #36b546;
     }
 
     .whatsapp {
@@ -59,6 +61,12 @@
         z-index: 10000;
         img {
             height: 4rem;
+        }
+        .whatsapp-container {
+            width: fit-content;
+            padding: 3px 10px 3px 0;
+            border-radius: 25px;
+            background-color: #2bb34c;
         }
     }
     @supports (object-fit: cover) {
