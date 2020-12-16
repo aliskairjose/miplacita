@@ -18,6 +18,7 @@ export class ProductBoxOneComponent implements OnInit, AfterViewInit {
   config = '';
   productRate: 0;
   colors = [];
+  sizes = [];
 
   @Input() store: Store = {};
   @Input() product: Product;
@@ -61,7 +62,12 @@ export class ProductBoxOneComponent implements OnInit, AfterViewInit {
             this.colors.push( { value: key.value, name: key.name, products: key.products } );
           } );
         }
-        console.log( this.colors );
+        if ( variableResponse?.primary_key === 'size' ) {
+          variableResponse.keys.forEach( key => {
+            this.sizes.push( ` ${key.value}` );
+          } );
+        }
+        console.log( this.sizes );
 
       } );
 

@@ -57,6 +57,9 @@
         </ul>
         <p class="mt-1">Colores disponibles</p>
       </div>
+      <div *ngIf="sizes.length">
+        <p>Tamaños: {{ sizes }}</p>
+      </div>
       <p>{{ product?.description }}</p>
       <h4>
         {{ product?.price | currency }}
