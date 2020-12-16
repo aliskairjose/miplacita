@@ -1,20 +1,21 @@
-import { Component, OnInit, Input, ViewChild } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, AfterViewInit } from '@angular/core';
 import { QuickViewComponent } from '../../modal/quick-view/quick-view.component';
 import { CartModalComponent } from '../../modal/cart-modal/cart-modal.component';
 import { Product } from '../../../classes/product';
 import { ProductService } from '../../../services/product.service';
 import { ToastrService } from 'ngx-toastr';
 import { Store } from 'src/app/shared/classes/store';
-import { Config } from '../../../classes/store';
+import { CommentsComponent } from '../../comments/comments.component';
 
 @Component( {
   selector: 'app-product-box-one',
   templateUrl: './product-box-one.component.html',
   styleUrls: [ './product-box-one.component.scss' ]
 } )
-export class ProductBoxOneComponent implements OnInit {
+export class ProductBoxOneComponent implements OnInit, AfterViewInit {
 
   config = '';
+  productRate: 0;
 
   @Input() store: Store = {};
   @Input() product: Product;
@@ -29,16 +30,24 @@ export class ProductBoxOneComponent implements OnInit {
 
   @ViewChild( 'quickView' ) QuickView: QuickViewComponent;
   @ViewChild( 'cartModal' ) CartModal: CartModalComponent;
+  @ViewChild( 'comment', { static: false } ) comment: CommentsComponent;
 
   ImageSrc: string;
 
   constructor(
-    private productService: ProductService,
     private toastrService: ToastrService,
-  ) { }
+    private productService: ProductService,
+  ) {
+
+  }
+  ngAfterViewInit(): void {
+    // console.log( this.product._id );
+    // Carga los comentarios del producto
+  }
 
   ngOnInit(): void {
     this.config = window.btoa( JSON.stringify( this.store ) );
+    this.productService.productAverage( this.product._id ).subscribe( result => this.productRate = result.average );
     if ( this.loader ) {
       setTimeout( () => { this.loader = false; }, 2000 ); // Skeleton Loader
     }

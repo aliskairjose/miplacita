@@ -1,13 +1,12 @@
-<div *ngIf="!loader" >
-  <div class="img-wrapper d-flex align-items-center"  [ngClass]="{ 'img-wrapper-fix': horizontal }"[ngClass]="{ 'img-mobile': cartModal }"  >
-    <div class="front my-auto" [ngClass]="{'auto-height': cartModal, 'custom-front': !cartModal}" >
+<div *ngIf="!loader">
+  <div class="img-wrapper d-flex align-items-center" [ngClass]="{ 'img-wrapper-fix': horizontal }"
+    [ngClass]="{ 'img-mobile': cartModal }">
+    <div class="front my-auto" [ngClass]="{'auto-height': cartModal, 'custom-front': !cartModal}">
       <a [routerLink]="['/shop/product/', product._id]" [queryParams]="{ config: config  }">
         <img [lazyLoad]="product.images[0]?.url" class="img-fluid lazy-loading" alt="{{ product.name }}" />
       </a>
     </div>
-    <div class="back" *ngIf="onHowerChangeImage">
-
-    </div>
+    <div class="back" *ngIf="onHowerChangeImage"></div>
     <ul class="product-thumb-list" *ngIf="thumbnail">
       <li class="grid_thumb_img" [class.active]="ImageSrc == image.src" *ngFor="let image of product.images">
         <a href="javascript:void(0)" (mouseover)="ChangeVariantsImage(image)">
@@ -16,7 +15,8 @@
       </li>
     </ul>
     <div class="cart-info cart-wrap btn-for-big-screen">
-      <a href="javascript:void(0)" id="mobile-cart-view" title="Agregar al carrito" (click)="addToCart(product)" *ngIf="cartModal">
+      <a href="javascript:void(0)" id="mobile-cart-view" title="Agregar al carrito" (click)="addToCart(product)"
+        *ngIf="cartModal">
         <i class="ti-shopping-cart"></i>
       </a>
       <a href="javascript:void(0)" id="2" title="Agregar al carrito" (click)="addToCart(product)" *ngIf="!cartModal">
@@ -29,33 +29,38 @@
   </div>
   <div class="row mt-3 btn-for-mobile">
     <div class="col-6 d-flex justify-content-center">
-      <a href="javascript:void(0)" id="mobile-cart-view" title="Agregar al carrito" (click)="addToCart(product)" *ngIf="cartModal">
+      <a href="javascript:void(0)" id="mobile-cart-view" title="Agregar al carrito" (click)="addToCart(product)"
+        *ngIf="cartModal">
         <i class="ti-shopping-cart"></i>
       </a>
       <a href="javascript:void(0)" id="2" title="Agregar al carrito" (click)="addToCart(product)" *ngIf="!cartModal">
         <i class="ti-shopping-cart"></i>
-      </a>  
+      </a>
     </div>
     <div class="col-6 d-flex justify-content-center align-items-center">
       <a href="javascript:void(0)" id="2" title="Detalle del producto" (click)="QuickView.openModal()">
         <i class="ti-search" aria-hidden="true"></i>
       </a>
     </div>
-    
   </div>
+  <!-- Detalle del producto -->
   <div class="product-detail" *ngIf="!search">
-    <div >
+    <div>
       <a [routerLink]="['/shop/product/', product._id]" [queryParams]="{ config: config }">
         <h6>{{ product?.name | titlecase }}</h6>
       </a>
+      <!-- <p>Colores disponibles</p> -->
       <p>{{ product?.description }}</p>
       <h4>
-        {{ product?.price | currency:currency?.currency:'symbol' }}
+        {{ product?.price | currency }}
+        <small>({{product?.stock}} unidades disponibles)</small>
       </h4>
+      <p class="mt-2">Calificación del producto</p>
+      <bar-rating [readOnly] name="rating" [(rate)]="productRate" [max]="5" disabled></bar-rating>
     </div>
   </div>
   <div class=" product-detail" *ngIf="search">
-    <div class="py-2"> 
+    <div class="py-2">
       <a [routerLink]="['/shop/product/', product._id]">
         <h6 class="text-default-color">{{ product?.name | titlecase }}</h6>
       </a>
@@ -63,7 +68,7 @@
       <p class="mt-2">{{ product?.description }}</p>
       <div class="d-flex">
         <h4>
-          {{ product?.price | currency  }}
+          {{ product?.price | currency }}
         </h4>
         <p class="text-default-color pl-2">({{ product.stock }} unidades disponibles)</p>
       </div>

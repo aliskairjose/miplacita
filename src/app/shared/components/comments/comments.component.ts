@@ -65,7 +65,6 @@ export class CommentsComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   loadReviews( id: string ): Observable<number> {
-
     this._productId = id;
     return this.productService.productReviews( id ).pipe(
       map( reviews => {

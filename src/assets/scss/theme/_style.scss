@@ -8,81 +8,56 @@
 
     ----------------------------------------------------------------------------------- */
 
-
 /* 1. General CSS
    1.1. Button CSS
    1.2. Title CSS
    1.3. Brand logo CSS */
 
-
 /* 02. Header CSS */
-
 
 /* 03. Home slider CSS  */
 
-
 /* 04. Instagram CSS  */
-
 
 /* 05. Blog CSS */
 
-
 /* 06. Service CSS  */
-
 
 /* 07. About CSS  */
 
-
 /* 08. Banner Timer CSS */
-
 
 /* 09. Product Box CSS */
 
-
 /* 10. Theme tab CSS */
-
 
 /* 11. Banner CSS */
 
-
 /* 12. Collection Banner CSS */
-
 
 /* 13. Product-box slider CSS */
 
-
 /* 14. Modal popup CSS */
-
 
 /* 15. Lookbook CSS */
 
-
 /* 16. Footer CSS */
-
 
 /* 17. Loader CSS*/
 
-
 /* 18. Tap to top CSS */
-
 
 /* 19. color CSS */
 
-
 /* 20. Facebook Chat CSS */
-
 
 /* 21. Inner pages CSS */
 
-
 /* 22. RTL CSS */
-
 
 /* 23. Menu CSS */
 
-
 /* 24. Responsive CSS */
-
 
 /*=====================
     1.General CSS start
@@ -448,8 +423,8 @@ del {
             }
             .main-nav-center {
                 .sm {
-                    >li {
-                        >a {
+                    > li {
+                        > a {
                             padding-top: 16px;
                             padding-bottom: 16px;
                         }
@@ -502,7 +477,6 @@ del {
     background-color: #f7f7f7;
 }
 
-
 /*=====================
     1.1.Button CSS start
     ==========================*/
@@ -517,9 +491,9 @@ button {
     font-size: 14px;
     font-weight: 700;
     border-radius: 0;
-    transition: .3s ease-in-out;
+    transition: 0.3s ease-in-out;
     &:hover {
-        transition: .3s ease-in-out;
+        transition: 0.3s ease-in-out;
     }
     &:focus {
         box-shadow: none;
@@ -598,7 +572,7 @@ button {
         right: 50%;
         bottom: 0;
         opacity: 0;
-        content: '';
+        content: "";
         background-color: var(--theme-deafult);
         z-index: -2;
     }
@@ -646,7 +620,6 @@ button {
     background-color: var(--theme-deafult);
     color: $white;
 }
-
 
 /*=====================
     1.2.Title CSS start
@@ -835,7 +808,6 @@ button {
     margin-top: -5px;
 }
 
-
 /*=====================
     1.3.Brand logo CSS start
     ==========================*/
@@ -849,7 +821,7 @@ button {
     img {
         filter: grayscale(100%);
         opacity: 0.5;
-        transition: .5s ease;
+        transition: 0.5s ease;
         margin: 0 auto;
         &:focus {
             outline: none;
@@ -857,11 +829,10 @@ button {
         &:hover {
             filter: grayscale(0);
             opacity: 1;
-            transition: .5s ease;
+            transition: 0.5s ease;
         }
     }
 }
-
 
 /*=====================
     02.Header CSS start
@@ -874,7 +845,7 @@ header {
 .left-header {
     .top-header {
         .header-dropdown {
-            >li {
+            > li {
                 padding: 15px 25px !important;
                 &:first-child {
                     padding-right: 0 !important;
@@ -968,7 +939,7 @@ header {
     top: 0;
     left: 0;
     background-color: lighten($white, 5%);
-    >div {
+    > div {
         height: 100%;
         width: 100%;
         display: flex;
@@ -1246,7 +1217,7 @@ header {
         }
         &.around-border {
             .navbar {
-                >a {
+                > a {
                     border: 2px solid var(--theme-deafult);
                     padding: 11px 10px 6px;
                 }
@@ -1256,7 +1227,7 @@ header {
             .navbar {
                 padding-right: 0;
                 padding-left: 45px;
-                >a {
+                > a {
                     border: 2px solid $sidebar-border;
                     padding: 11px 10px 6px;
                 }
@@ -1453,7 +1424,6 @@ header {
     }
 }
 
-
 /*=====================
     03.Home slider CSS start
     ==========================*/
@@ -1582,7 +1552,7 @@ header {
         }
     }
     .home-banner {
-        >div {
+        > div {
             img {
                 width: 100%;
             }
@@ -1606,7 +1576,6 @@ header {
     }
 }
 
-
 /*=====================
     04.Instagram CSS start
     ==========================*/
@@ -1623,7 +1592,7 @@ header {
         width: 100%;
     }
     .overlay {
-        transition: .5s ease;
+        transition: 0.5s ease;
         opacity: 0;
         position: absolute;
         height: 100%;
@@ -1643,12 +1612,11 @@ header {
     &:hover {
         .overlay {
             opacity: 0.5;
-            transition: .5s ease;
+            transition: 0.5s ease;
             transform: scale(1) rotate(0deg);
         }
     }
 }
-
 
 /*=====================
     05.Blog CSS start
@@ -1672,7 +1640,7 @@ header {
         background: var(--theme-deafult);
         width: 25%;
         position: absolute;
-        content: '';
+        content: "";
         opacity: 0;
         -webkit-transition: all 0.3s steps(4);
         transition: all 0.3s steps(4);
@@ -1694,7 +1662,7 @@ header {
             background: var(--theme-deafult);
             width: 25%;
             position: absolute;
-            content: '';
+            content: "";
             opacity: 0;
             -webkit-transition: all 0.3s steps(4);
             transition: all 0.3s steps(4);
@@ -1736,7 +1704,11 @@ header {
     &:after {
         position: absolute;
         content: "";
-        background: linear-gradient(-180deg, rgba(var(--theme-gradient1), 0.8) 0%, rgba(var(--theme-gradient2), 0.8) 99%);
+        background: linear-gradient(
+            -180deg,
+            rgba(var(--theme-gradient1), 0.8) 0%,
+            rgba(var(--theme-gradient2), 0.8) 99%
+        );
         width: 100%;
         height: 100%;
         top: 0;
@@ -1796,7 +1768,6 @@ header {
     }
 }
 
-
 /*=====================
     06.Service CSS start
     ==========================*/
@@ -1831,7 +1802,7 @@ header {
         text-transform: capitalize;
         margin-bottom: 0;
     }
-    +.service-block {
+    + .service-block {
         border-left: 1px solid lighten($black, 86.5%);
     }
     &:hover {
@@ -1881,7 +1852,6 @@ header {
     }
 }
 
-
 /*=====================
     07.About CSS start
     ==========================*/
@@ -1894,7 +1864,6 @@ header {
         margin-bottom: 50px;
     }
 }
-
 
 /*=====================
    08.Banner Timer CSS start
@@ -1949,7 +1918,6 @@ header {
         }
     }
 }
-
 
 /*=====================
     9.Category CSS start
@@ -2035,7 +2003,7 @@ header {
                     display: inline-block;
                     padding: 20px 35px;
                     margin-bottom: 0;
-                    box-shadow: 0 0 7px 0 rgba(0, 0, 0, 0.40);
+                    box-shadow: 0 0 7px 0 rgba(0, 0, 0, 0.4);
                     transition: 0.5s ease;
                 }
             }
@@ -2166,7 +2134,7 @@ header {
 
 .category-m {
     .owl-item {
-        >div {
+        > div {
             margin: 0 20px;
         }
     }
@@ -2178,7 +2146,7 @@ header {
         padding-top: 40px;
         padding-bottom: 40px;
         position: relative;
-        >div {
+        > div {
             &:after,
             &:before {
                 content: "";
@@ -2222,7 +2190,7 @@ header {
                 transition-delay: 0s;
                 width: 100%;
             }
-            >div {
+            > div {
                 &:after,
                 &:before {
                     transition-delay: 0.2s;
@@ -2290,7 +2258,6 @@ header {
         }
     }
 }
-
 
 /*=====================
     09.Product Box CSS start
@@ -2367,7 +2334,7 @@ header {
         flex: 0 0 25%;
         max-width: calc(25% - 30px);
         margin: 0 15px 30px;
-        &:nth-last-child(-n+4) {
+        &:nth-last-child(-n + 4) {
             margin: 0 15px 0;
         }
     }
@@ -2624,7 +2591,10 @@ header {
             }
         }
         p {
-            display: none;
+            display: block;
+        }
+        small {
+            color: var(--theme-deafult);
         }
         h6 {
             line-height: 1;
@@ -2864,7 +2834,6 @@ header {
     }
 }
 
-
 /*=====================
     10.Theme tab CSS start
     ==========================*/
@@ -2894,7 +2863,7 @@ header {
         }
     }
     .tab-content {
-        >.active {
+        > .active {
             .product-box,
             .tab-box {
                 animation: zoomIn 300ms ease-in-out;
@@ -3057,7 +3026,6 @@ header {
     }
 }
 
-
 /*=====================
     11.Banner CSS start
     ==========================*/
@@ -3162,7 +3130,6 @@ header {
         }
     }
 }
-
 
 /*=====================
     12.Collection Banner CSS start
@@ -3279,7 +3246,6 @@ header {
         }
     }
 }
-
 
 /*=====================
     13.Product-box slider CSS start
@@ -3457,7 +3423,7 @@ header {
             height: 160px;
             padding: 15px 15px 15px 0 !important;
         }
-        >div {
+        > div {
             .media {
                 &:last-child {
                     .media-body {
@@ -3538,7 +3504,7 @@ header {
                         }
                     }
                 }
-                +.product-box2 {
+                + .product-box2 {
                     border-top: 1px solid $border-grey;
                 }
                 &:hover {
@@ -3553,7 +3519,6 @@ header {
         }
     }
 }
-
 
 /*=====================
     14.Modal popup CSS start
@@ -3573,7 +3538,24 @@ header {
         .modal-content {
             .modal-body {
                 padding: 15px;
-                background-image: linear-gradient(135deg, var(--theme-deafult) 5.77%, $white 5.77%, $white 25%, $grey01 25%, $grey01 30.77%, $white 30.77%, $white 50%, var(--theme-deafult) 50%, var(--theme-deafult) 55.77%, $white 55.77%, $white 75%, $grey01 75%, $grey01 80.77%, $white 80.77%, $white 100%);
+                background-image: linear-gradient(
+                    135deg,
+                    var(--theme-deafult) 5.77%,
+                    $white 5.77%,
+                    $white 25%,
+                    $grey01 25%,
+                    $grey01 30.77%,
+                    $white 30.77%,
+                    $white 50%,
+                    var(--theme-deafult) 50%,
+                    var(--theme-deafult) 55.77%,
+                    $white 55.77%,
+                    $white 75%,
+                    $grey01 75%,
+                    $grey01 80.77%,
+                    $white 80.77%,
+                    $white 100%
+                );
                 background-size: 36.77px 36.77px;
                 .modal-bg {
                     background-color: $white;
@@ -3607,7 +3589,7 @@ header {
                         form {
                             margin: 0 auto;
                             text-align: center;
-                            >div {
+                            > div {
                                 display: flex;
                                 margin-bottom: 10px;
                             }
@@ -3762,7 +3744,6 @@ header {
         }
     }
 }
-
 
 /*=====================
     15.lookbook CSS start
@@ -3925,7 +3906,6 @@ header {
     }
 }
 
-
 /*=====================
     16.look-book demo CSS start
 ==========================*/
@@ -3935,7 +3915,7 @@ header {
     padding-right: 25px;
     padding-bottom: 25px;
     .lookbook-img {
-        >div {
+        > div {
             &:last-child {
                 img {
                     margin-top: 25px;
@@ -3944,7 +3924,6 @@ header {
         }
     }
 }
-
 
 /*=====================
 17.3.Electronics Demo CSS
@@ -3987,7 +3966,6 @@ header {
     }
 }
 
-
 /*=====================
     17.4.Fashion-3 Demo CSS
 ==========================*/
@@ -4012,7 +3990,6 @@ header {
         }
     }
 }
-
 
 /*=====================
     17.5.Beauty Demo css
@@ -4102,7 +4079,6 @@ header {
     }
 }
 
-
 /*=====================
     17.6..Flower Demo css
 ==========================*/
@@ -4134,7 +4110,6 @@ header {
     }
 }
 
-
 /*=====================
     17.7.Nursery Demo css
 ==========================*/
@@ -4145,7 +4120,6 @@ header {
     background-attachment: fixed;
     padding: 50px;
 }
-
 
 /*=====================
     17.2.Full-page scroll CSS start
@@ -4221,7 +4195,7 @@ header {
                     &:before {
                         font-size: 15px;
                         color: var(--theme-deafult);
-                        opacity: 0.50;
+                        opacity: 0.5;
                     }
                 }
             }
@@ -4257,7 +4231,6 @@ header {
     object-fit: fill;
 }
 
-
 /*=====================
  Add to cart popup
 ==========================*/
@@ -4267,17 +4240,17 @@ header {
     background-color: $white;
     z-index: 9999;
     transition: all 0.5s ease;
-     ::-webkit-scrollbar {
+    ::-webkit-scrollbar {
         width: 3px;
         height: 7px;
     }
-     ::-webkit-scrollbar-track {
+    ::-webkit-scrollbar-track {
         background: $round-border;
     }
-     ::-webkit-scrollbar-thumb {
+    ::-webkit-scrollbar-thumb {
         background: $grey5;
     }
-     ::-webkit-scrollbar-thumb:hover {
+    ::-webkit-scrollbar-thumb:hover {
         background: $grey2;
     }
     .empty-cart-cls {
@@ -4477,7 +4450,6 @@ header {
         }
     }
 }
-
 
 /*=====================
     16.footer CSS start
@@ -4937,7 +4909,6 @@ footer {
     }
 }
 
-
 /*=====================
     17.Loader CSS start
     ==========================*/
@@ -4962,7 +4933,7 @@ footer {
         background-color: var(--theme-deafult);
         border-radius: 50%;
         &:after {
-            content: '';
+            content: "";
             position: absolute;
             border-radius: 50%;
             top: 50%;
@@ -4994,7 +4965,6 @@ footer {
     }
 }
 
-
 /*=====================
     18.Tab to top CSS start
     ==========================*/
@@ -5019,7 +4989,6 @@ footer {
         bottom: 130px;
     }
 }
-
 
 /*=====================
     19.Color CSS start
@@ -5079,7 +5048,7 @@ footer {
     top: 35%;
     width: 190px;
     z-index: 1;
-    transition: all .3s ease;
+    transition: all 0.3s ease;
     .settings-header {
         background: #f3f3f3;
         padding: 5px 15px;
@@ -5120,7 +5089,7 @@ footer {
             background: #ffffff;
             top: -80px;
             border: 1px solid white;
-            box-shadow: 0 0 4px rgba(4, 4, 4, 0.10);
+            box-shadow: 0 0 4px rgba(4, 4, 4, 0.1);
             i {
                 margin-left: 5px;
             }
@@ -5180,7 +5149,6 @@ footer {
     top: -80px;
 }
 
-
 /*=====================
     23.Fb chat CSS start
 ==========================*/
@@ -5188,7 +5156,6 @@ footer {
 #fb-root {
     display: block;
 }
-
 
 /*=====================
   21.Inner pages CSS start
@@ -5281,7 +5248,7 @@ footer {
    * Licensed under MIT
    */
     .la-square-spin,
-    .la-square-spin>div {
+    .la-square-spin > div {
         position: relative;
         -webkit-box-sizing: border-box;
         -moz-box-sizing: border-box;
@@ -5295,7 +5262,7 @@ footer {
     .la-square-spin.la-dark {
         color: #333;
     }
-    .la-square-spin>div {
+    .la-square-spin > div {
         display: inline-block;
         float: none;
         background-color: currentColor;
@@ -5305,14 +5272,14 @@ footer {
         width: 32px;
         height: 32px;
     }
-    .la-square-spin>div {
+    .la-square-spin > div {
         width: 100%;
         height: 100%;
         border-radius: 0;
-        -webkit-animation: square-spin 3s 0s cubic-bezier(.09, .57, .49, .9) infinite;
-        -moz-animation: square-spin 3s 0s cubic-bezier(.09, .57, .49, .9) infinite;
-        -o-animation: square-spin 3s 0s cubic-bezier(.09, .57, .49, .9) infinite;
-        animation: square-spin 3s 0s cubic-bezier(.09, .57, .49, .9) infinite;
+        -webkit-animation: square-spin 3s 0s cubic-bezier(0.09, 0.57, 0.49, 0.9) infinite;
+        -moz-animation: square-spin 3s 0s cubic-bezier(0.09, 0.57, 0.49, 0.9) infinite;
+        -o-animation: square-spin 3s 0s cubic-bezier(0.09, 0.57, 0.49, 0.9) infinite;
+        animation: square-spin 3s 0s cubic-bezier(0.09, 0.57, 0.49, 0.9) infinite;
     }
     .la-square-spin.la-sm {
         width: 16px;
@@ -5455,7 +5422,7 @@ footer {
         border-radius: 25px;
         display: block;
     }
-    .pro_inventory .inventory-scroll>span {
+    .pro_inventory .inventory-scroll > span {
         display: block;
         height: 100%;
         float: left;
@@ -5704,7 +5671,7 @@ footer {
         .collection-collapse-block-content {
             max-height: 500px;
             transition-property: all;
-            transition-duration: .5s;
+            transition-duration: 0.5s;
             transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
         }
     }
@@ -5712,7 +5679,7 @@ footer {
         max-height: 0;
         overflow: hidden;
         transition-property: all;
-        transition-duration: .5s;
+        transition-duration: 0.5s;
         transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
         .color-selector {
             margin-top: 30px;
@@ -5788,7 +5755,7 @@ footer {
                 }
                 .custom-control-input {
                     &:checked {
-                        ~.custom-control-label {
+                        ~ .custom-control-label {
                             &:after {
                                 background-image: url("data:image/svg+xml;charset=utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'><path fill='%23000' d='M6.564.75l-3.59 3.612-1.538-1.55L0 4.26 2.974 7.25 8 2.193z'/></svg>");
                             }
@@ -5895,7 +5862,7 @@ footer {
             display: flex;
             padding-bottom: 0;
         }
-        >div {
+        > div {
             display: flex;
             padding-bottom: 0;
         }
@@ -6016,16 +5983,16 @@ footer {
         }
         .popup-filter {
             justify-content: unset;
-             ::-webkit-scrollbar {
+            ::-webkit-scrollbar {
                 width: 3px;
             }
-             ::-webkit-scrollbar-track {
+            ::-webkit-scrollbar-track {
                 background: $round-border;
             }
-             ::-webkit-scrollbar-thumb {
+            ::-webkit-scrollbar-thumb {
                 background: $grey5;
             }
-             ::-webkit-scrollbar-thumb:hover {
+            ::-webkit-scrollbar-thumb:hover {
                 background: $grey2;
             }
             .sidebar-popup {
@@ -6272,7 +6239,7 @@ footer {
             height: 0;
             width: 0;
             &:checked {
-                ~.checkmark {
+                ~ .checkmark {
                     &:after {
                         display: block;
                     }
@@ -6343,7 +6310,7 @@ footer {
             border-radius: 0;
             overflow: hidden;
             border-bottom: 1px solid $round-border;
-             :not(:first-of-type):not(:last-of-type),
+            :not(:first-of-type):not(:last-of-type),
             .theme-accordion .card:first-of-type {
                 border-bottom: 1px solid $round-border;
             }
@@ -6656,14 +6623,14 @@ footer {
 .wishlist-section {
     .table {
         tbody {
-            &+tbody {
+            & + tbody {
                 border-top: none;
             }
         }
     }
     .cart-buttons {
         padding-top: 35px;
-        >div {
+        > div {
             &:last-child {
                 text-align: right;
                 padding-right: 59px;
@@ -6809,7 +6776,7 @@ footer {
             border-bottom: 1px solid $round-border;
             margin-bottom: 15px;
             li {
-                &+li {
+                & + li {
                     padding-left: 15px;
                     margin-left: 15px;
                     border-left: 1px solid $round-border;
@@ -6818,7 +6785,7 @@ footer {
         }
     }
     .blog-advance {
-        >div {
+        > div {
             &:last-child {
                 p {
                     &:last-child {
@@ -6940,7 +6907,7 @@ footer {
                             margin-right: 10px;
                         }
                     }
-                    &+li {
+                    & + li {
                         margin-top: 30px;
                     }
                 }
@@ -6960,7 +6927,7 @@ footer {
                             text-transform: uppercase;
                         }
                     }
-                    &+li {
+                    & + li {
                         margin-top: 30px;
                     }
                     p {
@@ -6968,7 +6935,7 @@ footer {
                     }
                 }
             }
-            &+.theme-card {
+            & + .theme-card {
                 margin-top: 30px;
             }
         }
@@ -7009,7 +6976,7 @@ footer {
                     i {
                         padding-right: 3px;
                     }
-                    &+li {
+                    & + li {
                         padding-left: 15px;
                         margin-left: 15px;
                         border-left: 1px solid #dddddd;
@@ -7060,7 +7027,7 @@ footer {
         }
     }
     .owl-item {
-        >div {
+        > div {
             //display: flex;
             margin-bottom: 15px;
         }
@@ -7085,13 +7052,13 @@ footer {
 }
 
 .owl-item {
-    >div.owl-thumb {
+    > div.owl-thumb {
         margin: 5px 5px 0px 0px;
         border: 1px solid $round-border;
         transition: all 0.5s ease;
         cursor: pointer;
     }
-    >div.owl-thumb.active {
+    > div.owl-thumb.active {
         border-color: $font-grey;
         transition: all 0.5s ease;
     }
@@ -7102,14 +7069,14 @@ footer {
 .slider-right-nav,
 .rtl-slider-right-nav {
     .owl-item {
-        >div {
+        > div {
             //display: flex;
             margin: 15px 15px 0 15px;
             border: 1px solid $round-border;
             transition: all 0.5s ease;
         }
         &.slick-current {
-            >div {
+            > div {
                 border-color: $font-grey;
                 transition: all 0.5s ease;
             }
@@ -7124,7 +7091,7 @@ footer {
 .rtl-slider-right-nav {
     .owl-item {
         &:first-child {
-            >div {
+            > div {
                 margin-top: 0;
             }
         }
@@ -7142,7 +7109,7 @@ footer {
 
 .image-scroll {
     div {
-        >div {
+        > div {
             padding-bottom: 20px;
             &:last-child {
                 padding: 0;
@@ -7465,7 +7432,7 @@ footer {
     margin-top: 0;
     i {
         padding-right: 5px;
-        &:nth-child(-n+4) {
+        &:nth-child(-n + 4) {
             color: $star-yellow;
         }
         &:last-child {
@@ -7476,7 +7443,7 @@ footer {
         padding-bottom: 5px;
         i {
             color: #acacac;
-            &:nth-child(-n+3) {
+            &:nth-child(-n + 3) {
                 color: #ffd200;
             }
         }
@@ -7535,7 +7502,7 @@ footer {
                 color: var(--theme-deafult);
                 background-color: transparent;
                 border-bottom: 2px solid var(--theme-deafult);
-                &~.material-border {
+                & ~ .material-border {
                     transition: all 0.3s ease;
                     opacity: 1;
                 }
@@ -7586,7 +7553,7 @@ footer {
         .slick-arrow {
             top: -45px;
             height: auto;
-             :before {
+            :before {
                 color: $black;
                 font-size: 18px;
             }
@@ -7637,7 +7604,7 @@ footer {
                 justify-content: center;
                 border: 0;
                 box-shadow: 0 0 12px 0 $round-border;
-                 :hover {
+                :hover {
                     transition: all 0.3s ease;
                     color: var(--theme-deafult);
                 }
@@ -7749,8 +7716,8 @@ footer {
 }
 
 .product_image_4 {
-    >div {
-        &:nth-child(-n+2) {
+    > div {
+        &:nth-child(-n + 2) {
             margin-bottom: 25px;
         }
     }
@@ -8084,7 +8051,7 @@ footer {
                 }
             }
             &:before {
-                content: '\f105';
+                content: "\f105";
                 display: inline-block;
                 font-family: FontAwesome;
                 font-style: normal;
@@ -8169,7 +8136,7 @@ footer {
                 text-transform: capitalize;
                 color: #333;
             }
-            >a {
+            > a {
                 position: absolute;
                 right: 0;
                 top: 12px;
@@ -8576,7 +8543,7 @@ footer {
                     background-color: var(--theme-deafult);
                     border-radius: 50%;
                     &:after {
-                        content: '';
+                        content: "";
                         position: absolute;
                         border-radius: 50%;
                         top: 50%;
@@ -8649,7 +8616,7 @@ footer {
         display: flex;
         align-items: center;
         justify-content: center;
-        >div {
+        > div {
             width: 100%;
         }
         #login {
@@ -8776,7 +8743,7 @@ footer {
                 margin-bottom: 0;
                 font-size: 14px;
                 line-height: 1.5;
-                +p {
+                + p {
                     margin-top: 10px;
                 }
             }
@@ -8811,7 +8778,7 @@ footer {
                 text-transform: capitalize;
             }
         }
-        +.profile-left {
+        + .profile-left {
             margin-top: 40px;
         }
     }
@@ -8836,7 +8803,7 @@ footer {
     .step-bg {
         position: relative;
         &:before {
-            content: '';
+            content: "";
             position: absolute;
             left: -0;
             right: -0;
@@ -8847,7 +8814,7 @@ footer {
         .row {
             margin-left: -50px;
             margin-right: -50px;
-            >div {
+            > div {
                 padding-left: 50px;
                 padding-right: 50px;
                 &:nth-child(1),
@@ -9109,7 +9076,7 @@ footer {
                     text-transform: capitalize;
                 }
                 .row {
-                    >div {
+                    > div {
                         .form-check {
                             margin-bottom: 10px;
                             padding-left: 0;
@@ -9122,7 +9089,7 @@ footer {
                 .btn {
                     margin-top: 15px;
                 }
-                +.account-setting {
+                + .account-setting {
                     margin-top: 15px;
                 }
             }
@@ -9197,7 +9164,6 @@ footer {
     }
 }
 
-
 /*=====================
     22.RTL CSS start
     ==========================*/
@@ -9210,7 +9176,6 @@ footer {
     .tools-parallax-product {
         .owl-next {
             left: -25px !important;
-            ;
         }
         .owl-prev {
             right: -25px !important;
@@ -9267,7 +9232,7 @@ body.rtl {
     header {
         .main-navbar {
             .nav-menu {
-                >li {
+                > li {
                     float: right;
                     .mega-menu-container {
                         .mega-box {
@@ -9626,7 +9591,8 @@ body.rtl {
         h4,
         h5,
         h6,
-        p {}
+        p {
+        }
     }
     ul {
         -webkit-padding-start: 0;
@@ -9637,7 +9603,7 @@ body.rtl {
         }
         .pro_inventory {
             .inventory-scroll {
-                >span {
+                > span {
                     float: right;
                 }
             }
@@ -9718,7 +9684,7 @@ body.rtl {
         }
     }
     .search-overlay {
-        >div {
+        > div {
             .closebtn {
                 right: unset;
                 left: 25px;
@@ -9997,7 +9963,7 @@ body.rtl {
             margin-left: 12px;
             margin-right: 0;
         }
-        +.service-block {
+        + .service-block {
             border-right: 1px solid lighten($black, 86.5%);
             border-left: none;
         }
@@ -10390,7 +10356,7 @@ body.rtl {
         }
     }
     .breadcrumb-item {
-        +.breadcrumb-item {
+        + .breadcrumb-item {
             padding-right: 0.5rem;
             padding-left: 0;
             &:before {
@@ -10505,7 +10471,7 @@ body.rtl {
                 ul {
                     text-align: right;
                     li {
-                        +li {
+                        + li {
                             padding-right: 15px;
                             margin-right: 15px;
                             border-right: 1px solid $round-border;
@@ -10523,7 +10489,7 @@ body.rtl {
             .post-social {
                 text-align: right;
                 li {
-                    +li {
+                    + li {
                         padding-right: 15px;
                         margin-right: 15px;
                         border-right: 1px solid $round-border;
@@ -10581,7 +10547,7 @@ body.rtl {
             }
         }
         .cart-buttons {
-            >div {
+            > div {
                 &:last-child {
                     text-align: left;
                     padding-left: 59px;
@@ -11145,7 +11111,7 @@ body.rtl {
         }
     }
     .search-overlay {
-        >div {
+        > div {
             .overlay-content {
                 button {
                     right: unset;
@@ -11313,7 +11279,7 @@ body.rtl {
     .dashboard {
         .box {
             .box-title {
-                >a {
+                > a {
                     right: unset;
                     left: 0;
                 }
@@ -11349,7 +11315,6 @@ body.rtl {
     }
 }
 
-
 /*=====================
   Fashion-2 Demo CSS
 ==========================*/
@@ -11373,7 +11338,6 @@ body.rtl {
         }
     }
 }
-
 
 /*=====================
   Portfolio CSS
@@ -11413,11 +11377,11 @@ body.rtl {
     .isotopeSelector {
         margin-bottom: 30px;
         img {
-            transition: all .4s ease;
+            transition: all 0.4s ease;
         }
         .overlay-background {
             transform: scale(0);
-            transition: all .4s ease;
+            transition: all 0.4s ease;
             i {
                 position: absolute;
                 top: 50%;
@@ -11439,7 +11403,7 @@ body.rtl {
         &:hover {
             img {
                 transform: scale(1.2) rotate(2deg);
-                transition: all .4s ease;
+                transition: all 0.4s ease;
             }
             .overlay-background {
                 transform: scale(1);
@@ -11587,9 +11551,9 @@ body.rtl {
         padding: 0 0 20px;
         ul {
             &.filter {
-                >li {
+                > li {
                     padding: 0 25px;
-                    >a {
+                    > a {
                         color: var(--theme-deafult);
                         font-size: 20px;
                         line-height: 40px;
@@ -11610,13 +11574,13 @@ body.rtl {
                         color: #ddd;
                         font-size: 20px;
                         display: inline-block;
-                        margin: 0 5px
+                        margin: 0 5px;
                     }
                 }
             }
         }
         .filter {
-            >li {
+            > li {
                 padding: 0;
                 margin: 0;
             }
@@ -11696,7 +11660,6 @@ body.rtl {
     }
 }
 
-
 /*=====================
     electronic demo CSS start
 ==========================*/
@@ -11737,7 +11700,6 @@ body.rtl {
         background-position: 0 500px;
     }
 }
-
 
 /*=====================
     pets demo CSS start
@@ -12059,7 +12021,6 @@ footer {
     }
 }
 
-
 /*=====================
     Metro layout  CSS start
 ==========================*/
@@ -12175,7 +12136,6 @@ footer {
     }
 }
 
-
 /*=====================
     GYM layout  CSS start
 ==========================*/
@@ -12223,7 +12183,11 @@ footer {
     }
     .instagram-box {
         .overlay {
-            background: linear-gradient(-180deg, rgba(var(--theme-gradient1), 0.8) 0%, rgba(var(--theme-gradient2), 0.8) 99%);
+            background: linear-gradient(
+                -180deg,
+                rgba(var(--theme-gradient1), 0.8) 0%,
+                rgba(var(--theme-gradient2), 0.8) 99%
+            );
         }
     }
 }
@@ -12302,8 +12266,8 @@ footer {
         }
     }
     .partition-cls {
-        >div {
-            &:nth-child(-n+4) {
+        > div {
+            &:nth-child(-n + 4) {
                 margin-bottom: 30px;
             }
         }
@@ -12417,8 +12381,8 @@ footer {
     }
     .main-navbar {
         .nav-menu {
-            >li {
-                >a {
+            > li {
+                > a {
                     .lable-nav {
                         top: 2px;
                     }
@@ -12454,8 +12418,8 @@ footer {
         }
     }
     .sm-horizontal {
-        >li {
-            >a {
+        > li {
+            > a {
                 padding-top: 20px;
                 padding-bottom: 20px;
                 color: $white;
@@ -12484,7 +12448,7 @@ footer {
     .onhover-div {
         padding-top: 20px;
         padding-bottom: 20px;
-        >div {
+        > div {
             img {
                 filter: brightness(54);
             }
@@ -12533,7 +12497,6 @@ footer {
     }
 }
 
-
 /*=====================
     Left Sidebar CSS start
 ==========================*/
@@ -12557,7 +12520,7 @@ footer {
     .onhover-div {
         padding-top: 15px;
         padding-bottom: 15px;
-        >div {
+        > div {
             img {
                 width: 20px;
                 height: auto;
@@ -12577,8 +12540,8 @@ footer {
             background-color: $white;
         }
         .pixelstrap {
-            >li {
-                >a {
+            > li {
+                > a {
                     padding: 10px 0 20px 0;
                     &:hover,
                     &:focus {
@@ -12722,7 +12685,7 @@ footer {
         }
         .menu-right {
             .header-dropdown {
-                >li {
+                > li {
                     img {
                         width: 20px;
                         height: auto;
@@ -12731,7 +12694,7 @@ footer {
             }
             .icon-nav {
                 .onhover-div {
-                    >img {
+                    > img {
                         width: 20px;
                         height: auto;
                     }
@@ -12878,8 +12841,8 @@ footer {
         }
     }
     .sm-horizontal {
-        >li {
-            >a {
+        > li {
+            > a {
                 padding-top: 25px;
                 padding-bottom: 25px;
                 &:hover,
@@ -13150,7 +13113,7 @@ footer {
         span {
             font-size: 10px;
             font-weight: bold;
-            color: #FFF;
+            color: #fff;
             text-transform: uppercase;
             text-align: center;
             line-height: 20px;
@@ -13224,7 +13187,7 @@ footer {
 
 .sticky-footer {
     background-image: url("#{$assetspath}/tools-bg.jpg");
-    >section {
+    > section {
         background-color: transparent !important;
         p {
             color: $grey-font;
@@ -13263,7 +13226,7 @@ footer {
             }
         }
     }
-    >div.sub-footer {
+    > div.sub-footer {
         background-color: #141111 !important;
         p {
             color: $grey8 !important;
@@ -13422,7 +13385,7 @@ footer {
 .detail-cannabis {
     .detail_section {
         text-align: center;
-        >div {
+        > div {
             box-shadow: -1px 2px 5px 1px #ececec;
             padding: 45px 25px;
             background-color: white;
@@ -13451,7 +13414,7 @@ footer {
         }
         .sub-footer {
             background-color: transparent;
-            >.container {
+            > .container {
                 border-top: 1px solid $white;
             }
             p {
@@ -13506,7 +13469,7 @@ footer {
 }
 
 .ng5-slider .ng5-slider-pointer:after {
-    content: '';
+    content: "";
     width: 14px !important;
     height: 14px !important;
     position: absolute;
@@ -13526,35 +13489,40 @@ footer {
 
 .collection-brand-filter::-webkit-scrollbar-track {
     -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-    background-color: #F5F5F5;
+    background-color: #f5f5f5;
     border-radius: 10px;
 }
 
 .collection-brand-filter::-webkit-scrollbar {
     width: 5px;
-    background-color: #F5F5F5;
+    background-color: #f5f5f5;
 }
 
 .collection-brand-filter::-webkit-scrollbar-thumb {
     border-radius: 10px;
-    background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0.62, var(--theme-deafult)), color-stop(0.86, var(--theme-deafult)));
+    background-image: -webkit-gradient(
+        linear,
+        left bottom,
+        left top,
+        color-stop(0.62, var(--theme-deafult)),
+        color-stop(0.86, var(--theme-deafult))
+    );
 }
 
 @keyframes zoomIn {
     from {
         opacity: 0;
-        -webkit-transform: scale3d(.3, .3, .3);
-        transform: scale3d(.3, .3, .3)
+        -webkit-transform: scale3d(0.3, 0.3, 0.3);
+        transform: scale3d(0.3, 0.3, 0.3);
     }
     50% {
-        opacity: 1
+        opacity: 1;
     }
 }
 
 .openFilterbar {
     left: -15px !important;
 }
-
 
 /*=====================
   theme setting box CSS start
@@ -13638,7 +13606,7 @@ footer {
     top: calc(38vh + 220px);
     width: 190px;
     z-index: 1;
-    transition: all .3s ease;
+    transition: all 0.3s ease;
     .settings-header {
         background: #f3f3f3;
         padding: 5px 15px;
@@ -13674,7 +13642,7 @@ footer {
             z-index: -1;
             text-decoration: none;
             background-color: rgb(249, 249, 249);
-            box-shadow: -5.985px -0.419px 30px 0 rgba(0, 0, 0, .08), inset -2px 0 10px 0 rgba(0, 0, 0, .04);
+            box-shadow: -5.985px -0.419px 30px 0 rgba(0, 0, 0, 0.08), inset -2px 0 10px 0 rgba(0, 0, 0, 0.04);
             top: -80px;
             color: $black;
             i {
@@ -13777,17 +13745,17 @@ footer {
     z-index: 999;
     box-shadow: 0 15px 5px 0 rgba(77, 77, 77, 0.28);
     transition: all 0.5s ease;
-     ::-webkit-scrollbar {
+    ::-webkit-scrollbar {
         width: 3px;
         height: 7px;
     }
-     ::-webkit-scrollbar-track {
+    ::-webkit-scrollbar-track {
         background: $round-border;
     }
-     ::-webkit-scrollbar-thumb {
+    ::-webkit-scrollbar-thumb {
         background: $grey5;
     }
-     ::-webkit-scrollbar-thumb:hover {
+    ::-webkit-scrollbar-thumb:hover {
         background: $grey2;
     }
     &.opensetting {
@@ -13844,14 +13812,14 @@ footer {
         max-height: 0;
         overflow: hidden;
         transition-property: all;
-        transition-duration: .5s;
+        transition-duration: 0.5s;
         transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
         &.opensubmenu {
             padding: 20px;
             overflow-y: scroll;
             max-height: 500px;
             transition-property: all;
-            transition-duration: .5s;
+            transition-duration: 0.5s;
             transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
         }
         .setting_buttons {
@@ -13932,7 +13900,8 @@ footer {
                 filter: grayscale(100);
             }
         }
-        .btn_multi {}
+        .btn_multi {
+        }
     }
     .overlay {
         visibility: hidden;
@@ -13972,7 +13941,7 @@ footer {
         .set-position {
             display: block;
         }
-        >div {
+        > div {
             text-decoration: none;
             color: black;
             .layout-container {
@@ -13983,79 +13952,79 @@ footer {
                 transition: all 2s ease-out 0s;
                 box-shadow: -1px 2px 5px 1px #ececec;
                 &.demo1 {
-                    background-image:url("#{$assetspath}/demo/home/1.jpg");
+                    background-image: url("#{$assetspath}/demo/home/1.jpg");
                 }
                 &.demo2 {
-                    background-image:url("#{$assetspath}/demo/home/2.jpg");
+                    background-image: url("#{$assetspath}/demo/home/2.jpg");
                 }
                 &.demo3 {
-                    background-image:url("#{$assetspath}/demo/home/3.jpg");
+                    background-image: url("#{$assetspath}/demo/home/3.jpg");
                 }
                 &.demo4 {
-                    background-image:url("#{$assetspath}/demo/home/4.jpg");
+                    background-image: url("#{$assetspath}/demo/home/4.jpg");
                 }
                 &.demo5 {
-                    background-image:url("#{$assetspath}/demo/home/5.jpg");
+                    background-image: url("#{$assetspath}/demo/home/5.jpg");
                 }
                 &.demo6 {
-                    background-image:url("#{$assetspath}/demo/home/6.jpg");
+                    background-image: url("#{$assetspath}/demo/home/6.jpg");
                 }
                 &.demo7 {
-                    background-image:url("#{$assetspath}/demo/home/7.jpg");
+                    background-image: url("#{$assetspath}/demo/home/7.jpg");
                 }
                 &.demo8 {
-                    background-image:url("#{$assetspath}/demo/home/8.jpg");
+                    background-image: url("#{$assetspath}/demo/home/8.jpg");
                 }
                 &.demo9 {
-                    background-image:url("#{$assetspath}/demo/home/9.jpg");
+                    background-image: url("#{$assetspath}/demo/home/9.jpg");
                 }
                 &.demo10 {
-                    background-image:url("#{$assetspath}/demo/home/10.jpg");
+                    background-image: url("#{$assetspath}/demo/home/10.jpg");
                 }
                 &.demo11 {
-                    background-image:url("#{$assetspath}/demo/home/11.jpg");
+                    background-image: url("#{$assetspath}/demo/home/11.jpg");
                 }
                 &.demo12 {
-                    background-image:url("#{$assetspath}/demo/home/12.jpg");
+                    background-image: url("#{$assetspath}/demo/home/12.jpg");
                 }
                 &.demo13 {
-                    background-image:url("#{$assetspath}/demo/home/13.jpg");
+                    background-image: url("#{$assetspath}/demo/home/13.jpg");
                 }
                 &.demo14 {
-                    background-image:url("#{$assetspath}/demo/home/14.jpg");
+                    background-image: url("#{$assetspath}/demo/home/14.jpg");
                 }
                 &.demo15 {
-                    background-image:url("#{$assetspath}/demo/home/15.jpg");
+                    background-image: url("#{$assetspath}/demo/home/15.jpg");
                 }
                 &.shop1 {
-                    background-image:url("#{$assetspath}/demo/shop/1.jpg");
+                    background-image: url("#{$assetspath}/demo/shop/1.jpg");
                 }
                 &.shop2 {
-                    background-image:url("#{$assetspath}/demo/shop/2.jpg");
+                    background-image: url("#{$assetspath}/demo/shop/2.jpg");
                 }
                 &.shop3 {
-                    background-image:url("#{$assetspath}/demo/shop/3.jpg");
+                    background-image: url("#{$assetspath}/demo/shop/3.jpg");
                 }
                 &.product1 {
-                    background-image:url("#{$assetspath}/demo/product/1.jpg");
+                    background-image: url("#{$assetspath}/demo/product/1.jpg");
                 }
                 &.product2 {
-                    background-image:url("#{$assetspath}/demo/product/2.jpg");
+                    background-image: url("#{$assetspath}/demo/product/2.jpg");
                 }
                 &.product3 {
-                    background-image:url("#{$assetspath}/demo/product/3.jpg");
+                    background-image: url("#{$assetspath}/demo/product/3.jpg");
                 }
                 &.product4 {
-                    background-image:url("#{$assetspath}/demo/product/4.jpg");
+                    background-image: url("#{$assetspath}/demo/product/4.jpg");
                 }
                 &.product5 {
-                    background-image:url("#{$assetspath}/demo/product/5.jpg");
+                    background-image: url("#{$assetspath}/demo/product/5.jpg");
                 }
                 &.product6 {
-                    background-image:url("#{$assetspath}/demo/product/6.jpg");
+                    background-image: url("#{$assetspath}/demo/product/6.jpg");
                 }
                 &.product7 {
-                    background-image:url("#{$assetspath}/demo/product/7.jpg");
+                    background-image: url("#{$assetspath}/demo/product/7.jpg");
                 }
             }
             .demo-text {
@@ -14132,7 +14101,7 @@ footer {
     top: -80px;
 }
 
-#toast-container>div {
+#toast-container > div {
     opacity: 1;
 }
 
@@ -14148,19 +14117,19 @@ footer {
 }
 
 .toast-success {
-    background-color: #51A351 !important;
+    background-color: #51a351 !important;
 }
 
 .toast-error {
-    background-color: #BD362F !important;
+    background-color: #bd362f !important;
 }
 
 .toast-info {
-    background-color: #2F96B4 !important;
+    background-color: #2f96b4 !important;
 }
 
 .toast-warning {
-    background-color: #F89406 !important;
+    background-color: #f89406 !important;
 }
 
 div#loading-bar {
@@ -14198,15 +14167,15 @@ div#loading-bar {
 
 @keyframes modal-animation {
     0% {
-        transform: scale(0)
+        transform: scale(0);
     }
     25% {
-        transform: scale(0.7)
+        transform: scale(0.7);
     }
     75% {
-        transform: scale(1.01)
+        transform: scale(1.01);
     }
     100% {
-        transform: scale(1)
+        transform: scale(1);
     }
 }
