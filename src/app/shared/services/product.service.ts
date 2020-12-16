@@ -386,7 +386,7 @@ export class ProductService {
   productAverage( id: string ): Observable<any> {
     return this.http.get( `reviews/average/${id}` ).pipe(
       map( result => {
-        if ( result.success ) { return result.reviews; }
+        if ( result.success ) { return result.reviews.length ? result.reviews[ 0 ].average : 0; }
       } )
     );
   }

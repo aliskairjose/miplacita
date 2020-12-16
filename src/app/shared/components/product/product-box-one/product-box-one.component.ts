@@ -47,7 +47,7 @@ export class ProductBoxOneComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.config = window.btoa( JSON.stringify( this.store ) );
-    this.productService.productAverage( this.product._id ).subscribe( result => this.productRate = result.average );
+    this.productService.productAverage( this.product._id ).subscribe( avg => this.productRate = avg );
     if ( this.loader ) {
       setTimeout( () => { this.loader = false; }, 2000 ); // Skeleton Loader
     }
