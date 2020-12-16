@@ -49,7 +49,14 @@
       <a [routerLink]="['/shop/product/', product._id]" [queryParams]="{ config: config }">
         <h6>{{ product?.name | titlecase }}</h6>
       </a>
-      <!-- <p>Colores disponibles</p> -->
+      <div *ngIf="colors.length" class="mb-2">
+        <ul class="color-variant" style="padding-top: 0px !important;">
+          <li [class]="color" *ngFor="let color of colors; index as i"
+            [ngStyle]="{'background-color': color.value, 'border': 'solid thin black'}">
+          </li>
+        </ul>
+        <p class="mt-1">Colores disponibles</p>
+      </div>
       <p>{{ product?.description }}</p>
       <h4>
         {{ product?.price | currency }}

@@ -6,6 +6,7 @@ import { ProductService } from '../../../services/product.service';
 import { ToastrService } from 'ngx-toastr';
 import { Store } from 'src/app/shared/classes/store';
 import { CommentsComponent } from '../../comments/comments.component';
+import { forkJoin } from 'rxjs';
 
 @Component( {
   selector: 'app-product-box-one',
@@ -16,6 +17,7 @@ export class ProductBoxOneComponent implements OnInit, AfterViewInit {
 
   config = '';
   productRate: 0;
+  colors = [];
 
   @Input() store: Store = {};
   @Input() product: Product;
@@ -47,7 +49,22 @@ export class ProductBoxOneComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.config = window.btoa( JSON.stringify( this.store ) );
-    this.productService.productAverage( this.product._id ).subscribe( avg => this.productRate = avg );
+    forkJoin( [
+      this.productService.productAverage( this.product._id ),
+      this.productService.producVariable( this.product._id )
+    ] )
+      .subscribe( ( [ avgResponse, variableResponse ] ) => {
+        this.productRate = avgResponse;
+
+        if ( variableResponse?.primary_key === 'color' ) {
+          variableResponse.keys.forEach( key => {
+            this.colors.push( { value: key.value, name: key.name, products: key.products } );
+          } );
+        }
+        console.log( this.colors );
+
+      } );
+
     if ( this.loader ) {
       setTimeout( () => { this.loader = false; }, 2000 ); // Skeleton Loader
     }
