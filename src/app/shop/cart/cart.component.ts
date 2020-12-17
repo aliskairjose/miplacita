@@ -22,8 +22,6 @@ export class CartComponent implements OnInit {
   standardImage = environment.standardImage;
   storeFont = '';
   config = '';
-  showReferredDiscount: boolean;
-  payDiscount = false;
 
   constructor(
     private auth: AuthService,
@@ -48,15 +46,10 @@ export class CartComponent implements OnInit {
               window.location.reload();
             }, 10 );
           }
-          this.showReferredDiscount = Object.entries( store ).length !== 0 && this.auth.getUserRol() === 'client';
         }
       }
     } );
 
-  }
-
-  onChange( event: boolean ): void {
-    this.payDiscount = event;
   }
 
   public get getTotal(): Observable<number> {
