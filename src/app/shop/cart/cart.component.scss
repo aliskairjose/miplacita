@@ -10,4 +10,8 @@
     .price-line-through {
         text-decoration: line-through;
     }
+
+    input[type="checkbox"] {
+        border-color: var(--theme-deafult);
+    }
 }
