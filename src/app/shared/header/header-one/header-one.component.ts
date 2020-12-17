@@ -63,7 +63,7 @@ export class HeaderOneComponent implements OnInit, OnChanges, AfterViewInit {
           this.shopService.customizeShop( store.config );
           this.settings.setStore( store );
           this.themeLogo = store.logo;
-          this.link = `/${store.url_store}`;
+          // this.link = `/${store.url_store}`;
         }
         if ( queryParams.id ) { this.storeInfo( queryParams.id ); }
       }
@@ -71,7 +71,6 @@ export class HeaderOneComponent implements OnInit, OnChanges, AfterViewInit {
   }
 
   ngOnChanges( changes: SimpleChanges ): void {
-    // this.link = `/${this.store.url_store}`;
     if ( changes.store && Object.entries( changes?.store?.currentValue ).length !== 0 ) {
       this.link = `/${changes.store.currentValue.url_store}`;
       this.settings.setStore( changes.store.currentValue );

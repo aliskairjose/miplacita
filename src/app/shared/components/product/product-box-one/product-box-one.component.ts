@@ -44,8 +44,6 @@ export class ProductBoxOneComponent implements OnInit, AfterViewInit {
 
   }
   ngAfterViewInit(): void {
-    // console.log( this.product._id );
-    // Carga los comentarios del producto
   }
 
   ngOnInit(): void {
@@ -67,7 +65,6 @@ export class ProductBoxOneComponent implements OnInit, AfterViewInit {
             this.sizes.push( ` ${key.value}` );
           } );
         }
-        console.log( this.sizes );
 
       } );
 

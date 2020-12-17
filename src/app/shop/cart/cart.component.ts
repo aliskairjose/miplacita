@@ -5,6 +5,7 @@ import { Product } from '../../shared/classes/product';
 import { environment } from '../../../environments/environment.prod';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '../../shared/classes/store';
+import { AuthService } from '../../shared/services/auth.service';
 
 const state = {
   sessionStore: JSON.parse( sessionStorage.sessionStore || null ),
@@ -21,10 +22,13 @@ export class CartComponent implements OnInit {
   standardImage = environment.standardImage;
   storeFont = '';
   config = '';
+  showReferredDiscount: boolean;
+  payDiscount = false;
 
   constructor(
+    private auth: AuthService,
+    private route: ActivatedRoute,
     public productService: ProductService,
-    private route: ActivatedRoute
   ) {
 
   }
@@ -44,13 +48,15 @@ export class CartComponent implements OnInit {
               window.location.reload();
             }, 10 );
           }
-          if ( Object.entries( store ).length !== 0 ) {
-
-          }
+          this.showReferredDiscount = Object.entries( store ).length !== 0 && this.auth.getUserRol() === 'client';
         }
       }
     } );
 
+  }
+
+  onChange( event: boolean ): void {
+    this.payDiscount = event;
   }
 
   public get getTotal(): Observable<number> {
