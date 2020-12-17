@@ -1,4 +1,11 @@
 #store-page {
+    .productos-destacados {
+        margin-top: 50px;
+        border-top-color: var(--theme-deafault);
+        border-top-style: solid;
+        border-top-width: thin;
+    }
+
     ngb-carousel {
         max-height: 550px;
     }

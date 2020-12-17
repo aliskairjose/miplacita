@@ -44,6 +44,9 @@ export class CartComponent implements OnInit {
               window.location.reload();
             }, 10 );
           }
+          if ( Object.entries( store ).length !== 0 ) {
+
+          }
         }
       }
     } );
