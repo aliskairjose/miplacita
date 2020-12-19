@@ -83,7 +83,7 @@
   </div>
   <hr class="mx-2">
   <!-- Pago con saldo -->
-  <div class="d-flex flex-column h-100 mt-4" *ngIf="showReferedAmmount">
+  <div class="d-flex flex-column h-100 mt-4" *ngIf="showReferedAmmount && !putReferredCode">
     <h4>Saldo de referido</h4>
     <div class="option-box d-flex mx-auto py-3" style="width: 100% !important">
       <div class="col-md-6">
@@ -102,6 +102,14 @@
       <div class="col offset-xl-4 text-center">
         <input class="my-auto" type="checkbox" (change)="onChange($event.target.checked)">
       </div>
+    </div>
+  </div>
+
+  <!-- Codigo de referido -->
+  <div class="d-flex flex-column h-100 mt-4" *ngIf="putReferredCode || !showReferedAmmount">
+    <h4>Cupon de referido</h4>
+    <div class="option-box d-flex mx-auto py-3" style="width: 100% !important">
+      
     </div>
   </div>
 </div>

@@ -5,6 +5,8 @@ import { ShopService } from '../../services/shop.service';
 import { AuthService } from '../../services/auth.service';
 import { Store } from '../../classes/store';
 import { ActivatedRoute } from '@angular/router';
+import { User } from '../../classes/user';
+import { OrderService } from '../../services/order.service';
 
 @Component( {
   selector: 'app-payment',
@@ -34,6 +36,7 @@ export class PaymentComponent implements OnInit {
   showInputAmount = false;
   balance = 0;
   showBalanceAlert = false;
+  putReferredCode = false;
 
   @Input() submitted: boolean;
   @Input() card: any;
@@ -44,6 +47,7 @@ export class PaymentComponent implements OnInit {
 
   constructor(
     private auth: AuthService,
+    private orderService: OrderService,
     private route: ActivatedRoute,
     private shopService: ShopService,
     private _formBuilder: FormBuilder,
@@ -61,6 +65,7 @@ export class PaymentComponent implements OnInit {
           this.showReferedAmmount = true;
           this.getAffiliate( store._id );
         }
+        this.validateUser();
       }
     } );
 
@@ -144,6 +149,21 @@ export class PaymentComponent implements OnInit {
     this.shopService.getAffiliate( storeId, this.auth.getUserActive()._id ).subscribe( response => {
       this.balance = response.amount;
     } );
+  }
+
+  private validateUser(): void {
+    const user: User = this.auth.getUserActive();
+    if ( user ) {
+      this.orderService.orderList( 1, `user=${user._id}` ).subscribe( res => {
+        if ( res.docs.length === 0 ) {
+          this.putReferredCode = true;
+        }
+        console.log({putReferredCode: this.putReferredCode, showReferedAmmount: this.showReferedAmmount})
+      } );
+    } else {
+      this.putReferredCode = true;
+      console.log({putReferredCode: this.putReferredCode, showReferedAmmount: this.showReferedAmmount})
+    }
   }
 
 }
