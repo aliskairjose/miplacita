@@ -106,10 +106,16 @@
   </div>
 
   <!-- Codigo de referido -->
-  <div class="d-flex flex-column h-100 mt-4" *ngIf="putReferredCode || !showReferedAmmount">
+  <div *ngIf="putReferredCode || !showReferedAmmount">
     <h4>Cupon de referido</h4>
-    <div class="option-box d-flex mx-auto py-3" style="width: 100% !important">
-      
+  </div>
+  <div class="input-group mb-3">
+    <div class="custom-file">
+      <input type="text" class="form-control" aria-label="Recipient's username"
+        aria-describedby="basic-addon2">
+      <div class="input-group-append">
+        <button class="btn btn-outline-secondary" type="button">Button</button>
+      </div>
     </div>
   </div>
 </div>

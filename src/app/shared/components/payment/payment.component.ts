@@ -158,11 +158,9 @@ export class PaymentComponent implements OnInit {
         if ( res.docs.length === 0 ) {
           this.putReferredCode = true;
         }
-        console.log({putReferredCode: this.putReferredCode, showReferedAmmount: this.showReferedAmmount})
       } );
     } else {
       this.putReferredCode = true;
-      console.log({putReferredCode: this.putReferredCode, showReferedAmmount: this.showReferedAmmount})
     }
   }
 
