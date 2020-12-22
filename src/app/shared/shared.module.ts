@@ -76,6 +76,7 @@ import { AgmCoreModule } from '@agm/core';
 import { ColorPickerModule } from 'ngx-color-picker';
 import { ClipboardModule } from 'ngx-clipboard';
 import { FiltersComponent } from './components/filters/filters.component';
+import { SearchStoreComponent } from './components/search-store/search-store.component';
 // export let options: Partial<IConfig> | (() => Partial<IConfig>);
 const maskConfig: Partial<IConfig> = {
   validation: false,
@@ -141,6 +142,7 @@ export const customCurrencyMaskConfig = {
     ModalNewElementComponent,
     AddressComponent,
     FiltersComponent,
+    SearchStoreComponent,
   ],
   imports: [
     ClipboardModule,

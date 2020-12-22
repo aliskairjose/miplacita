@@ -1,0 +1,52 @@
+
+.input-group-text {
+    background-color: transparent;
+}
+
+.dropdown {
+    border-right: 1px solid #ced4da;
+}
+
+.dropsown-search{
+    width: 12vw;
+    border-color: #ced4da;
+}
+
+.dropdown-toggle {
+    white-space: normal;
+    font-size: 0.7rem;
+}
+
+form {
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+}
+
+.searh-box-mp {
+    padding: 0.2rem 0.2rem;
+}
+
+input {
+    border: none;
+    background-color: transparent;
+    padding-left: 2px;
+    padding-right: 2px;
+    width: 70%;
+}
+
+.dropdown-menu.show {
+    overflow: auto;
+    max-height: 80vh;
+    scrollbar-color: var(--theme-deafult) #ccc;
+}
+
+.dropdown-item:hover {
+    background-image: none;
+    background-color: var(--theme-deafult);
+    color: var(--white);
+}
+
+.btn-search {
+    background-color: #68396d;
+    color: white;
+}

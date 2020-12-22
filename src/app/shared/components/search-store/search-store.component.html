@@ -1,0 +1,29 @@
+<div class="container-fluid search">
+    <form [formGroup]="searchForm" (ngSubmit)="onSubmit()" class="theme-form">   
+      <div class="d-flex w-100">
+        <div class="searh-box-mp d-flex w-100">
+          <div ngbDropdown class="">
+            <button type="button" class="btn font-weight-normal " id="dropdownBasic1" ngbDropdownToggle>{{ textCategory }}</button>
+            <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+              <button type="button" (click)="updateCategory(item)" *ngFor="let item of categories" [value]="item._id" ngbDropdownItem>{{item.name}}</button>
+            </div>
+            <div ngbDropdownMenu aria-labelledby="dropdownBasic2">
+                <button type="button" (click)="updateSubCategory(item)" *ngFor="let item of subcategories" [value]="item._id" ngbDropdownItem>{{item.name}}</button>
+              </div>
+          </div>
+          <div ngbDropdown class="">
+            <button type="button" class="btn font-weight-normal " id="dropdownBasic2" ngbDropdownToggle>{{ textSubCategory }}</button>
+            
+            <div ngbDropdownMenu aria-labelledby="dropdownBasic2">
+                <button type="button" (click)="updateSubCategory(item)" *ngFor="let item of subcategories" [value]="item._id" ngbDropdownItem>{{item.name}}</button>
+            </div>
+          </div>
+          <input formControlName="name" type="text">
+        </div>
+        
+        <button type="submit" class="btn-solid-purple">
+          Buscar
+        </button>
+      </div>
+    </form>
+</div>
