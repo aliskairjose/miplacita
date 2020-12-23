@@ -83,7 +83,7 @@
   </div>
   <hr class="mx-2">
   <!-- Pago con saldo -->
-  <div class="d-flex flex-column h-100 mt-4" *ngIf="showReferedAmmount && !putReferredCode">
+  <div class="d-flex flex-column h-100 mt-4" *ngIf="showReferedAmmount && !isFirstShop">
     <h4>Saldo de referido</h4>
     <div class="option-box d-flex mx-auto py-3" style="width: 100% !important">
       <div class="col-md-6">
@@ -106,7 +106,7 @@
   </div>
 
   <!-- Codigo de referido -->
-  <div *ngIf="putReferredCode || !showReferedAmmount">
+  <div *ngIf="isFirstShop || !showReferedAmmount">
     <h4>Cupon de referido</h4>
   </div>
   <div class="input-group mb-3">

@@ -36,7 +36,7 @@ export class PaymentComponent implements OnInit {
   showInputAmount = false;
   balance = 0;
   showBalanceAlert = false;
-  putReferredCode = false;
+  isFirstShop = false;
 
   @Input() submitted: boolean;
   @Input() card: any;
@@ -156,11 +156,11 @@ export class PaymentComponent implements OnInit {
     if ( user ) {
       this.orderService.orderList( 1, `user=${user._id}` ).subscribe( res => {
         if ( res.docs.length === 0 ) {
-          this.putReferredCode = true;
+          this.isFirstShop = true;
         }
       } );
     } else {
-      this.putReferredCode = true;
+      this.isFirstShop = true;
     }
   }
 

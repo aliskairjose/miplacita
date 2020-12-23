@@ -8,6 +8,7 @@ import { OrderService } from '../../shared/services/order.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { PaymentComponent } from '../../shared/components/payment/payment.component';
 import { Store } from '../../shared/classes/store';
+import { AuthService } from '../../shared/services/auth.service';
 
 const state = {
   user: JSON.parse( localStorage.getItem( 'user' ) || null )
@@ -32,12 +33,15 @@ export class CheckoutComponent implements OnInit {
   private _totalPrice: number;
   store: Store = {};
   itms = 0;
+  isFirstShop = false;
 
   @ViewChild( 'payment' ) payment: PaymentComponent;
 
   constructor(
     private router: Router,
     private fb: FormBuilder,
+    public auth: AuthService,
+    private route: ActivatedRoute,
     private orderService: OrderService,
     public productService: ProductService,
   ) {
@@ -60,9 +64,23 @@ export class CheckoutComponent implements OnInit {
   ngOnInit(): void {
     const date = new Date();
     const shipment = JSON.parse( sessionStorage.order );
-    if ( sessionStorage.sessionStore ) {
-      this.store = JSON.parse( sessionStorage.sessionStore );
-    }
+    // if ( sessionStorage.sessionStore ) {
+    //   this.store = JSON.parse( sessionStorage.sessionStore );
+    // }
+    this.route.queryParams.subscribe( queryParams => {
+      if ( Object.entries( queryParams ).length !== 0 ) {
+        const decod = window.atob( queryParams.config );
+        this.store = JSON.parse( decod );
+        if ( Object.entries( this.store ).length !== 0 && this.auth.getUserRol() === 'client' ) {
+          this.orderService.orderList( 1, `user=${this.auth.getUserActive()._id}` ).subscribe( res => {
+            if ( res.docs.length === 0 ) {
+              this.isFirstShop = true;
+            }
+          } );
+        }
+      }
+    } );
+
 
     shipment.cart.forEach( detail => {
       this.shipmentPrice += detail.shipment_price;
