@@ -23,6 +23,7 @@ export class HeaderOneComponent implements OnInit, OnChanges, AfterViewInit {
   categories: Category[] = [];
   link = '/home';
 
+  @Input() isStoreSearch = false;
   @Input() store: Store = {};
   @Input() class: string;
   @Input() themeLogo = 'assets/images/marketplace/images/logo-m.png'; // Default Logo
@@ -60,13 +61,18 @@ export class HeaderOneComponent implements OnInit, OnChanges, AfterViewInit {
         if ( queryParams.config ) {
           const decod = window.atob( queryParams.config );
           const store: Store = JSON.parse( decod );
-          this.shopService.customizeShop( store.config );
-          this.settings.setStore( store );
-          this.themeLogo = store.logo;
-          // this.link = `/${store.url_store}`;
+          if ( Object.entries( store ).length !== 0 ) {
+            this.isStoreSearch = true;
+            this.shopService.customizeShop( store.config );
+            this.settings.setStore( store );
+            this.themeLogo = store.logo;
+            this.link = `/${store.url_store}`;
+          }
+
         }
         if ( queryParams.id ) { this.storeInfo( queryParams.id ); }
       }
+      console.log( this.isStoreSearch );
     } );
   }
 
@@ -78,6 +84,7 @@ export class HeaderOneComponent implements OnInit, OnChanges, AfterViewInit {
   }
 
   ngOnInit(): void {
+    console.log(this.isStoreSearch)
     this.isLoggedIn = this.auth.isAuthenticated();
     this.categoryService.categoryList().subscribe( ( response: Category[] ) => {
       this.categories = [ ...response ];
@@ -99,7 +106,6 @@ export class HeaderOneComponent implements OnInit, OnChanges, AfterViewInit {
 
   private storeInfo( id: string ) {
     this.shopService.getStore( id ).subscribe( res => {
-      console.log( res )
       this.settings.setStore( res.result );
       this.shopService.customizeShop( res.result.config );
       this.themeLogo = res.result.logo;

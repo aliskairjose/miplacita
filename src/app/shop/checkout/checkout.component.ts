@@ -40,7 +40,7 @@ export class CheckoutComponent implements OnInit {
   constructor(
     private router: Router,
     private fb: FormBuilder,
-    private auth: AuthService,
+    public auth: AuthService,
     private route: ActivatedRoute,
     private orderService: OrderService,
     public productService: ProductService,
@@ -67,7 +67,6 @@ export class CheckoutComponent implements OnInit {
     // if ( sessionStorage.sessionStore ) {
     //   this.store = JSON.parse( sessionStorage.sessionStore );
     // }
-
     this.route.queryParams.subscribe( queryParams => {
       if ( Object.entries( queryParams ).length !== 0 ) {
         const decod = window.atob( queryParams.config );

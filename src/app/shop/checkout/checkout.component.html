@@ -21,7 +21,7 @@
 									<li *ngIf='products.length'>
 										<strong>Envío</strong> <span>{{ shipmentPrice | currency }}</span>
 									</li>
-									<li *ngIf='store._id && !isFirstShop'>
+									<li *ngIf='store._id && !isFirstShop && !auth.isAuthenticated'>
 										<strong>Pago con código</strong>
 										<span> -{{ referedAmount | currency }}</span>
 									</li>
