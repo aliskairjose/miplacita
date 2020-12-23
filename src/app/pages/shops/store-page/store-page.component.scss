@@ -1,9 +1,9 @@
 #store-page {
     .productos-destacados {
+        border-top: 3px solid #f7f7f7;
+        width: 95%;
+        margin: 0 auto;
         margin-top: 50px;
-        border-top-color: var(--theme-deafault);
-        border-top-style: solid;
-        border-top-width: thin;
     }
 
     ngb-carousel {
@@ -75,6 +75,12 @@
             border-radius: 25px;
             background-color: #2bb34c;
         }
+    }
+    .separator {
+        width: 7%;
+        height: 8px;
+        margin: 0 auto;
+        margin-bottom: 10px;
     }
     @supports (object-fit: cover) {
         .img-main-banner {

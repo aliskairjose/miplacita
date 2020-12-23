@@ -28,6 +28,7 @@ export class StorePageComponent implements OnInit {
   ];
   subCategories: Category[] = [];
   ProductSliderConfig: any = ProductSlider;
+  color = '';
 
   @ViewChild( 'settings' ) setting: SettingsComponent;
 
@@ -71,6 +72,11 @@ export class StorePageComponent implements OnInit {
     this.subCategoryList( this.store._id );
     this.storeService.storeSubject( this.store );
     this.storeService.customizeShop( this.store.config );
+    if (this.store.config.color){
+      this.color = this.store.config.color;
+    } else  {
+      this.color = '#c6410f';
+    }
   }
 
   ngOnInit(): void {

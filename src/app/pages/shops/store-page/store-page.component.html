@@ -18,48 +18,16 @@
 			</ngb-carousel>
 		</section>
 
-		<!-- Banner verticales start -->
-		<!-- <section class="section-b-space">
-			<div class="container">
-				<div class="form-row justify-content-center title-purple">
-					<h2>{{ store.name }}</h2>
-				</div>
-				<div class="form-row justify-content-center">
-					<h5>{{ store.description }}</h5>
-				</div>
-				<div class="d-flex col-lg-8 col-md-10 col-sm-12 mx-auto justify-content-center" id="wrap">
-					<div class="circle-btn">
-						<div class="">
-							<div class="circle mx-auto">
-								T
-							</div>
-						</div>
-						<div class="label text-center">
-							<p>Todos</p>
-						</div>
-					</div>
-					<div class="vertical-separator all-option" *ngIf="subCategories.length">
-
-					</div>
-					<div class="circle-btn" *ngFor="let subcategory of subCategories">
-						<div class="circle mx-auto">
-							{{ subcategory.name[0] }}
-						</div>
-						<div class="label text-center">
-							<p> {{ subcategory.name }} </p>
-						</div>
-					</div>
-				</div>
-			</div>
-		</section> -->
-
-		<!-- Banner verticales end -->
 		<!-- Product slider start-->
 		<div class="title1 section-t-space" *ngIf="products.length">
 			<div class="row">
 				<div class="col">
 					<div class="title-purple text-center">
 						<h2>Productos Destacados</h2>
+					</div>
+					<div class="separator" [ngStyle]="{'background-color': color}"></div>
+					<div class="description">
+						{{ store.description }}
 					</div>
 				</div>
 			</div>
@@ -72,7 +40,7 @@
 							<ng-container *ngFor="let product of products | slice:0:16">
 								<ng-template carouselSlide>
 									<div class="product-box">
-										<app-product-box-one [product]="product" [thumbnail]="false" [cartModal]="false" [horizontal]="true"
+										<app-product-box-one [storePage]="true" [colorBtn]="color" [product]="product" [thumbnail]="false" [cartModal]="false" [horizontal]="true"
 											[store]="store">
 										</app-product-box-one>
 									</div>

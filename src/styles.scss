@@ -469,7 +469,13 @@ ngb-carousel {
     z-index: 8;
   }
 }
-
+.carousel-control-prev, .carousel-control-next {
+  top: 45%;
+  height: 3rem;
+  width: 3rem;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.3);
+}
 .store-design-img,
 .vertical-banner-img {
   width: 100%;
@@ -498,10 +504,12 @@ ngb-carousel {
 }
 
 .carousel-control-prev {
+  left: 7%;
   z-index: 20;
 }
 
 .carousel-control-next {
+  right: 7%;
   z-index: 20;
 }
 

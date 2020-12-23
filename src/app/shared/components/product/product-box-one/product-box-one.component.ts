@@ -29,7 +29,8 @@ export class ProductBoxOneComponent implements OnInit, AfterViewInit {
   @Input() loader = false;
   @Input() search = false;
   @Input() horizontal = false;
-
+  @Input() storePage = false;
+  @Input() colorBtn = '#c6410f';
 
   @ViewChild( 'quickView' ) QuickView: QuickViewComponent;
   @ViewChild( 'cartModal' ) CartModal: CartModalComponent;
