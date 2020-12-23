@@ -63,7 +63,6 @@ export class HeaderOneComponent implements OnInit, OnChanges, AfterViewInit {
           const decod = window.atob( queryParams.config );
           const store: Store = JSON.parse( decod );
           if ( Object.entries( store ).length !== 0 ) {
-            console.log( 'bar' )
             this.isStoreSearch = true;
             this.shopService.customizeShop( store.config );
             this.settings.setStore( store );
