@@ -57,11 +57,13 @@ export class HeaderOneComponent implements OnInit, OnChanges, AfterViewInit {
 
   ngAfterViewInit(): void {
     this.route.queryParams.subscribe( queryParams => {
+      console.log( queryParams )
       if ( Object.entries( queryParams ).length !== 0 ) {
         if ( queryParams.config ) {
           const decod = window.atob( queryParams.config );
           const store: Store = JSON.parse( decod );
           if ( Object.entries( store ).length !== 0 ) {
+            console.log( 'bar' )
             this.isStoreSearch = true;
             this.shopService.customizeShop( store.config );
             this.settings.setStore( store );
@@ -70,9 +72,11 @@ export class HeaderOneComponent implements OnInit, OnChanges, AfterViewInit {
           }
 
         }
-        if ( queryParams.id ) { this.storeInfo( queryParams.id ); }
+        if ( queryParams.id ) {
+          this.isStoreSearch = true;
+          this.storeInfo( queryParams.id );
+        }
       }
-      console.log( this.isStoreSearch );
     } );
   }
 
@@ -84,7 +88,6 @@ export class HeaderOneComponent implements OnInit, OnChanges, AfterViewInit {
   }
 
   ngOnInit(): void {
-    console.log(this.isStoreSearch)
     this.isLoggedIn = this.auth.isAuthenticated();
     this.categoryService.categoryList().subscribe( ( response: Category[] ) => {
       this.categories = [ ...response ];
