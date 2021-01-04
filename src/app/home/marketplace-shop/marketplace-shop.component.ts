@@ -44,7 +44,7 @@ export class MarketplaceShopComponent implements OnInit {
     title: '',
     subTitle: '',
     image: 'assets/images/marketplace/images/mainBanner.jpg'
-  } ]
+  } ];
 
   // Collection banner
   collections = [ {

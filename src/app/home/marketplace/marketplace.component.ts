@@ -166,7 +166,7 @@ export class MarketplaceComponent implements OnInit, OnDestroy {
       answer: 'Muy fácil! Descarga el app, Crea tu Tienda Online en sólo 3 pasos y empieza a vender.' +
         'Sólo te toma 3 minutos!' + 'Agrega tus primeros productos, empieza a compartir tu catálogo y a Vender.'
     }
-  ]
+  ];
 
   // beneficios
   basicBenefits = [
@@ -176,7 +176,7 @@ export class MarketplaceComponent implements OnInit, OnDestroy {
     'Url para redes sociales',
     'Edición de tienda',
     'Gestión de clientes'
-  ]
+  ];
   benefits = [
     'Control de inventario',
     'Gestión de clientes',
