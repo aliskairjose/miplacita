@@ -270,6 +270,7 @@
 
 </div>
 <ng-template #registerNewStore>
-	<app-register-store #registerNewStore [modal]="true" [register]="false" [_user]="user" (callback)="close($event)">
+	<app-register-store #registerNewStore [modal]="true" [register]="false" [_user]="user" (callback)="close($event)"
+		[step]="step">
 	</app-register-store>
 </ng-template>

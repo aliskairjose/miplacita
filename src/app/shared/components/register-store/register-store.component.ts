@@ -22,7 +22,7 @@ import { StorageService } from '../../services/storage.service';
 export class RegisterStoreComponent implements OnInit, OnChanges {
 
   planSelected = '';
-  step = 1;
+  // step: number;
   imageLogo: any = '../../../../assets/images/marketplace/svg/upload-image.svg';
   imageProduct: any = '../../../../assets/images/marketplace/svg/upload-image.svg';
   storeForm: FormGroup;
@@ -42,6 +42,7 @@ export class RegisterStoreComponent implements OnInit, OnChanges {
   private user: User = {};
   private emailPattern = environment.emailPattern;
 
+  @Input() step = 0;
   @Input() register = true;
   @Input() modal = false;
   @Input() _user: User = {};
@@ -73,9 +74,9 @@ export class RegisterStoreComponent implements OnInit, OnChanges {
   get p() { return this.productForm.controls; }
 
   ngOnInit(): void {
-
     if ( this.storage.getItem( 'userForm' ) ) {
       this.user = this.storage.getItem( 'userForm' );
+      this.step = 1;
     }
 
     if ( sessionStorage.registerStore ) {

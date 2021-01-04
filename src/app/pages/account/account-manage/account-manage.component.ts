@@ -1,6 +1,5 @@
 import { Component, OnInit, OnChanges, SimpleChanges, ViewChild } from '@angular/core';
 import { Store } from 'src/app/shared/classes/store';
-import { StorageService } from 'src/app/shared/services/storage.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { User } from '../../../shared/classes/user';
 import { AuthService } from '../../../shared/services/auth.service';
@@ -27,7 +26,7 @@ export class AccountManageComponent implements OnInit, OnChanges {
   modal: any;
   modalOpen = false;
   modalOption: NgbModalOptions = {}; // not null!
-
+  step = 0;
   clientOptions = [
     { name: 'Mi Perfil', id: 'user-icon', key: 'profile', icon: 'assets/images/marketplace/images/icons/profile.png' },
     { name: 'Mis Órdenes', key: 'orders', icon: 'assets/images/marketplace/images/icons/orders.png' },
@@ -65,7 +64,6 @@ export class AccountManageComponent implements OnInit, OnChanges {
     private router: Router,
     private auth: AuthService,
     private route: ActivatedRoute,
-    private storage: StorageService,
     private shopService: ShopService,
     private modalService: NgbModal
   ) {
@@ -115,6 +113,7 @@ export class AccountManageComponent implements OnInit, OnChanges {
   }
 
   createStore(): void {
+    this.step = 1;
     this.openModal();
   }
 
