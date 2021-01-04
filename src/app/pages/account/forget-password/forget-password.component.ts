@@ -26,8 +26,8 @@ export class ForgetPasswordComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.url.subscribe( url => {
-      this.token = url[1].path;
-    })
+      this.token = url[ 1 ].path;
+    } );
   }
 
   // convenience getter for easy access to form fields
@@ -38,18 +38,18 @@ export class ForgetPasswordComponent implements OnInit {
   onSubmit(): void {
     this.submitted = true;
     this.recoveryForm.value.token = this.token;
-    console.log(this.recoveryForm.value);
-    if ( this.recoveryForm.valid && 
-        (this.recoveryForm.value.password == this.recoveryForm.value.confirm_password)) {
-      this.auth.updatePassword( this.recoveryForm.value ).subscribe( (result) => {
-        console.log(result);
-        if(result.success){
-          this.toastrService.info(  'Cambio de contraseña exitoso' );
-          this.router.navigate(['pages/home']);
+    console.log( this.recoveryForm.value );
+    if ( this.recoveryForm.valid &&
+      ( this.recoveryForm.value.password === this.recoveryForm.value.confirm_password ) ) {
+      this.auth.updatePassword( this.recoveryForm.value ).subscribe( ( result ) => {
+        console.log( result );
+        if ( result.success ) {
+          this.toastrService.info( 'Cambio de contraseña exitoso' );
+          this.router.navigate( [ 'pages/home' ] );
         }
-        
-      });
-    } else if (this.recoveryForm.value.password !== this.recoveryForm.value.confirm_password) {
+
+      } );
+    } else if ( this.recoveryForm.value.password !== this.recoveryForm.value.confirm_password ) {
       this.toastrService.info( 'Recuerda! Las contraseñas deben coincidir' );
     }
   }
@@ -58,8 +58,8 @@ export class ForgetPasswordComponent implements OnInit {
   createForm(): void {
     this.recoveryForm = this.formBuilder.group( {
       password: [ '', [ Validators.required ] ],
-      confirm_password: ['',[Validators.required]],
-      token: ['']
+      confirm_password: [ '', [ Validators.required ] ],
+      token: [ '' ]
     } );
   }
 }

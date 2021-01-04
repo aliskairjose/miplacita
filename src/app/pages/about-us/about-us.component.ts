@@ -55,6 +55,6 @@ export class AboutUsComponent implements OnInit {
     image: 'assets/images/team/3.jpg',
     name: 'John Shipmen',
     designation: 'Lead Developer'
-  } ]
+  } ];
 
 }

@@ -125,7 +125,7 @@ export class ProfileComponent implements OnInit, AfterViewInit {
 
   updateTab( tab: string ) {
     this.active = tab;
-    if ( this.active == 'profile' ) {
+    if ( this.active === 'profile' ) {
       this.router.navigateByUrl( `pages/account/user/${tab}`, { skipLocationChange: false } );
 
     } else {
