@@ -27,7 +27,6 @@ export class HeaderOneComponent implements OnInit, OnChanges, AfterViewInit {
   @Input() store: Store = {};
   @Input() class: string;
   @Input() themeLogo = 'assets/images/marketplace/svg/logo.svg'; // Default Logo
-  // @Input() themeLogo = 'assets/images/marketplace/images/logo-m.png'; // Default Logo
   @Input() isHidde = true;
   @Input() topbar = true; // Default True
   @Input() sticky = false; // Default false

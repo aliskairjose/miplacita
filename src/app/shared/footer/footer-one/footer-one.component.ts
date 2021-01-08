@@ -14,7 +14,7 @@ import { ShopService } from '../../services/shop.service';
 export class FooterOneComponent implements OnInit {
 
   @Input() class = 'footer-light';
-  @Input() themeLogo = 'assets/images/icon/logo.png';
+  @Input() themeLogo = 'assets/images/marketplace/svg/logo.svg';
   @Input() newsletter = true;
   path = '/shop/collection/left/sidebar?name=&category=';
   menuItems: Category[] = [];
