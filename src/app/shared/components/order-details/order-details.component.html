@@ -1,7 +1,7 @@
 <ng-template #orderDetails let-modal>
 
-  <div class="modal-content">
-    <div class="modal-header">
+  <div class="modal-content" style="border: 1px solid #eba39a;">
+    <div class="modal-header" style="border: 1px solid #eba39a;">
       <div class="page-title row">
         <h4 class="px-3">
           <span> <strong>Orden </strong> </span>
@@ -32,9 +32,10 @@
             </select>
           </div>
           <div class="table-responsive-sm mt-2">
-            <table class="table">
+            <table class="table table-bordered">
               <thead>
-                <th *ngFor="let field of fields" scope="col" class="text-center">{{field}}</th>
+                <th style="border: 1px solid #eba39a;" *ngFor="let field of fields" scope="col" class="text-center">
+                  {{field}}</th>
               </thead>
               <tbody>
                 <tr *ngFor="let product of order.items">
