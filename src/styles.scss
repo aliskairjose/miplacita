@@ -184,11 +184,11 @@ input[type="checkbox"]:checked {
   }
 }
 .btn-solid-orange {
-  background-color: $mp-pink-dark;
+  background-color: $mp-red;
   color: #fff;
   padding: 13px 13px;
   letter-spacing: 0.05em;
-  border: 1px solid $mp-pink-dark;
+  border: 1px solid $mp-red;
   &:hover {
     color: $mp-purple;
     background-position: 100%;

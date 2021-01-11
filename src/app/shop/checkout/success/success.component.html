@@ -4,41 +4,41 @@
 
 <!-- section start -->
 <section class="p-0" *ngIf="!orderDetails">
-	<div class="container">
-		<div class="row">
-			<div class="col-sm-12">
-				<div class="error-section">
-					<h1>404</h1>
-					<h2>page not found</h2>
-					<a [routerLink]="'/home/fashion'" class="btn btn-solid">back to home</a>
-				</div>
-			</div>
-		</div>
-	</div>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="error-section">
+                    <h1>404</h1>
+                    <h2>page not found</h2>
+                    <a [routerLink]="'/home/fashion'" class="btn btn-solid-orange">back to home</a>
+                </div>
+            </div>
+        </div>
+    </div>
 </section>
 <!-- Section ends -->
 
 <!-- thank-you section start -->
 <section class="section-b-space light-layout" *ngIf="orderDetails">
-	<div class="container">
-		<div class="row">
-			<div class="col-md-12">
-				<div class="success-text" *ngIf="url !== '/shop/register/success'">
-					<img src="assets/images/marketplace/images/successful_purchase.png" class="img-fluid mb-4">
-					<h3><strong>Tu compra ha sido realizada con éxito</strong></h3>
-					<a [routerLink]="[ '/pages/account/user/orders' ]" class="btn btn-solid">Ver órdenes</a>
-				</div>
-				<div class="success-text" *ngIf="url === '/shop/register/success'">
-					<img id="icon-register-success" src="assets/images/marketplace/images/register_success.png"
-						class="img-fluid mb-4">
-					<h3><strong>Tu perfil ha sido registrado con éxito</strong></h3>
-					<!-- <a [routerLink]="['/pages/account/user/profile']" class="btn btn-solid">Ir a mi perfil</a> -->
-					<button type="button" class="btn btn-solid" (click)="goTo()">Ir a mi perfil</button>
-				</div>
-			</div>
-		</div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="success-text" *ngIf="url !== '/shop/register/success'">
+                    <img src="assets/images/marketplace/images/successful_purchase.png" class="img-fluid mb-4">
+                    <h3><strong>Tu compra ha sido realizada con éxito</strong></h3>
+                    <a [routerLink]="[ '/pages/account/user/orders' ]" class="btn btn-solid-orange">Ver órdenes</a>
+                </div>
+                <div class="success-text" *ngIf="url === '/shop/register/success'">
+                    <img id="icon-register-success" src="assets/images/marketplace/images/register_success.png"
+                        class="img-fluid mb-4">
+                    <h3><strong>Tu perfil ha sido registrado con éxito</strong></h3>
+                    <!-- <a [routerLink]="['/pages/account/user/profile']" class="btn btn-solid-orange">Ir a mi perfil</a> -->
+                    <button type="button" class="btn btn-solid-orange" (click)="goTo()">Ir a mi perfil</button>
+                </div>
+            </div>
+        </div>
 
-	</div>
+    </div>
 </section>
 <!-- Section ends -->
 

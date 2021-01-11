@@ -60,7 +60,7 @@ body {
         transition: all 0.3s ease;
         border: 1px solid $dark-border;
     }
-    .btn-solid {
+    .btn-solid-orange {
         color: $white !important;
         &:hover {
             color: $dark-font !important;
@@ -163,8 +163,8 @@ body {
             .main-navbar {
                 .nav-menu {
                     background-color: transparent;
-                    >li {
-                        >a {
+                    > li {
+                        > a {
                             color: #222222;
                         }
                     }
@@ -215,7 +215,7 @@ body {
                 }
             }
             .logo-menu-part {
-                >.container {
+                > .container {
                     background-color: $dark-body;
                     transition: all 0.3s ease;
                     border-color: $dark-border;
@@ -233,7 +233,7 @@ body {
             .main-menu {
                 .menu-right {
                     .header-dropdown {
-                        >li {
+                        > li {
                             img {
                                 filter: invert(100);
                             }
@@ -242,7 +242,7 @@ body {
                 }
             }
             .onhover-div {
-                >div {
+                > div {
                     img {
                         filter: invert(100);
                     }
@@ -258,8 +258,8 @@ body {
                     transition: all 0.3s ease;
                 }
                 .pixelstrap {
-                    >li {
-                        >a {
+                    > li {
+                        > a {
                             background-color: $dark-top;
                             transition: all 0.3s ease;
                         }
@@ -297,8 +297,8 @@ body {
                     color: $white-1;
                 }
             }
-            >li {
-                >a {
+            > li {
+                > a {
                     color: $white-1;
                 }
                 .nav-submenu {
@@ -398,7 +398,7 @@ body {
         }
     }
     .onhover-div {
-        >div {
+        > div {
             img {
                 filter: brightness(100);
             }
@@ -666,14 +666,14 @@ body {
         }
     }
     .service-block {
-        +.service-block {
+        + .service-block {
             border-color: $dark-border;
         }
     }
     .pixelstrap {
         &.light-font-menu {
             li {
-                >a {
+                > a {
                     color: $white-1;
                 }
             }
@@ -792,7 +792,7 @@ body {
             color: $white-5;
             border-color: $dark-border;
             li {
-                +li {
+                + li {
                     border-color: $dark-border;
                 }
             }
@@ -848,7 +848,7 @@ body {
     }
     .table {
         tbody {
-            +tbody {
+            + tbody {
                 border-color: $dark-border;
             }
         }
@@ -1269,7 +1269,7 @@ body {
         .theme-card {
             .offer-slider {
                 .product-box2 {
-                    +.product-box2 {
+                    + .product-box2 {
                         border-top: none;
                     }
                 }
@@ -1438,7 +1438,7 @@ body {
         .absolute-bg {
             background-color: $dark-body;
             transition: all 0.3s ease;
-            box-shadow: 0 0 8px 0 rgba(black, 0.40);
+            box-shadow: 0 0 8px 0 rgba(black, 0.4);
         }
     }
     .login-page {
@@ -1542,7 +1542,7 @@ body {
                 }
             }
             .sub-footer {
-                >.container {
+                > .container {
                     border-color: $dark-border;
                 }
             }
@@ -2078,7 +2078,7 @@ body {
                 background-color: rgba($dark-top, 0.9);
                 transition: all 0.3s ease;
                 &:nth-child(even) {
-                    background-color: rgba($dark-top, 0.70);
+                    background-color: rgba($dark-top, 0.7);
                     transition: all 0.3s ease;
                 }
                 svg {
@@ -2095,7 +2095,7 @@ body {
     }
     .detail-cannabis {
         .detail_section {
-            >div {
+            > div {
                 background-color: $dark-body;
                 transition: all 0.3s ease;
                 box-shadow: none;
@@ -2116,7 +2116,24 @@ body {
         .modal-dialog {
             .modal-content {
                 .modal-body {
-                    background-image: linear-gradient(135deg, $theme-deafult 5.77%, $dark-top 5.77%, $dark-top 25%, $white-1 25%, $white-1 30.77%, $dark-top 30.77%, $dark-top 50%, $theme-deafult 50%, $theme-deafult 55.77%, $dark-top 55.77%, $dark-top 75%, $white-1 75%, $white-1 80.77%, $dark-top 80.77%, $dark-top 100%);
+                    background-image: linear-gradient(
+                        135deg,
+                        $theme-deafult 5.77%,
+                        $dark-top 5.77%,
+                        $dark-top 25%,
+                        $white-1 25%,
+                        $white-1 30.77%,
+                        $dark-top 30.77%,
+                        $dark-top 50%,
+                        $theme-deafult 50%,
+                        $theme-deafult 55.77%,
+                        $dark-top 55.77%,
+                        $dark-top 75%,
+                        $white-1 75%,
+                        $white-1 80.77%,
+                        $dark-top 80.77%,
+                        $dark-top 100%
+                    );
                     .modal-bg {
                         background-color: $dark-body;
                         transition: all 0.3s ease;
@@ -2147,7 +2164,7 @@ body {
                         transition: all 0.3s ease;
                         .demo-section {
                             .demo-effects {
-                                >div {
+                                > div {
                                     .layout-container {
                                         box-shadow: none;
                                     }

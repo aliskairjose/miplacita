@@ -2,7 +2,7 @@
 24.Responsive CSS start
 ==========================*/
 
-@media(min-width: 1430px) {
+@media (min-width: 1430px) {
     .container {
         max-width: 1400px;
     }
@@ -135,7 +135,7 @@
     }
     .cart-section {
         .cart-buttons {
-            >div {
+            > div {
                 &:last-child {
                     padding-right: 38px;
                 }
@@ -185,7 +185,7 @@
         .cart-section,
         .wishlist-section {
             .cart-buttons {
-                >div {
+                > div {
                     &:last-child {
                         padding-left: 41px;
                     }
@@ -242,7 +242,7 @@
     }
 }
 
-@media(max-width: 1430px) and (min-width: 1368px) {
+@media (max-width: 1430px) and (min-width: 1368px) {
     .banner-timer {
         .timer {
             margin-top: 45px;
@@ -250,7 +250,7 @@
     }
 }
 
-@media(max-width: 1430px) and (min-width: 1200px) {
+@media (max-width: 1430px) and (min-width: 1200px) {
     .layout3-menu {
         max-width: 100%;
         .main-menu {
@@ -261,7 +261,7 @@
             }
         }
         .pixelstrap {
-            >a {
+            > a {
                 padding-right: 38px;
             }
         }
@@ -301,7 +301,7 @@
     }
 }
 
-@media(max-width: 1367px) {
+@media (max-width: 1367px) {
     h2 {
         font-size: 32px;
     }
@@ -585,7 +585,7 @@
     }
 }
 
-@media(max-width: 1199px) {
+@media (max-width: 1199px) {
     section,
     .section-t-space {
         padding-top: 60px;
@@ -600,8 +600,8 @@
     }
     .header-gym {
         .sm-horizontal {
-            >li {
-                >a {
+            > li {
+                > a {
                     color: #000000;
                     padding: 10px 15px !important;
                     &:hover,
@@ -619,8 +619,8 @@
         }
         .main-navbar {
             .nav-menu {
-                >li {
-                    >a {
+                > li {
+                    > a {
                         .lable-nav {
                             top: -8px;
                         }
@@ -636,8 +636,8 @@
                 padding-bottom: 25px;
             }
             .pixelstrap {
-                >li {
-                    >a {
+                > li {
+                    > a {
                         padding: 10px 15px;
                         &:hover,
                         &:active,
@@ -655,8 +655,8 @@
             }
             .main-navbar {
                 .nav-menu {
-                    >li {
-                        >a {
+                    > li {
+                        > a {
                             padding: 10px 15px !important;
                         }
                     }
@@ -728,7 +728,7 @@
     }
     .gym-product {
         .part-cls {
-            >div {
+            > div {
                 &:nth-last-child(-n + 2) {
                     .product-box {
                         margin-top: 30px;
@@ -737,7 +737,7 @@
             }
         }
         .partition-cls {
-            >div {
+            > div {
                 &:nth-child(-n + 4) {
                     margin-bottom: 0;
                 }
@@ -760,7 +760,7 @@
     }
     .partition1 {
         margin-bottom: -25px;
-        >div {
+        > div {
             margin-bottom: 25px;
         }
     }
@@ -1027,7 +1027,7 @@
                         max-width: 450px;
                         font-size: 14px;
                     }
-                    .btn-solid {
+                    .btn-solid-orange {
                         padding: 10px 15px;
                     }
                 }
@@ -1127,7 +1127,7 @@
         }
     }
     .search-product {
-        >div {
+        > div {
             &:nth-last-child(1),
             &:nth-last-child(2),
             &:nth-last-child(3) {
@@ -1240,7 +1240,7 @@
             }
         }
         .product-buttons {
-            .btn-solid,
+            .btn-solid-orange,
             .btn-outline {
                 padding: 7px 13px;
             }
@@ -1309,7 +1309,7 @@
         .cart-section,
         .wishlist-section {
             .cart-buttons {
-                >div {
+                > div {
                     &:last-child {
                         padding-left: 17px;
                     }
@@ -1377,8 +1377,8 @@
                 .main-navbar {
                     .nav-menu {
                         background-color: $dark-body;
-                        >li {
-                            >a {
+                        > li {
+                            > a {
                                 color: white;
                             }
                         }
@@ -1399,11 +1399,11 @@
     }
 }
 
-@media(max-width: 991px) and (min-width: 767px) {
+@media (max-width: 991px) and (min-width: 767px) {
     .partition-f {
-        >div {
-            &+div {
-                &+div {
+        > div {
+            & + div {
+                & + div {
                     margin-top: 30px;
                 }
             }
@@ -1438,7 +1438,7 @@
     }
 }
 
-@media(max-width: 991px) {
+@media (max-width: 991px) {
     .main-nav-center {
         .toggle-nav {
             top: -92px;
@@ -1454,10 +1454,10 @@
     }
     .service_slide {
         .partition4 {
-            >div {
-                +div {
+            > div {
+                + div {
                     margin-top: 0;
-                    +div {
+                    + div {
                         margin-top: 30px;
                     }
                 }
@@ -1554,7 +1554,7 @@
     }
     .tools_product {
         .multiple-slider {
-            >div {
+            > div {
                 &:nth-child(-n + 2) {
                     margin-bottom: 0;
                 }
@@ -1575,7 +1575,7 @@
     }
     .tools-service {
         .service-block {
-            +.service-block {
+            + .service-block {
                 border-left: none;
             }
         }
@@ -1671,16 +1671,16 @@
         }
     }
     .partition_3 {
-        >div {
-            &+div {
+        > div {
+            & + div {
                 margin-top: 30px;
             }
         }
     }
     .partition4 {
-        >div {
-            &+div {
-                &+div {
+        > div {
+            & + div {
+                & + div {
                     margin-top: 30px;
                 }
             }
@@ -1810,7 +1810,7 @@
             flex: 0 0 50%;
             max-width: calc(50% - 30px);
             margin: 0 15px 30px !important;
-            &:nth-last-child(-n+2) {
+            &:nth-last-child(-n + 2) {
                 margin: 0 15px 0 !important;
             }
         }
@@ -1871,7 +1871,7 @@ background-color: $black;*/
             h1 {
                 font-size: 36px;
             }
-            .btn-solid,
+            .btn-solid-orange,
             .btn-outline {
                 margin-top: 17px;
             }
@@ -1911,7 +1911,7 @@ background-color: $black;*/
             img {
                 padding: 10px 10px 10px 0;
             }
-            >div {
+            > div {
                 .media {
                     &:last-child {
                         img {
@@ -1930,7 +1930,7 @@ background-color: $black;*/
         }
     }
     .multiple-slider {
-        >div {
+        > div {
             &:nth-child(-n + 2) {
                 margin-bottom: 30px;
             }
@@ -2033,7 +2033,7 @@ background-color: $black;*/
     }
     .parallax-cls {
         .banner-contain {
-            background-color: rgba( $white, .5);
+            background-color: rgba($white, 0.5);
             padding: 35px;
         }
         section {
@@ -2190,7 +2190,7 @@ background-color: $black;*/
             padding-top: 30px;
         }
         .partition-collection {
-            >div {
+            > div {
                 &:nth-last-child(1) {
                     margin-top: 30px;
                 }
@@ -2251,7 +2251,7 @@ background-color: $black;*/
             }
         }
         .cart-buttons {
-            >div {
+            > div {
                 &:last-child {
                     padding-right: 15px;
                 }
@@ -2269,7 +2269,7 @@ background-color: $black;*/
         tbody {
             tr {
                 td {
-                    min-width: 138px
+                    min-width: 138px;
                 }
             }
         }
@@ -2287,7 +2287,7 @@ background-color: $black;*/
                     .open-popup {
                         text-align: left;
                     }
-                    >a {
+                    > a {
                         color: $white;
                     }
                     .collection-filter {
@@ -2538,7 +2538,7 @@ background-color: $black;*/
         }
         .beauty-about {
             .text-center {
-                text-align: center!important;
+                text-align: center !important;
             }
             .about-text {
                 p {
@@ -2604,7 +2604,7 @@ background-color: $black;*/
     }
 }
 
-@media(max-width: 767px) {
+@media (max-width: 767px) {
     .product-wrapper-grid {
         &.list-view {
             .product-box {
@@ -2644,7 +2644,7 @@ background-color: $black;*/
             text-align: center;
         }
         .row {
-            >div {
+            > div {
                 &:first-child {
                     .detail_section {
                         margin-top: 0;
@@ -2656,7 +2656,7 @@ background-color: $black;*/
     footer {
         &.footer-5 {
             .sub-footer {
-                >.container {
+                > .container {
                     border-top: none;
                 }
             }
@@ -2702,9 +2702,9 @@ background-color: $black;*/
     }
     .tools-service {
         .service-block {
-            +.service-block {
+            + .service-block {
                 margin-top: 0;
-                +.service-block {
+                + .service-block {
                     margin-top: 20px;
                 }
             }
@@ -3029,7 +3029,7 @@ background-color: $black;*/
                     }
                     .form-group {
                         display: flex;
-                        .btn-solid,
+                        .btn-solid-orange,
                         .btn-outline {
                             margin-top: 0;
                         }
@@ -3078,7 +3078,7 @@ background-color: $black;*/
                     }
                     .form-group {
                         display: flex;
-                        .btn-solid,
+                        .btn-solid-orange,
                         .btn-outline {
                             margin-top: 0;
                         }
@@ -3156,7 +3156,7 @@ background-color: $black;*/
         img {
             margin-right: 0;
         }
-        +.service-block {
+        + .service-block {
             border-left: 0;
             margin-top: 20px;
         }
@@ -3172,20 +3172,20 @@ background-color: $black;*/
     }
     .partition2 {
         margin-bottom: -25px;
-        >div {
+        > div {
             margin-bottom: 25px;
         }
     }
     .partition3 {
-        >div {
-            &+div {
+        > div {
+            & + div {
                 margin-top: 30px;
             }
         }
     }
     .partition4 {
-        >div {
-            &+div {
+        > div {
+            & + div {
                 margin-top: 30px;
             }
         }
@@ -3265,7 +3265,7 @@ background-color: $black;*/
     }
     .banner-slider {
         .home-banner {
-            >div {
+            > div {
                 img {
                     margin-top: 30px;
                 }
@@ -3279,7 +3279,7 @@ background-color: $black;*/
     }
     .lookbook {
         .row {
-            >div {
+            > div {
                 &:last-child {
                     .lookbook-block {
                         margin-top: 30px;
@@ -3290,10 +3290,10 @@ background-color: $black;*/
     }
     .lookbook-section {
         .row {
-            >div {
+            > div {
                 &:first-child {
                     .lookbook-img {
-                        >div {
+                        > div {
                             &:last-child {
                                 margin-bottom: 25px;
                             }
@@ -3303,7 +3303,7 @@ background-color: $black;*/
             }
         }
         .lookbook-img {
-            >div {
+            > div {
                 &:last-child {
                     img {
                         margin-top: 0;
@@ -3436,7 +3436,7 @@ background-color: $black;*/
     }
     .white-layout {
         .footer-theme2 {
-            >div {
+            > div {
                 &:nth-child(2) {
                     order: -1;
                 }
@@ -3522,7 +3522,7 @@ background-color: $black;*/
         }
     }
     .multiple-slider {
-        >div {
+        > div {
             &:nth-child(-n + 3) {
                 margin-bottom: 30px;
             }
@@ -3577,7 +3577,7 @@ background-color: $black;*/
                 font-size: 35px;
                 margin-top: 5px;
             }
-            .btn-solid,
+            .btn-solid-orange,
             .btn-outline {
                 margin-top: 10px;
                 padding: 10px 25px;
@@ -3636,7 +3636,7 @@ background-color: $black;*/
                                 }
                             }
                         }
-                        +.product-box2 {
+                        + .product-box2 {
                             border-top: none;
                         }
                     }
@@ -3692,7 +3692,8 @@ background-color: $black;*/
         &.exit-modal {
             .media {
                 .media-body {
-                    h4 {}
+                    h4 {
+                    }
                 }
             }
         }
@@ -3754,7 +3755,7 @@ background-color: $black;*/
     }
     .collection {
         .partition-collection {
-            >div {
+            > div {
                 &:nth-last-child(1),
                 &:nth-last-child(2),
                 &:nth-last-child(3) {
@@ -3800,7 +3801,7 @@ background-color: $black;*/
                         font-size: 14px !important;
                         white-space: normal;
                         width: 100%;
-                        padding: 16px 30px 16px 18px!important;
+                        padding: 16px 30px 16px 18px !important;
                     }
                 }
             }
@@ -3818,7 +3819,7 @@ background-color: $black;*/
         }
     }
     .search-product {
-        >div {
+        > div {
             &:nth-last-child(4) {
                 margin-top: 30px;
             }
@@ -3842,7 +3843,7 @@ background-color: $black;*/
         .cart-table {
             thead {
                 th {
-                    &:nth-last-child(-n+5) {
+                    &:nth-last-child(-n + 5) {
                         display: none;
                     }
                 }
@@ -3851,7 +3852,7 @@ background-color: $black;*/
         tbody {
             tr {
                 td {
-                    &:nth-last-child(-n+5) {
+                    &:nth-last-child(-n + 5) {
                         display: none;
                     }
                     .mobile-cart-content {
@@ -3865,7 +3866,7 @@ background-color: $black;*/
         .cart-table {
             thead {
                 th {
-                    &:nth-last-child(-n+3) {
+                    &:nth-last-child(-n + 3) {
                         display: none;
                     }
                 }
@@ -3874,7 +3875,7 @@ background-color: $black;*/
         tbody {
             tr {
                 td {
-                    &:nth-last-child(-n+3) {
+                    &:nth-last-child(-n + 3) {
                         display: none;
                     }
                     .mobile-cart-content {
@@ -3939,7 +3940,7 @@ background-color: $black;*/
             img {
                 margin-right: 0;
             }
-            +.service-block {
+            + .service-block {
                 border-right: 0;
             }
             .media {
@@ -4056,7 +4057,7 @@ background-color: $black;*/
                 .offer-slider {
                     .sec-1 {
                         .product-box2 {
-                            +.product-box2 {
+                            + .product-box2 {
                                 border-left: none;
                                 border-right: 1px solid $border-grey;
                             }
@@ -4145,7 +4146,7 @@ background-color: $black;*/
     }
     .detail-cannabis {
         .detail_section {
-            >div {
+            > div {
                 padding: 30px 25px;
             }
         }
@@ -4196,7 +4197,7 @@ background-color: $black;*/
             }
         }
         .service-block {
-            +.service-block {
+            + .service-block {
                 margin-top: 20px;
             }
         }
@@ -4216,7 +4217,7 @@ background-color: $black;*/
     }
     .gym-product {
         .part-cls {
-            >div {
+            > div {
                 &:nth-last-child(-n + 3) {
                     .product-box {
                         margin-top: 30px;
@@ -4225,7 +4226,7 @@ background-color: $black;*/
             }
         }
         .partition-cls {
-            >div {
+            > div {
                 &:nth-child(2) {
                     margin-top: 30px;
                 }
@@ -4318,7 +4319,7 @@ background-color: $black;*/
                     }
                 }
             }
-            >div {
+            > div {
                 &:nth-child(2) {
                     position: absolute;
                     left: 0;
@@ -4470,14 +4471,14 @@ background-color: $black;*/
         }
     }
     .search-overlay {
-        >div {
+        > div {
             .closebtn {
                 top: 15px;
                 right: 30px;
             }
         }
     }
-    .btn-solid {
+    .btn-solid-orange {
         padding: 7px 15px;
     }
     .product-box,
@@ -4491,7 +4492,7 @@ background-color: $black;*/
     }
     footer {
         margin-bottom: 60px;
-        .btn-solid {
+        .btn-solid-orange {
             padding: 13px 29px;
         }
         p {
@@ -4500,7 +4501,7 @@ background-color: $black;*/
     }
     .partition1 {
         margin-bottom: -15px;
-        >div {
+        > div {
             margin-bottom: 15px;
         }
     }
@@ -4679,7 +4680,7 @@ background-color: $black;*/
         .banner-contain {
             background-color: rgba($white, 0.2);
             padding: 25px;
-            .btn-solid,
+            .btn-solid-orange,
             .btn-outline {
                 padding: 10px 20px;
             }
@@ -4738,7 +4739,7 @@ background-color: $black;*/
                     text-align: center;
                     justify-content: center;
                     padding-left: 0;
-                    >div {
+                    > div {
                         background-color: rgba(0, 0, 0, 0.15);
                         padding: 30px 50px;
                     }
@@ -4753,7 +4754,7 @@ background-color: $black;*/
                         max-width: 330px;
                         font-size: 12px;
                     }
-                    .btn-solid {
+                    .btn-solid-orange {
                         padding: 10px 15px;
                     }
                 }
@@ -4911,7 +4912,7 @@ background-color: $black;*/
             .post-social {
                 li {
                     display: block;
-                    &+li {
+                    & + li {
                         padding-left: 0;
                         margin-left: 0;
                         border-left: none;
@@ -4997,7 +4998,7 @@ background-color: $black;*/
         }
     }
     .search-product {
-        >div {
+        > div {
             &:nth-last-child(5) {
                 margin-top: 30px;
             }
@@ -5005,18 +5006,18 @@ background-color: $black;*/
     }
     .cart-section {
         .cart-buttons {
-            >div {
+            > div {
                 &:last-child {
-                    padding-right: 15px
+                    padding-right: 15px;
                 }
             }
-            .btn-solid {
+            .btn-solid-orange {
                 padding: 7px 8px;
             }
         }
     }
     .wishlist-section {
-        .btn-solid {
+        .btn-solid-orange {
             padding: 7px 8px;
         }
     }
@@ -5051,7 +5052,7 @@ background-color: $black;*/
     .slider-right-nav {
         .slick-slide {
             &:first-child {
-                >div {
+                > div {
                     margin-top: 15px;
                 }
             }
@@ -5102,7 +5103,7 @@ background-color: $black;*/
         }
     }
     .order-success-sec {
-        >div {
+        > div {
             margin-top: 15px;
         }
     }
@@ -5197,7 +5198,7 @@ background-color: $black;*/
             .blog-detail {
                 .post-social {
                     li {
-                        +li {
+                        + li {
                             padding-right: 0;
                             margin-right: 0;
                             border-right: none;
@@ -5277,7 +5278,7 @@ background-color: $black;*/
         }
         .layout3-menu {
             .main-menu {
-                >div {
+                > div {
                     &:nth-child(2) {
                         left: unset;
                         right: 0;
@@ -5464,7 +5465,7 @@ background-color: $black;*/
                     max-width: 388px;
                 }
                 .subscribe-white {
-                    .btn-solid,
+                    .btn-solid-orange,
                     .btn-outline {
                         padding: 13px 8px;
                     }
@@ -5476,7 +5477,7 @@ background-color: $black;*/
         .footer-theme2 {
             .subscribe-wrapper {
                 .subscribe-block {
-                    .btn-solid,
+                    .btn-solid-orange,
                     .btn-outline {
                         padding: 13px 8px;
                     }
@@ -5590,7 +5591,7 @@ background-color: $black;*/
             h4 {
                 letter-spacing: 0.1em;
             }
-            .btn-solid,
+            .btn-solid-orange,
             .btn-outline {
                 margin-top: 5px;
             }
@@ -5649,7 +5650,7 @@ background-color: $black;*/
                                     height: 40px;
                                     padding: 0;
                                 }
-                                .btn-solid,
+                                .btn-solid-orange,
                                 .btn-outline {
                                     padding: 8px 15px;
                                 }
@@ -5853,7 +5854,7 @@ background-color: $black;*/
         }
     }
     .search-block {
-        .btn-solid {
+        .btn-solid-orange {
             padding: 10px 15px;
         }
     }
@@ -5886,7 +5887,7 @@ background-color: $black;*/
                     margin-bottom: 5px;
                     li {
                         display: block;
-                        &+li {
+                        & + li {
                             padding-left: 0;
                             margin-left: 0;
                             border-left: none;
@@ -5925,7 +5926,7 @@ background-color: $black;*/
                 .blog-right {
                     ul {
                         li {
-                            +li {
+                            + li {
                                 padding-right: 0;
                                 margin-right: 0;
                                 border-right: 0;
@@ -5993,7 +5994,7 @@ background-color: $black;*/
                 .blog-right {
                     ul {
                         li {
-                            +li {
+                            + li {
                                 padding-right: 0;
                                 margin-right: 0;
                                 border-right: 0;
@@ -6100,7 +6101,7 @@ background-color: $black;*/
     .center-slider {
         .product-box {
             padding: 10px 0;
-            >app-product-box {
+            > app-product-box {
                 display: flex;
                 width: 100%;
             }
@@ -6129,7 +6130,7 @@ background-color: $black;*/
         }
     }
     footer {
-        .btn-solid {
+        .btn-solid-orange {
             padding: 7px 8px;
         }
         p {
@@ -6207,7 +6208,7 @@ background-color: $black;*/
             h4 {
                 letter-spacing: 0.01em;
             }
-            .btn-solid,
+            .btn-solid-orange,
             .btn-outline {
                 margin-top: 10px;
                 padding: 5px 18px;
@@ -6310,7 +6311,7 @@ background-color: $black;*/
                         &:last-child {
                             border-bottom: none;
                         }
-                        +.product-box2 {
+                        + .product-box2 {
                             border-left: none;
                         }
                     }
@@ -6417,7 +6418,7 @@ background-color: $black;*/
     }
     .product-right {
         .product-buttons {
-            .btn-solid,
+            .btn-solid-orange,
             .btn-outline {
                 padding: 5px 8px;
             }
@@ -6565,7 +6566,7 @@ background-color: $black;*/
             }
         }
     }
-    // dark 
+    // dark
     .dark {
         .full-box {
             .theme-card {
@@ -6606,7 +6607,7 @@ background-color: $black;*/
             }
         }
     }
-    .btn-solid,
+    .btn-solid-orange,
     .btn-outline {
         padding: 10px 15px;
     }
@@ -6722,7 +6723,7 @@ background-color: $black;*/
             h1 {
                 font-size: 25px;
             }
-            .btn-solid,
+            .btn-solid-orange,
             .btn-outline {
                 margin-top: 8px;
                 padding: 5px 15px;
@@ -6846,7 +6847,7 @@ background-color: $black;*/
         }
     }
     .search-block {
-        .btn-solid {
+        .btn-solid-orange {
             padding: 10px 5px;
         }
         .form-header {
@@ -6905,7 +6906,7 @@ background-color: $black;*/
         }
     }
     .product-buttons {
-        .btn-solid,
+        .btn-solid-orange,
         .btn-outline {
             padding: 7px 16px;
         }
@@ -6944,7 +6945,7 @@ background-color: $black;*/
             }
         }
         .product-buttons {
-            .btn-solid,
+            .btn-solid-orange,
             .btn-outline {
                 padding: 5px 5px;
             }
@@ -7059,12 +7060,11 @@ background-color: $black;*/
     }
 }
 
-
 /*=====================
 Fashion-2 Demo Responsive CSS
 ==========================*/
 
-@media(max-width: 767px) {
+@media (max-width: 767px) {
     .box-layout-body {
         .box-layout {
             margin-top: -40px;

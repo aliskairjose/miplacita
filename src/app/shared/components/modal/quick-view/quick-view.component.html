@@ -39,13 +39,16 @@
                             <div class="qty-box">
                                 <div class="input-group">
                                     <span class="input-group-prepend">
-                                        <button type="button" class="btn quantity-left-minus" data-type="minus" (click)="decrement()">
+                                        <button type="button" class="btn quantity-left-minus" data-type="minus"
+                                            (click)="decrement()">
                                             <i class="ti-angle-left"></i>
                                         </button>
                                     </span>
-                                    <input type="text" name="quantity" class="form-control input-number"  [value]="counter" disabled>
+                                    <input type="text" name="quantity" class="form-control input-number"
+                                        [value]="counter" disabled>
                                     <span class="input-group-prepend">
-                                        <button type="button" class="btn quantity-right-plus" data-type="plus" (click)="increment()">
+                                        <button type="button" class="btn quantity-right-plus" data-type="plus"
+                                            (click)="increment()">
                                             <i class="ti-angle-right"></i>
                                         </button>
                                     </span>
@@ -53,8 +56,10 @@
                             </div>
                         </div>
                         <div class="product-buttons">
-                            <a href="javascript:void(0)" class="btn btn-solid" [class.disabled]="counter > product.stock" (click)="addToCart(product)">al carrito</a>
-                            <a [routerLink]="['/shop/product/', product._id]" class="btn btn-solid">ver detalle</a>
+                            <a href="javascript:void(0)" class="btn btn-solid-orange"
+                                [class.disabled]="counter > product.stock" (click)="addToCart(product)">al carrito</a>
+                            <a [routerLink]="['/shop/product/', product._id]" class="btn btn-solid-orange">ver
+                                detalle</a>
                         </div>
                     </div>
                 </div>
