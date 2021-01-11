@@ -100,7 +100,7 @@ input[type="checkbox"]:checked {
   background-color: #7d1709;
   line-height: 1rem;
   font-size: 1rem;
-  border: 2px solid var(--theme-deafult);
+  border: 1px solid var(--theme-deafult);
 }
 .btn {
   text-transform: none;
@@ -176,7 +176,7 @@ input[type="checkbox"]:checked {
   color: #fff;
   padding: 13px 13px;
   letter-spacing: 0.05em;
-  border: 2px solid $mp-purple;
+  border: 1px solid $mp-purple;
   &:hover {
     color: $mp-purple;
     background-position: 100%;
@@ -188,7 +188,7 @@ input[type="checkbox"]:checked {
   color: #fff;
   padding: 13px 13px;
   letter-spacing: 0.05em;
-  border: 2px solid $mp-pink-dark;
+  border: 1px solid $mp-pink-dark;
   &:hover {
     color: $mp-purple;
     background-position: 100%;

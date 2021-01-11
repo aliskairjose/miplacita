@@ -41,8 +41,8 @@
 						</div>
 					</div>
 					<div class="d-flex  h-100 " *ngIf="role==='merchant' && store">
-						<button [disabled]="(plan.price === 0) && (maxProducts >= 10)" type="button"
-							class="btn btn-solid-orange flex-fill" (click)="CreateProduct.openModal(1,null)">
+						<button [disabled]="(plan.price === 0) && (maxProducts >= 10)" type="button" class="btn btn-solid flex-fill"
+							(click)="CreateProduct.openModal(1,null)">
 							Crear Producto
 						</button>
 					</div>
@@ -121,7 +121,7 @@
 						<div class="card-body">
 							<p *ngIf="products.length==0 && !store">
 								Aún no has configurado tu tienda
-								<a class="btn btn-solid-orange mt-3" [routerLink]="['/pages/account/user/admin-store']">
+								<a class="btn btn-solid mt-3" [routerLink]="['/pages/account/user/admin-store']">
 									Configurar tienda
 								</a>
 							</p>
