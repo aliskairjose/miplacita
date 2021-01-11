@@ -907,3 +907,17 @@ body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
+
+.table-bordered {
+  border-collapse: collapse;
+  border: 1px solid $mp-red;
+  thead {
+    border: 1px solid $mp-red;
+  }
+  thead,
+  tr,
+  th,
+  td {
+    border: 1px solid $mp-red;
+  }
+}
