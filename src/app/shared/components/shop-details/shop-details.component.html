@@ -1,7 +1,7 @@
 <ng-template #shopDetails let-modal>
-    <div class="container p-3">
+    <div class="container modal-bordered p-3" style="border: 1px solid #eba39a;">
         <div class="modal-container">
-            <div class="modal-header">
+            <div class="modal-header" style="border: 1px solid #eba39a;">
                 <h4 class="title">{{shop.name}}</h4>
                 <button type="button" class="close" (click)="close('Click close')">
                     <span aria-hidden="true">&times;</span>
@@ -10,7 +10,7 @@
             <div class="modal-body">
                 <div class="form-group">
                     <p>
-                        <strong>Plan actual:</strong> {{ shop.plan.description }} 
+                        <strong>Plan actual:</strong> {{ shop.plan.description }}
                     </p>
                 </div>
                 <div class="form-group">
@@ -35,7 +35,7 @@
                                         <path fill-rule="evenodd"
                                             d="M10.97 4.97a.75.75 0 0 1 1.071 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.236.236 0 0 1 .02-.022z" />
                                     </svg>
-                                </div> 
+                                </div>
                                 <div class="col">
                                     {{ benefit }}
                                 </div>
@@ -47,4 +47,3 @@
         </div>
     </div>
 </ng-template>
-
