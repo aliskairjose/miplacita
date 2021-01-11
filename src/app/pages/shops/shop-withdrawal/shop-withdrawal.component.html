@@ -28,7 +28,8 @@
                 <!-- Acccount -->
                 <div class="form-group">
                     <div class="field-label font-weight-bold">Número de la cuenta</div>
-                    <input formControlName="account" type="number" class="form-control" id="bank-account" maxlength="20">
+                    <input formControlName="account" type="number" class="form-control" id="bank-account"
+                        maxlength="20">
                     <div *ngIf="submitted && f.account.errors?.required" class="invalid-feedback d-block">
                         {{ required }}
                     </div>
@@ -45,7 +46,7 @@
                     </div>
                 </div>
                 <div class="form-group text-center">
-                    <button class="btn btn-solid-purple flex-fill" [disabled]="!storeId">Actualizar banco</button>
+                    <button class="btn btn-solid-orange flex-fill" [disabled]="!storeId">Actualizar banco</button>
                 </div>
             </form>
 

@@ -22,8 +22,8 @@
 										<!-- Zone name -->
 										<div class="form-group mx-2 ">
 											<label for="name">Nombre</label>
-											<input type="text" formControlName="name" [(ngModel)]="zone.name" class="form-control" id="name" placeholder="" required
-												[ngClass]="{ 'is-invalid': submitted && f.name.errors }">
+											<input type="text" formControlName="name" [(ngModel)]="zone.name" class="form-control" id="name"
+												placeholder="" required [ngClass]="{ 'is-invalid': submitted && f.name.errors }">
 											<div *ngIf="submitted && f.name.errors" class="invalid-feedback d-block">
 												<div *ngIf="f.name.errors.required"> {{ required }} </div>
 											</div>
@@ -31,18 +31,19 @@
 										<!-- Zone price -->
 										<div class="form-group mx-2">
 											<label for="name">Precio</label>
-											<input type="text" formControlName="price" [(ngModel)]="zone.price" class="form-control" id="price" placeholder=""  currencyMask required
+											<input type="text" formControlName="price" [(ngModel)]="zone.price" class="form-control"
+												id="price" placeholder="" currencyMask required
 												[ngClass]="{ 'is-invalid': submitted && f.price.errors }">
 											<div *ngIf="submitted && f.price.errors" class="invalid-feedback d-block">
 												<div *ngIf="f.price.errors.required"> {{ required }} </div>
 											</div>
 										</div>
 										<div class="form-group ml-2 mt-3">
-											<button type="submit" class="btn btn-solid-purple">{{buttonTitle}}</button>
+											<button type="submit" class="btn btn-solid-orange">{{buttonTitle}}</button>
 										</div>
 									</div>
 								</form>
-	
+
 							</div>
 							<div class="form-row flex-fill flex-column mt-5 px-1">
 								<div class="table-responsive">

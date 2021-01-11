@@ -113,8 +113,8 @@
 														<p class="my-auto">Vender en home page 20%</p>
 													</div>
 													<div class="col-md-1 text-right">
-														<input formControlName="marketplace" class="form-check-input" type="checkbox" [(ngModel)]="marketplaceCheck"
-															id="gridCheck1">
+														<input formControlName="marketplace" class="form-check-input" type="checkbox"
+															[(ngModel)]="marketplaceCheck" id="gridCheck1">
 														<!-- <input class="my-auto" type="checkbox"> -->
 													</div>
 												</div>
@@ -151,20 +151,20 @@
 										</div>
 										<div class="page-title form-row px-2">
 											<p class="hint">
-												Selecciona una foto para tu producto haciendo click en 
-												(<img class="icon-small" src="assets/images/marketplace/images/placeholder_.jpg"/>)
+												Selecciona una foto para tu producto haciendo click en
+												(<img class="icon-small" src="assets/images/marketplace/images/placeholder_.jpg" />)
 												para que tus clientes puedan ver el detalle del mismo.
 											</p>
 										</div>
 										<div class="form-group d-flex justify-content-center">
-											<app-upload-image [multiple]="true" [imagesObject]="images" (deleteImage)="deleteImage($event)" (uploadImage)="upload($event)"
-												style="width: 100%;">
+											<app-upload-image [multiple]="true" [imagesObject]="images" (deleteImage)="deleteImage($event)"
+												(uploadImage)="upload($event)" style="width: 100%;">
 											</app-upload-image>
 										</div>
 									</div>
 								</div>
 								<div class="save text-center p-3">
-									<button class="btn btn-solid-purple" type="submit" [disabled]="disabled">
+									<button class="btn btn-solid-orange" type="submit" [disabled]="disabled">
 										Guardar Producto
 									</button>
 								</div>
@@ -232,7 +232,7 @@
 										</table>
 									</div>
 									<div *ngIf="!showForm" class="d-flex px-5 py-5 justify-content-center aling-content-center">
-										<button class="btn btn-solid-purple" (click)="variationsForm()" [disabled]="disabledBtn">
+										<button class="btn btn-solid-orange" (click)="variationsForm()" [disabled]="disabledBtn">
 											Agregar tu primera variación
 										</button>
 									</div>
@@ -347,7 +347,7 @@
 											style="width: 100%;">
 										</app-upload-image>
 										<div class="save text-center p-3">
-											<button class="btn btn-solid-purple" type="button" (click)="saveVariable()">
+											<button class="btn btn-solid-orange" type="button" (click)="saveVariable()">
 												Guardar Producto
 											</button>
 										</div>
