@@ -44,18 +44,26 @@
     </div>
   </div>
   <!-- Detalle del producto -->
-  <div class="product-detail" *ngIf="!search">
+  <div class="product-detail">
     <div>
       <a [routerLink]="['/shop/product/', product._id]" [queryParams]="{ config: config }">
         <h6>{{ product?.name | titlecase }}</h6>
       </a>
-      <div *ngIf="colors.length" class="mb-2">
-        <ul class="color-variant" style="padding-top: 0px !important;">
+      <div *ngIf="colors.length" class=" d-flex flex-column mb-2">
+        <ul class="color-variant" style="padding-top: 0px !important;" *ngIf="!search">
           <li [class]="color" *ngFor="let color of colors; index as i"
             [ngStyle]="{'background-color': color.value, 'border': 'solid thin black'}">
           </li>
         </ul>
-        <p class="mt-1">Colores disponibles</p>
+        <div *ngIf="search">
+          <div *ngFor="let color of colors; index as i">
+            <ul class="color-variant" style="padding-top: 0px !important;">
+              <li [class]="color" [ngStyle]="{'background-color': color.value, 'border': 'solid thin black'}">
+              </li>
+            </ul>
+          </div>
+        </div>
+        <p class="mt-1 ">Colores disponibles</p>
       </div>
       <div *ngIf="sizes.length">
         <p>Tamaños: {{ sizes }}</p>
@@ -72,7 +80,7 @@
       </div>
     </div>
   </div>
-  <div class=" product-detail" *ngIf="search">
+  <!-- <div class=" product-detail" *ngIf="search">
     <div class="py-2">
       <a [routerLink]="['/shop/product/', product._id]">
         <h6 class="text-default-color">{{ product?.name | titlecase }}</h6>
@@ -86,7 +94,7 @@
         <p class="text-default-color pl-2">({{ product.stock }} unidades disponibles)</p>
       </div>
     </div>
-  </div>
+  </div> -->
 </div>
 <app-skeleton-product-box *ngIf="loader"></app-skeleton-product-box>
 <app-quick-view #quickView [product]="product" [currency]="currency"></app-quick-view>
