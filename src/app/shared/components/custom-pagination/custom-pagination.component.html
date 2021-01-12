@@ -8,12 +8,12 @@
                             <li class="page-item" [ngClass]="{disabled:pages[0] === 1}">
                                 <a href="javascript:void(0)" class="page-link"
                                     (click)="navigateIndex(paginate.prevPage )" aria-label="Previous">
-                                    <span aria-hidden="true"><i class="fa fa-chevron-left"
-                                            aria-hidden="true"></i></span>
+                                    <span aria-hidden="true">
+                                        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+                                    </span>
                                     <span class="sr-only">Anterior</span>
                                 </a>
                             </li>
-
                             <div *ngIf="pages[0] > 1">
                                 <li class="page-item active">
                                     <a href="javascript:void(0)" class="page-link" (click)="pageSet(1)"> 1 </a>
@@ -28,17 +28,20 @@
                                 <a href="javascript:void(0)" class="page-link" (click)="pageSet(page)">{{ page }}</a>
                             </li>
 
-                            <div *ngIf="paginate.page !== paginate.totalPages || pages[pages.length - 1] !== paginate.totalPages">
+                            <div
+                                *ngIf="paginate.page !== paginate.totalPages || pages[pages.length - 1] !== paginate.totalPages">
                                 <li class="page-item active">
                                     <a href="javascript:void(0)" class="page-link">...</a>
                                 </li>
-                                <li class="page-item active" [ngClass]="{ active: paginate.page === paginate.totalPages }">
+                                <li class="page-item active"
+                                    [ngClass]="{ active: paginate.page === paginate.totalPages }">
                                     <a href="javascript:void(0)" class="page-link"
                                         (click)="pageSet(paginate.totalPages)">{{ paginate.totalPages }}</a>
                                 </li>
                             </div>
 
-                            <li class="page-item" [ngClass]="{ disabled: pages[pages.length - 1] === paginate.totalPages }">
+                            <li class="page-item"
+                                [ngClass]="{ disabled: pages[pages.length - 1] === paginate.totalPages }">
                                 <a href="javascript:void(0)" class="page-link"
                                     (click)="navigateIndex(paginate.nextPage)" aria-label="Next">
                                     <span aria-hidden="true"><i class="fa fa-chevron-right"

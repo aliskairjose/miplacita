@@ -80,21 +80,6 @@
       </div>
     </div>
   </div>
-  <!-- <div class=" product-detail" *ngIf="search">
-    <div class="py-2">
-      <a [routerLink]="['/shop/product/', product._id]">
-        <h6 class="text-default-color">{{ product?.name | titlecase }}</h6>
-      </a>
-      <p>Tienda: {{ product.store.name }}</p>
-      <p class="mt-2">{{ product?.description }}</p>
-      <div class="d-flex">
-        <h4>
-          {{ product?.price | currency }}
-        </h4>
-        <p class="text-default-color pl-2">({{ product.stock }} unidades disponibles)</p>
-      </div>
-    </div>
-  </div> -->
 </div>
 <app-skeleton-product-box *ngIf="loader"></app-skeleton-product-box>
 <app-quick-view #quickView [product]="product" [currency]="currency"></app-quick-view>

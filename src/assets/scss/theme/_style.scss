@@ -6146,8 +6146,9 @@ footer {
 
 // pagination start here
 .product-pagination {
-    border-bottom: 1px solid lighten($black, 86.5%);
-    border-top: 1px solid lighten($black, 86.5%);
+    // border-bottom: 1px solid lighten($black, 86.5%);
+    // border-top: 1px solid lighten($black, 86.5%);
+    border: 1px solid #eba39a;
     margin: 50px 0;
     .pagination {
         border-radius: 0;
