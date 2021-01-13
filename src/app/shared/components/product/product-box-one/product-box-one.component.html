@@ -3,7 +3,7 @@
     [ngClass]="{ 'img-mobile': cartModal }">
     <div class="front my-auto" [ngClass]="{'auto-height': cartModal, 'custom-front': !cartModal}">
       <a [routerLink]="['/shop/product/', product._id]" [queryParams]="{ config: config  }">
-        <img [lazyLoad]="product.images[0]?.url" class="img-fluid lazy-loading" alt="{{ product.name }}" />
+        <img [lazyLoad]="product.images[0]?.url" class="img-fluid" alt="{{ product.name }}" />
       </a>
     </div>
     <div class="back" *ngIf="onHowerChangeImage"></div>
@@ -63,10 +63,14 @@
             </ul>
           </div>
         </div>
-        <p class="mt-1 ">Colores disponibles</p>
       </div>
-      <div *ngIf="sizes.length">
-        <p>Tamaños: {{ sizes }}</p>
+      <div *ngIf="!colors.length" style="height: 1.7rem;">
+        <small>No hay colores dispononibles</small>
+      </div>
+      <p class="mt-1 ">Colores disponibles</p>
+
+      <div>
+        <p>Tamaños: {{sizes.length ? sizes: 'No hay tamaños disponibles' }}</p>
       </div>
       <h4>
         {{ product?.price | currency }}
