@@ -22,7 +22,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="row mt-3 d-flex justify-content-center background-rosa px-0">
+		<div class="row mt-3 d-flex justify-content-center px-0">
 			<div class="w-100 d-flex justify-content-center flex-wrap background-gray ">
 				<div class="d-flex">
 					<div class="col service-block">
@@ -77,7 +77,7 @@
 <!-- Pasos de registro end -->
 <!-- Banner verticales start -->
 <section class="section-b-space">
-	<div class="container">
+	<div class="container-fluid">
 		<div class="row">
 			<div class="col">
 				<div class="title-purple text-center">
@@ -85,15 +85,10 @@
 				</div>
 			</div>
 		</div>
-		<div class="row mt-3 d-flex justify-content-center vertical-banners">
-			<div class="row justify-content-center">
-				<div class="w-100 row justify-content-center background-rosa">
-					<div class="col-md-3 " *ngFor="let image of verticalBanners">
-						<div class="media ">
-							<img class="h-100 w-100" id="" [src]="image" />
-
-						</div>
-					</div>
+		<div class="row mt-3 vertical-banners">
+			<div class="row justify-content-between background-rosa">
+				<div class="col-md-3 " *ngFor="let image of verticalBanners">
+					<img class="vertical-img" id="" [src]="image" />
 				</div>
 			</div>
 		</div>
