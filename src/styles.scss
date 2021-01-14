@@ -5,7 +5,7 @@
 
 // Colors
 $mp-blue: #3d5afe;
-$mp-red: #eba39a;
+$mp-red: #fe7e65;
 $mp-purple: #68396d;
 $mp-pink-dark: #e37d6f;
 $mp-rosa: #fed3c3;
@@ -196,11 +196,11 @@ input[type="checkbox"]:checked {
 .btn-solid-orange {
   background-color: $mp-red;
   color: #fff;
-  padding: 13px 13px;
+  // padding: 13px 13px;
   letter-spacing: 0.05em;
   border: $border solid $mp-red;
   &:hover {
-    color: $mp-purple;
+    color: $mp-red;
     background-position: 100%;
     background-color: $mp-white;
   }
@@ -337,11 +337,12 @@ input[type="checkbox"]:checked {
 // Landing Page
 .btn-inside-slider {
   position: initial;
-  width: 60%;
+  width: 46%;
   margin: 0 auto;
-  margin-top: 5%;
-  text-align: center;
+  margin-top: -2%;
+  text-align: right;
   z-index: 8;
+  clear: none;
 }
 
 .img-main-banner {
