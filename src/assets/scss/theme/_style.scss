@@ -639,6 +639,7 @@ button {
         position: relative;
         &:after {
             position: absolute;
+            top: 55px;
             height: 5px;
             width: 70px;
             background-color: var(--theme-deafult);
