@@ -3,7 +3,7 @@
 </ngx-spinner>
 <section class="section-b-space">
 	<div class="container">
-		<div class="page-title mb-5">
+		<div class="page-title mb-3">
 			<h2 class="mp-title">
 				Ganancias 20% vs Ganancias Tienda
 			</h2>
@@ -38,8 +38,8 @@
 						<td class="text-center text-capitalize">{{d.created_at | date }}</td>
 						<td class="text-center text-capitalize">{{ d.type? d.type : '' }}</td>
 						<td class="text-center">{{d.store_data.name}}</td>
-						<td class="text-center" *ngIf="d.earning">{{ d.earning  | currency }}</td>
-						<td class="text-center" *ngIf="!d.earning">{{ 0  | currency }}</td>
+						<td class="text-center" *ngIf="d.earning">{{ d.earning | currency }}</td>
+						<td class="text-center" *ngIf="!d.earning">{{ 0 | currency }}</td>
 					</tr>
 				</tbody>
 			</table>

@@ -3,7 +3,7 @@
 </ngx-spinner>
 <section class="section-b-space">
 	<div class="container">
-		<div class="page-title mb-5">
+		<div class="page-title mb-3">
 			<h2 class="mp-title">
 				Pagos de tiendas
 			</h2>
@@ -22,8 +22,8 @@
 					<tr *ngFor="let d of data.result">
 						<td class="text-center">{{d.store_data.name}}</td>
 						<td class="text-center">{{d.created_at | date }}</td>
-						<td class="text-center" *ngIf="d.payment_gateway">{{ d.amount  | currency }}</td>
-						<td class="text-center" *ngIf="!d.payment_gateway">{{ 0  | currency }}</td>
+						<td class="text-center" *ngIf="d.payment_gateway">{{ d.amount | currency }}</td>
+						<td class="text-center" *ngIf="!d.payment_gateway">{{ 0 | currency }}</td>
 					</tr>
 				</tbody>
 			</table>
