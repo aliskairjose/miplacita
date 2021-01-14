@@ -1,6 +1,9 @@
 #cart-component {
     .table {
         table-layout: fixed;
+        th {
+            color: #68396d;
+        }
     }
 
     #small-col {
