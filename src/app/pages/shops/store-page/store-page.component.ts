@@ -30,11 +30,12 @@ export class StorePageComponent implements OnInit {
   ProductSliderConfig: any = ProductSlider;
   color = '';
   filterOptions = [
-    { value: 1, text: 'Destacado' },
-    { value: 2, text: 'Precio de más bajo a más alto' },
-    { value: 3, text: 'Precio de más alto a más bajo' },
-    { value: 4, text: 'Más comprado' },
-    { value: 5, text: 'Lo más nuevo' }
+    { value: null, text: 'Filtrar por:' },
+    { value: 'featured=true', text: 'Destacado' },
+    { value: 'price_order=asc', text: 'Precio de más bajo a más alto' },
+    { value: 'price_order=desc', text: 'Precio de más alto a más bajo' },
+    { value: 'best=true', text: 'Más comprado' },
+    { value: 'featured=true', text: 'Lo más nuevo' }
   ];
 
   @ViewChild( 'settings' ) setting: SettingsComponent;
@@ -92,6 +93,13 @@ export class StorePageComponent implements OnInit {
   // Open chat whatsapp web
   openChat(): void {
     window.open( `https://wa.me/${this.store.phone}`, '_blank' );
+  }
+
+  onChange( value: string ): void {
+    const params = `store=${this.store._id}&${value}`;
+    this.productService.productList( 1, params ).subscribe( ( result: Result<Product> ) => {
+      this.products = [ ...result.docs ];
+    } );
   }
 
   private getCollectionProducts( id: string ): void {

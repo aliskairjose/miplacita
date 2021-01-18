@@ -31,19 +31,21 @@
 					</div>
 				</div>
 			</div>
+			<div class="row mt-4 mr-5">
+				<div class="col">
+					<div class="col-md-3 ml-auto">
+						<select class="form-control" name="filters" (change)="onChange($event.target.value)">
+							<option *ngFor="let option of filterOptions" [value]="option.value">
+								{{option.text}}
+							</option>
+						</select>
+					</div>
+				</div>
+			</div>
 		</div>
 		<section class="section-b-space p-t-0 productos-destacados">
 			<div class="container">
 				<div class="row">
-					<div class="col">
-						<div class="col-md-3 ml-auto">
-							<select class="form-control" name="filters">
-								<option *ngFor="let option of filterOptions" [value]="option.value">
-									{{option.text}}
-								</option>
-							</select>
-						</div>
-					</div>
 					<div class="col">
 						<owl-carousel-o class="product-m no-arrow" [options]="ProductSliderConfig">
 							<ng-container *ngFor="let product of products | slice:0:16">

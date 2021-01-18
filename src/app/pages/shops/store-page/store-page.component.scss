@@ -3,7 +3,7 @@
         border-top: 3px solid #f7f7f7;
         width: 95%;
         margin: 0 auto;
-        margin-top: 50px;
+        margin-top: 20px;
     }
 
     ngb-carousel {
@@ -81,6 +81,10 @@
         height: 8px;
         margin: 0 auto;
         margin-bottom: 10px;
+    }
+
+    .form-control {
+        border: 1px solid #ced4da;
     }
     @supports (object-fit: cover) {
         .img-main-banner {
