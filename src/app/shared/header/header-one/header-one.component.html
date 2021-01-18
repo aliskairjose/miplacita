@@ -72,7 +72,8 @@
             <div class="b pt-2 w-100 ">
               <div class="search-bar" [hidden]="!hasSearchBar">
                 <app-search [categories]="categories" [store]="store" [hidden]="isStoreSearch"></app-search>
-                <app-search-store [categories]="categories" [store]="store" [hidden]="!isStoreSearch"></app-search-store>
+                <app-search-store [categories]="categories" [store]="store" [hidden]="!isStoreSearch">
+                </app-search-store>
               </div>
             </div>
           </div>

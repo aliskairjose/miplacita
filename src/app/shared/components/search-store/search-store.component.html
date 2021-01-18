@@ -15,8 +15,9 @@
           </div>
         </div>
         <div ngbDropdown class="">
-          <button type="button" class="btn font-weight-normal " id="dropdownBasic2" ngbDropdownToggle>{{ textSubCategory
-            }}</button>
+          <button type="button" class="btn font-weight-normal " id="dropdownBasic2" ngbDropdownToggle>
+            {{ textSubCategory }}
+          </button>
 
           <div ngbDropdownMenu aria-labelledby="dropdownBasic2">
             <button type="button" (click)="updateSubCategory(item)" *ngFor="let item of subcategories"

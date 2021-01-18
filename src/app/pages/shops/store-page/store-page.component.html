@@ -36,12 +36,21 @@
 			<div class="container">
 				<div class="row">
 					<div class="col">
+						<div class="col-md-3 ml-auto">
+							<select class="form-control" name="filters">
+								<option *ngFor="let option of filterOptions" [value]="option.value">
+									{{option.text}}
+								</option>
+							</select>
+						</div>
+					</div>
+					<div class="col">
 						<owl-carousel-o class="product-m no-arrow" [options]="ProductSliderConfig">
 							<ng-container *ngFor="let product of products | slice:0:16">
 								<ng-template carouselSlide>
 									<div class="product-box">
-										<app-product-box-one [storePage]="true" [colorBtn]="color" [product]="product" [thumbnail]="false" [cartModal]="false" [horizontal]="true"
-											[store]="store">
+										<app-product-box-one [storePage]="true" [colorBtn]="color" [product]="product" [thumbnail]="false"
+											[cartModal]="false" [horizontal]="true" [store]="store">
 										</app-product-box-one>
 									</div>
 								</ng-template>

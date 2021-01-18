@@ -29,6 +29,13 @@ export class StorePageComponent implements OnInit {
   subCategories: Category[] = [];
   ProductSliderConfig: any = ProductSlider;
   color = '';
+  filterOptions = [
+    { value: 1, text: 'Destacado' },
+    { value: 2, text: 'Precio de más bajo a más alto' },
+    { value: 3, text: 'Precio de más alto a más bajo' },
+    { value: 4, text: 'Más comprado' },
+    { value: 5, text: 'Lo más nuevo' }
+  ];
 
   @ViewChild( 'settings' ) setting: SettingsComponent;
 
@@ -72,9 +79,9 @@ export class StorePageComponent implements OnInit {
     this.subCategoryList( this.store._id );
     this.storeService.storeSubject( this.store );
     this.storeService.customizeShop( this.store.config );
-    if (this.store.config.color){
+    if ( this.store.config.color ) {
       this.color = this.store.config.color;
-    } else  {
+    } else {
       this.color = '#c6410f';
     }
   }
