@@ -39,6 +39,7 @@ export class PaymentComponent implements OnInit {
   isFirstShop = false;
 
   @Input() submitted: boolean;
+  @Input() isProfile = false;
   @Input() card: any;
   @Output() enviado: EventEmitter<boolean> = new EventEmitter<boolean>();
   @Output() amount: EventEmitter<number> = new EventEmitter<number>();
