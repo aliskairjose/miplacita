@@ -37,6 +37,7 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
   modal2: any;
   modalOpen = false;
   modalOption: NgbModalOptions = {};
+  product: Product = {};
 
   create = 1;
   typesProduct = [];
@@ -407,8 +408,9 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
 
   }
 
-  openModal( option: number, product: Product, ) {
-
+  openModal( option: number, product: Product ) {
+    console.log( product )
+    this.product = { ...product };
     this.create = option;
     this.choiceOptions( product, option );
     this.modalOpen = true;

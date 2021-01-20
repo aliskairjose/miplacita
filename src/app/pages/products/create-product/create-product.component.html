@@ -241,9 +241,9 @@
 											<div class="col-12 col-lg-12">
 												<!-- Nombre -->
 												<div class="form-group ">
-													<div class="field-label">Nombre del producto</div>
+													<div class="field-label">Nombre del producto Variable</div>
 													<input formControlName="name" type="text" class="form-control" id="nameVariable"
-														(blur)="validateName()">
+														(blur)="validateName()" [(ngModel)]="product.name">
 													<div *ngIf="submitted && v.name.errors?.required" class="invalid-feedback d-block">
 														{{ required }}
 													</div>
@@ -254,7 +254,8 @@
 												<div class="form-group">
 													<div class="field-label">Descripción</div>
 													<textarea formControlName="description" type="text" class="form-control"
-														id="exampleFormControlTextarea00" placeholder="Descripción" required=""></textarea>
+														id="exampleFormControlTextarea00" placeholder="Descripción" required=""
+														[(ngModel)]="product.description"></textarea>
 													<div *ngIf="submitted && v.description.errors?.required" class="invalid-feedback d-block">
 														{{ required }}
 													</div>
@@ -266,7 +267,8 @@
 												<!-- Price -->
 												<div class="form-group ">
 													<div class="field-label">Precio del producto</div>
-													<input formControlName="price" currencyMask type="text" class="form-control" id="price">
+													<input formControlName="price" currencyMask type="text" class="form-control" id="price"
+														[(ngModel)]="product.price">
 													<div *ngIf="submitted && v.price.errors" class="invalid-feedback d-block">
 														<div *ngIf="v.price.errors.required"> {{ required }} </div>
 													</div>
@@ -277,7 +279,8 @@
 												<!-- Tax -->
 												<div class="form-group ">
 													<div class="field-label">Itbms del producto</div>
-													<input currencyMask formControlName="tax" type="text" class="form-control" id="itbms">
+													<input currencyMask formControlName="tax" type="text" class="form-control" id="itbms"
+														[(ngModel)]="product.tax">
 													<div *ngIf="submitted && v.tax.errors" class="invalid-feedback d-block">
 														<div *ngIf="v.tax.errors.required"> {{ required }} </div>
 													</div>
