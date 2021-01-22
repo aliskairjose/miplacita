@@ -79,6 +79,11 @@ export class ShippingZonesComponent implements OnInit, OnChanges {
   }
 
   deleteItem( zone: ShipmentOption ): void {
+    if ( this.state === 'edit' ) {
+      this.toastr.warning( 'No puede eliminar zona de envío en edición' );
+      return;
+    }
+
     this.confirmationDialogService
       .confirm(
         'Por favor confirme...',

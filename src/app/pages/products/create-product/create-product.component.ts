@@ -141,6 +141,7 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   onSubmit(): void {
+    console.log( 'onsubmit' )
     this.submitted = true;
     this.productForm.value.store = this.store._id;
     if ( !this.productForm.value.marketplace ) {

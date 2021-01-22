@@ -350,7 +350,8 @@
 											style="width: 100%;">
 										</app-upload-image>
 										<div class="save text-center p-3">
-											<button class="btn btn-solid-orange" type="button" (click)="saveVariable()">
+											<button class="btn btn-solid-orange" type="button"
+												(click)="saveVariable(); $event.preventDefault()">
 												Guardar Producto
 											</button>
 										</div>
