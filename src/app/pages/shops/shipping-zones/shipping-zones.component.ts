@@ -44,6 +44,7 @@ export class ShippingZonesComponent implements OnInit, OnChanges {
   get f() { return this.zonesForm.controls; }
 
   ngOnChanges( changes: SimpleChanges ): void {
+    this.loadShippingZones();
     this.shopService.storeObserver().subscribe( ( store: Store ) => {
       this.store = store;
       this.loadShippingZones();
@@ -127,6 +128,7 @@ export class ShippingZonesComponent implements OnInit, OnChanges {
 
   private loadShippingZones(): void {
     this.shopService.findShipmentOptionByShop( this.store._id ).subscribe( shipments => {
+      console.log( shipments )
       this.allZones = [ ...shipments ];
     } );
   }
@@ -137,10 +139,6 @@ export class ShippingZonesComponent implements OnInit, OnChanges {
       price: [ '', [ Validators.required ] ],
       store_id: [ '' ],
     } );
-  }
-
-  setPage( page: number ) {
-    //this.loadData( page );
   }
 
 }

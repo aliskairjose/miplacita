@@ -19,7 +19,7 @@ export class PaymentComponent implements OnInit {
   paymentForm: FormGroup;
   months = [
     { value: 1, name: 'Enero' },
-    { value: 2, name: 'Febreo' },
+    { value: 2, name: 'Febrero' },
     { value: 3, name: 'Marzo' },
     { value: 4, name: 'Abril' },
     { value: 5, name: 'Mayo' },
