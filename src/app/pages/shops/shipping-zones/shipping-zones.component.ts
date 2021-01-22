@@ -128,7 +128,6 @@ export class ShippingZonesComponent implements OnInit, OnChanges {
 
   private loadShippingZones(): void {
     this.shopService.findShipmentOptionByShop( this.store._id ).subscribe( shipments => {
-      console.log( shipments )
       this.allZones = [ ...shipments ];
     } );
   }

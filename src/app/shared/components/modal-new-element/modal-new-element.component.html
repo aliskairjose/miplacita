@@ -33,7 +33,7 @@
                     <div class="form-group " *ngIf="option===3">
                         <div class="field-label">Color</div>
                         <input type="text" class="form-control" [value]="color" required="" [(colorPicker)]="color"
-                            [cpPosition]="'bottom'">
+                            [cpPosition]="'bottom'" readonly>
                     </div>
                     <div class="form-row justify-content-center">
                         <button class="btn btn-solid-orange" (click)="save()">
