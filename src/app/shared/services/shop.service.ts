@@ -143,6 +143,15 @@ export class ShopService {
     let data: any;
     return this.http.post( `stores/validate?name=${name}`, data );
   }
+  /**
+   * @description Valida que el nombre de la tienda este o no en uso por otro usuario
+   * @param name Nombre de la tienda a consultar
+   */
+  validateUrl( url: string ): Observable<any> {
+    // tslint:disable-next-line: prefer-const
+    let data: any;
+    return this.http.post( `stores/validate?url_store=${url}`, data );
+  }
 
   /*
     ---------------------------------------------

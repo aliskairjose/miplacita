@@ -35,10 +35,12 @@ export class RegisterStoreComponent implements OnInit, OnChanges {
   store: Store = {};
   plans: Plan[] = [];
   images: Array<string> = [];
-  disabled = true;
   storeUrl = '';
   isShow = true;
   imageLogo1 = [];
+  isValidUrl = false;
+  isValidStoreName = false;
+  disabled = false;
   private user: User = {};
   private emailPattern = environment.emailPattern;
 
@@ -163,14 +165,36 @@ export class RegisterStoreComponent implements OnInit, OnChanges {
       this.shopService.validateName( this.storeForm.value.name ).subscribe( resp => {
         if ( resp.taken ) {
           this.toastrService.warning( resp.message[ 0 ] );
-          this.disabled = true;
+          this.isValidStoreName = false;
           return;
         }
         this.toastrService.info( resp.message[ 0 ] );
-        this.disabled = false;
+        this.isValidStoreName = true;
 
+        this.validateUrl();
       } );
     }
+  }
+
+  validateUrl(): void {
+    if ( this.storeForm.value.url_store ) {
+      this.shopService.validateUrl( this.storeForm.value.url_store ).subscribe( resp => {
+        if ( resp.taken ) {
+          this.toastrService.warning( resp.message[ 0 ] );
+          this.isValidUrl = false;
+          this.enableButton();
+          return;
+        }
+        this.toastrService.info( resp.message[ 0 ] );
+        this.isValidUrl = true;
+        this.enableButton();
+      } );
+    }
+  }
+
+  private enableButton(): void {
+    console.log( { name: this.isValidStoreName, url: this.isValidUrl } )
+    this.disabled = this.isValidStoreName && this.isValidUrl;
   }
 
   private createForm(): void {
@@ -225,6 +249,8 @@ export class RegisterStoreComponent implements OnInit, OnChanges {
       this.router.navigate( [ '/shop/register/success' ] );
     } );
   }
+
+
 
   back( option: number ) {
     if ( option === 0 ) {

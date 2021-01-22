@@ -62,7 +62,6 @@ export class AddressComponent implements OnInit {
           } else if ( response.result.address?.name ) {
             const result = confirm( 'Ya existe una dirección, ¿Desea usarla?' );
             if ( result ) {
-              console.log( response.result.address );
               this.shippingAddress = response.result.address;
               this.addressForm.get( 'coord' ).setValue( this.shippingAddress.coord );
             } else {
@@ -139,17 +138,18 @@ export class AddressComponent implements OnInit {
   }
 
   onSubmit(): any {
-    this.submitted = true;
-    const shippingAddress = this.addressForm.value;
-    if ( !shippingAddress.coord ) { shippingAddress.coord = this.shippingAddress.coord; }
+    console.log( this.addressForm.value )
+    // this.submitted = true;
+    // const shippingAddress = this.addressForm.value;
+    // if ( !shippingAddress.coord ) { shippingAddress.coord = this.shippingAddress.coord; }
 
-    const data = {
-      shippingAddress: this.addressForm.value,
-      addressExist: this._addressExist,
-      saveAddress: this._saveAddress
-    };
+    // const data = {
+    //   shippingAddress: this.addressForm.value,
+    //   addressExist: this._addressExist,
+    //   saveAddress: this._saveAddress
+    // };
 
-    if ( this.addressForm.valid ) { return data; }
+    // if ( this.addressForm.valid ) { return data; }
   }
 
   // Get Current Location Coordinates
