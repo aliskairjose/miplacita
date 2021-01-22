@@ -17,7 +17,7 @@
 						</div>
 						<!-- Producto base -->
 						<div *ngIf="active=='product'; else variations">
-							<form class="theme-form" [formGroup]="productForm" (ngSubmit)="onSubmit()">
+							<form class="theme-form" [formGroup]="productForm">
 								<div class="page-title form-row px-2">
 									<h4 class="col-10">
 										<span> <strong>{{ title }} </strong> </span>
@@ -164,7 +164,7 @@
 									</div>
 								</div>
 								<div class="save text-center p-3">
-									<button class="btn btn-solid-orange" type="submit" [disabled]="disabled">
+									<button class="btn btn-solid-orange" (click)="onSubmit()" [disabled]="disabled">
 										Guardar Producto
 									</button>
 								</div>
@@ -350,8 +350,7 @@
 											style="width: 100%;">
 										</app-upload-image>
 										<div class="save text-center p-3">
-											<button class="btn btn-solid-orange" type="button"
-												(click)="saveVariable(); $event.preventDefault()">
+											<button class="btn btn-solid-orange" type="button" (click)="saveVariable();">
 												Guardar Producto
 											</button>
 										</div>

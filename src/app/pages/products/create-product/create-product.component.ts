@@ -141,7 +141,6 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   onSubmit(): void {
-    console.log( 'onsubmit' )
     this.submitted = true;
     this.productForm.value.store = this.store._id;
     if ( !this.productForm.value.marketplace ) {
@@ -149,7 +148,6 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
     }
 
     if ( this.productForm.valid ) {
-      // this.modal.close();
       if ( this.status === 'add' ) {
         if ( this.productImages.length === 0 ) {
           this.toastrService.warning( 'Debe cargar al menos una imagen de producto' );
