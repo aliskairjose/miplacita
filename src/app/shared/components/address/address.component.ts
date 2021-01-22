@@ -62,6 +62,7 @@ export class AddressComponent implements OnInit {
           } else if ( response.result.address?.name ) {
             const result = confirm( 'Ya existe una dirección, ¿Desea usarla?' );
             if ( result ) {
+              console.log( response.result.address );
               this.shippingAddress = response.result.address;
               this.addressForm.get( 'coord' ).setValue( this.shippingAddress.coord );
             } else {
@@ -114,7 +115,7 @@ export class AddressComponent implements OnInit {
       phone: [ this.shippingAddress ? this.shippingAddress.phone : '', [ Validators.required, Validators.pattern( '[0-9]+' ) ] ],
       email: [ this.shippingAddress ? this.shippingAddress.email : '', [ Validators.required, Validators.email ] ],
       address: [ this.shippingAddress ? this.shippingAddress.address : '', [ Validators.required, Validators.maxLength( 50 ) ] ],
-      reference: [ '' ],
+      reference: [ this.shippingAddress ? this.shippingAddress.reference : '' ],
       coord: [ '' ]
     } );
   }

@@ -6,4 +6,5 @@ export interface ShippingAddress {
   address?: string;
   coord?: [];
   userId?: string;
+  reference?: string;
 }
