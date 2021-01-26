@@ -137,9 +137,9 @@ export class RegisterComponent implements OnInit {
 
   changeUser( typeUser: string ) {
     this.role = typeUser;
-    if ( this.role === 'merchant' ) { this.title = 'como Vendedor'; }
+    if ( this.role === 'merchant' ) { this.title = 'para vender'; }
 
-    if ( this.role === 'client' ) { this.title = 'como Comprador'; }
+    if ( this.role === 'client' ) { this.title = 'para comprar'; }
   }
 
 }
