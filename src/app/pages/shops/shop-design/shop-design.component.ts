@@ -7,10 +7,8 @@ import { NgbCarousel } from '@ng-bootstrap/ng-bootstrap';
 
 import { Store, Config } from '../../../shared/classes/store';
 import { ShopService } from '../../../shared/services/shop.service';
-import { forkJoin } from 'rxjs';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { User } from 'src/app/shared/classes/user';
-import { auth } from 'firebase';
 
 @Component( {
   selector: 'app-shop-design',

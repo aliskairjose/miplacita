@@ -29,7 +29,7 @@ export class ShopSuscriptionComponent implements OnInit, OnChanges {
   benefits = [
     'Control de inventario',
     'Gestión de clientes',
-    'Transaciones ilimitadas',
+    'Transacciones ilimitadas',
     'Pasarela de Pago TDC',
     'Gestión de imagen de tienda',
     'Plan de compensaciones a clientes referidos',
