@@ -122,7 +122,6 @@ export class CheckoutComponent implements OnInit {
     const payment = [];
     let data: any = { valid: false, tdc: {} };
     data = this.payment.onSubmit();
-    console.log( data )
     // Metodo de pago
     payment.push( { type: 'TDC', amount: this.totalPrice, info: data.tdc } );
     payment.push( { type: 'refered', amount: this.referedAmount, info: { owner: data.tdc.owner } } );
@@ -133,8 +132,6 @@ export class CheckoutComponent implements OnInit {
 
     order.payment = payment;
 
-    // console.log( data );
-    // console.log( order );
     if ( data.valid ) {
       this.orderService.createOrder( order ).subscribe( response => {
         if ( response.success ) {
