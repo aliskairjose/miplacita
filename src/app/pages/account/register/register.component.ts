@@ -59,9 +59,17 @@ export class RegisterComponent implements OnInit {
   get f() { return this.registerForm.controls; }
 
   ngOnInit(): void {
-    const role = this.route.queryParams.subscribe( params => {
-      this.url = params.url;
-      if ( params.url ) { this.mustReturnStore = true; }
+    this.route.queryParams.subscribe( params => {
+      console.log( params.role );
+      if ( params.url ) {
+        this.url = params.url;
+        this.mustReturnStore = true;
+      }
+
+      if ( params.role ) {
+        this.role = params.role;
+        this.changeUser( params.role );
+      }
     } );
 
     if ( state.user ) { this.registerSuccess = true; }
@@ -137,9 +145,9 @@ export class RegisterComponent implements OnInit {
 
   changeUser( typeUser: string ) {
     this.role = typeUser;
-    if ( this.role === 'merchant' ) { this.title = 'para vender'; }
+    if ( this.role === 'merchant' ) { this.title = 'y vende'; }
 
-    if ( this.role === 'client' ) { this.title = 'para comprar'; }
+    if ( this.role === 'client' ) { this.title = 'y compra'; }
   }
 
 }

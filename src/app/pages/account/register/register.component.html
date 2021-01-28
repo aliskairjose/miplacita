@@ -3,8 +3,6 @@
 </ngx-spinner>
 <ngx-alerts></ngx-alerts>
 
-
-<!-- section start -->
 <section class="login-page section-b-space" *ngIf="!registerSuccess">
 	<div class="container">
 		<div class="d-flex flex-column justify-content-center">
@@ -15,161 +13,74 @@
 			<!-- TIMELINE-->
 			<div class="mx-auto col-lg-6">
 				<h2 class="mp-title">Registrate ahora {{ title }}</h2>
-
-				<ul ngbNav #nav="ngbNav" class="nav-tabs">
-					<li ngbNavItem>
-						<a ngbNavLink (click)="changeUser('client')">Comprador</a>
-						<ng-template ngbNavContent>
-							<div class="theme-card border-top-none">
-								<form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="theme-form">
-									<!-- FullName -->
-									<div class="form-group ">
-										<label for="name">Nombre completo</label>
-										<input type="text" formControlName="fullname" class="form-control" id="fullname" required=""
-											[(ngModel)]="user.fullname" pattern="[a-zA-Z ]*">
-										<div *ngIf="submitted && f.fullname.errors" class="invalid-feedback d-block">
-											<div *ngIf="f.fullname.errors.required"> {{ required }} </div>
-											<div *ngIf="f.fullname.errors.pattern"> {{ onlyLetter }} </div>
-										</div>
-									</div>
-									<!-- Email -->
-									<div class="form-group">
-										<label for="name">Correo electrónico</label>
-										<input type="email" formControlName="email" class="form-control" id="email" required=""
-											[(ngModel)]="user.email" [ngClass]="{ 'is-invalid': submitted && f.email.errors }">
-
-										<div *ngIf="submitted && f.email.errors" class="invalid-feedback d-block">
-											<div *ngIf="f.email.errors.required"> {{ required }} </div>
-											<div *ngIf="f.email.errors.email"> {{ invalidEmail }} </div>
-										</div>
-									</div>
-									<!-- Password -->
-									<div class="form-group">
-										<label for="name">Ingrese su contraseña</label>
-										<input type="password" formControlName="password" class="form-control" id="password" required=""
-											[(ngModel)]="user.password" [ngClass]="{ 'is-invalid': submitted && f.password.errors }">
-
-										<div *ngIf="submitted && f.password.errors" class="invalid-feedback d-block">
-											<div *ngIf="f.password.errors.required"> {{ required }}</div>
-											<div *ngIf="f.password.errors.minlength"> {{ minlength }}</div>
-										</div>
-									</div>
-									<!-- Confirm Password -->
-									<div class="form-group">
-										<label for="name">Confirmar contraseña</label>
-										<input type="password" formControlName="passwordConfirmation" class="form-control"
-											id="passwordConfirmation" required=""
-											[ngClass]="{ 'is-invalid': submitted && f.passwordConfirmation.errors }"
-											[(ngModel)]="user.passwordConfirmation">
-										<div *ngIf="submitted && f.passwordConfirmation.errors" class="invalid-feedback">
-											<div *ngIf="f.passwordConfirmation.errors.required">{{ required }}</div>
-											<div *ngIf="f.passwordConfirmation.errors.mustMatch">{{ matchError }}</div>
-										</div>
-									</div>
-									<div class="form-group d-flex justify-content-end">
-										<p>¿Tienes una cuenta?, haga click <a href="javascript:void(0)" (click)="goLogin()">aquí</a>
-										</p>
-									</div>
-									<div class="form-group text-center">
-										<button type="submit" class="btn btn-login btn-lg btn-block">Regístrate ahora</button>
-										<div class="row mt-1 mb-1 align-items-center separador">
-											<hr>
-											0
-											<hr>
-										</div>
-										<div class="btn btn-fb btn-lg btn-block" (click)="registerFacebook()">
-											<div class="row">
-												<div class="col-md-1"> <i class="fa fa-facebook-square"></i> </div>
-												<div class="col justify-content-center">Continuar con Facebook</div>
-											</div>
-										</div>
-									</div>
-
-								</form>
+				<div class="theme-card">
+					<form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="theme-form">
+						<!-- FullName -->
+						<div class="form-group ">
+							<label for="name">Nombre completo</label>
+							<input type="text" formControlName="fullname" class="form-control" id="fullname" required=""
+								[(ngModel)]="user.fullname" pattern="[a-zA-Z ]*">
+							<div *ngIf="submitted && f.fullname.errors" class="invalid-feedback d-block">
+								<div *ngIf="f.fullname.errors.required"> {{ required }} </div>
+								<div *ngIf="f.fullname.errors.pattern"> {{ onlyLetter }} </div>
 							</div>
-						</ng-template>
-					</li>
-					<li ngbNavItem>
-						<a ngbNavLink (click)="changeUser('merchant')">Vendedor</a>
-						<ng-template ngbNavContent>
-							<div class="theme-card border-top-none">
-								<form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="theme-form">
-									<!-- FullName -->
-									<div class="form-group ">
-										<label for="name">Nombre completo</label>
-										<input type="text" formControlName="fullname" class="form-control" id="fullname" required=""
-											[(ngModel)]="user.fullname" pattern="[a-zA-Z ]*">
-										<div *ngIf="submitted && f.fullname.errors" class="invalid-feedback d-block">
-											<div *ngIf="f.fullname.errors.required"> {{ required }} </div>
-											<div *ngIf="f.fullname.errors.pattern"> {{ onlyLetter }} </div>
-										</div>
-									</div>
-									<!-- Email -->
-									<div class="form-group">
-										<label for="name">Correo electrónico</label>
-										<input type="email" formControlName="email" class="form-control" id="email" required=""
-											[(ngModel)]="user.email" [ngClass]="{ 'is-invalid': submitted && f.email.errors }">
+						</div>
+						<!-- Email -->
+						<div class="form-group">
+							<label for="name">Correo electrónico</label>
+							<input type="email" formControlName="email" class="form-control" id="email" required=""
+								[(ngModel)]="user.email" [ngClass]="{ 'is-invalid': submitted && f.email.errors }">
 
-										<div *ngIf="submitted && f.email.errors" class="invalid-feedback d-block">
-											<div *ngIf="f.email.errors.required"> {{ required }} </div>
-											<div *ngIf="f.email.errors.pattern"> {{ invalidEmail }} </div>
-										</div>
-									</div>
-									<!-- Password -->
-									<div class="form-group">
-										<label for="name">Ingrese su contraseña</label>
-										<input type="password" formControlName="password" class="form-control" id="password" required=""
-											[(ngModel)]="user.password" [ngClass]="{ 'is-invalid': submitted && f.password.errors }">
-
-										<div *ngIf="submitted && f.password.errors" class="invalid-feedback d-block">
-											<div *ngIf="f.password.errors.required"> {{ required }}</div>
-											<div *ngIf="f.password.errors.minlength"> {{ minlength }}</div>
-										</div>
-									</div>
-									<!-- Confirm Password -->
-									<div class="form-group">
-										<label for="name">Confirmar contraseña</label>
-										<input type="password" formControlName="passwordConfirmation" class="form-control"
-											id="passwordConfirmation" required=""
-											[ngClass]="{ 'is-invalid': submitted && f.passwordConfirmation.errors }"
-											[(ngModel)]="user.passwordConfirmation">
-										<div *ngIf="submitted && f.passwordConfirmation.errors" class="invalid-feedback">
-											<div *ngIf="f.passwordConfirmation.errors.required">{{ required }}</div>
-											<div *ngIf="f.passwordConfirmation.errors.mustMatch">{{ matchError }}</div>
-										</div>
-									</div>
-									<div class="form-group d-flex justify-content-end">
-										<p>¿Tienes una cuenta?, haga click <a href="javascript:void(0)" (click)="goLogin()">aquí</a>
-										</p>
-									</div>
-									<div class="form-group text-center">
-										<button type="submit" class="btn btn-login btn-lg btn-block">Regístrate ahora</button>
-										<div class="row mt-1 mb-1 align-items-center separador">
-											<hr>
-											0
-											<hr>
-										</div>
-										<div class="btn btn-fb btn-lg btn-block" (click)="registerFacebook()">
-											<div class="row">
-												<div class="col-md-1"> <i class="fa fa-facebook-square"></i> </div>
-												<div class="col justify-content-center">Continuar con Facebook</div>
-											</div>
-										</div>
-									</div>
-
-								</form>
+							<div *ngIf="submitted && f.email.errors" class="invalid-feedback d-block">
+								<div *ngIf="f.email.errors.required"> {{ required }} </div>
+								<div *ngIf="f.email.errors.email"> {{ invalidEmail }} </div>
 							</div>
-						</ng-template>
-					</li>
-				</ul>
-				<div [ngbNavOutlet]="nav"></div>
+						</div>
+						<!-- Password -->
+						<div class="form-group">
+							<label for="name">Ingrese su contraseña</label>
+							<input type="password" formControlName="password" class="form-control" id="password" required=""
+								[(ngModel)]="user.password" [ngClass]="{ 'is-invalid': submitted && f.password.errors }">
+
+							<div *ngIf="submitted && f.password.errors" class="invalid-feedback d-block">
+								<div *ngIf="f.password.errors.required"> {{ required }}</div>
+								<div *ngIf="f.password.errors.minlength"> {{ minlength }}</div>
+							</div>
+						</div>
+						<!-- Confirm Password -->
+						<div class="form-group">
+							<label for="name">Confirmar contraseña</label>
+							<input type="password" formControlName="passwordConfirmation" class="form-control"
+								id="passwordConfirmation" required=""
+								[ngClass]="{ 'is-invalid': submitted && f.passwordConfirmation.errors }"
+								[(ngModel)]="user.passwordConfirmation">
+							<div *ngIf="submitted && f.passwordConfirmation.errors" class="invalid-feedback">
+								<div *ngIf="f.passwordConfirmation.errors.required">{{ required }}</div>
+								<div *ngIf="f.passwordConfirmation.errors.mustMatch">{{ matchError }}</div>
+							</div>
+						</div>
+						<div class="form-group d-flex justify-content-end">
+							<p>¿Tienes una cuenta?, haga click <a href="javascript:void(0)" (click)="goLogin()">aquí</a>
+							</p>
+						</div>
+						<div class="form-group text-center">
+							<button type="submit" class="btn btn-login btn-lg btn-block">Regístrate ahora</button>
+							<div class="row mt-1 mb-1 align-items-center separador">
+								<hr>
+								0
+								<hr>
+							</div>
+							<div class="btn btn-fb btn-lg btn-block" (click)="registerFacebook()">
+								<div class="row">
+									<div class="col-md-1"> <i class="fa fa-facebook-square"></i> </div>
+									<div class="col justify-content-center">Continuar con Facebook</div>
+								</div>
+							</div>
+						</div>
+
+					</form>
+				</div>
 			</div>
 		</div>
 	</div>
 </section>
-<!--Section ends-->
-
-<!-- section start store register -->
-<app-register-store *ngIf="registerSuccess" (emitEvent)="listen($event)" #registerStore></app-register-store>
-
-<!-- section ends-->
