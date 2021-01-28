@@ -7,6 +7,7 @@ import { Store } from '../../classes/store';
 import { ActivatedRoute } from '@angular/router';
 import { User } from '../../classes/user';
 import { OrderService } from '../../services/order.service';
+import { Affiliate } from '../../classes/affiliate';
 
 @Component( {
   selector: 'app-payment',
@@ -32,11 +33,13 @@ export class PaymentComponent implements OnInit {
     { value: 12, name: 'Diciembre' }
   ];
   years = [];
-  showReferedAmmount = false;
   showInputAmount = false;
   balance = 0;
   showBalanceAlert = false;
   isFirstShop = false;
+  store: Store = {};
+  coupon: string;
+  affiliate: Affiliate = {};
 
   @Input() submitted: boolean;
   @Input() isProfile = false;
@@ -61,10 +64,9 @@ export class PaymentComponent implements OnInit {
     this.route.queryParams.subscribe( queryParams => {
       if ( Object.entries( queryParams ).length !== 0 ) {
         const decod = window.atob( queryParams.config );
-        const store: Store = JSON.parse( decod );
-        if ( Object.entries( store ).length !== 0 && this.auth.getUserRol() === 'client' ) {
-          this.showReferedAmmount = true;
-          this.getAffiliate( store._id );
+        this.store = JSON.parse( decod );
+        if ( Object.entries( this.store ).length !== 0 && this.auth.getUserRol() === 'client' ) {
+          this.getAffiliate( this.store._id );
         }
         this.validateUser();
       }
@@ -123,7 +125,7 @@ export class PaymentComponent implements OnInit {
   }
 
   onInputChange( val: number ): void {
-    if ( val > this.balance ) {
+    if ( val > this.affiliate.balance ) {
       this.showBalanceAlert = true;
       return;
     }
@@ -147,8 +149,9 @@ export class PaymentComponent implements OnInit {
   }
 
   private getAffiliate( storeId: string ): void {
-    this.shopService.getAffiliate( storeId, this.auth.getUserActive()._id ).subscribe( response => {
-      this.balance = response.amount;
+    this.shopService.getAffiliate( storeId, this.auth.getUserActive()._id ).subscribe( ( response: Affiliate ) => {
+      this.affiliate.balance = response.balance;
+      this.affiliate = response;
     } );
   }
 
@@ -165,4 +168,10 @@ export class PaymentComponent implements OnInit {
     }
   }
 
+  getSponsor(): void {
+    console.log( this.coupon );
+
+    this.shopService.findSponsor( { store_id: this.store._id, sponsor_code: this.coupon } )
+      .subscribe( response => console.log( response ) );
+  }
 }

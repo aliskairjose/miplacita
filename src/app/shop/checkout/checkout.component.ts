@@ -64,9 +64,7 @@ export class CheckoutComponent implements OnInit {
   ngOnInit(): void {
     const date = new Date();
     const shipment = JSON.parse( sessionStorage.order );
-    // if ( sessionStorage.sessionStore ) {
-    //   this.store = JSON.parse( sessionStorage.sessionStore );
-    // }
+
     this.route.queryParams.subscribe( queryParams => {
       if ( Object.entries( queryParams ).length !== 0 ) {
         const decod = window.atob( queryParams.config );

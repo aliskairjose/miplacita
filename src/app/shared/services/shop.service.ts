@@ -279,6 +279,10 @@ export class ShopService {
     );
   }
 
+  findSponsor( body ) {
+    return this.http.get( `msreferrals/find/sponsor`, body );
+  }
+
   /**
    * @description Actualiza la data de referido
    * @param id Id de la tienda

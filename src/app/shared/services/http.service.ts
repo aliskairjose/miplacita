@@ -3,9 +3,9 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 import { Observable } from 'rxjs';
 
-@Injectable({
+@Injectable( {
   providedIn: 'root'
-})
+} )
 export class HttpService {
 
   constructor(
@@ -17,9 +17,9 @@ export class HttpService {
     return this.http.post( url, data );
   }
 
-  get( endpoint: string ): Observable<any> {
+  get( endpoint: string, params?: any ): Observable<any> {
     const url = environment.apiUrl + endpoint;
-    return this.http.get( url );
+    return this.http.get( url, params );
   }
 
   put( endpoint: string, data?: any ): Observable<any> {
@@ -27,13 +27,13 @@ export class HttpService {
     return this.http.put( url, data );
   }
 
-  patch(endpoint: string, data: any ): Observable<any> {
+  patch( endpoint: string, data: any ): Observable<any> {
     const url = environment.apiUrl + endpoint;
-    return this.http.patch( url, data);
+    return this.http.patch( url, data );
   }
 
-  delete(endpoint: string ): Observable<any> {
+  delete( endpoint: string ): Observable<any> {
     const url = environment.apiUrl + endpoint;
-    return this.http.delete( url);
+    return this.http.delete( url );
   }
 }

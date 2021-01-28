@@ -11,6 +11,8 @@ export interface Order {
   updated_at?: string;
   user?: User;
   store?: Store;
+  type?: string;
+  sponsor_code?: string;
   shipment_option?: ShipmentOption;
   items?: Item[];
   address?: Address;
