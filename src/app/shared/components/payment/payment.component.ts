@@ -46,6 +46,7 @@ export class PaymentComponent implements OnInit {
   @Input() card: any;
   @Output() enviado: EventEmitter<boolean> = new EventEmitter<boolean>();
   @Output() amount: EventEmitter<number> = new EventEmitter<number>();
+  @Output() sponsor: EventEmitter<any> = new EventEmitter<any>();
 
   @ViewChild( 'settings' ) settings: SettingsComponent;
 
@@ -169,9 +170,7 @@ export class PaymentComponent implements OnInit {
   }
 
   getSponsor(): void {
-    console.log( this.coupon );
-
-    this.shopService.findSponsor( { store_id: this.store._id, sponsor_code: this.coupon } )
-      .subscribe( response => console.log( response ) );
+    this.shopService.findSponsor( this.store._id, this.coupon )
+      .subscribe( response => this.sponsor.emit( response ) );
   }
 }

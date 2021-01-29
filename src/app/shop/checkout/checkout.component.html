@@ -40,7 +40,7 @@
 					</div>
 					<!-- Payment Form -->
 					<div class="col-lg-6 col-sm-12 col-xs-12">
-						<app-payment #payment (amount)="getAmount($event)"></app-payment>
+						<app-payment #payment (amount)="getAmount($event)" (sponsor)="getSponsor()"></app-payment>
 					</div>
 				</div>
 				<div class="button-box h-100 d-flex justify-content-end mt-3 mr-3">

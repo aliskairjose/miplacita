@@ -279,8 +279,13 @@ export class ShopService {
     );
   }
 
-  findSponsor( body ) {
-    return this.http.get( `msreferrals/find/sponsor`, body );
+  /**
+   * @description Retorna el la data del cupon de la tienda
+   * @param storeId Id de la tienda
+   * @param sponsorCode Código de cupón
+   */
+  findSponsor( storeId: string, sponsorCode: string ) {
+    return this.http.get( `msreferrals/find/sponsor?store_id=${storeId}&sponsor_code=${sponsorCode}` );
   }
 
   /**
