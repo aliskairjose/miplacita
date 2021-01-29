@@ -34,7 +34,6 @@ export class PaymentComponent implements OnInit {
   ];
   years = [];
   showInputAmount = false;
-  balance = 0;
   showBalanceAlert = false;
   isFirstShop = false;
   store: Store = {};

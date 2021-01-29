@@ -87,7 +87,7 @@
     <h4>Saldo de referido</h4>
     <div class="option-box d-flex mx-auto py-3" style="width: 100% !important">
       <div class="col-md-6">
-        <p class="my-auto">Deseo usar mi saldo acumulado: {{ balance | currency }}</p>
+        <p class="my-auto">Deseo usar mi saldo acumulado: {{ affiliate.balance | currency }}</p>
         <form action="" [formGroup]="balaceForm">
           <div [hidden]="!showInputAmount">
             <input class="form-control mt-1" type="number" name="amount" value="" placeholder="Ingrese monto"

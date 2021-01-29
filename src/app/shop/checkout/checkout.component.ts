@@ -106,22 +106,12 @@ export class CheckoutComponent implements OnInit {
     return this.productService.cartTotalAmount();
   }
 
-  getAmount( amount ): void {
-    if ( !amount ) {
-      this.totalPrice = this._totalPrice;
-      this.referedAmount = 0;
-      return;
-    }
-    this.totalPrice = this._totalPrice;
-    this.referedAmount = amount;
-    this.totalPrice = this.totalPrice - amount;
-  }
-
   onSubmit(): void {
     this.submitted = true;
     const payment = [];
     let data: any = { valid: false, tdc: {} };
     data = this.payment.onSubmit();
+
     // Metodo de pago
     payment.push( { type: 'TDC', amount: this.totalPrice, info: data.tdc } );
     if ( this.referedAmount > 0 ) {
@@ -145,6 +135,19 @@ export class CheckoutComponent implements OnInit {
     }
   }
 
+  // Saldo de referido
+  getAmount( amount ): void {
+    if ( !amount ) {
+      this.totalPrice = this._totalPrice;
+      this.referedAmount = 0;
+      return;
+    }
+    this.totalPrice = this._totalPrice;
+    this.referedAmount = amount;
+    this.totalPrice = this.totalPrice - amount;
+  }
+
+  // Valida si el cuppón es valido
   getSponsor( sponsorResponse: any ): void {
     console.log( 'Checkout getSponsor', sponsorResponse );
   }
