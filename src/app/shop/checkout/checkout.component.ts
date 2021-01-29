@@ -157,7 +157,9 @@ export class CheckoutComponent implements OnInit {
       this.hasCoupon = success;
       this.couponAmount = ( this.amount * this.store.affiliate_program_amount ) / 100;
       this.newSubTotal = this.amount - this.couponAmount;
-      // console.log( this.store.affiliate_program_amount )
+      this._totalPrice = this.totalPrice = this.newSubTotal + this.shipmentPrice + this.getItms;
+
+      // this.totalPrice =
     }
   }
 
