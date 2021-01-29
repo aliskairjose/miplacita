@@ -39,6 +39,7 @@ export class PaymentComponent implements OnInit {
   store: Store = {};
   coupon: string;
   affiliate: Affiliate = {};
+  disabled = false;
 
   @Input() submitted: boolean;
   @Input() isProfile = false;
@@ -169,6 +170,9 @@ export class PaymentComponent implements OnInit {
 
   getSponsor(): void {
     this.shopService.findSponsor( this.store._id, this.coupon )
-      .subscribe( response => this.sponsor.emit( response.success ) );
+      .subscribe( response => {
+        this.disabled = response.success;
+        this.sponsor.emit( response.success );
+      } );
   }
 }

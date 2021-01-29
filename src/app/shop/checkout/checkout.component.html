@@ -39,7 +39,8 @@
 									<li class="empty-checkout"> No hay productos en el carrito </li>
 								</ul>
 								<ul class="total">
-									<li> <strong>Total </strong> <span class="count">{{ totalPrice | currency }}</span></li>
+									<li> <strong>Total </strong> <span class="count">{{ totalPrice - referedAmount | currency }}</span>
+									</li>
 								</ul>
 							</div>
 						</div>

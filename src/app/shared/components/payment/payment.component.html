@@ -115,7 +115,7 @@
         <input type="text" class="form-control" aria-label="Recipient's username" aria-describedby="basic-addon2"
           [(ngModel)]="coupon">
         <div class="input-group-append">
-          <button class="btn btn-solid-orange aplicar" (click)="getSponsor()">Aplicar</button>
+          <button class="btn btn-solid-orange aplicar" (click)="getSponsor()" [disabled]="disabled">Aplicar</button>
         </div>
       </div>
     </div>

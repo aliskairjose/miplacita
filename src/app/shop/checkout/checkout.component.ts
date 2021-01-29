@@ -30,7 +30,6 @@ export class CheckoutComponent implements OnInit {
   shipmentPrice = 0;
   totalPrice = 0;
   referedAmount = 0;
-  private _totalPrice: number;
   store: Store = {};
   itms = 0;
   isFirstShop = false;
@@ -88,7 +87,7 @@ export class CheckoutComponent implements OnInit {
 
     this.subTotal.subscribe( amount => {
       this.amount = amount;
-      this._totalPrice = this.totalPrice = amount + this.shipmentPrice + this.getItms;
+      this.totalPrice = amount + this.shipmentPrice + this.getItms;
     } );
 
   }
@@ -115,7 +114,7 @@ export class CheckoutComponent implements OnInit {
     data = this.payment.onSubmit();
 
     // Metodo de pago
-    payment.push( { type: 'TDC', amount: this.totalPrice, info: data.tdc } );
+    payment.push( { type: 'TDC', amount: ( this.totalPrice - this.referedAmount ), info: data.tdc } );
     if ( this.referedAmount > 0 ) {
       payment.push( { type: 'refered', amount: this.referedAmount, info: { owner: data.tdc.owner } } );
     }
@@ -125,41 +124,35 @@ export class CheckoutComponent implements OnInit {
     ( this.store._id ) ? order.type = 'store' : order.type = 'marketplace';
 
     order.payment = payment;
-
-    if ( data.valid ) {
-      this.orderService.createOrder( order ).subscribe( response => {
-        if ( response.success ) {
-          sessionStorage.removeItem( 'order' );
-          this.productService.emptyCartItem();
-          this.router.navigate( [ '/shop/checkout/success' ] );
-        }
-      } );
-    }
+    console.log( order )
+    // if ( data.valid ) {
+    //   this.orderService.createOrder( order ).subscribe( response => {
+    //     if ( response.success ) {
+    //       sessionStorage.removeItem( 'order' );
+    //       this.productService.emptyCartItem();
+    //       this.router.navigate( [ '/shop/checkout/success' ] );
+    //     }
+    //   } );
+    // }
   }
 
   // Saldo de referido
   getAmount( amount ): void {
     if ( !amount ) {
-      this.totalPrice = this._totalPrice;
       this.referedAmount = 0;
       return;
     }
-    this.totalPrice = this._totalPrice;
     this.referedAmount = amount;
-    this.totalPrice = this.totalPrice - amount;
   }
 
   // Valida si el cupón es valido
   getSponsor( success: boolean ): void {
-
     // Se aplica el monto (porcentaje), como descuento
     if ( success ) {
       this.hasCoupon = success;
       this.couponAmount = ( this.amount * this.store.affiliate_program_amount ) / 100;
       this.newSubTotal = this.amount - this.couponAmount;
-      this._totalPrice = this.totalPrice = this.newSubTotal + this.shipmentPrice + this.getItms;
-
-      // this.totalPrice =
+      this.totalPrice = ( this.newSubTotal + this.shipmentPrice + this.getItms );
     }
   }
 
