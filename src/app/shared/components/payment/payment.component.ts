@@ -150,7 +150,6 @@ export class PaymentComponent implements OnInit {
 
   private getAffiliate( storeId: string ): void {
     this.shopService.getAffiliate( storeId, this.auth.getUserActive()._id ).subscribe( ( response: Affiliate ) => {
-      this.affiliate.balance = response.balance;
       this.affiliate = response;
     } );
   }
@@ -170,6 +169,6 @@ export class PaymentComponent implements OnInit {
 
   getSponsor(): void {
     this.shopService.findSponsor( this.store._id, this.coupon )
-      .subscribe( response => this.sponsor.emit( response ) );
+      .subscribe( response => this.sponsor.emit( response.success ) );
   }
 }

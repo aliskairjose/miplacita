@@ -21,12 +21,18 @@
 									<li *ngIf='products.length'>
 										<strong>Envío</strong> <span>{{ shipmentPrice | currency }}</span>
 									</li>
-									<li *ngIf='store._id && !isFirstShop && !auth.isAuthenticated'>
-										<strong>Pago con código</strong>
+									<li *ngIf='store?._id && auth.isAuthenticated'>
+										<strong>Pago con saldo</strong>
 										<span> -{{ referedAmount | currency }}</span>
 									</li>
+									<li *ngIf='hasCoupon'>
+										<strong>Cupón de referido ({{this.store.affiliate_program_amount}}%)</strong>
+										<span> - {{ couponAmount | currency }} </span>
+									</li>
 									<li class="mt-3">
-										<strong> Subtotal </strong> <span>{{ subTotal | async | currency }}</span>
+										<strong> Subtotal </strong>
+										<span [ngClass]="{'line-through': hasCoupon}">{{ subTotal | async | currency }}</span> <br><br>
+										<span *ngIf="hasCoupon" class="mb-3">{{ newSubTotal | currency }}</span>
 									</li>
 								</ul>
 								<ul class="qty" *ngIf='!products.length'>
@@ -40,7 +46,7 @@
 					</div>
 					<!-- Payment Form -->
 					<div class="col-lg-6 col-sm-12 col-xs-12">
-						<app-payment #payment (amount)="getAmount($event)" (sponsor)="getSponsor()"></app-payment>
+						<app-payment #payment (amount)="getAmount($event)" (sponsor)="getSponsor($event)"></app-payment>
 					</div>
 				</div>
 				<div class="button-box h-100 d-flex justify-content-end mt-3 mr-3">

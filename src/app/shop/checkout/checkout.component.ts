@@ -34,7 +34,9 @@ export class CheckoutComponent implements OnInit {
   store: Store = {};
   itms = 0;
   isFirstShop = false;
-
+  hasCoupon = false;
+  couponAmount: number;
+  newSubTotal: number;
   @ViewChild( 'payment' ) payment: PaymentComponent;
 
   constructor(
@@ -147,9 +149,16 @@ export class CheckoutComponent implements OnInit {
     this.totalPrice = this.totalPrice - amount;
   }
 
-  // Valida si el cuppón es valido
-  getSponsor( sponsorResponse: any ): void {
-    console.log( 'Checkout getSponsor', sponsorResponse );
+  // Valida si el cupón es valido
+  getSponsor( success: boolean ): void {
+
+    // Se aplica el monto (porcentaje), como descuento
+    if ( success ) {
+      this.hasCoupon = success;
+      this.couponAmount = ( this.amount * this.store.affiliate_program_amount ) / 100;
+      this.newSubTotal = this.amount - this.couponAmount;
+      // console.log( this.store.affiliate_program_amount )
+    }
   }
 
 }

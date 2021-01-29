@@ -91,10 +91,10 @@
         <form action="" [formGroup]="balaceForm">
           <div [hidden]="!showInputAmount">
             <input class="form-control mt-1" type="number" name="amount" value="" placeholder="Ingrese monto"
-              autocomplete="off" (keyup)="onInputChange($event.target.value)" min="0" [max]="balance"
+              autocomplete="off" (keyup)="onInputChange($event.target.value)" min="0" [max]="affiliate.balance"
               formControlName="amount">
             <div *ngIf="showBalanceAlert" class="text text-danger small mt-1">
-              El monto excede el saldo disponible: {{ balance | currency }}
+              El monto excede el saldo disponible: {{ affiliate.balance | currency }}
             </div>
           </div>
         </form>

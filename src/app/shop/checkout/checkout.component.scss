@@ -11,4 +11,9 @@
     .order-box .qty {
         border-bottom: 1px solid var(--theme-deafult);
     }
+
+    .line-through {
+        text-decoration: line-through;
+        color: var(--theme-deafult);
+    }
 }

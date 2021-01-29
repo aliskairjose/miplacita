@@ -7,6 +7,7 @@ import { Plan } from '../classes/plan';
 import { Response, Result } from '../classes/response';
 import { ShipmentOption } from '../classes/shipment-option';
 import { User } from '../classes/user';
+import { Affiliate } from '../classes/affiliate';
 
 const state = {
   sessionStore: JSON.parse( sessionStorage.sessionStore || null ),
@@ -269,7 +270,7 @@ export class ShopService {
     ---------------------------------------------
   */
 
-  getAffiliate( storeId: string, userId: string ): Observable<any> {
+  getAffiliate( storeId: string, userId: string ): Observable<Affiliate> {
     return this.http.get( `users/affiliate/program?store=${storeId}&user=${userId}` ).pipe(
       map( response => {
         if ( response.success ) {

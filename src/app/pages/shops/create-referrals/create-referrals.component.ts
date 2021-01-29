@@ -41,12 +41,9 @@ export class CreateReferralsComponent implements OnInit, OnChanges {
     this.submitted = true;
     if ( this.referralForm.valid ) {
       this.shopService.updateAffiliate( this.store._id, this.referralForm.value ).subscribe( store => {
-        console.log( store );
         store.affiliate_program_amount = this.referralForm.value.affiliate_program_amount;
         this.toastr.info( 'Información actualizada con exito' );
-        // this.referralForm.reset();
         this.submitted = false;
-        // this.store = store;
         this.updateShop.emit( store );
       } );
     }
@@ -54,7 +51,7 @@ export class CreateReferralsComponent implements OnInit, OnChanges {
 
   private createForm(): void {
     this.referralForm = this.formBuilder.group( {
-      affiliate_program_amount: [ '', [ Validators.required ] ],
+      amount: [ '', [ Validators.required ] ],
       affiliate_program: [ '', [ Validators.required ] ]
     } );
   }
