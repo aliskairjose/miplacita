@@ -124,7 +124,9 @@ export class CheckoutComponent implements OnInit {
     data = this.payment.onSubmit();
     // Metodo de pago
     payment.push( { type: 'TDC', amount: this.totalPrice, info: data.tdc } );
-    payment.push( { type: 'refered', amount: this.referedAmount, info: { owner: data.tdc.owner } } );
+    if ( this.referedAmount > 0 ) {
+      payment.push( { type: 'refered', amount: this.referedAmount, info: { owner: data.tdc.owner } } );
+    }
 
     const order = JSON.parse( sessionStorage.order );
 
@@ -141,6 +143,10 @@ export class CheckoutComponent implements OnInit {
         }
       } );
     }
+  }
+
+  getSponsor( sponsorResponse: any ): void {
+    console.log( 'Checkout getSponsor', sponsorResponse );
   }
 
 }
