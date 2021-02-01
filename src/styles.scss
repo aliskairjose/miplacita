@@ -699,6 +699,29 @@ ngb-carousel {
   margin-top: -15px !important;
 }
 
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.table-bordered {
+  border-collapse: collapse;
+  border: $border solid $mp-red;
+  thead {
+    border: $border solid $mp-red;
+  }
+  thead,
+  tr,
+  th,
+  td {
+    border: $border solid $mp-red;
+  }
+}
+
 // Media Queries
 /* Smartphones (portrait & landscape) */
 @media (min-width: 320px) and (max-width: 575px) {
@@ -842,16 +865,13 @@ ngb-carousel {
   }
 }
 
-@media (min-height: 800px) {
-  // .btn-inside-slider{
-  //   bottom: 35vh;
-  // }
-}
-
-@media (min-height: 960px) {
-  // .btn-inside-slider{
-  //   bottom: 30vh;
-  // }
+// Extra large devices (large desktops, 1200px and up)
+@media (min-width: 768px) {
+  .btn-inside-slider {
+    position: relative;
+    left: 6vw;
+    bottom: 17vh;
+  }
 }
 
 // Large devices (desktops, 992px and up)
@@ -867,11 +887,11 @@ ngb-carousel {
     justify-content: start !important;
   }
 
-  // .btn-inside-slider{
-  //   position: relative;
-  //   bottom: 30vh;
-  //   left: 150px;
-  // }
+  .btn-inside-slider {
+    position: relative;
+    bottom: 22vh;
+    left: 6vw;
+  }
 
   .info-plan {
     .rigth-info {
@@ -885,51 +905,25 @@ ngb-carousel {
   }
 }
 
+@media (min-width: 1024px) {
+  .btn-inside-slider {
+    position: relative;
+    left: 6vw;
+    bottom: 22vh;
+  }
+}
 // Extra large devices (large desktops, 1200px and up)
 @media (min-width: 1200px) and (max-height: 1024px) {
-  // .btn-inside-slider{
-  //   position: relative;
-  //   left: 25vw;
-  //   bottom: 30vh;
-  // }
-}
-// Extra large devices (large desktops, 1200px and up)
-@media (min-width: 1200px) and (max-height: 960px) {
-  // .btn-inside-slider{
-  //   position: relative;
-  //   left: 25vw;
-  //   bottom: 30vh;
-  // }
-}
-
-// Extra large devices (large desktops, 1200px and up)
-@media (min-width: 1200px) and (max-height: 800px) {
-  // .btn-inside-slider{
-  //   position: relative;
-  //   left: 25vw;
-  //   bottom: 42vh;
-  // }
-}
-
-html,
-body {
-  height: 100%;
-}
-body {
-  margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
-}
-
-.table-bordered {
-  border-collapse: collapse;
-  border: $border solid $mp-red;
-  thead {
-    border: $border solid $mp-red;
+  .btn-inside-slider {
+    position: relative;
+    left: 6vw;
+    bottom: 30vh;
   }
-  thead,
-  tr,
-  th,
-  td {
-    border: $border solid $mp-red;
+}
+@media (min-width: 1920px) {
+  .btn-inside-slider {
+    position: relative;
+    left: 6vw;
+    bottom: 26vh;
   }
 }
