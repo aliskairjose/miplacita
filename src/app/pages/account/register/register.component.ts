@@ -60,7 +60,6 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.queryParams.subscribe( params => {
-      console.log( params.role );
       if ( params.url ) {
         this.url = params.url;
         this.mustReturnStore = true;

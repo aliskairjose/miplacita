@@ -103,12 +103,14 @@ export class PaymentComponent implements OnInit {
       date: ''
     };
     const data: any = { valid: false, tdc: {} };
+    const month = this.paymentForm.value.month.length > 1 ? this.paymentForm.value.month : `0${this.paymentForm.value.month}`;
     tdc.card_number = this.paymentForm.value.card_number;
     tdc.cvv = this.paymentForm.value.cvv;
     tdc.owner = this.paymentForm.value.owner;
-    tdc.date = `${this.paymentForm.value.month}/${this.paymentForm.value.year}`;
+    tdc.date = `${month}/${this.paymentForm.value.year.slice( 2, 4 )}`;
     data.valid = this.paymentForm.valid;
     data.tdc = { ...tdc };
+
     if ( this.paymentForm.valid ) {
       return data;
     } else {
