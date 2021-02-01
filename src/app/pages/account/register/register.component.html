@@ -77,10 +77,12 @@
 								</div>
 							</div>
 						</div>
-
 					</form>
 				</div>
 			</div>
 		</div>
 	</div>
 </section>
+
+<!-- section start store register -->
+<app-register-store *ngIf="registerSuccess" (emitEvent)="listen($event)" #registerStore></app-register-store>

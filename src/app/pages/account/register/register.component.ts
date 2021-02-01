@@ -94,7 +94,7 @@ export class RegisterComponent implements OnInit {
   onSubmit() {
     this.submitted = true;
     this.registerForm.value.role = this.role;
-
+    console.log( this.role );
     if ( this.registerForm.valid ) {
       this.auth.register( this.registerForm.value ).subscribe( ( data: AuthResponse ) => {
         if ( data.success ) {
