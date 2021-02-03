@@ -36,20 +36,27 @@
 								<!-- Shop name -->
 								<div class="form-group">
 									<div class="field-label" for="name">Nombre de la tienda</div>
-									<input type="text" class="form-control" id="name" formControlName="name" (blur)="validateName()"
+									<input type="text" class="form-control" id="address" formControlName="name" (blur)="validateName()"
 										(ngModelChange)="makeUrl($event)">
 									<div *ngIf="submitted && f.name.errors" class="invalid-feedback d-block">
 										<div *ngIf="f.name.errors.required"> {{ required }} </div>
 										<div *ngIf="f.name.errors.minlength"> El nombre debe tener 4 o más caracteres </div>
 									</div>
 								</div>
-								<!-- Shop name -->
+								<!-- Shop RUT -->
+								<div class="form-group">
+									<div class="field-label" for="name">RUT</div>
+									<input type="text" class="form-control" id="rut" formControlName="rut">
+									<div *ngIf="submitted && f.rut.errors" class="invalid-feedback d-block">
+										<div *ngIf="f.rut.errors.required"> {{ required }} </div>
+									</div>
+								</div>
+								<!-- Shop Address -->
 								<div class="form-group">
 									<div class="field-label" for="name">Direción de la tienda</div>
 									<input type="text" class="form-control" id="name" formControlName="address">
-									<div *ngIf="submitted && f.name.errors" class="invalid-feedback d-block">
+									<div *ngIf="submitted && f.addess.errors" class="invalid-feedback d-block">
 										<div *ngIf="f.address.errors.required"> {{ required }} </div>
-										<div *ngIf="f.address.errors.minlength"> El nombre debe tener 4 o más caracteres </div>
 									</div>
 								</div>
 								<!-- Shop description -->

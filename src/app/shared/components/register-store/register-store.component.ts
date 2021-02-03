@@ -13,6 +13,7 @@ import { ProductService } from '../../services/product.service';
 import { ShopService } from '../../services/shop.service';
 import { Product, Images } from '../../classes/product';
 import { StorageService } from '../../services/storage.service';
+import { Address } from '../../classes/order';
 
 @Component( {
   selector: 'app-register-store',
@@ -114,6 +115,7 @@ export class RegisterStoreComponent implements OnInit, OnChanges {
         this.toastrService.warning( 'Debe cargar un logo para la tienda!' );
         return;
       }
+      // tslint:disable-next-line: deprecation
       this.shopService.uploadImages( { images: this.images } ).subscribe( result => {
         if ( result.status === 'isOk' ) {
           this.storeForm.value.logo = result.images[ 0 ];
@@ -208,6 +210,7 @@ export class RegisterStoreComponent implements OnInit, OnChanges {
       name: [ '', [ Validators.required, Validators.minLength( 4 ) ] ],
       description: [ '', [ Validators.required ] ],
       address: [ '', [ Validators.required ] ],
+      rut: [ '', [ Validators.required ] ],
       url_store: [ '', [ Validators.required ] ],
       phone: [ '', [ Validators.required ] ],
       email: [ '', [ Validators.required, Validators.pattern( this.emailPattern ) ] ],
@@ -234,8 +237,12 @@ export class RegisterStoreComponent implements OnInit, OnChanges {
   }
 
   private createStore(): void {
+    const _address: Address = {};
+    _address.address = this.storeForm.value.address;
+    const _store = { ...this.storeForm.value, address: _address };
+
     // tslint:disable-next-line: deprecation
-    this.shopService.addStore( this.storeForm.value ).subscribe( ( store: Store ) => {
+    this.shopService.addStore( _store ).subscribe( ( store: Store ) => {
       this.store = { ...store };
       if ( !this.register ) {
         this.toastrService.info( 'Se ha creado la nueva tienda con exito' );
