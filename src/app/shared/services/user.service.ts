@@ -25,7 +25,7 @@ export class UserService {
    * @returns El rol del usuario activo
    */
   getUserRol(): string {
-    const user: User = JSON.parse( localStorage.getItem( 'user' ) );
+    const user: User = JSON.parse( localStorage.getItem( 'mp_user' ) );
     if ( user ) {
       return user.role;
     } else {
@@ -38,7 +38,7 @@ export class UserService {
    * @returns Usuario
    */
   getUserActive(): User {
-    const user = JSON.parse( localStorage.getItem( 'user' ) );
+    const user = JSON.parse( localStorage.getItem( 'mp_user' ) );
     return user;
   }
 

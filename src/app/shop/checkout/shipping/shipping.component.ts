@@ -109,7 +109,7 @@ export class ShippingComponent implements OnInit {
       if ( !this.user ) {
         this.userService.userInvited().subscribe( response => {
           if ( response.success ) {
-            this.storage.setItem( 'token', response.token );
+            this.storage.setItem( 'mp_token', response.token );
             this.order.user = response.user._id;
           }
         } );

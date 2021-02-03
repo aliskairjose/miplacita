@@ -100,7 +100,7 @@ export class RegisterComponent implements OnInit {
         if ( data.success ) {
           this.storage.setItem( 'prelogin', this.registerForm.value );
           this.storage.setItem( 'userForm', data.user );
-          this.storage.setItem( 'token', data.token );
+          this.storage.setItem( 'mp_token', data.token );
           if ( this.mustReturnStore ) {
             this.router.navigate( [ this.url ] );
             return;

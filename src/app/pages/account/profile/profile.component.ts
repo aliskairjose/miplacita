@@ -106,7 +106,7 @@ export class ProfileComponent implements OnInit, AfterViewInit {
           let user: User;
           user = { ...response.user };
           user.stores = this.user.stores;
-          this.storage.setItem( 'user', user );
+          this.storage.setItem( 'mp_user', user );
         }
       } );
     }

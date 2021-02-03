@@ -8,9 +8,9 @@ export class StorageService {
   constructor() { }
 
 
-  setLoginData(key: string, value: any): void {
-    localStorage.setItem( 'user', JSON.stringify( value.user ) );
-    localStorage.setItem( 'token', JSON.stringify( value.token ) );
+  setLoginData( key: string, value: any ): void {
+    localStorage.setItem( 'mp_user', JSON.stringify( value.user ) );
+    localStorage.setItem( 'mp_token', JSON.stringify( value.token ) );
   }
 
   /**

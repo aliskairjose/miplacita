@@ -11,7 +11,7 @@ import { Store } from '../../shared/classes/store';
 import { AuthService } from '../../shared/services/auth.service';
 
 const state = {
-  user: JSON.parse( localStorage.getItem( 'user' ) || null )
+  user: JSON.parse( localStorage.getItem( 'mp_user' ) || null )
 };
 
 @Component( {

@@ -23,7 +23,7 @@ export class HttpInterceptor implements HttpInterceptor {
 
   intercept( request: HttpRequest<unknown>, next: HttpHandler ): Observable<HttpEvent<unknown>> {
     this.spinner.show();
-    const token = JSON.parse( localStorage.getItem( 'token' ) );
+    const token = JSON.parse( localStorage.getItem( 'mp_token' ) );
     if ( token ) {
       request = request.clone( { headers: request.headers.set( 'Authorization', `JWT ${token}` ) } );
     }

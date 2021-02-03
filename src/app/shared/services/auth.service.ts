@@ -35,8 +35,8 @@ export class AuthService {
    * @description Cierre de sesion del usuario
    */
   logout(): void {
-    localStorage.removeItem( 'user' );
-    localStorage.removeItem( 'token' );
+    localStorage.removeItem( 'mp_user' );
+    localStorage.removeItem( 'mp_token' );
     localStorage.removeItem( 'products' );
     this.router.navigate( [ '/home' ] );
     sessionStorage.removeItem( 'store' );
@@ -68,7 +68,7 @@ export class AuthService {
    * @returns boolean
    */
   isAuthenticated(): boolean {
-    const user = localStorage.getItem( 'user' );
+    const user = localStorage.getItem( 'mp_user' );
     return ( user ) ? true : false;
   }
 
@@ -77,7 +77,7 @@ export class AuthService {
    * @returns El rol del usuario activo
    */
   getUserRol(): string {
-    const user: User = JSON.parse( localStorage.getItem( 'user' ) );
+    const user: User = JSON.parse( localStorage.getItem( 'mp_user' ) );
     if ( user ) {
       return user.role;
     } else {
@@ -90,7 +90,7 @@ export class AuthService {
    * @returns Usuario
    */
   getUserActive(): User {
-    const user = JSON.parse( localStorage.getItem( 'user' ) );
+    const user = JSON.parse( localStorage.getItem( 'mp_user' ) );
     return user;
   }
 
