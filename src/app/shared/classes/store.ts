@@ -1,8 +1,10 @@
 import { User } from './user';
+import { Address } from './order';
 export interface Store {
   _id?: string;
   name?: string;
   description?: string;
+  address?: Address;
   url_store?: string;
   phone?: string;
   currency?: string;

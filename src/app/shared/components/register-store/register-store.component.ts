@@ -86,6 +86,7 @@ export class RegisterStoreComponent implements OnInit, OnChanges {
       this.step = 2;
     }
 
+    // tslint:disable-next-line: deprecation
     forkJoin( [ this.shopService.getPlans(), this.productService.categoryList() ] ).subscribe( ( [ plans, categories ] ) => {
       this.plans = [ ...plans ];
       this.planSelected = this.plans[ 0 ]._id;
@@ -131,6 +132,7 @@ export class RegisterStoreComponent implements OnInit, OnChanges {
         this.toastrService.warning( 'Debe cargar una imagen para producto!' );
         return;
       }
+      // tslint:disable-next-line: deprecation
       this.productService.uploadImages( { images: this.images } ).subscribe( result => {
 
         if ( result.status === 'isOk' ) {
@@ -162,6 +164,7 @@ export class RegisterStoreComponent implements OnInit, OnChanges {
    */
   validateName(): void {
     if ( this.storeForm.value.name ) {
+      // tslint:disable-next-line: deprecation
       this.shopService.validateName( this.storeForm.value.name ).subscribe( resp => {
         if ( resp.taken ) {
           this.toastrService.warning( resp.message[ 0 ] );
@@ -178,6 +181,7 @@ export class RegisterStoreComponent implements OnInit, OnChanges {
 
   validateUrl(): void {
     if ( this.storeForm.value.url_store ) {
+      // tslint:disable-next-line: deprecation
       this.shopService.validateUrl( this.storeForm.value.url_store ).subscribe( resp => {
         if ( resp.taken ) {
           this.toastrService.warning( resp.message[ 0 ] );
@@ -193,7 +197,6 @@ export class RegisterStoreComponent implements OnInit, OnChanges {
   }
 
   private enableButton(): void {
-    console.log( { name: this.isValidStoreName, url: this.isValidUrl } )
     this.disabled = this.isValidStoreName && this.isValidUrl;
   }
 
@@ -204,6 +207,7 @@ export class RegisterStoreComponent implements OnInit, OnChanges {
     this.storeForm = this.formBuilder.group( {
       name: [ '', [ Validators.required, Validators.minLength( 4 ) ] ],
       description: [ '', [ Validators.required ] ],
+      address: [ '', [ Validators.required ] ],
       url_store: [ '', [ Validators.required ] ],
       phone: [ '', [ Validators.required ] ],
       email: [ '', [ Validators.required, Validators.pattern( this.emailPattern ) ] ],
@@ -230,6 +234,7 @@ export class RegisterStoreComponent implements OnInit, OnChanges {
   }
 
   private createStore(): void {
+    // tslint:disable-next-line: deprecation
     this.shopService.addStore( this.storeForm.value ).subscribe( ( store: Store ) => {
       this.store = { ...store };
       if ( !this.register ) {
@@ -244,13 +249,12 @@ export class RegisterStoreComponent implements OnInit, OnChanges {
 
   private createProduct(): void {
     this.productForm.value.store = this.store._id;
+    // tslint:disable-next-line: deprecation
     this.productService.addProduct( this.productForm.value ).subscribe( () => {
       sessionStorage.clear();
       this.router.navigate( [ '/shop/register/success' ] );
     } );
   }
-
-
 
   back( option: number ) {
     if ( option === 0 ) {

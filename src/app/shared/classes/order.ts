@@ -29,7 +29,7 @@ export interface Item {
 }
 
 export interface Address {
-  id: string;
+  id?: string;
   address?: string;
   landMark?: string;
   location?: [];
