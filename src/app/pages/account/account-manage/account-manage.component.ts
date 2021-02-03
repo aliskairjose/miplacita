@@ -32,7 +32,7 @@ export class AccountManageComponent implements OnInit, OnChanges {
     { name: 'Mis Órdenes', key: 'orders', icon: 'assets/images/marketplace/images/icons/orders.png' },
     { name: 'Mis Tiendas', key: 'stores', icon: 'assets/images/marketplace/images/icons/store.png' },
     // { name: 'Referidos', key: 'referrals', icon: 'assets/images/marketplace/images/icons/orders.png' },
-    { name: 'Tarjetas', key: 'card', icon: 'assets/images/marketplace/images/icons/store.png' },
+    // { name: 'Tarjetas', key: 'card', icon: 'assets/images/marketplace/images/icons/store.png' },
     { name: 'Ayuda', id: 'big-icon', key: 'support', icon: 'assets/images/marketplace/images/icons/help.png' },
 
   ];
@@ -43,7 +43,7 @@ export class AccountManageComponent implements OnInit, OnChanges {
     { name: 'Órdenes', key: 'admin-orders', icon: 'assets/images/marketplace/images/icons/orders.png' },
     { name: 'Perfil de tienda', key: 'admin-store', icon: 'assets/images/marketplace/images/icons/store.png' },
     { name: 'Mis Tiendas', key: 'stores', icon: 'assets/images/marketplace/images/icons/store.png' },
-    { name: 'Tarjetas', key: 'card', icon: 'assets/images/marketplace/images/icons/store.png' },
+    // { name: 'Tarjetas', key: 'card', icon: 'assets/images/marketplace/images/icons/store.png' },
     { name: 'Reportes', key: 'reports', icon: 'assets/images/marketplace/images/icons/report.png' },
     { name: 'Ayuda', id: 'big-icon', key: 'support', icon: 'assets/images/marketplace/images/icons/help.png' },
   ];

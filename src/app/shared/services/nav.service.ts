@@ -41,7 +41,7 @@ export class NavService {
 		},
 		{ path: '/pages/account/user/orders', title: 'mis pedidos', type: 'link', logged: true, role: 'client' },
 		{ path: '/pages/account/user/stores', title: 'mis tiendas', type: 'link', logged: true, role: 'client' },
-		{ path: '/pages/account/user/card', title: 'tarjetas', type: 'link', logged: true, role: 'client' },
+		// { path: '/pages/account/user/card', title: 'tarjetas', type: 'link', logged: true, role: 'client' },
 		{ path: '/pages/account/user/support', title: 'ayuda', type: 'link', logged: true, role: 'client' },
 
 		{ path: '/pages/account/user/profile', title: 'mi perfil', type: 'link', logged: true, role: 'merchant' },
@@ -60,7 +60,7 @@ export class NavService {
 				{ path: '/pages/account/user/admin-store/create-referrals', title: 'Referidos', type: 'link', logged: true, role: 'merchant' },
 			]
 		},
-		{ path: '/pages/account/user/card', title: 'tarjetas', type: 'link', logged: true, role: 'merchant' },
+		// { path: '/pages/account/user/card', title: 'tarjetas', type: 'link', logged: true, role: 'merchant' },
 		{
 			title: 'reportes', type: 'sub', logged: true, role: 'merchant',
 			children: [
