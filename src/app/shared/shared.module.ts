@@ -77,6 +77,7 @@ import { ColorPickerModule } from 'ngx-color-picker';
 import { ClipboardModule } from 'ngx-clipboard';
 import { FiltersComponent } from './components/filters/filters.component';
 import { SearchStoreComponent } from './components/search-store/search-store.component';
+import { ShopDesignComponent } from '../pages/shops/shop-design/shop-design.component';
 // export let options: Partial<IConfig> | (() => Partial<IConfig>);
 const maskConfig: Partial<IConfig> = {
   validation: false,
@@ -98,6 +99,7 @@ export const customCurrencyMaskConfig = {
 };
 @NgModule( {
   declarations: [
+    ShopDesignComponent,
     AddressComponent,
     HeaderOneComponent,
     FooterOneComponent,

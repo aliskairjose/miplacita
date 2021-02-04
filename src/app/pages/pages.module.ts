@@ -44,7 +44,6 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 
 import { GoogleChartsModule } from 'angular-google-charts';
 import { ShopProfileComponent } from './shops/shop-profile/shop-profile.component';
-import { ShopDesignComponent } from './shops/shop-design/shop-design.component';
 import { ColorPickerModule } from 'ngx-color-picker';
 import { ShopsComponent } from './shops/shops.component';
 import { OrdersComponent } from './orders/orders.component';
@@ -80,7 +79,7 @@ import { PercentageMpProductsComponent } from './shops/percentage-mp-products/pe
 import { CommissionsComponent } from './commissions/commissions.component';
 import { MembershipsComponent } from './memberships/memberships.component';
 import { CreateMembershipComponent } from './create-membership/create-membership.component';
-import { EditorModule } from "@tinymce/tinymce-angular";
+import { EditorModule } from '@tinymce/tinymce-angular';
 import { PaymentManagerComponent } from './payment-manager/payment-manager.component';
 // export let options: Partial<IConfig> | (() => Partial<IConfig>);
 const maskConfig: Partial<IConfig> = {
@@ -101,7 +100,7 @@ export const customCurrencyMaskConfig = {
   max: null,
   inputMode: CurrencyMaskInputMode.FINANCIAL
 };
-@NgModule({
+@NgModule( {
   declarations: [
     WishlistComponent,
     CartComponent,
@@ -142,7 +141,6 @@ export const customCurrencyMaskConfig = {
     OrdersComponent,
     MyShopComponent,
     ShopProfileComponent,
-    ShopDesignComponent,
     ShopsComponent,
     ShopWithdrawalComponent,
     ShopSuscriptionComponent,
@@ -179,15 +177,15 @@ export const customCurrencyMaskConfig = {
     NgxSpinnerModule,
     GalleryModule.forRoot(),
     PagesRoutingModule,
-    NgxMaskModule.forRoot(maskConfig),
+    NgxMaskModule.forRoot( maskConfig ),
     GoogleChartsModule.forRoot(),
-    NgxCurrencyModule.forRoot(customCurrencyMaskConfig),
+    NgxCurrencyModule.forRoot( customCurrencyMaskConfig ),
     ColorPickerModule,
-    AlertModule.forRoot({maxMessages: 5, timeout: 3000, position: 'left'}),
+    AlertModule.forRoot( { maxMessages: 5, timeout: 3000, position: 'left' } ),
     ChartsModule,
     EditorModule
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 
-})
+} )
 export class PagesModule { }
