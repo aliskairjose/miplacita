@@ -59,9 +59,8 @@
           <a [href]="store.url_store" target="_blank" class="btn btn-solid-orange" (click)="updateShopConfig()">
             Ver tienda
           </a>
-          <a href="/shop/register/success" class="btn btn-solid-orange ml-3" *ngIf="register" [disabled]="isReady">
-            Finalizar registro
-          </a>
+          <button class="btn btn-solid-orange ml-3" *ngIf="register" [disabled]="!isReady" (click)="endRegister()">
+            Finalizar registro</button>
         </div>
       </div>
     </div>

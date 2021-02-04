@@ -9,6 +9,7 @@ import { Store, Config } from '../../classes/store';
 import { ShopService } from '../../services/shop.service';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { User } from 'src/app/shared/classes/user';
+import { Route, Router } from '@angular/router';
 
 @Component( {
   selector: 'app-shop-design',
@@ -18,7 +19,7 @@ import { User } from 'src/app/shared/classes/user';
 export class ShopDesignComponent implements OnInit, OnChanges {
   @ViewChild( 'ngcarousel', { static: true } ) ngCarousel: NgbCarousel;
 
-  isReady = true;
+  isReady = false;
   color = '';
   fontSelected = '';
   images = [];
@@ -37,6 +38,7 @@ export class ShopDesignComponent implements OnInit, OnChanges {
   @Output() updateShop: EventEmitter<Store> = new EventEmitter<Store>();
   user: User;
   constructor(
+    private router: Router,
     private shopService: ShopService,
     private toastrService: ToastrService,
     private authService: AuthService
@@ -210,4 +212,7 @@ export class ShopDesignComponent implements OnInit, OnChanges {
     } );
   }
 
+  endRegister(): void {
+    this.router.navigateByUrl( '/shop/register/success' );
+  }
 }
