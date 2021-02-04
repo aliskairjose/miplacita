@@ -5,8 +5,8 @@ import {
 } from '@angular/core';
 import { NgbCarousel } from '@ng-bootstrap/ng-bootstrap';
 
-import { Store, Config } from '../../../shared/classes/store';
-import { ShopService } from '../../../shared/services/shop.service';
+import { Store, Config } from '../../classes/store';
+import { ShopService } from '../../services/shop.service';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { User } from 'src/app/shared/classes/user';
 
@@ -18,6 +18,7 @@ import { User } from 'src/app/shared/classes/user';
 export class ShopDesignComponent implements OnInit, OnChanges {
   @ViewChild( 'ngcarousel', { static: true } ) ngCarousel: NgbCarousel;
 
+  isReady = true;
   color = '';
   fontSelected = '';
   images = [];
@@ -31,6 +32,7 @@ export class ShopDesignComponent implements OnInit, OnChanges {
     { value: 'Source Sans Pro', style: { 'font-family': 'Source Sans Pro' }, name: 'Source Sans Pro' }
   ];
 
+  @Input() register = false;
   @Input() store: Store;
   @Output() updateShop: EventEmitter<Store> = new EventEmitter<Store>();
   user: User;
@@ -58,6 +60,7 @@ export class ShopDesignComponent implements OnInit, OnChanges {
     // actualiza el color y la fuente si hay cambios
     if ( this.store.config.font !== this.fontSelected || this.store.config.color !== this.color ) {
       const data = { color: this.color, font: this.fontSelected };
+      // tslint:disable-next-line: deprecation
       this.shopService.config( this.store._id, data ).subscribe( ( result ) => {
         if ( result.success ) {
           this.toastrService.info( 'Se ha actualizado el estilo de la tienda' );
@@ -65,6 +68,7 @@ export class ShopDesignComponent implements OnInit, OnChanges {
           this.store.config.font = this.fontSelected;
           // actualizar store output
           this.updateShop.emit( this.store );
+          this.isReady = true;
           this.ngOnInit();
         }
       } );
@@ -72,11 +76,13 @@ export class ShopDesignComponent implements OnInit, OnChanges {
 
     // actualiza los banners si hay banners nuevos para agregar
     if ( this.images.length ) {
+      // tslint:disable-next-line: deprecation
       this.shopService.uploadImages( { images: this.images } ).subscribe( imageResponse => {
         if ( imageResponse.status === 'isOk' ) {
           const promises = [];
           imageResponse.images.forEach( image => {
             promises.push(
+              // tslint:disable-next-line: deprecation
               this.shopService.addBanner( this.store._id, { url: image } ).subscribe( _result => {
                 if ( _result.success ) { this.toastrService.info( _result.message[ 0 ] ); }
               } )
@@ -94,6 +100,7 @@ export class ShopDesignComponent implements OnInit, OnChanges {
       const promises = [];
       for ( const image of this.bannersDelete ) {
         promises.push(
+          // tslint:disable-next-line: deprecation
           this.shopService.deleteBanner( this.store._id, image._id ).subscribe( ( result ) => {
             if ( result.success ) {
               this.toastrService.info( result.message[ 0 ] );
@@ -114,18 +121,19 @@ export class ShopDesignComponent implements OnInit, OnChanges {
   }
 
   private updateLogo() {
+    // tslint:disable-next-line: deprecation
     this.shopService.uploadImages( { images: this.imageLogo } ).subscribe( result => {
       if ( result.status === 'isOk' ) {
         let storeData: Store = {};
         storeData = { ...this.store, logo: result.images[ 0 ] };
         this.updateStoreLogo( storeData );
-
       }
     } );
 
   }
 
   private updateStoreLogo( data: any ) {
+    // tslint:disable-next-line: deprecation
     this.shopService.updateStore( this.store._id, data ).subscribe( response => {
       if ( response.success ) {
         this.toastrService.info( response.message[ 0 ] );
@@ -136,6 +144,7 @@ export class ShopDesignComponent implements OnInit, OnChanges {
   updateConfig(): void {
     const data = { color: this.color, font: this.fontSelected };
 
+    // tslint:disable-next-line: deprecation
     this.shopService.config( this.store._id, data ).subscribe( response => {
       if ( response.success ) {
         this.store = { ...response.result };
@@ -146,9 +155,11 @@ export class ShopDesignComponent implements OnInit, OnChanges {
   }
 
   sendImageToCloud(): void {
+    // tslint:disable-next-line: deprecation
     this.shopService.uploadImages( { images: this.images } ).subscribe( result => {
       if ( result.status === 'isOk' ) {
         // result.images[ 0 ];
+        // tslint:disable-next-line: deprecation
         this.shopService.addBanner( this.store._id, result.images[ 0 ] ).subscribe( _result => {
           if ( _result.success ) {
             this.toastrService.info( _result.message[ 0 ] );
@@ -164,7 +175,6 @@ export class ShopDesignComponent implements OnInit, OnChanges {
    */
   uploadBanner( images: string[] ): void {
     this.images = [ ...images ];
-    console.log( this.images )
   }
 
   /**
@@ -188,6 +198,7 @@ export class ShopDesignComponent implements OnInit, OnChanges {
 
   getStoreInfo() {
     const params = `store=${this.store._id}&owner_id=${this.user._id}`;
+    // tslint:disable-next-line: deprecation
     this.shopService.storeList( 1, params ).subscribe( ( response ) => {
       const tmpStore = response.docs[ 0 ];
       this.color = tmpStore.config.color;

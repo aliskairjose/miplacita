@@ -27,7 +27,6 @@ export class RegisterStoreComponent implements OnInit, OnChanges {
   imageLogo: any = '../../../../assets/images/marketplace/svg/upload-image.svg';
   imageProduct: any = '../../../../assets/images/marketplace/svg/upload-image.svg';
   storeForm: FormGroup;
-  productForm: FormGroup;
   submitted: boolean;
   invalidEmail = environment.errorForm.invalidEmail;
   required = environment.errorForm.required;
@@ -74,7 +73,6 @@ export class RegisterStoreComponent implements OnInit, OnChanges {
   // convenience getter for easy access to form fields
   // tslint:disable-next-line: typedef
   get f() { return this.storeForm.controls; }
-  get p() { return this.productForm.controls; }
 
   ngOnInit(): void {
     if ( this.storage.getItem( 'userForm' ) ) {
@@ -126,33 +124,6 @@ export class RegisterStoreComponent implements OnInit, OnChanges {
       } );
     }
   }
-
-  productRegister() {
-    this.submitted = true;
-    if ( this.productForm.valid ) {
-      if ( this.images.length === 0 ) {
-        this.toastrService.warning( 'Debe cargar una imagen para producto!' );
-        return;
-      }
-      // tslint:disable-next-line: deprecation
-      this.productService.uploadImages( { images: this.images } ).subscribe( result => {
-
-        if ( result.status === 'isOk' ) {
-          const data: Product = { ...this.productForm.value };
-          data.images = [];
-          result.images.forEach( ( url: string, index ) => {
-            const image: Images = {};
-            image.url = url;
-            ( index > 0 ) ? image.principal = false : image.principal = true;
-            data.images.push( image );
-          } );
-          this.productForm.value.images = data.images;
-          this.createProduct();
-        }
-      } );
-    }
-  }
-
   /**
    * @description Carga de imagen de producto
    * @param images Imagen de producto
@@ -220,16 +191,6 @@ export class RegisterStoreComponent implements OnInit, OnChanges {
 
     } );
 
-    // Formulario de Producto
-    this.productForm = this.formBuilder.group( {
-      name: [ '', [ Validators.required, Validators.minLength( 4 ) ] ],
-      description: [ '', [ Validators.required ] ],
-      price: [ '', [ Validators.required ] ],
-      tax: [ '', [ Validators.required ] ],
-      category: [ '', [ Validators.required ] ],
-      image: [ '', [ Validators.nullValidator ] ],
-      store: [ '', [ Validators.nullValidator ] ],
-    } );
   }
 
   makeUrl( valor: string ): void {
@@ -251,15 +212,6 @@ export class RegisterStoreComponent implements OnInit, OnChanges {
         this.step = 2;
         sessionStorage.setItem( 'registerStore', JSON.stringify( this.store ) );
       }
-    } );
-  }
-
-  private createProduct(): void {
-    this.productForm.value.store = this.store._id;
-    // tslint:disable-next-line: deprecation
-    this.productService.addProduct( this.productForm.value ).subscribe( () => {
-      sessionStorage.clear();
-      this.router.navigate( [ '/shop/register/success' ] );
     } );
   }
 

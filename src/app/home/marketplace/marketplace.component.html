@@ -36,7 +36,9 @@
 							<img class="icon-service" id="icon-2"
 								src="../../../../assets/images/marketplace/images/icons/register.png" />
 							<div class="media-body">
-								<h4>Regístrate</h4>
+								<a [routerLink]="[ '/pages/register']" [queryParams]="{ role: 'merchant' }">
+									<h4>Regístrate</h4>
+								</a>
 							</div>
 						</div>
 					</div>
@@ -56,7 +58,9 @@
 							<img class="icon-service" id="icon-2"
 								src="../../../../assets/images/marketplace/images/icons/create.png" />
 							<div class="media-body">
-								<h4>Crea tu tienda</h4>
+								<a [routerLink]="[ '/pages/register']" [queryParams]="{ role: 'merchant' }">
+									<h4>Crea tu tienda</h4>
+								</a>
 							</div>
 						</div>
 					</div>

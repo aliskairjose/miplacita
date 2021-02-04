@@ -19,7 +19,7 @@ import { FaqComponent } from './faq/faq.component';
 import { OrdersComponent } from './orders/orders.component';
 import { CreateProductComponent } from './products/create-product/create-product.component';
 import { ProductsComponent } from './products/products.component';
-import { ShopDesignComponent } from './shops/shop-design/shop-design.component';
+import { ShopDesignComponent } from '../shared/components/shop-design/shop-design.component';
 import { ShopProfileComponent } from './shops/shop-profile/shop-profile.component';
 import { ShopSuscriptionComponent } from './shops/shop-suscription/shop-suscription.component';
 import { ShopWithdrawalComponent } from './shops/shop-withdrawal/shop-withdrawal.component';
