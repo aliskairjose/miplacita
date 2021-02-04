@@ -92,10 +92,10 @@ export let CollectionSlider: any = {
     navSpeed: 300,
     responsive: {
         991: {
-            items: 4 
+            items: 4
         },
         767: {
-            items: 3    
+            items: 3
         },
         586: {
             items: 2
@@ -167,7 +167,7 @@ export let TeamSlider: any = {
 }
 
 // Compare Slider
-export let  CompareSlider: any = {
+export let CompareSlider: any = {
     loop: true,
     dots: false,
     navSpeed: 300,
@@ -189,8 +189,11 @@ export let  CompareSlider: any = {
 
 // Product Slider
 export let ProductSlider: any = {
+    autplay: true,
+    autoplayTimeout: 2000,
     loop: false,
-    dots: false,
+    dots: true,
+    nav: false,
     navSpeed: 300,
     responsive: {
         991: {
@@ -201,12 +204,12 @@ export let ProductSlider: any = {
         },
         420: {
             items: 2
-        }, 
+        },
         0: {
             items: 1
         }
     }
-}
+};
 
 // Product Slider
 export let ProductOneSlider: any = {
@@ -214,14 +217,14 @@ export let ProductOneSlider: any = {
     loop: true,
     dots: false,
     navSpeed: 300
-}
+};
 
 // New Product Slider
 export let NewProductSlider: any = {
     items: 1,
     loop: true,
     nav: true,
-    dots:false,
+    dots: false,
     navContainerClass: 'owl-nav',
     navClass: [ 'owl-prev', 'owl-next' ],
     navText: [ '<i class="ti-angle-left"></i>', '<i class="ti-angle-right"></i>' ],
@@ -231,7 +234,7 @@ export let NewProductSlider: any = {
 export let ProductDetailsMainSlider: any = {
     items: 1,
     nav: false,
-    dots:false,
+    dots: false,
     autoplay: false,
     slideSpeed: 300,
     loop: true
@@ -242,5 +245,5 @@ export let ProductDetailsThumbSlider: any = {
     items: 3,
     loop: true,
     margin: 10,
-    dots:false
+    dots: false
 }
