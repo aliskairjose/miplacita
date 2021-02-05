@@ -47,10 +47,11 @@ export class StorePageComponent implements OnInit {
     private categoriesSevice: CategoryService
   ) {
 
+    // tslint:disable-next-line: deprecation
     this.route.url.subscribe( ( url ) => {
+      // tslint:disable-next-line: deprecation
       this.storeService.getStoreByUrl( url[ 0 ].path.toLocaleLowerCase() ).subscribe( store => {
         this.store = { ...store };
-
         if ( !sessionStorage.sessionStore ) {
           sessionStorage.setItem( 'sessionStore', JSON.stringify( store ) );
           setTimeout( () => {
@@ -77,7 +78,7 @@ export class StorePageComponent implements OnInit {
   init(): void {
     this.sliders = this.store.config.images;
     this.getCollectionProducts( this.store._id );
-    this.subCategoryList( this.store._id );
+    this.subCategoryList();
     this.storeService.storeSubject( this.store );
     this.storeService.customizeShop( this.store.config );
     if ( this.store.config.color ) {
@@ -97,6 +98,7 @@ export class StorePageComponent implements OnInit {
 
   onChange( value: string ): void {
     const params = `store=${this.store._id}&${value}`;
+    // tslint:disable-next-line: deprecation
     this.productService.productList( 1, params ).subscribe( ( result: Result<Product> ) => {
       this.products = [ ...result.docs ];
     } );
@@ -104,14 +106,16 @@ export class StorePageComponent implements OnInit {
 
   private getCollectionProducts( id: string ): void {
     const params = `store=${id}&featured=true`;
+    // tslint:disable-next-line: deprecation
     this.productService.productList( 1, params ).subscribe( ( result: Result<Product> ) => {
       this.products = [ ...result.docs ];
     } );
 
   }
 
-  private subCategoryList( id: string ): void {
+  private subCategoryList(): void {
     const params = `store=${this.store._id}`;
+    // tslint:disable-next-line: deprecation
     this.categoriesSevice.getSubcategory( params ).subscribe( subcategories => {
       this.subCategories = [ ...subcategories ];
     } );

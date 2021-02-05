@@ -917,7 +917,21 @@ body {
   .btn-inside-slider {
     position: relative;
     left: 6vw;
+    bottom: 21vh;
+  }
+}
+@media (min-width: 1366px) {
+  .btn-inside-slider {
+    position: relative;
+    left: 6vw;
     bottom: 30vh;
+  }
+}
+@media (min-width: 1440px) {
+  .btn-inside-slider {
+    position: relative;
+    left: 6vw;
+    bottom: 26vh;
   }
 }
 @media (min-width: 1920px) {
