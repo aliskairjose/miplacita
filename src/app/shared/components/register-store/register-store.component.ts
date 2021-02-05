@@ -198,12 +198,9 @@ export class RegisterStoreComponent implements OnInit, OnChanges {
   }
 
   private createStore(): void {
-    const _address: Address = {};
-    _address.address = this.storeForm.value.address;
-    const _store = { ...this.storeForm.value, address: _address };
 
     // tslint:disable-next-line: deprecation
-    this.shopService.addStore( _store ).subscribe( ( store: Store ) => {
+    this.shopService.addStore( this.storeForm.value ).subscribe( ( store: Store ) => {
       this.store = { ...store };
       if ( !this.register ) {
         this.toastrService.info( 'Se ha creado la nueva tienda con exito' );

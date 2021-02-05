@@ -36,7 +36,7 @@
 								<!-- Shop name -->
 								<div class="form-group">
 									<div class="field-label" for="name">Nombre de la tienda</div>
-									<input type="text" class="form-control" id="address" formControlName="name" (blur)="validateName()"
+									<input type="text" class="form-control" id="name" formControlName="name" (blur)="validateName()"
 										(ngModelChange)="makeUrl($event)">
 									<div *ngIf="submitted && f.name.errors" class="invalid-feedback d-block">
 										<div *ngIf="f.name.errors.required"> {{ required }} </div>
@@ -54,7 +54,7 @@
 								<!-- Shop Address -->
 								<div class="form-group">
 									<div class="field-label" for="name">Direción de la tienda</div>
-									<input type="text" class="form-control" id="name" formControlName="address">
+									<input type="text" class="form-control" id="address" formControlName="address">
 									<div *ngIf="submitted && f.addess.errors" class="invalid-feedback d-block">
 										<div *ngIf="f.address.errors.required"> {{ required }} </div>
 									</div>

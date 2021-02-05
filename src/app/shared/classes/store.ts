@@ -3,8 +3,9 @@ import { Address } from './order';
 export interface Store {
   _id?: string;
   name?: string;
+  rut?: string;
   description?: string;
-  address?: Address;
+  address?: string;
   url_store?: string;
   phone?: string;
   currency?: string;

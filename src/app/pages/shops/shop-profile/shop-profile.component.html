@@ -31,11 +31,10 @@
 										<div *ngIf="f.rut.errors.required"> {{ required }} </div>
 									</div>
 								</div>
-								<!-- Shop Name -->
+								<!-- Shop Address -->
 								<div class="form-group col-lg-10 col-md-10 col-sm-12">
 									<div class="field-label font-weight-bold">Dirección de la tienda</div>
-									<input formControlName="address" type="text" class="form-control"
-										[(ngModel)]="store.address.address" />
+									<input formControlName="address" type="text" class="form-control" [(ngModel)]="store.address" />
 									<div *ngIf="submitted && f.address.errors" class="invalid-feedback d-block">
 										<div *ngIf="f.address.errors.required"> {{ required }} </div>
 									</div>
