@@ -23,6 +23,23 @@
 										<div *ngIf="f.name.errors.required"> {{ required }} </div>
 									</div>
 								</div>
+								<!-- Shop RUT -->
+								<div class="form-group col-lg-10 col-md-10 col-sm-12">
+									<div class="field-label font-weight-bold">R.U.T</div>
+									<input formControlName="rut" type="text" class="form-control" [(ngModel)]="store.rut" />
+									<div *ngIf="submitted && f.rut.errors" class="invalid-feedback d-block">
+										<div *ngIf="f.rut.errors.required"> {{ required }} </div>
+									</div>
+								</div>
+								<!-- Shop Name -->
+								<div class="form-group col-lg-10 col-md-10 col-sm-12">
+									<div class="field-label font-weight-bold">Dirección de la tienda</div>
+									<input formControlName="address" type="text" class="form-control"
+										[(ngModel)]="store.address.address" />
+									<div *ngIf="submitted && f.address.errors" class="invalid-feedback d-block">
+										<div *ngIf="f.address.errors.required"> {{ required }} </div>
+									</div>
+								</div>
 								<!-- Description -->
 								<div class="form-group col-lg-10 col-md-10 col-sm-12">
 									<div class="field-label font-weight-bold">Descripción</div>

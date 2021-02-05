@@ -36,14 +36,13 @@ export class ShopProfileComponent implements OnInit, OnChanges {
 
   }
 
-
   // convenience getter for easy access to form fields
   // tslint:disable-next-line: typedef
   get f() { return this.profileForm.controls; }
 
   ngOnInit(): void {
+    console.log( this.store );
     if ( this.store ) { this.enabled = true; }
-
   }
 
   onSubmit(): void {
@@ -51,6 +50,7 @@ export class ShopProfileComponent implements OnInit, OnChanges {
     this.profileForm.value.logo = this.store.logo;
 
     if ( this.profileForm.valid ) {
+      // tslint:disable-next-line: deprecation
       this.shopService.updateStore( this.store._id, this.profileForm.value ).subscribe( response => {
         if ( response.success ) {
           this.store = { ...response.store };
@@ -65,6 +65,8 @@ export class ShopProfileComponent implements OnInit, OnChanges {
   private createForm(): void {
     this.profileForm = this.formBuilder.group( {
       name: [ '', [ Validators.required ] ],
+      rut: [ '', [ Validators.required ] ],
+      address: [ '', [ Validators.required ] ],
       phone: [ '', [ Validators.required ] ],
       description: [ '', [ Validators.required ] ],
       email: [ '', [ Validators.required, Validators.email ] ],
