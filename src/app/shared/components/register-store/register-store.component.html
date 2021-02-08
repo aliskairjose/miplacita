@@ -43,9 +43,9 @@
 										<div *ngIf="f.name.errors.minlength"> El nombre debe tener 4 o más caracteres </div>
 									</div>
 								</div>
-								<!-- Shop RUT -->
+								<!-- Shop RUC -->
 								<div class="form-group">
-									<div class="field-label" for="name">RUT</div>
+									<div class="field-label" for="name">RUC</div>
 									<input type="text" class="form-control" id="rut" formControlName="rut">
 									<div *ngIf="submitted && f.rut.errors" class="invalid-feedback d-block">
 										<div *ngIf="f.rut.errors.required"> {{ required }} </div>
