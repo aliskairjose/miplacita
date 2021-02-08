@@ -4,7 +4,7 @@
 <ngx-alerts></ngx-alerts>
 
 <!-- section start -->
-<section class="login-page section-b-space">
+<section class="login-page section-b-space" *ngIf="role !== 'admin'">
   <div class="container">
     <div class="row justify-content-center">
       <!-- TABS-->
@@ -112,5 +112,46 @@
     </div>
   </div>
 </section>
-<!--Section ends-->
-<!-- <app-footer-one></app-footer-one> -->
+
+<!-- Login Admin -->
+<section class="login-page section-b-space" *ngIf="role === 'admin'">
+  <div class="container">
+    <div class="row justify-content-center">
+      <!-- TABS-->
+      <div class="col-lg-5">
+        <h3>Iniciar sesión como administrador</h3>
+        <div class="theme-card">
+          <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="theme-form">
+            <div class="form-group ">
+              <label for="name">Correo electrónico</label>
+              <input type="email" formControlName="email" class="form-control" id="email" placeholder="" required
+                [ngClass]="{ 'is-invalid': submitted && f.email.errors }">
+              <div *ngIf="submitted && f.email.errors?.required" class="invalid-feedback d-block">
+                {{ required }}
+              </div>
+              <div *ngIf="submitted && f.email.errors?.pattern" class="invalid-feedback d-block">
+                {{ invalidEmail }} </div>
+            </div>
+            <div class="form-group ">
+              <label for="name">Ingrese su contraseña</label>
+              <input type="password" formControlName="password" class="form-control" id="review" placeholder="" required
+                [ngClass]="{ 'is-invalid': submitted && f.password.errors }">
+              <div *ngIf="submitted && f.password.errors" class="invalid-feedback d-block">
+                <div *ngIf="f.password.errors.required"> {{ required }}
+                </div>
+              </div>
+            </div>
+            <div class="form-group d-flex justify-content-end">
+              <p>¿Olvidó su contraseña?, haga click <a href="javascript:void(0)" (click)="passwordRecovery()">
+                  aquí</a></p>
+            </div>
+            <div class="form-group text-center">
+              <button type="submit" class="btn btn-login btn-lg w-100">Inciar sesión</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</section>

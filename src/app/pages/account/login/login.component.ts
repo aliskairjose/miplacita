@@ -39,12 +39,12 @@ export class LoginComponent implements OnInit {
     private platformLocation: PlatformLocation,
 
   ) {
-    this.platformLocation.pushState( null, '', '/login' );
+    // this.platformLocation.pushState( null, '', '/login' );
     this.createForm();
   }
 
   ngOnInit(): void {
-
+    // tslint:disable-next-line: deprecation
     this.route.queryParams.subscribe( params => {
       if ( Object.keys( params ).length !== 0 ) {
         this.url = params.url;
@@ -53,13 +53,15 @@ export class LoginComponent implements OnInit {
         if ( params.url ) { this.mustReturnStore = true; }
       }
     } );
-
+    // tslint:disable-next-line: deprecation
     this.route.url.subscribe( ( url ) => {
-      if ( url.length === 2 ) {
+      if ( url[ 0 ].path === 'admin' ) {
         this.role = 'admin';
+        console.log( this.role );
       }
     } );
 
+    // tslint:disable-next-line: deprecation
     this.socialService.authState.subscribe( ( response: FacebookLoginResponse ) => {
       const data = { fullname: '', token: '', email: '', role: '' };
       data.email = response.email;
@@ -80,6 +82,7 @@ export class LoginComponent implements OnInit {
     this.loginForm.value.role = this.role;
 
     if ( this.loginForm.valid ) {
+      // tslint:disable-next-line: deprecation
       this.auth.login( this.loginForm.value ).subscribe( ( data: AuthResponse ) => {
         if ( data.success ) {
           this.storage.setLoginData( 'data', data );
@@ -105,6 +108,7 @@ export class LoginComponent implements OnInit {
   }
 
   private loginFB( data: any ): void {
+    // tslint:disable-next-line: deprecation
     this.auth.socialLogin( data ).subscribe( ( result: AuthResponse ) => {
       if ( result.success ) {
         this.storage.setLoginData( 'data', result );
@@ -146,7 +150,7 @@ export class LoginComponent implements OnInit {
       this.toastrService.warning( 'Ingresa tu correo para recuperar tu contraseña' );
       return;
     }
-
+    // tslint:disable-next-line: deprecation
     this.auth.passwordRecovery( this.loginForm.value ).subscribe( ( result ) => {
       if ( result.success ) {
         this.toastrService.info( 'Le enviamos un correo para iniciar el proceso de cambio de contraseña' );
