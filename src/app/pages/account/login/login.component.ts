@@ -57,7 +57,6 @@ export class LoginComponent implements OnInit {
     this.route.url.subscribe( ( url ) => {
       if ( url[ 0 ].path === 'admin' ) {
         this.role = 'admin';
-        console.log( this.role );
       }
     } );
 
