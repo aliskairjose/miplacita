@@ -23,6 +23,8 @@ export class LoginComponent implements OnInit {
   invalidEmail = environment.errorForm.invalidEmail;
   role = 'client';
   url = '';
+  isPassword = true;
+  icon = 'fa fa-eye';
   title = 'como Comprador';
   mustReturn = false; // variable que indica que debe retornar al origen despues de login
   mustReturnStore = false; // variable que indica que debe retornar al origen despues de login
@@ -163,5 +165,10 @@ export class LoginComponent implements OnInit {
     if ( this.role === 'merchant' ) { this.title = 'como Vendedor'; }
 
     if ( this.role === 'client' ) { this.title = 'como Comprador'; }
+  }
+
+  changeType( type: boolean ): void {
+    this.isPassword = !type;
+    this.icon = this.isPassword ? 'fa fa-eye' : 'fa fa-eye-slash';
   }
 }
