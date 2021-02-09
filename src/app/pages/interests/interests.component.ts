@@ -56,17 +56,20 @@ export class InterestsComponent implements OnInit, OnDestroy {
     if ( this.type === 'register' ) {
       // this.userform = JSON.parse( sessionStorage.userForm );
       this.userform = this.storage.getItem( 'userForm' );
+      // tslint:disable-next-line: deprecation
       this.categoryService.categoryList().subscribe( ( response: Category[] ) => {
         this.interestsList = [ ...response ];
       } );
     }
     this.role = this.auth.getUserRol();
+    // tslint:disable-next-line: deprecation
     this.route.url.subscribe( url => {
       if ( url.length === 2 ) {
         this.isPage = true;
       }
     } );
 
+    // tslint:disable-next-line: deprecation
     const role = this.route.queryParams.subscribe( params => {
       if ( Object.keys( params ).length !== 0 ) {
         this.role = params.role;
@@ -79,6 +82,7 @@ export class InterestsComponent implements OnInit, OnDestroy {
     this.user = user;
     this.modalOpen = true;
     this.modal = this.modalService.open( this.Interests );
+    // tslint:disable-next-line: deprecation
     this.userService.getUserInterest( this.user._id ).subscribe( ( response ) => {
       if ( response.success ) {
         this.interestsList = response.users.config;
@@ -118,6 +122,7 @@ export class InterestsComponent implements OnInit, OnDestroy {
     this.submitted = true;
 
     if ( this.interestForm.valid ) {
+      // tslint:disable-next-line: deprecation
       this.userService.addUserInterest( this.userform._id, { interest: this.interests } ).subscribe( response => {
 
         if ( response.success ) {

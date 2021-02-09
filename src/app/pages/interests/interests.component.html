@@ -61,13 +61,16 @@
             <form [formGroup]="interestForm" (ngSubmit)="onSubmit()" class="theme-form">
               <div class="shipping-option" *ngIf="interestsList.length">
                 <div class="row mb-3" *ngFor="let interest of interestsList; let i=index">
-                  <div class="option-box d-flex mx-auto py-2">
-                    <div class="col-md-11 text-center">
-                      <p class="my-auto">{{interest.name}}</p>
+                  <div class="form-check option-box d-flex mx-auto py-2">
+                    <div class="col-md-11 text-center" (click)="selectInterest( $event )">
+                      <!-- <p class="my-auto">{{interest.name}}</p> -->
+                      <label class="form-check-label my-auto" [for]="interest.name">
+                        {{interest.name}}
+                      </label>
                     </div>
                     <div class="col-md-1 text-right">
                       <input class="my-auto" formControlName="interest" [value]="interest._id" [name]="interest"
-                        type="checkbox" (change)="selectInterest( $event)">
+                        type="checkbox" (change)="selectInterest( $event )" [id]="interest.name">
                     </div>
                   </div>
                 </div>
