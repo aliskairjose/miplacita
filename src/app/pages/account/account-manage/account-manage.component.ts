@@ -79,6 +79,7 @@ export class AccountManageComponent implements OnInit, OnChanges {
 
   init(): void {
     let provisionalSubtab = '';
+    // tslint:disable-next-line: deprecation
     this.route.url.subscribe( url => {
       this.active = url[ 2 ].path;
       if ( this.active === 'admin-store' && url.length > 3 ) {
@@ -94,6 +95,7 @@ export class AccountManageComponent implements OnInit, OnChanges {
 
     // Se cargas las tiendas solo de merchant
     if ( this.user.role === 'merchant' ) {
+      // tslint:disable-next-line: deprecation
       this.shopService.getMyStores( this.user._id ).subscribe( stores => {
         if ( stores.docs.length ) {
           const _store = JSON.parse( sessionStorage.getItem( 'store' ) );

@@ -12,8 +12,8 @@ export class DashboardService {
     private http: HttpService
   ) { }
 
-  dashboard_store(param: any): Observable<any> {
-    return this.http.get( 'dashboard/store?'+ param );
+  dashboard_store( param: any ): Observable<any> {
+    return this.http.get( `dashboard/store?${param}` );
   }
 
   dashboard(): Observable<any> {

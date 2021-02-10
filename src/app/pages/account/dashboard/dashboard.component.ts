@@ -5,12 +5,10 @@ import { User } from '../../../shared/classes/user';
 import { DashboardService } from '../../../shared/services/dashboard.service';
 import { Dashboard } from '../../../shared/classes/dashboard';
 import { ToastrService } from 'ngx-toastr';
-import { ChartType, ChartDataSets, ChartData } from 'chart.js';
+import { ChartType, ChartDataSets } from 'chart.js';
 import { SingleDataSet, Color, Label } from 'ng2-charts';
 import { Store } from '../../../shared/classes/store';
 import { OrderService } from 'src/app/shared/services/order.service';
-import { NgbCalendar, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
-import { CustomDateParserFormatterService } from 'src/app/shared/adapter/custom-date-parser-formatter.service';
 @Component( {
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -59,20 +57,19 @@ export class DashboardComponent implements OnInit {
     private toastrService: ToastrService,
     public productService: ProductService,
     public dashboardService: DashboardService,
-    private orderService: OrderService,
-    private ngbCalendar: NgbCalendar,
-    private parseDate: CustomDateParserFormatterService
-
+    private orderService: OrderService
   ) {
     this.dashboardData.month_orders = [];
     this.dashboardData.sold_products = [];
 
     this.role = this.auth.getUserRol();
     this.user = this.auth.getUserActive();
+
   }
 
-  async ngOnInit() {
-    await this.auth.authObserver().subscribe( async ( resp: boolean ) => {
+  ngOnInit() {
+    // tslint:disable-next-line: deprecation
+    this.auth.authObserver().subscribe( ( resp: boolean ) => {
       if ( resp ) {
         this.toastrService.info( `Bienvenido ${this.user.fullname}` );
       }
@@ -84,13 +81,17 @@ export class DashboardComponent implements OnInit {
 
   getLabelsInformation() {
     let params = '';
+    if ( Object.entries( this.store ).length === 0 ) {
+      this.store = JSON.parse( sessionStorage.getItem( 'store' ) );
+    }
     if ( this.role === 'merchant' ) {
       params = `store=${this.store._id}`;
+      // tslint:disable-next-line: deprecation
       this.dashboardService.dashboard_store( params ).subscribe( ( data: any ) => {
         this.dashboardData = data.dashboard;
         if ( this.dashboardData.sold_products.length > 0 ) {
           if ( this.dashboardData.sold_products.length > 3 ) {
-            this.dashboardData.sold_products.sort( function ( a: any, b: any ) {
+            this.dashboardData.sold_products.sort( ( a: any, b: any ) => {
               if ( a.quantitySold < b.quantitySold ) {
                 return 1;
               }
@@ -129,6 +130,7 @@ export class DashboardComponent implements OnInit {
 
       } );
     } else {
+      // tslint:disable-next-line: deprecation
       this.dashboardService.dashboard().subscribe( ( response: any ) => {
         if ( response.success ) {
           this.dashboardData = response.result;
@@ -155,9 +157,13 @@ export class DashboardComponent implements OnInit {
   }
 
   private loadData( page = 1 ): void {
+    if ( Object.entries( this.store ).length === 0 ) {
+      this.store = JSON.parse( sessionStorage.getItem( 'store' ) );
+    }
     let params = '';
     if ( this.role === 'merchant' ) {
       params = `store=${this.store._id}`;
+      // tslint:disable-next-line: deprecation
       this.orderService.orderList( page, params ).subscribe( result => {
         this.orders = [ ...result.docs ];
         this.paginate = { ...result };
