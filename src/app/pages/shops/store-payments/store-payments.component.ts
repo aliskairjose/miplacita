@@ -62,6 +62,7 @@ export class StorePaymentsComponent implements OnInit, AfterViewInit {
 
   private loadData() {
     const params = `from=${this.filter.fechaIni}&to=${this.filter.fechaFin}&store=${this.filter.storeId}`;
+    // tslint:disable-next-line: deprecation
     this.reportService.percentageMpSales( params ).subscribe( response => {
       this.data = { ...response };
       this.noData = response.result.length;

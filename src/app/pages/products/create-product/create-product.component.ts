@@ -155,6 +155,7 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
         }
       }
       if ( this.changeImage && this.productImages.length ) {
+        // tslint:disable-next-line: deprecation
         this.productService.uploadImages( { images: this.productImages } ).subscribe( response => {
           if ( response.status === 'isOk' ) {
             const data: Product = { ...this.productForm.value };
@@ -178,6 +179,7 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
       const promises = [];
       this.deleted.map( image => {
         promises.push(
+          // tslint:disable-next-line: deprecation
           this.productService.deletePhoto( this.productData._id, image._id ).subscribe( ( result ) => {
             if ( result.success ) {
               this.toastrService.info( 'Foto elminada con éxito' );
@@ -208,6 +210,7 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
     }
 
     if ( this.variableForm.valid ) {
+      // tslint:disable-next-line: deprecation
       this.productService.uploadImages( { images: this.productImages } ).subscribe( response => {
         if ( response.status === 'isOk' ) {
           const data: Product = {};
@@ -226,7 +229,8 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   createProductVariable(): void {
-    this.productService.addProduct( this.variableForm.value ).subscribe( response => {
+    // tslint:disable-next-line: deprecation
+    this.productService.addProduct( this.variableForm.value ).subscribe( () => {
       this.toastrService.info( 'El producto variable se ha creado con exito' );
       this.reload.emit( true );
       this.close();
@@ -234,6 +238,7 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   private updateProduct( data: Product ): void {
+    // tslint:disable-next-line: deprecation
     this.productService.updateProduct( this.productData._id, data ).subscribe( ( response ) => {
       if ( response.success ) {
         this.toastrService.info( response.message[ 0 ] );
@@ -245,6 +250,7 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
     if ( data.images ) {
       data.images.forEach( urlimage => {
         promises.push(
+          // tslint:disable-next-line: deprecation
           this.productService.addProductoPhoto( this.productData._id, { url: urlimage.url } ).subscribe( result => {
             if ( result.success ) {
               this.toastrService.info( 'Foto agregada al producto' );
@@ -252,7 +258,8 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
           } )
         );
       } );
-      Promise.all( promises ).then( result => {
+      Promise.all( promises ).then( () => {
+        // tslint:disable-next-line: deprecation
         this.productService.updateProduct( this.productData._id, data ).subscribe( ( response ) => {
           if ( response.success ) {
             this.toastrService.info( response.message[ 0 ] );
@@ -293,6 +300,7 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
    */
   private createProduct( data: Product ): void {
     this.clear();
+    // tslint:disable-next-line: deprecation
     this.productService.addProduct( data ).subscribe( ( product: Product ) => {
       this.toastrService.info( 'El producto se ha creado con exito' );
       this.productService.productSubject( product );
@@ -341,6 +349,7 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   private loadProductData( id: string ): void {
+    // tslint:disable-next-line: deprecation
     this.productService.productList( 1, `product=${id}` ).subscribe( ( response: Result<Product> ) => {
       this.productData = { ...response.docs[ 0 ] };
       this.marketplaceCheck = this.productData.marketplace;
@@ -369,6 +378,7 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
       return;
     }
     if ( this.productData.name ) {
+      // tslint:disable-next-line: deprecation
       this.productService.validateName( this.productData.name ).subscribe( resp => {
         if ( resp.taken ) {
           this.toastrService.warning( resp.message[ 0 ] );
@@ -454,7 +464,6 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
     if ( this.modalOpen ) {
       this.modalService.dismissAll();
       this.images = [];
-
     }
   }
 
@@ -497,6 +506,7 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
 
   changeCategorySelection() {
     const params = `store=${this.store._id}&category=${this.selectedCategory}`;
+    // tslint:disable-next-line: deprecation
     this.categoryService.getSubcategory( params ).subscribe( subCategories => {
       this.subcategories = [ ...subCategories ];
     } );
@@ -506,6 +516,7 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
     item[ 'category' ] = this.selectedCategory;
     item[ 'store' ] = this.store._id;
 
+    // tslint:disable-next-line: deprecation
     this.categoryService.addSubcategory( item ).subscribe( result => {
       if ( result.success ) {
         this.subcategories.push( result.category );
@@ -529,6 +540,7 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
     data.type = type;
     data.store = this.store._id;
 
+    // tslint:disable-next-line: deprecation
     this.productService.addVariableProduct( data ).subscribe( response => {
       if ( response.success ) {
         this.toastrService.info( response.message[ 0 ] );

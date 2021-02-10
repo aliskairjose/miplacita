@@ -96,6 +96,7 @@ export class OrdersComponent implements OnInit, OnChanges {
     if ( !this.isUpdatable ) {
       if ( this.statusSelected !== order.status ) {
         this.isUpdating = !this.isUpdating;
+        // tslint:disable-next-line: deprecation
         this.orderService.updateStatus( { status: this.statusSelected }, order._id ).subscribe( response => {
           if ( response.message ) {
             this.isUpdating = !this.isUpdating;
@@ -143,6 +144,7 @@ export class OrdersComponent implements OnInit, OnChanges {
     if ( this.role === 'admin' ) {
       params = `status=${this.status}&from=${this.fechaIni}&to=${this.fechaFin}`;
     }
+    // tslint:disable-next-line: deprecation
     this.orderService.orderList( page, params ).subscribe( result => {
       this.orders = [ ...result.docs ];
       this.paginate = { ...result };

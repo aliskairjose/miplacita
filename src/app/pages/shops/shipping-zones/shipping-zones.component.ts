@@ -45,6 +45,7 @@ export class ShippingZonesComponent implements OnInit, OnChanges {
 
   ngOnChanges( changes: SimpleChanges ): void {
     this.loadShippingZones();
+    // tslint:disable-next-line: deprecation
     this.shopService.storeObserver().subscribe( ( store: Store ) => {
       this.store = store;
       this.loadShippingZones();
@@ -99,6 +100,7 @@ export class ShippingZonesComponent implements OnInit, OnChanges {
   }
 
   private deleteZone( id: string ): void {
+    // tslint:disable-next-line: deprecation
     this.shopService.deleteShipmentOptions( id ).subscribe( result => {
       if ( result.success ) {
         this.toastr.info( 'Ha eliminado la zona de envio' );
@@ -108,6 +110,7 @@ export class ShippingZonesComponent implements OnInit, OnChanges {
   }
 
   private createShipmentZone(): void {
+    // tslint:disable-next-line: deprecation
     this.shopService.addShipmetZone( { shipment_options: this.zonesForm.value } ).subscribe( shipmentZone => {
       this.toastr.info( 'Se ha creado una nueva zona de envío' );
       this.clearForm();
@@ -116,6 +119,7 @@ export class ShippingZonesComponent implements OnInit, OnChanges {
   }
 
   private updateShipmentZone(): void {
+    // tslint:disable-next-line: deprecation
     this.shopService.updateShipmetOptions( this.zone._id, { shipment_options: this.zone } ).subscribe( () => {
       this.toastr.info( 'Se ha actualizado una nueva zona de envío' );
       this.clearForm();
@@ -132,6 +136,7 @@ export class ShippingZonesComponent implements OnInit, OnChanges {
   }
 
   private loadShippingZones(): void {
+    // tslint:disable-next-line: deprecation
     this.shopService.findShipmentOptionByShop( this.store._id ).subscribe( shipments => {
       this.allZones = [ ...shipments ];
     } );

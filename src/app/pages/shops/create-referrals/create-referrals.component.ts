@@ -29,7 +29,6 @@ export class CreateReferralsComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges( changes: SimpleChanges ): void {
-    console.log( this.store )
   }
 
   ngOnInit(): void {
@@ -40,6 +39,7 @@ export class CreateReferralsComponent implements OnInit, OnChanges {
   onSubmit(): void {
     this.submitted = true;
     if ( this.referralForm.valid ) {
+      // tslint:disable-next-line: deprecation
       this.shopService.updateAffiliate( this.store._id, this.referralForm.value ).subscribe( store => {
         store.affiliate_program_amount = this.referralForm.value.affiliate_program_amount;
         this.toastr.info( 'Información actualizada con exito' );

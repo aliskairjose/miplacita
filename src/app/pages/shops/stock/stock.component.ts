@@ -38,6 +38,7 @@ export class StockComponent implements OnInit, AfterViewInit {
   }
 
   loadData() {
+    // tslint:disable-next-line: deprecation
     this.reportService.stockMP( this.filter.storeId ).subscribe( ( products ) => {
       this.products = [ ...products ];
     } );

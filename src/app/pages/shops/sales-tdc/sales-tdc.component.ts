@@ -2,10 +2,8 @@ import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angula
 import { Paginate } from 'src/app/shared/classes/paginate';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { ReportsService } from 'src/app/shared/services/reports.service';
-import { ExportService } from 'src/app/shared/services/export.service';
 import { NgbDateStruct, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
 import { CustomDateParserFormatterService } from 'src/app/shared/adapter/custom-date-parser-formatter.service';
-import { ToastrService } from 'ngx-toastr';
 import { Store } from '../../../shared/classes/store';
 import { Filter } from '../../../shared/classes/filter';
 import { FiltersComponent } from '../../../shared/components/filters/filters.component';
@@ -31,7 +29,6 @@ export class SalesTdcComponent implements OnInit, AfterViewInit {
 
   constructor(
     private auth: AuthService,
-    private toastr: ToastrService,
     private ngbCalendar: NgbCalendar,
     private reports: ReportsService,
     private parseDate: CustomDateParserFormatterService
@@ -64,12 +61,14 @@ export class SalesTdcComponent implements OnInit, AfterViewInit {
 
   loadData() {
     const params = `from=${this.filters.fechaIni}&to=${this.filters.fechaFin}&store=${this.filters.storeId}`;
+    // tslint:disable-next-line: deprecation
     this.reports.tdcSales( params ).subscribe( ( result ) => {
       this.data = [ ...result ];
     } );
   }
 
   private loadStores(): void {
+    // tslint:disable-next-line: deprecation
     this.reports.membershipActiveShop( 1, `report=false` ).subscribe( result => {
       this.stores = result.docs;
     } );

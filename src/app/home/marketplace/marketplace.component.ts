@@ -201,8 +201,6 @@ export class MarketplaceComponent implements OnInit, OnDestroy {
     sessionStorage.removeItem( 'sessionStore' );
   }
 
-
-
   ngOnInit(): void {
     // Change color for this layout
     document.documentElement.style.setProperty( '--theme-deafult', '#e4604a' );

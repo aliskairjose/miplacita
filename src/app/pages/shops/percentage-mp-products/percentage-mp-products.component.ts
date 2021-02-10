@@ -57,6 +57,7 @@ export class PercentageMpProductsComponent implements OnInit, AfterViewInit {
 
   private loadData() {
     const params = `from=${this.filters.fechaIni}&to=${this.filters.fechaFin}&store=${this.filters.storeId}`;
+    // tslint:disable-next-line: deprecation
     this.reportService.percentageMpSales( params ).subscribe( response => {
       this.data = { ...response };
       this.noData = response.result.length;

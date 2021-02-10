@@ -2,7 +2,7 @@ import { ToastrService } from 'ngx-toastr';
 import { forkJoin } from 'rxjs';
 
 import {
-  AfterViewInit, Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild
+  AfterViewInit, Component, Input, OnChanges, ViewChild
 } from '@angular/core';
 
 import { environment } from '../../../environments/environment';
@@ -61,10 +61,9 @@ export class ProductsComponent implements OnChanges, AfterViewInit {
 
   @Input() store: Store = {};
 
-  ngOnChanges( changes: SimpleChanges ): void {
+  ngOnChanges(): void {
     this.init();
   }
-
 
   ngAfterViewInit(): void {
     if ( ( this.plan?.price === 0 ) && this.maxProducts >= environment.maxProducts ) {
@@ -119,7 +118,6 @@ export class ProductsComponent implements OnChanges, AfterViewInit {
 
     if ( Object.entries( this.store ).length !== 0 ) {
       const params = `store=${this.store._id}`;
-
       forkJoin(
         [ this.shopService.storeList( 1, params ), this.productService.productList( 1, params ) ] )
         .subscribe( ( [ storeResponse, productsResponse ] ) => {
@@ -132,20 +130,16 @@ export class ProductsComponent implements OnChanges, AfterViewInit {
 
     if ( this.role === 'admin' ) {
       this.fields.splice( 2, 0, 'Tienda' );
-      this.shopService.storeList().subscribe( result => {
-        this.shops = [ ...result.docs ];
-      } );
+      // tslint:disable-next-line: deprecation
+      this.shopService.storeList().subscribe( result => this.shops = [ ...result.docs ] );
     }
   }
 
   private deleteProduct( id: string ): void {
+    // tslint:disable-next-line: deprecation
     this.productService.deleteProduct( id ).subscribe( response => {
-      if ( response.success ) {
-        this.toastrService.info( response.message[ 0 ] );
-      }
-      setTimeout( () => {
-        this.loadData();
-      }, 1500 );
+      if ( response.success ) { this.toastrService.info( response.message[ 0 ] ); }
+      setTimeout( () => { this.loadData(); }, 1500 );
     } );
   }
 
@@ -158,6 +152,7 @@ export class ProductsComponent implements OnChanges, AfterViewInit {
     if ( this.role === 'admin' ) {
       this.params = `store=${this.storeSelected}&name=${this.name}&status=${this.status}`;
     }
+    // tslint:disable-next-line: deprecation
     this.productService.productList( page, this.params ).subscribe( result => {
       this.products = [ ...result.docs ];
       this.paginate = { ...result };

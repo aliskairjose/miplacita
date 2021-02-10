@@ -19,6 +19,7 @@ export class ReportsComponent implements OnInit, OnChanges {
   ) { }
 
   ngOnInit(): void {
+    // tslint:disable-next-line: deprecation
     this.route.url.subscribe( url => {
       this.active = url[ 2 ].path;
       this.subtab = url[ 3 ].path;
@@ -35,11 +36,4 @@ export class ReportsComponent implements OnInit, OnChanges {
     this.router.navigateByUrl( `pages/account/user/${this.active}/${this.subtab}`, { skipLocationChange: false } );
   }
 
-  private init(): void {
-
-  }
-
-  private loadReportData(): void {
-
-  }
 }

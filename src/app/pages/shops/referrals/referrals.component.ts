@@ -31,6 +31,7 @@ export class ReferralsComponent implements OnInit, OnChanges {
   ) { }
 
   ngOnChanges( changes: SimpleChanges ): void {
+    // tslint:disable-next-line: deprecation
     this.shopService.storeObserver().subscribe( ( store: Store ) => {
       if ( this.auth.getUserRol() === 'merchant' ) {
         this.store = store;

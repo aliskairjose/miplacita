@@ -52,13 +52,11 @@ export class BestSellersComponent implements OnInit, OnChanges, AfterViewInit {
     this.role = this.auth.getUserRol();
     this.filters.storeId = '';
     this.init();
-
   }
 
   ngOnChanges( changes: SimpleChanges ): void {
     this.store = JSON.parse( sessionStorage.getItem( 'store' ) );
   }
-
 
   filtrar( filter: Filter ): void {
     this.filters = filter;
@@ -74,10 +72,10 @@ export class BestSellersComponent implements OnInit, OnChanges, AfterViewInit {
   }
 
   private loadData(): void {
-    // const params = `from=${this.filters.fechaIni}&to=${this.filters.fechaFin}&store=${this.filters.storeId}&category=${this.categoryId}`;
     let storeId = '';
     ( this.auth.getUserRol() === 'admin' ) ? storeId = this.filters.storeId : storeId = this.store._id;
     const params = `from=${this.filters.fechaIni}&to=${this.filters.fechaFin}&store=${storeId}`;
+    // tslint:disable-next-line: deprecation
     this.reports.bestSellers( params ).subscribe( response => {
       this.bestSellers = [ ...response ];
     } );

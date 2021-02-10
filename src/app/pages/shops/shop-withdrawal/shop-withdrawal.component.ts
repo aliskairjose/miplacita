@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, OnInit, Input, OnChanges } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { environment } from '../../../../environments/environment';
 import { default as banks } from '../../../../assets/data/banks.json';
@@ -32,7 +32,7 @@ export class ShopWithdrawalComponent implements OnInit, OnChanges {
 
   ) { this.createForm(); }
 
-  ngOnChanges( changes: SimpleChanges ): void {
+  ngOnChanges(): void {
     this.loadDebs();
   }
 
@@ -48,6 +48,7 @@ export class ShopWithdrawalComponent implements OnInit, OnChanges {
   onSubmit(): void {
     this.submitted = true;
     if ( this.form.valid ) {
+      // tslint:disable-next-line: deprecation
       this.shopService.withdrawals( this.form.value, this.storeId ).subscribe( response => {
         if ( response.success ) {
           this.toastrService.info( response.message[ 0 ] );
@@ -59,6 +60,7 @@ export class ShopWithdrawalComponent implements OnInit, OnChanges {
   }
 
   private loadDebs(): void {
+    // tslint:disable-next-line: deprecation
     this.shopService.getDebts( this.store._id ).subscribe( amount => this.amount = amount );
   }
 

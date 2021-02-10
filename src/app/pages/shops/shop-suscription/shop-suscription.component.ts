@@ -1,6 +1,6 @@
 import { ToastrService } from 'ngx-toastr';
 
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, OnInit } from '@angular/core';
 
 import { Store } from '../../../shared/classes/store';
 import { ShopService } from '../../../shared/services/shop.service';
@@ -43,15 +43,15 @@ export class ShopSuscriptionComponent implements OnInit, OnChanges {
     private shopService: ShopService,
     private toastrService: ToastrService,
   ) {
-    this.shopService.getPlans().subscribe( plans => {
-      this.plans = [ ...plans ];
-    } );
+    // tslint:disable-next-line: deprecation
+    this.shopService.getPlans().subscribe( plans => this.plans = [ ...plans ] );
   }
 
-  ngOnChanges( changes: SimpleChanges ): void {
+  ngOnChanges(): void {
+    // tslint:disable-next-line: deprecation
     this.shopService.storeObserver().subscribe( ( store: Store ) => {
       if ( store ) {
-        this.store = store;
+        this.store = { ...store };
         this.enabled = true;
       }
     } );
@@ -64,18 +64,13 @@ export class ShopSuscriptionComponent implements OnInit, OnChanges {
 
   getShopPlan(): void {
     const params = `store=${this.store._id}`;
-    this.shopService.storeList( 1, params ).subscribe( ( response ) => {
-      this.plan = response.docs[ 0 ].plan;
-    } );
-  }
-
-  cancelPlan(): void {
-
+    // tslint:disable-next-line: deprecation
+    this.shopService.storeList( 1, params ).subscribe( ( response ) => this.plan = response.docs[ 0 ].plan );
   }
 
   changePlan( planId: string ): void {
+    // tslint:disable-next-line: deprecation
     this.shopService.updateStorePlan( this.store._id, { plan: planId } ).subscribe( response => {
-      const plan = response.result.plan;
       if ( response.success ) {
         this.toastrService.info( response.message[ 0 ] );
         this.getShopPlan();

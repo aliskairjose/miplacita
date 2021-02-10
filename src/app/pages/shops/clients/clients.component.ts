@@ -8,6 +8,7 @@ import { CustomDateParserFormatterService } from '../../../shared/adapter/custom
 import { NgbDateStruct, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
 import { Filter } from '../../../shared/classes/filter';
 import { FiltersComponent } from '../../../shared/components/filters/filters.component';
+import { Roles } from '../../../shared/classes/roles';
 
 @Component( {
   selector: 'app-clients',
@@ -24,7 +25,7 @@ export class ClientsComponent implements OnInit, OnChanges, AfterViewInit {
   fields = [ 'Cliente', 'Email', 'Acción' ];
   clients: any = [];
   paginate: Paginate;
-  roles = [
+  roles: Array<Roles> = [
     {
       value: '',
       name: 'Todos'
@@ -87,12 +88,14 @@ export class ClientsComponent implements OnInit, OnChanges, AfterViewInit {
     if ( this.role === 'merchant' ) {
       const params = `store=${this.store._id}`;
 
+      // tslint:disable-next-line: deprecation
       this.reports.clients( params ).subscribe( result => {
         this.clients = result;
       } );
     }
 
     if ( this.role === 'admin' ) {
+      // tslint:disable-next-line: deprecation
       this.reports.clientsMP( this.filters.role, this.filters.fechaIni, this.filters.fechaFin ).subscribe( response => {
         this.clients = response.result;
       } );

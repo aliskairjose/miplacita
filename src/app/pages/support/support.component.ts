@@ -17,7 +17,6 @@ export class SupportComponent implements OnInit, OnChanges {
 
   ngOnChanges( changes: SimpleChanges ): void {
     this.store = JSON.parse( sessionStorage.getItem( 'store' ) );
-    this.init();
   }
 
   ngOnInit(): void {
@@ -26,11 +25,5 @@ export class SupportComponent implements OnInit, OnChanges {
   sendWhatsApp(): void {
     window.open( this._whatsAppUrl, '_blank' );
   }
-
-  private init(): void {
-
-  }
-
-
 
 }
