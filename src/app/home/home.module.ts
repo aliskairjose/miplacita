@@ -9,7 +9,6 @@ import { SliderComponent } from './widgets/slider/slider.component';
 import { BlogComponent } from './widgets/blog/blog.component';
 import { LogoComponent } from './widgets/logo/logo.component';
 import { InstagramComponent } from './widgets/instagram/instagram.component';
-import { ServicesComponent } from './widgets/services/services.component';
 import { CollectionComponent } from './widgets/collection/collection.component';
 import { MarketplaceComponent } from './marketplace/marketplace.component';
 import { MarketplaceShopComponent } from './marketplace-shop/marketplace-shop.component';
@@ -26,7 +25,6 @@ import { RegisterComponent } from './marketplace-shop/register/register.componen
     BlogComponent,
     SliderComponent,
     RegisterComponent,
-    ServicesComponent,
     InstagramComponent,
     CollectionComponent,
     RegisterComponent
