@@ -8,6 +8,8 @@ import { LogoSlider } from '../../../shared/data/slider';
 } )
 export class LogoComponent implements OnInit {
 
+  public LogoSliderConfig: any = LogoSlider;
+
   @Input() logos: any[] = [];
 
   constructor() { }
@@ -15,6 +17,5 @@ export class LogoComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  public LogoSliderConfig: any = LogoSlider;
 
 }

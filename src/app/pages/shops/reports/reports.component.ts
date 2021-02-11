@@ -28,7 +28,6 @@ export class ReportsComponent implements OnInit, OnChanges {
 
   ngOnChanges( changes: SimpleChanges ): void {
     this.store = JSON.parse( sessionStorage.getItem( 'store' ) );
-    this.init();
   }
 
   updateSubtab( tab ) {

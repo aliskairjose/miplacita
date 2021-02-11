@@ -10,14 +10,15 @@ import { InstaSlider } from '../../../shared/data/slider';
 export class InstagramComponent implements OnInit {
 
   public instagram: any;
+  public InstaSliderConfig: any = InstaSlider;
 
   constructor( private instaService: InstagramService ) {
+    // tslint:disable-next-line: deprecation
     this.instaService.getInstagramData.subscribe( response => this.instagram = response );
   }
 
   ngOnInit(): void {
   }
 
-  public InstaSliderConfig: any = InstaSlider;
 
 }
