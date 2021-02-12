@@ -69,7 +69,7 @@ export class ReferralsComponent implements OnInit, OnChanges {
     // conexion con api de lista de referidos
   }
 
-  callServiceToCopy( type: string ): void {
+  callServiceToCopy(): void {
     this._clipboardService.copy( this.sponsorCode );
 
   }
