@@ -24,9 +24,9 @@ export class ReferralsComponent implements OnInit, OnChanges {
   fields = [ 'Fecha', 'Código', 'Cliente' ];
   user: User;
   paginate: Paginate;
-  sponsorCode = '';
-  balance = 0;
-  private _storeId = '';
+  sponsorCode: string;
+  balance: string;
+  private _storeId: string;
 
   @Input() store: Store;
 
@@ -78,7 +78,7 @@ export class ReferralsComponent implements OnInit, OnChanges {
     // tslint:disable-next-line: deprecation
     this.shopService.getAffiliate( this._storeId, this.user._id ).subscribe( response => {
       this.sponsorCode = response.sponsor_code;
-      this.balance = response.balance;
+      this.balance = `$${response.balance}`;
 
     } );
   }
