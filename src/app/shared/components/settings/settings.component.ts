@@ -39,12 +39,14 @@ export class SettingsComponent implements OnInit {
     private previousRoute: PreviousRouteService,
     private _clipboardService: ClipboardService,
   ) {
+    // tslint:disable-next-line: deprecation
     this.productService.cartItems.subscribe( response => { this.products = response; } );
   }
 
   ngOnInit(): void {
     this.config = window.btoa( JSON.stringify( this.store ) );
 
+    // tslint:disable-next-line: deprecation
     this._clipboardService.copyResponse$.subscribe( re => {
       if ( re.isSuccess ) {
         this.toast.info( 'El código se ha copiado al portapapeles!' );
@@ -54,6 +56,7 @@ export class SettingsComponent implements OnInit {
     this.role = this.auth.getUserRol();
     this.isLoggedIn = this.auth.isAuthenticated();
 
+    // tslint:disable-next-line: deprecation
     this.auth.authObserver().subscribe( ( isAuth: boolean ) => {
       this.isLoggedIn = isAuth;
     } );
@@ -107,6 +110,7 @@ export class SettingsComponent implements OnInit {
   private getAffiliate( storeId: string ): void {
     this.showBalance = true;
 
+    // tslint:disable-next-line: deprecation
     this.shopService.getAffiliate( storeId, this.auth.getUserActive()._id ).subscribe( response => {
       this.balance = response.balance;
       this._referedCode = response.sponsor_code;

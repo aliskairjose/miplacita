@@ -1,79 +1,82 @@
 <ngx-spinner bdColor="rgba(0, 0, 0, 0.3)" size="medium" color="#fff" type="ball-spin-clockwise" [fullScreen]="true">
-    <p style="color: white"> Por favor espere... </p>
+	<p style="color: white"> Por favor espere... </p>
 </ngx-spinner>
 <section class="section-b-space">
-    <div class="container px-3">
-        <div class="page-title mb-4">
-            <h2 class="mp-title">
-                <span>Referidos</span>
-            </h2>
-        </div>
-        <div class="row justify-content-center" *ngIf="user.role === 'client' ">
-            <div class="col-lg-5 col-md-12 col-sm-12 border-box mb-2">
-                <div class="page-title">
-                    <h2 class="mp-title">
-                        <span>Código</span>
-                    </h2>
-                </div>
-                <form class="theme-form">
-                    <div class="form-group">
-                        <div class="field-label font-weight-bold"></div>
-                        <div class="d-flex">
-                            <input type="text" class="form-control" />
-                            <img class="h-100" src="assets/images/marketplace/images/icons/codigo.png" alt="">
-                        </div>
-                    </div>
-                </form>
-            </div>
+	<div class="container px-3">
+		<div class="page-title mb-4">
+			<h2 class="mp-title">
+				<span>Referidos</span>
+			</h2>
+		</div>
+		<div class="row justify-content-center" *ngIf="user.role === 'client' ">
+			<div class="col-lg-5 col-md-12 col-sm-12 border-box mb-2">
+				<div class="page-title">
+					<h2 class="mp-title">
+						<span>Código</span>
+					</h2>
+				</div>
+				<form class="theme-form">
+					<div class="form-group">
+						<div class="field-label font-weight-bold"></div>
+						<div class="d-flex">
+							<input type="text" class="form-control" [value]="sponsorCode" disabled [(ngModel)]="sponsorCode"
+								[ngModelOptions]="{standalone: true}" />
+							<img class="h-100" src="assets/images/marketplace/images/icons/codigo.png" alt=""
+								(click)="callServiceToCopy()">
+						</div>
+					</div>
+				</form>
+			</div>
 
-            <div class="col-lg-5 col-md-12 col-sm-12 offset-lg-1 border-box">
-                <div class="page-title">
-                    <h2 class="mp-title">
-                        <span>Saldo</span>
-                    </h2>
-                </div>
-                <form class="theme-form">
-                    <div class="form-group">
-                        <div class="d-flex">
-                            <input type="number" class="form-control" />
-                            <img class="h-100" src="assets/images/marketplace/images/icons/saldo.png" alt="">
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-        <div class="row justify-content-center" *ngIf="user.role === 'merchant' ">
-            <div class="form-row flex-fill flex-column mt-5 px-1">
-                <div class="table-responsive">
-                    <table class="table table-responsive-sm">
-                        <thead>
-                            <tr class="table-head">
-                                <th class="text-center text-uppercase" *ngFor="let field of fields" scope="col">
-                                    {{field}}</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr *ngFor="let referral of referrals">
-                            </tr>
-                        </tbody>
+			<div class="col-lg-5 col-md-12 col-sm-12 offset-lg-1 border-box">
+				<div class="page-title">
+					<h2 class="mp-title">
+						<span>Saldo</span>
+					</h2>
+				</div>
+				<form class="theme-form">
+					<div class="form-group">
+						<div class="d-flex">
+							<input type="number" class="form-control" disabled [(ngModel)]="balance"
+								[ngModelOptions]="{standalone: true}" />
+							<img class="h-100" src="assets/images/marketplace/images/icons/saldo.png" alt="">
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+		<div class="row justify-content-center" *ngIf="user.role === 'merchant' ">
+			<div class="form-row flex-fill flex-column mt-5 px-1">
+				<div class="table-responsive">
+					<table class="table table-responsive-sm">
+						<thead>
+							<tr class="table-head">
+								<th class="text-center text-uppercase" *ngFor="let field of fields" scope="col">
+									{{field}}</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr *ngFor="let referral of referrals">
+							</tr>
+						</tbody>
 
-                    </table>
+					</table>
 
-                </div>
-                <app-custom-pagination [items]="referrals" [paginate]="paginate" (setPage)="setPage($event)">
-                </app-custom-pagination>
-                <div class="form-row container justify-content-center " *ngIf="referrals.length==0 ">
-                    <div class="col-md-5">
-                        <div class="card text-center mx-auto mb-2">
-                            <div class="card-body">
-                                <p *ngIf="referrals.length==0">
-                                    No hay referidos para esta tienda
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+				</div>
+				<app-custom-pagination [items]="referrals" [paginate]="paginate" (setPage)="setPage($event)">
+				</app-custom-pagination>
+				<div class="form-row container justify-content-center " *ngIf="referrals.length==0 ">
+					<div class="col-md-5">
+						<div class="card text-center mx-auto mb-2">
+							<div class="card-body">
+								<p *ngIf="referrals.length==0">
+									No hay referidos para esta tienda
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </section>

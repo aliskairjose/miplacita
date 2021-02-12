@@ -6,6 +6,8 @@ import { AuthService } from 'src/app/shared/services/auth.service';
 import { Store } from 'src/app/shared/classes/store';
 import { Paginate } from 'src/app/shared/classes/paginate';
 import { ShopService } from '../../../shared/services/shop.service';
+import { ClipboardService } from 'ngx-clipboard';
+import { ActivatedRoute } from '@angular/router';
 
 @Component( {
   selector: 'app-referrals',
@@ -22,25 +24,39 @@ export class ReferralsComponent implements OnInit, OnChanges {
   fields = [ 'Fecha', 'Código', 'Cliente' ];
   user: User;
   paginate: Paginate;
+  sponsorCode = '';
+  balance = 0;
+  private _storeId = '';
 
   @Input() store: Store;
 
   constructor(
     private auth: AuthService,
+    private route: ActivatedRoute,
     private shopService: ShopService,
-  ) { }
+    private _clipboardService: ClipboardService
+  ) {
+  }
 
   ngOnChanges( changes: SimpleChanges ): void {
     // tslint:disable-next-line: deprecation
     this.shopService.storeObserver().subscribe( ( store: Store ) => {
       if ( this.auth.getUserRol() === 'merchant' ) {
         this.store = store;
+        this.getCode();
       }
     } );
   }
 
   ngOnInit(): void {
     this.user = this.auth.getUserActive();
+    // this.getCode();
+    // tslint:disable-next-line: deprecation
+    this.route.queryParams.subscribe( params => {
+      this._storeId = params.storeId;
+      this.getCode();
+    } );
+
 
   }
   get f() { return this.referralForm.controls; }
@@ -52,4 +68,19 @@ export class ReferralsComponent implements OnInit, OnChanges {
   private loadData( page = 1 ): void {
     // conexion con api de lista de referidos
   }
+
+  callServiceToCopy( type: string ): void {
+    this._clipboardService.copy( this.sponsorCode );
+
+  }
+
+  private getCode(): void {
+    // tslint:disable-next-line: deprecation
+    this.shopService.getAffiliate( this._storeId, this.user._id ).subscribe( response => {
+      this.sponsorCode = response.sponsor_code;
+      this.balance = response.balance;
+
+    } );
+  }
+
 }

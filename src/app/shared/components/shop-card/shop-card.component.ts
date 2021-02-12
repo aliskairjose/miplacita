@@ -10,8 +10,11 @@ import { AuthService } from '../../services/auth.service';
   styleUrls: [ './shop-card.component.scss' ]
 } )
 export class ShopCardComponent implements OnInit {
+
+  user: User = {};
+
   @Input() store: Store;
-  user: User;
+
   constructor(
     private router: Router,
     private auth: AuthService ) {
@@ -23,8 +26,9 @@ export class ShopCardComponent implements OnInit {
   }
 
   goToStore() {
+    // this.router.navigate( [ 'pages/account/user/referrals' ] ) :
     ( this.user.role === 'client' ) ?
-      this.router.navigate( [ 'pages/account/user/referrals' ] ) :
+      this.router.navigate( [ 'pages/account/user/referrals' ], { queryParams: { storeId: this.store._id } } ) :
       this.router.navigate( [ this.store.url_store ] );
   }
 }
