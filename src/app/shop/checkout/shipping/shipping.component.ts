@@ -49,6 +49,7 @@ export class ShippingComponent implements OnInit {
     shipment_price: 0,
   };
   config = '';
+  isDisabled = false;
 
   private _products: Product[] = [];
 
@@ -84,6 +85,9 @@ export class ShippingComponent implements OnInit {
 
     this.getStoresId().then( ( shops ) => {
       for ( const shop of shops as any ) {
+        console.log( shop )
+        if ( shop.shopOptions.length === 0 ) { this.isDisabled = true }
+
         const detail = { ...this.detail };
         detail.store = shop.id;
         const products = this._products.filter( value => {
@@ -100,6 +104,7 @@ export class ShippingComponent implements OnInit {
         this.cart.push( detail );
       }
       this.shipmentOptions = shops;
+
       this.order.cart = this.cart;
 
       if ( this.user ) {

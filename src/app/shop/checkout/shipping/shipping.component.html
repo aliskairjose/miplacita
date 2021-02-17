@@ -50,7 +50,7 @@
 								</form>
 								<div class="button-box d-flex justify-content-end align-items-end">
 									<div class="text-right">
-										<a (click)="checkout()" class="btn btn-solid-orange">Finalizar</a>
+										<button (click)="checkout()" class="btn btn-solid-orange" [disabled]="isDisabled">Finalizar</button>
 									</div>
 								</div>
 							</div>
