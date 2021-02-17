@@ -7,7 +7,7 @@ import { ProductService } from 'src/app/shared/services/product.service';
 import { ShopService } from 'src/app/shared/services/shop.service';
 
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { Category } from '../../../shared/classes/category';
 import { SettingsComponent } from '../../../shared/components/settings/settings.component';
@@ -41,6 +41,7 @@ export class StorePageComponent implements OnInit {
   @ViewChild( 'settings' ) setting: SettingsComponent;
 
   constructor(
+    private router: Router,
     private route: ActivatedRoute,
     private storeService: ShopService,
     private productService: ProductService,
@@ -51,6 +52,11 @@ export class StorePageComponent implements OnInit {
     this.route.url.subscribe( ( url ) => {
       // tslint:disable-next-line: deprecation
       this.storeService.getStoreByUrl( url[ 0 ].path.toLocaleLowerCase() ).subscribe( store => {
+        if ( !store.active ) {
+          // Redireccionar hacia mensaje de tienda inactiva
+          this.router.navigate( [ 'pages/store/inactive' ] );
+        }
+
         this.store = { ...store };
         if ( !sessionStorage.sessionStore ) {
           sessionStorage.setItem( 'sessionStore', JSON.stringify( store ) );

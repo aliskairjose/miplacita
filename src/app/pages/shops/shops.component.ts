@@ -46,12 +46,13 @@ export class ShopsComponent implements OnInit, OnChanges {
   }
 
   deactivateStore( store: Store ): void {
+    const message = store.active ? 'desactivar' : 'activar';
     this.confirmationDialogService
       .confirm(
         'Por favor confirme...',
-        `¿Realmente desea activar/desactivar la tienda ${store.name}?`,
-        'Si, desactivar!',
-        'No desactivar',
+        `¿Realmente desea ${message} la tienda ${store.name}?`,
+        `Si, ${message}`,
+        `No ${message}`,
         'lg'
       )
       .then( ( confirmed ) => {
@@ -65,10 +66,12 @@ export class ShopsComponent implements OnInit, OnChanges {
   }
 
   private deactivate( id: string, status ): void {
+    const message = status ? 'activada' : 'desactivada';
+
     // tslint:disable-next-line: deprecation
     this.storeService.updateStoreStatus( id, { active: status } ).subscribe( response => {
       if ( response.success ) {
-        this.toast.info( 'La Tienda ha sido desactivada' );
+        this.toast.info( `La Tienda ha sido ${message}` );
         this.loadData();
       }
     } );
