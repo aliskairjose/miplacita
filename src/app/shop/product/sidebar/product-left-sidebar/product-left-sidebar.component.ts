@@ -87,6 +87,7 @@ export class ProductLeftSidebarComponent implements OnInit {
       ];
 
       this.product = { ...productResult.docs[ 0 ] };
+      console.log( this.product )
       this.endDate = new Date();
       this.endDate.setDate( this.today.getDate() + parseInt( this.product.deliveryDays, 10 ) );
 
