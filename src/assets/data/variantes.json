@@ -1,0 +1,16 @@
+{
+  "colors": [
+    {"value":"#000000" ,"name":"#000000"},
+    {"value":"#ffffff" ,"name":"#ffffff"},
+    {"value":"#FF0202" ,"name":"#FF0202"},
+    {"value":"#F8FF02" ,"name":"#F8FF02"},
+    {"value":"#0297FF" ,"name":"#0297FF"}
+  ],
+  "sizes": [
+    {"value":"s" ,"name":"S"},
+    {"value":"m" ,"name":"M"},
+    {"value":"l" ,"name":"L"},
+    {"value":"xl" ,"name":"XL"},
+    {"value":"xxl" ,"name":"XXL"}
+  ]
+}
