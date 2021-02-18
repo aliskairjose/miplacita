@@ -17,7 +17,7 @@ import { ShopService } from '../../../shared/services/shop.service';
 import { ModalNewElementComponent } from 'src/app/shared/components/modal-new-element/modal-new-element.component';
 import { VariableProduct } from '../../../shared/classes/variable-product';
 import { CategoryService } from 'src/app/shared/services/category.service';
-import { STATUSES, ERROR_FORM } from '../../../shared/classes/global-constants';
+import { STATUSES, ERROR_FORM, SIZES, COLORS } from '../../../shared/classes/global-constants';
 
 @Component( {
   selector: 'app-create-product',
@@ -124,8 +124,9 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
       .subscribe( ( [ response, categories, colorResponse, sizeResponse ] ) => {
         this.plan = response.docs[ 0 ].plan;
         this.categories = [ ...categories ];
-        this.colors = [ ...colorResponse.attributes ];
-        this.sizes = [ ...sizeResponse.attributes ];
+        this.colors = [ ...COLORS, ...colorResponse.attributes ];
+        this.sizes = [ ...SIZES, ...sizeResponse.attributes ];
+        console.log( this.colors );
 
         // Actualiza las valildaciones de sotck por el plan activo de la tienda
         if ( this.plan.price === 0 ) {
