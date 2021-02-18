@@ -6,11 +6,11 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { environment } from '../../../../environments/environment';
 import { AuthResponse } from '../../../shared/classes/auth-response';
 import { FacebookLoginResponse } from '../../../shared/classes/facebook-login-response';
 import { MustMatch } from '../../../shared/helper/must-match.validator';
 import { PlatformLocation } from '@angular/common';
+import { ERROR_FORM, EMAIL_PATTERN } from '../../../shared/classes/global-constants';
 
 const state = { user: JSON.parse( sessionStorage.userForm || null ) };
 
@@ -23,11 +23,11 @@ export class RegisterComponent implements OnInit {
   registerSuccess = false;
   registerForm: FormGroup;
   submitted: boolean;
-  invalidEmail = environment.errorForm.invalidEmail;
-  required = environment.errorForm.required;
-  matchError = environment.errorForm.matchError;
+  invalidEmail = ERROR_FORM.invalidEmail;
+  required = ERROR_FORM.required;
+  matchError = ERROR_FORM.matchError;
   minlength = 'Debe tener mínimo 8 caracteres';
-  onlyLetter = environment.errorForm.onlyLetter;
+  onlyLetter = ERROR_FORM.onlyLetter;
   user = {
     fullname: '',
     email: '',
@@ -43,7 +43,7 @@ export class RegisterComponent implements OnInit {
   icon = 'fa fa-eye';
   icon2 = 'fa fa-eye';
 
-  private emailPattern = environment.emailPattern;
+  private emailPattern = EMAIL_PATTERN;
 
   constructor(
     private router: Router,

@@ -14,7 +14,7 @@ import { ShopService } from '../../services/shop.service';
 import { Product, Images } from '../../classes/product';
 import { StorageService } from '../../services/storage.service';
 import { Address } from '../../classes/order';
-
+import { ERROR_FORM, EMAIL_PATTERN } from '../../classes/global-constants';
 @Component( {
   selector: 'app-register-store',
   templateUrl: './register-store.component.html',
@@ -28,9 +28,9 @@ export class RegisterStoreComponent implements OnInit, OnChanges {
   imageProduct: any = '../../../../assets/images/marketplace/svg/upload-image.svg';
   storeForm: FormGroup;
   submitted: boolean;
-  invalidEmail = environment.errorForm.invalidEmail;
-  required = environment.errorForm.required;
-  invalidUrl = environment.errorForm.invalidUrl;
+  invalidEmail = ERROR_FORM.invalidEmail;
+  required = ERROR_FORM.required;
+  invalidUrl = ERROR_FORM.invalidUrl;
   categories: Category[] = [];
   store: Store = {};
   plans: Plan[] = [];
@@ -42,7 +42,7 @@ export class RegisterStoreComponent implements OnInit, OnChanges {
   isValidStoreName = false;
   disabled = false;
   private user: User = {};
-  private emailPattern = environment.emailPattern;
+  private emailPattern = EMAIL_PATTERN;
 
   @Input() step = 0;
   @Input() register = true;

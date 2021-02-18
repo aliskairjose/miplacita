@@ -15,7 +15,7 @@ import { AuthService } from '../../shared/services/auth.service';
 import { OrderService } from '../../shared/services/order.service';
 import { ShopService } from '../../shared/services/shop.service';
 import { ReportsService } from 'src/app/shared/services/reports.service';
-import { environment } from '../../../environments/environment.prod';
+import { ORDER_STATUS } from '../../shared/classes/global-constants';
 
 @Component( {
   selector: 'app-orders',
@@ -42,7 +42,7 @@ export class OrdersComponent implements OnInit, OnChanges {
   modelTo: NgbDateStruct;
   modelFrom: NgbDateStruct;
   isUpdatable = false;
-  statuses = environment.orderStatus;
+  statuses = ORDER_STATUS;
   index: number;
   statusSelected = '';
   icon = 'fa fa-edit fa-lg';

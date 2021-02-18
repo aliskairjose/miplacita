@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ProductService } from '../../shared/services/product.service';
 import { Product } from '../../shared/classes/product';
-import { environment } from '../../../environments/environment.prod';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '../../shared/classes/store';
 import { AuthService } from '../../shared/services/auth.service';
+import { STANDARD_IMAGE } from '../../shared/classes/global-constants';
 
 const state = {
   sessionStore: JSON.parse( sessionStorage.sessionStore || null ),
@@ -19,7 +19,7 @@ const state = {
 export class CartComponent implements OnInit {
 
   products: Product[] = [];
-  standardImage = environment.standardImage;
+  standardImage = STANDARD_IMAGE;
   storeFont = '';
   config = '';
 

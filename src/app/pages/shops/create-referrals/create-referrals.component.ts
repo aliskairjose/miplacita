@@ -2,9 +2,8 @@ import { Component, OnInit, Input, OnChanges, SimpleChanges, Output, EventEmitte
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Store } from '../../../shared/classes/store';
 import { ToastrService } from 'ngx-toastr';
-import { environment } from '../../../../environments/environment.prod';
 import { ShopService } from '../../../shared/services/shop.service';
-import { AuthService } from '../../../shared/services/auth.service';
+import { ERROR_FORM } from '../../../shared/classes/global-constants';
 
 @Component( {
   selector: 'app-create-referrals',
@@ -15,7 +14,7 @@ export class CreateReferralsComponent implements OnInit, OnChanges {
 
   referralForm: FormGroup;
   submitted: boolean;
-  required = environment.errorForm.required;
+  required = ERROR_FORM.required;
 
   @Input() store: Store = {};
   @Output() updateShop: EventEmitter<Store> = new EventEmitter<Store>();

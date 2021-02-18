@@ -8,7 +8,7 @@ import { SocialAuthService, FacebookLoginProvider } from 'angularx-social-login'
 import { FacebookLoginResponse } from 'src/app/shared/classes/facebook-login-response';
 import { PlatformLocation } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
-import { environment } from '../../../../environments/environment';
+import { ERROR_FORM, EMAIL_PATTERN } from '../../../shared/classes/global-constants';
 
 @Component( {
   selector: 'app-login',
@@ -19,8 +19,8 @@ export class LoginComponent implements OnInit {
 
   loginForm: FormGroup;
   submitted: boolean;
-  required = environment.errorForm.required;
-  invalidEmail = environment.errorForm.invalidEmail;
+  required = ERROR_FORM.required;
+  invalidEmail = ERROR_FORM.invalidEmail;
   role = 'client';
   url = '';
   isPassword = true;
@@ -28,7 +28,7 @@ export class LoginComponent implements OnInit {
   title = 'como Comprador';
   mustReturn = false; // variable que indica que debe retornar al origen despues de login
   mustReturnStore = false; // variable que indica que debe retornar al origen despues de login
-  private emailPattern = environment.emailPattern;
+  private emailPattern = EMAIL_PATTERN;
 
   constructor(
     private router: Router,

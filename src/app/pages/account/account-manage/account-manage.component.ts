@@ -5,8 +5,8 @@ import { User } from '../../../shared/classes/user';
 import { AuthService } from '../../../shared/services/auth.service';
 import { ShopService } from '../../../shared/services/shop.service';
 import { NgbModalOptions, NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { environment } from '../../../../environments/environment.prod';
 import { RegisterStoreComponent } from '../../../shared/components/register-store/register-store.component';
+import { STANDARD_IMAGE } from '../../../shared/classes/global-constants';
 
 @Component( {
   selector: 'app-account-manage',
@@ -17,7 +17,7 @@ import { RegisterStoreComponent } from '../../../shared/components/register-stor
 export class AccountManageComponent implements OnInit, OnChanges {
   @ViewChild( 'registerNewStore' ) RegisterStore: RegisterStoreComponent;
 
-  standardImage = environment.standardImage;
+  standardImage = STANDARD_IMAGE;
   stores: Store[] = [];
   active = 'profile';
   user: User = {};

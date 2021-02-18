@@ -3,9 +3,9 @@ import { AuthService } from '../../../shared/services/auth.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthResponse } from '../../../shared/classes/auth-response';
 import { SocialAuthService, FacebookLoginProvider } from 'angularx-social-login';
-import { environment } from '../../../../environments/environment.prod';
 import { MustMatch } from '../../../shared/helper/must-match.validator';
 import { FacebookLoginResponse } from '../../../shared/classes/facebook-login-response';
+import { ERROR_FORM } from '../../../shared/classes/global-constants';
 
 @Component( {
   selector: 'app-register',
@@ -16,10 +16,10 @@ export class RegisterComponent implements OnInit {
 
   registerForm: FormGroup;
   submitted: boolean;
-  invalidEmail = environment.errorForm.invalidEmail;
-  required = environment.errorForm.required;
-  matchError = environment.errorForm.matchError;
-  onlyLetter = environment.errorForm.onlyLetter;
+  invalidEmail = ERROR_FORM.invalidEmail;
+  required = ERROR_FORM.required;
+  matchError = ERROR_FORM.matchError;
+  onlyLetter = ERROR_FORM.onlyLetter;
   minlength = 'Debe tener mínimo 8 caracteres';
 
   constructor(

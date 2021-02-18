@@ -1,5 +1,4 @@
 import { Component, Input, OnInit, OnChanges, SimpleChanges } from '@angular/core';
-import { environment } from 'src/environments/environment';
 import { FormGroup } from '@angular/forms';
 import { User } from 'src/app/shared/classes/user';
 import { AuthService } from 'src/app/shared/services/auth.service';
@@ -8,6 +7,7 @@ import { Paginate } from 'src/app/shared/classes/paginate';
 import { ShopService } from '../../../shared/services/shop.service';
 import { ClipboardService } from 'ngx-clipboard';
 import { ActivatedRoute } from '@angular/router';
+import { ERROR_FORM } from '../../../shared/classes/global-constants';
 
 @Component( {
   selector: 'app-referrals',
@@ -16,8 +16,8 @@ import { ActivatedRoute } from '@angular/router';
 } )
 export class ReferralsComponent implements OnInit, OnChanges {
 
-  invalidEmail = environment.errorForm.invalidEmail;
-  required = environment.errorForm.required;
+  invalidEmail = ERROR_FORM.invalidEmail;
+  required = ERROR_FORM.required;
   submitted = false;
   referralForm: FormGroup;
   referrals = [];

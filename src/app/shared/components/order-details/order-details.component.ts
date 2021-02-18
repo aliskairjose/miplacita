@@ -5,6 +5,7 @@ import { Order } from '../../classes/order';
 import { OrderService } from '../../services/order.service';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from '../../services/auth.service';
+import { ORDER_STATUS } from '../../classes/global-constants';
 
 
 @Component( {
@@ -16,7 +17,7 @@ export class OrderDetailsComponent implements OnInit, OnDestroy {
 
   modalOpen = false;
   closeResult: string;
-  states = environment.orderStatus;
+  states = ORDER_STATUS;
   products = [];
   fields = [ 'Producto', 'Precio', 'Cantidad', 'Itbms' ];
   order: Order;

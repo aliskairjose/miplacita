@@ -1,9 +1,9 @@
 import { Component, Input, OnInit, SimpleChanges, OnChanges } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
-import { environment } from 'src/environments/environment';
 import { Commission } from '../../shared/classes/commissions';
 import { CommissionService } from '../../shared/services/commission.service';
+import { ERROR_FORM } from '../../shared/classes/global-constants';
 
 @Component( {
   selector: 'app-commissions',
@@ -15,7 +15,7 @@ export class CommissionsComponent implements OnInit, OnChanges {
 
   commissionsForm: FormGroup;
   submitted: boolean;
-  required = environment.errorForm.required;
+  required = ERROR_FORM.required;
   commission: Commission = {};
 
   constructor(

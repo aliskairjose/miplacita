@@ -5,7 +5,6 @@ import {
   AfterViewInit, Component, Input, OnChanges, ViewChild
 } from '@angular/core';
 
-import { environment } from '../../../environments/environment';
 import { Paginate } from '../../shared/classes/paginate';
 import { Plan } from '../../shared/classes/plan';
 import { Product } from '../../shared/classes/product';
@@ -16,6 +15,7 @@ import { ConfirmationDialogService } from '../../shared/services/confirmation-di
 import { ProductService } from '../../shared/services/product.service';
 import { ShopService } from '../../shared/services/shop.service';
 import { CreateProductComponent } from './create-product/create-product.component';
+import { STANDARD_IMAGE, MAX_PRODUCTS } from '../../shared/classes/global-constants';
 
 @Component( {
   selector: 'app-products',
@@ -46,7 +46,7 @@ export class ProductsComponent implements OnChanges, AfterViewInit {
   productTypes = []; // tipos de productos
   states = []; // tipos de productos
   paginate: Paginate;
-  standardImage = environment.standardImage;
+  standardImage = STANDARD_IMAGE;
   statuses = [
     { value: 'active', text: 'Activo' },
     { value: 'inactive', text: 'Inactivo' },
@@ -66,7 +66,7 @@ export class ProductsComponent implements OnChanges, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    if ( ( this.plan?.price === 0 ) && this.maxProducts >= environment.maxProducts ) {
+    if ( ( this.plan?.price === 0 ) && this.maxProducts >= MAX_PRODUCTS ) {
       alert( 'Debe cambiar de plan si quiere mas productos' );
     }
   }

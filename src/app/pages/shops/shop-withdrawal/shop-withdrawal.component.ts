@@ -1,12 +1,12 @@
 import { Component, OnInit, Input, OnChanges } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { environment } from '../../../../environments/environment';
 import { default as banks } from '../../../../assets/data/banks.json';
 import { ShopService } from '../../../shared/services/shop.service';
 import { ToastrService } from 'ngx-toastr';
 import { User } from '../../../shared/classes/user';
 import { AuthService } from '../../../shared/services/auth.service';
 import { Store } from '../../../shared/classes/store';
+import { ERROR_FORM } from '../../../shared/classes/global-constants';
 
 @Component( {
   selector: 'app-shop-withdrawal',
@@ -18,7 +18,7 @@ export class ShopWithdrawalComponent implements OnInit, OnChanges {
   banks = banks.banks;
   form: FormGroup;
   submitted: boolean;
-  required = environment.errorForm.required;
+  required = ERROR_FORM.required;
   storeId = '';
   amount = 0;
 

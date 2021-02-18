@@ -4,11 +4,11 @@ import { Paginate } from 'src/app/shared/classes/paginate';
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { environment } from '../../../../environments/environment.prod';
 import { ShipmentOption } from '../../../shared/classes/shipment-option';
 import { Store } from '../../../shared/classes/store';
 import { ConfirmationDialogService } from '../../../shared/services/confirmation-dialog.service';
 import { ShopService } from '../../../shared/services/shop.service';
+import { ERROR_FORM } from '../../../shared/classes/global-constants';
 
 @Component( {
   selector: 'app-shipping-zones',
@@ -23,7 +23,7 @@ export class ShippingZonesComponent implements OnInit, OnChanges {
   allZones: ShipmentOption[] = [];
   fields = [ 'Zona', 'Precio', '' ];
   paginate: Paginate;
-  required = environment.errorForm.required;
+  required = ERROR_FORM.required;
   zone: ShipmentOption = {};
   state = 'add';
   buttonTitle = 'Crear zona';

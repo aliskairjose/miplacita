@@ -2,9 +2,9 @@ import { Component, OnInit, TemplateRef, ViewChild, EventEmitter, Output } from 
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { Plan } from 'src/app/shared/classes/plan';
-import { environment } from 'src/environments/environment';
 import { PlanService } from '../../shared/services/plan.service';
 import { ToastrService } from 'ngx-toastr';
+import { ERROR_FORM } from '../../shared/classes/global-constants';
 
 @Component( {
   selector: 'app-create-membership',
@@ -19,7 +19,7 @@ export class CreateMembershipComponent implements OnInit {
   modal: any;
   planForm: FormGroup;
   submitted = false;
-  required = environment.errorForm.required;
+  required = ERROR_FORM.required;
   type = 1; // 1- crear 2- editar
   plan: Plan = {};
 

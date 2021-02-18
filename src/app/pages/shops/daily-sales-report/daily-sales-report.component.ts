@@ -2,9 +2,6 @@ import { Order } from 'src/app/shared/classes/order';
 import { Paginate } from 'src/app/shared/classes/paginate';
 import { Store } from 'src/app/shared/classes/store';
 import { AuthService } from 'src/app/shared/services/auth.service';
-
-import { environment } from 'src/environments/environment';
-
 import { Component, OnInit, ViewChild, Input, OnChanges, SimpleChanges, ElementRef, AfterViewInit } from '@angular/core';
 import { NgbCalendar, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { ShopService } from '../../../shared/services/shop.service';
@@ -13,6 +10,7 @@ import { OrderDetailsComponent } from '../../../shared/components/order-details/
 import { ReportsService } from '../../../shared/services/reports.service';
 import { Filter } from '../../../shared/classes/filter';
 import { FiltersComponent } from '../../../shared/components/filters/filters.component';
+import { ORDER_STATUS } from '../../../shared/classes/global-constants';
 
 
 @Component( {
@@ -34,7 +32,7 @@ export class DailySalesReportComponent implements OnInit, OnChanges, AfterViewIn
   orders: Order[] = [];
   products = [];
   paginate: Paginate;
-  orderStatus = environment.orderStatus;
+  orderStatus = ORDER_STATUS;
   role: string;
   status = '';
   modelFrom: NgbDateStruct;

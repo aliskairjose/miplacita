@@ -2,7 +2,6 @@ import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { MustMatch } from '../../../shared/helper/must-match.validator';
 import { AuthService } from '../../../shared/services/auth.service';
-import { environment } from '../../../../environments/environment.prod';
 import { User } from '../../../shared/classes/user';
 import { ToastrService } from 'ngx-toastr';
 import { StorageService } from '../../../shared/services/storage.service';
@@ -10,6 +9,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { AddressComponent } from '../../../shared/components/address/address.component';
 import { ShippingAddress } from '../../../shared/classes/shipping-address';
 import { UserService } from '../../../shared/services/user.service';
+import { ERROR_FORM } from '../../../shared/classes/global-constants';
 
 @Component( {
   selector: 'app-profile',
@@ -21,10 +21,10 @@ export class ProfileComponent implements OnInit, AfterViewInit {
   updateUserForm: FormGroup;
   submitted: boolean;
   minlength = 'Debe tener mínimo 8 caracteres';
-  invalidEmail = environment.errorForm.invalidEmail;
-  required = environment.errorForm.required;
-  matchError = environment.errorForm.matchError;
-  onlyLetter = environment.errorForm.onlyLetter;
+  invalidEmail = ERROR_FORM.invalidEmail;
+  required = ERROR_FORM.required;
+  matchError = ERROR_FORM.matchError;
+  onlyLetter = ERROR_FORM.onlyLetter;
   user: User = {};
   active = 'profile';
   isProfile = true;
