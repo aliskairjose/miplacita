@@ -71,10 +71,16 @@
 							</div>
 						</td>
 						<td class="d-flex justify-content-center actions">
-							<button class="btn" (click)="ShopDetails.openModal(shop)">Suscripción</button>
-							<button class="btn" (click)="deactivateStore(shop)">
+							<button class="btn fa-border" (click)="ShopDetails.openModal(shop)" ngbPopover="Ver suscripción"
+								triggers="mouseenter:mouseleave">Suscripción</button>
+							<button class="btn" (click)="deactivateStore(shop)" ngbPopover="Eliminar producto"
+								triggers="mouseenter:mouseleave">
 								{{shop.active ? 'Desactivar': 'Activar'}}
 							</button>
+							<a [href]="shop.url_store" class="btn" target="_blank" ngbPopover="Visitar tienda"
+								triggers="mouseenter:mouseleave">
+								Visitar tienda
+							</a>
 						</td>
 					</tr>
 				</tbody>
