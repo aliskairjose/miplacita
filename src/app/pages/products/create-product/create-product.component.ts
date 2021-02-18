@@ -349,7 +349,7 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
     this.productService.productList( 1, `product=${id}` ).subscribe( ( response: Result<Product> ) => {
       this.productData = { ...response.docs[ 0 ] };
       const { tax, price } = this.productData;
-      // this.productData.tax = ( tax * price ) / 100;
+      this.productData.tax = ( tax / price ) * 100;
       this.marketplaceCheck = this.productData.marketplace;
       this.images = this.productData.images;
       this.selectedCategory = this.productData.category;
