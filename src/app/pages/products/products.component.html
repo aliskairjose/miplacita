@@ -75,7 +75,7 @@
 							</td>
 							<td class="text-center">{{ product.description }}</td>
 							<td class="text-center">{{ product.price | currency }}</td>
-							<td class="text-center">{{ product.tax | currency }}</td>
+							<td class="text-center">{{ (product.tax / product.price) * 100 | number:'1.1'}}% </td>
 							<td class="text-center">{{ product.status | translate }}</td>
 
 							<td class="text-center" *ngIf="role==='merchant'">
