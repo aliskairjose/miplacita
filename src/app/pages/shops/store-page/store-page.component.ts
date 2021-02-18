@@ -55,6 +55,7 @@ export class StorePageComponent implements OnInit {
         if ( !store.active ) {
           // Redireccionar hacia mensaje de tienda inactiva
           this.router.navigate( [ 'pages/store/inactive' ] );
+          return;
         }
 
         this.store = { ...store };
