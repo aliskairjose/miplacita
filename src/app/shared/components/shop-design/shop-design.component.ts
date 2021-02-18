@@ -46,7 +46,7 @@ export class ShopDesignComponent implements OnInit, OnChanges {
 
   }
   ngOnChanges( changes: SimpleChanges ): void {
-    if ( changes.store.currentValue.name !== changes.store.previousValue.name ) {
+    if ( changes.store.currentValue?.name !== changes.store.previousValue?.name ) {
       this.banners.length = 0;
       this.user = this.authService.getUserActive();
       this.getStoreInfo();

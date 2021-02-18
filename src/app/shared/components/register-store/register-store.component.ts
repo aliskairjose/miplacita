@@ -107,6 +107,8 @@ export class RegisterStoreComponent implements OnInit, OnChanges {
       payment = this.payment.onSubmit();
     }
 
+    console.log( payment );
+
     this.storeForm.value.owner_id = this.user._id;
     if ( this.storeForm.valid && payment ) {
       if ( this.images.length === 0 ) {
