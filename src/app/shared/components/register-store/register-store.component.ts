@@ -119,7 +119,7 @@ export class RegisterStoreComponent implements OnInit, OnChanges {
           this.storeForm.value.logo = result.images[ 0 ];
           this.images.length = 0;
           this.submitted = false;
-          this.createStore();
+          this.createStore( payment );
         }
       } );
     }
@@ -198,10 +198,15 @@ export class RegisterStoreComponent implements OnInit, OnChanges {
     this.storeUrl = valor.toLocaleLowerCase().replace( /\s/g, '-' );
   }
 
-  private createStore(): void {
-
+  private createStore( data: any ): void {
+    const DATA = { ...this.storeForm.value };
+    DATA.card_number = data.tdc.card_number
+    DATA.owner_card = data.tdc.owner;
+    DATA.cvv_card = data.tdc.cvv;
+    DATA.date_card = data.tdc.date;
+    console.log( DATA );
     // tslint:disable-next-line: deprecation
-    this.shopService.addStore( this.storeForm.value ).subscribe( ( store: Store ) => {
+    this.shopService.addStore( DATA ).subscribe( ( store: Store ) => {
       this.store = { ...store };
       if ( !this.register ) {
         this.toastrService.info( 'Se ha creado la nueva tienda con exito' );
