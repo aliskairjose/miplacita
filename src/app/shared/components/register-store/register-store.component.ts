@@ -204,7 +204,6 @@ export class RegisterStoreComponent implements OnInit, OnChanges {
     DATA.owner_card = data.tdc.owner;
     DATA.cvv_card = data.tdc.cvv;
     DATA.date_card = data.tdc.date;
-    console.log( DATA );
     // tslint:disable-next-line: deprecation
     this.shopService.addStore( DATA ).subscribe( ( store: Store ) => {
       this.store = { ...store };
