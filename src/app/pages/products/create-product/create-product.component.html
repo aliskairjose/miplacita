@@ -34,23 +34,29 @@
 												<div *ngIf="f.name.errors.required"> {{ required }} </div>
 											</div>
 										</div>
-										<!-- Price -->
-										<div class="form-group ">
-											<div class="field-label">Precio del producto</div>
-											<input formControlName="price" currencyMask type="text" class="form-control" id="price"
-												required="" [(ngModel)]="productData.price">
-											<div *ngIf="submitted && f.price.errors" class="invalid-feedback d-block">
-												<div *ngIf="f.price.errors.required"> {{ required }} </div>
-											</div>
-										</div>
-										<!-- Tax -->
-										<div class="form-group ">
-											<div class="field-label">Itbms del producto</div>
-											<input formControlName="tax" currencyMask type="text" class="form-control" id="itbms" required=""
-												[(ngModel)]="productData.tax">
 
-											<div *ngIf="submitted && f.tax.errors" class="invalid-feedback d-block">
-												<div *ngIf="f.tax.errors.required"> {{ required }} </div>
+										<div class="form-row">
+											<!-- Price -->
+											<div class="col-md-6">
+												<div class="form-group ">
+													<div class="field-label">Precio del producto</div>
+													<input formControlName="price" currencyMask type="text" class="form-control" id="price"
+														required="" [(ngModel)]="productData.price">
+													<div *ngIf="submitted && f.price.errors" class="invalid-feedback d-block">
+														<div *ngIf="f.price.errors.required"> {{ required }} </div>
+													</div>
+												</div>
+											</div>
+											<!-- Tax -->
+											<div class="col-md-6">
+												<div class="form-group ">
+													<div class="field-label">Itbms (%)</div>
+													<input formControlName="tax" currencyMask type="text" class="form-control" id="itbms"
+														required="" [(ngModel)]="productData.tax">
+													<div *ngIf="submitted && f.tax.errors" class="invalid-feedback d-block">
+														<div *ngIf="f.tax.errors.required"> {{ required }} </div>
+													</div>
+												</div>
 											</div>
 										</div>
 										<!-- Categoria -->

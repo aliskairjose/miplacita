@@ -18,5 +18,5 @@ export const environment = {
   },
   whatsappContact: '+584141236547',
   editorKey: '3gm63w53b8mw3o2nagwgdo0mt6mpeq6qg59bzub6j6ael646',
-  emailPattern: '^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$'
+  emailPattern: '^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$',
 };

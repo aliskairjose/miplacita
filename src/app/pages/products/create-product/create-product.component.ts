@@ -17,6 +17,7 @@ import { ShopService } from '../../../shared/services/shop.service';
 import { ModalNewElementComponent } from 'src/app/shared/components/modal-new-element/modal-new-element.component';
 import { VariableProduct } from '../../../shared/classes/variable-product';
 import { CategoryService } from 'src/app/shared/services/category.service';
+import { STATUSES, ERROR_FORM } from '../../../shared/classes/global-constants';
 
 @Component( {
   selector: 'app-create-product',
@@ -61,14 +62,10 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
   variableForm: FormGroup;
 
   submitted: boolean;
-  required = environment.errorForm.required;
-  maxStock = environment.errorForm.maxStock;
+  required = ERROR_FORM.required;
+  maxStock = ERROR_FORM.maxStock;
   status = 'add';
-  statuses = [
-    { value: 'active', text: 'Activo' },
-    { value: 'inactive', text: 'Inactivo' },
-    { value: 'blocked', text: 'Bloqueado' },
-  ];
+  statuses = STATUSES;
   statusSelected = 'active';
   selectedCategory = '';
   productImages: Array<string> = [];
@@ -142,7 +139,11 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
 
   onSubmit(): void {
     this.submitted = true;
+    const { tax, price } = this.productForm.value;
+
     this.productForm.value.store = this.store._id;
+    this.productForm.value.tax = ( price * tax ) / 100;
+
     if ( !this.productForm.value.marketplace ) {
       this.productForm.value.marketplace = false;
     }
@@ -173,7 +174,6 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
       } else if ( !this.changeImage ) {
         this.updateProduct( this.productForm.value );
       }
-
     }
     if ( this.deletePhoto && this.deleted.length ) {
       const promises = [];
@@ -187,10 +187,6 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
           } )
         );
       } );
-
-      Promise.all( promises ).then( promisesAll => {
-      } );
-
     }
   }
 
