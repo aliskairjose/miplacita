@@ -205,6 +205,9 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
       return;
     }
 
+    const { tax, price } = this.variableForm.value;
+    this.variableForm.value.tax = ( price * tax ) / 100;
+
     if ( this.variableForm.valid ) {
       // tslint:disable-next-line: deprecation
       this.productService.uploadImages( { images: this.productImages } ).subscribe( response => {
@@ -417,6 +420,8 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
 
   openModal( option: number, product: Product ) {
     this.product = { ...product };
+    const { tax, price } = this.product;
+    this.product.tax = ( tax / price ) * 100;
     this.create = option;
     this.choiceOptions( product, option );
     this.modalOpen = true;
