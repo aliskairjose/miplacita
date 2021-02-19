@@ -27,7 +27,7 @@
 									<div class="first-column">
 										<!-- Nombre -->
 										<div class="form-group ">
-											<div class="field-label">Nombre del producto</div>
+											<div class="field-label">Nombre</div>
 											<input formControlName="name" type="text" class="form-control" id="name" required=""
 												[(ngModel)]="productData.name" (blur)="validateName()">
 											<div *ngIf="submitted && f.name.errors" class="invalid-feedback d-block">
@@ -39,7 +39,7 @@
 											<!-- Price -->
 											<div class="col-md-6">
 												<div class="form-group ">
-													<div class="field-label">Precio del producto</div>
+													<div class="field-label">Precio</div>
 													<input formControlName="price" currencyMask type="text" class="form-control" id="price"
 														required="" [(ngModel)]="productData.price">
 													<div *ngIf="submitted && f.price.errors" class="invalid-feedback d-block">
@@ -97,7 +97,7 @@
 										<div class="form-group">
 											<div class="field-label">Descripción</div>
 											<textarea formControlName="description" type="text" class="form-control"
-												id="exampleFormControlTextarea1" placeholder="Descripción" required=""
+												id="exampleFormControlTextarea1" placeholder="Descripción" maxlength="100"
 												[(ngModel)]="productData.description"></textarea>
 											<div *ngIf="submitted && f.description.errors" class="invalid-feedback d-block">
 												<div *ngIf="f.description.errors.required"> {{ required }} </div>
@@ -272,7 +272,7 @@
 											<div class="col-lg-6">
 												<!-- Price -->
 												<div class="form-group ">
-													<div class="field-label">Precio del producto</div>
+													<div class="field-label">Precio</div>
 													<input formControlName="price" currencyMask type="text" class="form-control" id="price"
 														[(ngModel)]="product.price">
 													<div *ngIf="submitted && v.price.errors" class="invalid-feedback d-block">
@@ -284,7 +284,7 @@
 											<div class="col-lg-6">
 												<!-- Tax -->
 												<div class="form-group ">
-													<div class="field-label">Itbms%</div>
+													<div class="field-label">Itbms %</div>
 													<input currencyMask formControlName="tax" type="text" class="form-control" id="itbms"
 														[(ngModel)]="product.tax">
 													<div *ngIf="submitted && v.tax.errors" class="invalid-feedback d-block">
