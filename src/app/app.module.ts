@@ -83,7 +83,7 @@ export const customCurrencyMaskConfig = {
     NgxCurrencyModule.forRoot( customCurrencyMaskConfig ),
     AlertModule.forRoot( { maxMessages: 5, timeout: 3000, position: 'left' } ),
     BrowserModule.withServerTransition( { appId: 'serverApp' } ),
-    ToastrModule.forRoot( { timeOut: 3000, progressBar: false, enableHtml: true, } ),
+    ToastrModule.forRoot( { timeOut: 1500, progressBar: false, enableHtml: true, } ),
     TranslateModule.forRoot( {
       loader: {
         provide: TranslateLoader,
