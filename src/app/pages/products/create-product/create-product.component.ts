@@ -419,7 +419,6 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   openModal( option: number, product: Product ) {
-    console.log( product )
     const { images, ..._product } = product;
     this.product = { ..._product };
 
