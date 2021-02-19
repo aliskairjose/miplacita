@@ -106,4 +106,5 @@ export class ShopsComponent implements OnInit, OnChanges {
     this.exportDoc.ExportTOPDF( '#mp-table', 'Ventas diarias', 'daily-report' );
   }
 
+
 }

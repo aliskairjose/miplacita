@@ -59,6 +59,36 @@
 												</div>
 											</div>
 										</div>
+										<div class="form-row">
+											<!-- Color -->
+											<div class="col-md-6">
+												<div class="form-group">
+													<div class="field-label">Color</div>
+													<select formControlName="color" class="form-control" name="color"
+														(change)="variableOptionSelected($event.target.value)">
+														<option value="" selected>Seleccione un color</option>
+														<option value="addColor">Agregar nuevo color</option>
+														<hr class="p-0 m-0">
+														<option *ngFor="let color of colors" [value]="color._id">{{color.name}}</option>
+													</select>
+
+												</div>
+											</div>
+											<!-- Size -->
+											<div class="col-md-6">
+												<div class="form-group">
+													<div class="field-label">Tamaño</div>
+													<select formControlName="size" class="form-control" name="size"
+														(change)="variableOptionSelected($event.target.value)">
+														<option value="" selected>Seleccione un tamaño</option>
+														<option value="addSize">Agregar nuevo tamaño</option>
+														<hr class="p-0 m-0">
+														<option *ngFor="let size of sizes" [value]="size._id">{{size.name}}</option>
+													</select>
+
+												</div>
+											</div>
+										</div>
 										<!-- Categoria -->
 										<div class="form-group ">
 											<div class="field-label">Categoría</div>
@@ -339,7 +369,7 @@
 												<!-- Size -->
 												<div class="form-group">
 													<div class="field-label">Tamaño</div>
-													<select formControlName="size" class="form-control" name="color"
+													<select formControlName="size" class="form-control" name="size"
 														(change)="variableOptionSelected($event.target.value)">
 														<option value="" selected>Seleccione un tamaño</option>
 														<option value="addSize">Agregar nuevo tamaño</option>

@@ -1,23 +1,27 @@
 import { Component, OnInit, ViewChild, TemplateRef, OnDestroy } from '@angular/core';
-import { NgbModal, ModalDismissReasons, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ShopService } from '../../services/shop.service';
+import { Store } from '../../classes/store';
+import { Plan } from '../../classes/plan';
+import { ToastrService } from 'ngx-toastr';
 
-@Component({
+@Component( {
   selector: 'app-shop-details',
   templateUrl: './shop-details.component.html',
-  styleUrls: ['./shop-details.component.scss']
-})
+  styleUrls: [ './shop-details.component.scss' ]
+} )
 export class ShopDetailsComponent implements OnInit, OnDestroy {
-  @ViewChild('shopDetails', { static: false }) ShopDetails: TemplateRef<any>;
+  @ViewChild( 'shopDetails', { static: false } ) ShopDetails: TemplateRef<any>;
+
   public allBenefits = [
-    ['Logo de la tienda',
+    [ 'Logo de la tienda',
       'Paleta de Colores',
       'Tipografía',
       'Máximo 10 productos',
       'Fotos y características del producto',
       'Pago con TDC',
-      'Reporte'],
-    ['Logo de la tienda',
+      'Reporte' ],
+    [ 'Logo de la tienda',
       'Paleta de Colores',
       'Tipografía',
       'Productos ilimitados',
@@ -25,51 +29,61 @@ export class ShopDetailsComponent implements OnInit, OnDestroy {
       'Pasarela de pago',
       'Plan de compesación',
       'Inventario',
-      'Reporte']
+      'Reporte' ]
   ];
-  public benefits = [];
-  public modalOpen = false;
-  public modal: any;
-  public shop: any;
-  public plan: any;
-  public page = false;
+  benefits = [];
+  modalOpen = false;
+  modal: any;
+  shop: any;
+  plan: Plan;
+  plans: Array<Plan> = [];
+  page = false;
 
   constructor(
     private modalService: NgbModal,
-    private ShopService: ShopService) { }
+    private shopService: ShopService,
+    private toastrService: ToastrService
+  ) { }
 
   ngOnInit(): void {
+    this.shopService.getPlans().subscribe( plans => this.plans = [ ...plans ] )
   }
 
-  openModal(shop) {
+  openModal( shop ) {
     this.shop = shop;
     this.getPlanInformation();
     this.modalOpen = true;
-    this.modal = this.modalService.open(this.ShopDetails);
+    this.modal = this.modalService.open( this.ShopDetails );
   }
 
-  openPage(){
+  openPage() {
     this.page = true;
   }
 
-  getPlanInformation(){
-    if (this.shop.plan.price > 0) {
-      this.benefits = this.allBenefits[1];
+  getPlanInformation() {
+    if ( this.shop.plan.price > 0 ) {
+      this.benefits = this.allBenefits[ 1 ];
     } else {
-      this.benefits = this.allBenefits[0];
+      this.benefits = this.allBenefits[ 0 ];
     }
   }
 
-  close(reason){
+  close() {
     this.modal.close();
   }
 
-  cancelPlan(){
-    // api para cancelar plan
+  cancelPlan( store: Store ) {
+    const _plan = this.plans.find( item => item.price === 0 )
+    this.shopService.updateStorePlan( store._id, { plan: _plan._id } ).subscribe( response => {
+      if ( response.success ) {
+        this.toastrService.info( response.message[ 0 ] );
+        this.close();
+      }
+    } )
   }
 
   ngOnDestroy() {
-    if (this.modalOpen){
+    if ( this.modalOpen ) {
       this.modalService.dismissAll();
     }
   }

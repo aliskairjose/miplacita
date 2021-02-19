@@ -3,7 +3,7 @@
         <div class="modal-container">
             <div class="modal-header" style="border: 1px solid #eba39a;">
                 <h4 class="title">{{shop.name}}</h4>
-                <button type="button" class="close" (click)="close('Click close')">
+                <button type="button" class="close" (click)="close()">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -18,7 +18,8 @@
                         <strong>Monto del plan: </strong>{{ shop.plan.price | currency }}
                     </p>
                 </div>
-                <button class="btn text-default-color" (click)="cancelPlan()" *ngIf="shop.plan.price !== 0"> Cancelar
+                <button class="btn text-default-color" (click)="cancelPlan(shop)" *ngIf="shop.plan.price !== 0">
+                    Cancelar
                     plan</button>
                 <div class="form-group mt-3">
                     <strong>Beneficios:</strong>
