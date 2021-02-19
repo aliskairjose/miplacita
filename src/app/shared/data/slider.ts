@@ -195,6 +195,7 @@ export let ProductSlider: any = {
     dots: true,
     nav: false,
     navSpeed: 300,
+    navText: [ '<i class="fa-chevron-left"></i>', '<i class="fa-chevron-right></i>"' ],
     responsive: {
         991: {
             items: 4
