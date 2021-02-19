@@ -6,7 +6,6 @@ import { Component, Input, OnDestroy, OnInit, TemplateRef, ViewChild, OnChanges,
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgbModal, NgbModalOptions, NgbDateParserFormatter, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
 
-import { environment } from '../../../../environments/environment';
 import { Category } from '../../../shared/classes/category';
 import { Plan } from '../../../shared/classes/plan';
 import { Images, Product } from '../../../shared/classes/product';
@@ -17,7 +16,7 @@ import { ShopService } from '../../../shared/services/shop.service';
 import { ModalNewElementComponent } from 'src/app/shared/components/modal-new-element/modal-new-element.component';
 import { VariableProduct } from '../../../shared/classes/variable-product';
 import { CategoryService } from 'src/app/shared/services/category.service';
-import { STATUSES, ERROR_FORM, SIZES, COLORS } from '../../../shared/classes/global-constants';
+import { STATUSES, ERROR_FORM } from '../../../shared/classes/global-constants';
 
 @Component( {
   selector: 'app-create-product',
@@ -124,8 +123,8 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
       .subscribe( ( [ response, categories, colorResponse, sizeResponse ] ) => {
         this.plan = response.docs[ 0 ].plan;
         this.categories = [ ...categories ];
-        this.colors = [ ...COLORS, ...colorResponse.attributes ];
-        this.sizes = [ ...SIZES, ...sizeResponse.attributes ];
+        this.colors = [ ...colorResponse.attributes ];
+        this.sizes = [ ...sizeResponse.attributes ];
 
         // Actualiza las valildaciones de sotck por el plan activo de la tienda
         if ( this.plan.price === 0 ) {
@@ -419,11 +418,13 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   openModal( option: number, product: Product ) {
-    const { images, ..._product } = product;
-    this.product = { ..._product };
+    if ( product ) {
+      const { images, ..._product } = product;
+      this.product = { ..._product };
+      const { tax, price } = this.product;
+      this.product.tax = ( tax / price ) * 100;
+    }
 
-    const { tax, price } = this.product;
-    this.product.tax = ( tax / price ) * 100;
     this.create = option;
     this.choiceOptions( product, option );
     this.modalOpen = true;

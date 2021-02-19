@@ -13,21 +13,6 @@ export const ERROR_FORM = {
   onlyDigits: 'Sólo se permiten números',
   maxStock: 'Su plan sólo permite un máximo de 8 en su inventario'
 };
-export const SIZES = [
-  { "_id": "1", "value": "s", "name": "S" },
-  { "_id": "2", "value": "m", "name": "M" },
-  { "_id": "3", "value": "l", "name": "L" },
-  { "_id": "4", "value": "xl", "name": "XL" },
-  { "_id": "5", "value": "xxl", "name": "XXL" }
-];
-
-export const COLORS = [
-  { "_id": "1", "value": "#000000", "name": "Negro" },
-  { "_id": "2", "value": "#ffffff", "name": "Blanco" },
-  { "_id": "3", "value": "#ff0202", "name": "Rojo" },
-  { "_id": "4", "value": "#f8ff02", "name": "Amarillo" },
-  { "_id": "5", "value": "#0297ff", "name": "Azul" }
-];
 
 export const EMAIL_PATTERN = '^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$';
 export const WHATSAPP_CONTACT = '+584141236547';

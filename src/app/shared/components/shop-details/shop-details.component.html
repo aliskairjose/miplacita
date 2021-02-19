@@ -18,7 +18,8 @@
                         <strong>Monto del plan: </strong>{{ shop.plan.price | currency }}
                     </p>
                 </div>
-                <button class="btn text-default-color" (click)="cancelPlan()"> Cancelar plan</button>
+                <button class="btn text-default-color" (click)="cancelPlan()" *ngIf="shop.plan.price !== 0"> Cancelar
+                    plan</button>
                 <div class="form-group mt-3">
                     <strong>Beneficios:</strong>
                 </div>

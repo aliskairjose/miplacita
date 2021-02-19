@@ -23,7 +23,6 @@ import { Store } from 'src/app/shared/classes/store';
 } )
 export class ShippingComponent implements OnInit {
 
-
   payPalConfig?: IPayPalConfig;
   payment = 'Stripe';
   amount: any;
