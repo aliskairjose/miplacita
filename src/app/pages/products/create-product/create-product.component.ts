@@ -126,7 +126,6 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
         this.categories = [ ...categories ];
         this.colors = [ ...COLORS, ...colorResponse.attributes ];
         this.sizes = [ ...SIZES, ...sizeResponse.attributes ];
-        console.log( this.colors );
 
         // Actualiza las valildaciones de sotck por el plan activo de la tienda
         if ( this.plan.price === 0 ) {
@@ -420,12 +419,9 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   openModal( option: number, product: Product ) {
-    // this.product = { ...product };
-    this.product.name = product.name;
-    this.product.tax = product.tax;
-    this.product.price = product.price;
-    this.product.status = product.status;
-    this.product.quantity = product.quantity;
+    console.log( product )
+    const { images, ..._product } = product;
+    this.product = { ..._product };
 
     const { tax, price } = this.product;
     this.product.tax = ( tax / price ) * 100;
