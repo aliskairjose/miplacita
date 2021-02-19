@@ -97,7 +97,7 @@
 										<div class="form-group">
 											<div class="field-label">Descripción</div>
 											<textarea formControlName="description" type="text" class="form-control"
-												id="exampleFormControlTextarea1" placeholder="Descripción" maxlength="100"
+												id="exampleFormControlTextarea1" placeholder="Descripción" maxlength="500"
 												[(ngModel)]="productData.description"></textarea>
 											<div *ngIf="submitted && f.description.errors" class="invalid-feedback d-block">
 												<div *ngIf="f.description.errors.required"> {{ required }} </div>

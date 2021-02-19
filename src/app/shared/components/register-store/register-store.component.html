@@ -63,7 +63,7 @@
 								<div class="form-group">
 									<div class="field-label" for="name">Descripción</div>
 									<textarea type="text" class="form-control" id="description" formControlName="description" cols="30"
-										rows="10"></textarea>
+										rows="10" maxlength="500"></textarea>
 									<div *ngIf="submitted && f.description.errors" class="invalid-feedback d-block">
 										<div *ngIf="f.description.errors.required"> {{ required }} </div>
 									</div>
