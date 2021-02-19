@@ -48,10 +48,9 @@ export class ShippingComponent implements OnInit {
     shipment_option: '',
     shipment_price: 0,
   };
-  config = '';
   isDisabled = false;
-  private _order = '';
 
+  private _queryParams: any = {};
   private _products: Product[] = [];
 
   @ViewChild( 'address' ) address: AddressComponent;
@@ -128,10 +127,7 @@ export class ShippingComponent implements OnInit {
     this.getTotal.subscribe( amount => this.amount = amount );
     this.route.queryParams.subscribe( queryParams => {
       if ( Object.entries( queryParams ).length !== 0 ) {
-        if ( queryParams.config ) {
-          this.config = queryParams.config;
-          this._order = queryParams.order;
-        }
+        this._queryParams = queryParams;
       }
     } );
   }
@@ -143,7 +139,6 @@ export class ShippingComponent implements OnInit {
   checkout(): void {
 
     const data = this.address.onSubmit();
-    console.log( data )
     if ( data?.saveAddress ) {
       if ( Object.keys( data?.shippingAddress ).length !== 0 && data.addressExist ) {
         // Actualiza la dirección
@@ -178,7 +173,7 @@ export class ShippingComponent implements OnInit {
     this.order.address.location = shippingAddress.coord;
 
     sessionStorage.setItem( 'order', JSON.stringify( this.order ) );
-    this.router.navigate( [ 'shop/checkout' ], { queryParams: { config: this.config, order: this._order } } );
+    this.router.navigate( [ 'shop/checkout' ], { queryParams: this._queryParams } );
   }
 
   selectOption( shopId: string, optionId: string ): void {
