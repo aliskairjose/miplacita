@@ -50,6 +50,7 @@ export class ShippingComponent implements OnInit {
   };
   config = '';
   isDisabled = false;
+  private _order = '';
 
   private _products: Product[] = [];
 
@@ -85,7 +86,6 @@ export class ShippingComponent implements OnInit {
 
     this.getStoresId().then( ( shops ) => {
       for ( const shop of shops as any ) {
-        console.log( shop )
         if ( shop.shopOptions.length === 0 ) { this.isDisabled = true }
 
         const detail = { ...this.detail };
@@ -130,6 +130,7 @@ export class ShippingComponent implements OnInit {
       if ( Object.entries( queryParams ).length !== 0 ) {
         if ( queryParams.config ) {
           this.config = queryParams.config;
+          this._order = queryParams.order;
         }
       }
     } );
@@ -177,7 +178,7 @@ export class ShippingComponent implements OnInit {
     this.order.address.location = shippingAddress.coord;
 
     sessionStorage.setItem( 'order', JSON.stringify( this.order ) );
-    this.router.navigate( [ 'shop/checkout' ], { queryParams: { config: this.config } } );
+    this.router.navigate( [ 'shop/checkout' ], { queryParams: { config: this.config, order: this._order } } );
   }
 
   selectOption( shopId: string, optionId: string ): void {

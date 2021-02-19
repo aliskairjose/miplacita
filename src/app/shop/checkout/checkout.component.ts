@@ -27,7 +27,6 @@ export class CheckoutComponent implements OnInit {
   payPalConfig?: IPayPalConfig;
   // payment = 'Stripe';
   amount: number;
-  shipmentPrice = 0;
   totalPrice = 0;
   referedAmount = 0;
   store: Store = {};
@@ -36,6 +35,10 @@ export class CheckoutComponent implements OnInit {
   hasCoupon = false;
   couponAmount: number;
   newSubTotal: number;
+
+  private _order: any;
+  private _shipmentPrice = 0;
+
   @ViewChild( 'payment' ) payment: PaymentComponent;
 
   constructor(
@@ -64,11 +67,11 @@ export class CheckoutComponent implements OnInit {
 
   ngOnInit(): void {
     const date = new Date();
-    const shipment = JSON.parse( sessionStorage.order );
 
     this.route.queryParams.subscribe( queryParams => {
       if ( Object.entries( queryParams ).length !== 0 ) {
         const decod = window.atob( queryParams.config );
+        this._order = JSON.parse( window.atob( queryParams.order ) );
         this.store = JSON.parse( decod );
         if ( Object.entries( this.store ).length !== 0 && this.auth.getUserRol() === 'client' ) {
           this.orderService.orderList( 1, `user=${this.auth.getUserActive()._id}` ).subscribe( res => {
@@ -80,19 +83,23 @@ export class CheckoutComponent implements OnInit {
       }
     } );
 
-
-    shipment.cart.forEach( detail => {
-      this.shipmentPrice += detail.shipment_price;
-    } );
-
     this.subTotal.subscribe( amount => {
       this.amount = amount;
-      this.totalPrice = amount + this.shipmentPrice + this.getItms;
+      this.totalPrice = amount + this._shipmentPrice + this.getItms;
     } );
 
   }
 
+  get shipment(): number {
+    this._shipmentPrice = 0;
+    this._order.cart.forEach( detail => {
+      this._shipmentPrice += detail.shipment_price;
+    } );
+    return this._shipmentPrice;
+  }
+
   get getItms(): number {
+    this.itms = 0;
     this.products.forEach( ( product: Product ) => {
       this.itms += product.tax;
     } );
@@ -152,7 +159,7 @@ export class CheckoutComponent implements OnInit {
       this.hasCoupon = success;
       this.couponAmount = ( this.amount * this.store.affiliate_program_amount ) / 100;
       this.newSubTotal = this.amount - this.couponAmount;
-      this.totalPrice = ( this.newSubTotal + this.shipmentPrice + this.getItms );
+      this.totalPrice = ( this.newSubTotal + this._shipmentPrice + this.getItms );
     }
   }
 

@@ -22,6 +22,7 @@ export class CartComponent implements OnInit {
   standardImage = STANDARD_IMAGE;
   storeFont = '';
   config = '';
+  order = '';
 
   constructor(
     private auth: AuthService,
@@ -33,6 +34,7 @@ export class CartComponent implements OnInit {
 
   ngOnInit(): void {
     this.productService.cartItems.subscribe( products => { this.products = products; } );
+    this.order = window.btoa( sessionStorage.order );
 
     this.route.queryParams.subscribe( queryParams => {
       if ( Object.entries( queryParams ).length !== 0 ) {

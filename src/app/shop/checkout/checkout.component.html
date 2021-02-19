@@ -16,17 +16,17 @@
 										</span>
 									</li>
 									<li>
-										<strong>ITMS</strong> <span>{{ itms | currency }}</span>
+										<strong>ITBMS</strong> <span>{{ getItms | currency }}</span>
 									</li>
 									<li *ngIf='products.length'>
-										<strong>Envío</strong> <span>{{ shipmentPrice | currency }}</span>
+										<strong>Envío</strong> <span>{{ shipment | currency }}</span>
 									</li>
 									<li *ngIf='store?._id && auth.isAuthenticated'>
 										<strong>Pago con saldo</strong>
 										<span> -{{ referedAmount | currency }}</span>
 									</li>
 									<li *ngIf='hasCoupon'>
-										<strong>Cupón de referido ({{this.store.affiliate_program_amount}}%)</strong>
+										<strong>Cupón de referido ({{store.affiliate_program_amount}}%)</strong>
 										<span> - {{ couponAmount | currency }} </span>
 									</li>
 									<li class="mt-3">
