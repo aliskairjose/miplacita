@@ -420,7 +420,13 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   openModal( option: number, product: Product ) {
-    this.product = { ...product };
+    // this.product = { ...product };
+    this.product.name = product.name;
+    this.product.tax = product.tax;
+    this.product.price = product.price;
+    this.product.status = product.status;
+    this.product.quantity = product.quantity;
+
     const { tax, price } = this.product;
     this.product.tax = ( tax / price ) * 100;
     this.create = option;

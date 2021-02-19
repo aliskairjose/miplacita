@@ -35,4 +35,3 @@ export const MAX_PRODUCTS = 8;
 export const STANDARD_IMAGE = '../../../../assets/images/marketplace/images/placeholder.jpg';
 export const ORDER_STATUS = [ 'por aprobar', 'aprobado', 'en proceso', 'cancelado', 'pagado', 'entregado', 'devuelto' ];
 export const INSTAGRAM_TOKEN = 'INSTAGRAM_TOKEN';
-
