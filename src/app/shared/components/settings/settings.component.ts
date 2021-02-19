@@ -59,6 +59,7 @@ export class SettingsComponent implements OnInit {
     // tslint:disable-next-line: deprecation
     this.auth.authObserver().subscribe( ( isAuth: boolean ) => {
       this.isLoggedIn = isAuth;
+      if ( !isAuth ) { this.products = [] }
     } );
 
     if ( this.previousRoute.getCurrentUrl() === '/home/marketplace' ) {
