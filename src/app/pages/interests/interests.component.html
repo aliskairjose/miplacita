@@ -63,7 +63,6 @@
                 <div class="row mb-3" *ngFor="let interest of interestsList; let i=index">
                   <div class="form-check option-box d-flex mx-auto py-2">
                     <div class="col-md-11 text-center" (click)="selectInterest( $event )">
-                      <!-- <p class="my-auto">{{interest.name}}</p> -->
                       <label class="form-check-label my-auto" [for]="interest.name">
                         {{interest.name}}
                       </label>

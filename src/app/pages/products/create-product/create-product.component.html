@@ -220,11 +220,11 @@
 									<div class="d-flex justify-content-center">
 										<div class="col d-flex justify-content-end">
 											<input type="checkbox" name="variante" id="color" (change)="checkVariable($event)">
-											<p class="my-auto pl-2">Color</p>
+											<label for="color" class="my-auto pl-2">Color</label>
 										</div>
 										<div class="col d-flex justify-content-start">
 											<input type="checkbox" name="variante" id="size" (change)="checkVariable($event)">
-											<p class="my-auto pl-2">Tamaño</p>
+											<label for="size" class="my-auto pl-2">Tamaño</label>
 										</div>
 									</div>
 									<div class="table-responsive" *ngIf="allVariations.length > 0 && !showForm">
