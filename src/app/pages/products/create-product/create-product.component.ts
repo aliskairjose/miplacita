@@ -361,38 +361,6 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
     } );
   }
 
-  /**
-   * @description Valida que el nombre del producto no este en uso
-   */
-  validateName(): void {
-    if ( this.create === 2 ) {
-      this.disabled = false;
-      return;
-    }
-
-    if ( this.productData.name.length > 30 ) {
-      this.toastrService.warning( 'El nombre debe tener un máximo de 30 caracteres' );
-      return;
-    }
-
-    if ( this.productData.name.length > 0 && this.productData.name.length < 4 ) {
-      this.toastrService.warning( 'El nombre debe tener un mínimo de 4 caracteres' );
-      return;
-    }
-    if ( this.productData.name ) {
-      // tslint:disable-next-line: deprecation
-      this.productService.validateName( this.productData.name ).subscribe( resp => {
-        if ( resp.taken ) {
-          this.toastrService.warning( resp.message[ 0 ] );
-          this.disabled = true;
-          return;
-        }
-        this.toastrService.info( resp.message[ 0 ] );
-        this.disabled = false;
-
-      } );
-    }
-  }
 
   choiceOptions( product: Product, option: number ) {
 

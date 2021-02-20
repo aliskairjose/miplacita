@@ -80,8 +80,11 @@ export class ProductLeftSidebarComponent implements OnInit {
       this.productService.productList( 1, params ),
     ] ).subscribe( ( [ shopsResult, categoriesResult, variationResult, productResult ] ) => {
 
+      console.log( variationResult );
+
       this.shops = [ ...shopsResult.docs ];
       this.categories = [ ...categoriesResult ];
+
       this.prices = [
         { _id: 'asc', name: 'Desde el más bajo' },
         { _id: 'desc', name: 'Desde el más alto' }
@@ -103,6 +106,7 @@ export class ProductLeftSidebarComponent implements OnInit {
 
       if ( variationResult?.primary_key === 'size' ) {
         variationResult.keys.forEach( key => {
+          console.table( key )
           this.sizes.push( { value: key.value, name: key.name, product: key.products[ 0 ].product } );
         } );
         this.product = this.sizes[ 0 ].product;
@@ -114,9 +118,9 @@ export class ProductLeftSidebarComponent implements OnInit {
 
   // Selecciona el producto por defecto a mostrar cuando hay color
   selectProduct( products: any[] ): void {
-
+    console.table( products );
     if ( products.length ) {
-      this.sizes = products;
+      if ( products[ 0 ].key ) { this.sizes = products; }
       this.product = products[ 0 ].product;
     }
     this.color = this.product.color;
@@ -178,19 +182,6 @@ export class ProductLeftSidebarComponent implements OnInit {
     product.quantity = this.counter || 1;
     const status = await this.productService.addToCart( product );
     if ( status ) { this.router.navigate( [ '/shop/cart' ] ); }
-  }
-
-  // Buy Now
-  async buyNow( product: any ) {
-    // product.quantity = this.counter || 1;
-    // const status = await this.productService.addToCart( product );
-    // if ( status )
-    //   this.router.navigate( [ '/shop/checkout' ] );
-  }
-
-  // Add to Wishlist
-  addToWishlist( product: any ) {
-    // this.productService.addToWishlist( product );
   }
 
   // Toggle Mobile Sidebar
