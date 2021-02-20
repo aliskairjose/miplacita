@@ -199,11 +199,15 @@ export class RegisterStoreComponent implements OnInit, OnChanges {
   }
 
   private createStore( data: any ): void {
+    console.log( data?.tdc );
     const DATA = { ...this.storeForm.value };
-    DATA.card_number = data.tdc.card_number
-    DATA.owner_card = data.tdc.owner;
-    DATA.cvv_card = data.tdc.cvv;
-    DATA.date_card = data.tdc.date;
+    if ( data?.tdc ) {
+      console.log( data.tdc );
+      DATA.card_number = data.tdc.card_number;
+      DATA.owner_card = data.tdc.owner;
+      DATA.cvv_card = data.tdc.cvv;
+      DATA.date_card = data.tdc.date;
+    }
     // tslint:disable-next-line: deprecation
     this.shopService.addStore( DATA ).subscribe( ( store: Store ) => {
       this.store = { ...store };

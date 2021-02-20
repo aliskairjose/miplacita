@@ -116,7 +116,8 @@ export class CollectionLeftSidebarComponent implements OnInit {
   }
 
   loadProductList( page = 1 ): void {
-    this.params = `${this.params}&stock=true`;
+    this.params = `${this.params}&stock=true&status=active&data_public=true`;
+    // tslint:disable-next-line: deprecation
     this.productService.productList( page, this.params ).subscribe( ( result: Result<Product> ) => {
 
       if ( this._storeId ) {

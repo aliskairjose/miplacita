@@ -57,6 +57,7 @@ export class ProductLeftSidebarComponent implements OnInit {
     private categoryService: CategoryService,
   ) {
 
+    // tslint:disable-next-line: deprecation
     this.route.queryParams.subscribe( queryParams => {
       if ( Object.entries( queryParams ).length !== 0 ) {
         const decod = window.atob( queryParams.config );
@@ -70,7 +71,7 @@ export class ProductLeftSidebarComponent implements OnInit {
   ngOnInit(): void {
     this.spinner.show();
     const id = this.route.snapshot.paramMap.get( 'id' );
-    const params = `product=${id}`;
+    const params = `product=${id}&status=active&data_public=true`;
 
     forkJoin( [
       this.shopService.storeList(),
@@ -91,6 +92,7 @@ export class ProductLeftSidebarComponent implements OnInit {
       this.endDate.setDate( this.today.getDate() + parseInt( this.product.deliveryDays, 10 ) );
 
       // Carga los comentarios del producto
+      // tslint:disable-next-line: deprecation
       this.comment.loadReviews( this.product._id ).subscribe( rate => { this.productRate = rate; } );
       if ( variationResult?.primary_key === 'color' ) {
         variationResult.keys.forEach( key => {

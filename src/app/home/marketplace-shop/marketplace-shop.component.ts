@@ -105,7 +105,8 @@ export class MarketplaceShopComponent implements OnInit {
 
   // Product Tab collection
   private getCollectionProducts(): void {
-    const params = `feature=true&stock=true`;
+    const params = `feature=true&stock=true&status=active&data_public=true`;
+    // tslint:disable-next-line: deprecation
     this.productService.productList( 1, params ).subscribe( ( result: Result<Product> ) => {
       this.products = [ ...result.docs ];
     } );
