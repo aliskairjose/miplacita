@@ -41,7 +41,6 @@ export class ShopProfileComponent implements OnInit, OnChanges {
   get f() { return this.profileForm.controls; }
 
   ngOnInit(): void {
-    console.log( this.store );
     if ( this.store ) { this.enabled = true; }
   }
 
