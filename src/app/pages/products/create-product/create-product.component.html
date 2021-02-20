@@ -51,8 +51,8 @@
 											<div class="col-md-6">
 												<div class="form-group ">
 													<div class="field-label">Itbms (%)</div>
-													<input formControlName="tax" currencyMask type="text" class="form-control" id="itbms"
-														required="" [(ngModel)]="productData.tax">
+													<input formControlName="tax" maxlength="4" currencyMask type="text" class="form-control"
+														id="itbms" required="" [(ngModel)]="productData.tax">
 													<div *ngIf="submitted && f.tax.errors" class="invalid-feedback d-block">
 														<div *ngIf="f.tax.errors.required"> {{ required }} </div>
 													</div>
@@ -315,8 +315,8 @@
 												<!-- Tax -->
 												<div class="form-group ">
 													<div class="field-label">Itbms %</div>
-													<input currencyMask formControlName="tax" type="text" class="form-control" id="itbms"
-														[(ngModel)]="product.tax">
+													<input currencyMask formControlName="tax" maxlength="4" type="text" class="form-control"
+														id="itbms" [(ngModel)]="product.tax">
 													<div *ngIf="submitted && v.tax.errors" class="invalid-feedback d-block">
 														<div *ngIf="v.tax.errors.required"> {{ required }} </div>
 													</div>
