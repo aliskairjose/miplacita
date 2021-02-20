@@ -80,8 +80,6 @@ export class ProductLeftSidebarComponent implements OnInit {
       this.productService.productList( 1, params ),
     ] ).subscribe( ( [ shopsResult, categoriesResult, variationResult, productResult ] ) => {
 
-      console.log( variationResult );
-
       this.shops = [ ...shopsResult.docs ];
       this.categories = [ ...categoriesResult ];
 
@@ -106,7 +104,6 @@ export class ProductLeftSidebarComponent implements OnInit {
 
       if ( variationResult?.primary_key === 'size' ) {
         variationResult.keys.forEach( key => {
-          console.table( key )
           this.sizes.push( { value: key.value, name: key.name, product: key.products[ 0 ].product } );
         } );
         this.product = this.sizes[ 0 ].product;
@@ -118,7 +115,6 @@ export class ProductLeftSidebarComponent implements OnInit {
 
   // Selecciona el producto por defecto a mostrar cuando hay color
   selectProduct( products: any[] ): void {
-    console.table( products );
     if ( products.length ) {
       if ( products[ 0 ].key ) { this.sizes = products; }
       this.product = products[ 0 ].product;
