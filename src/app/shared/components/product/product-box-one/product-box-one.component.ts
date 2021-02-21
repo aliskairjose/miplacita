@@ -63,7 +63,7 @@ export class ProductBoxOneComponent implements OnInit, AfterViewInit {
             key.subkeys.forEach( size => {
               _sizes.push( ` ${size.value.toUpperCase()}` );
             } );
-            this.sizes = [ ... new Set( _sizes ) ];
+            this.sizes = [ ... new Set( _sizes ) ]; // Elimina valores repetidos del array
           } );
         }
         if ( variableResponse?.primary_key === 'size' ) {
