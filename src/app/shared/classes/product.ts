@@ -1,3 +1,4 @@
+import { Store } from './store';
 export interface Product {
   _id?: string;
   uuid?: string;
@@ -15,7 +16,7 @@ export interface Product {
   subcategory?: string;
   images?: Images[];
   stock?: number;
-  store?: any;
+  store?: Store;
   tax?: number;
   marketplace?: boolean;
   featured?: boolean;

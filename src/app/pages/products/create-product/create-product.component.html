@@ -29,7 +29,7 @@
 										<div class="form-group ">
 											<div class="field-label">Nombre</div>
 											<input formControlName="name" type="text" class="form-control" id="name" required=""
-												[(ngModel)]="productData.name" maxlength="30">
+												[(ngModel)]="productData.name" maxlength="60">
 											<div *ngIf="submitted && f.name.errors" class="invalid-feedback d-block">
 												<div *ngIf="f.name.errors.required"> {{ required }} </div>
 											</div>
@@ -279,7 +279,7 @@
 												<div class="form-group ">
 													<div class="field-label">Nombre del producto Variable</div>
 													<input formControlName="name" type="text" class="form-control" id="nameVariable"
-														[(ngModel)]="product.name" maxlength="30">
+														[(ngModel)]="product.name" maxlength="60">
 													<div *ngIf="submitted && v.name.errors?.required" class="invalid-feedback d-block">
 														{{ required }}
 													</div>

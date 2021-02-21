@@ -22,7 +22,7 @@ export interface ProductDetail {
   templateUrl: './product-left-sidebar.component.html',
   styleUrls: [ './product-left-sidebar.component.scss' ]
 } )
-export class ProductLeftSidebarComponent implements OnInit {
+export class ProductLeftSidebarComponent implements OnInit, AfterViewInit {
 
   product: Product = {};
   counter = 1;
@@ -41,6 +41,7 @@ export class ProductLeftSidebarComponent implements OnInit {
   color: any;
   size = '';
   hideFilters = false;
+  storeName = '';
 
   @ViewChild( 'comments' ) comment: CommentsComponent;
 
@@ -67,6 +68,11 @@ export class ProductLeftSidebarComponent implements OnInit {
     } );
 
   }
+  ngAfterViewInit(): void {
+    // tslint:disable-next-line: deprecation
+    // this.comment.loadReviews( this.product._id ).subscribe( rate => { this.productRate = rate; } );
+
+  }
 
   ngOnInit(): void {
     this.spinner.show();
@@ -89,12 +95,14 @@ export class ProductLeftSidebarComponent implements OnInit {
       ];
 
       this.product = { ...productResult.docs[ 0 ] };
+      this.storeName = this.product.store.name;
       this.endDate = new Date();
       this.endDate.setDate( this.today.getDate() + parseInt( this.product.deliveryDays, 10 ) );
 
       // Carga los comentarios del producto
       // tslint:disable-next-line: deprecation
       this.comment.loadReviews( this.product._id ).subscribe( rate => { this.productRate = rate; } );
+
       if ( variationResult?.primary_key === 'color' ) {
         variationResult.keys.forEach( key => {
           this.colors.push( { value: key.value, name: key.name, products: key.products } );
