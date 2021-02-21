@@ -71,7 +71,6 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
   images = [];
   productData: Product = {};
   title = 'Crear producto';
-  disabled = true;
   plan: Plan;
   changeImage = false;
   marketplaceCheck = false;
@@ -373,7 +372,6 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
       case 2:
         this.active = 'product';
         this.status = 'edit';
-        this.disabled = false;
         this.title = 'Editar producto';
         this.loadProductData( product._id );
         break;

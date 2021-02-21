@@ -57,8 +57,13 @@ export class ProductBoxOneComponent implements OnInit, AfterViewInit {
         this.productRate = avgResponse;
 
         if ( variableResponse?.primary_key === 'color' ) {
+          const _sizes = [];
           variableResponse.keys.forEach( key => {
             this.colors.push( { value: key.value, name: key.name, products: key.products } );
+            key.subkeys.forEach( size => {
+              _sizes.push( ` ${size.value.toUpperCase()}` );
+            } );
+            this.sizes = [ ... new Set( _sizes ) ];
           } );
         }
         if ( variableResponse?.primary_key === 'size' ) {
