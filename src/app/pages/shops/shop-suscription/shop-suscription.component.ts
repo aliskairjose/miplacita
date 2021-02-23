@@ -91,7 +91,7 @@ export class ShopSuscriptionComponent implements OnInit, OnChanges {
     const _data = { ...tdc };
     _data.plan = this.selectedPlan._id;
 
-    tslint: disable - next - line: deprecation
+    // tslint:disable-next-line: deprecation
     this.shopService.updateStorePlan( this.store._id, _data ).subscribe( response => {
       if ( response.success ) {
         this.toastrService.info( response.message[ 0 ] );
