@@ -43,13 +43,15 @@ export class HttpInterceptor implements HttpInterceptor {
       } ),
       catchError( ( response: HttpErrorResponse ) => {
         this.spinner.hide();
+        console.log( response );
+
         this.toastrService.error( response?.error?.message || response?.error?.message[ 0 ] || response?.statusText );
         switch ( response.status ) {
           case 401:
             this.router.navigate( [ 'login' ] );
             break;
           case 404:
-            this.router.navigate( [ 'home' ] );
+            // this.router.navigate( [ 'home' ] );
             break;
           case 500:
             // Manejor de error

@@ -38,7 +38,6 @@ export class LoginComponent implements OnInit {
     private formBuilder: FormBuilder,
     private toastrService: ToastrService,
     private socialService: SocialAuthService,
-    private platformLocation: PlatformLocation,
 
   ) {
     // this.platformLocation.pushState( null, '', '/login' );
@@ -48,9 +47,11 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
     // tslint:disable-next-line: deprecation
     this.route.queryParams.subscribe( params => {
+      this.role = params?.role;
+
       if ( Object.keys( params ).length !== 0 ) {
         this.url = params.url;
-
+        this.changeUser();
         if ( params.status ) { this.mustReturn = true; }
         if ( params.url ) { this.mustReturnStore = true; }
       }
@@ -160,11 +161,9 @@ export class LoginComponent implements OnInit {
 
   }
 
-  changeUser( typeUser: string ) {
-    this.role = typeUser;
-    if ( this.role === 'merchant' ) { this.title = 'como Vendedor'; }
-
-    if ( this.role === 'client' ) { this.title = 'como Comprador'; }
+  changeUser() {
+    if ( this.role === 'merchant' ) { this.title = 'como vendedor'; }
+    if ( this.role === 'client' ) { this.title = 'como comprador'; }
   }
 
   changeType( type: boolean ): void {
