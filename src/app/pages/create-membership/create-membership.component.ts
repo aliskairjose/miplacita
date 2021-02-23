@@ -54,7 +54,7 @@ export class CreateMembershipComponent implements OnInit {
     this.modalOpen = true;
     this.modalOption.backdrop = 'static';
     this.modalOption.keyboard = false;
-    this.modalOption.windowClass = 'createProductModal';
+    this.modalOption.windowClass = 'paymentPlan';
     this.modal = this.modalService.open( this.CreateMembership, this.modalOption );
     this.modal.result.then( () => {
       // Cuando se envia la data cerrando el modal con el boton

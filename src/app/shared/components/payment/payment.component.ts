@@ -8,6 +8,7 @@ import { ActivatedRoute } from '@angular/router';
 import { User } from '../../classes/user';
 import { OrderService } from '../../services/order.service';
 import { Affiliate } from '../../classes/affiliate';
+import { MONTHS } from '../../classes/global-constants';
 
 @Component( {
   selector: 'app-payment',
@@ -18,20 +19,7 @@ export class PaymentComponent implements OnInit {
 
   balaceForm: FormGroup;
   paymentForm: FormGroup;
-  months = [
-    { value: 1, name: 'Enero' },
-    { value: 2, name: 'Febrero' },
-    { value: 3, name: 'Marzo' },
-    { value: 4, name: 'Abril' },
-    { value: 5, name: 'Mayo' },
-    { value: 6, name: 'Junio' },
-    { value: 7, name: 'Julio' },
-    { value: 8, name: 'Agosto' },
-    { value: 9, name: 'Septiembre' },
-    { value: 10, name: 'Octubre' },
-    { value: 11, name: 'Noviembre' },
-    { value: 12, name: 'Diciembre' }
-  ];
+  months = MONTHS;
   years = [];
   showInputAmount = false;
   showBalanceAlert = false;
@@ -93,6 +81,11 @@ export class PaymentComponent implements OnInit {
         }
       );
     }
+  }
+
+  test(): string {
+    console.log( 'test payment' );
+    return 'Test';
   }
 
   onSubmit(): boolean {

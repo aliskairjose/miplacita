@@ -1,9 +1,7 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { forkJoin } from 'rxjs';
-import { environment } from '../../../../environments/environment';
 import { Category } from '../../classes/category';
 import { Plan } from '../../classes/plan';
 import { Store } from '../../classes/store';
@@ -11,9 +9,7 @@ import { User } from '../../classes/user';
 import { PaymentComponent } from '../payment/payment.component';
 import { ProductService } from '../../services/product.service';
 import { ShopService } from '../../services/shop.service';
-import { Product, Images } from '../../classes/product';
 import { StorageService } from '../../services/storage.service';
-import { Address } from '../../classes/order';
 import { ERROR_FORM, EMAIL_PATTERN } from '../../classes/global-constants';
 @Component( {
   selector: 'app-register-store',
@@ -55,7 +51,6 @@ export class RegisterStoreComponent implements OnInit, OnChanges {
   @ViewChild( 'payment' ) payment: PaymentComponent;
 
   constructor(
-    private router: Router,
     private formBuilder: FormBuilder,
     private storage: StorageService,
     private shopService: ShopService,
@@ -202,7 +197,6 @@ export class RegisterStoreComponent implements OnInit, OnChanges {
     console.log( data?.tdc );
     const DATA = { ...this.storeForm.value };
     if ( data?.tdc ) {
-      console.log( data.tdc );
       DATA.card_number = data.tdc.card_number;
       DATA.owner_card = data.tdc.owner;
       DATA.cvv_card = data.tdc.cvv;

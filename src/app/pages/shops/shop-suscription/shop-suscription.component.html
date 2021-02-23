@@ -41,7 +41,7 @@
 					<hr>
 					<div class="d-flex justify-content-around">
 						<button type="button" class="btn btn-solid-orange" [disabled]="plan.price===0"
-							(click)="changePlan(plans[1]._id)">Seleccionar este plan</button>
+							(click)="changePlan(plans[1])">Seleccionar este plan</button>
 					</div>
 				</div>
 			</div>
@@ -102,9 +102,9 @@
 					</div>
 					<hr>
 					<div class="d-flex justify-content-around">
-						<button class="btn btn-solid-orange" [disabled]="plan.price>0"
-							(click)="changePlan(plans[0]._id)">Seleccionar este
-							plan</button>
+						<button class="btn btn-solid-orange" [disabled]="plan.price>0" (click)="changePlan(plans[0], paymentModal)">
+							Seleccionar este plan
+						</button>
 					</div>
 				</div>
 			</div>
@@ -166,12 +166,29 @@
 					</div>
 					<hr>
 					<div class="d-flex justify-content-around">
-						<button class="btn btn-solid-orange" [disabled]="plan.price>0"
-							(click)="changePlan(plans[0]._id)">Seleccionar este
-							plan</button>
+						<button class="btn btn-solid-orange" [disabled]="plan.price>0" (click)="changePlan(plans[0], paymentModal)">
+							Seleccionar este plan
+						</button>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
 </section>
+
+<ng-template #paymentModal let-modal>
+	<div class="modal-header">
+		<h4 class="modal-title" id="modal-basic-title">Actualización de plan</h4>
+		<button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+			<span aria-hidden="true">&times;</span>
+		</button>
+	</div>
+	<div class="modal-body">
+		<app-payment #payment [isProfile]='true'></app-payment>
+	</div>
+	<div class="modal-footer">
+		<button type="button" class="btn btn-solid-orange" (click)="payPlan(payment.onSubmit())">
+			Pagar {{selectedPlan.price | currency }}
+		</button>
+	</div>
+</ng-template>

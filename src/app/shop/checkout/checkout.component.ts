@@ -61,6 +61,7 @@ export class CheckoutComponent implements OnInit {
       state: [ '', Validators.required ],
       postalcode: [ '', Validators.required ]
     } );
+    // tslint:disable-next-line: deprecation
     this.productService.cartItems.subscribe( response => { this.products = response; } );
 
   }
@@ -68,12 +69,14 @@ export class CheckoutComponent implements OnInit {
   ngOnInit(): void {
     const date = new Date();
 
+    // tslint:disable-next-line: deprecation
     this.route.queryParams.subscribe( queryParams => {
       if ( Object.entries( queryParams ).length !== 0 ) {
         const decod = window.atob( queryParams.config );
         this._order = JSON.parse( window.atob( queryParams.order ) );
         this.store = JSON.parse( decod );
         if ( Object.entries( this.store ).length !== 0 && this.auth.getUserRol() === 'client' ) {
+          // tslint:disable-next-line: deprecation
           this.orderService.orderList( 1, `user=${this.auth.getUserActive()._id}` ).subscribe( res => {
             if ( res.docs.length === 0 ) {
               this.isFirstShop = true;
@@ -83,6 +86,7 @@ export class CheckoutComponent implements OnInit {
       }
     } );
 
+    // tslint:disable-next-line: deprecation
     this.subTotal.subscribe( amount => {
       this.amount = amount;
       this.totalPrice = amount + this._shipmentPrice + this.getItms;
@@ -131,8 +135,9 @@ export class CheckoutComponent implements OnInit {
     ( this.store._id ) ? order.type = 'store' : order.type = 'marketplace';
 
     order.payment = payment;
-    console.log( order )
+
     if ( data.valid ) {
+      // tslint:disable-next-line: deprecation
       this.orderService.createOrder( order ).subscribe( response => {
         if ( response.success ) {
           sessionStorage.removeItem( 'order' );
