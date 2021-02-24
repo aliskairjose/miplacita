@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Order } from '../../../shared/classes/order';
 import { OrderService } from '../../../shared/services/order.service';
 import { ProductService } from '../../../shared/services/product.service';
@@ -11,10 +11,9 @@ import { StorageService } from '../../../shared/services/storage.service';
   templateUrl: './success.component.html',
   styleUrls: [ './success.component.scss' ]
 } )
-export class SuccessComponent implements OnInit, AfterViewInit {
+export class SuccessComponent implements OnInit {
 
   public orderDetails: Order = {};
-  url: string;
 
   constructor(
     private router: Router,
@@ -23,7 +22,6 @@ export class SuccessComponent implements OnInit, AfterViewInit {
     private orderService: OrderService,
     public productService: ProductService,
   ) {
-    this.url = this.router.url;
 
   }
 
@@ -33,7 +31,7 @@ export class SuccessComponent implements OnInit, AfterViewInit {
   }
 
   goTo(): void {
-    if ( this.url === '/shop/register/success' ) {
+    if ( this.router.url === '/shop/register/success' ) {
       const login = this.storage.getItem( 'prelogin' );
       // tslint:disable-next-line: deprecation
       this.auth.login( login ).subscribe( data => {
@@ -45,9 +43,6 @@ export class SuccessComponent implements OnInit, AfterViewInit {
         this.router.navigate( [ '/pages/account/user/profile' ] );
       } );
     }
-  }
-  ngAfterViewInit() {
-
   }
 
 }
