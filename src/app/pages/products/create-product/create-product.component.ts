@@ -90,7 +90,6 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
   ) {
     this.createForm();
     this.productData.name = '';
-
   }
   ngOnChanges( changes: SimpleChanges ): void {
     this.images = [];
@@ -107,7 +106,7 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   private init(): void {
-
+    this.images = [];
     this.store = JSON.parse( sessionStorage.getItem( 'store' ) );
     const params = `store=${this.store._id}`;
 
@@ -157,6 +156,7 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
         // tslint:disable-next-line: deprecation
         this.productService.uploadImages( { images: this.productImages } ).subscribe( response => {
           if ( response.status === 'isOk' ) {
+            this.productImages = [];
             const data: Product = { ...this.productForm.value };
             data.images = [];
             response.images.forEach( ( url: string, index ) => {
@@ -197,6 +197,7 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
     this.updateValidators();
 
     this.variableForm.get( 'store' ).setValue( this.store._id );
+    this.variableForm.get( 'type' ).setValue( 'variable' );
 
     if ( !this.productImages.length ) {
       this.toastrService.warning( 'Debe cargar al menos una imagen' );
@@ -210,6 +211,7 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
       // tslint:disable-next-line: deprecation
       this.productService.uploadImages( { images: this.productImages } ).subscribe( response => {
         if ( response.status === 'isOk' ) {
+          this.productImages = [];
           const data: Product = {};
           data.images = [];
           response.images.forEach( ( url: string, index: number ) => {
@@ -226,6 +228,7 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   createProductVariable(): void {
+    console.log( this.variableForm.value );
     // tslint:disable-next-line: deprecation
     this.productService.addProduct( this.variableForm.value ).subscribe( () => {
       this.toastrService.info( 'El producto variable se ha creado con exito' );
@@ -290,7 +293,6 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
     this.variableForm.controls.color.updateValueAndValidity();
     this.variableForm.controls.size.updateValueAndValidity();
   }
-
 
   /**
    * @description Crea el producto via api
@@ -394,7 +396,7 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
     }
 
     this.create = option;
-    this.choiceOptions( product, option );
+    this.choiceOptions( this.product, option );
     this.modalOpen = true;
     this.modalOption.backdrop = 'static';
     this.modalOption.keyboard = false;
@@ -415,6 +417,7 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   private clear(): void {
+    this.product = {};
     this.submitted = false;
     this.showForm = false;
     this.disabledBtn = true;
@@ -426,7 +429,6 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
     this.deletePhoto = false;
 
     this.variableForm.reset();
-
     this.productForm.reset();
     this.productForm.clearValidators();
     this.images = [];
