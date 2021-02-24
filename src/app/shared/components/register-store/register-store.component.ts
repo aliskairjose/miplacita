@@ -37,6 +37,8 @@ export class RegisterStoreComponent implements OnInit, OnChanges {
   isValidUrl = false;
   isValidStoreName = false;
   disabled = false;
+
+  private _hasImage = false;
   private user: User = {};
   private emailPattern = EMAIL_PATTERN;
 
@@ -108,15 +110,20 @@ export class RegisterStoreComponent implements OnInit, OnChanges {
         this.toastrService.warning( 'Debe cargar un logo para la tienda!' );
         return;
       }
-      // tslint:disable-next-line: deprecation
-      this.shopService.uploadImages( { images: this.images } ).subscribe( result => {
-        if ( result.status === 'isOk' ) {
-          this.storeForm.value.logo = result.images[ 0 ];
-          this.images.length = 0;
-          this.submitted = false;
-          this.createStore( payment );
-        }
-      } );
+      if ( !this._hasImage ) {
+        // tslint:disable-next-line: deprecation
+        this.shopService.uploadImages( { images: this.images } ).subscribe( result => {
+          if ( result.status === 'isOk' ) {
+            this.storeForm.value.logo = result.images[ 0 ];
+            this._hasImage = true;
+            // this.images.length = 0;
+            this.submitted = false;
+            this.createStore( payment );
+          }
+        } );
+      } else {
+        this.createStore( payment );
+      }
     }
   }
 
@@ -194,7 +201,6 @@ export class RegisterStoreComponent implements OnInit, OnChanges {
   }
 
   private createStore( data: any ): void {
-    console.log( data?.tdc );
     const DATA = { ...this.storeForm.value };
     if ( data?.tdc ) {
       DATA.card_number = data.tdc.card_number;
@@ -207,6 +213,8 @@ export class RegisterStoreComponent implements OnInit, OnChanges {
       this.store = { ...store };
       if ( !this.register ) {
         this.toastrService.info( 'Se ha creado la nueva tienda con exito' );
+        this.images.length = 0;
+        this._hasImage = false;
         this.close( true );
       } else {
         this.step = 2;

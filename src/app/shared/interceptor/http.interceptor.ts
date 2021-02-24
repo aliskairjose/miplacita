@@ -43,7 +43,6 @@ export class HttpInterceptor implements HttpInterceptor {
       } ),
       catchError( ( response: HttpErrorResponse ) => {
         this.spinner.hide();
-        console.log( response );
 
         this.toastrService.error( response?.error?.message || response?.error?.message[ 0 ] || response?.statusText );
         switch ( response.status ) {
