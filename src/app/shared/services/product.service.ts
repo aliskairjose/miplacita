@@ -318,9 +318,9 @@ export class ProductService {
 
   // Calculate Stock Counts
   private calculateStockCounts( product: Product, quantity: number ) {
-    const qty = product.quantity + quantity;
+    // const qty = product.quantity + quantity;
     const stock = product.stock;
-    if ( stock < qty || stock === 0 ) {
+    if ( stock < quantity || stock === 0 ) {
       this.toastrService.error( 'No puede agregar más elementos de los disponibles. En stock ' + stock + ' items.' );
       return false;
     }

@@ -14,6 +14,7 @@ import { StorageService } from '../../../shared/services/storage.service';
 export class SuccessComponent implements OnInit {
 
   public orderDetails: Order = {};
+  url: string;
 
   constructor(
     private router: Router,
@@ -22,6 +23,7 @@ export class SuccessComponent implements OnInit {
     private orderService: OrderService,
     public productService: ProductService,
   ) {
+    this.url = this.router.url;
 
   }
 
@@ -31,7 +33,7 @@ export class SuccessComponent implements OnInit {
   }
 
   goTo(): void {
-    if ( this.router.url === '/shop/register/success' ) {
+    if ( this.url === '/shop/register/success' ) {
       const login = this.storage.getItem( 'prelogin' );
       // tslint:disable-next-line: deprecation
       this.auth.login( login ).subscribe( data => {
