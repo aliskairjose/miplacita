@@ -119,7 +119,9 @@ export class ProductsComponent implements OnChanges, AfterViewInit {
     if ( Object.entries( this.store ).length !== 0 ) {
       const params = `store=${this.store._id}`;
       forkJoin(
-        [ this.shopService.storeList( 1, params ), this.productService.productList( 1, params ) ] )
+        [ this.shopService.storeList( 1, params ),
+        this.productService.productList( 1, params )
+        ] )
         .subscribe( ( [ storeResponse, productsResponse ] ) => {
 
           this.plan = storeResponse.docs[ 0 ].plan;

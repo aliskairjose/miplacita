@@ -8,6 +8,7 @@ import { AuthService } from '../../services/auth.service';
 import { StorageService } from '../../services/storage.service';
 import { User } from '../../classes/user';
 import { ShippingAddress } from '../../classes/shipping-address';
+import { ConfirmationDialogService } from '../../services/confirmation-dialog.service';
 
 
 @Component( {
@@ -46,12 +47,15 @@ export class AddressComponent implements OnInit {
     private userService: UserService,
     private toastrService: ToastrService,
     private mapsAPILoader: MapsAPILoader,
+    private confirmationDialogService: ConfirmationDialogService,
+
   ) {
     this.isProfile = false;
     if ( this.auth.isAuthenticated() ) {
       this.hideMessage = true;
       this.user = this.auth.getUserActive();
 
+      // tslint:disable-next-line: deprecation
       this.userService.getUserAddress( this.user._id ).subscribe( response => {
 
         if ( response.success ) {
@@ -60,15 +64,21 @@ export class AddressComponent implements OnInit {
           if ( this.isProfile ) {
             this.shippingAddress = response.result.address;
           } else if ( response.result.address?.name ) {
-            const result = confirm( 'Ya existe una dirección, ¿Desea usarla?' );
-            if ( result ) {
-              this.shippingAddress = response.result.address;
-              this.addressForm.get( 'coord' ).setValue( this.shippingAddress.coord );
-            } else {
-              this.shippingAddress = {};
-            }
+            this.confirmationDialogService.confirm(
+              'Dirección de envío',
+              `Ya existe una dirección, ¿Desea usarla?`,
+              'Si deseo usarla',
+              'No gracias'
+            ).then( ( confirmed: boolean ) => {
+              if ( confirmed ) {
+                this.shippingAddress = response.result.address;
+                this.addressForm.get( 'coord' ).setValue( this.shippingAddress.coord );
+              } else {
+                this.shippingAddress = {};
+              }
+              this.createForm();
+            } );
           }
-          this.createForm();
         }
       } );
     }
