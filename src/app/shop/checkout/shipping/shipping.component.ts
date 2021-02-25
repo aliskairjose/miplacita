@@ -195,17 +195,14 @@ export class ShippingComponent implements OnInit {
     const shopOptions = [];
 
     // Obtenemos un array con todas las opciones de envío en pantalla
-    for ( const i of this.shipmentOptions ) {
-      shopOptions.push( ...i.shopOptions );
-    }
+    for ( const i of this.shipmentOptions ) { shopOptions.push( ...i.shopOptions ); }
 
     // Obtenemos la información de la opción de envíp seleccionada
-    const shipOption = shopOptions.filter( val => val._id === optionId );
-
+    const _shipOption = shopOptions.find( val => val._id === optionId );
     this.order.cart.map( res => {
       if ( res.store === shopId ) {
         res.shipment_option = optionId;
-        res.shipment_price = shipOption[ 0 ].price;
+        res.shipment_price = _shipOption.price;
       }
     } );
 
