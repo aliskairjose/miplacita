@@ -84,44 +84,49 @@ export class ShippingComponent implements OnInit {
       const store: Store = JSON.parse( sessionStorage.sessionStore );
     }
 
-    this.getStoresId().then( ( shops ) => {
-      for ( const shop of shops as any ) {
-        if ( shop.shopOptions.length === 0 ) { this.isDisabled = true; }
+    // Obtiene la lista de opciones de envio de cada tienda
+    this.getShipmentsOptions();
 
-        const detail = { ...this.detail };
-        detail.store = shop.id;
-        const products = this._products.filter( value => {
-          if ( ( value.type === 'principal' ) && ( value.store._id === shop.id ) ) {
-            return value;
-          }
-          if ( ( value.type === 'variable' ) && ( value.store === shop.id ) ) {
-            return value;
-          }
-        } );
-        detail.products = products;
-        detail.shipment_option = shop.shopOptions[ 0 ]?._id;
-        detail.shipment_price = shop.shopOptions[ 0 ]?.price;
-        this.cart.push( detail );
-      }
-      this.shipmentOptions = shops;
+  }
 
-      this.order.cart = this.cart;
+  private async getShipmentsOptions() {
+    const shops = await this.filterByStoreID();
+    for ( const shop of shops as any ) {
+      if ( shop.shopOptions.length === 0 ) { this.isDisabled = true; }
 
-      if ( this.user ) {
-        this.order.user = this.user._id;
-      }
-      // Usuario invitado
-      if ( !this.user ) {
-        // tslint:disable-next-line: deprecation
-        this.userService.userInvited().subscribe( response => {
-          if ( response.success ) {
-            this.storage.setItem( 'mp_token', response.token );
-            this.order.user = response.user._id;
-          }
-        } );
-      }
+      const detail = { ...this.detail };
+      detail.store = shop.id;
+      const products = this._products.filter( value => {
+        if ( ( value.type === 'principal' ) && ( value.store._id === shop.id ) ) {
+          return value;
+        }
+        if ( ( value.type === 'variable' ) && ( value.store === shop.id ) ) {
+          return value;
+        }
+      } );
+      detail.products = products;
+      detail.shipment_option = shop.shopOptions[ 0 ]?._id;
+      detail.shipment_price = shop.shopOptions[ 0 ]?.price;
+      this.cart.push( detail );
+    }
+    this.shipmentOptions = shops;
 
-    } );
+    this.order.cart = [ ...this.cart ];
+
+    if ( this.user ) {
+      this.order.user = this.user._id;
+    }
+    // Usuario invitado
+    if ( !this.user ) {
+      // tslint:disable-next-line: deprecation
+      this.userService.userInvited().subscribe( response => {
+        if ( response.success ) {
+          this.storage.setItem( 'mp_token', response.token );
+          this.order.user = response.user._id;
+        }
+      } );
+    }
+
   }
 
   ngOnInit(): void {
@@ -204,10 +209,6 @@ export class ShippingComponent implements OnInit {
       }
     } );
 
-  }
-
-  private async getStoresId() {
-    return await this.filterByStoreID();
   }
 
   /**
