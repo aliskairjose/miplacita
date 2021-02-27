@@ -69,7 +69,8 @@ export class SettingsComponent implements OnInit {
 
   public setStore( store: Store ) {
     this.config = window.btoa( JSON.stringify( store ) );
-    if ( this.auth.getUserActive() && this.auth.getUserRol() === 'client' ) {
+    const condicional = this.auth.getUserActive() && this.auth.getUserRol() === 'client';
+    if ( condicional ) {
       this.getAffiliate( store._id );
     }
   }

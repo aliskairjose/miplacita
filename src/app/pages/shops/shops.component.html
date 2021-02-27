@@ -86,8 +86,8 @@
 				</tbody>
 				<tbody *ngIf="isReport">
 					<tr class="text-center" *ngFor="let shop of shops | filter: searchText">
-						<td> {{ shop.name }} </td>
-						<td> {{ shop.owner_id.fullname }} </td>
+						<td> {{ shop.name }} o</td>
+						<td> {{ shop.owner_id?.fullname }} </td>
 						<td class="text-center"> {{ shop.plan ? shop.plan.name : '' }} </td>
 						<td *ngIf="shop.plan" class="text-center"> {{ shop.plan.price | currency }}</td>
 						<td *ngIf="!shop.plan"></td>

@@ -38,7 +38,7 @@ export class ShopsComponent implements OnInit, OnChanges {
 
   ) {
   }
-  ngOnChanges( changes: SimpleChanges ): void {
+  ngOnChanges(): void {
   }
 
   ngOnInit(): void {

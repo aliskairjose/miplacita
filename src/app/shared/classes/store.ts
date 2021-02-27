@@ -1,5 +1,4 @@
 import { User } from './user';
-import { Address } from './order';
 export interface Store {
   _id?: string;
   name?: string;

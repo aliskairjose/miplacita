@@ -35,9 +35,7 @@ export class AuthService {
    * @description Cierre de sesion del usuario
    */
   logout(): void {
-    // localStorage.removeItem( 'mp_user' );
-    // localStorage.removeItem( 'mp_token' );
-    // localStorage.removeItem( 'products' );
+    sessionStorage.clear();
     localStorage.clear();
     this.router.navigate( [ '/home' ] );
     sessionStorage.removeItem( 'store' );
@@ -79,11 +77,7 @@ export class AuthService {
    */
   getUserRol(): string {
     const user: User = JSON.parse( localStorage.getItem( 'mp_user' ) );
-    if ( user ) {
-      return user.role;
-    } else {
-      return '';
-    }
+    return user?.role ?? '';
   }
 
   /**
