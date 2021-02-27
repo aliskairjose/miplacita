@@ -117,8 +117,9 @@ export class FiltersComponent implements OnInit, AfterViewInit {
   }
 
   private loadStores(): void {
-    this.report.membershipActiveShop( 1, `report=false` ).subscribe( res => {
-      this.stores = res.docs;
+    // tslint:disable-next-line: deprecation
+    this.report.membershipActiveShop( 1, `report=true` ).subscribe( ( res: Store[] ) => {
+      this.stores = [ ...res ];
     } );
   }
 
