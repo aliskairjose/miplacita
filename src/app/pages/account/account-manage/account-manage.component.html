@@ -271,7 +271,8 @@
 
 <ng-template #content let-c="close" let-d="dismiss">
 	<div class="modal-header">
-		<h4 class="modal-title" id="modal-basic-title">Información importante</h4>
+		<h4 class="modal-title" id="modal-basic-title">Información importante
+		</h4>
 		<button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
 			<span aria-hidden="true">&times;</span>
 		</button>
@@ -283,6 +284,12 @@
 		<p *ngIf="!selectedStore.config.images.length" class="text-danger ml-3">No tienes banners</p>
 		<p *ngIf="!hasShipments">Se ha detectado que no has creado <strong>Zonas de envío</strong>, sin estas no podrás
 			vender </p>
+		<div class="clearfix">
+			<a href="pages/account/user/admin-store/design" type="button" class="btn btn-solid-orange float-left">Diseño de
+				tienda</a>
+			<a href="/pages/account/user/admin-store/shipping" type="button"
+				class="btn btn-solid-orange float-right">Configuración de zonas</a>
+		</div>
 	</div>
 	<div class="modal-footer">
 		<button type="button" class="btn btn-outline-dark" (click)="c('Save click')">Save</button>
