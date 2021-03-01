@@ -89,8 +89,8 @@ export class ShopsComponent implements OnInit, OnChanges {
 
       if ( !this.isReport ) {
         this.shops = result.docs;
-        this.paginate = { ...result };
-        this.paginate.pages = [];
+        this.paginate = { ...result, pages: [] };
+
         for ( let i = 1; i <= this.paginate.totalPages; i++ ) {
           this.paginate.pages.push( i );
         }

@@ -157,8 +157,8 @@ export class ProductsComponent implements OnChanges, AfterViewInit {
     // tslint:disable-next-line: deprecation
     this.productService.productList( page, this.params ).subscribe( result => {
       this.products = [ ...result.docs ];
-      this.paginate = { ...result };
-      this.paginate.pages = [];
+      this.paginate = { ...result, pages: [] };
+
       for ( let i = 1; i <= this.paginate.totalPages; i++ ) {
         this.paginate.pages.push( i );
       }

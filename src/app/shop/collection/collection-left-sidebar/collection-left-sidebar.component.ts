@@ -51,10 +51,13 @@ export class CollectionLeftSidebarComponent implements OnInit {
     private categoryService: CategoryService,
   ) {
     // tslint:disable-next-line: max-line-length
+    // tslint:disable-next-line: deprecation
     forkJoin( [ this.shopService.storeList(), this.categoryService.categoryList() ] ).subscribe( ( [ shopsResult, categoriesResult ] ) => {
       // Get Query params..
+      // tslint:disable-next-line: deprecation
       this.route.queryParams.subscribe( params => {
         if ( params.id ) {
+          // tslint:disable-next-line: deprecation
           this.shopService.getStore( params.id ).subscribe( response => this.shopService.customizeShop( response.result.config ) );
         }
 
@@ -128,8 +131,8 @@ export class CollectionLeftSidebarComponent implements OnInit {
 
       ( this.products.length ) ? this.noData = false : this.noData = true;
 
-      this.paginate = { ...result };
-      this.paginate.pages = [];
+      this.paginate = { ...result, pages: [] };
+
       for ( let i = 1; i <= this.paginate.totalPages; i++ ) {
         this.paginate.pages.push( i );
       }

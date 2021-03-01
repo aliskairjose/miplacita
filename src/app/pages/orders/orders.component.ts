@@ -147,8 +147,8 @@ export class OrdersComponent implements OnInit, OnChanges {
     // tslint:disable-next-line: deprecation
     this.orderService.orderList( page, params ).subscribe( result => {
       this.orders = [ ...result.docs ];
-      this.paginate = { ...result };
-      this.paginate.pages = [];
+      this.paginate = { ...result, pages: [] };
+
       for ( let i = 1; i <= this.paginate.totalPages; i++ ) {
         this.paginate.pages.push( i );
       }

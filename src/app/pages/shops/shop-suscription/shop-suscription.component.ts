@@ -88,8 +88,8 @@ export class ShopSuscriptionComponent implements OnInit, OnChanges {
   }
 
   private updatePlan( tdc: any ): void {
-    const _data = { ...tdc };
-    _data.plan = this.selectedPlan._id;
+    const _data = { ...tdc, plan: this.selectedPlan._id };
+    // _data.plan = this.selectedPlan._id;
 
     // tslint:disable-next-line: deprecation
     this.shopService.updateStorePlan( this.store._id, _data ).subscribe( response => {
