@@ -83,7 +83,7 @@ export class CollectionLeftSidebarComponent implements OnInit {
             this.shops = shops.filter( x => x._id === storeID[ 0 ] );
             shopTag.push( this.shops[ 0 ].name );
           } else {
-            this.shops = shops;
+            this.shops = [ ...shops ];
             shopTag = [];
           }
 
@@ -92,7 +92,7 @@ export class CollectionLeftSidebarComponent implements OnInit {
             this.categories = categories.filter( x => x._id === categoryID[ 0 ] );
             catTag.push( this.categories[ 0 ].name );
           } else {
-            this.categories = categories;
+            this.categories = [ ...categories ];
             catTag = [];
           }
 
@@ -101,7 +101,7 @@ export class CollectionLeftSidebarComponent implements OnInit {
             this.prices = prices.filter( x => x._id === priceID[ 0 ] );
             priceTag.push( this.prices[ 0 ].name );
           } else {
-            this.prices = prices;
+            this.prices = [ ...prices ];
             priceTag = [];
           }
 
