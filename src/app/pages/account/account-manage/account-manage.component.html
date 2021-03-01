@@ -267,8 +267,28 @@
 			</div>
 		</div>
 	</div>
-
 </div>
+
+<ng-template #content let-c="close" let-d="dismiss">
+	<div class="modal-header">
+		<h4 class="modal-title" id="modal-basic-title">Información importante</h4>
+		<button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+			<span aria-hidden="true">&times;</span>
+		</button>
+	</div>
+	<div class="modal-body">
+		<p>Se han detectado que la configuración de tu tienda no esta completa!</p>
+		<p *ngIf="!selectedStore.config.color" class="text-danger ml-3">No has seleccionado color</p>
+		<p *ngIf="!selectedStore.config.font" class="text-danger ml-3">No has seleccionado tipografía</p>
+		<p *ngIf="!selectedStore.config.images.length" class="text-danger ml-3">No tienes banners</p>
+		<p *ngIf="!hasShipments">Se ha detectado que no has creado <strong>Zonas de envío</strong>, sin estas no podrás
+			vender </p>
+	</div>
+	<div class="modal-footer">
+		<button type="button" class="btn btn-outline-dark" (click)="c('Save click')">Save</button>
+	</div>
+</ng-template>
+
 <ng-template #registerNewStore>
 	<app-register-store #registerNewStore [modal]="true" [register]="false" [_user]="user" (callback)="close($event)"
 		[step]="step">

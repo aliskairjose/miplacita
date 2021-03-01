@@ -1,4 +1,4 @@
-import { Component, OnInit, OnChanges, SimpleChanges, ViewChild } from '@angular/core';
+import { Component, OnInit, OnChanges, SimpleChanges, ViewChild, TemplateRef } from '@angular/core';
 import { Store } from 'src/app/shared/classes/store';
 import { ActivatedRoute, Router } from '@angular/router';
 import { User } from '../../../shared/classes/user';
@@ -7,6 +7,7 @@ import { ShopService } from '../../../shared/services/shop.service';
 import { NgbModalOptions, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { RegisterStoreComponent } from '../../../shared/components/register-store/register-store.component';
 import { STANDARD_IMAGE } from '../../../shared/classes/global-constants';
+import { async } from '@angular/core/testing';
 
 @Component( {
   selector: 'app-account-manage',
@@ -16,6 +17,7 @@ import { STANDARD_IMAGE } from '../../../shared/classes/global-constants';
 
 export class AccountManageComponent implements OnInit, OnChanges {
   @ViewChild( 'registerNewStore' ) RegisterStore: RegisterStoreComponent;
+  @ViewChild( 'content', { read: TemplateRef } ) content: TemplateRef<any>;
 
   standardImage = STANDARD_IMAGE;
   stores: Store[] = [];
@@ -27,6 +29,8 @@ export class AccountManageComponent implements OnInit, OnChanges {
   modalOpen = false;
   modalOption: NgbModalOptions = {}; // not null!
   step = 0;
+  hasShipments: any;
+
   clientOptions = [
     { name: 'Mi Perfil', id: 'user-icon', key: 'profile', icon: 'assets/images/marketplace/images/icons/profile.png' },
     { name: 'Mis Órdenes', key: 'orders', icon: 'assets/images/marketplace/images/icons/orders.png' },
@@ -143,8 +147,14 @@ export class AccountManageComponent implements OnInit, OnChanges {
     this.auth.logout();
   }
 
-  selectStore( store: Store ): void {
+  async selectStore( store: Store ) {
     this.selectedStore = { ...store };
+    this.hasShipments = await this.loadZones( this.selectedStore._id );
+
+    if ( !store.config.color || !store.config.font || !store.config.images.length || !this.hasShipments ) {
+      this.openConfigModal();
+    }
+
     this.shopService.storeSubject( store );
     sessionStorage.setItem( 'store', JSON.stringify( store ) );
   }
@@ -165,6 +175,12 @@ export class AccountManageComponent implements OnInit, OnChanges {
     this.modal = this.modalService.open( this.RegisterStore, this.modalOption );
   }
 
+  private openConfigModal(): void {
+    this.modalOption.backdrop = 'static';
+    this.modalOption.keyboard = false;
+    this.modalService.open( this.content, this.modalOption );
+  }
+
   close( type: boolean ) {
     this.modal.dismiss();
     if ( type ) {
@@ -172,6 +188,16 @@ export class AccountManageComponent implements OnInit, OnChanges {
     }
   }
 
-
+  private loadZones( id: string ) {
+    return new Promise( resolve => {
+      this.shopService
+        .findShipmentOptionByShop( id )
+        // tslint:disable-next-line: deprecation
+        .subscribe( shipments => {
+          const res = shipments.length > 0 ? true : false;
+          resolve( res );
+        } );
+    } );
+  }
 
 }
