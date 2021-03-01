@@ -124,7 +124,7 @@ export class DashboardComponent implements OnInit {
             const month = this.months[ +elemt._id.month - 1 ];
             this.barChartLabels.push( month + ' ' + elemt._id.year );
             barTemporal.push( elemt.total );
-          } )
+          } );
         }
         this.barChartData.push( { data: barTemporal } );
 
