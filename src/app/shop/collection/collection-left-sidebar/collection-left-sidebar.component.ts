@@ -50,67 +50,67 @@ export class CollectionLeftSidebarComponent implements OnInit {
     private viewScroller: ViewportScroller,
     private categoryService: CategoryService,
   ) {
-    // tslint:disable-next-line: max-line-length
-    // tslint:disable-next-line: deprecation
-    forkJoin( [ this.shopService.storeList(), this.categoryService.categoryList() ] ).subscribe( ( [ shopsResult, categoriesResult ] ) => {
-      // Get Query params..
+    forkJoin( [ this.shopService.storeList(), this.categoryService.categoryList() ] )
       // tslint:disable-next-line: deprecation
-      this.route.queryParams.subscribe( params => {
-        if ( params.id ) {
-          // tslint:disable-next-line: deprecation
-          this.shopService.getStore( params.id ).subscribe( response => this.shopService.customizeShop( response.result.config ) );
-        }
+      .subscribe( ( [ shopsResult, categoriesResult ] ) => {
+        // Get Query params..
+        // tslint:disable-next-line: deprecation
+        this.route.queryParams.subscribe( params => {
+          if ( params.id ) {
+            // tslint:disable-next-line: deprecation
+            this.shopService.getStore( params.id ).subscribe( response => this.shopService.customizeShop( response.result.config ) );
+          }
 
-        this._storeId = params.id;
-        if ( params.id ) { this.hideFilters = true; }
+          this._storeId = params.id;
+          if ( params.id ) { this.hideFilters = true; }
 
-        const shops = [ ...shopsResult.docs ];
-        const categories = [ ...categoriesResult ];
-        const prices = [
-          { _id: 'asc', name: 'Desde el más bajo' },
-          { _id: 'desc', name: 'Desde el más alto' }
-        ];
+          const shops = [ ...shopsResult.docs ];
+          const categories = [ ...categoriesResult ];
+          const prices = [
+            { _id: 'asc', name: 'Desde el más bajo' },
+            { _id: 'desc', name: 'Desde el más alto' }
+          ];
 
-        let shopTag = [];
-        let catTag = [];
-        let priceTag = [];
+          let shopTag = [];
+          let catTag = [];
+          let priceTag = [];
 
-        const p = window.location.href.split( '?' );
-        this.params = p[ 1 ];
+          const p = window.location.href.split( '?' );
+          this.params = p[ 1 ];
 
-        const storeID = params.store ? params.store.split( ',' ) : [];
-        if ( storeID.length > 0 ) {
-          this.shops = shops.filter( x => x._id === storeID[ 0 ] );
-          shopTag.push( this.shops[ 0 ].name );
-        } else {
-          this.shops = shops;
-          shopTag = [];
-        }
+          const storeID = params.store ? params.store.split( ',' ) : [];
+          if ( storeID.length > 0 ) {
+            this.shops = shops.filter( x => x._id === storeID[ 0 ] );
+            shopTag.push( this.shops[ 0 ].name );
+          } else {
+            this.shops = shops;
+            shopTag = [];
+          }
 
-        const categoryID = params.category ? params.category.split( ',' ) : [];
-        if ( categoryID.length > 0 ) {
-          this.categories = categories.filter( x => x._id === categoryID[ 0 ] );
-          catTag.push( this.categories[ 0 ].name );
-        } else {
-          this.categories = categories;
-          catTag = [];
-        }
+          const categoryID = params.category ? params.category.split( ',' ) : [];
+          if ( categoryID.length > 0 ) {
+            this.categories = categories.filter( x => x._id === categoryID[ 0 ] );
+            catTag.push( this.categories[ 0 ].name );
+          } else {
+            this.categories = categories;
+            catTag = [];
+          }
 
-        const priceID = params.price_order ? params.price_order.split( ',' ) : [];
-        if ( priceID.length > 0 ) {
-          this.prices = prices.filter( x => x._id === priceID[ 0 ] );
-          priceTag.push( this.prices[ 0 ].name );
-        } else {
-          this.prices = prices;
-          priceTag = [];
-        }
+          const priceID = params.price_order ? params.price_order.split( ',' ) : [];
+          if ( priceID.length > 0 ) {
+            this.prices = prices.filter( x => x._id === priceID[ 0 ] );
+            priceTag.push( this.prices[ 0 ].name );
+          } else {
+            this.prices = prices;
+            priceTag = [];
+          }
 
-        this.tags = [ ...shopTag, ...catTag, ...priceTag ]; // All Tags Array
+          this.tags = [ ...shopTag, ...catTag, ...priceTag ]; // All Tags Array
 
-        this.loadProductList();
+          this.loadProductList();
 
+        } );
       } );
-    } );
 
   }
 
