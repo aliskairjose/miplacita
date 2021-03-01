@@ -30,6 +30,7 @@ export class AccountManageComponent implements OnInit, OnChanges {
   modalOption: NgbModalOptions = {}; // not null!
   step = 0;
   hasShipments: any;
+  isConfigured: boolean;
 
   clientOptions = [
     { name: 'Mi Perfil', id: 'user-icon', key: 'profile', icon: 'assets/images/marketplace/images/icons/profile.png' },
@@ -147,11 +148,19 @@ export class AccountManageComponent implements OnInit, OnChanges {
     this.auth.logout();
   }
 
+  // Redirecciona a diseño de tienda o a configuración de zonas
+  go( url: string ): void {
+    this.closeModal();
+    this.router.navigateByUrl( url );
+  }
+
   async selectStore( store: Store ) {
     this.selectedStore = { ...store };
+    console.log( store.config )
     this.hasShipments = await this.loadZones( this.selectedStore._id );
+    this.isConfigured = !store.config.color || !store.config.font || !store.config.images.length;
 
-    if ( !store.config.color || !store.config.font || !store.config.images.length || !this.hasShipments ) {
+    if ( this.isConfigured || !this.hasShipments ) {
       this.openConfigModal();
     }
 

@@ -90,8 +90,7 @@ export class ShippingZonesComponent implements OnInit, OnChanges {
         'Por favor confirme...',
         `¿Realmente desea borrar ${zone.name}?`,
         'Si, borrar!',
-        'No borrar',
-        'lg'
+        'No borrar'
       )
       .then( ( confirmed ) => {
         // tslint:disable-next-line: curly

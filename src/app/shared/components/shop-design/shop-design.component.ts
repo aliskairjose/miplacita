@@ -37,6 +37,7 @@ export class ShopDesignComponent implements OnInit, OnChanges {
   @Input() store: Store;
   @Output() updateShop: EventEmitter<Store> = new EventEmitter<Store>();
   user: User;
+
   constructor(
     private router: Router,
     private shopService: ShopService,
@@ -54,8 +55,8 @@ export class ShopDesignComponent implements OnInit, OnChanges {
   }
 
   ngOnInit(): void {
-    this.user = this.authService.getUserActive();
-    this.getStoreInfo();
+    // this.user = this.authService.getUserActive();
+    // this.getStoreInfo();
   }
 
   updateShopConfig(): void {

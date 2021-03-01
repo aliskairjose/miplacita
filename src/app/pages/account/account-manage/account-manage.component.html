@@ -289,10 +289,11 @@
 		<p *ngIf="!hasShipments">Se ha detectado que no has creado <strong>Zonas de envío</strong>, sin estas no podrás
 			vender </p>
 		<div class="clearfix">
-			<a href="pages/account/user/admin-store/design" type="button" class="btn btn-solid-orange float-left">Diseño de
-				tienda</a>
-			<a href="/pages/account/user/admin-store/shipping" type="button"
-				class="btn btn-solid-orange float-right">Configuración de zonas</a>
+			<button (click)="go('pages/account/user/admin-store/design')" type="button"
+				class="btn btn-solid-orange float-left" *ngIf="isConfigured">
+				Diseño de tienda</button>
+			<button (click)="go('/pages/account/user/admin-store/shipping')" type="button"
+				class="btn btn-solid-orange float-right" *ngIf="!hasShipments">Configuración de zonas</button>
 		</div>
 	</div>
 	<div class="modal-footer">
