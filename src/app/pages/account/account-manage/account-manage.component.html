@@ -271,7 +271,11 @@
 
 <ng-template #content let-c="close" let-d="dismiss">
 	<div class="modal-header">
-		<h4 class="modal-title" id="modal-basic-title">Información importante
+		<h4 class="modal-title" id="modal-basic-title">
+			Información importante
+			<span style="color: Tomato;">
+				<i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+			</span>
 		</h4>
 		<button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
 			<span aria-hidden="true">&times;</span>
@@ -292,7 +296,7 @@
 		</div>
 	</div>
 	<div class="modal-footer">
-		<button type="button" class="btn btn-outline-dark" (click)="c('Save click')">Save</button>
+		<button type="button" class="btn btn-solid-orange" (click)="closeModal()">Cerrar</button>
 	</div>
 </ng-template>
 

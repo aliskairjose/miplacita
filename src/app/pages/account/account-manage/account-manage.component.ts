@@ -167,6 +167,10 @@ export class AccountManageComponent implements OnInit, OnChanges {
     this.selectStore( store );
   }
 
+  closeModal(): void {
+    this.modal.dismiss();
+  }
+
   private openModal() {
     this.modalOpen = true;
     this.modalOption.backdrop = 'static';
@@ -176,9 +180,7 @@ export class AccountManageComponent implements OnInit, OnChanges {
   }
 
   private openConfigModal(): void {
-    this.modalOption.backdrop = 'static';
-    this.modalOption.keyboard = false;
-    this.modalService.open( this.content, this.modalOption );
+    this.modal = this.modalService.open( this.content );
   }
 
   close( type: boolean ) {
