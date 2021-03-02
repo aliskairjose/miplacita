@@ -130,7 +130,7 @@ export class ProductLeftSidebarComponent implements OnInit {
 
   /* Producto seleccionado desde las opciones de color */
   selectColor( sizes: any ): void {
-    this.sizes = sizes;
+    this.sizes = sizes.key ? sizes : [];
     this.product = sizes[ 0 ].product;
     this.color = this.product.color;
   }
