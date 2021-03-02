@@ -27,7 +27,8 @@
         <input formControlName="name" type="text">
       </div>
 
-      <button type="submit" class="btn-solid-orange">
+      <button type="submit" class="btn-solid-orange"
+        [ngStyle]="{'background-color': store.config.color, 'border-color': store.config.color}">
         Buscar
       </button>
     </div>

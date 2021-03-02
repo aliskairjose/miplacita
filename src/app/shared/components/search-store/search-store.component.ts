@@ -5,16 +5,18 @@ import { Product } from '../../classes/product';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Store } from '../../classes/store';
 
-@Component({
+@Component( {
   selector: 'app-search-store',
   templateUrl: './search-store.component.html',
-  styleUrls: ['./search-store.component.scss']
-})
+  styleUrls: [ './search-store.component.scss' ]
+} )
 export class SearchStoreComponent implements OnInit, OnChanges {
   searchForm: FormGroup;
   products: Product[] = [];
   textCategory = 'Todos';
   textSubCategory = 'Más Vendidos';
+  color = '';
+
   @Input() subcategories: Category[];
   @Input() store: Store = {};
   @Input() categories: Category[];
@@ -29,10 +31,10 @@ export class SearchStoreComponent implements OnInit, OnChanges {
   }
 
   ngOnInit(): void {
-
   }
 
   ngOnChanges( changes: SimpleChanges ): void {
+    // tslint:disable-next-line: deprecation
     this.route.queryParams.subscribe( q => this.searchForm.get( 'id' ).setValue( q?.id ) );
 
     if ( Object.entries( this.store ).length ) {
@@ -58,7 +60,7 @@ export class SearchStoreComponent implements OnInit, OnChanges {
       name: [ '' ],
       category: [ '' ],
       id: [ '' ],
-      subcategory: ['']
+      subcategory: [ '' ]
     } );
   }
 
@@ -66,7 +68,6 @@ export class SearchStoreComponent implements OnInit, OnChanges {
     this.textCategory = item.name;
     this.searchForm.value.category = item._id;
   }
-
 
   updateSubCategory( item: Category ) {
     this.textSubCategory = item.name;
