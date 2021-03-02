@@ -70,16 +70,20 @@
 										<div class="input-group">
 											<span class="input-group-prepend">
 												<button type="button" class="btn quantity-left-minus" data-type="minus"
-													(click)="decrement(product)" style="border-color: #fe7e65">
-													<i class="ti-angle-left" style="color: #fe7e65"></i>
+													(click)="decrement(product)"
+													[ngStyle]="{'color': store.config?.color ? store.config.color : '#c6410f'}">
+													<i class="ti-angle-left"
+														[ngStyle]="{'color': store.config?.color ? store.config.color : '#c6410f'}"></i>
 												</button>
 											</span>
 											<input type="text" name="quantity" class="form-control input-number" disabled
 												[(ngModel)]="product.quantity">
 											<span class="input-group-prepend">
 												<button type="button" class="btn quantity-right-plus" data-type="plus"
-													(click)="increment(product)" style="border-color: #fe7e65">
-													<i class="ti-angle-right" style="color: #fe7e65"></i>
+													(click)="increment(product)"
+													[ngStyle]="{'color': store.config?.color ? store.config.color : '#c6410f'}">
+													<i class="ti-angle-right"
+														[ngStyle]="{'color': store.config?.color ? store.config.color : '#c6410f'}"></i>
 												</button>
 											</span>
 										</div>
