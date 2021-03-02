@@ -37,7 +37,6 @@ export class RegisterComponent implements OnInit {
   role = 'client';
   url = '';
   title: string;
-  mustReturnStore = false;
   isPassword = true;
   isPasswordR = true;
   icon = 'fa fa-eye';
@@ -65,10 +64,7 @@ export class RegisterComponent implements OnInit {
   ngOnInit(): void {
     // tslint:disable-next-line: deprecation
     this.route.queryParams.subscribe( params => {
-      if ( params.url ) {
-        this.url = params.url;
-        this.mustReturnStore = true;
-      }
+      if ( params.url ) { this.url = params.url; }
 
       if ( params.role ) {
         this.role = params.role;
@@ -106,15 +102,15 @@ export class RegisterComponent implements OnInit {
           this.storage.setItem( 'prelogin', this.registerForm.value );
           this.storage.setItem( 'userForm', data.user );
           this.storage.setItem( 'mp_token', data.token );
-          if ( this.mustReturnStore ) {
-            this.router.navigate( [ this.url ] );
-            return;
-          }
+          // if ( this.mustReturnStore ) {
+          //   this.router.navigate( [ this.url ] );
+          //   return;
+          // }
           if ( this.role === 'merchant' ) {
             this.registerSuccess = true;
           } else {
             // Opcion client
-            this.router.navigate( [ '/pages/user/interests' ] );
+            this.router.navigate( [ '/pages/user/interests' ], { queryParams: { url: this.url } } );
           }
         }
       } );

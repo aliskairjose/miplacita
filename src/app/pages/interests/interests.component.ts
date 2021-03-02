@@ -9,6 +9,7 @@ import { CategoryService } from '../../shared/services/category.service';
 import { Category } from '../../shared/classes/category';
 import { User } from 'src/app/shared/classes/user';
 import { StorageService } from 'src/app/shared/services/storage.service';
+import { url } from 'inspector';
 
 @Component( {
   selector: 'app-interests',
@@ -29,6 +30,7 @@ export class InterestsComponent implements OnInit, OnDestroy {
   interestsList: Category[] = [];
   user: User;
   mustReturn = false; // variable que indica que debe retornar al origen despues de login
+  url = '';
 
   @Input() type = 'register';
   @ViewChild( 'interests', { static: false } ) Interests: TemplateRef<any>;
@@ -63,8 +65,8 @@ export class InterestsComponent implements OnInit, OnDestroy {
     }
     this.role = this.auth.getUserRol();
     // tslint:disable-next-line: deprecation
-    this.route.url.subscribe( url => {
-      if ( url.length === 2 ) {
+    this.route.url.subscribe( data => {
+      if ( data.length === 2 ) {
         this.isPage = true;
       }
     } );
@@ -74,6 +76,7 @@ export class InterestsComponent implements OnInit, OnDestroy {
       if ( Object.keys( params ).length !== 0 ) {
         this.role = params.role;
         if ( params.status ) { this.mustReturn = true; }
+        this.url = params?.url;
       }
     } );
   }
@@ -115,6 +118,21 @@ export class InterestsComponent implements OnInit, OnDestroy {
 
   saveInterests(): void {
     sessionStorage.removeItem( 'userForm' );
+    if ( this.url ) {
+      const login = this.storage.getItem( 'prelogin' );
+
+      // tslint:disable-next-line: deprecation
+      this.auth.login( login ).subscribe( data => {
+        this.storage.setLoginData( 'data', data );
+        this.auth.authSubject( data.success );
+        this.storage.removeItem( 'prelogin' );
+        this.storage.removeItem( 'userForm' );
+        sessionStorage.clear();
+        this.router.navigate( [ this.url ] );
+      } );
+      return;
+    }
+
     ( this.mustReturn ) ? this.router.navigate( [ 'shop/checkout/shipping' ] ) : this.router.navigate( [ '/shop/register/success' ] );
   }
 
