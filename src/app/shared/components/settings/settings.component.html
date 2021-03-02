@@ -43,7 +43,6 @@
         <li>
           <div class="buttons d-flex justify-content-around">
             <a [routerLink]="['/shop/cart']" [queryParams]="{ config: config  }" class="view-cart">Ver carrito</a>
-            <!-- <a [routerLink]="['/shop/checkout']" class="checkout">Finalizar compra</a> -->
           </div>
         </li>
       </ul>
@@ -56,10 +55,10 @@
       </div>
       <div class="show-div setting mp-setting">
         <div *ngIf="!isLoggedIn">
-          <a [routerLink]="[ '/pages/login']" [queryParams]="{ role: _role, url: store?.url_store }">
+          <a [routerLink]="[ '/pages/login']" [queryParams]="{ role: _role, url: url }">
             <h6 class="mp-item-menu">Iniciar sesión</h6>
           </a>
-          <a [routerLink]="[ '/pages/register']" [queryParams]="{ role: _role, url: store?.url_store }">
+          <a [routerLink]="[ '/pages/register']" [queryParams]="{ role: _role, url: url }">
             <h6 class="mp-item-menu">Registrese</h6>
           </a>
         </div>

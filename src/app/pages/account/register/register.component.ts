@@ -65,6 +65,7 @@ export class RegisterComponent implements OnInit {
   ngOnInit(): void {
     // tslint:disable-next-line: deprecation
     this.route.queryParams.subscribe( params => {
+      console.log( params );
       if ( params.url ) {
         this.url = params.url;
         this.mustReturnStore = true;

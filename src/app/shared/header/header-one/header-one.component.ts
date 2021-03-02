@@ -56,6 +56,7 @@ export class HeaderOneComponent implements OnInit, OnChanges, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
+    // tslint:disable-next-line: deprecation
     this.route.queryParams.subscribe( queryParams => {
       if ( Object.entries( queryParams ).length !== 0 ) {
         if ( queryParams.config ) {
@@ -87,6 +88,7 @@ export class HeaderOneComponent implements OnInit, OnChanges, AfterViewInit {
 
   ngOnInit(): void {
     this.isLoggedIn = this.auth.isAuthenticated();
+    // tslint:disable-next-line: deprecation
     this.categoryService.categoryList().subscribe( ( response: Category[] ) => {
       this.categories = [ ...response ];
     } );
@@ -95,7 +97,7 @@ export class HeaderOneComponent implements OnInit, OnChanges, AfterViewInit {
       this.user = this.auth.getUserActive();
       this.role = this.user.role;
     }
-
+    // tslint:disable-next-line: deprecation
     this.auth.authObserver().subscribe( ( isAuth: boolean ) => {
       this.isLoggedIn = isAuth;
       if ( isAuth ) {
@@ -106,6 +108,7 @@ export class HeaderOneComponent implements OnInit, OnChanges, AfterViewInit {
   }
 
   private storeInfo( id: string ) {
+    // tslint:disable-next-line: deprecation
     this.shopService.getStore( id ).subscribe( res => {
       this.settings.setStore( res.result );
       this.shopService.customizeShop( res.result.config );

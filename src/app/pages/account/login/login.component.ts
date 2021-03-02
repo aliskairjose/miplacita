@@ -50,6 +50,7 @@ export class LoginComponent implements OnInit {
       this.role = params?.role;
 
       if ( Object.keys( params ).length !== 0 ) {
+        console.log( params );
         this.url = params.url;
         this.changeUser();
         if ( params.status ) { this.mustReturn = true; }
