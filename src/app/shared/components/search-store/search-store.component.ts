@@ -4,6 +4,7 @@ import { Category } from '../../classes/category';
 import { Product } from '../../classes/product';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Store } from '../../classes/store';
+import { ShopService } from '../../services/shop.service';
 
 @Component( {
   selector: 'app-search-store',
@@ -26,6 +27,7 @@ export class SearchStoreComponent implements OnInit, OnChanges {
     private router: Router,
     private route: ActivatedRoute,
     private formBuilder: FormBuilder,
+    private storeService: ShopService
   ) {
     this.createForm();
   }

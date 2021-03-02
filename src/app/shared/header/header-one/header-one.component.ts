@@ -23,8 +23,8 @@ export class HeaderOneComponent implements OnInit, OnChanges, AfterViewInit {
   categories: Category[] = [];
   link = '/home';
 
-  @Input() isStoreSearch = false;
   @Input() store: Store = {};
+  @Input() isStoreSearch = false;
   @Input() class: string;
   @Input() themeLogo = 'assets/images/marketplace/svg/logo.svg'; // Default Logo
   @Input() isHidde = true;
@@ -61,13 +61,13 @@ export class HeaderOneComponent implements OnInit, OnChanges, AfterViewInit {
       if ( Object.entries( queryParams ).length !== 0 ) {
         if ( queryParams.config ) {
           const decod = window.atob( queryParams.config );
-          const store: Store = JSON.parse( decod );
-          if ( Object.entries( store ).length !== 0 ) {
+          this.store = JSON.parse( decod );
+          if ( Object.entries( this.store ).length !== 0 ) {
             this.isStoreSearch = true;
-            this.shopService.customizeShop( store.config );
-            this.settings.setStore( store );
-            this.themeLogo = store.logo;
-            this.link = `/${store.url_store}`;
+            this.shopService.customizeShop( this.store.config );
+            this.settings.setStore( this.store );
+            this.themeLogo = this.store.logo;
+            this.link = `/${this.store.url_store}`;
           }
 
         }

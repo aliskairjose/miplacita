@@ -23,6 +23,7 @@ export class CartComponent implements OnInit {
   storeFont = '';
   config = '';
   order = '';
+  store: Store = {};
 
   constructor(
     private auth: AuthService,
@@ -33,16 +34,18 @@ export class CartComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    // tslint:disable-next-line: deprecation
     this.productService.cartItems.subscribe( products => { this.products = products; } );
     this.order = window.btoa( sessionStorage.order );
 
+    // tslint:disable-next-line: deprecation
     this.route.queryParams.subscribe( queryParams => {
       if ( Object.entries( queryParams ).length !== 0 ) {
         if ( queryParams.config ) {
           this.config = queryParams.config;
           const decod = window.atob( queryParams.config );
-          const store: Store = JSON.parse( decod );
-          if ( Object.entries( store ).length === 0 && sessionStorage.sessionStore ) {
+          this.store = JSON.parse( decod );
+          if ( Object.entries( this.store ).length === 0 && sessionStorage.sessionStore ) {
             sessionStorage.removeItem( 'sessionStore' );
             setTimeout( (): void => {
               window.location.reload();

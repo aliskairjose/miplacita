@@ -48,6 +48,7 @@ export class ShippingComponent implements OnInit {
     shipment_price: 0,
   };
   isDisabled = false;
+  store: Store = {};
 
   private _config: any = {};
   private _products: Product[] = [];
@@ -137,6 +138,8 @@ export class ShippingComponent implements OnInit {
     this.route.queryParams.subscribe( queryParams => {
       if ( Object.entries( queryParams ).length !== 0 ) {
         this._config = queryParams.config;
+        const decod = window.atob( queryParams.config );
+        this.store = JSON.parse( decod );
       }
     } );
   }

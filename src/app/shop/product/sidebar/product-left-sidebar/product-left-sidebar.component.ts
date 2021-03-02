@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProductDetailsMainSlider, ProductDetailsThumbSlider } from '../../../../shared/data/slider';
 import { Product } from '../../../../shared/classes/product';
@@ -22,7 +22,7 @@ export interface ProductDetail {
   templateUrl: './product-left-sidebar.component.html',
   styleUrls: [ './product-left-sidebar.component.scss' ]
 } )
-export class ProductLeftSidebarComponent implements OnInit, AfterViewInit {
+export class ProductLeftSidebarComponent implements OnInit {
 
   product: Product = {};
   counter = 1;
@@ -68,11 +68,7 @@ export class ProductLeftSidebarComponent implements OnInit, AfterViewInit {
     } );
 
   }
-  ngAfterViewInit(): void {
-    // tslint:disable-next-line: deprecation
-    // this.comment.loadReviews( this.product._id ).subscribe( rate => { this.productRate = rate; } );
 
-  }
 
   ngOnInit(): void {
     this.spinner.show();
@@ -84,6 +80,7 @@ export class ProductLeftSidebarComponent implements OnInit, AfterViewInit {
       this.categoryService.categoryList(),
       this.productService.producVariable( id ),
       this.productService.productList( 1, params ),
+      // tslint:disable-next-line: deprecation
     ] ).subscribe( ( [ shopsResult, categoriesResult, variationResult, productResult ] ) => {
 
       this.shops = [ ...shopsResult.docs ];
