@@ -51,8 +51,7 @@
 												[(ngModel)]="store.affiliate_program_amount" />
 											<img class="h-100" src="assets/images/marketplace/images/icons/percent.png" alt>
 										</div>
-										<div *ngIf="submitted && f.affiliate_program_amount.errors?.required"
-											class="invalid-feedback d-block">
+										<div *ngIf="submitted && f.amount.errors?.required" class="invalid-feedback d-block">
 											{{required}}
 										</div>
 									</div>

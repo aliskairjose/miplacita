@@ -122,6 +122,7 @@ export class ProductsComponent implements OnChanges, AfterViewInit {
         [ this.shopService.storeList( 1, params ),
         this.productService.productList( 1, params )
         ] )
+        // tslint:disable-next-line: deprecation
         .subscribe( ( [ storeResponse, productsResponse ] ) => {
 
           this.plan = storeResponse.docs[ 0 ].plan;

@@ -15,7 +15,7 @@ export class CreateReferralsComponent implements OnInit, OnChanges {
   referralForm: FormGroup;
   submitted: boolean;
   required = ERROR_FORM.required;
-
+  amount = 0;
   @Input() store: Store = {};
   @Output() updateShop: EventEmitter<Store> = new EventEmitter<Store>();
 
@@ -40,7 +40,6 @@ export class CreateReferralsComponent implements OnInit, OnChanges {
     if ( this.referralForm.valid ) {
       // tslint:disable-next-line: deprecation
       this.shopService.updateAffiliate( this.store._id, this.referralForm.value ).subscribe( store => {
-        store.affiliate_program_amount = this.referralForm.value.affiliate_program_amount;
         this.toastr.info( 'Información actualizada con exito' );
         this.submitted = false;
         this.updateShop.emit( store );

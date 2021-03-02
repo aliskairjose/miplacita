@@ -28,7 +28,7 @@
       </div>
 
       <button type="submit" class="btn-solid-orange"
-        [ngStyle]="{'background-color': store.config.color, 'border-color': store.config.color}">
+        [ngStyle]="{'background-color': store.config?.color ? store.config.color : '#c6410f', 'border-color': store.config?.color ? store.config.color : '#c6410f'}">
         Buscar
       </button>
     </div>
