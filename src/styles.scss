@@ -195,13 +195,13 @@ input[type="checkbox"]:checked {
   }
 }
 .btn-solid-orange {
-  background-color: $mp-red;
+  background-color: var(--mp-red);
   color: #fff;
   // padding: 13px 13px;
   letter-spacing: 0.05em;
   border: $border solid var(--mp-red);
   &:hover {
-    color: $mp-red;
+    color: var(--mp-red);
     background-position: 100%;
     background-color: $mp-white;
   }
@@ -711,15 +711,15 @@ body {
 
 .table-bordered {
   border-collapse: collapse;
-  border: $border solid $mp-red;
+  border: $border solid var(--mp-red);
   thead {
-    border: $border solid $mp-red;
+    border: $border solid var(--mp-red);
   }
   thead,
   tr,
   th,
   td {
-    border: $border solid $mp-red;
+    border: $border solid var(--mp-red);
   }
 }
 
