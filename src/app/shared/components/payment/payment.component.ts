@@ -39,7 +39,7 @@ export class PaymentComponent implements OnInit {
   @ViewChild( 'settings' ) settings: SettingsComponent;
 
   constructor(
-    private auth: AuthService,
+    public auth: AuthService,
     private orderService: OrderService,
     private route: ActivatedRoute,
     private shopService: ShopService,
