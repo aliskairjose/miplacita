@@ -118,6 +118,7 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
       this.productService.getVariableProduct( this.store._id, 'size' )
 
     ] )
+      // tslint:disable-next-line: deprecation
       .subscribe( ( [ response, categories, colorResponse, sizeResponse ] ) => {
         this.plan = response.docs[ 0 ].plan;
         this.categories = [ ...categories ];
@@ -395,7 +396,17 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
       this.product.tax = ( tax / price ) * 100;
     }
 
-    this.create = option;
+    if ( option === 3 ) {
+      const callVariable = async () => {
+        const res = await this.loadProductVariable( product._id );
+        this.allVariations = [ ...res ];
+        console.log( this.allVariations );
+      };
+
+      callVariable();
+    }
+
+    // this.create = option;
     this.choiceOptions( this.product, option );
     this.modalOpen = true;
     this.modalOption.backdrop = 'static';
@@ -415,6 +426,21 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
     this.modal.dismiss();
 
   }
+
+  private loadProductVariable( id: string ): Promise<any[]> {
+    return new Promise<any[]>( resolve => {
+      // tslint:disable-next-line: deprecation
+      this.productService.producVariable( id ).subscribe( res => {
+        const products = [];
+        const { primary_key, sub_key, keys } = res;
+        keys.forEach( key => {
+          products.push( key.products[ 0 ].product );
+        } );
+        resolve( products );
+      } );
+    } );
+  }
+
 
   private clear(): void {
     this.product = {};

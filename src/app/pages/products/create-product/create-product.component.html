@@ -227,7 +227,7 @@
 											<label for="size" class="my-auto pl-2">Tamaño</label>
 										</div>
 									</div>
-									<div class="table-responsive" *ngIf="allVariations.length > 0 && !showForm">
+									<div class="table-responsive mt-3" *ngIf="allVariations.length && !showForm">
 										<table class="table table-responsive-sm">
 											<thead>
 												<tr class="table-head">
@@ -240,19 +240,19 @@
 											<tbody>
 												<tr *ngFor="let item of allVariations">
 													<td class="text-center">
-														Nombre
+														{{item.name}}
 													</td>
 													<td class="text-center">
-														<p>Precio</p>
+														<p>{{item.price | currency }}</p>
 													</td>
 													<td class="text-center">
-														<p>Itbms</p>
+														<p>{{ item.tax | currency }}</p>
 													</td>
 													<td class="text-center">
-														Tamaño
+														{{ item.size?.name ? item.size.name : '' }}
 													</td>
 													<td class="text-center">
-														Color
+														{{ item.color?.name ? item.color?.name : '' }}
 													</td>
 													<td class="text-center">
 														<a [routerLink]="" class="btn btn-table-action">

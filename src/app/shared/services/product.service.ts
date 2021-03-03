@@ -318,7 +318,6 @@ export class ProductService {
 
   // Calculate Stock Counts
   private calculateStockCounts( product: Product, quantity: number ) {
-    // const qty = product.quantity + quantity;
     const stock = product.stock;
     if ( stock < quantity || stock === 0 ) {
       this.toastrService.error( 'No puede agregar más elementos de los disponibles. En stock ' + stock + ' items.' );
@@ -338,7 +337,6 @@ export class ProductService {
   emptyCartItem(): any {
     state.cart = [];
     this.storage.setItem( 'cartItems', state.cart );
-    // this.storage.removeItem('cartItems');
     return true;
   }
 
