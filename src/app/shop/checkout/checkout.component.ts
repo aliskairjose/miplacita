@@ -9,6 +9,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { PaymentComponent } from '../../shared/components/payment/payment.component';
 import { Store } from '../../shared/classes/store';
 import { AuthService } from '../../shared/services/auth.service';
+import { StorageService } from '../../shared/services/storage.service';
 
 const state = {
   user: JSON.parse( localStorage.getItem( 'mp_user' ) || null )
@@ -46,6 +47,7 @@ export class CheckoutComponent implements OnInit {
     private fb: FormBuilder,
     public auth: AuthService,
     private route: ActivatedRoute,
+    private storage: StorageService,
     private orderService: OrderService,
     public productService: ProductService,
   ) {
@@ -140,6 +142,7 @@ export class CheckoutComponent implements OnInit {
       // tslint:disable-next-line: deprecation
       this.orderService.createOrder( order ).subscribe( response => {
         if ( response.success ) {
+          this.storage.setItem( 'mp-store-shop', this.store );
           sessionStorage.removeItem( 'order' );
           this.productService.emptyCartItem();
           this.router.navigate( [ '/shop/checkout/success' ] );

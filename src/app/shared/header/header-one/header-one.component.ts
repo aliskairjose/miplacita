@@ -8,6 +8,7 @@ import { AuthService } from '../../services/auth.service';
 import { CategoryService } from '../../services/category.service';
 import { ShopService } from '../../services/shop.service';
 import { ActivatedRoute } from '@angular/router';
+import { StorageService } from '../../services/storage.service';
 
 @Component( {
   selector: 'app-header-one',
@@ -50,12 +51,20 @@ export class HeaderOneComponent implements OnInit, OnChanges, AfterViewInit {
   constructor(
     private auth: AuthService,
     private route: ActivatedRoute,
+    private storage: StorageService,
     private shopService: ShopService,
     private categoryService: CategoryService,
   ) {
   }
 
   ngAfterViewInit(): void {
+    if ( localStorage.getItem( 'mp-store-shop' ) ) {
+      this.store = this.storage.getItem( 'mp-store-shop' );
+      this.shopService.customizeShop( this.store.config );
+      this.settings.setStore( this.store );
+      this.themeLogo = this.store.logo;
+      this.link = `/${this.store.url_store}`;
+    }
     // tslint:disable-next-line: deprecation
     this.route.queryParams.subscribe( queryParams => {
       if ( Object.entries( queryParams ).length !== 0 ) {
@@ -87,6 +96,13 @@ export class HeaderOneComponent implements OnInit, OnChanges, AfterViewInit {
   }
 
   ngOnInit(): void {
+    // tslint:disable-next-line: deprecation
+    this.shopService.storeObserver().subscribe( store => {
+      if ( !store ) {
+        this.themeLogo = 'assets/images/marketplace/svg/logo.svg';
+        this.link = '/home';
+      }
+    } );
     this.isLoggedIn = this.auth.isAuthenticated();
     // tslint:disable-next-line: deprecation
     this.categoryService.categoryList().subscribe( ( response: Category[] ) => {

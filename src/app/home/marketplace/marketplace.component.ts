@@ -3,6 +3,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { ProductSlider, CollectionSlider } from '../../shared/data/slider';
 import { Product } from '../../shared/classes/product';
 import { ProductService } from '../../shared/services/product.service';
+import { ShopService } from '../../shared/services/shop.service';
 
 @Component( {
   selector: 'app-marketplace',
@@ -196,12 +197,15 @@ export class MarketplaceComponent implements OnInit, OnDestroy {
   ];
   constructor(
     private _sanitizer: DomSanitizer,
+    private shopService: ShopService,
     public productService: ProductService,
   ) {
     sessionStorage.removeItem( 'sessionStore' );
   }
 
   ngOnInit(): void {
+    localStorage.removeItem( 'mp-store-shop' );
+    this.shopService.storeSubject( {} );
     // Change color for this layout
     document.documentElement.style.setProperty( '--theme-deafult', '#e4604a' );
   }

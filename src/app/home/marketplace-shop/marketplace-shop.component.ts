@@ -100,6 +100,8 @@ export class MarketplaceShopComponent implements OnInit {
   } ];
 
   ngOnInit(): void {
+    localStorage.removeItem( 'mp-store-shop' );
+    this.shopService.storeSubject( {} );
     this.shopService.customizeShop( { color: '#e4604a', font: '' } );
   }
 
