@@ -121,8 +121,8 @@
 		<div class="row cart-buttons justify-content-end" *ngIf='products.length'>
 
 			<div class="col-6">
-				<a [routerLink]="['/shop/checkout/shipping']" [queryParams]="{ config: config  }" class="btn btn-solid-orange"
-					[ngStyle]="{'background-color': store.config?.color ? store.config.color : '#c6410f', 'border-color': store.config?.color ? store.config.color : '#c6410f'}">Finalizar</a>
+				<a [routerLink]="['/shop/checkout/shipping']" [queryParams]="{ config: config  }"
+					class="btn btn-solid-orange">Finalizar</a>
 			</div>
 		</div>
 	</div>

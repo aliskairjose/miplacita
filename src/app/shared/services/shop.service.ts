@@ -322,6 +322,8 @@ export class ShopService {
   customizeShop( config: Config ): void {
     document.getElementById( 'body' ).style.fontFamily = config.font;
     document.documentElement.style.setProperty( '--theme-deafult', config.color );
+    document.documentElement.style.setProperty( '--mp-pink-light', config.color );
+    document.documentElement.style.setProperty( '--mp-red', config.color );
   }
 
   /*

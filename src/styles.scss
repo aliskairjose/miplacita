@@ -199,7 +199,7 @@ input[type="checkbox"]:checked {
   color: #fff;
   // padding: 13px 13px;
   letter-spacing: 0.05em;
-  border: $border solid $mp-red;
+  border: $border solid var(--mp-red);
   &:hover {
     color: $mp-red;
     background-position: 100%;
