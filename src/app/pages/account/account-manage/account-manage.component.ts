@@ -7,7 +7,7 @@ import { ShopService } from '../../../shared/services/shop.service';
 import { NgbModalOptions, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { RegisterStoreComponent } from '../../../shared/components/register-store/register-store.component';
 import { STANDARD_IMAGE } from '../../../shared/classes/global-constants';
-import { async } from '@angular/core/testing';
+import { StorageService } from '../../../shared/services/storage.service';
 
 @Component( {
   selector: 'app-account-manage',
@@ -69,16 +69,24 @@ export class AccountManageComponent implements OnInit, OnChanges {
     private router: Router,
     private auth: AuthService,
     private route: ActivatedRoute,
+    private modalService: NgbModal,
+    private storage: StorageService,
     private shopService: ShopService,
-    private modalService: NgbModal
   ) {
     this.user = this.auth.getUserActive();
   }
+
+
   ngOnChanges( changes: SimpleChanges ): void {
     this.init();
   }
 
   ngOnInit(): void {
+    if ( localStorage.getItem( 'mp-store-shop' ) ) {
+      const store: Store = this.storage.getItem( 'mp-store-shop' );
+      this.shopService.customizeShop( store.config );
+
+    }
     this.init();
   }
 
