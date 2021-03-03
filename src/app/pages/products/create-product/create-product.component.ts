@@ -17,6 +17,7 @@ import { ModalNewElementComponent } from 'src/app/shared/components/modal-new-el
 import { VariableProduct } from '../../../shared/classes/variable-product';
 import { CategoryService } from 'src/app/shared/services/category.service';
 import { STATUSES, ERROR_FORM } from '../../../shared/classes/global-constants';
+import { ConfirmationDialogService } from '../../../shared/services/confirmation-dialog.service';
 
 @Component( {
   selector: 'app-create-product',
@@ -86,6 +87,7 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
     private toastrService: ToastrService,
     private productService: ProductService,
     private categoryService: CategoryService,
+    private confirmationDialogService: ConfirmationDialogService,
     private calendar: NgbCalendar, public formatter: NgbDateParserFormatter
   ) {
     this.createForm();
@@ -400,7 +402,6 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
       const callVariable = async () => {
         const res = await this.loadProductVariable( product._id );
         this.allVariations = [ ...res ];
-        console.log( this.allVariations );
       };
 
       callVariable();
@@ -425,6 +426,29 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
     this.clear();
     this.modal.dismiss();
 
+  }
+
+  // Elimina el producto variable
+  deleteItem( item: Product ): void {
+    this.confirmationDialogService
+      .confirm(
+        'Por favor confirme...',
+        `¿Realmente desea borrar ${item.name}?`,
+        'Si, borrar!',
+        'No borrar',
+        'lg'
+      )
+      .then( ( confirmed ) => {
+        // tslint:disable-next-line: curly
+        if ( confirmed ) this.deleteProduct( item._id );
+      } );
+  }
+
+  private deleteProduct( id: string ): void {
+    // tslint:disable-next-line: deprecation
+    this.productService.deleteProduct( id ).subscribe( response => {
+      if ( response.success ) { this.toastrService.info( response.message[ 0 ] ); }
+    } );
   }
 
   private loadProductVariable( id: string ): Promise<any[]> {
