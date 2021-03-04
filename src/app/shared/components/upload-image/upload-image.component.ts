@@ -24,7 +24,7 @@ export class UploadImageComponent implements OnInit, AfterViewInit, OnChanges, O
   @ViewChild( 'carouselbox', { read: ViewContainerRef } ) vc: ViewContainerRef;
 
   @Input() multiple = false;
-  @Input() type = '';
+  @Input() type = 'product';
   @Output() uploadImage: EventEmitter<Array<string>> = new EventEmitter<Array<string>>();
   @Output() deleteImage: EventEmitter<Array<any>> = new EventEmitter<Array<any>>();
 
@@ -52,8 +52,21 @@ export class UploadImageComponent implements OnInit, AfterViewInit, OnChanges, O
   }
 
   async upload( files ) {
+    console.log( this.type );
+    console.log( files );
 
-    const limit = 4000000;
+    let limit: number;
+    switch ( this.type ) {
+      case 'product':
+        limit = 3000000;
+        break;
+      case 'banner':
+        limit = 5000000;
+        break;
+      default:
+        limit = 2000000;
+        break;
+    }
 
     for ( const key in files ) {
       if ( Object.prototype.hasOwnProperty.call( files, key ) ) {
