@@ -52,9 +52,6 @@ export class UploadImageComponent implements OnInit, AfterViewInit, OnChanges, O
   }
 
   async upload( files ) {
-    console.log( this.type );
-    console.log( files );
-
     let limit: number;
     switch ( this.type ) {
       case 'product':

@@ -18,6 +18,7 @@ import { VariableProduct } from '../../../shared/classes/variable-product';
 import { CategoryService } from 'src/app/shared/services/category.service';
 import { STATUSES, ERROR_FORM } from '../../../shared/classes/global-constants';
 import { ConfirmationDialogService } from '../../../shared/services/confirmation-dialog.service';
+import { async } from '@angular/core/testing';
 
 @Component( {
   selector: 'app-create-product',
@@ -209,7 +210,6 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
       return;
     }
 
-
     this.updateValidators();
 
     this.variableForm.get( 'store' ).setValue( this.store._id );
@@ -224,6 +224,26 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
     this.variableForm.value.tax = ( price * tax ) / 100;
 
     if ( this.variableForm.valid ) {
+      const uploaded = async () => {
+        const _images = await this.uploadImage();
+        this.variableForm.value.images = [ ..._images ];
+        this.createProductVariable();
+      };
+      uploaded();
+    }
+  }
+
+  createProductVariable(): void {
+    // tslint:disable-next-line: deprecation
+    this.productService.addProduct( this.variableForm.value ).subscribe( () => {
+      this.toastrService.info( 'El producto variable se ha creado con exito' );
+      this.reload.emit( true );
+      this.close();
+    } );
+  }
+
+  private uploadImage(): Promise<any> {
+    return new Promise<any>( resolve => {
       // tslint:disable-next-line: deprecation
       this.productService.uploadImages( { images: this.productImages } ).subscribe( response => {
         if ( response.status === 'isOk' ) {
@@ -236,19 +256,9 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
             ( index > 0 ) ? image.principal = false : image.principal = true;
             data.images.push( image );
           } );
-          this.variableForm.value.images = data.images;
-          this.createProductVariable();
+          resolve( data.images );
         }
       } );
-    }
-  }
-
-  createProductVariable(): void {
-    // tslint:disable-next-line: deprecation
-    this.productService.addProduct( this.variableForm.value ).subscribe( () => {
-      this.toastrService.info( 'El producto variable se ha creado con exito' );
-      this.reload.emit( true );
-      this.close();
     } );
   }
 
