@@ -493,7 +493,6 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
     this.productService.deleteProduct( id ).subscribe( response => {
       if ( response.success ) { this.toastrService.info( response.message[ 0 ] ); }
       this.allVariations = this.allVariations.filter( item => item._id !== id );
-      // this.allVariations = _allVariations.splice( index );
     } );
   }
 
@@ -512,8 +511,6 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
             products.push( key.products[ 0 ].product );
           } );
         }
-        console.log( products );
-
         resolve( products );
       } );
     } );
