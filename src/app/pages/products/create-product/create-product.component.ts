@@ -199,7 +199,13 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
     this.submitted = true;
 
     if ( this.isEdit ) {
-      this.updateVariableProduct( this.product );
+      const imagesLoading = async () => {
+        const images = await this.loadImages( this.productImages );
+        this.updateVariableProduct( this.product, images );
+      };
+
+      ( this.productImages.length ) ? imagesLoading() : this.updateVariableProduct( this.product );
+
       return;
     }
 
@@ -247,8 +253,8 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   // Actualiza el producto variable
-  private updateVariableProduct( item: Product ): void {
-    item.images = [ ...this.images ];
+  private updateVariableProduct( item: Product, images?: [] ): void {
+    item.images = [ ...this.images, ...images ];
     // tslint:disable-next-line: deprecation
     this.productService.updateProduct( item._id, item ).subscribe( response => {
       if ( response.success ) {
@@ -450,7 +456,6 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
 
   // Editar producto variable
   editProductVariable( item: Product ): void {
-    // this.product = { ...item };
     const { images, ...product } = item;
     this.images = [ ...images ];
     this.product = { ...product };
@@ -582,9 +587,8 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
 
   }
   checkVariable( event ): void {
-    console.log( event.target.checked );
-
     if ( event.target.id === 'color' ) { this.colorChecked = event.target.checked; }
+
     if ( event.target.id === 'size' ) { this.sizeChecked = event.target.checked; }
 
     if ( this.sizeChecked || this.colorChecked ) { this.disabledBtn = false; }
@@ -604,6 +608,25 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
         this.toastrService.info( response.message[ 0 ] );
         this.init();
       }
+    } );
+  }
+
+  private loadImages( images ): Promise<any> {
+    return new Promise<any>( resolve => {
+      // tslint:disable-next-line: deprecation
+      this.productService.uploadImages( { images } ).subscribe( response => {
+        if ( response.status === 'isOk' ) {
+          const _images = [];
+          response.images.forEach( ( url: string ) => {
+            const image: Images = {};
+            image.url = url;
+            image.principal = false;
+            _images.push( image );
+          } );
+
+          resolve( _images );
+        }
+      } );
     } );
   }
 
