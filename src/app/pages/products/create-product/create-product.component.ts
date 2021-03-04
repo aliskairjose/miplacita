@@ -39,7 +39,7 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
   modalOpen = false;
   modalOption: NgbModalOptions = {};
   product: Product = {};
-
+  isEdit = false; // si es True deshabilita la edicion de color y talla
   create = 1;
   typesProduct = [];
   states = [];
@@ -197,6 +197,13 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
    */
   saveVariable(): void {
     this.submitted = true;
+
+    if ( this.isEdit ) {
+      this.updateVariableProduct( this.product );
+      return;
+    }
+
+
     this.updateValidators();
 
     this.variableForm.get( 'store' ).setValue( this.store._id );
@@ -231,7 +238,6 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   createProductVariable(): void {
-    console.log( this.variableForm.value );
     // tslint:disable-next-line: deprecation
     this.productService.addProduct( this.variableForm.value ).subscribe( () => {
       this.toastrService.info( 'El producto variable se ha creado con exito' );
@@ -240,6 +246,20 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
     } );
   }
 
+  // Actualiza el producto variable
+  private updateVariableProduct( item: Product ): void {
+    item.images = [ ...this.images ];
+    // tslint:disable-next-line: deprecation
+    this.productService.updateProduct( item._id, item ).subscribe( response => {
+      if ( response.success ) {
+        this.toastrService.info( response.message[ 0 ] );
+        this.reload.emit( true );
+        this.close();
+      }
+    } );
+  }
+
+  // Actualiza el producto principal
   private updateProduct( data: Product ): void {
     // tslint:disable-next-line: deprecation
     this.productService.updateProduct( this.productData._id, data ).subscribe( ( response ) => {
@@ -425,7 +445,17 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
   close() {
     this.clear();
     this.modal.dismiss();
+    this.isEdit = false;
+  }
 
+  // Editar producto variable
+  editProductVariable( item: Product ): void {
+    // this.product = { ...item };
+    const { images, ...product } = item;
+    this.images = [ ...images ];
+    this.product = { ...product };
+    this.showForm = this.isEdit = true;
+    this.colorChecked = this.sizeChecked = false;
   }
 
   // Elimina el producto variable
@@ -552,6 +582,7 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
 
   }
   checkVariable( event ): void {
+    console.log( event.target.checked );
 
     if ( event.target.id === 'color' ) { this.colorChecked = event.target.checked; }
     if ( event.target.id === 'size' ) { this.sizeChecked = event.target.checked; }

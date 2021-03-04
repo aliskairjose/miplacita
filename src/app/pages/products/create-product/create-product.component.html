@@ -219,11 +219,13 @@
 									<p>Crea una nueva variación para tu producto</p>
 									<div class="d-flex justify-content-center">
 										<div class="col d-flex justify-content-end">
-											<input type="checkbox" name="variante" id="color" (change)="checkVariable($event)">
+											<input type="checkbox" name="variante" id="color" (change)="checkVariable($event)"
+												[disabled]='isEdit'>
 											<label for="color" class="my-auto pl-2">Color</label>
 										</div>
 										<div class="col d-flex justify-content-start">
-											<input type="checkbox" name="variante" id="size" (change)="checkVariable($event)">
+											<input type="checkbox" name="variante" id="size" (change)="checkVariable($event)"
+												[disabled]='isEdit'>
 											<label for="size" class="my-auto pl-2">Tamaño</label>
 										</div>
 									</div>
@@ -255,9 +257,9 @@
 														{{ item.color?.name ? item.color?.name : '' }}
 													</td>
 													<td class="text-center">
-														<a [routerLink]="" class="btn btn-table-action">
+														<button class="btn btn-table-action" (click)="editProductVariable(item)">
 															<i class="fa fa-edit fa-lg" style="color: Dodgerblue"></i>
-														</a>
+														</button>
 														<button class="btn btn-table-action" (click)="deleteItem(item, i)">
 															<i class="fa fa-close fa-lg" style="color: Tomato"></i>
 														</button>
