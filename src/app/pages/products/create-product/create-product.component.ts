@@ -429,25 +429,26 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   // Elimina el producto variable
-  deleteItem( item: Product ): void {
+  deleteItem( item: Product, index: number ): void {
     this.confirmationDialogService
       .confirm(
         'Por favor confirme...',
         `¿Realmente desea borrar ${item.name}?`,
         'Si, borrar!',
-        'No borrar',
-        'lg'
+        'No borrar'
       )
       .then( ( confirmed ) => {
         // tslint:disable-next-line: curly
-        if ( confirmed ) this.deleteProduct( item._id );
+        if ( confirmed ) this.deleteProduct( item._id, index );
       } );
   }
 
-  private deleteProduct( id: string ): void {
+  private deleteProduct( id: string, index: number ): void {
+    const _allVariations = [ ...this.allVariations ];
     // tslint:disable-next-line: deprecation
     this.productService.deleteProduct( id ).subscribe( response => {
       if ( response.success ) { this.toastrService.info( response.message[ 0 ] ); }
+      this.allVariations = _allVariations.splice( index, 1 );
     } );
   }
 

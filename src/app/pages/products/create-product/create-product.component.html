@@ -238,7 +238,7 @@
 											</thead>
 											<!--Store Admin-->
 											<tbody>
-												<tr *ngFor="let item of allVariations">
+												<tr *ngFor="let item of allVariations; let i=index">
 													<td class="text-center">
 														{{item.name}}
 													</td>
@@ -258,7 +258,7 @@
 														<a [routerLink]="" class="btn btn-table-action">
 															<i class="fa fa-edit fa-lg" style="color: Dodgerblue"></i>
 														</a>
-														<button class="btn btn-table-action" (click)="deleteItem(item)">
+														<button class="btn btn-table-action" (click)="deleteItem(item, i)">
 															<i class="fa fa-close fa-lg" style="color: Tomato"></i>
 														</button>
 													</td>
