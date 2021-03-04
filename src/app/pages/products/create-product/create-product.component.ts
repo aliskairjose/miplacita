@@ -18,7 +18,6 @@ import { VariableProduct } from '../../../shared/classes/variable-product';
 import { CategoryService } from 'src/app/shared/services/category.service';
 import { STATUSES, ERROR_FORM } from '../../../shared/classes/global-constants';
 import { ConfirmationDialogService } from '../../../shared/services/confirmation-dialog.service';
-import { async } from '@angular/core/testing';
 
 @Component( {
   selector: 'app-create-product',
@@ -225,7 +224,7 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
 
     if ( this.variableForm.valid ) {
       const uploaded = async () => {
-        const _images = await this.uploadImage();
+        const _images = await this.uploadImage( this.productImages );
         this.variableForm.value.images = [ ..._images ];
         this.createProductVariable();
       };
@@ -235,17 +234,17 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
 
   createProductVariable(): void {
     // tslint:disable-next-line: deprecation
-    this.productService.addProduct( this.variableForm.value ).subscribe( () => {
+    this.productService.addProduct( this.variableForm.value ).subscribe( response => {
       this.toastrService.info( 'El producto variable se ha creado con exito' );
       this.reload.emit( true );
       this.close();
     } );
   }
 
-  private uploadImage(): Promise<any> {
+  private uploadImage( images ): Promise<any> {
     return new Promise<any>( resolve => {
       // tslint:disable-next-line: deprecation
-      this.productService.uploadImages( { images: this.productImages } ).subscribe( response => {
+      this.productService.uploadImages( { images } ).subscribe( response => {
         if ( response.status === 'isOk' ) {
           this.productImages = [];
           const data: Product = {};
@@ -474,7 +473,7 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   // Elimina el producto variable
-  deleteItem( item: Product, index: number ): void {
+  deleteItem( item: Product ): void {
     this.confirmationDialogService
       .confirm(
         'Por favor confirme...',
@@ -484,16 +483,17 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
       )
       .then( ( confirmed ) => {
         // tslint:disable-next-line: curly
-        if ( confirmed ) this.deleteProduct( item._id, index );
+        if ( confirmed ) this.deleteProduct( item._id );
       } );
   }
 
-  private deleteProduct( id: string, index: number ): void {
+  private deleteProduct( id: string ): void {
     const _allVariations = [ ...this.allVariations ];
     // tslint:disable-next-line: deprecation
     this.productService.deleteProduct( id ).subscribe( response => {
       if ( response.success ) { this.toastrService.info( response.message[ 0 ] ); }
-      this.allVariations = _allVariations.splice( index, 1 );
+      this.allVariations = this.allVariations.filter( item => item._id !== id );
+      // this.allVariations = _allVariations.splice( index );
     } );
   }
 
@@ -502,10 +502,18 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
       // tslint:disable-next-line: deprecation
       this.productService.producVariable( id ).subscribe( res => {
         const products = [];
-        const { primary_key, sub_key, keys } = res;
-        keys.forEach( key => {
-          products.push( key.products[ 0 ].product );
-        } );
+        const { keys } = res;
+        if ( keys[ 0 ].subkeys.length ) {
+          keys[ 0 ].products.forEach( key => {
+            products.push( key.product );
+          } );
+        } else {
+          keys.forEach( key => {
+            products.push( key.products[ 0 ].product );
+          } );
+        }
+        console.log( products );
+
         resolve( products );
       } );
     } );
