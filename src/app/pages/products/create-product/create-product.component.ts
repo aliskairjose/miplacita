@@ -268,7 +268,7 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   // Actualiza el producto variable
-  private updateVariableProduct( item: Product, images?: [] ): void {
+  private updateVariableProduct( item: Product, images = [] ): void {
     item.images = [ ...this.images, ...images ];
     // tslint:disable-next-line: deprecation
     this.productService.updateProduct( item._id, item ).subscribe( response => {
