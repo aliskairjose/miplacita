@@ -24,6 +24,7 @@ export interface Product {
   created_at?: string;
   quantity?: number;
   deliveryDays?: string;
+  prefered?: boolean;
 }
 
 export interface Images {
