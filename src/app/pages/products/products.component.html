@@ -85,18 +85,26 @@
 							<td class="text-center">{{ product.status | translate }}</td>
 
 							<td class="text-center" *ngIf="role==='merchant'">
-								<a type="button" (click)="CreateProduct.openModal(3,product)" class="btn btn-table-action"
-									ngbPopover="Agregar variación" triggers="mouseenter:mouseleave">
-									<i class="fa fa-plus-circle fa-lg" style="color: rgb(9, 190, 33)"></i>
-								</a>
-								<button (click)="CreateProduct.openModal(2,product)" class="btn btn-table-action"
-									ngbPopover="Editar producto" triggers="mouseenter:mouseleave">
-									<i class="fa fa-edit fa-lg" style="color: Dodgerblue"></i>
-								</button>
-								<button class="btn btn-table-action" (click)="deleteItem(product)" ngbPopover="Eliminar producto"
-									triggers="mouseenter:mouseleave">
-									<i class="fa fa-close fa-lg" style="color: Tomato"></i>
-								</button>
+								<div ngbDropdown class="d-inline-block">
+									<button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>
+										<i class="fa fa-bars" aria-hidden="true"></i>
+									</button>
+									<div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+										<button ngbDropdownItem (click)="CreateProduct.openModal(3,product)" class="btn btn-table-action"
+											ngbPopover="Agregar variación" triggers="mouseenter:mouseleave" placement="left">
+											<i class="fa fa-plus-circle fa-lg" style="color: rgb(9, 190, 33)"></i>
+										</button>
+										<button ngbDropdownItem (click)="CreateProduct.openModal(2,product)" class="btn btn-table-action"
+											ngbPopover="Editar producto" triggers="mouseenter:mouseleave" placement="left">
+											<i class="fa fa-edit fa-lg" style="color: Dodgerblue"></i>
+										</button>
+										<button ngbDropdownItem class="btn btn-table-action" (click)="deleteItem(product)"
+											ngbPopover="Eliminar producto" triggers="mouseenter:mouseleave" placement="left">
+											<i class="fa fa-close fa-lg" style="color: Tomato"></i>
+										</button>
+									</div>
+								</div>
+								<!--  -->
 							</td>
 							<td class="text-center" *ngIf="role==='admin'">
 								<button class="btn btn-table-action" ngbPopover="Eliminar" triggers="mouseenter:mouseleave"
