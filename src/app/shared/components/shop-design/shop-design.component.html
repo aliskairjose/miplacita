@@ -13,6 +13,7 @@
             <app-upload-image #banner type="banner" multiple="true" (deleteImage)="deleteBanner($event)"
               [imagesObject]="banners" (uploadImage)="uploadBanner($event)" type="banner"></app-upload-image>
           </div>
+          <small>Peso máximo 5 mb</small>
         </div>
         <!-- Tipografia y color -->
         <div class="col-sm-12 col-lg-5" id="special-padding">
@@ -49,6 +50,7 @@
             </label>
             <app-upload-image #logo [images]="imageLogo" type="logo" (uploadImage)="uploadLogo($event)">
             </app-upload-image>
+            <small>Peso máximo 2 mb</small>
           </div>
         </div>
       </div>
