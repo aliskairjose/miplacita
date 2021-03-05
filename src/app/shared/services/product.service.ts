@@ -120,6 +120,15 @@ export class ProductService {
     return this.http.post( `products/validate?name=${name}`, data );
   }
 
+  /**
+   * @description Marca un prodcuto como preferido y se mostrara en el home de la tienda
+   * @param id Id del producto a marcar como preferido
+   * @returns Retorna un valor booleano
+   */
+  prefered( id: string ): Observable<boolean> {
+    return this.http.put( `products/${id}/prefered/product` );
+  }
+
 
   /*
       ---------------------------------------------

@@ -38,7 +38,7 @@ export class ProductsComponent implements OnChanges, AfterViewInit {
   @ViewChild( 'createProduct' ) CreateProduct: CreateProductComponent;
 
   typeUser = 'admin';
-  fields = [ '', 'Nombre', 'Descripción', 'Precio', 'ITBMS', 'Stock', 'Estado', 'Acción' ];
+  fields = [ '', 'Nombre', 'Descripción', 'Precio', 'ITBMS', 'Stock', 'ETA', 'Estado', 'Acción' ];
   name = '';
   status = '';
   shops: Store[] = [];
