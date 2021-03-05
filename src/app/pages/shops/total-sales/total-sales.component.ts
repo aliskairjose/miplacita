@@ -1,5 +1,4 @@
 import moment from 'moment';
-import { ToastrService } from 'ngx-toastr';
 import { Paginate } from 'src/app/shared/classes/paginate';
 import { Store } from 'src/app/shared/classes/store';
 import { AuthService } from 'src/app/shared/services/auth.service';
@@ -72,6 +71,7 @@ export class TotalSalesComponent implements OnInit, OnChanges, AfterViewInit {
   private loadData( page = 1 ): void {
     if ( this.role === 'merchant' ) {
       const params = `store=${this.store._id}&from=${this.filter.fechaIni}&to=${this.filter.fechaFin}`;
+      // tslint:disable-next-line: deprecation
       this.reports.totalSales( params ).subscribe( ( result ) => {
         this.sales = result;
       } );
@@ -79,6 +79,7 @@ export class TotalSalesComponent implements OnInit, OnChanges, AfterViewInit {
 
     if ( this.role === 'admin' ) {
       const params = `order?report=true&from=${this.filter.fechaIni}&to=${this.filter.fechaFin}`;
+      // tslint:disable-next-line: deprecation
       this.reports.ordersMP( params ).subscribe( response => {
         this.orders = [ ...response.result ];
       } );

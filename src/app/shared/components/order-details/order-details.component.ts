@@ -19,7 +19,7 @@ export class OrderDetailsComponent implements OnInit, OnDestroy {
   closeResult: string;
   states = ORDER_STATUS;
   products = [];
-  fields = [ 'Producto', 'Precio', 'Cantidad', 'Itbms' ];
+  fields = [ 'Producto', 'Precio', 'Cantidad', 'Itbms', 'ETA' ];
   order: Order;
   detail: Order;
   modal: any;
@@ -41,6 +41,7 @@ export class OrderDetailsComponent implements OnInit, OnDestroy {
   }
 
   updateStatus(): void {
+    // tslint:disable-next-line: deprecation
     this.orderService.updateStatus( { status: this.order.status }, this.order._id ).subscribe( response => {
       if ( response.success ) {
         this.detail.status = this.order.status;
@@ -51,6 +52,8 @@ export class OrderDetailsComponent implements OnInit, OnDestroy {
   }
 
   openModal( order: Order ) {
+    console.log( order );
+
     this.modalOpen = true;
     this.detail = order;
     this.order = { ...order };
