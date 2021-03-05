@@ -18,6 +18,7 @@ export class UserOrdersComponent implements OnInit {
     'Tienda',
     'Total',
     'Fecha de emisión',
+    'Entrega estimaga',
     'Estado',
     'Acción'
   ]; orders: Order[] = [];
