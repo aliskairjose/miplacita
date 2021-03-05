@@ -18,10 +18,11 @@ export class UserOrdersComponent implements OnInit {
     'Tienda',
     'Total',
     'Fecha de emisión',
-    'Entrega estimaga',
+    'Entrega estimada',
     'Estado',
     'Acción'
-  ]; orders: Order[] = [];
+  ];
+  orders: Order[] = [];
   paginate: Paginate;
   private _user: User = {};
 
