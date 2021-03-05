@@ -78,7 +78,6 @@ import { ClipboardModule } from 'ngx-clipboard';
 import { FiltersComponent } from './components/filters/filters.component';
 import { SearchStoreComponent } from './components/search-store/search-store.component';
 import { ShopDesignComponent } from './components/shop-design/shop-design.component';
-import { AddDaysPipe } from './pipes/add-days.pipe';
 
 // export let options: Partial<IConfig> | (() => Partial<IConfig>);
 const maskConfig: Partial<IConfig> = {
@@ -146,8 +145,7 @@ export const customCurrencyMaskConfig = {
     ModalNewElementComponent,
     AddressComponent,
     FiltersComponent,
-    SearchStoreComponent,
-    AddDaysPipe,
+    SearchStoreComponent
   ],
   imports: [
     ClipboardModule,
@@ -212,7 +210,6 @@ export const customCurrencyMaskConfig = {
     ConfirmationDialogComponent,
     // Pipes
     DiscountPipe,
-    AddDaysPipe,
     FilterPipe,
     ShopDetailsComponent,
     OrderDetailsComponent,

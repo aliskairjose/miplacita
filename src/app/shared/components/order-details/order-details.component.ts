@@ -52,13 +52,11 @@ export class OrderDetailsComponent implements OnInit, OnDestroy {
   }
 
   openModal( order: Order ) {
-    console.log( order );
-
     this.modalOpen = true;
     this.detail = order;
     this.order = { ...order };
     this.products = this.order.items;
-    this.modal = this.modalService.open( this.OrderDetails );
+    this.modal = this.modalService.open( this.OrderDetails, { size: 'lg' } );
   }
 
   close() {
