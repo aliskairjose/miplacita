@@ -123,10 +123,11 @@ export class ProductService {
   /**
    * @description Marca un prodcuto como preferido y se mostrara en el home de la tienda
    * @param id Id del producto a marcar como preferido
+   * @param prefered Valor booleano para establecer como preferido o no el producto
    * @returns Retorna un valor booleano
    */
-  prefered( id: string ): Observable<boolean> {
-    return this.http.put( `products/${id}/prefered/product` );
+  prefered( id: string, prefered: boolean ): Observable<any> {
+    return this.http.put( `products/${id}/prefered/product`, { prefered } );
   }
 
 

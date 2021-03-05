@@ -38,7 +38,7 @@ export class ProductsComponent implements OnChanges, AfterViewInit {
   @ViewChild( 'createProduct' ) CreateProduct: CreateProductComponent;
 
   typeUser = 'admin';
-  fields = [ '', 'Nombre', 'Descripción', 'Precio', 'ITBMS', 'Stock', 'ETA', 'Estado', 'Acción' ];
+  fields = [ '', 'Nombre', 'Descripción', 'Precio', 'ITBMS', 'Stock', 'ETA', 'Preferido', 'Estado', 'Acción' ];
   name = '';
   status = '';
   shops: Store[] = [];
@@ -109,6 +109,13 @@ export class ProductsComponent implements OnChanges, AfterViewInit {
 
   setPage( page: number ) {
     this.loadData( page );
+  }
+
+  changeStatus( id: string, prefered: boolean ): void {
+    // tslint:disable-next-line: deprecation
+    this.productService.prefered( id, prefered ).subscribe( response => {
+      if ( response.success ) { this.toastrService.info( response.message[ 0 ] ); }
+    } );
   }
 
   private init(): void {

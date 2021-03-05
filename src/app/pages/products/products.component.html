@@ -78,6 +78,10 @@
 							<td class="text-center">{{ product.tax | currency }} </td>
 							<td class="text-center">{{ product.stock }} </td>
 							<td class="text-center">{{ product.deliveryDays }} </td>
+							<td class="text-center">
+								<input type="checkbox" [checked]="product.prefered"
+									(change)="changeStatus( product._id, $event.target.checked )">
+							</td>
 							<td class="text-center">{{ product.status | translate }}</td>
 
 							<td class="text-center" *ngIf="role==='merchant'">

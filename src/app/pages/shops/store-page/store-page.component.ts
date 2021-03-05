@@ -104,7 +104,7 @@ export class StorePageComponent implements OnInit {
   }
 
   onChange( value: string ): void {
-    const params = `store=${this.store._id}&${value}`;
+    const params = `store=${this.store._id}&${value}&prefered=true`;
     // tslint:disable-next-line: deprecation
     this.productService.productList( 1, params ).subscribe( ( result: Result<Product> ) => {
       this.products = [ ...result.docs ];
@@ -112,7 +112,7 @@ export class StorePageComponent implements OnInit {
   }
 
   private getCollectionProducts( id: string ): void {
-    const params = `store=${id}&featured=true`;
+    const params = `store=${id}&featured=true&prefered=true`;
     // tslint:disable-next-line: deprecation
     this.productService.productList( 1, params ).subscribe( ( result: Result<Product> ) => {
       this.products = [ ...result.docs ];
