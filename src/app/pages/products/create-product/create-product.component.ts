@@ -200,8 +200,15 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
 
     if ( this.isEdit ) {
       const imagesLoading = async () => {
-        const images = await this.loadImages( this.productImages );
-        this.updateVariableProduct( this.product, images );
+        const images: Array<any> = await this.uploadImage( this.productImages );
+        const _images = [] as any;
+        images.forEach( ( url: string ) => {
+          const image: Images = {};
+          image.url = url;
+          image.principal = false;
+          _images.push( image );
+        } );
+        this.updateVariableProduct( this.product, _images );
       };
 
       ( this.productImages.length ) ? imagesLoading() : this.updateVariableProduct( this.product );
@@ -224,7 +231,14 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
 
     if ( this.variableForm.valid ) {
       const uploaded = async () => {
-        const _images = await this.uploadImage( this.productImages );
+        const response: Array<any> = await this.uploadImage( this.productImages );
+        const _images = [] as any;
+        response.forEach( ( url: string, index: number ) => {
+          const image: Images = {};
+          image.url = url;
+          ( index > 0 ) ? image.principal = false : image.principal = true;
+          _images.push( image );
+        } );
         this.variableForm.value.images = [ ..._images ];
         this.createProductVariable();
       };
@@ -247,15 +261,7 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
       this.productService.uploadImages( { images } ).subscribe( response => {
         if ( response.status === 'isOk' ) {
           this.productImages = [];
-          const data: Product = {};
-          data.images = [];
-          response.images.forEach( ( url: string, index: number ) => {
-            const image: Images = {};
-            image.url = url;
-            ( index > 0 ) ? image.principal = false : image.principal = true;
-            data.images.push( image );
-          } );
-          resolve( data.images );
+          resolve( response.images );
         }
       } );
     } );
@@ -460,6 +466,7 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
   close() {
     this.clear();
     this.modal.dismiss();
+    this.allVariations = [];
     this.isEdit = false;
   }
 
@@ -501,16 +508,29 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
       // tslint:disable-next-line: deprecation
       this.productService.producVariable( id ).subscribe( res => {
         const products = [];
-        const { keys } = res;
-        if ( keys[ 0 ].subkeys.length ) {
-          keys[ 0 ].products.forEach( key => {
-            products.push( key.product );
-          } );
-        } else {
-          keys.forEach( key => {
-            products.push( key.products[ 0 ].product );
-          } );
+        if ( res ) {
+          console.log( res );
+
+          const { keys } = res;
+          if ( !keys[ 0 ].subkeys.length ) {
+            keys.forEach( key => {
+              products.push( key.products[ 0 ].product );
+            } );
+          }
+
+          if ( keys[ 0 ].subkeys.length ) {
+            keys[ 0 ].products.forEach( key => {
+              products.push( key.product );
+            } );
+          }
+
+          if ( keys.length > 1 && keys[ 0 ].subkeys.length ) {
+            keys.forEach( key => {
+              products.push( key.products[ 0 ].product );
+            } );
+          }
         }
+
         resolve( products );
       } );
     } );
@@ -623,25 +643,6 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
         this.toastrService.info( response.message[ 0 ] );
         this.init();
       }
-    } );
-  }
-
-  private loadImages( images ): Promise<any> {
-    return new Promise<any>( resolve => {
-      // tslint:disable-next-line: deprecation
-      this.productService.uploadImages( { images } ).subscribe( response => {
-        if ( response.status === 'isOk' ) {
-          const _images = [];
-          response.images.forEach( ( url: string ) => {
-            const image: Images = {};
-            image.url = url;
-            image.principal = false;
-            _images.push( image );
-          } );
-
-          resolve( _images );
-        }
-      } );
     } );
   }
 
