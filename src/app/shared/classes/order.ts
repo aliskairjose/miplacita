@@ -16,6 +16,7 @@ export interface Order {
   shipment_option?: ShipmentOption;
   items?: Item[];
   address?: Address;
+  deliveryDays?: string;
 }
 
 export interface Item {
