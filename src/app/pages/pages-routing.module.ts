@@ -6,7 +6,6 @@ import {
 } from '../shared/components/shop-details/shop-details.component';
 import { AuthGuard } from '../shared/guard/auth.guard';
 import { AboutUsComponent } from './about-us/about-us.component';
-import { CartComponent } from './account/cart/cart.component';
 import { ContactComponent } from './account/contact/contact.component';
 import { DashboardComponent } from './account/dashboard/dashboard.component';
 import { ForgetPasswordComponent } from './account/forget-password/forget-password.component';
@@ -63,11 +62,6 @@ const routes: Routes = [
   {
     path: 'shops',
     component: ShopsComponent,
-    canActivate: [ AuthGuard ]
-  },
-  {
-    path: 'cart',
-    component: CartComponent,
     canActivate: [ AuthGuard ]
   },
   {

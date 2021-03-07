@@ -85,7 +85,6 @@ export class AccountManageComponent implements OnInit, OnChanges {
     if ( localStorage.getItem( 'mp-store-shop' ) ) {
       const store: Store = this.storage.getItem( 'mp-store-shop' );
       this.shopService.customizeShop( store.config );
-
     }
     this.init();
   }

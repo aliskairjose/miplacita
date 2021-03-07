@@ -6,7 +6,6 @@ import { StorageService } from '../../../shared/services/storage.service';
 import { AuthResponse } from '../../../shared/classes/auth-response';
 import { SocialAuthService, FacebookLoginProvider } from 'angularx-social-login';
 import { FacebookLoginResponse } from 'src/app/shared/classes/facebook-login-response';
-import { PlatformLocation } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
 import { ERROR_FORM, EMAIL_PATTERN } from '../../../shared/classes/global-constants';
 

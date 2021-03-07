@@ -6,7 +6,6 @@ import { PagesRoutingModule } from './pages-routing.module';
 
 // Pages Components
 import { WishlistComponent } from './account/wishlist/wishlist.component';
-import { CartComponent } from './account/cart/cart.component';
 import { DashboardComponent } from './account/dashboard/dashboard.component';
 import { LoginComponent } from './account/login/login.component';
 import { RegisterComponent } from './account/register/register.component';
@@ -104,7 +103,6 @@ export const customCurrencyMaskConfig = {
 @NgModule( {
   declarations: [
     WishlistComponent,
-    CartComponent,
     DashboardComponent,
     LoginComponent,
     RegisterComponent,
