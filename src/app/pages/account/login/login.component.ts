@@ -129,18 +129,9 @@ export class LoginComponent implements OnInit {
       this.router.navigate( [ this.url ] );
       return;
     }
-    if ( this.role === 'client' ) {
-      this.router.navigate( [ 'home' ] );
-      return;
-    }
-    if ( this.role === 'merchant' ) {
-      this.router.navigate( [ 'pages/account/user/profile' ] );
-      return;
-    }
-    if ( this.role === 'admin' ) {
-      this.router.navigate( [ 'pages/account/user/profile' ] );
-      return;
-    }
+
+    ( this.role === 'client' ) ? this.router.navigate( [ 'home' ] ) : this.router.navigate( [ 'pages/account/user/profile' ] );
+
   }
 
   passwordRecovery() {

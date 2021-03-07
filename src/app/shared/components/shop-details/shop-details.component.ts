@@ -46,6 +46,7 @@ export class ShopDetailsComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
+    // tslint:disable-next-line: deprecation
     this.shopService.getPlans().subscribe( plans => this.plans = [ ...plans ] )
   }
 
@@ -73,7 +74,8 @@ export class ShopDetailsComponent implements OnInit, OnDestroy {
   }
 
   cancelPlan( store: Store ) {
-    const _plan = this.plans.find( item => item.price === 0 )
+    const _plan = this.plans.find( item => item.price === 0 );
+    // tslint:disable-next-line: deprecation
     this.shopService.updateStorePlan( store._id, { plan: _plan._id } ).subscribe( response => {
       if ( response.success ) {
         this.toastrService.info( response.message[ 0 ] );
