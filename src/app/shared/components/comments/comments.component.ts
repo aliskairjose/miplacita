@@ -1,7 +1,6 @@
 import { Component, OnInit, OnChanges, OnDestroy, SimpleChanges, Input, AfterViewInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
-import { StorageService } from '../../services/storage.service';
 import { ProductService } from '../../services/product.service';
 import { Review } from '../../classes/review';
 import { ToastrService } from 'ngx-toastr';
@@ -55,9 +54,10 @@ export class CommentsComponent implements OnInit, OnChanges, OnDestroy {
     this.reviewForm.value.user = user._id;
 
     if ( this.reviewForm.valid ) {
+      // tslint:disable-next-line: deprecation
       this.productService.addReview( this.reviewForm.value ).subscribe( ( review ) => {
         this.toastr.info( 'Gracias por dejar su comentario' );
-        review.user = user;
+        review.user = { ...user };
         this.reviews.push( review );
         this.clearForm();
       } );
