@@ -1,16 +1,18 @@
 <div class="container-fluid search">
-  <form [formGroup]="searchForm" (ngSubmit)="onSubmit()" class="theme-form">   
+  <form [formGroup]="searchForm" (ngSubmit)="onSubmit()" class="theme-form">
     <div class="d-flex w-100">
       <div class="searh-box-mp d-flex w-100">
         <div ngbDropdown class="">
-          <button type="button" class="btn font-weight-normal " id="dropdownBasic1" ngbDropdownToggle>{{textCategory}}</button>
+          <button type="button" class="btn font-weight-normal " id="dropdownBasic1"
+            ngbDropdownToggle>{{textCategory}}</button>
           <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-            <button type="button" (click)="updateCategory(item)" *ngFor="let item of categories" [value]="item._id" ngbDropdownItem>{{item.name}}</button>
+            <button type="button" (click)="updateCategory(item)" *ngFor="let item of categories" [value]="item._id"
+              ngbDropdownItem>{{item.name}}</button>
           </div>
         </div>
-        <input formControlName="name" type="text">
+        <input formControlName="name" type="text" [(ngModel)]="search">
       </div>
-      
+
       <button type="submit" class="btn">
         <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-search" fill="currentColor"
           xmlns="http://www.w3.org/2000/svg">

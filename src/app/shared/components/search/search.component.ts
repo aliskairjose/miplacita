@@ -15,6 +15,7 @@ export class SearchComponent implements OnInit, OnChanges {
   searchForm: FormGroup;
   products: Product[] = [];
   textCategory = 'Explora';
+  search = '';
 
   @Input() store: Store = {};
   @Input() categories: Category[];
@@ -34,7 +35,10 @@ export class SearchComponent implements OnInit, OnChanges {
 
   ngOnChanges( changes: SimpleChanges ): void {
     // tslint:disable-next-line: deprecation
-    this.route.queryParams.subscribe( q => this.searchForm.get( 'id' ).setValue( q?.id ) );
+    this.route.queryParams.subscribe( q => {
+      this.search = q?.name;
+      this.searchForm.get( 'id' ).setValue( q?.id );
+    } );
 
     if ( Object.entries( this.store ).length ) {
       this.searchForm.value.id = this.store._id;
