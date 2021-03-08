@@ -107,7 +107,7 @@ export class CollectionLeftSidebarComponent implements OnInit {
 
           this.tags = [ ...shopTag, ...catTag, ...priceTag ]; // All Tags Array
 
-          this.loadProductList();
+          this.loadProductList( params?.page );
 
         } );
       } );
@@ -141,7 +141,6 @@ export class CollectionLeftSidebarComponent implements OnInit {
 
   // Append filter value to Url
   updateFilter( tags: any ) {
-    // console.log( tags );
     tags.page = null; // Reset Pagination
     this.router.navigate( [], {
       relativeTo: this.route,
@@ -169,9 +168,7 @@ export class CollectionLeftSidebarComponent implements OnInit {
 
   // Remove Tag
   removeTag( tag ) {
-    console.log( tag );
     this.brands = this.brands.filter( val => val !== tag );
-    // this.categories = this.categories.filter( val => val.name !== tag );
 
     const params = {
       brand: this.brands.length ? this.brands.join( ',' ) : null,
@@ -211,8 +208,6 @@ export class CollectionLeftSidebarComponent implements OnInit {
     } ).finally( () => {
       this.viewScroller.setOffset( [ 120, 120 ] );
       this.viewScroller.scrollToAnchor( 'products' ); // Anchore Link
-      this.loadProductList( page );
-
     } );
   }
 

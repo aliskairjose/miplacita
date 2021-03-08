@@ -24,6 +24,7 @@ export class CustomPaginationComponent implements OnInit, OnChanges {
       const init = Math.trunc( this.paginate.page / 5 ) * 5;
       this.pages = this.paginate.pages.slice( init, init + 5 );
     }
+
   }
 
   pageSet( page: number ) {

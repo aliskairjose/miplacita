@@ -33,6 +33,7 @@ export class SearchComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges( changes: SimpleChanges ): void {
+    // tslint:disable-next-line: deprecation
     this.route.queryParams.subscribe( q => this.searchForm.get( 'id' ).setValue( q?.id ) );
 
     if ( Object.entries( this.store ).length ) {
@@ -41,12 +42,19 @@ export class SearchComponent implements OnInit, OnChanges {
   }
 
   onSubmit(): void {
+    let params = {};
     if ( Object.entries( this.store ).length ) {
       this.searchForm.value.id = this.store._id;
     }
 
+    if ( !this.searchForm.value.name && !this.searchForm.value.category ) {
+      params = { ...this.searchForm.value, page: 1 };
+    } else {
+      params = { ...this.searchForm.value };
+    }
+
     // Conexión con api
-    this.router.navigate( [ '/shop/collection/left/sidebar' ], { queryParams: this.searchForm.value } );
+    this.router.navigate( [ '/shop/collection/left/sidebar' ], { queryParams: params } );
   }
 
   // convenience getter for easy access to form fields
