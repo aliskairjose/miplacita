@@ -20,7 +20,7 @@ export class PaginationComponent implements OnInit {
   }
 
   pageSet( page: number ) {
-    this.setPage.emit( page );  // Set Page Number  
+    this.setPage.emit( page );  // Set Page Number
   }
 
 }

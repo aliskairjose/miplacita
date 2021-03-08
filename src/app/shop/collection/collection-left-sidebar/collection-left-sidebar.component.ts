@@ -203,7 +203,6 @@ export class CollectionLeftSidebarComponent implements OnInit {
 
   // product Pagination
   setPage( page: number ) {
-    this.loadProductList( page );
     this.router.navigate( [], {
       relativeTo: this.route,
       queryParams: { page },
@@ -212,6 +211,8 @@ export class CollectionLeftSidebarComponent implements OnInit {
     } ).finally( () => {
       this.viewScroller.setOffset( [ 120, 120 ] );
       this.viewScroller.scrollToAnchor( 'products' ); // Anchore Link
+      this.loadProductList( page );
+
     } );
   }
 
