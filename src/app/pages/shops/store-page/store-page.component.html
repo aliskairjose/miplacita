@@ -50,7 +50,7 @@
 						<owl-carousel-o class="product-m no-arrow" [options]="ProductSliderConfig">
 							<ng-container *ngFor="let product of products | slice:0:16">
 								<ng-template carouselSlide>
-									<div class="product-box">
+									<div class="product-box d-flex flex-wrap">
 										<app-product-box-one [storePage]="true" [colorBtn]="color" [product]="product" [thumbnail]="false"
 											[cartModal]="false" [horizontal]="true" [store]="store">
 										</app-product-box-one>
