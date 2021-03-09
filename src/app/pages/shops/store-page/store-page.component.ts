@@ -34,7 +34,6 @@ export class StorePageComponent implements OnInit {
     { value: 'featured=true', text: 'Destacado' },
     { value: 'price_order=asc', text: 'Precio de más bajo a más alto' },
     { value: 'price_order=desc', text: 'Precio de más alto a más bajo' },
-    { value: 'best=true', text: 'Más comprado' },
     { value: 'featured=true', text: 'Lo más nuevo' }
   ];
 
@@ -83,6 +82,7 @@ export class StorePageComponent implements OnInit {
   }
 
   init(): void {
+    this.storeService.storeSubject( this.store );
     this.sliders = this.store.config.images;
     this.getCollectionProducts( this.store._id );
     this.subCategoryList();
