@@ -93,9 +93,11 @@ export class DailySalesReportComponent implements OnInit, OnChanges, AfterViewIn
 
     if ( this.role === 'admin' ) { this.fields.splice( 1, 0, 'Tienda' ); }
 
-    if ( Object.entries( this.store ).length !== 0 || this.role === 'admin' ) {
-      this.loadData();
-    }
+    if ( this.store || this.role === 'admin' ) { this.loadData(); }
+
+    // if ( Object.entries( this.store ).length !== 0 || this.role === 'admin' ) {
+    //   this.loadData();
+    // }
   }
 
   private loadData(): void {

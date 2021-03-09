@@ -38,6 +38,13 @@ export class FiltersComponent implements OnInit, AfterViewInit {
 
   role = '';
   private _storeID = '';
+  private _storeMP = [
+    {
+      _id: '',
+      name: 'Marketplace'
+    }
+  ];
+
   table: ElementRef;
 
   @Input() storeList: boolean;
@@ -69,7 +76,8 @@ export class FiltersComponent implements OnInit, AfterViewInit {
     if ( this.storeList ) { this.loadStores(); }
   }
 
-  selectStore( store: Store ): void {
+  selectStore( store ): void {
+
     if ( store ) {
       this.storeSelected = store;
       this._storeID = store._id;
@@ -119,7 +127,7 @@ export class FiltersComponent implements OnInit, AfterViewInit {
   private loadStores(): void {
     // tslint:disable-next-line: deprecation
     this.report.membershipActiveShop( 1, `report=true` ).subscribe( ( res: Store[] ) => {
-      this.stores = [ ...res ];
+      this.stores = [ ...this._storeMP, ...res ];
     } );
   }
 
