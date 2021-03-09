@@ -866,6 +866,12 @@ body {
   }
 }
 
+small {
+  display: block;
+  margin-left: 16px;
+  color: var(--mp-red);
+}
+
 // Extra large devices (large desktops, 1200px and up)
 @media (min-width: 768px) {
   .btn-inside-slider {

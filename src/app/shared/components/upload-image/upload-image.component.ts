@@ -52,16 +52,17 @@ export class UploadImageComponent implements OnInit, AfterViewInit, OnChanges, O
   }
 
   async upload( files ) {
+    console.log( files )
     let limit: number;
     switch ( this.type ) {
       case 'product':
-        limit = 3000000;
+        limit = 3145728; // 3Mb
         break;
       case 'banner':
-        limit = 5000000;
+        limit = 5242880; // 5Mb
         break;
       default:
-        limit = 2000000;
+        limit = 2097152; // 2Mb
         break;
     }
 
