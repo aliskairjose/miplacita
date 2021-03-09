@@ -6,7 +6,7 @@
           <button type="button" class="btn font-weight-normal " id="dropdownBasic1" ngbDropdownToggle>{{ textCategory
             }}</button>
           <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-            <button type="button" (click)="updateCategory(item)" *ngFor="let item of categories" [value]="item._id"
+            <button type="button" (click)="updateCategory(item)" *ngFor="let item of subcategories" [value]="item._id"
               ngbDropdownItem>{{item.name}}</button>
           </div>
           <div ngbDropdownMenu aria-labelledby="dropdownBasic2">
