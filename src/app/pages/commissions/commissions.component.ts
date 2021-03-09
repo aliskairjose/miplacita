@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, SimpleChanges, OnChanges } from '@angular/core';
+import { Component, Input, OnInit, OnChanges } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { Commission } from '../../shared/classes/commissions';
@@ -18,17 +18,22 @@ export class CommissionsComponent implements OnInit, OnChanges {
   required = ERROR_FORM.required;
   commission: Commission = {};
 
+
   constructor(
     private toastr: ToastrService,
     private formBuilder: FormBuilder,
     private commissionService: CommissionService,
   ) {
     this.createForm();
-    this.commissionService.getCommission().subscribe( commission => this.commission = commission );
+    // tslint:disable-next-line: deprecation
+    this.commissionService.getCommission().subscribe( ( commission: Commission ) => {
+      this.commission = { ...commission };
+      this.commission.tdc_commission = 0.33; // temporal, luego se elimina
+    } );
 
   }
 
-  ngOnChanges( changes: SimpleChanges ): void {
+  ngOnChanges(): void {
 
   }
 
@@ -40,21 +45,22 @@ export class CommissionsComponent implements OnInit, OnChanges {
   onSubmit(): void {
     this.submitted = true;
     if ( this.commissionsForm.valid ) {
+      // tslint:disable-next-line: deprecation
       this.commissionService.updateCommission( this.commission._id, this.commissionsForm.value ).subscribe( response => {
         if ( response.success ) {
           this.toastr.info( response.message[ 0 ] );
-          this.commission = response.commissions;
+          this.commission = { ...response.commissions };
         }
       } );
     }
   }
 
-
   private createForm(): void {
     this.commissionsForm = this.formBuilder.group( {
       marketplace_commission: [ '', [ Validators.required ] ],
       store_commission: [ '', [ Validators.required ] ],
-      payment_gateway_commission: [ '', [ Validators.required ] ]
+      payment_gateway_commission: [ '', [ Validators.required ] ],
+      tdc_commission: [ '', [ Validators.required ] ]
     } );
   }
 
