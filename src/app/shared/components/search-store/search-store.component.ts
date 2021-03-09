@@ -5,6 +5,7 @@ import { Product } from '../../classes/product';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Store } from '../../classes/store';
 import { ShopService } from '../../services/shop.service';
+import { CategoryService } from '../../services/category.service';
 
 @Component( {
   selector: 'app-search-store',
@@ -17,17 +18,16 @@ export class SearchStoreComponent implements OnInit, OnChanges {
   textCategory = 'Todos';
   textSubCategory = 'Más Vendidos';
   color = '';
+  subcategories: Category[];
 
-  @Input() subcategories: Category[];
   @Input() store: Store = {};
-  @Input() categories: Category[];
   @Output() productsFilter: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(
     private router: Router,
     private route: ActivatedRoute,
     private formBuilder: FormBuilder,
-    private storeService: ShopService
+    private categoryService: CategoryService,
   ) {
     this.createForm();
   }
@@ -36,10 +36,12 @@ export class SearchStoreComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges( changes: SimpleChanges ): void {
+
     // tslint:disable-next-line: deprecation
     this.route.queryParams.subscribe( q => this.searchForm.get( 'id' ).setValue( q?.id ) );
 
     if ( Object.entries( this.store ).length ) {
+      this.loadSubCategories( this.store );
       this.searchForm.value.id = this.store._id;
     }
   }
@@ -74,6 +76,15 @@ export class SearchStoreComponent implements OnInit, OnChanges {
   updateSubCategory( item: Category ) {
     this.textSubCategory = item.name;
     this.searchForm.value.subcategory = item._id;
+  }
+
+  // Carga las subcategorias de la tienda
+  private loadSubCategories( store: Store ): void {
+    const params = `store=${store._id}`;
+    // tslint:disable-next-line: deprecation
+    this.categoryService.getSubcategory( params ).subscribe( result => {
+      this.subcategories = [ ...result ];
+    } );
   }
 
 }
