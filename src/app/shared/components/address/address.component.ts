@@ -28,8 +28,7 @@ export class AddressComponent implements OnInit {
   address: string;
   user: User = {};
   options = {
-    types: [],
-    componentRestrictions: { country: 'PA' }
+    types: []
   };
   @Input() isProfile = false;
 
