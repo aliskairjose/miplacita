@@ -3,25 +3,20 @@
     <div class="d-flex w-100">
       <div class="searh-box-mp d-flex w-100">
         <div ngbDropdown class="">
-          <button type="button" class="btn font-weight-normal " id="dropdownBasic1" ngbDropdownToggle>{{ textCategory
-            }}</button>
+          <button type="button" class="btn font-weight-normal " id="dropdownBasic1" ngbDropdownToggle>
+            {{ subCategoryTitle }}</button>
           <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-            <button type="button" (click)="updateCategory(item)" *ngFor="let item of subcategories" [value]="item._id"
-              ngbDropdownItem>{{item.name}}</button>
-          </div>
-          <div ngbDropdownMenu aria-labelledby="dropdownBasic2">
             <button type="button" (click)="updateSubCategory(item)" *ngFor="let item of subcategories"
               [value]="item._id" ngbDropdownItem>{{item.name}}</button>
           </div>
         </div>
         <div ngbDropdown class="">
           <button type="button" class="btn font-weight-normal " id="dropdownBasic2" ngbDropdownToggle>
-            {{ textSubCategory }}
+            {{ priceFilterText }}
           </button>
-
           <div ngbDropdownMenu aria-labelledby="dropdownBasic2">
-            <button type="button" (click)="updateSubCategory(item)" *ngFor="let item of subcategories"
-              [value]="item._id" ngbDropdownItem>{{item.name}}</button>
+            <button type="button" (click)="updatePriceFilter(item)" *ngFor="let item of filterOptions"
+              [value]="item.value" ngbDropdownItem>{{item.text}}</button>
           </div>
         </div>
         <input formControlName="name" type="text">

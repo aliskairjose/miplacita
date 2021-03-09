@@ -15,10 +15,14 @@ import { CategoryService } from '../../services/category.service';
 export class SearchStoreComponent implements OnInit, OnChanges {
   searchForm: FormGroup;
   products: Product[] = [];
-  textCategory = 'Todos';
-  textSubCategory = 'Más Vendidos';
+  subCategoryTitle = 'Todos';
+  priceFilterText = 'Rango de precio';
   color = '';
   subcategories: Category[];
+  filterOptions = [
+    { value: 'asc', text: 'Desde el más bajo' },
+    { value: 'desc', text: 'Desde el más alto' },
+  ];
 
   @Input() store: Store = {};
   @Output() productsFilter: EventEmitter<any> = new EventEmitter<any>();
@@ -62,19 +66,20 @@ export class SearchStoreComponent implements OnInit, OnChanges {
   private createForm(): void {
     this.searchForm = this.formBuilder.group( {
       name: [ '' ],
-      category: [ '' ],
       id: [ '' ],
-      subcategory: [ '' ]
+      subcategory: [ '' ],
+      price_order: [ '' ]
     } );
   }
 
-  updateCategory( item: Category ) {
-    this.textCategory = item.name;
-    this.searchForm.value.category = item._id;
+  updatePriceFilter( item ) {
+    console.log( item );
+    this.searchForm.value.price_order = item.value;
+    this.priceFilterText = item.text;
   }
 
   updateSubCategory( item: Category ) {
-    this.textSubCategory = item.name;
+    this.subCategoryTitle = item.name;
     this.searchForm.value.subcategory = item._id;
   }
 

@@ -56,6 +56,7 @@ export class CollectionLeftSidebarComponent implements OnInit {
         // Get Query params..
         // tslint:disable-next-line: deprecation
         this.route.queryParams.subscribe( params => {
+
           if ( params.id ) {
             // tslint:disable-next-line: deprecation
             this.shopService.getStore( params.id ).subscribe( response => this.shopService.customizeShop( response.result.config ) );
