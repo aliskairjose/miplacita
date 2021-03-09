@@ -3,4 +3,5 @@ export interface Commission {
   marketplace_commission?: number;
   store_commission?: number;
   payment_gateway_commission?: number;
+  tdc_commission?: number;
 }
