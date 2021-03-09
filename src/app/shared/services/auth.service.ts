@@ -35,7 +35,8 @@ export class AuthService {
    * @description Cierre de sesion del usuario
    */
   logout(): void {
-    sessionStorage.clear();
+    if ( session )
+      sessionStorage.clear();
     localStorage.clear();
     this.router.navigate( [ '/home' ] );
     sessionStorage.removeItem( 'store' );
