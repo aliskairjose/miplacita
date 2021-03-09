@@ -73,7 +73,6 @@ export class SearchStoreComponent implements OnInit, OnChanges {
   }
 
   updatePriceFilter( item ) {
-    console.log( item );
     this.searchForm.value.price_order = item.value;
     this.priceFilterText = item.text;
   }

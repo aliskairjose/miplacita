@@ -5,6 +5,7 @@ import { User } from '../classes/user';
 import { AuthResponse } from '../classes/auth-response';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
+import { Store } from '../classes/store';
 
 @Injectable( {
   providedIn: 'root'
@@ -35,10 +36,14 @@ export class AuthService {
    * @description Cierre de sesion del usuario
    */
   logout(): void {
-    if ( session )
-      sessionStorage.clear();
+    let redirect = '/home';
+    if ( sessionStorage.sessionStore ) {
+      const store: Store = JSON.parse( sessionStorage.sessionStore );
+      redirect = `/${store.url_store}`;
+    }
+    sessionStorage.clear();
     localStorage.clear();
-    this.router.navigate( [ '/home' ] );
+    this.router.navigate( [ redirect ] );
     sessionStorage.removeItem( 'store' );
     this.authSubject( false );
   }
