@@ -30,7 +30,7 @@ export class InterestsComponent implements OnInit, OnDestroy {
   interestsList: Category[] = [];
   user: User;
   mustReturn = false; // variable que indica que debe retornar al origen despues de login
-  url = '';
+  private url = null;
 
   @Input() type = 'register';
   @ViewChild( 'interests', { static: false } ) Interests: TemplateRef<any>;
@@ -130,10 +130,11 @@ export class InterestsComponent implements OnInit, OnDestroy {
         sessionStorage.clear();
         this.router.navigate( [ this.url ] );
       } );
-      return;
+
+    } else {
+      ( this.mustReturn ) ? this.router.navigate( [ 'shop/checkout/shipping' ] ) : this.router.navigate( [ '/shop/register/success' ] );
     }
 
-    ( this.mustReturn ) ? this.router.navigate( [ 'shop/checkout/shipping' ] ) : this.router.navigate( [ '/shop/register/success' ] );
   }
 
   onSubmit(): void {

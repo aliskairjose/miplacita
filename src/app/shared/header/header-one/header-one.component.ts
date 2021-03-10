@@ -93,6 +93,11 @@ export class HeaderOneComponent implements OnInit, OnChanges, AfterViewInit {
       this.link = `/${changes.store.currentValue.url_store}`;
       this.settings.setStore( changes.store.currentValue );
     }
+
+    if ( sessionStorage.sessionStore ) {
+      const store: Store = JSON.parse( sessionStorage.sessionStore );
+      this.storeInfo( store._id );
+    }
   }
 
   ngOnInit(): void {

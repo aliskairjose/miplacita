@@ -53,7 +53,7 @@ export class RegisterComponent implements OnInit {
     private socialService: SocialAuthService,
     private platformLocation: PlatformLocation,
   ) {
-    this.platformLocation.pushState( null, '', '/register' );
+    // this.platformLocation.pushState( null, '', '/register' );
     this.createForm();
   }
 
