@@ -77,10 +77,9 @@ export class FiltersComponent implements OnInit, AfterViewInit {
   }
 
   selectStore( store ): void {
-
     if ( store ) {
       this.storeSelected = store;
-      this._storeID = store._id;
+      this._storeID = store.name === 'Marketplace' ? 'marketplace' : store._id;
     } else {
       this.storeSelected.name = null;
       this._storeID = '';
