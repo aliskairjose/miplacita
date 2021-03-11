@@ -872,6 +872,20 @@ small {
   color: var(--mp-red);
 }
 
+@media (min-width: 200px) {
+  .btn-inside-slider {
+    position: relative;
+    left: 6vw;
+    bottom: 6vh;
+  }
+}
+@media (min-width: 320px) {
+  .btn-inside-slider {
+    position: relative;
+    left: 6vw;
+    bottom: 6vh;
+  }
+}
 // Extra large devices (large desktops, 1200px and up)
 @media (min-width: 768px) {
   .btn-inside-slider {
