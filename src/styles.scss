@@ -700,6 +700,10 @@ ngb-carousel {
   margin-top: -15px !important;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 html,
 body {
   height: 100%;

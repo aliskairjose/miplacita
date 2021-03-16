@@ -42,4 +42,13 @@ export class AppComponent implements OnChanges {
   ngOnChanges( changes: SimpleChanges ): void {
   }
 
+  ngOnInit() {
+    this.router.events.subscribe((evt) => {
+      if (!(evt instanceof NavigationEnd)) {
+        return;
+      }
+      document.body.scrollTop = 0;
+    });
+  }
+
 }
