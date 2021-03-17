@@ -11,6 +11,7 @@ import { FacebookLoginResponse } from '../../../shared/classes/facebook-login-re
 import { MustMatch } from '../../../shared/helper/must-match.validator';
 import { PlatformLocation } from '@angular/common';
 import { ERROR_FORM, EMAIL_PATTERN } from '../../../shared/classes/global-constants';
+import { Config } from '../../../shared/classes/store';
 
 const state = { user: JSON.parse( sessionStorage.userForm || null ) };
 
@@ -41,6 +42,7 @@ export class RegisterComponent implements OnInit {
   isPasswordR = true;
   icon = 'fa fa-eye';
   icon2 = 'fa fa-eye';
+  private _config = '';
 
   private emailPattern = EMAIL_PATTERN;
 
@@ -65,6 +67,8 @@ export class RegisterComponent implements OnInit {
     // tslint:disable-next-line: deprecation
     this.route.queryParams.subscribe( params => {
       if ( params.url ) { this.url = params.url; }
+
+      if ( params.config ) { this._config = params.config; }
 
       if ( params.role ) {
         this.role = params.role;
@@ -102,15 +106,16 @@ export class RegisterComponent implements OnInit {
           this.storage.setItem( 'prelogin', this.registerForm.value );
           this.storage.setItem( 'userForm', data.user );
           this.storage.setItem( 'mp_token', data.token );
-          // if ( this.mustReturnStore ) {
-          //   this.router.navigate( [ this.url ] );
-          //   return;
-          // }
+
           if ( this.role === 'merchant' ) {
             this.registerSuccess = true;
           } else {
             // Opcion client
-            this.router.navigate( [ '/pages/user/interests' ], { queryParams: { url: this.url } } );
+            const queryParams: any = {};
+            queryParams.url = this.url;
+            if ( this._config ) { queryParams.config = this._config; }
+
+            this.router.navigate( [ '/pages/user/interests' ], { queryParams } );
           }
         }
       } );

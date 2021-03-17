@@ -9,6 +9,7 @@ import { StorageService } from '../../services/storage.service';
 import { User } from '../../classes/user';
 import { ShippingAddress } from '../../classes/shipping-address';
 import { ConfirmationDialogService } from '../../services/confirmation-dialog.service';
+import { ActivatedRoute } from '@angular/router';
 
 
 @Component( {
@@ -30,6 +31,8 @@ export class AddressComponent implements OnInit {
   options = {
     types: []
   };
+  config: '';
+
   @Input() isProfile = false;
 
   private _addressExist = false;
@@ -42,6 +45,7 @@ export class AddressComponent implements OnInit {
   constructor(
     private ngZone: NgZone,
     public auth: AuthService,
+    private route: ActivatedRoute,
     private formBuilder: FormBuilder,
     private userService: UserService,
     private toastrService: ToastrService,
@@ -81,6 +85,8 @@ export class AddressComponent implements OnInit {
         }
       } );
     }
+
+    this.route.queryParams.subscribe( params => this.config = params.config );
     this.createForm();
   }
 

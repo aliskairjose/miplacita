@@ -31,6 +31,7 @@ export class InterestsComponent implements OnInit, OnDestroy {
   user: User;
   mustReturn = false; // variable que indica que debe retornar al origen despues de login
   private url = null;
+  private _config = '';
 
   @Input() type = 'register';
   @ViewChild( 'interests', { static: false } ) Interests: TemplateRef<any>;
@@ -76,6 +77,10 @@ export class InterestsComponent implements OnInit, OnDestroy {
       if ( Object.keys( params ).length !== 0 ) {
         this.role = params.role;
         if ( params.status ) { this.mustReturn = true; }
+        if ( params.config ) {
+          this.mustReturn = true;
+          this._config = params.config;
+        }
         this.url = params?.url;
       }
     } );
@@ -118,22 +123,24 @@ export class InterestsComponent implements OnInit, OnDestroy {
 
   saveInterests(): void {
     sessionStorage.removeItem( 'userForm' );
-    if ( this.url ) {
-      const login = this.storage.getItem( 'prelogin' );
 
-      // tslint:disable-next-line: deprecation
-      this.auth.login( login ).subscribe( data => {
-        this.storage.setLoginData( 'data', data );
-        this.auth.authSubject( data.success );
-        this.storage.removeItem( 'prelogin' );
-        this.storage.removeItem( 'userForm' );
-        sessionStorage.clear();
+    const login = this.storage.getItem( 'prelogin' );
+
+    // tslint:disable-next-line: deprecation
+    this.auth.login( login ).subscribe( data => {
+      this.storage.setLoginData( 'data', data );
+      this.auth.authSubject( data.success );
+      this.storage.removeItem( 'prelogin' );
+      this.storage.removeItem( 'userForm' );
+      sessionStorage.clear();
+      if ( this.url ) {
         this.router.navigate( [ this.url ] );
-      } );
-
-    } else {
-      ( this.mustReturn ) ? this.router.navigate( [ 'shop/checkout/shipping' ] ) : this.router.navigate( [ '/shop/register/success' ] );
-    }
+      } else {
+        ( this.mustReturn )
+          ? this.router.navigate( [ 'shop/checkout/shipping' ], { queryParams: { config: this._config } } )
+          : this.router.navigate( [ '/shop/register/success' ] );
+      }
+    } );
 
   }
 
