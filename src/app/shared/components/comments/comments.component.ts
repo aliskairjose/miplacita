@@ -23,7 +23,7 @@ export class CommentsComponent implements OnInit, OnChanges, OnDestroy {
   private _productId = '';
 
   constructor(
-    private auth: AuthService,
+    public auth: AuthService,
     private toastr: ToastrService,
     private formBuilder: FormBuilder,
     private productService: ProductService,
