@@ -136,7 +136,7 @@ export class ShippingComponent implements OnInit {
     this.getTotal.subscribe( amount => this.amount = amount );
     // tslint:disable-next-line: deprecation
     this.route.queryParams.subscribe( queryParams => {
-      if ( Object.entries( queryParams ).length !== 0 ) {
+      if ( queryParams.config ) {
         this._config = queryParams.config;
         const decod = window.atob( queryParams.config );
         this.store = JSON.parse( decod );
