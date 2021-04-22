@@ -33,18 +33,19 @@ export class SuccessComponent implements OnInit {
   }
 
   goTo(): void {
-    if ( this.url === '/shop/register/success' ) {
-      const login = this.storage.getItem( 'prelogin' );
-      // tslint:disable-next-line: deprecation
-      this.auth.login( login ).subscribe( data => {
-        this.storage.setLoginData( 'data', data );
-        this.auth.authSubject( data.success );
-        this.storage.removeItem( 'prelogin' );
-        this.storage.removeItem( 'userForm' );
-        sessionStorage.clear();
-        this.router.navigate( [ '/pages/account/user/profile' ] );
-      } );
-    }
+    // if ( this.url === '/shop/register/success' ) {
+    //   const login = this.storage.getItem( 'prelogin' );
+    //   // tslint:disable-next-line: deprecation
+    //   this.auth.login( login ).subscribe( data => {
+    //     this.storage.setLoginData( 'data', data );
+    //     this.auth.authSubject( data.success );
+    //     this.storage.removeItem( 'prelogin' );
+    //     this.storage.removeItem( 'userForm' );
+    //     sessionStorage.clear();
+    //     this.router.navigate( [ '/pages/account/user/profile' ] );
+    //   } );
+    // }
+    this.router.navigate( [ '/pages/account/user/profile' ] );
   }
 
 }
