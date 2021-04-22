@@ -3,8 +3,6 @@ import { Order } from '../../../shared/classes/order';
 import { OrderService } from '../../../shared/services/order.service';
 import { ProductService } from '../../../shared/services/product.service';
 import { Router } from '@angular/router';
-import { AuthService } from '../../../shared/services/auth.service';
-import { StorageService } from '../../../shared/services/storage.service';
 
 @Component( {
   selector: 'app-success',
@@ -18,8 +16,6 @@ export class SuccessComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private auth: AuthService,
-    private storage: StorageService,
     private orderService: OrderService,
     public productService: ProductService,
   ) {
@@ -33,18 +29,6 @@ export class SuccessComponent implements OnInit {
   }
 
   goTo(): void {
-    // if ( this.url === '/shop/register/success' ) {
-    //   const login = this.storage.getItem( 'prelogin' );
-    //   // tslint:disable-next-line: deprecation
-    //   this.auth.login( login ).subscribe( data => {
-    //     this.storage.setLoginData( 'data', data );
-    //     this.auth.authSubject( data.success );
-    //     this.storage.removeItem( 'prelogin' );
-    //     this.storage.removeItem( 'userForm' );
-    //     sessionStorage.clear();
-    //     this.router.navigate( [ '/pages/account/user/profile' ] );
-    //   } );
-    // }
     this.router.navigate( [ '/pages/account/user/profile' ] );
   }
 
