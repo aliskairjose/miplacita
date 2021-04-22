@@ -11,6 +11,7 @@ import { Store } from '../../../../shared/classes/store';
 import { Category } from '../../../../shared/classes/category';
 import { ViewportScroller } from '@angular/common';
 import { CommentsComponent } from '../../../../shared/components/comments/comments.component';
+import { NgbCarousel } from '@ng-bootstrap/ng-bootstrap';
 
 export interface ProductDetail {
   colors?: any[];
@@ -44,6 +45,7 @@ export class ProductLeftSidebarComponent implements OnInit {
   storeName = '';
 
   @ViewChild( 'comments' ) comment: CommentsComponent;
+  @ViewChild( NgbCarousel, { static: true } ) ngcarousel: NgbCarousel;
 
   ProductDetailsMainSliderConfig: any = ProductDetailsMainSlider;
   ProductDetailsThumbConfig: any = ProductDetailsThumbSlider;
@@ -188,6 +190,10 @@ export class ProductLeftSidebarComponent implements OnInit {
   // Toggle Mobile Sidebar
   toggleMobileSidebar() {
     this.mobileSidebar = !this.mobileSidebar;
+  }
+
+  imageSeleted( index: number ): void {
+    this.ngcarousel.select( `ngb-slide-${index}` )
   }
 
 }
