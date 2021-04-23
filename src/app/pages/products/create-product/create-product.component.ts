@@ -111,7 +111,6 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
     this.images = [];
     this.store = JSON.parse( sessionStorage.getItem( 'store' ) );
     const params = `store=${this.store._id}`;
-
     // Carga los valores base
     forkJoin( [
       this.shopService.storeList( 1, params ),
@@ -432,7 +431,6 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   openModal( option: number, product: Product ) {
-    console.log( product )
     if ( product ) {
       const { images, ..._product } = product;
       this.product = { ..._product };

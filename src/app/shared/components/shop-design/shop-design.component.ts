@@ -10,6 +10,7 @@ import { ShopService } from '../../services/shop.service';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { User } from 'src/app/shared/classes/user';
 import { Route, Router } from '@angular/router';
+import { StorageService } from '../../services/storage.service';
 
 @Component( {
   selector: 'app-shop-design',
@@ -40,6 +41,8 @@ export class ShopDesignComponent implements OnInit, OnChanges {
 
   constructor(
     private router: Router,
+    private auth: AuthService,
+    private storage: StorageService,
     private shopService: ShopService,
     private toastrService: ToastrService,
     private authService: AuthService
@@ -213,7 +216,25 @@ export class ShopDesignComponent implements OnInit, OnChanges {
     } );
   }
 
-  endRegister(): void {
-    this.router.navigateByUrl( '/shop/register/success' );
+  async endRegister() {
+    const login = await this.login();
+    if ( login ) {
+      this.router.navigateByUrl( '/shop/register/success' );
+    }
+  }
+
+  private login(): Promise<boolean> {
+    return new Promise<boolean>( resolve => {
+      const login = this.storage.getItem( 'prelogin' );
+
+      this.auth.login( login ).subscribe( data => {
+        this.storage.setLoginData( 'data', data );
+        this.auth.authSubject( data.success );
+        this.storage.removeItem( 'prelogin' );
+        this.storage.removeItem( 'userForm' );
+        sessionStorage.clear();
+        resolve( true );
+      } );
+    } );
   }
 }
