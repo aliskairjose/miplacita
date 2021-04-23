@@ -14,7 +14,6 @@ export interface Product {
   status?: string;
   category?: string;
   subcategory?: string;
-  images?: Images[];
   stock?: number;
   store?: Store;
   tax?: number;
@@ -25,9 +24,21 @@ export interface Product {
   quantity?: number;
   deliveryDays?: string;
   prefered?: boolean;
+  images?: Images[];
 }
 
 export interface Images {
   url?: string;
   principal?: boolean;
+}
+
+export interface Color {
+  _id?: string;
+  created_at?: string;
+  deleted?: boolean;
+  name?: string;
+  store?: string;
+  type?: string
+  updated_at?: string;
+  value?: string;
 }

@@ -88,7 +88,7 @@ export class ProductService {
   producVariable( id: string ): Observable<any> {
     return this.http.get( `products/${id}/variable` ).pipe(
       map( response => {
-        if ( response.success ) { return response.result[ 0 ]; }
+        if ( response.success ) { return response.result; }
       } )
     );
   }

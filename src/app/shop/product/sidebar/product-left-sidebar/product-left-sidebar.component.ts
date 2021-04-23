@@ -72,53 +72,76 @@ export class ProductLeftSidebarComponent implements OnInit {
   }
 
 
-  ngOnInit(): void {
+  async ngOnInit() {
     this.spinner.show();
     const id = this.route.snapshot.paramMap.get( 'id' );
     const params = `product=${id}&status=active&data_public=true`;
 
-    forkJoin( [
-      this.shopService.storeList(),
-      this.categoryService.categoryList(),
-      this.productService.producVariable( id ),
-      this.productService.productList( 1, params ),
-      // tslint:disable-next-line: deprecation
-    ] ).subscribe( ( [ shopsResult, categoriesResult, variationResult, productResult ] ) => {
+    this.prices = [
+      { _id: 'asc', name: 'Desde el más bajo' },
+      { _id: 'desc', name: 'Desde el más alto' }
+    ];
 
-      this.shops = [ ...shopsResult.docs ];
-      this.categories = [ ...categoriesResult ];
+    const shops = await this.stores();
+    this.shops = [ ...shops ];
 
-      this.prices = [
-        { _id: 'asc', name: 'Desde el más bajo' },
-        { _id: 'desc', name: 'Desde el más alto' }
-      ];
+    const categories = await this.categoryList();
+    this.categories = [ ...categories ];
 
-      this.product = { ...productResult.docs[ 0 ] };
-      this.storeName = this.product.store.name;
-      this.endDate = new Date();
-      this.endDate.setDate( this.today.getDate() + parseInt( this.product.deliveryDays, 10 ) );
+    const variationResult = await this.productVariableList( id );
+    const product = await this.productList( params );
 
-      // Carga los comentarios del producto
-      // tslint:disable-next-line: deprecation
-      this.comment.loadReviews( this.product._id ).subscribe( rate => { this.productRate = rate; } );
+    this.product = { ...product };
+    this.storeName = this.product.store.name;
+    this.endDate = new Date();
+    this.endDate.setDate( this.today.getDate() + parseInt( this.product.deliveryDays, 10 ) );
 
-      if ( variationResult?.primary_key === 'color' ) {
-        variationResult.keys.forEach( key => {
-          this.colors.push( { value: key.value, name: key.name, products: key.products } );
-        } );
-        this.selectProduct( this.colors[ 0 ].products );
-      }
 
-      if ( variationResult?.primary_key === 'size' ) {
-        variationResult.keys.forEach( key => {
-          this.sizes.push( { value: key.value, name: key.name, product: key.products[ 0 ].product } );
-        } );
-        this.product = this.sizes[ 0 ].product;
-        this.size = this.sizes[ 0 ].name;
-      }
-    } );
+    // Carga los comentarios del producto
+    // tslint:disable-next-line: deprecation
+    this.comment.loadReviews( this.product._id ).subscribe( rate => { this.productRate = rate; } );
+
+    if ( variationResult[ 0 ]?.primary_key === 'color' ) {
+      variationResult[ 0 ].keys.forEach( key => {
+        this.colors.push( { value: key.value, name: key.name, products: key.products } );
+      } );
+      this.selectProduct( this.colors[ 0 ].products );
+    }
+
+    if ( variationResult[ 0 ]?.primary_key === 'size' ) {
+      variationResult[ 0 ].keys.forEach( key => {
+        this.sizes.push( { value: key.value, name: key.name, product: key.products[ 0 ].product } );
+      } );
+      this.product = this.sizes[ 0 ].product;
+      this.size = this.sizes[ 0 ].name;
+    }
 
   }
+
+  private async stores(): Promise<any[]> {
+    return new Promise<any[]>( resolve => {
+      this.shopService.storeList().subscribe( ( result ) => resolve( result.docs ) );
+    } );
+  }
+
+  private async categoryList(): Promise<any[]> {
+    return new Promise<any[]>( resolve => {
+      this.categoryService.categoryList().subscribe( categories => resolve( categories ) );
+    } );
+  }
+
+  private async productVariableList( id: string ) {
+    return new Promise( resolve => {
+      this.productService.producVariable( id ).subscribe( result => resolve( result ) );
+    } );
+  }
+
+  private async productList( params: any ): Promise<any> {
+    return new Promise<any>( resolve => {
+      this.productService.productList( 1, params ).subscribe( result => resolve( result.docs[ 0 ] ) );
+    } );
+  }
+
 
   // Selecciona el producto por defecto a mostrar cuando hay color
   selectProduct( products: any[] ): void {

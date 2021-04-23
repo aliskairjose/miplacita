@@ -432,6 +432,7 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   openModal( option: number, product: Product ) {
+    console.log( product )
     if ( product ) {
       const { images, ..._product } = product;
       this.product = { ..._product };
@@ -442,6 +443,7 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
     if ( option === 3 ) {
       const callVariable = async () => {
         const res = await this.loadProductVariable( product._id );
+        console.log( res );
         this.allVariations = [ ...res ];
       };
 
@@ -506,12 +508,12 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
   private loadProductVariable( id: string ): Promise<any[]> {
     return new Promise<any[]>( resolve => {
       // tslint:disable-next-line: deprecation
-      this.productService.producVariable( id ).subscribe( res => {
-        const products = [];
-        if ( res ) {
-          console.log( res );
+      this.productService.producVariable( id ).subscribe( ( res: any[] ) => {
 
-          const { keys } = res;
+        const products = [];
+        if ( res.length ) {
+
+          const { keys } = res[ 0 ];
           if ( !keys[ 0 ].subkeys.length ) {
             keys.forEach( key => {
               products.push( key.products[ 0 ].product );
