@@ -34,7 +34,11 @@ export class SearchStoreComponent implements OnInit, OnChanges {
     private formBuilder: FormBuilder,
     private categoryService: CategoryService,
   ) {
-    this.shopService.storeObserver().subscribe( ( store: Store ) => store ? this.loadSubCategories( store ) : '' );
+    this.shopService.storeObserver().subscribe( ( store: Store ) => {
+      if ( Object.entries( store ).length ) {
+        this.loadSubCategories( store );
+      }
+    } );
     this.createForm();
   }
 
