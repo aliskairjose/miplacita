@@ -7,10 +7,12 @@
                 <div class="label card d-flex flex-row">
                     <div class="d-flex flex-fill justify-content-center align-items-center ">
                         <div class="col d-flex ">
-                            <img src="assets/images/marketplace/images/icons/stats.png"/>
+                            <img src="assets/images/marketplace/images/icons/stats.png" />
                         </div>
-                        <div *ngIf="user.role=='admin'" class="d-flex flex-fill justify-content-center align-items-center ">
-                            <p class="my-auto" *ngIf="dashboardData.totalStores">{{ dashboardData.totalStores }} tiendas</p>
+                        <div *ngIf="user.role=='admin'"
+                            class="d-flex flex-fill justify-content-center align-items-center ">
+                            <p class="my-auto" *ngIf="dashboardData.totalStores">{{ dashboardData.totalStores }} tiendas
+                            </p>
                             <p class="my-auto" *ngIf="!dashboardData.totalStores">0 tiendas</p>
                         </div>
                     </div>
@@ -20,65 +22,60 @@
                 <div class="label card d-flex flex-row">
                     <div class="d-flex flex-fill justify-content-center align-items-center ">
                         <div class="col d-flex ">
-                            <img src="assets/images/marketplace/images/icons/stats.png"/>
+                            <img src="assets/images/marketplace/images/icons/stats.png" />
                         </div>
-                        <div *ngIf="user.role=='admin'" class="d-flex flex-fill justify-content-center align-items-center ">
-                            <p class="my-auto" *ngIf="dashboardData.amountSales">{{ dashboardData.amountSales | currency }} ventas</p>
+                        <div *ngIf="user.role=='admin'"
+                            class="d-flex flex-fill justify-content-center align-items-center ">
+                            <p class="my-auto" *ngIf="dashboardData.amountSales">{{ dashboardData.amountSales | currency
+                                }} ventas</p>
                             <p class="my-auto" *ngIf="!dashboardData.amountSales">0 ventas</p>
                         </div>
-    
+
                     </div>
                 </div>
             </div>
-
             <div class="col-md-4" *ngIf="user.role == 'admin'">
                 <div class="label card d-flex flex-row">
                     <div class="d-flex flex-fill justify-content-center align-items-center ">
                         <div class="col d-flex ">
-                            <img src="assets/images/marketplace/images/icons/productos.png"/>
+                            <img src="assets/images/marketplace/images/icons/productos.png" />
                         </div>
-                        <div *ngIf="user.role=='admin'" class="d-flex flex-fill justify-content-center align-items-center ">
-                            <p class="my-auto" *ngIf="dashboardData.totalProducts">{{ dashboardData.totalProducts }} productos</p>
+                        <div *ngIf="user.role=='admin'"
+                            class="d-flex flex-fill justify-content-center align-items-center ">
+                            <p class="my-auto" *ngIf="dashboardData.totalProducts">{{ dashboardData.totalProducts }}
+                                productos</p>
                             <p class="my-auto" *ngIf="!dashboardData.totalProducts">0 productos</p>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+        <!-- Rol Tienda -->
         <div class="form-row labels" *ngIf="user.role === 'merchant' ">
             <div class="col-md-3">
                 <div class="label card d-flex flex-row">
                     <div class="col d-flex ">
-                        <img src="assets/images/marketplace/images/icons/stats.png"/>
+                        <img src="assets/images/marketplace/images/icons/stats.png" />
                     </div>
-                    <div *ngIf="user.role=='merchant'" class="d-flex flex-fill justify-content-center align-items-center ">
-                        <p class="my-auto" *ngIf="dashboardData.today_orders">{{ dashboardData.today_orders }} ventas hoy</p>
-                        <p class="my-auto" *ngIf="!dashboardData.today_orders">0 ventas hoy</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="label card d-flex flex-row">
-                    <div class="col d-flex ">
-                        <img src="assets/images/marketplace/images/icons/stats.png"/>
-                    </div>
-                    <div class="d-flex flex-fill justify-content-center align-items-center ">
-                        <div *ngIf="user.role=='merchant'" class="d-flex flex-fill justify-content-center align-items-center ">
-                            <p class="my-auto" *ngIf="dashboardData.total_orders">{{ dashboardData.total_orders }} ventas totales</p>
-                            <p class="my-auto" *ngIf="!dashboardData.total_orders">0 ventas totales</p>
-                        </div>    
+                    <div *ngIf="user.role=='merchant'"
+                        class="d-flex flex-fill justify-content-center align-items-center ">
+                        <p class="my-auto">{{ dashboardData.today_orders > 0 ? dashboardData.today_orders : 0 }}
+                            ventas hoy
+                        </p>
                     </div>
                 </div>
             </div>
             <div class="col-md-3">
                 <div class="label card d-flex flex-row">
                     <div class="col d-flex ">
-                        <img src="assets/images/marketplace/images/icons/clientes.png"/>
+                        <img src="assets/images/marketplace/images/icons/stats.png" />
                     </div>
                     <div class="d-flex flex-fill justify-content-center align-items-center ">
-                        <div *ngIf="user.role=='merchant'" class="d-flex flex-fill justify-content-center align-items-center ">
-                            <p class="my-auto" *ngIf="dashboardData.total_clients">{{ dashboardData.total_clients }} clientes</p>
-                            <p class="my-auto" *ngIf="!dashboardData.total_clients">0 clientes</p>
+                        <div *ngIf="user.role=='merchant'"
+                            class="d-flex flex-fill justify-content-center align-items-center ">
+                            <p class="my-auto">{{ dashboardData.total_orders > 0 ? dashboardData.total_orders : 0 }}
+                                ventas totales
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -86,12 +83,29 @@
             <div class="col-md-3">
                 <div class="label card d-flex flex-row">
                     <div class="col d-flex ">
-                        <img src="assets/images/marketplace/images/icons/productos.png"/>
+                        <img src="assets/images/marketplace/images/icons/clientes.png" />
                     </div>
                     <div class="d-flex flex-fill justify-content-center align-items-center ">
-                        <div *ngIf="user.role=='merchant'" class="d-flex flex-fill justify-content-center align-items-center ">
-                            <p class="my-auto" *ngIf="dashboardData.total_products">{{ dashboardData.total_products }} productos</p>
-                            <p class="my-auto" *ngIf="!dashboardData.total_products">0 productos</p>
+                        <div *ngIf="user.role=='merchant'"
+                            class="d-flex flex-fill justify-content-center align-items-center ">
+                            <p class="my-auto">{{ dashboardData.total_clients > 0 ? dashboardData.total_clients : 0 }}
+                                clientes
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="label card d-flex flex-row">
+                    <div class="col d-flex ">
+                        <img src="assets/images/marketplace/images/icons/productos.png" />
+                    </div>
+                    <div class="d-flex flex-fill justify-content-center align-items-center ">
+                        <div *ngIf="user.role=='merchant'"
+                            class="d-flex flex-fill justify-content-center align-items-center ">
+                            <p class="my-auto">{{ dashboardData.total_products > 0 ? dashboardData.total_products : 0 }}
+                                productos
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -100,33 +114,23 @@
         <div class="form-row charts" *ngIf="user.role === 'merchant'">
             <div class="col-lg-6 col-md-6 col-sm-6" *ngIf="dashboardData.month_orders.length > 0">
                 <h5 class="text-center">Ventas</h5>
-                <canvas baseChart
-                        [datasets]="barChartData"
-                        [labels]="barChartLabels"
-                        [options]="barChartOptions"
-                        [colors]="barChartColors"
-                        [legend]="false"
-                        [chartType]="barChartType">
+                <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions"
+                    [colors]="barChartColors" [legend]="false" [chartType]="barChartType">
                 </canvas>
             </div>
-            <div class="col-lg-6 col-md-6 col-sm-6" *ngIf="dashboardData.sold_products.length > 0" >
-                <h5 class="text-center">Más vendidos de este mes</h5>
-                <canvas baseChart
-                        [colors]="doughnutColors"
-                        [data]="doughnutChartData"
-                        [labels]="doughnutChartLabels"
-                        [chartType]="doughnutChartType">
+            <div class="col-lg-6 col-md-6 col-sm-6" *ngIf="bestSellers.length > 0">
+                <h5 class="text-center">Más vendidos</h5>
+                <canvas baseChart [colors]="doughnutColors" [data]="doughnutChartData" [labels]="doughnutChartLabels"
+                    [chartType]="doughnutChartType">
                 </canvas>
-
             </div>
-            
         </div>
-        
+
         <div class="form-row flex-fill flex-column mt-5 px-1">
             <h3 *ngIf="user.role == 'admin'">Pagos</h3>
             <h3 *ngIf="user.role == 'merchant'">Pedidos</h3>
             <div class="table-responsive">
-                
+
                 <table class="table cart-table table-responsive-xs">
                     <thead>
                         <tr class="table-head text-center" *ngIf="user.role == 'merchant'">
@@ -141,27 +145,29 @@
                             <td class="text-center">
                                 ID: {{order._id}}
                             </td>
-                            <td class="text-center" >
+                            <td class="text-center">
                                 <p>{{order.user.fullname}}</p>
                             </td>
-                            <td class="text-center" >
+                            <td class="text-center">
                                 <p>{{order.created_at}}</p>
                             </td>
                             <td class="text-center">
                                 {{order.status}}
                             </td>
-                            
+
                         </tr>
                     </tbody>
                 </table>
-                
+
             </div>
-            <app-custom-pagination *ngIf="user.role =='merchant' && orders.length>0" [items]="orders" [paginate]="paginate" (setPage)="setPage($event)">
+            <app-custom-pagination *ngIf="user.role =='merchant' && orders.length>0" [items]="orders"
+                [paginate]="paginate" (setPage)="setPage($event)">
             </app-custom-pagination>
-            <app-custom-pagination *ngIf="user.role =='admin' && shops.length>0" [items]="shops" [paginate]="paginate" (setPage)="setPage($event)">
+            <app-custom-pagination *ngIf="user.role =='admin' && shops.length>0" [items]="shops" [paginate]="paginate"
+                (setPage)="setPage($event)">
             </app-custom-pagination>
         </div>
-        
+
         <div class="form-row container justify-content-center " *ngIf="shops.length==0 && user.role =='admin'">
             <div class="col-md-5">
                 <div class="card text-center mx-auto mb-2">

@@ -9,11 +9,17 @@ import { ChartType, ChartDataSets } from 'chart.js';
 import { SingleDataSet, Color, Label } from 'ng2-charts';
 import { Store } from '../../../shared/classes/store';
 import { OrderService } from 'src/app/shared/services/order.service';
+
+export interface DashboardProduct {
+  name: string;
+  quantitySold: number;
+}
 @Component( {
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: [ './dashboard.component.scss' ]
 } )
+
 export class DashboardComponent implements OnInit {
 
   months = [ 'Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sept', 'Oct', 'Nov', 'Dic' ];
@@ -50,6 +56,7 @@ export class DashboardComponent implements OnInit {
   role: string;
   user: User = {};
 
+  private bestSellers: DashboardProduct[] = [];
   @Input() store: Store;
 
   constructor(
@@ -80,15 +87,34 @@ export class DashboardComponent implements OnInit {
   }
 
   getLabelsInformation() {
-    let params = '';
     if ( Object.entries( this.store ).length === 0 ) {
       this.store = JSON.parse( sessionStorage.getItem( 'store' ) );
     }
+
     if ( this.role === 'merchant' ) {
+      this.dashboardService.dashboardStore( `store=${this.store._id}` ).subscribe( ( data: Dashboard ) => {
+        console.log( data );
+        this.dashboardData = { ...data };
+        if ( this.dashboardData.sold_products.length ) {
+          const products = this.dashboardData.sold_products.filter( ( product: DashboardProduct ) => product.quantitySold > 0 );
+          this.bestSellers = [ ...products ];
+        }
+      } );
+
+      return;
+    }
+
+    this.dashboardService.dashboard().subscribe( ( response: any ) => {
+      if ( response.success ) {
+        this.dashboardData = response.result;
+      }
+    } );
+
+    /* if ( this.role === 'merchant' ) {
       params = `store=${this.store._id}`;
-      // tslint:disable-next-line: deprecation
-      this.dashboardService.dashboard_store( params ).subscribe( ( data: any ) => {
-        this.dashboardData = data.dashboard;
+      this.dashboardService.dashboard_store( params ).subscribe( ( data: Dashboard ) => {
+        this.dashboardData = { ...data };
+
         if ( this.dashboardData.sold_products.length > 0 ) {
           if ( this.dashboardData.sold_products.length > 3 ) {
             this.dashboardData.sold_products.sort( ( a: any, b: any ) => {
@@ -104,6 +130,7 @@ export class DashboardComponent implements OnInit {
             for ( let i = 0; i < 3; i++ ) {
 
               const element: any = this.dashboardData.sold_products[ i ];
+              console.log( element );
               if ( element.quantitySold > 0 ) {
                 this.doughnutChartLabels.push( element.name );
                 this.doughnutChartData.push( element.quantitySold );
@@ -115,8 +142,6 @@ export class DashboardComponent implements OnInit {
               this.doughnutChartData.push( 10 );
             } );
           }
-
-
         }
         const barTemporal = [];
         if ( this.dashboardData.month_orders.length > 0 ) {
@@ -130,13 +155,12 @@ export class DashboardComponent implements OnInit {
 
       } );
     } else {
-      // tslint:disable-next-line: deprecation
       this.dashboardService.dashboard().subscribe( ( response: any ) => {
         if ( response.success ) {
           this.dashboardData = response.result;
         }
       } );
-    }
+    } */
   }
 
 
