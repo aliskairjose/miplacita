@@ -25,7 +25,7 @@ export class HeaderOneComponent implements OnInit, OnChanges, AfterViewInit {
   link = '/home';
 
   @Input() store: Store = {};
-  @Input() isStoreSearch = false;
+  @Input() isStoreSearch: boolean;
   @Input() class: string;
   @Input() themeLogo = 'assets/images/marketplace/svg/logo.svg'; // Default Logo
   @Input() isHidde = true;
@@ -130,11 +130,12 @@ export class HeaderOneComponent implements OnInit, OnChanges, AfterViewInit {
 
   private storeInfo( id: string ) {
     // tslint:disable-next-line: deprecation
-    this.shopService.getStore( id ).subscribe( res => {
-      this.settings.setStore( res.result );
-      this.shopService.customizeShop( res.result.config );
-      this.themeLogo = res.result.logo;
-      this.link = `/${res.result.url_store}`;
+    this.shopService.getStore( id ).subscribe( ( store: Store ) => {
+      this.settings.setStore( store );
+      this.shopService.customizeShop( store.config );
+      this.themeLogo = store.logo;
+      this.link = `/${store.url_store}`;
+      this.shopService.storeSubject( store );
     } );
   }
 

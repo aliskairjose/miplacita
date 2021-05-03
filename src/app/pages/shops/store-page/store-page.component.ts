@@ -58,6 +58,7 @@ export class StorePageComponent implements OnInit {
         }
 
         this.store = { ...store };
+        this.storeService.storeSubject( store );
         if ( !sessionStorage.sessionStore ) {
           sessionStorage.setItem( 'sessionStore', JSON.stringify( store ) );
           setTimeout( () => {

@@ -53,9 +53,7 @@ export class FooterOneComponent implements OnInit {
   }
 
   private storeInfo( id: string ) {
-    this.shopService.getStore( id ).subscribe( res => {
-      this.themeLogo = res.result.logo;
-    } );
+    this.shopService.getStore( id ).subscribe( ( store: Store ) => this.themeLogo = store.logo );
   }
 
 }

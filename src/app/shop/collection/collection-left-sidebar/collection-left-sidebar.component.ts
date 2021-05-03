@@ -59,7 +59,7 @@ export class CollectionLeftSidebarComponent implements OnInit {
 
           if ( params.id ) {
             // tslint:disable-next-line: deprecation
-            this.shopService.getStore( params.id ).subscribe( response => this.shopService.customizeShop( response.result.config ) );
+            this.shopService.getStore( params.id ).subscribe( ( store: Store ) => this.shopService.customizeShop( store.config ) );
           }
 
           this._storeId = params.id;

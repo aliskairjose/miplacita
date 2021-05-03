@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpService } from './http.service';
-import { Observable, BehaviorSubject } from 'rxjs';
+import { Observable, BehaviorSubject, Subject } from 'rxjs';
 import { Store, Config } from '../classes/store';
 import { map } from 'rxjs/operators';
 import { Plan } from '../classes/plan';
@@ -20,14 +20,12 @@ export class ShopService {
 
   // $store: Subject<Store> = new Subject<Store>();
   store: Store;
-  $store: BehaviorSubject<Store>;
+  $store: Subject<Store> = new Subject<Store>();
   selectedStore: Store;
 
   constructor(
     private http: HttpService
-  ) {
-    this.$store = new BehaviorSubject( this.store );
-  }
+  ) { }
 
   getPlans(): Observable<Plan[]> {
     return this.http.get( 'plan' ).pipe(
@@ -305,8 +303,8 @@ export class ShopService {
     return this.http.delete( `stores/${id}/config/photo/${idphoto}` );
   }
 
-  getStore( id: string ) {
-    return this.http.get( `stores/${id}` );
+  getStore( id: string ): Observable<Store> {
+    return this.http.get( `stores/${id}` ).pipe( map( data => data.result ) );
   }
 
   /*
@@ -337,7 +335,6 @@ export class ShopService {
    */
   storeSubject( store: Store ): void {
     this.$store.next( store );
-    this.$store.complete();
   }
 
   /**
