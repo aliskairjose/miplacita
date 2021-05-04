@@ -24,7 +24,7 @@ export class SuccessComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // tslint:disable-next-line: deprecation
+
     this.orderService.checkoutItems.subscribe( response => this.orderDetails = response );
   }
 

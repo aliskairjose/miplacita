@@ -68,7 +68,7 @@ export class ShopsComponent implements OnInit, OnChanges {
   private deactivate( id: string, status ): void {
     const message = status ? 'activada' : 'desactivada';
 
-    // tslint:disable-next-line: deprecation
+
     this.storeService.updateStoreStatus( id, { active: status } ).subscribe( response => {
       if ( response.success ) {
         this.toast.info( `La Tienda ha sido ${message}` );
@@ -82,7 +82,7 @@ export class ShopsComponent implements OnInit, OnChanges {
     let params = '';
     ( this.isReport ) ? params = `active=true&report=${this.isReport}` : params = `report=${this.isReport}`;
 
-    // tslint:disable-next-line: deprecation
+
     this.reports.membershipActiveShop( page, params ).subscribe( result => {
 
       if ( this.isReport ) { this.shops = result; }

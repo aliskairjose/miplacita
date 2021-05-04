@@ -45,7 +45,7 @@ export class UserOrdersComponent implements OnInit {
 
   loadData( page = 1 ): void {
     const params = `user=${this._user._id}`;
-    // tslint:disable-next-line: deprecation
+
     this.orderService.orderList( page, params ).subscribe( ( result: Result<Order> ) => {
       this.orders = [ ...result.docs ];
       this.paginate = { ...result, pages: [] };

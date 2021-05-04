@@ -31,7 +31,7 @@ export class RegisterComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // tslint:disable-next-line: deprecation
+
     this.socialService.authState.subscribe( ( response: FacebookLoginResponse ) => {
       const data = { fullname: '', token: '', email: '' };
       data.email = response.email;
@@ -49,7 +49,7 @@ export class RegisterComponent implements OnInit {
     this.submitted = true;
 
     if ( this.registerForm.valid ) {
-      // tslint:disable-next-line: deprecation
+
       this.auth.login( this.registerForm.value ).subscribe( ( data: AuthResponse ) => {
         if ( data.success ) {
           // Redireccionamiento al dashboard
@@ -76,7 +76,7 @@ export class RegisterComponent implements OnInit {
   }
 
   private registerFB( data: any ): void {
-    // tslint:disable-next-line: deprecation
+
     this.auth.socialLogin( data ).subscribe( ( result: AuthResponse ) => {
       if ( result.success ) {
         sessionStorage.setItem( 'userForm', JSON.stringify( result.user ) );

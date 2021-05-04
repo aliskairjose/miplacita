@@ -49,7 +49,7 @@ export class ShopProfileComponent implements OnInit, OnChanges {
     this.profileForm.value.logo = this.store.logo;
 
     if ( this.profileForm.valid ) {
-      // tslint:disable-next-line: deprecation
+
       this.shopService.updateStore( this.store._id, this.profileForm.value ).subscribe( response => {
         if ( response.success ) {
           this.store = { ...response.store };

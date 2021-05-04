@@ -112,7 +112,7 @@ export class ProductsComponent implements OnChanges, AfterViewInit {
   }
 
   changeStatus( id: string, prefered: boolean ): void {
-    // tslint:disable-next-line: deprecation
+
     this.productService.prefered( id, prefered ).subscribe( response => {
       if ( response.success ) { this.toastrService.info( response.message[ 0 ] ); }
     } );
@@ -129,7 +129,7 @@ export class ProductsComponent implements OnChanges, AfterViewInit {
         [ this.shopService.storeList( 1, params ),
         this.productService.productList( 1, params )
         ] )
-        // tslint:disable-next-line: deprecation
+
         .subscribe( ( [ storeResponse, productsResponse ] ) => {
 
           this.plan = storeResponse.docs[ 0 ].plan;
@@ -140,13 +140,13 @@ export class ProductsComponent implements OnChanges, AfterViewInit {
 
     if ( this.role === 'admin' ) {
       this.fields.splice( 2, 0, 'Tienda' );
-      // tslint:disable-next-line: deprecation
+
       this.shopService.storeList().subscribe( result => this.shops = [ ...result.docs ] );
     }
   }
 
   private deleteProduct( id: string ): void {
-    // tslint:disable-next-line: deprecation
+
     this.productService.deleteProduct( id ).subscribe( response => {
       if ( response.success ) { this.toastrService.info( response.message[ 0 ] ); }
       setTimeout( () => { this.loadData(); }, 1500 );
@@ -162,7 +162,7 @@ export class ProductsComponent implements OnChanges, AfterViewInit {
     if ( this.role === 'admin' ) {
       this.params = `store=${this.storeSelected}&name=${this.name}&status=${this.status}`;
     }
-    // tslint:disable-next-line: deprecation
+
     this.productService.productList( page, this.params ).subscribe( result => {
       this.products = [ ...result.docs ];
       this.paginate = { ...result, pages: [] };

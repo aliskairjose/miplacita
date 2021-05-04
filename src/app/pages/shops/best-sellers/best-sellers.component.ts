@@ -75,7 +75,7 @@ export class BestSellersComponent implements OnInit, OnChanges, AfterViewInit {
     let storeId = '';
     ( this.auth.getUserRol() === 'admin' ) ? storeId = this.filters.storeId : storeId = this.store._id;
     const params = `from=${this.filters.fechaIni}&to=${this.filters.fechaFin}&store=${storeId}`;
-    // tslint:disable-next-line: deprecation
+
     this.reports.bestSellers( params ).subscribe( response => {
       this.bestSellers = [ ...response ];
     } );

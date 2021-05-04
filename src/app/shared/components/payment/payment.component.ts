@@ -50,7 +50,7 @@ export class PaymentComponent implements OnInit {
 
 
   ngOnInit(): void {
-    // tslint:disable-next-line: deprecation
+
     this.route.queryParams.subscribe( queryParams => {
       if ( Object.entries( queryParams ).length !== 0 ) {
         const decod = window.atob( queryParams.config );
@@ -146,7 +146,7 @@ export class PaymentComponent implements OnInit {
   }
 
   private getAffiliate( storeId: string ): void {
-    // tslint:disable-next-line: deprecation
+
     this.shopService.getAffiliate( storeId, this.auth.getUserActive()._id ).subscribe( ( response: Affiliate ) => {
       this.affiliate = response;
     } );
@@ -155,7 +155,7 @@ export class PaymentComponent implements OnInit {
   private validateUser(): void {
     const user: User = this.auth.getUserActive();
     if ( user ) {
-      // tslint:disable-next-line: deprecation
+
       this.orderService.orderList( 1, `user=${user._id}` ).subscribe( res => {
         if ( res.docs.length === 0 ) {
           this.isFirstShop = true;
@@ -167,7 +167,7 @@ export class PaymentComponent implements OnInit {
   }
 
   getSponsor(): void {
-    // tslint:disable-next-line: deprecation
+
     this.shopService.findSponsor( this.store._id, this.coupon ).subscribe( response => {
       this.disabled = response.success;
       this.sponsor.emit( response.success );

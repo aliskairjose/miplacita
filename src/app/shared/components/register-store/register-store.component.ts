@@ -82,7 +82,7 @@ export class RegisterStoreComponent implements OnInit, OnChanges {
       this.step = 2;
     }
 
-    // tslint:disable-next-line: deprecation
+
     forkJoin( [ this.shopService.getPlans(), this.productService.categoryList() ] ).subscribe( ( [ plans, categories ] ) => {
       this.plans = [ ...plans ];
       this.planSelected = this.plans[ 0 ]._id;
@@ -111,7 +111,7 @@ export class RegisterStoreComponent implements OnInit, OnChanges {
         return;
       }
       if ( !this._hasImage ) {
-        // tslint:disable-next-line: deprecation
+
         this.shopService.uploadImages( { images: this.images } ).subscribe( result => {
           if ( result.status === 'isOk' ) {
             this.storeForm.value.logo = result.images[ 0 ];
@@ -140,7 +140,7 @@ export class RegisterStoreComponent implements OnInit, OnChanges {
    */
   validateName(): void {
     if ( this.storeForm.value.name ) {
-      // tslint:disable-next-line: deprecation
+
       this.shopService.validateName( this.storeForm.value.name ).subscribe( resp => {
         if ( resp.taken ) {
           this.toastrService.warning( resp.message[ 0 ] );
@@ -157,7 +157,7 @@ export class RegisterStoreComponent implements OnInit, OnChanges {
 
   validateUrl(): void {
     if ( this.storeForm.value.url_store ) {
-      // tslint:disable-next-line: deprecation
+
       this.shopService.validateUrl( this.storeForm.value.url_store ).subscribe( resp => {
         if ( resp.taken ) {
           this.toastrService.warning( resp.message[ 0 ] );
@@ -208,7 +208,7 @@ export class RegisterStoreComponent implements OnInit, OnChanges {
       DATA.cvv_card = data.tdc.cvv;
       DATA.date_card = data.tdc.date;
     }
-    // tslint:disable-next-line: deprecation
+
     this.shopService.addStore( DATA ).subscribe( ( store: Store ) => {
       this.store = { ...store };
       if ( !this.register ) {

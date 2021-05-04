@@ -39,7 +39,7 @@ export class ReferralsComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges( changes: SimpleChanges ): void {
-    // tslint:disable-next-line: deprecation
+
     this.shopService.storeObserver().subscribe( ( store: Store ) => {
       if ( this.auth.getUserRol() === 'merchant' ) {
         this.store = store;
@@ -51,7 +51,7 @@ export class ReferralsComponent implements OnInit, OnChanges {
   ngOnInit(): void {
     this.user = this.auth.getUserActive();
     // this.getCode();
-    // tslint:disable-next-line: deprecation
+
     this.route.queryParams.subscribe( params => {
       this._storeId = params.storeId;
       this.getCode();
@@ -75,7 +75,7 @@ export class ReferralsComponent implements OnInit, OnChanges {
   }
 
   private getCode(): void {
-    // tslint:disable-next-line: deprecation
+
     this.shopService.getAffiliate( this._storeId, this.user._id ).subscribe( response => {
       this.sponsorCode = response.sponsor_code;
       this.balance = `$${response.balance}`;

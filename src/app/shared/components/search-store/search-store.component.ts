@@ -47,7 +47,7 @@ export class SearchStoreComponent implements OnInit, OnChanges {
 
   ngOnChanges( changes: SimpleChanges ): void {
 
-    // tslint:disable-next-line: deprecation
+
     this.route.queryParams.subscribe( q => this.searchForm.get( 'id' ).setValue( q?.id ) );
 
     if ( Object.entries( this.store ).length ) {
@@ -91,7 +91,7 @@ export class SearchStoreComponent implements OnInit, OnChanges {
   // Carga las subcategorias de la tienda
   private loadSubCategories( store: Store ): void {
     const params = `store=${store._id}`;
-    // tslint:disable-next-line: deprecation
+
     this.categoryService.getSubcategory( params ).subscribe( result => {
       this.subcategories = [ ...result ];
     } );

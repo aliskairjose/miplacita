@@ -119,7 +119,7 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
       this.productService.getVariableProduct( this.store._id, 'size' )
 
     ] )
-      // tslint:disable-next-line: deprecation
+
       .subscribe( ( [ response, categories, colorResponse, sizeResponse ] ) => {
         this.plan = response.docs[ 0 ].plan;
         this.categories = [ ...categories ];
@@ -155,7 +155,7 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
         }
       }
       if ( this.changeImage && this.productImages.length ) {
-        // tslint:disable-next-line: deprecation
+
         this.productService.uploadImages( { images: this.productImages } ).subscribe( response => {
           if ( response.status === 'isOk' ) {
             this.productImages = [];
@@ -179,7 +179,7 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
       const promises = [];
       this.deleted.map( image => {
         promises.push(
-          // tslint:disable-next-line: deprecation
+
           this.productService.deletePhoto( this.productData._id, image._id ).subscribe( ( result ) => {
             if ( result.success ) {
               this.toastrService.info( 'Foto elminada con éxito' );
@@ -246,7 +246,7 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   createProductVariable(): void {
-    // tslint:disable-next-line: deprecation
+
     this.productService.addProduct( this.variableForm.value ).subscribe( response => {
       this.toastrService.info( 'El producto variable se ha creado con exito' );
       this.reload.emit( true );
@@ -256,7 +256,7 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
 
   private uploadImage( images ): Promise<any> {
     return new Promise<any>( resolve => {
-      // tslint:disable-next-line: deprecation
+
       this.productService.uploadImages( { images } ).subscribe( response => {
         if ( response.status === 'isOk' ) {
           this.productImages = [];
@@ -269,7 +269,7 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
   // Actualiza el producto variable
   private updateVariableProduct( item: Product, images = [] ): void {
     item.images = [ ...this.images, ...images ];
-    // tslint:disable-next-line: deprecation
+
     this.productService.updateProduct( item._id, item ).subscribe( response => {
       if ( response.success ) {
         this.toastrService.info( response.message[ 0 ] );
@@ -281,7 +281,7 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
 
   // Actualiza el producto principal
   private updateProduct( data: Product ): void {
-    // tslint:disable-next-line: deprecation
+
     this.productService.updateProduct( this.productData._id, data ).subscribe( ( response ) => {
       if ( response.success ) {
         this.toastrService.info( response.message[ 0 ] );
@@ -293,7 +293,7 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
     if ( data.images ) {
       data.images.forEach( urlimage => {
         promises.push(
-          // tslint:disable-next-line: deprecation
+
           this.productService.addProductoPhoto( this.productData._id, { url: urlimage.url } ).subscribe( result => {
             if ( result.success ) {
               this.toastrService.info( 'Foto agregada al producto' );
@@ -302,7 +302,7 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
         );
       } );
       Promise.all( promises ).then( () => {
-        // tslint:disable-next-line: deprecation
+
         this.productService.updateProduct( this.productData._id, data ).subscribe( ( response ) => {
           if ( response.success ) {
             this.toastrService.info( response.message[ 0 ] );
@@ -342,7 +342,7 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
    */
   private createProduct( data: Product ): void {
     this.clear();
-    // tslint:disable-next-line: deprecation
+
     this.productService.addProduct( data ).subscribe( ( product: Product ) => {
       this.toastrService.info( 'El producto se ha creado con exito' );
       this.productService.productSubject( product );
@@ -393,7 +393,7 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   private loadProductData( id: string ): void {
-    // tslint:disable-next-line: deprecation
+
     this.productService.productList( 1, `product=${id}` ).subscribe( ( response: Result<Product> ) => {
       this.productData = { ...response.docs[ 0 ] };
       const { tax, price } = this.productData;
@@ -496,7 +496,7 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
 
   private deleteProduct( id: string ): void {
     const _allVariations = [ ...this.allVariations ];
-    // tslint:disable-next-line: deprecation
+
     this.productService.deleteProduct( id ).subscribe( response => {
       if ( response.success ) { this.toastrService.info( response.message[ 0 ] ); }
       this.allVariations = this.allVariations.filter( item => item._id !== id );
@@ -505,7 +505,7 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
 
   private loadProductVariable( id: string ): Promise<any[]> {
     return new Promise<any[]>( resolve => {
-      // tslint:disable-next-line: deprecation
+
       this.productService.producVariable( id ).subscribe( ( res: any[] ) => {
 
         const products = [];
@@ -603,7 +603,7 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
 
   changeCategorySelection() {
     const params = `store=${this.store._id}&category=${this.selectedCategory}`;
-    // tslint:disable-next-line: deprecation
+
     this.categoryService.getSubcategory( params ).subscribe( subCategories => {
       this.subcategories = [ ...subCategories ];
     } );
@@ -613,7 +613,7 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
     item[ 'category' ] = this.selectedCategory;
     item[ 'store' ] = this.store._id;
 
-    // tslint:disable-next-line: deprecation
+
     this.categoryService.addSubcategory( item ).subscribe( result => {
       if ( result.success ) {
         this.subcategories.push( result.category );
@@ -637,7 +637,7 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
     data.type = type;
     data.store = this.store._id;
 
-    // tslint:disable-next-line: deprecation
+
     this.productService.addVariableProduct( data ).subscribe( response => {
       if ( response.success ) {
         this.toastrService.info( response.message[ 0 ] );

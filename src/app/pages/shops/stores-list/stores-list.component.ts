@@ -32,7 +32,7 @@ export class StoresListComponent implements OnInit, OnChanges {
    * @description Tiendas donde el cliente ha comprado
    */
   private myStores(): void {
-    // tslint:disable-next-line: deprecation
+
     this.userService.myStores().subscribe( stores => {
       this.stores = [ ...stores ];
     } );

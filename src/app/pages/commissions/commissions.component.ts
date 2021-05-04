@@ -25,7 +25,7 @@ export class CommissionsComponent implements OnInit, OnChanges {
     private commissionService: CommissionService,
   ) {
     this.createForm();
-    // tslint:disable-next-line: deprecation
+
     this.commissionService.getCommission().subscribe( ( commission: Commission ) => {
       this.commission = { ...commission };
       this.commission.tdc_commission = 0.33; // temporal, luego se elimina
@@ -45,7 +45,7 @@ export class CommissionsComponent implements OnInit, OnChanges {
   onSubmit(): void {
     this.submitted = true;
     if ( this.commissionsForm.valid ) {
-      // tslint:disable-next-line: deprecation
+
       this.commissionService.updateCommission( this.commission._id, this.commissionsForm.value ).subscribe( response => {
         if ( response.success ) {
           this.toastr.info( response.message[ 0 ] );

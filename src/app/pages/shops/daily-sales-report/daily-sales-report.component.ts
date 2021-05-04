@@ -57,7 +57,7 @@ export class DailySalesReportComponent implements OnInit, OnChanges, AfterViewIn
   ngOnInit(): void {
 
     if ( this.store ) {
-      // tslint:disable-next-line: deprecation
+
       this.shopService.storeObserver().subscribe( ( store: Store ) => {
         if ( store ) {
           this.store = { ...store };
@@ -118,7 +118,7 @@ export class DailySalesReportComponent implements OnInit, OnChanges, AfterViewIn
   }
 
   private dailySales( params: string ): void {
-    // tslint:disable-next-line: deprecation
+
     this.reports.dailySales( params ).subscribe( result => {
       this.orders = [ ...result ];
       this.showalert = result.length;
@@ -126,7 +126,7 @@ export class DailySalesReportComponent implements OnInit, OnChanges, AfterViewIn
   }
 
   private dailySalesProducts( params ): void {
-    // tslint:disable-next-line: deprecation
+
     this.reports.dailySalesProducts( params ).subscribe( response => {
       this.products = [ ...response.result ];
       this.showalert = response.result.length;

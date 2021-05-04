@@ -58,7 +58,7 @@ export class AddressComponent implements OnInit {
       this.hideMessage = true;
       this.user = this.auth.getUserActive();
 
-      // tslint:disable-next-line: deprecation
+
       this.userService.getUserAddress( this.user._id ).subscribe( response => {
 
         if ( response.success ) {

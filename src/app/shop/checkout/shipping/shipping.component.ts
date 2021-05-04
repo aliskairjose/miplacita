@@ -68,12 +68,12 @@ export class ShippingComponent implements OnInit {
 
     this.user = this.auth.getUserActive();
 
-    // tslint:disable-next-line: deprecation
+
     this.productService.cartItems.subscribe( products => {
       ( products.length ) ? this._products = [ ...products ] : this.router.navigate( [ '/home' ] );
     } );
 
-    // tslint:disable-next-line: deprecation
+
     this.shopService.storeObserver().subscribe( store => {
       if ( store ) {
         const products = this._products.filter( item => item.store._id === store._id );
@@ -119,7 +119,7 @@ export class ShippingComponent implements OnInit {
     }
     // Usuario invitado
     if ( !this.user ) {
-      // tslint:disable-next-line: deprecation
+
       this.userService.userInvited().subscribe( response => {
         if ( response.success ) {
           this.storage.setItem( 'mp_token', response.token );
@@ -132,9 +132,9 @@ export class ShippingComponent implements OnInit {
 
   ngOnInit(): void {
     // this.productService.cartItems.subscribe( response => this.products = response );
-    // tslint:disable-next-line: deprecation
+
     this.getTotal.subscribe( amount => this.amount = amount );
-    // tslint:disable-next-line: deprecation
+
     this.route.queryParams.subscribe( queryParams => {
       if ( queryParams.config ) {
         this._config = queryParams.config;
@@ -155,7 +155,7 @@ export class ShippingComponent implements OnInit {
       if ( Object.keys( data?.shippingAddress ).length !== 0 && data.addressExist ) {
         // Actualiza la dirección
 
-        // tslint:disable-next-line: deprecation
+
         this.userService.updateUserAddress( this.user._id, data.shippingAddress ).subscribe( response => {
           if ( response.success ) {
             this.toastr.info( response.message[ 0 ] );
@@ -166,7 +166,7 @@ export class ShippingComponent implements OnInit {
       if ( Object.keys( data?.shippingAddress ).length !== 0 && !data.addressExist ) {
         // Registra nueva dirección
 
-        // tslint:disable-next-line: deprecation
+
         this.userService.addUserAddress( this.user._id, data.shippingAddress ).subscribe( response => {
           if ( response.success ) {
             this.toastr.info( response.message[ 0 ] );
@@ -231,7 +231,7 @@ export class ShippingComponent implements OnInit {
 
   private getOptions( id: string ) {
     return new Promise( resolve => {
-      // tslint:disable-next-line: deprecation
+
       this.shopService.findShipmentOptionByShop( id ).subscribe( shipmentOptions => {
         resolve( shipmentOptions );
       } );

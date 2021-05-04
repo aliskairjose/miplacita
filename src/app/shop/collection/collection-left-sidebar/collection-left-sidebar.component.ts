@@ -51,14 +51,14 @@ export class CollectionLeftSidebarComponent implements OnInit {
     private categoryService: CategoryService,
   ) {
     forkJoin( [ this.shopService.storeList(), this.categoryService.categoryList() ] )
-      // tslint:disable-next-line: deprecation
+
       .subscribe( ( [ shopsResult, categoriesResult ] ) => {
         // Get Query params..
-        // tslint:disable-next-line: deprecation
+
         this.route.queryParams.subscribe( params => {
 
           if ( params.id ) {
-            // tslint:disable-next-line: deprecation
+
             this.shopService.getStore( params.id ).subscribe( ( store: Store ) => this.shopService.customizeShop( store.config ) );
           }
 
@@ -121,7 +121,7 @@ export class CollectionLeftSidebarComponent implements OnInit {
 
   loadProductList( page = 1 ): void {
     this.params = `${this.params}&stock=true&status=active&data_public=true`;
-    // tslint:disable-next-line: deprecation
+
     this.productService.productList( page, this.params ).subscribe( ( result: Result<Product> ) => {
 
       if ( this._storeId ) {

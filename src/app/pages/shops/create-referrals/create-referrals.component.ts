@@ -38,7 +38,7 @@ export class CreateReferralsComponent implements OnInit, OnChanges {
   onSubmit(): void {
     this.submitted = true;
     if ( this.referralForm.valid ) {
-      // tslint:disable-next-line: deprecation
+
       this.shopService.updateAffiliate( this.store._id, this.referralForm.value ).subscribe( store => {
         this.toastr.info( 'Información actualizada con exito' );
         this.submitted = false;

@@ -27,7 +27,7 @@ export class MembershipsComponent implements OnInit {
   }
 
   loadData( page = 1 ) {
-    // tslint:disable-next-line: deprecation
+
     this.shopService.getPlans().subscribe( ( plans ) => this.plans = [ ...plans ] );
   }
 

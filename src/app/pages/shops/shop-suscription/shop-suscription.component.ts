@@ -39,12 +39,12 @@ export class ShopSuscriptionComponent implements OnInit, OnChanges {
     private shopService: ShopService,
     private toastrService: ToastrService,
   ) {
-    // tslint:disable-next-line: deprecation
+
     this.shopService.getPlans().subscribe( plans => this.plans = [ ...plans ] );
   }
 
   ngOnChanges(): void {
-    // tslint:disable-next-line: deprecation
+
     this.shopService.storeObserver().subscribe( ( store: Store ) => {
       if ( store ) {
         this.store = { ...store };
@@ -60,7 +60,7 @@ export class ShopSuscriptionComponent implements OnInit, OnChanges {
 
   getShopPlan(): void {
     const params = `store=${this.store._id}`;
-    // tslint:disable-next-line: deprecation
+
     this.shopService.storeList( 1, params ).subscribe( ( response ) => this.plan = response.docs[ 0 ].plan );
   }
 
@@ -91,7 +91,7 @@ export class ShopSuscriptionComponent implements OnInit, OnChanges {
     const _data = { ...tdc, plan: this.selectedPlan._id };
     // _data.plan = this.selectedPlan._id;
 
-    // tslint:disable-next-line: deprecation
+
     this.shopService.updateStorePlan( this.store._id, _data ).subscribe( response => {
       if ( response.success ) {
         this.toastrService.info( response.message[ 0 ] );

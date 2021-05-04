@@ -60,7 +60,7 @@ export class ProductLeftSidebarComponent implements OnInit {
     private categoryService: CategoryService,
   ) {
 
-    // tslint:disable-next-line: deprecation
+
     this.route.queryParams.subscribe( queryParams => {
       if ( Object.entries( queryParams ).length !== 0 ) {
         const decod = window.atob( queryParams.config );
@@ -98,7 +98,7 @@ export class ProductLeftSidebarComponent implements OnInit {
 
 
     // Carga los comentarios del producto
-    // tslint:disable-next-line: deprecation
+
     this.comment.loadReviews( this.product._id ).subscribe( rate => { this.productRate = rate; } );
 
     if ( variationResult[ 0 ]?.primary_key === 'color' ) {

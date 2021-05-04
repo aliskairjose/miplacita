@@ -41,7 +41,7 @@ export class OrderDetailsComponent implements OnInit, OnDestroy {
   }
 
   updateStatus(): void {
-    // tslint:disable-next-line: deprecation
+
     this.orderService.updateStatus( { status: this.order.status }, this.order._id ).subscribe( response => {
       if ( response.success ) {
         this.detail.status = this.order.status;

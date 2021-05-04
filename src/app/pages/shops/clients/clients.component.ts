@@ -88,14 +88,14 @@ export class ClientsComponent implements OnInit, OnChanges, AfterViewInit {
     if ( this.role === 'merchant' ) {
       const params = `store=${this.store._id}`;
 
-      // tslint:disable-next-line: deprecation
+
       this.reports.clients( params ).subscribe( result => {
         this.clients = result;
       } );
     }
 
     if ( this.role === 'admin' ) {
-      // tslint:disable-next-line: deprecation
+
       this.reports.clientsMP( this.filters.role, this.filters.fechaIni, this.filters.fechaFin ).subscribe( response => {
         this.clients = response.result;
       } );

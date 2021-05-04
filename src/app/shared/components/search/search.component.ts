@@ -34,7 +34,7 @@ export class SearchComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges( changes: SimpleChanges ): void {
-    // tslint:disable-next-line: deprecation
+
     this.route.queryParams.subscribe( q => {
       this.search = q?.name;
       this.searchForm.get( 'id' ).setValue( q?.id );

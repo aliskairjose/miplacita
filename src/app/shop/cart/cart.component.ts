@@ -34,11 +34,11 @@ export class CartComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // tslint:disable-next-line: deprecation
+
     this.productService.cartItems.subscribe( products => { this.products = products; } );
     this.order = window.btoa( sessionStorage.order );
 
-    // tslint:disable-next-line: deprecation
+
     this.route.queryParams.subscribe( queryParams => {
       if ( Object.entries( queryParams ).length !== 0 ) {
         if ( queryParams.config ) {

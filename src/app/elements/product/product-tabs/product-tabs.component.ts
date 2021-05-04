@@ -12,7 +12,7 @@ export class ProductTabsComponent implements OnInit {
   public products: Product[] = [];
 
   constructor( public productService: ProductService ) {
-    // tslint:disable-next-line: deprecation
+
     this.productService.getProducts.subscribe( response => this.products = response );
   }
 

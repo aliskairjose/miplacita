@@ -54,7 +54,7 @@ export class CommentsComponent implements OnInit, OnChanges, OnDestroy {
     this.reviewForm.value.user = user._id;
 
     if ( this.reviewForm.valid ) {
-      // tslint:disable-next-line: deprecation
+
       this.productService.addReview( this.reviewForm.value ).subscribe( ( review ) => {
         this.toastr.info( 'Gracias por dejar su comentario' );
         review.user = { ...user };

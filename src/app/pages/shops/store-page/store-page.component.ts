@@ -47,9 +47,9 @@ export class StorePageComponent implements OnInit {
     private categoriesSevice: CategoryService
   ) {
 
-    // tslint:disable-next-line: deprecation
+
     this.route.url.subscribe( ( url ) => {
-      // tslint:disable-next-line: deprecation
+
       this.storeService.getStoreByUrl( url[ 0 ].path.toLocaleLowerCase() ).subscribe( store => {
         if ( !store.active ) {
           // Redireccionar hacia mensaje de tienda inactiva
@@ -106,7 +106,7 @@ export class StorePageComponent implements OnInit {
 
   onChange( value: string ): void {
     const params = `store=${this.store._id}&${value}&prefered=true`;
-    // tslint:disable-next-line: deprecation
+
     this.productService.productList( 1, params ).subscribe( ( result: Result<Product> ) => {
       this.products = [ ...result.docs ];
     } );
@@ -114,7 +114,7 @@ export class StorePageComponent implements OnInit {
 
   private getCollectionProducts( id: string ): void {
     const params = `store=${id}&featured=true&prefered=true`;
-    // tslint:disable-next-line: deprecation
+
     this.productService.productList( 1, params ).subscribe( ( result: Result<Product> ) => {
       this.products = [ ...result.docs ];
     } );
@@ -123,7 +123,7 @@ export class StorePageComponent implements OnInit {
 
   private subCategoryList(): void {
     const params = `store=${this.store._id}`;
-    // tslint:disable-next-line: deprecation
+
     this.categoriesSevice.getSubcategory( params ).subscribe( subcategories => {
       this.subCategories = [ ...subcategories ];
     } );

@@ -47,7 +47,7 @@ export class ProfileComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.user = this.auth.getUserActive();
-    // tslint:disable-next-line: deprecation
+
     this.route.url.subscribe( url => {
       this.active = url[ 2 ].path;
       if ( this.active === 'profile' && url.length === 4 ) {
@@ -74,7 +74,7 @@ export class ProfileComponent implements OnInit, AfterViewInit {
 
   private addUserAddress( shippingAddress: ShippingAddress ): void {
     if ( shippingAddress ) {
-      // tslint:disable-next-line: deprecation
+
       this.userService.addUserAddress( this.user._id, shippingAddress ).subscribe( response => {
         if ( response.success ) {
           this.toatsrService.info( response.message[ 0 ] );
@@ -84,7 +84,7 @@ export class ProfileComponent implements OnInit, AfterViewInit {
   }
 
   private updateUserAddress( shippingAddress: ShippingAddress ): void {
-    // tslint:disable-next-line: deprecation
+
     this.userService.updateUserAddress( this.user._id, shippingAddress ).subscribe( response => {
       if ( response.success ) {
         this.toatsrService.info( response.message[ 0 ] );
@@ -103,7 +103,7 @@ export class ProfileComponent implements OnInit, AfterViewInit {
     }
 
     if ( this.updateUserForm.valid ) {
-      // tslint:disable-next-line: deprecation
+
       this.auth.updateUser( this.updateUserForm.value ).subscribe( response => {
         if ( response.success ) {
           this.toatsrService.info( response.message[ 0 ] );

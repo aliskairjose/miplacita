@@ -13,7 +13,7 @@ export class InstagramComponent implements OnInit {
   public InstaSliderConfig: any = InstaSlider;
 
   constructor( private instaService: InstagramService ) {
-    // tslint:disable-next-line: deprecation
+
     this.instaService.getInstagramData.subscribe( response => this.instagram = response );
   }
 

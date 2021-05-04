@@ -48,7 +48,7 @@ export class ShopWithdrawalComponent implements OnInit, OnChanges {
   onSubmit(): void {
     this.submitted = true;
     if ( this.form.valid ) {
-      // tslint:disable-next-line: deprecation
+
       this.shopService.withdrawals( this.form.value, this.storeId ).subscribe( response => {
         if ( response.success ) {
           this.toastrService.info( response.message[ 0 ] );
@@ -60,7 +60,7 @@ export class ShopWithdrawalComponent implements OnInit, OnChanges {
   }
 
   private loadDebs(): void {
-    // tslint:disable-next-line: deprecation
+
     this.shopService.getDebts( this.store._id ).subscribe( amount => this.amount = amount );
   }
 

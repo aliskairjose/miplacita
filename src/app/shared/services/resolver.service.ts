@@ -17,7 +17,7 @@ export class Resolver implements Resolve<Product> {
     public productService: ProductService
   ) { }
   resolve( route: ActivatedRouteSnapshot, state: RouterStateSnapshot ): Product | Observable<Product> | Promise<Product> {
-    // tslint:disable-next-line: deprecation
+
     this.productService.productList( 1, `product=${route.params.id}` ).subscribe( ( result: Result<Product> ) => {
       if ( !result.docs ) { // When product is empty redirect 404
         this.router.navigateByUrl( '/pages/404', { skipLocationChange: true } );

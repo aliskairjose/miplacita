@@ -65,7 +65,7 @@ export class HeaderOneComponent implements OnInit, OnChanges, AfterViewInit {
       this.themeLogo = this.store.logo;
       this.link = `/${this.store.url_store}`;
     }
-    // tslint:disable-next-line: deprecation
+
     this.route.queryParams.subscribe( queryParams => {
       if ( Object.entries( queryParams ).length !== 0 ) {
         if ( queryParams.config ) {
@@ -101,7 +101,7 @@ export class HeaderOneComponent implements OnInit, OnChanges, AfterViewInit {
   }
 
   ngOnInit(): void {
-    // tslint:disable-next-line: deprecation
+
     this.shopService.storeObserver().subscribe( store => {
       if ( !store ) {
         this.themeLogo = 'assets/images/marketplace/svg/logo.svg';
@@ -109,7 +109,7 @@ export class HeaderOneComponent implements OnInit, OnChanges, AfterViewInit {
       }
     } );
     this.isLoggedIn = this.auth.isAuthenticated();
-    // tslint:disable-next-line: deprecation
+
     this.categoryService.categoryList().subscribe( ( response: Category[] ) => {
       this.categories = [ ...response ];
     } );
@@ -118,7 +118,7 @@ export class HeaderOneComponent implements OnInit, OnChanges, AfterViewInit {
       this.user = this.auth.getUserActive();
       this.role = this.user.role;
     }
-    // tslint:disable-next-line: deprecation
+
     this.auth.authObserver().subscribe( ( isAuth: boolean ) => {
       this.isLoggedIn = isAuth;
       if ( isAuth ) {
@@ -129,7 +129,7 @@ export class HeaderOneComponent implements OnInit, OnChanges, AfterViewInit {
   }
 
   private storeInfo( id: string ) {
-    // tslint:disable-next-line: deprecation
+
     this.shopService.getStore( id ).subscribe( ( store: Store ) => {
       this.settings.setStore( store );
       this.shopService.customizeShop( store.config );
