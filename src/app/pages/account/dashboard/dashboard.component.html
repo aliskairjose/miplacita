@@ -140,7 +140,7 @@
                             <th *ngFor="let item of tableHeadersAdmin" scope="col">{{item}}</th>
                         </tr>
                     </thead>
-                    <tbody *ngFor="user.role == 'merchant'">
+                    <tbody *ngIf="user.role == 'merchant'">
                         <tr *ngFor="let order of orders">
                             <td class="text-center">
                                 ID: {{order._id}}
@@ -149,12 +149,11 @@
                                 <p>{{order.user.fullname}}</p>
                             </td>
                             <td class="text-center">
-                                <p>{{order.created_at}}</p>
+                                <p>{{order.created_at | date}}</p>
                             </td>
                             <td class="text-center">
-                                {{order.status}}
+                                {{order.status | uppercase}}
                             </td>
-
                         </tr>
                     </tbody>
                 </table>
