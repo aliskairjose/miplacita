@@ -137,11 +137,7 @@ export class DashboardComponent implements OnChanges {
 
 
   slicePage( items ) {
-    if ( items.length > this.pageSize ) {
-      return items.slice( 0, this.pageSize );
-    } else {
-      return items;
-    }
+    return ( items.length > this.pageSize ) ? items.slice( 0, this.pageSize ) : items;
   }
 
   ToggleDashboard() {
