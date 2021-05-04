@@ -9,6 +9,8 @@ import { ChartType, ChartDataSets } from 'chart.js';
 import { SingleDataSet, Color, Label } from 'ng2-charts';
 import { Store } from '../../../shared/classes/store';
 import { OrderService } from 'src/app/shared/services/order.service';
+import { from } from 'rxjs';
+import { pluck } from 'rxjs/operators';
 
 export interface DashboardProduct {
   name: string;
@@ -93,11 +95,18 @@ export class DashboardComponent implements OnInit {
 
     if ( this.role === 'merchant' ) {
       this.dashboardService.dashboardStore( `store=${this.store._id}` ).subscribe( ( data: Dashboard ) => {
-        console.log( data );
         this.dashboardData = { ...data };
         if ( this.dashboardData.sold_products.length ) {
           const products = this.dashboardData.sold_products.filter( ( product: DashboardProduct ) => product.quantitySold > 0 );
           this.bestSellers = [ ...products ];
+          if ( products.length <= 5 ) {
+            const source = from( products );
+            const names = source.pipe( pluck( 'name' ) );
+            const quantitySold = source.pipe( pluck( 'quantitySold' ) );
+
+            names.subscribe( _name => this.doughnutChartLabels.push( _name ) );
+            quantitySold.subscribe( _quantitySold => this.doughnutChartData.push( _quantitySold ) );
+          }
         }
       } );
 
