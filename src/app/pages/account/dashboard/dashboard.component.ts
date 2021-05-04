@@ -58,7 +58,7 @@ export class DashboardComponent implements OnChanges {
   role: string;
   user: User = {};
 
-  private bestSellers: DashboardProduct[] = [];
+  bestSellers: DashboardProduct[] = [];
   @Input() store: Store;
 
   constructor(
