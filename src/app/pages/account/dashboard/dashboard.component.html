@@ -112,12 +112,12 @@
             </div>
         </div>
         <div class="form-row charts" *ngIf="user.role === 'merchant'">
-            <!-- <div class="col-lg-6 col-md-6 col-sm-6" *ngIf="dashboardData.month_orders.length > 0">
+            <div class="col-lg-6 col-md-6 col-sm-6" *ngIf="dashboardData.month_orders.length > 0">
                 <h5 class="text-center">Ventas</h5>
                 <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions"
                     [colors]="barChartColors" [legend]="false" [chartType]="barChartType">
                 </canvas>
-            </div> -->
+            </div>
             <div class="col-lg-6 col-md-6 col-sm-6" *ngIf="bestSellers.length > 0">
                 <h5 class="text-center">Más vendidos</h5>
                 <canvas baseChart [colors]="doughnutColors" [data]="doughnutChartData" [labels]="doughnutChartLabels"

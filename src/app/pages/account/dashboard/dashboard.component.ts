@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input, OnChanges } from '@angular/core';
 import { ProductService } from '../../../shared/services/tm.product.service';
 import { AuthService } from '../../../shared/services/auth.service';
 import { User } from '../../../shared/classes/user';
@@ -22,7 +22,7 @@ export interface DashboardProduct {
   styleUrls: [ './dashboard.component.scss' ]
 } )
 
-export class DashboardComponent implements OnInit {
+export class DashboardComponent implements OnChanges {
 
   months = [ 'Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sept', 'Oct', 'Nov', 'Dic' ];
   openDashboard = false;
@@ -68,6 +68,12 @@ export class DashboardComponent implements OnInit {
     public dashboardService: DashboardService,
     private orderService: OrderService
   ) {
+    this.auth.authObserver().subscribe( ( resp: boolean ) => {
+      if ( resp ) {
+        this.toastrService.info( `Bienvenido ${this.user.fullname}` );
+      }
+    } );
+
     this.dashboardData.month_orders = [];
     this.dashboardData.sold_products = [];
 
@@ -76,100 +82,57 @@ export class DashboardComponent implements OnInit {
 
   }
 
-  ngOnInit() {
-    // tslint:disable-next-line: deprecation
-    this.auth.authObserver().subscribe( ( resp: boolean ) => {
-      if ( resp ) {
-        this.toastrService.info( `Bienvenido ${this.user.fullname}` );
-      }
-    } );
-
+  ngOnChanges(): void {
     this.getLabelsInformation();
     this.loadData();
   }
 
   getLabelsInformation() {
+
     if ( Object.entries( this.store ).length === 0 ) {
       this.store = JSON.parse( sessionStorage.getItem( 'store' ) );
     }
 
-    if ( this.role === 'merchant' ) {
-      this.dashboardService.dashboardStore( `store=${this.store._id}` ).subscribe( ( data: Dashboard ) => {
-        this.dashboardData = { ...data };
-        if ( this.dashboardData.sold_products.length ) {
-          const products = this.dashboardData.sold_products.filter( ( product: DashboardProduct ) => product.quantitySold > 0 );
-          this.bestSellers = [ ...products ];
-          if ( products.length <= 5 ) {
-            const source = from( products );
-            const names = source.pipe( pluck( 'name' ) );
-            const quantitySold = source.pipe( pluck( 'quantitySold' ) );
-
-            names.subscribe( _name => this.doughnutChartLabels.push( _name ) );
-            quantitySold.subscribe( _quantitySold => this.doughnutChartData.push( _quantitySold ) );
-          }
-        }
-      } );
-
-      return;
-    }
-
-    this.dashboardService.dashboard().subscribe( ( response: any ) => {
-      if ( response.success ) {
-        this.dashboardData = response.result;
-      }
-    } );
-
-    /* if ( this.role === 'merchant' ) {
-      params = `store=${this.store._id}`;
-      this.dashboardService.dashboard_store( params ).subscribe( ( data: Dashboard ) => {
-        this.dashboardData = { ...data };
-
-        if ( this.dashboardData.sold_products.length > 0 ) {
-          if ( this.dashboardData.sold_products.length > 3 ) {
-            this.dashboardData.sold_products.sort( ( a: any, b: any ) => {
-              if ( a.quantitySold < b.quantitySold ) {
-                return 1;
-              }
-              if ( a.quantitySold > b.quantitySold ) {
-                return -1;
-              }
-              // a must be equal to b
-              return 0;
-            } );
-            for ( let i = 0; i < 3; i++ ) {
-
-              const element: any = this.dashboardData.sold_products[ i ];
-              console.log( element );
-              if ( element.quantitySold > 0 ) {
-                this.doughnutChartLabels.push( element.name );
-                this.doughnutChartData.push( element.quantitySold );
-              }
-            }
-          } else {
-            this.dashboardData.sold_products.map( ( element: any ) => {
-              this.doughnutChartLabels.push( element.name );
-              this.doughnutChartData.push( 10 );
-            } );
-          }
-        }
-        const barTemporal = [];
-        if ( this.dashboardData.month_orders.length > 0 ) {
-          this.dashboardData.month_orders.map( ( elemt: any ) => {
-            const month = this.months[ +elemt._id.month - 1 ];
-            this.barChartLabels.push( month + ' ' + elemt._id.year );
-            barTemporal.push( elemt.total );
-          } );
-        }
-        this.barChartData.push( { data: barTemporal } );
-
-      } );
-    } else {
+    if ( this.role === 'admin' ) {
       this.dashboardService.dashboard().subscribe( ( response: any ) => {
         if ( response.success ) {
           this.dashboardData = response.result;
         }
       } );
-    } */
+      return;
+    }
+
+    this.dashboardService.dashboardStore( `store=${this.store._id}` ).subscribe( ( data: Dashboard ) => {
+      this.doughnutChartData.length = 0;
+      this.doughnutChartLabels.length = 0;
+      this.barChartData.length = 0;
+      this.barChartLabels.length = 0;
+
+      this.dashboardData = { ...data };
+
+      if ( this.dashboardData.sold_products.length ) {
+        this.bestSellers = this.dashboardData.sold_products.filter( ( product: DashboardProduct ) => product.quantitySold > 0 );
+        if ( this.bestSellers.length <= 5 ) {
+          const source = from( this.bestSellers );
+          const names = source.pipe( pluck( 'name' ) );
+          const quantitySold = source.pipe( pluck( 'quantitySold' ) );
+
+          names.subscribe( _name => this.doughnutChartLabels.push( _name ) );
+          quantitySold.subscribe( _quantitySold => this.doughnutChartData.push( _quantitySold ) );
+        }
+      }
+
+      const barTemporal = [];
+      if ( this.dashboardData.month_orders.length ) {
+        this.dashboardData.month_orders.map( ( elemt: any ) => {
+          const month = this.months[ +elemt._id.month - 1 ];
+          this.barChartLabels.push( `${month} ${elemt._id.year}` );
+          barTemporal.push( elemt.total );
+        } );
+      }
+      this.barChartData.push( { data: barTemporal } );
+    } );
+
   }
 
 
@@ -196,7 +159,6 @@ export class DashboardComponent implements OnInit {
     let params = '';
     if ( this.role === 'merchant' ) {
       params = `store=${this.store._id}`;
-      // tslint:disable-next-line: deprecation
       this.orderService.orderList( page, params ).subscribe( result => {
         this.orders = [ ...result.docs ];
         this.paginate = { ...result, pages: [] };
