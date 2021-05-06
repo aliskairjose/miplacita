@@ -131,7 +131,7 @@ export class RegisterComponent implements OnInit {
       role: [ '' ],
       fullname: [ '', [ Validators.required, Validators.pattern( '[a-zA-Z ]*' ) ] ],
       password: [ '', [ Validators.required, Validators.minLength( 8 ) ] ],
-      passwordConfirmation: [ '', Validators.required ],
+      passwordConfirmation: [ '', [ Validators.required, Validators.minLength( 8 ) ] ],
       email: [ '', [ Validators.required, Validators.pattern( this.emailPattern ) ] ],
     }, {
       validator: MustMatch( 'password', 'passwordConfirmation' )

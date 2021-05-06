@@ -48,10 +48,11 @@
 							</div>
 							<div *ngIf="submitted && f.password.errors" class="invalid-feedback d-block">
 								<div *ngIf="f.password.errors.required"> {{ required }} </div>
+								<div *ngIf="f.password.errors.minlength"> La contraseña debe tener al menos 8 caracteres </div>
 							</div>
 						</div>
 						<!-- Confirm Password -->
-						<label for="name">Ingrese su contraseña</label>
+						<label for="name">Confirme Ingrese su contraseña</label>
 						<div class="input-group mb-3">
 							<input [type]="isPasswordR ? 'password' : 'text'" formControlName="passwordConfirmation"
 								class="form-control" id="adminPass" placeholder="" required
@@ -64,6 +65,8 @@
 							<div *ngIf="submitted && f.passwordConfirmation.errors" class="invalid-feedback">
 								<div *ngIf="f.passwordConfirmation.errors.required">{{ required }}</div>
 								<div *ngIf="f.passwordConfirmation.errors.mustMatch">{{ matchError }}</div>
+								<div *ngIf="f.passwordConfirmation.errors.minlength"> La contraseña debe tener al menos 8 caracteres
+								</div>
 							</div>
 						</div>
 						<div class="form-group d-flex justify-content-end">
