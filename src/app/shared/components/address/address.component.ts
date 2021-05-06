@@ -58,30 +58,30 @@ export class AddressComponent implements OnInit {
       this.hideMessage = true;
       this.user = this.auth.getUserActive();
 
+      this.userService.getUserAddress( this.user._id ).subscribe( address => {
+        this._addressExist = true;
 
-      this.userService.getUserAddress( this.user._id ).subscribe( response => {
+        if ( this.isProfile ) {
+          this.shippingAddress = { ...address };
+          this.createForm();
+          return;
+        }
 
-        if ( response.success ) {
-          this._addressExist = true;
-
-          if ( this.isProfile ) {
-            this.shippingAddress = response.result.address;
-          } else if ( response.result.address?.name ) {
-            this.confirmationDialogService.confirm(
-              'Dirección de envío',
-              `Ya existe una dirección, ¿Desea usarla?`,
-              'Si deseo usarla',
-              'No gracias'
-            ).then( ( confirmed: boolean ) => {
-              if ( confirmed ) {
-                this.shippingAddress = response.result.address;
-                this.addressForm.get( 'coord' ).setValue( this.shippingAddress.coord );
-              } else {
-                this.shippingAddress = {};
-              }
-              this.createForm();
-            } );
-          }
+        if ( address?.name ) {
+          this.confirmationDialogService.confirm(
+            'Dirección de envío',
+            `Ya existe una dirección, ¿Desea usarla?`,
+            'Si deseo usarla',
+            'No gracias'
+          ).then( ( confirmed: boolean ) => {
+            if ( confirmed ) {
+              this.shippingAddress = { ...address };
+              this.addressForm.get( 'coord' ).setValue( this.shippingAddress.coord );
+            } else {
+              this.shippingAddress = {};
+            }
+            this.createForm();
+          } );
         }
       } );
     }
@@ -153,6 +153,7 @@ export class AddressComponent implements OnInit {
   }
 
   onSubmit(): any {
+    console.log( this.addressForm.value )
     this.submitted = true;
     const shippingAddress = this.addressForm.value;
     if ( !shippingAddress.coord ) { shippingAddress.coord = this.shippingAddress.coord; }

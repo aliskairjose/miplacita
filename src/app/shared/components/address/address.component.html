@@ -5,7 +5,7 @@
 				<div class="row mb-5">
 					<div>
 						<div class="checkout-title">
-							<h3>Mis datos / Dirección</h3>
+							<h3>Mis datos/Dirección</h3>
 							<p>
 								Completa estos datos para que tu vendedor sepa donde te
 								encuentras ubicado
@@ -25,81 +25,58 @@
 							<div class="row check-out">
 								<div class="form-group col-md-6 col-sm-6 col-xs-12">
 									<div class="field-label">Nombre</div>
-									<input type="text" name="name" [formControl]="addressForm.controls['name']" value="" placeholder=""
+									<input type="text" name="name" formControlName="name" [value]="shippingAddress.name" placeholder=""
 										autocomplete="off" />
-									<div *ngIf="
-											submitted && addressForm.controls.name.errors?.required
-										" class="text text-danger">
+									<div *ngIf="submitted && addressForm.controls.name.errors?.required" class="text text-danger">
 										Nombre es requerido.
 									</div>
-									<div *ngIf="
-											submitted && addressForm.controls.name.errors?.pattern
-										" class="text text-danger">
+									<div *ngIf="submitted && addressForm.controls.name.errors?.pattern" class="text text-danger">
 										Name debe ser sólo letras.
 									</div>
 								</div>
 								<div class="form-group col-md-6 col-sm-6 col-xs-12">
 									<div class="field-label">Apellido</div>
-									<input type="text" name="last_name" [formControl]="addressForm.controls['last_name']" value=""
+									<input type="text" name="last_name" formControlName="last_name" [value]="shippingAddress.last_name"
 										placeholder="" autocomplete="off" />
-									<div *ngIf="
-											submitted &&
-											addressForm.controls.last_name.errors?.required
-										" class="text text-danger">
+									<div *ngIf="submitted &&addressForm.controls.last_name.errors?.required" class="text text-danger">
 										Apellido es requerido.
 									</div>
-									<div *ngIf="
-											submitted &&
-											addressForm.controls.last_name.errors?.pattern
-										" class="text text-danger">
+									<div *ngIf="submitted &&addressForm.controls.last_name.errors?.pattern" class="text text-danger">
 										Apellido debe ser sólo letras.
 									</div>
 								</div>
 								<div class="form-group col-md-6 col-sm-6 col-xs-12">
 									<div class="field-label">Teléfono</div>
-									<input mask="(+000)00000000" type="tel" name="phone" [formControl]="addressForm.controls['phone']"
-										value="" placeholder="" autocomplete="off" />
-									<div *ngIf="
-											submitted && addressForm.controls.phone.errors?.required
-										" class="text text-danger">
+									<input mask="(+000)00000000" type="tel" name="phone" formControlName="phone"
+										[value]="shippingAddress.phone" placeholder="" autocomplete="off" />
+									<div *ngIf="submitted && addressForm.controls.phone.errors?.required" class="text text-danger">
 										Teléfono es requerido.
 									</div>
-									<div *ngIf="
-											submitted && addressForm.controls.phone.errors?.pattern
-										" class="text text-danger">
+									<div *ngIf="submitted && addressForm.controls.phone.errors?.pattern" class="text text-danger">
 										Teléfono debe ser un número válido.
 									</div>
 								</div>
 								<div class="form-group col-md-6 col-sm-6 col-xs-12">
 									<div class="field-label">Email</div>
-									<input type="text" name="email" [formControl]="addressForm.controls['email']" value="" placeholder=""
+									<input type="text" name="email" formControlName="email" [value]="shippingAddress.email" placeholder=""
 										autocomplete="off" />
-									<div *ngIf="
-											submitted && addressForm.controls.email.errors?.required
-										" class="text text-danger">
+									<div *ngIf="submitted && addressForm.controls.email.errors?.required" class="text text-danger">
 										Email es requerido
 									</div>
-									<div *ngIf="
-											submitted && addressForm.controls.email.errors?.email
-										" class="text text-danger">
+									<div *ngIf="submitted && addressForm.controls.email.errors?.email" class="text text-danger">
 										Email inválido
 									</div>
 								</div>
 								<div class="form-group col-md-12 col-sm-12 col-xs-12">
 									<div class="field-label">Dirección</div>
-									<textarea id="exampleFormControlTextarea1" type="text" name="address"
-										[formControl]="addressForm.controls['address']" [value]="address" placeholder="" autocomplete="off"
-										ngx-google-places-autocomplete [options]="options" #placesRef="ngx-places"
+									<textarea id="exampleFormControlTextarea1" type="text" name="address" formControlName="address"
+										[value]="shippingAddress.address" placeholder="" autocomplete="off" ngx-google-places-autocomplete
+										[options]="options" #placesRef="ngx-places"
 										(onAddressChange)="handleAddressChange($event)"></textarea>
-									<div *ngIf="
-											submitted && addressForm.controls.address.errors?.required
-										" class="text text-danger">
+									<div *ngIf="submitted && addressForm.controls.address.errors?.required" class="text text-danger">
 										Dirección requerida
 									</div>
-									<div *ngIf="
-											submitted &&
-											addressForm.controls.address.errors?.maxlength
-										" class="text text-danger">
+									<div *ngIf="submitted && addressForm.controls.address.errors?.maxlength" class="text text-danger">
 										Maximum 50 character
 									</div>
 								</div>
@@ -119,9 +96,8 @@
 								</div>
 								<div class="form-group col-md-12 col-sm-12 col-xs-12 mt-4">
 									<div class="field-label">Punto de referencia</div>
-									<textarea id="exampleFormControlTextarea1" type="text" name="reference"
-										[formControl]="addressForm.controls['reference']" value="" placeholder=""
-										autocomplete="off"></textarea>
+									<textarea id="exampleFormControlTextarea1" type="text" name="reference" formControlName="reference"
+										[value]="shippingAddress.reference" placeholder="" autocomplete="off"></textarea>
 								</div>
 								<div class="form-check" *ngIf="!isProfile && auth.isAuthenticated()">
 									<p>

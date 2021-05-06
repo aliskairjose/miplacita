@@ -70,7 +70,7 @@ export class UserService {
    * @param id Id del usuario
    */
   getUserAddress( id: string ): Observable<any> {
-    return this.http.get( `users/direction/${id}` );
+    return this.http.get( `users/direction/${id}` ).pipe( map( response => response.result.address ) );
   }
 
   /**
