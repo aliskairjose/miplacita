@@ -69,7 +69,7 @@ export class LoginComponent implements OnInit {
       data.fullname = response.name;
       data.token = response.authToken;
       data.role = this.role;
-
+      this.storage.setItem( 'FB_LOGIN', response );
       this.loginFB( data );
     } );
   }

@@ -6,6 +6,8 @@ import { AuthResponse } from '../classes/auth-response';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { Store } from '../classes/store';
+import { StorageService } from './storage.service';
+import { SocialAuthService } from 'angularx-social-login';
 
 @Injectable( {
   providedIn: 'root'
@@ -17,7 +19,9 @@ export class AuthService {
   constructor(
     private router: Router,
     private http: HttpService,
+    private storage: StorageService,
     private toastrService: ToastrService,
+    private authService: SocialAuthService
   ) { }
 
   /**
@@ -37,6 +41,9 @@ export class AuthService {
    */
   logout(): void {
     let redirect = '/home';
+
+    if ( this.storage.getItem( 'FB_LOGIN' ) ) { this.authService.signOut(); }
+
     if ( sessionStorage.sessionStore ) {
       const store: Store = JSON.parse( sessionStorage.sessionStore );
       redirect = `/${store.url_store}`;
