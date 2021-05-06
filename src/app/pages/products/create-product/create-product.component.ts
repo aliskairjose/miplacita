@@ -60,7 +60,6 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
   selectedSubcategory: any = {};
   productForm: FormGroup;
   variableForm: FormGroup;
-
   submitted: boolean;
   required = ERROR_FORM.required;
   maxStock = ERROR_FORM.maxStock;
@@ -385,6 +384,8 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
       stock: [ '', [ Validators.required ] ],
       images: [ '' ],
     } );
+
+
   }
 
   upload( images: string[] ): void {
@@ -609,11 +610,14 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   addSubCategory( item ) {
-    item[ 'category' ] = this.selectedCategory;
-    item[ 'store' ] = this.store._id;
+    const data = {
+      name: item.scname,
+      description: item.description,
+      category: this.selectedCategory,
+      store: this.store._id
+    };
 
-
-    this.categoryService.addSubcategory( item ).subscribe( result => {
+    this.categoryService.addSubcategory( data ).subscribe( result => {
       if ( result.success ) {
         this.subcategories.push( result.category );
       }

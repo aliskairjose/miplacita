@@ -10,37 +10,91 @@
                         </div>
                     </div>
                 </div>
-                <form action="" class="theme-form mt-3" [formGroup]="elementForm">
-                    <p *ngIf="option===3">Agrega un nuevo color para tu producto</p>
-                    <p *ngIf="option===2">Agrega una nueva sub-categoría para tu producto</p>
-                    <p *ngIf="option===1">Agrega un nuevo tamaño para tu producto</p>
-                    <div class="form-group" *ngIf="option!==2">
-                        <div class="field-label">Nombre</div>
-                        <input formControlName="name" type="text" class="form-control" required="">
-                    </div>
-                    <div class="form-group" *ngIf="option===1">
-                        <div class="field-label">Nuevo Tamaño</div>
-                        <input formControlName="size" type="text" class="form-control" required="">
-                    </div>
-                    <div class="form-group" *ngIf="option===2">
-                        <div class="field-label">Nombre</div>
-                        <input formControlName="name" type="text" class="form-control" required="">
-                        <div class="field-label">Descripción</div>
-                        <textarea formControlName="description" type="text" class="form-control"
-                            id="exampleFormControlTextarea1" required="" maxlength="500"></textarea>
 
-                    </div>
-                    <div class="form-group " *ngIf="option===3">
-                        <div class="field-label">Color</div>
-                        <input type="text" class="form-control" [value]="color" required="" [(colorPicker)]="color"
-                            [cpPosition]="'bottom'" readonly>
-                    </div>
-                    <div class="form-row justify-content-center">
-                        <button class="btn btn-solid-orange" (click)="save()">
-                            Guardar
-                        </button>
-                    </div>
-                </form>
+                <ng-container *ngIf="option === 1">
+                    <p>Agrega un nuevo tamaño para tu producto</p>
+
+                    <form action="" [formGroup]="sizeForm" (ngSubmit)="onSubmit()" class="theme-form">
+                        <div class="form-group">
+                            <div class="field-label">Nombre</div>
+                            <input formControlName="name" type="text" class="form-control" required="">
+                            <div *ngIf="submitted && s.name.errors" class="invalid-feedback d-block">
+                                <div *ngIf="s.name.errors?.required"> Este campo es requerido </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="field-label">Nuevo tamaño</div>
+                            <input formControlName="size" type="text" class="form-control" required="">
+                            <div *ngIf="submitted && s.size.errors" class="invalid-feedback d-block">
+                                <div *ngIf="s.size.errors?.required"> Este campo es requerido </div>
+                            </div>
+                        </div>
+                        <div class="form-row justify-content-center">
+                            <button class="btn btn-solid-orange" type="submit">
+                                Guardar
+                            </button>
+                        </div>
+                    </form>
+                </ng-container>
+
+
+                <!-- Creacion de subcategoria -->
+                <ng-container *ngIf="option===2">
+                    <p>Agrega una nueva sub-categoría para tu producto</p>
+
+                    <form action="" [formGroup]="subCatForm" (ngSubmit)="onSubmit()" class="theme-form">
+                        <div class="form-group">
+                            <div class="field-label">Nombre</div>
+                            <input formControlName="scname" type="text" class="form-control" required="">
+                            <div *ngIf="submitted && sc.scname.errors" class="invalid-feedback d-block">
+                                <div *ngIf="sc.scname.errors?.required"> Este campo es requerido </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="field-label">Descripción</div>
+                            <textarea formControlName="description" type="text" class="form-control"
+                                id="exampleFormControlTextarea1" required="" maxlength="500"></textarea>
+                            <div *ngIf="submitted && sc.description.errors" class="invalid-feedback d-block">
+                                <div *ngIf="sc.description.errors?.required"> Este campo es requerido </div>
+                            </div>
+                        </div>
+                        <div class="form-row justify-content-center">
+                            <button class="btn btn-solid-orange" type="submit">
+                                Guardar
+                            </button>
+                        </div>
+                    </form>
+                </ng-container>
+
+                <!-- Creacion de color -->
+                <ng-container *ngIf="option===3">
+                    <p>Agrega un nuevo color para tu producto</p>
+
+                    <form action="" [formGroup]="colorForm" (ngSubmit)="onSubmit()" class="theme-form">
+                        <div class="form-group">
+                            <div class="field-label">Nombre</div>
+                            <input formControlName="name" type="text" class="form-control" required="">
+                            <div *ngIf="submitted && c.name.errors" class="invalid-feedback d-block">
+                                <div *ngIf="c.name.errors?.required"> Este campo es requerido </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="field-label">Color</div>
+                            <input type="text" class="form-control" [value]="color" required="" [(colorPicker)]="color"
+                                [cpPosition]="'bottom'" readonly formControlName="color">
+                            <div *ngIf="submitted && c.color.errors" class="invalid-feedback d-block">
+                                <div *ngIf="c.color.errors?.required"> Este campo es requerido </div>
+                            </div>
+                        </div>
+
+                        <div class="form-row justify-content-center">
+                            <button class="btn btn-solid-orange" type="submit">
+                                Guardar
+                            </button>
+                        </div>
+                    </form>
+                </ng-container>
             </div>
         </div>
     </div>
