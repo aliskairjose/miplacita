@@ -43,6 +43,7 @@ export class ProductLeftSidebarComponent implements OnInit {
   size = '';
   hideFilters = false;
   storeName = '';
+  seeMore = true;
 
   private config: any;
 
@@ -219,6 +220,10 @@ export class ProductLeftSidebarComponent implements OnInit {
 
   imageSeleted( index: number ): void {
     this.ngcarousel.select( `ngb-slide-${index}` );
+  }
+
+  get productDescription(): string {
+    return this.product.description;
   }
 
 }
