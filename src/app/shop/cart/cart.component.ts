@@ -37,8 +37,6 @@ export class CartComponent implements OnInit {
 
     this.productService.cartItems.subscribe( products => { this.products = products; } );
     this.order = window.btoa( sessionStorage.order );
-
-
     this.route.queryParams.subscribe( queryParams => {
       if ( Object.entries( queryParams ).length !== 0 ) {
         if ( queryParams.config ) {

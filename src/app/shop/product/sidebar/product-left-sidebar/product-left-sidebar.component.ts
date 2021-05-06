@@ -44,6 +44,8 @@ export class ProductLeftSidebarComponent implements OnInit {
   hideFilters = false;
   storeName = '';
 
+  private config: any;
+
   @ViewChild( 'comments' ) comment: CommentsComponent;
   @ViewChild( NgbCarousel, { static: true } ) ngcarousel: NgbCarousel;
 
@@ -63,8 +65,8 @@ export class ProductLeftSidebarComponent implements OnInit {
 
     this.route.queryParams.subscribe( queryParams => {
       if ( Object.entries( queryParams ).length !== 0 ) {
-        const decod = window.atob( queryParams.config );
-        const store: Store = JSON.parse( decod );
+        this.config = queryParams.config;
+        const store: Store = JSON.parse( this.config );
         this.hideFilters = Object.entries( store ).length !== 0;
       }
     } );
@@ -207,7 +209,7 @@ export class ProductLeftSidebarComponent implements OnInit {
   async addToCart( product: Product ) {
     product.quantity = this.counter || 1;
     const status = await this.productService.addToCart( product );
-    if ( status ) { this.router.navigate( [ '/shop/cart' ] ); }
+    if ( status ) { this.router.navigate( [ '/shop/cart' ], { queryParams: { config: this.config } } ); }
   }
 
   // Toggle Mobile Sidebar
@@ -216,7 +218,7 @@ export class ProductLeftSidebarComponent implements OnInit {
   }
 
   imageSeleted( index: number ): void {
-    this.ngcarousel.select( `ngb-slide-${index}` )
+    this.ngcarousel.select( `ngb-slide-${index}` );
   }
 
 }

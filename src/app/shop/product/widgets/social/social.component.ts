@@ -24,10 +24,10 @@ export class SocialComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges( changes: SimpleChanges ): void {
-    if ( changes.product ) {
-      this.product = changes.product.currentValue;
-      this.meta.updateTag( { property: 'og:image', content: this.product?.images[ 0 ]?.url } );
-    }
+    // if ( changes.product ) {
+    //   this.product = changes.product.currentValue;
+    //   this.meta.updateTag( { property: 'og:image', content: this.product?.images[ 0 ]?.url } );
+    // }
   }
 
 }
