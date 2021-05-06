@@ -69,7 +69,7 @@ export class LoginComponent implements OnInit {
       data.fullname = response.name;
       data.token = response.authToken;
       data.role = this.role;
-      this.storage.setItem( 'FB_LOGIN', response );
+      this.storage.setItem( 'FB_LOGIN', true );
       this.loginFB( data );
     } );
   }
@@ -89,6 +89,7 @@ export class LoginComponent implements OnInit {
           this.storage.setLoginData( 'data', data );
           this.auth.authSubject( data.success );
           this.toastrService.info( `Bienvenido ${data.user.fullname}` );
+          this.storage.setItem( 'FB_LOGIN', false );
           // Redireccionamiento al dashboard
           this.redirectAfterLogin();
         }
