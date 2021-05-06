@@ -73,7 +73,7 @@
 							<td class="text-center" style="width: 20%;">{{ product.name }}</td>
 							<td *ngIf="role==='admin' " class="text-center"> {{ product.store ? product.store.name : 'Sin tienda' }}
 							</td>
-							<td class="text-center" style="width: 20%;">{{ product.description }}</td>
+							<td class="text-center" style="width: 20%;">{{ product.description | slice:0:50 }}</td>
 							<td class="text-center">{{ product.price | currency }}</td>
 							<td class="text-center">{{ product.tax | currency }} </td>
 							<td class="text-center">{{ product.stock }} </td>
