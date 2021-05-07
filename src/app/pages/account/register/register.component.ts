@@ -155,13 +155,4 @@ export class RegisterComponent implements OnInit {
     if ( this.role === 'client' ) { this.title = 'y compra'; }
   }
 
-  changeType( type: boolean ): void {
-    this.isPassword = !type;
-    this.icon = this.isPassword ? 'fa fa-eye' : 'fa fa-eye-slash';
-  }
-  changeTypeR( type: boolean ): void {
-    this.isPasswordR = !type;
-    this.icon2 = this.isPassword ? 'fa fa-eye' : 'fa fa-eye-slash';
-  }
-
 }

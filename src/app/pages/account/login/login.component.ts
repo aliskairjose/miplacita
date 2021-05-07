@@ -154,9 +154,4 @@ export class LoginComponent implements OnInit {
     if ( this.role === 'merchant' ) { this.title = 'como vendedor'; }
     if ( this.role === 'client' ) { this.title = 'como comprador'; }
   }
-
-  changeType( type: boolean ): void {
-    this.isPassword = !type;
-    this.icon = this.isPassword ? 'fa fa-eye' : 'fa fa-eye-slash';
-  }
 }

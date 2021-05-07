@@ -42,8 +42,8 @@
 							<input [type]="isPassword ? 'password' : 'text'" formControlName="password" class="form-control"
 								id="adminPass" placeholder="" required [ngClass]="{ 'is-invalid': submitted && f.password.errors }">
 							<div class="input-group-prepend">
-								<button class="btn btn-outline-primary" type="button" (click)="changeType(isPassword)">
-									<i [class]="icon" aria-hidden="true"></i>
+								<button class="btn btn-outline-primary" type="button" (click)="isPassword = !isPassword">
+									<i [class]="isPassword ? 'fa fa-eye' : 'fa fa-eye-slash'" aria-hidden="true"></i>
 								</button>
 							</div>
 							<div *ngIf="submitted && f.password.errors" class="invalid-feedback d-block">
@@ -58,8 +58,8 @@
 								class="form-control" id="adminPass" placeholder="" required
 								[ngClass]="{ 'is-invalid': submitted && f.passwordConfirmation.errors }">
 							<div class="input-group-prepend">
-								<button class="btn btn-outline-primary" type="button" (click)="changeTypeR(isPasswordR)">
-									<i [class]="icon2" aria-hidden="true"></i>
+								<button class="btn btn-outline-primary" type="button" (click)="isPasswordR = !isPasswordR">
+									<i [class]="isPasswordR ? 'fa fa-eye' : 'fa fa-eye-slash'" aria-hidden="true"></i>
 								</button>
 							</div>
 							<div *ngIf="submitted && f.passwordConfirmation.errors" class="invalid-feedback">
