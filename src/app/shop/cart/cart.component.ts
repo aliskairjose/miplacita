@@ -60,7 +60,8 @@ export class CartComponent implements OnInit {
   }
 
   // Increament
-  increment( product, qty = 1 ) {
+  increment( product: Product, qty = 1 ) {
+    if ( product.quantity === product.stock ) { return; }
     this.productService.updateCartQuantity( product, qty );
   }
 
