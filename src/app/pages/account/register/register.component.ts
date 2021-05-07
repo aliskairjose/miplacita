@@ -53,7 +53,6 @@ export class RegisterComponent implements OnInit {
     private storage: StorageService,
     private formBuilder: FormBuilder,
     private socialService: SocialAuthService,
-    private platformLocation: PlatformLocation,
   ) {
     // this.platformLocation.pushState( null, '', '/register' );
     this.createForm();

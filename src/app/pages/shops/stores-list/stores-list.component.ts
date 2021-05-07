@@ -32,10 +32,7 @@ export class StoresListComponent implements OnInit, OnChanges {
    * @description Tiendas donde el cliente ha comprado
    */
   private myStores(): void {
-
-    this.userService.myStores().subscribe( stores => {
-      this.stores = [ ...stores ];
-    } );
+    this.userService.myStores().subscribe( stores => this.stores = [ ...stores ] );
   }
 
 }

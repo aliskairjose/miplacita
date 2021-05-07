@@ -39,7 +39,6 @@ export class LoginComponent implements OnInit {
     private socialService: SocialAuthService,
 
   ) {
-    // this.platformLocation.pushState( null, '', '/login' );
     this.createForm();
   }
 
