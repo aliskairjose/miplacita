@@ -43,14 +43,14 @@ export class HttpInterceptor implements HttpInterceptor {
       } ),
       catchError( ( response: HttpErrorResponse ) => {
         this.spinner.hide();
-
         this.toastrService.error( response?.error?.message || response?.error?.message[ 0 ] || response?.statusText );
         switch ( response.status ) {
           case 401:
             this.router.navigate( [ 'login' ] );
             break;
           case 404:
-            // this.router.navigate( [ 'home' ] );
+            const url = 'https://marketplace.dev.cronapis.com:3020/api/stores/find_by_url';
+            if ( response.url.includes( url ) ) { this.router.navigate( [ 'home' ] ); }
             break;
           case 500:
             // Manejor de error

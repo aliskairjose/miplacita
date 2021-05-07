@@ -65,7 +65,7 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
   maxStock = ERROR_FORM.maxStock;
   status = 'add';
   statuses = STATUSES;
-  statusSelected = 'active';
+  statusSelected = '';
   selectedCategory = '';
   productImages: Array<string> = [];
   images = [];
@@ -90,6 +90,7 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
     private calendar: NgbCalendar, public formatter: NgbDateParserFormatter
   ) {
     this.createForm();
+    this.statusSelected = 'active';
     this.productData.name = '';
   }
 
@@ -213,12 +214,11 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
         images.forEach( ( url: string, index ) => {
           const image: Images = {};
           image.url = url;
-          ( index > 0 ) ? image.principal = false : image.principal = true;
+          image.principal = index === 0;
           data.images.push( image );
         } );
         this.productForm.value.images = data.images;
         ( this.status === 'add' ) ? this.createProduct( this.productForm.value ) : this.updateProduct( this.productForm.value );
-
         return;
       }
       if ( !this.changeImage ) {

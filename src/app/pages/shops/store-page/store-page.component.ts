@@ -51,6 +51,7 @@ export class StorePageComponent implements OnInit {
     this.route.url.subscribe( ( url ) => {
 
       this.storeService.getStoreByUrl( url[ 0 ].path.toLocaleLowerCase() ).subscribe( store => {
+        console.log( store )
         if ( !store.active ) {
           // Redireccionar hacia mensaje de tienda inactiva
           this.router.navigate( [ 'pages/store/inactive' ] );
