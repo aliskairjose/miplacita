@@ -10,7 +10,7 @@
 }
 @supports (object-fit: contain) {
     .front a img {
-        max-height: 30vh;
+        max-height: 25vh;
         height: auto;
         object-fit: contain;
     }

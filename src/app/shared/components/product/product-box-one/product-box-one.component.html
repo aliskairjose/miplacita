@@ -1,5 +1,5 @@
 <div *ngIf="!loader">
-  <div class="img-wrapper d-flex align-items-center" [ngClass]="{ 'img-wrapper-fix': horizontal }"
+  <div class="img-wrapper d-flex justify-content-center" [ngClass]="{ 'img-wrapper-fix': horizontal }"
     [ngClass]="{ 'img-mobile': cartModal }">
     <div class="front my-auto" [ngClass]="{'auto-height': cartModal, 'custom-front': !cartModal}">
       <a [routerLink]="['/shop/product/', product._id]" [queryParams]="{ config: config  }">

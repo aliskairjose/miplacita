@@ -1,5 +1,6 @@
 <div class="icon-nav" id="settings-page">
   <ul>
+
     <!-- Cart -->
     <li class="onhover-div mobile-cart" *ngIf="role !== 'admin'">
       <div>
@@ -47,6 +48,7 @@
         </li>
       </ul>
     </li>
+
     <!-- User -->
     <li class="onhover-div mobile-search search-widgets" id="search-widgets">
       <div>
@@ -70,6 +72,7 @@
         </div>
       </div>
     </li>
+
     <!-- Saldo referido -->
     <li *ngIf="showBalance && isLoggedIn" class="onhover-div mobile-balance ">
       <div>
@@ -97,5 +100,6 @@
         </div>
       </div>
     </li>
+
   </ul>
 </div>
