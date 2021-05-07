@@ -23,7 +23,7 @@
 										<div class="form-group mx-2 ">
 											<label for="name">Nombre</label>
 											<input type="text" formControlName="name" [(ngModel)]="zone.name" class="form-control" id="name"
-												placeholder="" required [ngClass]="{ 'is-invalid': submitted && f.name.errors }">
+												placeholder="" required [ngClass]="{ 'is-invalid': submitted && f.name.errors }" maxlength="30">
 											<div *ngIf="submitted && f.name.errors" class="invalid-feedback d-block">
 												<div *ngIf="f.name.errors.required"> {{ required }} </div>
 											</div>
