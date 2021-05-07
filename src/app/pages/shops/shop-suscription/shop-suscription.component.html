@@ -1,6 +1,8 @@
 <section class="section-b-space">
 	<div class="container d-flex">
 		<div class="col-lg-12 d-flex justify-content-center info-plan" *ngIf="enabled">
+
+			<!-- Plan gratuito -->
 			<div class="left-info">
 				<div class="info-header">
 					<div class="d-flex">
@@ -15,7 +17,6 @@
 						<h5 class="text-default-color font-weight-bold">Beneficios:</h5>
 					</div>
 				</div>
-
 				<div class="info-body mx-auto" *ngFor="let benefit of basicBenefits">
 					<div class="row d-flex align-items-center">
 						<div class="col-1">
@@ -45,6 +46,8 @@
 					</div>
 				</div>
 			</div>
+
+			<!-- Plan Pago -->
 			<div class="rigth-info mt-1">
 				<div class="info-header">
 					<div class="d-flex">
@@ -102,12 +105,15 @@
 					</div>
 					<hr>
 					<div class="d-flex justify-content-around">
-						<button class="btn btn-solid-orange" [disabled]="plan.price>0" (click)="changePlan(plans[0], paymentModal)">
+						<button class="btn btn-solid-orange" [disabled]="plan.price > 0 && plan.payRate === 'monthly'"
+							(click)="changePlan(plans[0], paymentModal)">
 							Seleccionar este plan
 						</button>
 					</div>
 				</div>
 			</div>
+
+			<!-- Plan Anual -->
 			<div class="rigth-info mt-1">
 				<div class="info-header">
 					<div class="d-flex">
@@ -136,11 +142,11 @@
 							<h5 class="pl-2">Todo el plan profesional (ahorras 20%)</h5>
 						</div>
 					</div>
-
 				</div>
 				<div class="plan-btns d-flex flex-column mt-5">
 					<div class="d-flex justify-content-around">
-						<button class="btn btn-solid-orange" [disabled]="plan.price>0" (click)="changePlan(plans[2], paymentModal)">
+						<button class="btn btn-solid-orange" [disabled]="plan.price > 0 && plan.payRate === 'annual'"
+							(click)="changePlan(plans[2], paymentModal)">
 							Seleccionar este plan
 						</button>
 					</div>

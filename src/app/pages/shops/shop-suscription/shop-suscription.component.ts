@@ -60,7 +60,6 @@ export class ShopSuscriptionComponent implements OnInit, OnChanges {
 
   getShopPlan(): void {
     const params = `store=${this.store._id}`;
-
     this.shopService.storeList( 1, params ).subscribe( ( response ) => this.plan = response.docs[ 0 ].plan );
   }
 
@@ -73,9 +72,9 @@ export class ShopSuscriptionComponent implements OnInit, OnChanges {
     const _tdc: any = {};
     if ( data?.valid ) {
       _tdc.card_number = data.tdc.card_number;
-      _tdc.owner_card = data.tdc.owner;
-      _tdc.cvv_card = data.tdc.cvv;
-      _tdc.date_card = data.tdc.date;
+      _tdc.owner = data.tdc.owner;
+      _tdc.cvv = data.tdc.cvv;
+      _tdc.date = data.tdc.date;
       this._modal.close();
       this.updatePlan( _tdc );
     }
@@ -89,9 +88,6 @@ export class ShopSuscriptionComponent implements OnInit, OnChanges {
 
   private updatePlan( tdc: any ): void {
     const _data = { ...tdc, plan: this.selectedPlan._id };
-    // _data.plan = this.selectedPlan._id;
-
-
     this.shopService.updateStorePlan( this.store._id, _data ).subscribe( response => {
       if ( response.success ) {
         this.toastrService.info( response.message[ 0 ] );

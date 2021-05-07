@@ -101,10 +101,10 @@ export class ShopService {
   /**
    * @description Actualización de plan de tienda
    * @param storeId Id de la tianda que actualiza el plan
-   * @param planId Id de nuevo plan que se aplica
+   * @param data Data de la tdc
    */
-  updateStorePlan( storeId: string, planId: any ): Observable<any> {
-    return this.http.put( `stores/${storeId}/plan`, planId );
+  updateStorePlan( storeId: string, data: any ): Observable<any> {
+    return this.http.put( `stores/${storeId}/plan`, data );
   }
 
   /**
