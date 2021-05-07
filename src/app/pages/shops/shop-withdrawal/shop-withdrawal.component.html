@@ -37,8 +37,8 @@
                 <!-- Tipo de cuenta -->
                 <div class="form-group">
                     <div class="field-label font-weight-bold">Tipo de cuenta</div>
-                    <select formControlName="type" class="form-control" required="">
-                        <option value="ahorro">Ahorro</option>
+                    <select formControlName="type" class="form-control">
+                        <option value="ahorro" selected>Ahorro</option>
                         <option value="corriente">Corriente</option>
                     </select>
                     <div *ngIf="submitted && f.type.errors?.required" class="invalid-feedback d-block">
