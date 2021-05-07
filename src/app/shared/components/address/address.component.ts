@@ -153,7 +153,6 @@ export class AddressComponent implements OnInit {
   }
 
   onSubmit(): any {
-    console.log( this.addressForm.value )
     this.submitted = true;
     const shippingAddress = this.addressForm.value;
     if ( !shippingAddress.coord ) { shippingAddress.coord = this.shippingAddress.coord; }

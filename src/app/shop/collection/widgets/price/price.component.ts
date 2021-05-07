@@ -27,7 +27,6 @@ export class PriceComponent implements OnInit {
   }
 
   appliedFilter( event ) {
-    console.log( event )
     const index = this._prices.indexOf( event.target.value );  // checked and unchecked value
 
     if ( event.target.checked ) {

@@ -38,11 +38,9 @@ export class ForgetPasswordComponent implements OnInit {
   onSubmit(): void {
     this.submitted = true;
     this.recoveryForm.value.token = this.token;
-    console.log( this.recoveryForm.value );
     if ( this.recoveryForm.valid &&
       ( this.recoveryForm.value.password === this.recoveryForm.value.confirm_password ) ) {
       this.auth.updatePassword( this.recoveryForm.value ).subscribe( ( result ) => {
-        console.log( result );
         if ( result.success ) {
           this.toastrService.info( 'Cambio de contraseña exitoso' );
           this.router.navigate( [ 'pages/home' ] );

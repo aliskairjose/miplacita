@@ -71,13 +71,10 @@ export class CheckoutComponent implements OnInit {
   ngOnInit(): void {
     const date = new Date();
     this.route.queryParams.subscribe( queryParams => {
-      console.log( queryParams );
       if ( Object.entries( queryParams ).length !== 0 ) {
         const decod = window.atob( queryParams.config );
         this._order = JSON.parse( window.atob( queryParams.order ) );
-        console.log( this._order );
         this.store = JSON.parse( decod );
-        console.log( this.store )
         if ( Object.entries( this.store ).length !== 0 && this.auth.getUserRol() === 'client' ) {
 
           this.orderService.orderList( 1, `user=${this.auth.getUserActive()._id}` ).subscribe( res => {

@@ -83,11 +83,6 @@ export class PaymentComponent implements OnInit {
     }
   }
 
-  test(): string {
-    console.log( 'test payment' );
-    return 'Test';
-  }
-
   onSubmit(): boolean {
     this.submitted = true;
     const tdc = {
