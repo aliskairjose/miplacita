@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProductDetailsMainSlider, ProductDetailsThumbSlider } from '../../../../shared/data/slider';
 import { Product } from '../../../../shared/classes/product';
@@ -6,7 +6,6 @@ import { ProductService } from '../../../../shared/services/product.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ShopService } from '../../../../shared/services/shop.service';
 import { CategoryService } from '../../../../shared/services/category.service';
-import { forkJoin } from 'rxjs';
 import { Store } from '../../../../shared/classes/store';
 import { Category } from '../../../../shared/classes/category';
 import { ViewportScroller } from '@angular/common';
@@ -23,7 +22,7 @@ export interface ProductDetail {
   templateUrl: './product-left-sidebar.component.html',
   styleUrls: [ './product-left-sidebar.component.scss' ]
 } )
-export class ProductLeftSidebarComponent implements OnInit {
+export class ProductLeftSidebarComponent implements OnInit, AfterViewInit {
 
   product: Product = {};
   counter = 1;
@@ -73,6 +72,11 @@ export class ProductLeftSidebarComponent implements OnInit {
     } );
 
   }
+  ngAfterViewInit(): void {
+    // Carga los comentarios del producto
+    this.comment.loadReviews( this.product._id ).subscribe( rate => { this.productRate = rate; } );
+  }
+
 
 
   async ngOnInit() {
@@ -101,8 +105,7 @@ export class ProductLeftSidebarComponent implements OnInit {
 
 
     // Carga los comentarios del producto
-
-    this.comment.loadReviews( this.product._id ).subscribe( rate => { this.productRate = rate; } );
+    // this.comment.loadReviews( this.product._id ).subscribe( rate => { this.productRate = rate; } );
 
     if ( variationResult[ 0 ]?.primary_key === 'color' ) {
       variationResult[ 0 ].keys.forEach( key => {

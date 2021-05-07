@@ -1,4 +1,4 @@
-import { Component, OnInit, OnChanges, OnDestroy, SimpleChanges, Input, AfterViewInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { ProductService } from '../../services/product.service';
@@ -13,7 +13,7 @@ import { Observable } from 'rxjs';
   templateUrl: './comments.component.html',
   styleUrls: [ './comments.component.scss' ]
 } )
-export class CommentsComponent implements OnInit, OnChanges, OnDestroy {
+export class CommentsComponent implements OnInit {
 
   reviewForm: FormGroup;
   submitted: boolean;
@@ -34,13 +34,6 @@ export class CommentsComponent implements OnInit, OnChanges, OnDestroy {
   // convenience getter for easy access to form fields
   // tslint:disable-next-line: typedef
   get f() { return this.reviewForm.controls; }
-
-  ngOnChanges( changes: SimpleChanges ): void {
-
-  }
-
-  ngOnDestroy(): void {
-  }
 
   ngOnInit(): void {
 
@@ -65,6 +58,7 @@ export class CommentsComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   loadReviews( id: string ): Observable<number> {
+    console.log( id )
     this._productId = id;
     return this.productService.productReviews( id ).pipe(
       map( reviews => {
