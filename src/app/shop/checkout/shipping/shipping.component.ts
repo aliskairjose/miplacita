@@ -1,7 +1,7 @@
 import { IPayPalConfig } from 'ngx-paypal';
-import { Observable } from 'rxjs';
+import { Observable, from } from 'rxjs';
 
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, Pipe } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { Product } from '../../../shared/classes/product';
@@ -14,6 +14,7 @@ import { ToastrService } from 'ngx-toastr';
 import { AuthService } from '../../../shared/services/auth.service';
 import { StorageService } from '../../../shared/services/storage.service';
 import { Store } from 'src/app/shared/classes/store';
+import { distinct, pluck } from 'rxjs/operators';
 
 
 @Component( {
@@ -71,7 +72,6 @@ export class ShippingComponent implements OnInit {
 
     this.productService.cartItems.subscribe( products => {
       ( products.length ) ? this._products = [ ...products ] : this.router.navigate( [ '/home' ] );
-      console.log( this._products );
     } );
 
 
@@ -93,6 +93,7 @@ export class ShippingComponent implements OnInit {
 
   private async getShipmentsOptions() {
     const shops = await this.filterByStoreID();
+    // console.log( 'shops', shops );
     for ( const shop of shops as any ) {
       if ( shop.shopOptions.length === 0 ) { this.isDisabled = true; }
 
@@ -111,12 +112,14 @@ export class ShippingComponent implements OnInit {
       detail.shipment_price = shop.shopOptions[ 0 ]?.price;
       this.cart.push( detail );
     }
+
     this.shipmentOptions = shops;
     this.order.cart = [ ...this.cart ];
 
     if ( this.user ) {
       this.order.user = this.user._id;
     }
+
     // Usuario invitado
     if ( !this.user ) {
 
@@ -217,7 +220,8 @@ export class ShippingComponent implements OnInit {
   private filterByStoreID() {
     return new Promise( async ( resolve ) => {
       const shops = [];
-      const val = this.getUniqueStoreId();
+      const val = await this.getUniqueStoreId();
+      console.log( val )
       for ( const v of val ) {
         const options = await this.getOptions( v.id );
         v.shopOptions = options;
@@ -236,26 +240,61 @@ export class ShippingComponent implements OnInit {
   }
 
   private getUniqueStoreId() {
+    return new Promise( resolve => {
+      const storeID = [];
+      const stores = [];
+      const uniqueStores = [];
+      const store = { id: '', name: '' };
+      const products = [ ... this._products ];
 
-    const uniqueStore = [];
-    const uniqueStoreID = [];
-    this._products.filter( ( product: Product ) => {
-      let index = 0;
+      // Agrupar productos principales
+      const principalProducts = products.filter( product => product.type === 'principal' );
+      const variableProducts = products.filter( product => product.type === 'variable' );
 
-      if ( product.type === 'principal' ) { index = uniqueStoreID.indexOf( product.store._id ); }
-      if ( product.type === 'variable' ) { index = uniqueStoreID.indexOf( product.store ); }
+      const principalStores = from( principalProducts ).pipe( pluck( 'store' ) );
+      principalStores.subscribe( _store => stores.push( { id: _store._id, name: _store.name } ) );
 
-      if ( index === -1 ) {
-        const shop: any = {};
-        if ( product.type === 'principal' ) { shop.id = product.store._id; }
-        if ( product.type === 'variable' ) { shop.id = product.store; }
-        shop.name = product.store.name;
-        uniqueStore.push( shop );
-        uniqueStoreID.push( product.store._id );
-      }
+      from( stores ).pipe( distinct( s => s.id ) ).subscribe( _s => uniqueStores.push( _s ) );
+
+      resolve( uniqueStores );
+
     } );
-    return uniqueStore;
+
   }
 
+  // private getUniqueStoreId() {
+
+  //   const uniqueStore = [];
+  //   const uniqueStoreID = [];
+  //   this._products.filter( async ( product: Product ) => {
+  //     let index = 0;
+
+  //     if ( product.type === 'principal' ) { index = uniqueStoreID.indexOf( product.store._id ); }
+  //     if ( product.type === 'variable' ) { index = uniqueStoreID.indexOf( product.store ); }
+
+  //     if ( index === -1 ) {
+  //       const shop: any = {};
+  //       if ( product.type === 'principal' ) {
+  //         shop.id = product.store._id;
+  //         shop.name = product.store.name;
+  //       }
+  //       if ( product.type === 'variable' ) {
+  //         const id = ( product.store ) as string;
+  //         shop.name = await this.getShopName( id );
+  //         shop.id = product.store;
+  //       }
+
+  //       uniqueStore.push( shop );
+  //       uniqueStoreID.push( product.store._id );
+  //     }
+  //   } );
+  //   return uniqueStore;
+  // }
+
+  private getShopName( id: string ): Promise<string> {
+    return new Promise<string>( resolve => {
+      this.shopService.getStore( id ).subscribe( ( store: Store ) => resolve( store.name ) );
+    } );
+  }
 
 }
