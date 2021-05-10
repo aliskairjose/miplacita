@@ -221,7 +221,6 @@ export class ShippingComponent implements OnInit {
     return new Promise( async ( resolve ) => {
       const shops = [];
       const val = await this.getUniqueStoreId();
-      console.log( val )
       for ( const v of val ) {
         const options = await this.getOptions( v.id );
         v.shopOptions = options;
@@ -239,62 +238,25 @@ export class ShippingComponent implements OnInit {
     } );
   }
 
-  private getUniqueStoreId() {
-    return new Promise( resolve => {
-      const storeID = [];
+  private getUniqueStoreId(): Promise<any[]> {
+    return new Promise<any[]>( resolve => {
       const stores = [];
       const uniqueStores = [];
-      const store = { id: '', name: '' };
       const products = [ ... this._products ];
 
-      // Agrupar productos principales
-      const principalProducts = products.filter( product => product.type === 'principal' );
-      const variableProducts = products.filter( product => product.type === 'variable' );
+      // Seleccion de objeto store de producto principal
+      const storesProduct = from( products ).pipe( pluck( 'store' ) );
 
-      const principalStores = from( principalProducts ).pipe( pluck( 'store' ) );
-      principalStores.subscribe( _store => stores.push( { id: _store._id, name: _store.name } ) );
+      // Llenado de array store con id y name
+      storesProduct.subscribe( _store => stores.push( { id: _store._id, name: _store.name } ) );
 
+      // Array de tiendas sin duplicado
       from( stores ).pipe( distinct( s => s.id ) ).subscribe( _s => uniqueStores.push( _s ) );
 
       resolve( uniqueStores );
 
     } );
 
-  }
-
-  // private getUniqueStoreId() {
-
-  //   const uniqueStore = [];
-  //   const uniqueStoreID = [];
-  //   this._products.filter( async ( product: Product ) => {
-  //     let index = 0;
-
-  //     if ( product.type === 'principal' ) { index = uniqueStoreID.indexOf( product.store._id ); }
-  //     if ( product.type === 'variable' ) { index = uniqueStoreID.indexOf( product.store ); }
-
-  //     if ( index === -1 ) {
-  //       const shop: any = {};
-  //       if ( product.type === 'principal' ) {
-  //         shop.id = product.store._id;
-  //         shop.name = product.store.name;
-  //       }
-  //       if ( product.type === 'variable' ) {
-  //         const id = ( product.store ) as string;
-  //         shop.name = await this.getShopName( id );
-  //         shop.id = product.store;
-  //       }
-
-  //       uniqueStore.push( shop );
-  //       uniqueStoreID.push( product.store._id );
-  //     }
-  //   } );
-  //   return uniqueStore;
-  // }
-
-  private getShopName( id: string ): Promise<string> {
-    return new Promise<string>( resolve => {
-      this.shopService.getStore( id ).subscribe( ( store: Store ) => resolve( store.name ) );
-    } );
   }
 
 }

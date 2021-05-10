@@ -78,8 +78,6 @@ export class ProductLeftSidebarComponent implements OnInit, AfterViewInit {
     }
   }
 
-
-
   async ngOnInit() {
     this.spinner.show();
     const id = this.route.snapshot.paramMap.get( 'id' );
@@ -98,15 +96,12 @@ export class ProductLeftSidebarComponent implements OnInit, AfterViewInit {
 
     const variationResult = await this.productVariableList( id );
     const product = await this.productList( params );
-
+    // console.log( 'Producto', product );
+    // console.log( 'Variacion de producto', variationResult );
     this.product = { ...product };
     this.storeName = this.product.store.name;
     this.endDate = new Date();
     this.endDate.setDate( this.today.getDate() + parseInt( this.product.deliveryDays, 10 ) );
-
-
-    // Carga los comentarios del producto
-    // this.comment.loadReviews( this.product._id ).subscribe( rate => { this.productRate = rate; } );
 
     if ( variationResult[ 0 ]?.primary_key === 'color' ) {
       variationResult[ 0 ].keys.forEach( key => {
@@ -152,19 +147,23 @@ export class ProductLeftSidebarComponent implements OnInit, AfterViewInit {
 
   // Selecciona el producto por defecto a mostrar cuando hay color
   selectProduct( products: any[] ): void {
+    const { store } = this.product;
     if ( products.length ) {
       if ( products[ 0 ].key ) { this.sizes = products; }
       this.product = products[ 0 ].product;
     }
     this.color = this.product.color;
     this.size = this.product.size?.name;
+    this.product.store = store;
   }
 
   /* Producto seleccionado desde las opciones de color */
   selectColor( sizes: any ): void {
+    const { store } = this.product;
     this.sizes = sizes.key ? sizes : [];
     this.product = sizes[ 0 ].product;
     this.color = this.product.color;
+    this.product.store = store;
   }
 
   // Selecciona la talla desde el selector
