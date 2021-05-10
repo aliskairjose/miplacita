@@ -58,15 +58,16 @@ export class CommentsComponent implements OnInit {
   }
 
   loadReviews( id: string ): Observable<number> {
-    console.log( id )
-    this._productId = id;
-    return this.productService.productReviews( id ).pipe(
-      map( reviews => {
-        this.reviews = [ ...reviews ];
-        this.clearForm();
-        return this.calculateRate( reviews );
-      } )
-    );
+    if ( id ) {
+      this._productId = id;
+      return this.productService.productReviews( id ).pipe(
+        map( reviews => {
+          this.reviews = [ ...reviews ];
+          this.clearForm();
+          return this.calculateRate( reviews );
+        } )
+      );
+    }
   }
 
   private calculateRate( reviews: Review[] ): number {

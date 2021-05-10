@@ -19,16 +19,16 @@
             <a [routerLink]="['/shop/product/left/sidebar/', product.name.replace(' ', '-')]">
               <img class="mr-3" [src]="product?.images[0]?.url" [alt]="product?.name">
             </a>
-            <div class="media-body">
+            <div class="media-body ">
               <a [routerLink]="['/shop/product/left/sidebar/', product.name.replace(' ', '-')]">
                 <small>{{ product?.name }}</small>
               </a>
-              <h4>
+              <p class="pull-right">
                 <span>
                   {{ product?.quantity }} x
                   {{ product?.price | discount:product | currency }}
                 </span>
-              </h4>
+              </p>
             </div>
           </div>
           <div class="close-circle" (click)="removeItem(product)">

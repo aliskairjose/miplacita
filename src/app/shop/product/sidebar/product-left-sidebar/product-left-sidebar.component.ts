@@ -6,7 +6,7 @@ import { ProductService } from '../../../../shared/services/product.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ShopService } from '../../../../shared/services/shop.service';
 import { CategoryService } from '../../../../shared/services/category.service';
-import { Store } from '../../../../shared/classes/store';
+import { Store, Config } from '../../../../shared/classes/store';
 import { Category } from '../../../../shared/classes/category';
 import { ViewportScroller } from '@angular/common';
 import { CommentsComponent } from '../../../../shared/components/comments/comments.component';
@@ -62,11 +62,10 @@ export class ProductLeftSidebarComponent implements OnInit, AfterViewInit {
     private categoryService: CategoryService,
   ) {
 
-
     this.route.queryParams.subscribe( queryParams => {
       if ( Object.entries( queryParams ).length !== 0 ) {
         this.config = queryParams.config;
-        const store: Store = JSON.parse( this.config );
+        const store: Store = JSON.parse( queryParams.config );
         this.hideFilters = Object.entries( store ).length !== 0;
       }
     } );
@@ -74,7 +73,9 @@ export class ProductLeftSidebarComponent implements OnInit, AfterViewInit {
   }
   ngAfterViewInit(): void {
     // Carga los comentarios del producto
-    this.comment.loadReviews( this.product._id ).subscribe( rate => { this.productRate = rate; } );
+    if ( this.product._id ) {
+      this.comment.loadReviews( this.product._id ).subscribe( rate => { this.productRate = rate; } );
+    }
   }
 
 

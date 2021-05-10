@@ -57,7 +57,7 @@
                     </div>
                     <div class="my-3">
                       <p>
-                        {{ seeMore ? productDescription.substring(0,100) + '...' : productDescription }}
+                        {{ seeMore ? productDescription?.substring(0,100) + '...' : productDescription }}
                         <button type="button" class="btn btn-link" (click)="seeMore = !seeMore">
                           {{ seeMore ? 'Ver más' : 'Ver menos'}}
                         </button>

@@ -71,6 +71,7 @@ export class ShippingComponent implements OnInit {
 
     this.productService.cartItems.subscribe( products => {
       ( products.length ) ? this._products = [ ...products ] : this.router.navigate( [ '/home' ] );
+      console.log( this._products );
     } );
 
 
@@ -111,7 +112,6 @@ export class ShippingComponent implements OnInit {
       this.cart.push( detail );
     }
     this.shipmentOptions = shops;
-
     this.order.cart = [ ...this.cart ];
 
     if ( this.user ) {
@@ -218,20 +218,17 @@ export class ShippingComponent implements OnInit {
     return new Promise( async ( resolve ) => {
       const shops = [];
       const val = this.getUniqueStoreId();
-
       for ( const v of val ) {
         const options = await this.getOptions( v.id );
         v.shopOptions = options;
         shops.push( v );
       }
-
       resolve( shops );
     } );
   }
 
   private getOptions( id: string ) {
     return new Promise( resolve => {
-
       this.shopService.findShipmentOptionByShop( id ).subscribe( shipmentOptions => {
         resolve( shipmentOptions );
       } );
