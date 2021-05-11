@@ -66,14 +66,10 @@ export class ShippingComponent implements OnInit {
     private shopService: ShopService,
     public productService: ProductService,
   ) {
-
     this.user = this.auth.getUserActive();
-
-
     this.productService.cartItems.subscribe( products => {
       ( products.length ) ? this._products = [ ...products ] : this.router.navigate( [ '/home' ] );
     } );
-
 
     this.shopService.storeObserver().subscribe( store => {
       if ( store ) {
@@ -93,10 +89,8 @@ export class ShippingComponent implements OnInit {
 
   private async getShipmentsOptions() {
     const shops = await this.filterByStoreID();
-    // console.log( 'shops', shops );
     for ( const shop of shops as any ) {
       if ( shop.shopOptions.length === 0 ) { this.isDisabled = true; }
-
       const detail = { ...this.detail };
       detail.store = shop.id;
       const products = this._products.filter( value => {
@@ -122,7 +116,6 @@ export class ShippingComponent implements OnInit {
 
     // Usuario invitado
     if ( !this.user ) {
-
       this.userService.userInvited().subscribe( response => {
         if ( response.success ) {
           this.storage.setItem( 'mp_token', response.token );
@@ -130,14 +123,10 @@ export class ShippingComponent implements OnInit {
         }
       } );
     }
-
   }
 
   ngOnInit(): void {
-    // this.productService.cartItems.subscribe( response => this.products = response );
-
     this.getTotal.subscribe( amount => this.amount = amount );
-
     this.route.queryParams.subscribe( queryParams => {
       if ( queryParams.config ) {
         this._config = queryParams.config;
@@ -152,13 +141,10 @@ export class ShippingComponent implements OnInit {
   }
 
   checkout(): void {
-
     const data = this.address.onSubmit();
     if ( data?.saveAddress ) {
       if ( Object.keys( data?.shippingAddress ).length !== 0 && data.addressExist ) {
         // Actualiza la dirección
-
-
         this.userService.updateUserAddress( this.user._id, data.shippingAddress ).subscribe( response => {
           if ( response.success ) {
             this.toastr.info( response.message[ 0 ] );
@@ -168,8 +154,6 @@ export class ShippingComponent implements OnInit {
       }
       if ( Object.keys( data?.shippingAddress ).length !== 0 && !data.addressExist ) {
         // Registra nueva dirección
-
-
         this.userService.addUserAddress( this.user._id, data.shippingAddress ).subscribe( response => {
           if ( response.success ) {
             this.toastr.info( response.message[ 0 ] );
@@ -181,7 +165,6 @@ export class ShippingComponent implements OnInit {
       // Continua sin guardar ni actualizar direccón
       this.makeOrderData( data.shippingAddress );
     }
-
   }
 
   private makeOrderData( shippingAddress ): void {
@@ -197,13 +180,12 @@ export class ShippingComponent implements OnInit {
   }
 
   selectOption( shopId: string, optionId: string ): void {
-
     const shopOptions = [];
 
     // Obtenemos un array con todas las opciones de envío en pantalla
     for ( const i of this.shipmentOptions ) { shopOptions.push( ...i.shopOptions ); }
 
-    // Obtenemos la información de la opción de envíp seleccionada
+    // Obtenemos la información de la opción de envío seleccionada
     const _shipOption = shopOptions.find( val => val._id === optionId );
     this.order.cart.map( res => {
       if ( res.store === shopId ) {
@@ -211,7 +193,6 @@ export class ShippingComponent implements OnInit {
         res.shipment_price = _shipOption.price;
       }
     } );
-
   }
 
   /**
