@@ -56,9 +56,7 @@ export class CollectionLeftSidebarComponent implements OnInit {
         // Get Query params..
 
         this.route.queryParams.subscribe( params => {
-
           if ( params.id ) {
-
             this.shopService.getStore( params.id ).subscribe( ( store: Store ) => this.shopService.customizeShop( store.config ) );
           }
 

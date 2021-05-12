@@ -46,7 +46,7 @@ export class SearchComponent implements OnInit, OnChanges {
   }
 
   onSubmit(): void {
-    let params = {};
+    let params: any = {};
     if ( Object.entries( this.store ).length ) {
       this.searchForm.value.id = this.store._id;
     }
@@ -56,7 +56,10 @@ export class SearchComponent implements OnInit, OnChanges {
     } else {
       params = { ...this.searchForm.value };
     }
-
+    if ( !params.name && !params.category && !params.id ) {
+      this.router.navigate( [ '/shop/collection/left/sidebar' ] );
+      return;
+    }
     // Conexión con api
     this.router.navigate( [ '/shop/collection/left/sidebar' ], { queryParams: params } );
   }

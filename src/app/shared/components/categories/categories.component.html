@@ -4,12 +4,7 @@
 		<div class="collection-brand-filter">
 			<div class="custom-control custom-checkbox collection-filter-checkbox"
 				*ngFor="let category of filterCategory; let i = index">
-				<input
-					type="checkbox" 
-					[value]="category._id" 
-					[checked]="checked(category._id)" 
-					[id]="category._id"
-					(change)="appliedFilter($event)" 
+				<input type="checkbox" [value]="category._id" [id]="category._id" (change)="appliedFilter($event)"
 					class="custom-control-input" />
 				<label class="custom-control-label" for="{{ category._id }}">{{ category.name }}</label>
 			</div>
