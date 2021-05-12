@@ -20,8 +20,10 @@ export class ShopsComponent implements OnInit, OnChanges {
   ngOnChanges( changes: SimpleChanges ): void {
     const currentValue = changes.shops.currentValue;
     const previousValue = changes.shops.previousValue;
-    if ( ( currentValue.length > previousValue.length ) && this.index === -1 ) {
+    if ( currentValue.length > previousValue.length ) {
       this.event.target.checked = false;
+      this.shopsFilter.emit( { store: null } );
+
     }
   }
 
@@ -38,7 +40,7 @@ export class ShopsComponent implements OnInit, OnChanges {
   appliedFilter( event ): void {
     this.event = event;
     this.index = this._shops.indexOf( this.event.target.value );  // checked and unchecked value
-
+    this._shops = []
     if ( this.event.target.checked ) {
       this._shops.push( this.event.target.value );
     } else {

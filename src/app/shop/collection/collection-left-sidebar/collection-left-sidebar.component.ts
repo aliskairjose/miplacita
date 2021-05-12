@@ -51,10 +51,8 @@ export class CollectionLeftSidebarComponent implements OnInit {
     private categoryService: CategoryService,
   ) {
     forkJoin( [ this.shopService.storeList(), this.categoryService.categoryList() ] )
-
       .subscribe( ( [ shopsResult, categoriesResult ] ) => {
         // Get Query params..
-
         this.route.queryParams.subscribe( params => {
           if ( params.id ) {
             this.shopService.getStore( params.id ).subscribe( ( store: Store ) => this.shopService.customizeShop( store.config ) );
@@ -140,6 +138,7 @@ export class CollectionLeftSidebarComponent implements OnInit {
 
   // Append filter value to Url
   updateFilter( tags: any ) {
+    console.log( tags )
     tags.page = null; // Reset Pagination
     this.router.navigate( [], {
       relativeTo: this.route,

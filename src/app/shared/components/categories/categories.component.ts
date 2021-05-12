@@ -21,8 +21,9 @@ export class CategoriesComponent implements OnInit, OnChanges {
   ngOnChanges( changes: SimpleChanges ): void {
     const currentValue = changes.categories.currentValue;
     const previousValue = changes.categories.previousValue;
-    if ( ( currentValue.length > previousValue.length ) && this.index === -1 ) {
+    if ( currentValue.length > previousValue.length ) {
       this.event.target.checked = false;
+      this.categoryFilter.emit( { category: null } );
     }
   }
 
@@ -39,7 +40,7 @@ export class CategoriesComponent implements OnInit, OnChanges {
   appliedFilter( event ): void {
     this.event = event;
     this.index = this._categories.indexOf( event.target.value );  // checked and unchecked value
-
+    this._categories = [];
     if ( this.event.target.checked ) {
       this._categories.push( this.event.target.value );
     } else {
