@@ -125,7 +125,7 @@ export class CheckoutComponent implements OnInit {
     data = this.payment.onSubmit();
 
     // Metodo de pago
-    payment.push( { type: 'TDC', amount: ( this.totalPrice - this.referedAmount ), info: data.tdc } );
+    payment.push( { type: 'TDC', amount: ( ( this.totalPrice + this.shipment ) - this.referedAmount ), info: data.tdc } );
     if ( this.referedAmount > 0 ) {
       payment.push( { type: 'refered', amount: this.referedAmount, info: { owner: data.tdc.owner } } );
     }

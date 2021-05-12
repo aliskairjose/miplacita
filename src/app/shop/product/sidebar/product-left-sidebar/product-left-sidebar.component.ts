@@ -95,10 +95,7 @@ export class ProductLeftSidebarComponent implements OnInit, AfterViewInit {
     this.categories = [ ...categories ];
 
     const variationResult = await this.productVariableList( id );
-    const product = await this.productList( params );
-    // console.log( 'Producto', product );
-    // console.log( 'Variacion de producto', variationResult );
-    this.product = { ...product };
+    this.product = await this.productList( params );
     this.storeName = this.product.store.name;
     this.endDate = new Date();
     this.endDate.setDate( this.today.getDate() + parseInt( this.product.deliveryDays, 10 ) );

@@ -42,7 +42,7 @@
                   </div>
                 </div>
               </div>
-              <div class="col-lg-6 rtl-text">
+              <div class="col-lg-6 rtl-text" *ngIf="product.name">
                 <div class="product-right d-flex flex-column h-100">
                   <h2 class="text-default-color">{{ product?.name }}</h2>
                   <h4 class="mb-3"> Tienda: {{ storeName }}</h4>
