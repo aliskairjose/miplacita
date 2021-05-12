@@ -36,12 +36,12 @@ export class PriceComponent implements OnInit, OnChanges {
 
   appliedFilter( event ) {
     this.event = event;
-    const index = this._prices.indexOf( this.event.target.value );  // checked and unchecked value
+    this.index = this._prices.indexOf( this.event.target.value );  // checked and unchecked value
 
     if ( this.event.target.checked ) {
       this._prices.push( this.event.target.value );
     } else {
-      this._prices.splice( index, 1 );
+      this._prices.splice( this.index, 1 );
     }
 
     const prices = this._prices.length ? { price_order: this._prices.join( ',' ) } : { price_order: null };
