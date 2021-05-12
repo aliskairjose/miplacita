@@ -1,20 +1,28 @@
-import { Component, OnInit, Output, Input, EventEmitter } from '@angular/core';
-import { Options } from 'ng5-slider';
+import { Component, OnInit, Output, Input, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
 
 @Component( {
   selector: 'app-price',
   templateUrl: './price.component.html',
   styleUrls: [ './price.component.scss' ]
 } )
-export class PriceComponent implements OnInit {
+export class PriceComponent implements OnInit, OnChanges {
 
   collapse = true;
   private _prices: any[] = [];
+  private event: any;
+  private index: number;
 
   @Input() prices: any[] = [];
   @Output() priceFilter: EventEmitter<any> = new EventEmitter<any>();
 
   constructor() {
+  }
+  ngOnChanges( changes: SimpleChanges ): void {
+    const currentValue = changes.prices.currentValue;
+    const previousValue = changes.prices.previousValue;
+    if ( ( currentValue.length > previousValue.length ) && this.index === -1 ) {
+      this.event.target.checked = false;
+    }
   }
 
   ngOnInit(): void { }
@@ -27,10 +35,11 @@ export class PriceComponent implements OnInit {
   }
 
   appliedFilter( event ) {
-    const index = this._prices.indexOf( event.target.value );  // checked and unchecked value
+    this.event = event;
+    const index = this._prices.indexOf( this.event.target.value );  // checked and unchecked value
 
-    if ( event.target.checked ) {
-      this._prices.push( event.target.value );
+    if ( this.event.target.checked ) {
+      this._prices.push( this.event.target.value );
     } else {
       this._prices.splice( index, 1 );
     }

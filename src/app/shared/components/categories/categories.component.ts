@@ -19,11 +19,6 @@ export class CategoriesComponent implements OnInit, OnChanges {
   constructor(
   ) { }
   ngOnChanges( changes: SimpleChanges ): void {
-    console.log( {
-      currentValue: changes.categories.currentValue,
-      previousValue: changes.categories.previousValue,
-      index: this.index
-    } );
     const currentValue = changes.categories.currentValue;
     const previousValue = changes.categories.previousValue;
     if ( ( currentValue.length > previousValue.length ) && this.index === -1 ) {
