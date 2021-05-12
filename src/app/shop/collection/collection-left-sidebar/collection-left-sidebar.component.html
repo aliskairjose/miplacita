@@ -3,6 +3,7 @@
 	<div class="collection-wrapper">
 		<div class="container">
 			<div class="row">
+				<!-- Filtros -->
 				<div class="col-lg-3">
 					<div class="collection-filter" [class.openFilterbar]="mobileSidebar">
 						<!-- side-bar colleps block stat -->
@@ -41,6 +42,8 @@
 						</app-brands>
 					</div>
 				</div>
+
+				<!-- Listado de productos -->
 				<div class="collection-content col">
 					<div class="page-main-content">
 						<div class="row">
@@ -58,7 +61,6 @@
 									<li class="mr-1" *ngFor="let tag of tags">
 										<a href="javascript:void(0)" class="filter_tag">
 											{{tag}}
-											<!-- <i class="ti-close" (click)="removeTag(tag)"></i> -->
 										</a>
 									</li>
 									<li class="clear_filter" *ngIf="tags.length > 0">
@@ -81,8 +83,9 @@
 											<div class="col-sm-12 text-center section-b-space mt-5 no-found" *ngIf="noData">
 												<img src="assets/images/empty-search.jpg" class="img-fluid mb-4">
 												<h3>Lo sentimos! no hay resultados para tu búsqueda</h3>
-												<a [routerLink]="['/shop/collection/left/sidebar']" class="btn btn-solid-orange">Continuar
-													comprando</a>
+												<a [routerLink]="['/shop/collection/left/sidebar']" class="btn btn-solid-orange">
+													Continuar comprando
+												</a>
 											</div>
 										</div>
 									</div>
