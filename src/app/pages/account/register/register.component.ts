@@ -141,8 +141,22 @@ export class RegisterComponent implements OnInit {
 
     this.auth.socialLogin( data ).subscribe( ( result: AuthResponse ) => {
       if ( result.success ) {
-        sessionStorage.setItem( 'userForm', JSON.stringify( result.user ) );
-        this.registerSuccess = true;
+        // sessionStorage.setItem( 'userForm', JSON.stringify( result.user ) );
+        // this.registerSuccess = true;
+        this.storage.setItem( 'prelogin', this.registerForm.value );
+        this.storage.setItem( 'userForm', data.user );
+        this.storage.setItem( 'mp_token', data.token );
+
+        if ( this.role === 'merchant' ) {
+          this.registerSuccess = true;
+        } else {
+          // Opcion client
+          const queryParams: any = {};
+          queryParams.url = this.url;
+          if ( this._config ) { queryParams.config = this._config; }
+
+          this.router.navigate( [ '/pages/user/interests' ], { queryParams } );
+        }
       }
     } );
   }
