@@ -56,6 +56,7 @@ export class ProductBoxOneComponent implements OnInit, AfterViewInit {
       .subscribe( ( [ avgResponse, variableResponse ] ) => {
         this.productRate = avgResponse;
         if ( variableResponse[ 0 ]?.primary_key === 'color' ) {
+          this.product = variableResponse[ 0 ].keys[ 0 ].products[ 0 ].product;
           const _sizes = [];
           variableResponse[ 0 ].keys.forEach( key => {
             this.colors.push( { value: key.value, name: key.name, products: key.products } );
@@ -66,6 +67,7 @@ export class ProductBoxOneComponent implements OnInit, AfterViewInit {
           } );
         }
         if ( variableResponse[ 0 ]?.primary_key === 'size' ) {
+          this.product = variableResponse[ 0 ].keys[ 0 ].products[ 0 ].product;
           variableResponse[ 0 ].keys.forEach( key => {
             this.sizes.push( ` ${key.value}` );
           } );
@@ -79,15 +81,15 @@ export class ProductBoxOneComponent implements OnInit, AfterViewInit {
   }
 
   // Get Product Color
-  Color( variants ) {
-    const uniqColor = [];
-    for ( let i = 0; i < Object.keys( variants ).length; i++ ) {
-      if ( uniqColor.indexOf( variants[ i ].color ) === -1 && variants[ i ].color ) {
-        uniqColor.push( variants[ i ].color );
-      }
-    }
-    return uniqColor;
-  }
+  // Color( variants ) {
+  //   const uniqColor = [];
+  //   for ( let i = 0; i < Object.keys( variants ).length; i++ ) {
+  //     if ( uniqColor.indexOf( variants[ i ].color ) === -1 && variants[ i ].color ) {
+  //       uniqColor.push( variants[ i ].color );
+  //     }
+  //   }
+  //   return uniqColor;
+  // }
 
   // Change Variants
   ChangeVariants( color, product ) {

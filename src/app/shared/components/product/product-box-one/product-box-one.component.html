@@ -5,7 +5,6 @@
       <a [routerLink]="['/shop/product/', product._id]" [queryParams]="{ config: config  }">
         <img [lazyLoad]="product.images[0]?.url" class="img-fluid" alt="{{ product.name }}" />
       </a>
-      <!-- <img [lazyLoad]="product.images[0]?.url" class="img-fluid" alt="{{ product.name }}" /> -->
     </div>
     <div class="back" *ngIf="onHowerChangeImage"></div>
     <ul class="product-thumb-list" *ngIf="thumbnail">

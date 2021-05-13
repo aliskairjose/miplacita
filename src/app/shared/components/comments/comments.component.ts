@@ -58,7 +58,6 @@ export class CommentsComponent implements OnInit {
   }
 
   loadReviews( id: string ): Observable<number> {
-    console.log( id );
     if ( id ) {
       this._productId = id;
       return this.productService.productReviews( id ).pipe(
