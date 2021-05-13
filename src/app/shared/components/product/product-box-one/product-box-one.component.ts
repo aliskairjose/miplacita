@@ -55,8 +55,6 @@ export class ProductBoxOneComponent implements OnInit, AfterViewInit {
     ] )
       .subscribe( ( [ avgResponse, variableResponse ] ) => {
         this.productRate = avgResponse;
-        console.log( variableResponse )
-
         if ( variableResponse[ 0 ]?.primary_key === 'color' ) {
           const _sizes = [];
           variableResponse[ 0 ].keys.forEach( key => {

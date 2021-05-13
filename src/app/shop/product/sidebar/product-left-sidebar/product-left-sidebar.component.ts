@@ -22,7 +22,7 @@ export interface ProductDetail {
   templateUrl: './product-left-sidebar.component.html',
   styleUrls: [ './product-left-sidebar.component.scss' ]
 } )
-export class ProductLeftSidebarComponent implements OnInit, AfterViewInit {
+export class ProductLeftSidebarComponent implements OnInit {
 
   product: Product = {};
   counter = 1;
@@ -71,12 +71,6 @@ export class ProductLeftSidebarComponent implements OnInit, AfterViewInit {
     } );
 
   }
-  ngAfterViewInit(): void {
-    // Carga los comentarios del producto
-    if ( this.product._id ) {
-      this.comment.loadReviews( this.product._id ).subscribe( rate => { this.productRate = rate; } );
-    }
-  }
 
   async ngOnInit() {
     this.spinner.show();
@@ -96,6 +90,8 @@ export class ProductLeftSidebarComponent implements OnInit, AfterViewInit {
 
     const variationResult = await this.productVariableList( id );
     this.product = await this.productList( params );
+    this.comment.loadReviews( this.product._id ).subscribe( rate => { this.productRate = rate; } );
+
     this.storeName = this.product.store.name;
     this.endDate = new Date();
     this.endDate.setDate( this.today.getDate() + parseInt( this.product.deliveryDays, 10 ) );
