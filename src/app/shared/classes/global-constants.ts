@@ -48,7 +48,7 @@ export const MONTHS = [
 ];
 
 export const EMAIL_PATTERN = '^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$';
-export const WHATSAPP_CONTACT = '+584141236547';
+export const WHATSAPP_CONTACT = '+50766708118';
 export const MAX_PRODUCTS = 8;
 export const STANDARD_IMAGE = '../../../../assets/images/marketplace/images/placeholder.jpg';
 export const ORDER_STATUS = [ 'por aprobar', 'aprobado', 'en proceso', 'cancelado', 'pagado', 'entregado', 'devuelto' ];

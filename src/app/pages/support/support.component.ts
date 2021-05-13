@@ -1,6 +1,5 @@
 import { Component, OnInit, OnChanges, SimpleChanges, Input } from '@angular/core';
 import { Store } from '../../shared/classes/store';
-import { environment } from 'src/environments/environment';
 import { WHATSAPP_CONTACT } from 'src/app/shared/classes/global-constants';
 
 @Component( {
