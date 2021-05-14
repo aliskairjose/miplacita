@@ -17,13 +17,13 @@ export class PriceComponent implements OnInit, OnChanges {
 
   constructor() {
   }
+
   ngOnChanges( changes: SimpleChanges ): void {
     const currentValue = changes.prices.currentValue;
     const previousValue = changes.prices.previousValue;
     if ( currentValue.length > previousValue.length ) {
       this.event.target.checked = false;
       this.priceFilter.emit( { price_order: null } );
-
     }
   }
 
@@ -39,7 +39,8 @@ export class PriceComponent implements OnInit, OnChanges {
   appliedFilter( event ) {
     this.event = event;
     this.index = this._prices.indexOf( this.event.target.value );  // checked and unchecked value
-    this._prices = []
+    this._prices = [];
+
     if ( this.event.target.checked ) {
       this._prices.push( this.event.target.value );
     } else {

@@ -74,7 +74,7 @@ export class CollectionLeftSidebarComponent implements OnInit {
 
           const p = window.location.href.split( '?' );
           this.params = p[ 1 ];
-
+          console.log( this.params )
           const storeID = params.store ? params.store.split( ',' ) : [];
           if ( storeID.length > 0 ) {
             this.shops = shops.filter( x => x._id === storeID[ 0 ] );

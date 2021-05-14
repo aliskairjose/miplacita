@@ -58,9 +58,8 @@ export class SearchStoreComponent implements OnInit, OnChanges {
 
   onSubmit(): void {
     if ( Object.entries( this.store ).length ) {
-      this.searchForm.value.id = this.store._id;
+      this.searchForm.value.store = this.store._id;
     }
-
     // Conexión con api
     this.router.navigate( [ '/shop/collection/left/sidebar' ], { queryParams: this.searchForm.value } );
   }
@@ -72,7 +71,7 @@ export class SearchStoreComponent implements OnInit, OnChanges {
   private createForm(): void {
     this.searchForm = this.formBuilder.group( {
       name: [ '' ],
-      id: [ '' ],
+      store: [ '' ],
       subcategory: [ '' ],
       price_order: [ '' ]
     } );

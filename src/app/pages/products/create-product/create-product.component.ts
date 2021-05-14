@@ -245,7 +245,6 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
    */
   saveVariable(): void {
     this.submitted = true;
-
     if ( this.isEdit ) {
       const imagesLoading = async () => {
         const images: Array<any> = await this.uploadImage( this.productImages );
@@ -296,7 +295,7 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
 
   createProductVariable(): void {
 
-    this.productService.addProduct( this.variableForm.value ).subscribe( response => {
+    this.productService.addProduct( this.variableForm.value ).subscribe( () => {
       this.toastrService.info( 'El producto variable se ha creado con exito' );
       this.reload.emit( true );
       this.close();
