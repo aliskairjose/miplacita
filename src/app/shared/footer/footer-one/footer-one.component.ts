@@ -1,6 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { NavService, Menu } from '../../services/nav.service';
 import { CategoryService } from '../../services/category.service';
 import { Category } from '../../classes/category';
 import { Store } from '../../classes/store';
@@ -16,16 +15,19 @@ export class FooterOneComponent implements OnInit {
   @Input() class = 'footer-light';
   @Input() themeLogo = 'assets/images/marketplace/svg/logo.svg';
   @Input() newsletter = true;
+  @Input() store: Store = {};
+
   path = '/shop/collection/left/sidebar?name=&category=';
   menuItems: Category[] = [];
-
+  subCategories = [];
   public today: number = Date.now();
 
   constructor(
     private router: Router,
     private route: ActivatedRoute,
     private shopService: ShopService,
-    private categoryService: CategoryService ) {
+    private categoryService: CategoryService
+  ) {
 
   }
 
@@ -41,7 +43,10 @@ export class FooterOneComponent implements OnInit {
         if ( queryParams.config ) {
           const decod = window.atob( queryParams.config );
           const store: Store = JSON.parse( decod );
-          if ( Object.entries( store ).length !== 0 ) { this.themeLogo = store.logo; }
+          if ( Object.entries( store ).length !== 0 ) {
+            this.themeLogo = store.logo;
+            this.subCategoryList( store._id );
+          }
         }
         if ( queryParams.id ) { this.storeInfo( queryParams.id ); }
       }
@@ -54,6 +59,13 @@ export class FooterOneComponent implements OnInit {
 
   private storeInfo( id: string ) {
     this.shopService.getStore( id ).subscribe( ( store: Store ) => this.themeLogo = store.logo );
+  }
+
+  subCategoryList( id: string ): void {
+    const params = `store=${id}`;
+    this.categoryService.getSubcategory( params ).subscribe( subcategories => {
+      this.subCategories = [ ...subcategories ];
+    } );
   }
 
 }
