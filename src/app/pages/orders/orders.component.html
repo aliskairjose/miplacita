@@ -77,7 +77,7 @@
 							</td>
 							<td class="text-center">{{ order.amount | currency }}</td>
 							<td class="text-center">{{ order.created_at | date }}</td>
-							<td class="text-center">{{ order.shipment_option.name }}</td>
+							<td class="text-center">{{ order.shipment_option?.name }}</td>
 							<td class="text-center text-capitalize" *ngIf="!isUpdatable || index !== i">{{ order.status }}</td>
 							<td class="text-center text-capitalize" *ngIf="isUpdatable && index === i">
 								<select class="form-select" aria-label="Default select example" [(ngModel)]="statusSelected">
