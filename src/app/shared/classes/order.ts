@@ -16,6 +16,7 @@ export interface Order {
   shipment_option?: ShipmentOption;
   items?: Item[];
   address?: Address;
+  shipment_amount?: number;
   deliveryDays?: string;
 }
 
