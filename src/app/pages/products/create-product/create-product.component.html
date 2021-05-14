@@ -94,6 +94,7 @@
 											<div class="field-label">Categoría</div>
 											<select formControlName="category" class="form-control" name="category"
 												[(ngModel)]="selectedCategory" (change)="changeCategorySelection()">
+												<option value="" selected>Seleccione una categoría</option>
 												<option *ngFor="let category of categories" [value]="category._id">
 													{{category.name}}</option>
 											</select>
