@@ -6,20 +6,21 @@ import { CategoryService } from 'src/app/shared/services/category.service';
 import { ProductService } from 'src/app/shared/services/product.service';
 import { ShopService } from 'src/app/shared/services/shop.service';
 
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { Category } from '../../../shared/classes/category';
 import { SettingsComponent } from '../../../shared/components/settings/settings.component';
 import { Subject } from 'rxjs';
 import { NavService } from '../../../shared/services/nav.service';
+import { FooterOneComponent } from '../../../shared/footer/footer-one/footer-one.component';
 
 @Component( {
   selector: 'app-store-page',
   templateUrl: './store-page.component.html',
   styleUrls: [ './store-page.component.scss' ]
 } )
-export class StorePageComponent implements OnInit {
+export class StorePageComponent implements OnInit, AfterViewInit {
   products: Product[] = [];
   store: Store = {};
   sliders = [];
@@ -40,6 +41,7 @@ export class StorePageComponent implements OnInit {
   ];
 
   @ViewChild( 'settings' ) setting: SettingsComponent;
+  @ViewChild( 'footer' ) footer: FooterOneComponent;
 
   constructor(
     private router: Router,
@@ -84,8 +86,11 @@ export class StorePageComponent implements OnInit {
     } );
 
   }
+  ngAfterViewInit(): void {
+  }
 
   init(): void {
+    this.footer.subCategoryList( this.store._id );
     this.storeService.storeSubject( this.store );
     this.sliders = this.store.config.images;
     this.getCollectionProducts( this.store._id );

@@ -36,11 +36,20 @@
 							<h4>categorías</h4>
 						</div>
 						<div class="footer-contant">
-							<ul>
-								<li *ngFor="let category of menuItems; let i=index">
-									<a (click)='routerTo(category._id)' *ngIf="i<= 4">{{category.name}}</a>
-								</li>
-							</ul>
+							<ng-container *ngIf="subCategories.length; else elseTemplate">
+								<ul>
+									<li *ngFor="let subC of subCategories; let i=index">
+										<a (click)='routerTo(subC._id)' *ngIf="i<= 4">{{subC.name}}</a>
+									</li>
+								</ul>
+							</ng-container>
+							<ng-template #elseTemplate>
+								<ul>
+									<li *ngFor="let category of menuItems; let i=index">
+										<a (click)='routerTo(category._id)' *ngIf="i<= 4">{{category.name}}</a>
+									</li>
+								</ul>
+							</ng-template>
 						</div>
 					</div>
 				</div>

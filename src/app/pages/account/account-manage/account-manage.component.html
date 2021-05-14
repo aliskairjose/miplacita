@@ -286,8 +286,9 @@
 		<p *ngIf="!selectedStore.config.color" class="text-danger ml-3">No has seleccionado color</p>
 		<p *ngIf="!selectedStore.config.font" class="text-danger ml-3">No has seleccionado tipografía</p>
 		<p *ngIf="!selectedStore.config.images.length" class="text-danger ml-3">No tienes banners</p>
-		<p *ngIf="!hasShipments">Se ha detectado que no has creado <strong>Zonas de envío</strong>, sin estas no podrás
-			vender </p>
+		<p *ngIf="!hasShipments">
+			Se ha detectado que no has creado <strong>Zonas de envío</strong>, sin estas no podrás vender
+		</p>
 		<div class="clearfix">
 			<button (click)="go('pages/account/user/admin-store/design')" type="button"
 				class="btn btn-solid-orange float-left" *ngIf="isConfigured">
