@@ -19,7 +19,7 @@ export class OrderDetailsComponent implements OnInit, OnDestroy {
   closeResult: string;
   states = ORDER_STATUS;
   products = [];
-  fields = [ 'Producto', 'Precio', 'Cantidad', 'Itbms', 'ETA' ];
+  fields = [ 'Producto', 'Precio', 'Envío', 'Cantidad', 'Itbms', 'ETA' ];
   order: Order;
   detail: Order;
   modal: any;

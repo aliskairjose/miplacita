@@ -45,10 +45,12 @@ export class SearchStoreComponent implements OnInit, OnChanges {
   ngOnInit(): void {
   }
 
-  ngOnChanges( changes: SimpleChanges ): void {
-
-
-    this.route.queryParams.subscribe( q => this.searchForm.get( 'id' ).setValue( q?.id ) );
+  ngOnChanges(): void {
+    this.route.queryParams.subscribe( q => {
+      if ( q.id ) {
+        this.searchForm.get( 'id' ).setValue( q.id );
+      }
+    } );
 
     if ( Object.entries( this.store ).length ) {
       this.loadSubCategories( this.store );

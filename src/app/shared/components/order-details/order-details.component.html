@@ -41,6 +41,7 @@
                 <tr *ngFor="let product of order.items">
                   <td class="text-center">{{ product.product_name }}</td>
                   <td class="text-center">{{ product.total_price | currency }}</td>
+                  <td class="text-center">{{ product.shipment_amount | currency }}</td>
                   <td class="text-center">{{ product.quantity }}</td>
                   <td class="text-center">{{ product.tax | currency }}</td>
                   <td class="text-center">{{ order.deliveryDays | date }}</td>
