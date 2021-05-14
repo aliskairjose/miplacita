@@ -15,12 +15,15 @@ export class LeftMenuComponent implements OnInit {
   menuItemsResponsive: Menu[];
   role: string;
   path = '/shop/collection/left/sidebar?name=&category=';
+  private _isVisible = true;
 
   constructor(
     private router: Router,
     private auth: AuthService,
     public navServices: NavService,
   ) {
+
+    this.navServices.isVisible$.subscribe( isVisible => this.isVisible = isVisible );
 
     this.navServices.leftMenuItems.subscribe( menuItems => {
       this.menuItems = menuItems;
@@ -53,6 +56,14 @@ export class LeftMenuComponent implements OnInit {
 
   routerTo( id: string ): void {
     this.router.navigateByUrl( `${this.path}${id}` );
+  }
+
+  get isVisible(): boolean {
+    return this._isVisible;
+  }
+
+  set isVisible( visible: boolean ) {
+    this._isVisible = visible;
   }
 
 }

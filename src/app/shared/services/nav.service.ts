@@ -1,5 +1,5 @@
 import { Injectable, HostListener } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Subject, Observable } from 'rxjs';
 import { default as menu } from '../../../assets/data/menu.json';
 import { CategoryService } from './category.service';
 import { Category } from '../classes/category';
@@ -101,6 +101,7 @@ export class NavService {
 	items = new BehaviorSubject<Menu[]>( this.MENUITEMS );
 	leftMenuItems = new BehaviorSubject<Menu[]>( this.LEFTMENUITEMS );
 	leftMenuItemsResponsive = new BehaviorSubject<Menu[]>( this.LEFTMENUITEMSRESPONSIVE );
+	isVisible$: Subject<boolean> = new Subject<boolean>();
 
 	// Windows width
 	@HostListener( 'window:resize', [ '$event' ] )
@@ -122,4 +123,5 @@ export class NavService {
 
 		} );
 	}
+
 }

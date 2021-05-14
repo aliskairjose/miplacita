@@ -56,7 +56,7 @@ export class ProductBoxOneComponent implements OnInit, AfterViewInit {
       .subscribe( ( [ avgResponse, variableResponse ] ) => {
         this.productRate = avgResponse;
         if ( variableResponse[ 0 ]?.primary_key === 'color' ) {
-          this.product = variableResponse[ 0 ].keys[ 0 ].products[ 0 ].product;
+          this.product.stock = variableResponse[ 0 ].keys[ 0 ].products[ 0 ].product.stock;
           const _sizes = [];
           variableResponse[ 0 ].keys.forEach( key => {
             this.colors.push( { value: key.value, name: key.name, products: key.products } );
@@ -67,7 +67,7 @@ export class ProductBoxOneComponent implements OnInit, AfterViewInit {
           } );
         }
         if ( variableResponse[ 0 ]?.primary_key === 'size' ) {
-          this.product = variableResponse[ 0 ].keys[ 0 ].products[ 0 ].product;
+          this.product.stock = variableResponse[ 0 ].keys[ 0 ].products[ 0 ].product.stock;
           variableResponse[ 0 ].keys.forEach( key => {
             this.sizes.push( ` ${key.value}` );
           } );

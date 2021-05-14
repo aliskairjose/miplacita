@@ -11,6 +11,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import { Category } from '../../../shared/classes/category';
 import { SettingsComponent } from '../../../shared/components/settings/settings.component';
+import { Subject } from 'rxjs';
+import { NavService } from '../../../shared/services/nav.service';
 
 @Component( {
   selector: 'app-store-page',
@@ -42,11 +44,11 @@ export class StorePageComponent implements OnInit {
   constructor(
     private router: Router,
     private route: ActivatedRoute,
+    private navService: NavService,
     private storeService: ShopService,
     private productService: ProductService,
     private categoriesSevice: CategoryService
   ) {
-
 
     this.route.url.subscribe( ( url ) => {
 
@@ -56,6 +58,7 @@ export class StorePageComponent implements OnInit {
           this.router.navigate( [ 'pages/store/inactive' ] );
           return;
         }
+        this.navService.isVisible$( false );
 
         this.store = { ...store };
         this.storeService.storeSubject( store );
