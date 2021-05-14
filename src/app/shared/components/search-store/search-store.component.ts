@@ -52,7 +52,7 @@ export class SearchStoreComponent implements OnInit, OnChanges {
 
     if ( Object.entries( this.store ).length ) {
       this.loadSubCategories( this.store );
-      this.searchForm.value.id = this.store._id;
+      this.searchForm.value.store = this.store._id;
     }
   }
 

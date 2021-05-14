@@ -17,10 +17,11 @@ export class FooterOneComponent implements OnInit {
   @Input() newsletter = true;
   @Input() store: Store = {};
 
-  path = '/shop/collection/left/sidebar?name=&category=';
   menuItems: Category[] = [];
   subCategories = [];
   public today: number = Date.now();
+
+  private storeId = '';
 
   constructor(
     private router: Router,
@@ -53,8 +54,13 @@ export class FooterOneComponent implements OnInit {
     } );
   }
 
-  routerTo( id ): void {
-    this.router.navigateByUrl( `${this.path}${id}` );
+  routerTo( id: string, type: string ): void {
+    let path = '';
+    ( type === 'category' )
+      ? path = `/shop/collection/left/sidebar?category=${id}`
+      : path = `/shop/collection/left/sidebar?store=${this.storeId}&subcategory=${id}`;
+
+    this.router.navigateByUrl( path );
   }
 
   private storeInfo( id: string ) {
@@ -62,6 +68,7 @@ export class FooterOneComponent implements OnInit {
   }
 
   subCategoryList( id: string ): void {
+    this.storeId = id;
     const params = `store=${id}`;
     this.categoryService.getSubcategory( params ).subscribe( subcategories => {
       this.subCategories = [ ...subcategories ];

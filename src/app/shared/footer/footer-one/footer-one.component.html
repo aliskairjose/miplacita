@@ -39,14 +39,14 @@
 							<ng-container *ngIf="subCategories.length; else elseTemplate">
 								<ul>
 									<li *ngFor="let subC of subCategories; let i=index">
-										<a (click)='routerTo(subC._id)' *ngIf="i<= 4">{{subC.name}}</a>
+										<a (click)="routerTo(subC._id, 'subcategory')" *ngIf="i<= 4">{{subC.name}}</a>
 									</li>
 								</ul>
 							</ng-container>
 							<ng-template #elseTemplate>
 								<ul>
 									<li *ngFor="let category of menuItems; let i=index">
-										<a (click)='routerTo(category._id)' *ngIf="i<= 4">{{category.name}}</a>
+										<a (click)="routerTo(category._id, 'category')" *ngIf="i<= 4">{{category.name}}</a>
 									</li>
 								</ul>
 							</ng-template>
