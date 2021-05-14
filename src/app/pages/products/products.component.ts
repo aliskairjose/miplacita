@@ -131,7 +131,6 @@ export class ProductsComponent implements OnChanges, AfterViewInit {
         ] )
 
         .subscribe( ( [ storeResponse, productsResponse ] ) => {
-
           this.plan = storeResponse.docs[ 0 ].plan;
           this.maxProducts = productsResponse.totalDocs;
 

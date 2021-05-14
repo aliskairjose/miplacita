@@ -219,7 +219,7 @@
 										</h4>
 									</div>
 									<p>Crea una nueva variación para tu producto</p>
-									<div class="d-flex justify-content-center">
+									<div class="d-flex justify-content-center" *ngIf="!allVariations.length">
 										<div class="col d-flex justify-content-end">
 											<input type="checkbox" name="variante" id="color" (change)="checkVariable($event)"
 												[disabled]='isEdit'>
@@ -272,10 +272,13 @@
 										</table>
 									</div>
 									<div *ngIf="!showForm" class="d-flex px-5 py-5 justify-content-center aling-content-center">
-										<button class="btn btn-solid-orange" (click)="variationsForm()" [disabled]="disabledBtn">
-											Agregar tu primera variación
+										<button class="btn btn-solid-orange" (click)="showForm = true"
+											[disabled]="disabledBtn && !allVariations.length">
+											{{allVariations.length ? 'Agrega nueva variación' :'Agregar tu primera variación'}}
 										</button>
 									</div>
+
+									<!-- Formulario producto variable -->
 									<div class="tab-body" *ngIf="showForm">
 										<div class="row col-12 col-lg-12">
 											<div class="col-12 col-lg-12">
@@ -353,7 +356,7 @@
 											</div>
 										</div>
 										<div class="row col-12 col-lg-12">
-											<div class="col-lg-6" *ngIf="colorChecked">
+											<div class="col-lg-6" *ngIf="colorChecked || allVariations[0].color.name">
 												<!-- Color -->
 												<div class="form-group">
 													<div class="field-label">Color</div>
@@ -369,7 +372,7 @@
 													</div>
 												</div>
 											</div>
-											<div class="col-lg-6" *ngIf="sizeChecked">
+											<div class="col-lg-6" *ngIf="sizeChecked || allVariations[0].size.name">
 												<!-- Size -->
 												<div class="form-group">
 													<div class="field-label">Tamaño</div>

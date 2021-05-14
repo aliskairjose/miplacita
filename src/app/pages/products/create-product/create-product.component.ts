@@ -119,10 +119,6 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
     this.active = tab;
   }
 
-  variationsForm() {
-    this.showForm = !this.showForm;
-  }
-
   back() {
     this.showForm = false;
   }
@@ -332,6 +328,7 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   openModal( option: number, product: Product ) {
+    console.log( product )
     if ( product ) {
       const { images, ..._product } = product;
       this.product = { ..._product };
@@ -339,6 +336,7 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
       this.product.tax = ( tax / price ) * 100;
     }
 
+    // Agregar variacion
     if ( option === 3 ) {
       const callVariable = async () => {
         const res = await this.loadProductVariable( product._id );
