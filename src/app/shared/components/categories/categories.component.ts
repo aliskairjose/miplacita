@@ -21,10 +21,13 @@ export class CategoriesComponent implements OnInit, OnChanges {
   ngOnChanges( changes: SimpleChanges ): void {
     const currentValue = changes.categories.currentValue;
     const previousValue = changes.categories.previousValue;
-    if ( currentValue.length > previousValue.length ) {
-      this.event.target.checked = false;
-      this.categoryFilter.emit( { category: null } );
+    if(currentValue && previousValue){
+      if ( currentValue.length > previousValue.length ) {
+        this.event.target.checked = false;
+        this.categoryFilter.emit( { category: null } );
+      }
     }
+
   }
 
   ngOnInit(): void {
