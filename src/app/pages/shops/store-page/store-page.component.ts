@@ -58,7 +58,7 @@ export class StorePageComponent implements OnInit {
           this.router.navigate( [ 'pages/store/inactive' ] );
           return;
         }
-        this.navService.isVisible$( false );
+        this.navService.isVisible$.next( false );
 
         this.store = { ...store };
         this.storeService.storeSubject( store );
