@@ -148,6 +148,7 @@ export class AccountManageComponent implements OnInit, OnChanges {
 
   updateSubtab( tab: string ): void {
     this.subtab = tab;
+    this.closeModal();
     this.router.navigateByUrl( `pages/account/user/${this.active}/${this.subtab}`, { skipLocationChange: false } );
   }
 
@@ -155,13 +156,9 @@ export class AccountManageComponent implements OnInit, OnChanges {
     this.auth.logout();
   }
 
-  // Redirecciona a diseño de tienda o a configuración de zonas
-  go( url: string ): void {
-    this.closeModal();
-    this.router.navigateByUrl( url );
-  }
-
   async selectStore( store: Store ) {
+    this.openConfigModal();
+
     this.selectedStore = { ...store };
     this.hasShipments = await this.loadZones( this.selectedStore._id );
     this.isConfigured = !store.config.color || !store.config.font || !store.config.images.length;
