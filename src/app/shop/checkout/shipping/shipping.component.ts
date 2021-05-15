@@ -172,6 +172,9 @@ export class ShippingComponent implements OnInit {
     this.order.address.address = shippingAddress.address;
     this.order.address.phone = shippingAddress.phone;
     this.order.address.location = shippingAddress.coord;
+    this.order.address.name = shippingAddress.name;
+    this.order.address.last_name = shippingAddress.last_name;
+    this.order.address.email = shippingAddress.email;
 
     this.storage.setItem( 'order', this.order );
     const queryParams: any = {};
