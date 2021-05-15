@@ -125,7 +125,7 @@ export class CheckoutComponent implements OnInit {
 
     const order = this.storage.getItem( 'order' );
 
-    ( this.store._id ) ? order.type = 'store' : order.type = 'marketplace';
+    ( this.store ) ? order.type = 'store' : order.type = 'marketplace';
 
     order.payment = payment;
 

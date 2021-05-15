@@ -167,6 +167,7 @@ export class ShippingComponent implements OnInit {
     }
   }
 
+
   private makeOrderData( shippingAddress ): void {
     this.order.address.address = shippingAddress.address;
     this.order.address.phone = shippingAddress.phone;
@@ -175,7 +176,7 @@ export class ShippingComponent implements OnInit {
     this.storage.setItem( 'order', this.order );
     const queryParams: any = {};
     queryParams.config = this._config;
-    queryParams.order = window.btoa( JSON.stringify( this.order ) );
+    //queryParams.order = window.btoa( JSON.stringify( this.order ) );
     this.router.navigate( [ 'shop/checkout' ], { queryParams } );
   }
 
