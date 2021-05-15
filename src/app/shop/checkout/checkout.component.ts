@@ -130,7 +130,6 @@ export class CheckoutComponent implements OnInit {
     order.payment = payment;
 
     if ( data.valid ) {
-
       this.orderService.createOrder( order ).subscribe( response => {
         if ( response.success ) {
           this.storage.setItem( 'mp-store-shop', this.store );
