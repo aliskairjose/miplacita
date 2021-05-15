@@ -36,6 +36,9 @@ export class ShippingComponent implements OnInit {
     user: '',
     address: {
       address: '',
+      name:'',
+      last_name:'',
+      email:'',
       landMark: '',
       location: [],
       phone: ''
