@@ -15,7 +15,7 @@ const state = {
   wishlist: JSON.parse( localStorage.wishlistItems || '[]' ),
   compare: JSON.parse( localStorage.compareItems || '[]' ),
   cart: JSON.parse( localStorage.cartItems || '[]' ),
-  sessionStore: JSON.parse( sessionStorage.sessionStore || null )
+  isStore: JSON.parse( localStorage.isStore || null )
 };
 
 @Injectable( {
@@ -33,8 +33,8 @@ export class ProductService {
     private storage?: StorageService,
     private toastrService?: ToastrService
   ) {
-    if ( state.sessionStore ) {
-      state.cart = state.cart.filter( item => item.store._id === state.sessionStore._id );
+    if ( state.isStore ) {
+      state.cart = state.cart.filter( item => item.store._id === state.isStore._id );
     }
   }
 

@@ -44,8 +44,6 @@ export class SettingsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.config = window.btoa( JSON.stringify( this.store ) );
-
 
     this._clipboardService.copyResponse$.subscribe( re => {
       if ( re.isSuccess ) {

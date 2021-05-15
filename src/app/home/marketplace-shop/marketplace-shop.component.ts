@@ -4,6 +4,7 @@ import { ProductService } from '../../shared/services/product.service';
 import { Product } from '../../shared/classes/product';
 import { Result } from '../../shared/classes/response';
 import { ShopService } from '../../shared/services/shop.service';
+import { StorageService } from '../../shared/services/storage.service';
 
 @Component( {
   selector: 'app-marketplace-shop',
@@ -30,10 +31,11 @@ export class MarketplaceShopComponent implements OnInit {
   constructor(
     private shopService: ShopService,
     public productService: ProductService,
+    private storageService: StorageService,
   ) {
     this.getCollectionProducts();
-    if ( sessionStorage.sessionStore ) {
-      sessionStorage.removeItem( 'sessionStore' );
+    if ( this.storageService.getItem( 'isStore' ) ) {
+      this.storageService.removeItem( 'isStore' );
       window.location.reload();
     }
   } // Fin del constructor

@@ -12,7 +12,7 @@ import { forkJoin } from 'rxjs';
 import { Paginate } from '../../../shared/classes/paginate';
 
 const state = {
-  sessionStore: JSON.parse( sessionStorage.sessionStore || null ),
+  isStore: JSON.parse( localStorage.isStore || null ),
 };
 
 @Component( {
@@ -78,8 +78,8 @@ export class CollectionLeftSidebarComponent implements OnInit {
           const storeID = params.store ? params.store.split( ',' ) : [];
           if ( storeID.length > 0 ) {
             this.shops = shops.filter( x => x._id === storeID[ 0 ] );
-            if(this.shops[0]){
-               shopTag.push( this.shops[ 0 ].name );
+            if ( this.shops[ 0 ] ) {
+              shopTag.push( this.shops[ 0 ].name );
             }
 
           } else {

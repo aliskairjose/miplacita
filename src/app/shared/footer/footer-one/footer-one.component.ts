@@ -4,6 +4,7 @@ import { CategoryService } from '../../services/category.service';
 import { Category } from '../../classes/category';
 import { Store } from '../../classes/store';
 import { ShopService } from '../../services/shop.service';
+import { StorageService } from '../../services/storage.service';
 
 @Component( {
   selector: 'app-footer-one',
@@ -27,6 +28,7 @@ export class FooterOneComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private shopService: ShopService,
+    private storageService: StorageService,
     private categoryService: CategoryService
   ) {
 
@@ -39,19 +41,13 @@ export class FooterOneComponent implements OnInit {
       } );
     } );
 
-    this.route.queryParams.subscribe( queryParams => {
-      if ( Object.entries( queryParams ).length !== 0 ) {
-        if ( queryParams.config ) {
-          const decod = window.atob( queryParams.config );
-          const store: Store = JSON.parse( decod );
-          if ( Object.entries( store ).length !== 0 ) {
-            this.themeLogo = store.logo;
-            this.subCategoryList( store._id );
-          }
-        }
-        if ( queryParams.id ) { this.storeInfo( queryParams.id ); }
-      }
-    } );
+    const store = this.storageService.getItem( 'isStore' );
+
+    if ( store ) {
+      this.themeLogo = store.logo;
+      this.subCategoryList( store._id );
+      this.storeInfo( store._id );
+    }
   }
 
   routerTo( id: string, type: string ): void {

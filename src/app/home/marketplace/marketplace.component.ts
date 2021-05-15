@@ -4,6 +4,7 @@ import { ProductSlider, CollectionSlider } from '../../shared/data/slider';
 import { Product } from '../../shared/classes/product';
 import { ProductService } from '../../shared/services/product.service';
 import { ShopService } from '../../shared/services/shop.service';
+import { StorageService } from '../../shared/services/storage.service';
 
 @Component( {
   selector: 'app-marketplace',
@@ -199,8 +200,9 @@ export class MarketplaceComponent implements OnInit, OnDestroy {
     private _sanitizer: DomSanitizer,
     private shopService: ShopService,
     public productService: ProductService,
+    private storageService: StorageService,
   ) {
-    sessionStorage.removeItem( 'sessionStore' );
+    this.storageService.removeItem( 'isStore' );
   }
 
   ngOnInit(): void {

@@ -44,8 +44,8 @@ export class AuthService {
 
     if ( this.storage.getItem( 'FB_LOGIN' ) ) { this.authService.signOut(); }
 
-    if ( sessionStorage.sessionStore ) {
-      const store: Store = JSON.parse( sessionStorage.sessionStore );
+    if ( this.storage.getItem( 'isStore' ) ) {
+      const store: Store = this.storage.getItem( 'isStore' );
       redirect = `/${store.url_store}`;
     }
     sessionStorage.clear();

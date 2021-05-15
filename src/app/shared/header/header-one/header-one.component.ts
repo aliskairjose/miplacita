@@ -53,6 +53,7 @@ export class HeaderOneComponent implements OnInit, OnChanges, AfterViewInit {
     private route: ActivatedRoute,
     private storage: StorageService,
     private shopService: ShopService,
+    private storageService: StorageService,
     private categoryService: CategoryService,
   ) {
   }
@@ -94,8 +95,8 @@ export class HeaderOneComponent implements OnInit, OnChanges, AfterViewInit {
       this.settings.setStore( changes.store.currentValue );
     }
 
-    if ( sessionStorage.sessionStore ) {
-      const store: Store = JSON.parse( sessionStorage.sessionStore );
+    if ( this.storage.getItem( 'isStore' ) ) {
+      const store: Store = this.storage.getItem( 'isStore' );
       this.storeInfo( store._id );
     }
   }

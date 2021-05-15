@@ -14,6 +14,7 @@ import { SettingsComponent } from '../../../shared/components/settings/settings.
 import { Subject } from 'rxjs';
 import { NavService } from '../../../shared/services/nav.service';
 import { FooterOneComponent } from '../../../shared/footer/footer-one/footer-one.component';
+import { StorageService } from '../../../shared/services/storage.service';
 
 @Component( {
   selector: 'app-store-page',
@@ -48,6 +49,7 @@ export class StorePageComponent implements OnInit, AfterViewInit {
     private route: ActivatedRoute,
     private navService: NavService,
     private storeService: ShopService,
+    private storageService: StorageService,
     private productService: ProductService,
     private categoriesSevice: CategoryService
   ) {
@@ -63,18 +65,19 @@ export class StorePageComponent implements OnInit, AfterViewInit {
         this.navService.isVisible$.next( false );
 
         this.store = { ...store };
+        this.storageService.setItem( 'isStore', this.store );
         this.storeService.storeSubject( store );
-        if ( !sessionStorage.sessionStore ) {
-          sessionStorage.setItem( 'sessionStore', JSON.stringify( store ) );
+        if ( !this.storageService.getItem( 'isStore' ) ) {
+          this.storageService.setItem( 'isStore', store );
           setTimeout( () => {
             window.location.reload();
           }, 10 );
         }
 
-        if ( sessionStorage.sessionStore ) {
-          const s: Store = JSON.parse( sessionStorage.sessionStore );
+        if ( this.storageService.getItem( 'isStore' ) ) {
+          const s: Store = this.storageService.getItem( 'isStore' );
           if ( s._id !== store._id ) {
-            sessionStorage.setItem( 'sessionStore', JSON.stringify( store ) );
+            this.storageService.setItem( 'isStore', store );
             setTimeout( () => {
               window.location.reload();
             }, 10 );

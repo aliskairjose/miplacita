@@ -78,8 +78,8 @@ export class ShippingComponent implements OnInit {
       }
     } );
 
-    if ( sessionStorage.sessionStore ) {
-      const store: Store = JSON.parse( sessionStorage.sessionStore );
+    if ( this.storage.getItem( 'isStore' ) ) {
+      const store: Store = this.storage.getItem( 'isStore' );
     }
 
     // Obtiene la lista de opciones de envio de cada tienda
@@ -172,7 +172,7 @@ export class ShippingComponent implements OnInit {
     this.order.address.phone = shippingAddress.phone;
     this.order.address.location = shippingAddress.coord;
 
-    sessionStorage.setItem( 'order', JSON.stringify( this.order ) );
+    this.storage.setItem( 'order', this.order );
     const queryParams: any = {};
     queryParams.config = this._config;
     queryParams.order = window.btoa( JSON.stringify( this.order ) );

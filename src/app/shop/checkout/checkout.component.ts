@@ -26,7 +26,6 @@ export class CheckoutComponent implements OnInit {
   products: Product[] = [];
   submitted: boolean;
   payPalConfig?: IPayPalConfig;
-  // payment = 'Stripe';
   amount: number;
   totalPrice = 0;
   referedAmount = 0;
@@ -70,22 +69,16 @@ export class CheckoutComponent implements OnInit {
 
   ngOnInit(): void {
     const date = new Date();
-    this.route.queryParams.subscribe( queryParams => {
-      if ( Object.entries( queryParams ).length !== 0 ) {
-        const decod = window.atob( queryParams.config );
-        this._order = JSON.parse( window.atob( queryParams.order ) );
-        this.store = JSON.parse( decod );
-        if ( Object.entries( this.store ).length !== 0 && this.auth.getUserRol() === 'client' ) {
 
-          this.orderService.orderList( 1, `user=${this.auth.getUserActive()._id}` ).subscribe( res => {
-            if ( res.docs.length === 0 ) {
-              this.isFirstShop = true;
-            }
-          } );
+    this.store = this.storage.getItem( 'isStore' );
+    this._order = this.storage.getItem( 'order' );
+    if ( Object.entries( this.store ).length !== 0 && this.auth.getUserRol() === 'client' ) {
+      this.orderService.orderList( 1, `user=${this.auth.getUserActive()._id}` ).subscribe( res => {
+        if ( res.docs.length === 0 ) {
+          this.isFirstShop = true;
         }
-      }
-    } );
-
+      } );
+    }
 
     this.subTotal.subscribe( amount => {
       this.amount = amount;
@@ -130,7 +123,7 @@ export class CheckoutComponent implements OnInit {
       payment.push( { type: 'refered', amount: this.referedAmount, info: { owner: data.tdc.owner } } );
     }
 
-    const order = JSON.parse( sessionStorage.order );
+    const order = this.storage.getItem( 'order' );
 
     ( this.store._id ) ? order.type = 'store' : order.type = 'marketplace';
 
@@ -141,7 +134,7 @@ export class CheckoutComponent implements OnInit {
       this.orderService.createOrder( order ).subscribe( response => {
         if ( response.success ) {
           this.storage.setItem( 'mp-store-shop', this.store );
-          sessionStorage.removeItem( 'order' );
+          this.storage.removeItem( 'order' );
           this.productService.emptyCartItem();
           this.router.navigate( [ '/shop/checkout/success' ] );
         }

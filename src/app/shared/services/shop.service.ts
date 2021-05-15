@@ -10,7 +10,7 @@ import { User } from '../classes/user';
 import { Affiliate } from '../classes/affiliate';
 
 const state = {
-  sessionStore: JSON.parse( sessionStorage.sessionStore || null ),
+  isStore: JSON.parse( localStorage.isStore || null ),
 };
 
 @Injectable( {
