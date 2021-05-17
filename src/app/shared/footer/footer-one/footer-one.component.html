@@ -37,10 +37,13 @@
 						</div>
 						<div class="footer-contant">
 							<ng-container *ngIf="isStore; else elseTemplate">
-								<ul>
+								<ul *ngIf="subCategories.length">
 									<li *ngFor="let subC of subCategories; let i=index">
 										<a (click)="routerTo(subC._id, 'subcategory')" *ngIf="i<= 4">{{subC.name}}</a>
 									</li>
+								</ul>
+								<ul *ngIf="!subCategories.length">
+									<li> No hay categorias disponibles</li>
 								</ul>
 							</ng-container>
 							<ng-template #elseTemplate>
