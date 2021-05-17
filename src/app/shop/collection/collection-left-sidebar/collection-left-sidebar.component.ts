@@ -10,6 +10,7 @@ import { Store } from '../../../shared/classes/store';
 import { Product } from '../../../shared/classes/product';
 import { forkJoin } from 'rxjs';
 import { Paginate } from '../../../shared/classes/paginate';
+import { StorageService } from '../../../shared/services/storage.service';
 
 const state = {
   isStore: JSON.parse( localStorage.isStore || null ),
@@ -46,6 +47,7 @@ export class CollectionLeftSidebarComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private shopService: ShopService,
+    private storageService: StorageService,
     private productService: ProductService,
     private viewScroller: ViewportScroller,
     private categoryService: CategoryService,
@@ -54,12 +56,14 @@ export class CollectionLeftSidebarComponent implements OnInit {
       .subscribe( ( [ shopsResult, categoriesResult ] ) => {
         // Get Query params..
         this.route.queryParams.subscribe( params => {
+          const isStore = this.storageService.getItem( 'isStore' );
           if ( params.id ) {
             this.shopService.getStore( params.id ).subscribe( ( store: Store ) => this.shopService.customizeShop( store.config ) );
           }
 
           this._storeId = params.id;
-          if ( params.store ) { this.hideFilters = true; }
+
+          if ( isStore ) { this.hideFilters = true; }
 
           const shops = [ ...shopsResult.docs ];
           const categories = [ ...categoriesResult ];
