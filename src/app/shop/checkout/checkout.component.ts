@@ -67,8 +67,11 @@ export class CheckoutComponent implements OnInit {
 
   }
 
-  ngOnInit(): void {
+  async ngOnInit() {
     const date = new Date();
+
+    this.amount = await this.getTotalPrices();
+    this.totalPrice = this.amount + this._shipmentPrice + this.getItms;
 
     this.store = this.storage.getItem( 'isStore' );
     this._order = this.storage.getItem( 'order' );
@@ -79,11 +82,6 @@ export class CheckoutComponent implements OnInit {
         }
       } );
     }
-
-    this.subTotal.subscribe( amount => {
-      this.amount = amount;
-      this.totalPrice = amount + this._shipmentPrice + this.getItms;
-    } );
 
   }
 
@@ -107,8 +105,10 @@ export class CheckoutComponent implements OnInit {
     return this.productService.cartTotalAmount();
   }
 
-  public get total(): Observable<number> {
-    return this.productService.cartTotalAmount();
+  private async getTotalPrices(): Promise<number> {
+    return new Promise<number>( resolve => {
+      this.productService.cartTotalAmount().subscribe( total => resolve( total ) );
+    } );
   }
 
   onSubmit(): void {

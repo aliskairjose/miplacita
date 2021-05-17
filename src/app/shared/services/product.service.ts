@@ -341,6 +341,7 @@ export class ProductService {
     const index = state.cart.indexOf( product );
     state.cart.splice( index, 1 );
     this.storage.setItem( 'cartItems', state.cart );
+    if ( !state.cart.length ) { this.storage.removeItem( 'order' ); }
     return true;
   }
 

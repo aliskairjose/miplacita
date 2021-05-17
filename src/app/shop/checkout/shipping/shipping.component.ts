@@ -36,9 +36,9 @@ export class ShippingComponent implements OnInit {
     user: '',
     address: {
       address: '',
-      name:'',
-      last_name:'',
-      email:'',
+      name: '',
+      last_name: '',
+      email: '',
       landMark: '',
       location: [],
       phone: ''
@@ -130,13 +130,7 @@ export class ShippingComponent implements OnInit {
 
   ngOnInit(): void {
     this.getTotal.subscribe( amount => this.amount = amount );
-    this.route.queryParams.subscribe( queryParams => {
-      if ( queryParams.config ) {
-        this._config = queryParams.config;
-        const decod = window.atob( queryParams.config );
-        this.store = JSON.parse( decod );
-      }
-    } );
+    this.store = this.storage.getItem( 'isStore' );
   }
 
   public get getTotal(): Observable<number> {
@@ -180,10 +174,7 @@ export class ShippingComponent implements OnInit {
     this.order.address.email = shippingAddress.email;
 
     this.storage.setItem( 'order', this.order );
-    const queryParams: any = {};
-    queryParams.config = this._config;
-    //queryParams.order = window.btoa( JSON.stringify( this.order ) );
-    this.router.navigate( [ 'shop/checkout' ], { queryParams } );
+    this.router.navigate( [ 'shop/checkout' ] );
   }
 
   selectOption( shopId: string, optionId: string ): void {
