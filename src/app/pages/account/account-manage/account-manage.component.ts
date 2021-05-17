@@ -157,8 +157,6 @@ export class AccountManageComponent implements OnInit, OnChanges {
   }
 
   async selectStore( store: Store ) {
-    this.openConfigModal();
-
     this.selectedStore = { ...store };
     this.hasShipments = await this.loadZones( this.selectedStore._id );
     this.isConfigured = !store.config.color || !store.config.font || !store.config.images.length;
