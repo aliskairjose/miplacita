@@ -20,6 +20,7 @@ export class FooterOneComponent implements OnInit {
 
   menuItems: Category[] = [];
   subCategories = [];
+  isStore = false;
   public today: number = Date.now();
 
   private storeId = '';
@@ -42,7 +43,6 @@ export class FooterOneComponent implements OnInit {
     } );
 
     const store = this.storageService.getItem( 'isStore' );
-
     if ( store ) {
       this.themeLogo = store.logo;
       this.subCategoryList( store._id );
@@ -64,6 +64,7 @@ export class FooterOneComponent implements OnInit {
   }
 
   subCategoryList( id: string ): void {
+    this.isStore = true;
     this.storeId = id;
     const params = `store=${id}`;
     this.categoryService.getSubcategory( params ).subscribe( subcategories => {

@@ -65,7 +65,7 @@
         </div>
       </div>
       <div *ngIf="!colors.length" style="height: 1.7rem;">
-        <small>No hay colores disponibles</small>
+        <small class="m-0">No hay colores disponibles</small>
       </div>
       <p class="mt-1 ">Colores disponibles</p>
 
@@ -74,7 +74,7 @@
       </div>
       <h4>
         {{ product?.price | currency }}
-        <small>({{product?.stock}} unidades disponibles)</small>
+        <small class="m-0 mt-1">({{product?.stock}} unidades disponibles)</small>
       </h4>
       <p class="mt-2">Calificación del producto</p>
       <bar-rating [readOnly] name="rating" [(rate)]="productRate" [max]="5" disabled></bar-rating>
