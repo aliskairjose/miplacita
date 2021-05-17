@@ -2,7 +2,7 @@
   <div class="img-wrapper d-flex justify-content-center" [ngClass]="{ 'img-wrapper-fix': horizontal }"
     [ngClass]="{ 'img-mobile': cartModal }">
     <div class="front my-auto" [ngClass]="{'auto-height': cartModal, 'custom-front': !cartModal}">
-      <a [routerLink]="['/shop/product/', product._id]" [queryParams]="{ config: config  }">
+      <a [routerLink]="['/shop/product/', product._id]">
         <img [lazyLoad]="product.images[0]?.url" class="img-fluid" alt="{{ product.name }}" />
       </a>
     </div>
@@ -46,7 +46,7 @@
   <!-- Detalle del producto -->
   <div class="product-detail">
     <div>
-      <a [routerLink]="['/shop/product/', product._id]" [queryParams]="{ config: config }">
+      <a [routerLink]="['/shop/product/', product._id]">
         <h6>{{ product?.name | titlecase }}</h6>
       </a>
       <div *ngIf="colors.length" class=" d-flex flex-column mb-2">

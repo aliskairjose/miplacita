@@ -15,7 +15,6 @@ import { forkJoin } from 'rxjs';
 } )
 export class ProductBoxOneComponent implements OnInit, AfterViewInit {
 
-  config = '';
   productRate: 0;
   colors = [];
   sizes = [];
@@ -48,7 +47,6 @@ export class ProductBoxOneComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-    this.config = window.btoa( JSON.stringify( this.store ) );
     forkJoin( [
       this.productService.productAverage( this.product._id ),
       this.productService.producVariable( this.product._id )
@@ -80,16 +78,6 @@ export class ProductBoxOneComponent implements OnInit, AfterViewInit {
     }
   }
 
-  // Get Product Color
-  // Color( variants ) {
-  //   const uniqColor = [];
-  //   for ( let i = 0; i < Object.keys( variants ).length; i++ ) {
-  //     if ( uniqColor.indexOf( variants[ i ].color ) === -1 && variants[ i ].color ) {
-  //       uniqColor.push( variants[ i ].color );
-  //     }
-  //   }
-  //   return uniqColor;
-  // }
 
   // Change Variants
   ChangeVariants( color, product ) {
