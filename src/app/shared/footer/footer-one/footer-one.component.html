@@ -36,7 +36,7 @@
 							<h4>categorías</h4>
 						</div>
 						<div class="footer-contant">
-							<ng-container *ngIf="subCategories.length; else elseTemplate">
+							<ng-container *ngIf="isStore; else elseTemplate">
 								<ul>
 									<li *ngFor="let subC of subCategories; let i=index">
 										<a (click)="routerTo(subC._id, 'subcategory')" *ngIf="i<= 4">{{subC.name}}</a>
