@@ -94,6 +94,10 @@ export class SearchStoreComponent implements OnInit, OnChanges {
     const params = `store=${store._id}`;
 
     this.categoryService.getSubcategory( params ).subscribe( result => {
+      if ( result.length === 0 ) {
+        this.subcategories = [ { _id: '', name: 'No hay categorías disponibles' } ];
+        return;
+      }
       this.subcategories = [ ...result ];
     } );
   }

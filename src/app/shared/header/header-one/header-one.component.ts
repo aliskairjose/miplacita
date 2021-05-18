@@ -67,26 +67,14 @@ export class HeaderOneComponent implements OnInit, OnChanges, AfterViewInit {
       this.link = `/${this.store.url_store}`;
     }
 
-    this.route.queryParams.subscribe( queryParams => {
-      if ( Object.entries( queryParams ).length !== 0 ) {
-        if ( queryParams.config ) {
-          const decod = window.atob( queryParams.config );
-          this.store = JSON.parse( decod );
-          if ( Object.entries( this.store ).length !== 0 ) {
-            this.isStoreSearch = true;
-            this.shopService.customizeShop( this.store.config );
-            this.settings.setStore( this.store );
-            this.themeLogo = this.store.logo;
-            this.link = `/${this.store.url_store}`;
-          }
-
-        }
-        if ( queryParams.id ) {
-          this.isStoreSearch = true;
-          this.storeInfo( queryParams.id );
-        }
-      }
-    } );
+    if ( this.storage.getItem( 'isStore' ) ) {
+      this.store = this.storage.getItem( 'isStore' );
+      this.isStoreSearch = true;
+      this.shopService.customizeShop( this.store.config );
+      this.settings.setStore( this.store );
+      this.themeLogo = this.store.logo;
+      this.link = `/${this.store.url_store}`;
+    }
   }
 
   ngOnChanges( changes: SimpleChanges ): void {
