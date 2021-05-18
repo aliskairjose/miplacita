@@ -5,11 +5,11 @@ import {
 } from '@angular/core';
 import { NgbCarousel } from '@ng-bootstrap/ng-bootstrap';
 
-import { Store, Config } from '../../classes/store';
+import { Store } from '../../classes/store';
 import { ShopService } from '../../services/shop.service';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { User } from 'src/app/shared/classes/user';
-import { Route, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { StorageService } from '../../services/storage.service';
 
 @Component( {
@@ -58,8 +58,6 @@ export class ShopDesignComponent implements OnInit, OnChanges {
   }
 
   ngOnInit(): void {
-    // this.user = this.authService.getUserActive();
-    // this.getStoreInfo();
   }
 
   updateShopConfig(): void {
@@ -85,10 +83,10 @@ export class ShopDesignComponent implements OnInit, OnChanges {
 
       this.shopService.uploadImages( { images: this.images } ).subscribe( imageResponse => {
         if ( imageResponse.status === 'isOk' ) {
+          this.images.length = 0;
           const promises = [];
           imageResponse.images.forEach( image => {
             promises.push(
-
               this.shopService.addBanner( this.store._id, { url: image } ).subscribe( _result => {
                 if ( _result.success ) { this.toastrService.info( _result.message[ 0 ] ); }
               } )
