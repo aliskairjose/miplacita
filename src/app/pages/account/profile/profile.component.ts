@@ -109,7 +109,6 @@ export class ProfileComponent implements OnInit, AfterViewInit {
           this.toatsrService.info( response.message[ 0 ] );
           let user: User;
           user = { ...response.user, stores: this.user.stores };
-          // user.stores = this.user.stores;
           this.storage.setItem( 'mp_user', user );
         }
       } );
