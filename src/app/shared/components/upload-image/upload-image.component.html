@@ -75,9 +75,10 @@
                   <img class="img-thumbnail-fake mx-auto w-50" [src]="fakeImage" />
                 </div>
               </label>
-              <input *ngIf="type=='logo'" id="file-input-logo" type="file" (change)="upload($event.target.files)" />
 
+              <input *ngIf="type=='logo'" id="file-input-logo" type="file" (change)="upload($event.target.files)" />
               <input *ngIf="type!=='logo'" id="file-input" type="file" (change)="upload($event.target.files)" />
+
             </div>
           </ng-template>
         </div>
