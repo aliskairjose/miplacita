@@ -104,7 +104,6 @@ export class ShopDesignComponent implements OnInit, OnChanges {
       const promises = [];
       for ( const image of this.bannersDelete ) {
         promises.push(
-
           this.shopService.deleteBanner( this.store._id, image._id ).subscribe( ( result ) => {
             if ( result.success ) {
               this.toastrService.info( result.message[ 0 ] );

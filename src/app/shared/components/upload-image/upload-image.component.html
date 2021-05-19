@@ -3,11 +3,11 @@
     <div class="row">
       <div class="col-12">
         <div class="d-flex flex-column">
-          <ng-container  *ngIf="multiple; else multipleImages" #carouselbox>
-             <div class="mt-3">
+          <ng-container *ngIf="multiple; else multipleImages" #carouselbox>
+            <div class="mt-3">
               <div class="border-box image-upload text-center" style="overflow: hidden;">
                 <div *ngIf="images.length">
-                  <ngb-carousel class="mx-auto upload-image-carousel"  #ngcarousel>
+                  <ngb-carousel class="mx-auto upload-image-carousel" #ngcarousel>
                     <ng-template *ngFor="let image of images; let i = index" ngbSlide [id]="i">
                       <div class="picsum-img-wrapper w-100">
                         <img [src]="image" class="store-design-img">
@@ -20,7 +20,7 @@
                     <div class="preview px-3" *ngFor="let image of images;let i = index">
                       <img class="w-100 h-100 mp-preview-img" [src]="image" (click)="update(i)" />
                       <div class="img-btn d-flex">
-                        <div class="w-45 mx-auto" (click)="delete(i)">
+                        <div class="w-45 mx-auto" (click)="delete(i,image)">
                           <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-x-circle-fill" fill="#ff4c3b"
                             xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd"
@@ -36,23 +36,23 @@
                     </div>
                     <div *ngIf="images.length" class="d-flex align-items-center">
                       <img class="img-thumbnail-fake mx-auto w-50" [src]="fakeImage">
-                      
+
                     </div>
                   </label>
-                <input multiple id="file-input" type="file" (change)="upload($event.target.files)" />
-              </div>
+                  <input multiple id="file-input" type="file" (change)="upload($event.target.files)" />
+                </div>
 
               </div>
-            </div> 
+            </div>
           </ng-container>
           <ng-template #multipleImages>
             <div class="image-upload border-box text-center">
-             
-                <div *ngIf="images.length && type!='logo'">
-                  <div *ngFor="let image of images" class="d-flex align-items-center mx-auto">
-                    <img class="img-thumbnail mx-auto w-75 h-75" [src]="image">
-                  </div>
+
+              <div *ngIf="images.length && type!='logo'">
+                <div *ngFor="let image of images" class="d-flex align-items-center mx-auto">
+                  <img class="img-thumbnail mx-auto w-75 h-75" [src]="image">
                 </div>
+              </div>
               <label for="file-input" *ngIf="type!='logo'">
                 <div class="w-100 h-100" *ngIf="!images.length">
                   <img class="w-100 h-100" [src]="fakeImage" />
@@ -61,7 +61,7 @@
                   <img class="img-thumbnail-fake mx-auto w-50" [src]="fakeImage" />
                 </div>
               </label>
-              
+
               <div *ngIf="images.length && type=='logo'">
                 <div *ngFor="let image of images" class="d-flex align-items-center mx-auto logo-box">
                   <img class="img-thumbnail mx-auto " [src]="image">
