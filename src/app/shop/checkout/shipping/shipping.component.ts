@@ -98,14 +98,6 @@ export class ShippingComponent implements OnInit {
       const detail = { ...this.detail };
       detail.store = shop.id;
       const products = this._products.filter( p => p.store._id === shop.id );
-      /* const products = this._products.filter( value => {
-        if ( ( value.type === 'principal' ) && ( value.store._id === shop.id ) ) {
-          return value;
-        }
-        if ( ( value.type === 'variable' ) && ( value.store === shop.id ) ) {
-          return value;
-        }
-      } ); */
       detail.products = products;
       detail.shipment_option = shop.shopOptions[ 0 ]?._id;
       detail.shipment_price = shop.shopOptions[ 0 ]?.price;

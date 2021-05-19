@@ -130,18 +130,16 @@ export class CheckoutComponent implements OnInit {
 
     order.payment = payment;
 
-    console.log( order );
-
-    // if ( data.valid ) {
-    //   this.orderService.createOrder( order ).subscribe( response => {
-    //     if ( response.success ) {
-    //       this.storage.setItem( 'mp-store-shop', this.store );
-    //       this.storage.removeItem( 'order' );
-    //       this.productService.emptyCartItem();
-    //       this.router.navigate( [ '/shop/checkout/success' ] );
-    //     }
-    //   } );
-    // }
+    if ( data.valid ) {
+      this.orderService.createOrder( order ).subscribe( response => {
+        if ( response.success ) {
+          this.storage.setItem( 'mp-store-shop', this.store );
+          this.storage.removeItem( 'order' );
+          this.productService.emptyCartItem();
+          this.router.navigate( [ '/shop/checkout/success' ] );
+        }
+      } );
+    }
   }
 
   // Saldo de referido
