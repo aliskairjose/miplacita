@@ -35,6 +35,7 @@ export class CheckoutComponent implements OnInit {
   hasCoupon = false;
   couponAmount: number;
   newSubTotal: number;
+  itbms = 0;
 
   private _order: any;
   private _shipmentPrice = 0;
@@ -63,7 +64,7 @@ export class CheckoutComponent implements OnInit {
       postalcode: [ '', Validators.required ]
     } );
 
-    this.productService.cartItems.subscribe( response => { this.products = response; } );
+    this.productService.cartItems.subscribe( response => this.products = response );
 
   }
 
@@ -96,7 +97,7 @@ export class CheckoutComponent implements OnInit {
   get getItms(): number {
     this.itms = 0;
     this.products.forEach( ( product: Product ) => {
-      this.itms += product.tax;
+      this.itms += product.tax * product.quantity;
     } );
     return this.itms;
   }

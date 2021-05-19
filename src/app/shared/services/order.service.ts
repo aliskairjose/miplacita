@@ -41,7 +41,6 @@ export class OrderService {
     this.storage.setItem( 'checkoutItems', data );
     this.storage.removeItem( 'cartItems' );
     return this.http.post( 'order/v2', data );
-    // this.router.navigate( [ '/shop/checkout/success', orderId ] );
   }
 
   /**
@@ -59,7 +58,7 @@ export class OrderService {
    *
    */
   orderList( page = 1, params = '' ): Observable<Result<Order>> {
-    return this.http.get( `order?page=${page}&${params}`  ).pipe(
+    return this.http.get( `order?page=${page}&${params}` ).pipe(
       map( ( response: Response<Order> ) => {
         return response.result;
       } )

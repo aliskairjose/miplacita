@@ -99,6 +99,7 @@ export class ShopDesignComponent implements OnInit, OnChanges {
       } );
 
     }
+
     // actualiza los banners si hay que eliminar alguno ya existente
     if ( this.bannersDelete.length ) {
       const promises = [];

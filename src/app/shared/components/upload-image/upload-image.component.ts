@@ -114,7 +114,7 @@ export class UploadImageComponent implements OnInit, AfterViewInit, OnChanges, O
     // this.ngCarousel.select( item );
   }
 
-  delete( index, url ) {
+  delete( index: number, url: string ) {
     if ( this.images.length === 1 ) {
       this.toast.warning( 'Debes conservar al menos una imagen para tu tienda' );
       return;
