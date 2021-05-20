@@ -103,9 +103,9 @@ export class UploadImageComponent implements OnInit, AfterViewInit, OnChanges, O
     }
   }
 
-  private imageBase( image: string[], length: number ): void {
+  private imageBase( images: string[], length: number ): void {
     if ( this.imagesToSend.length === length ) {
-      this.uploadImage.emit( this.imagesToSend );
+      this.uploadImage.emit( images );
       this.imagesToSend = [];
     }
   }

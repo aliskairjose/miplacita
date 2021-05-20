@@ -176,6 +176,15 @@ export class ShopService {
     return this.http.post( `stores/${shopId}/config/photo`, data );
   }
 
+  /**
+   * @description Carga de imagenes al banner
+   * @param shopId Id de la tienda a la que se coloca el banner
+   * @param data Arreglo de string de imagenes de banners
+   */
+  addBanners( shopId: string, data: string[] ): Observable<any> {
+    return this.http.post( `stores/${shopId}/config/photos`, { images_url: data } );
+  }
+
   /*
     ---------------------------------------------
     --------------  ShipmentOptions  ------------
