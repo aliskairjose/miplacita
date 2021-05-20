@@ -11,7 +11,6 @@ import { AuthService } from 'src/app/shared/services/auth.service';
 import { User } from 'src/app/shared/classes/user';
 import { Router } from '@angular/router';
 import { StorageService } from '../../services/storage.service';
-import { Images } from '../../classes/product';
 
 @Component( {
   selector: 'app-shop-design',
@@ -86,9 +85,7 @@ export class ShopDesignComponent implements OnInit, OnChanges {
         if ( imageResponse.status === 'isOk' ) {
           this.images.length = 0;
           const images: string[] = [ ...imageResponse.images ];
-          this.shopService.addBanners( this.store._id, images ).subscribe( result => {
-            if ( result.success ) { this.toastrService.info( result.message[ 0 ] ); }
-          } );
+          this.shopService.addBanners( this.store._id, images ).subscribe( result => this.toastrService.info( result.message[ 0 ] ) );
         }
       } );
 
