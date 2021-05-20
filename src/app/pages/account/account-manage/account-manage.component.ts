@@ -131,17 +131,21 @@ export class AccountManageComponent implements OnInit, OnChanges {
 
   updateTab( tab: string ) {
     this.active = tab;
-    if ( this.active === 'reports' ) {
-      if ( this.user.role === 'merchant' ) {
-        this.updateSubtab( 'daily-sales' );
-      } else {
-        this.updateSubtab( 'sales-mp' );
-      }
-    } else if ( this.active === 'admin-store' ) {
-      this.subtab = 'store-profile';
-    } else {
-      this.router.navigateByUrl( `pages/account/user/${tab}`, { skipLocationChange: false } );
+    let route = tab;
+
+    if ( tab === 'reports' && this.user.role === 'merchant' ) {
+      route = `reports/daily-sales`;
     }
+
+    if ( this.active === 'reports' && this.user.role === 'admin' ) {
+      route = `reports/sales-mp`;
+    }
+
+    if ( tab === 'admin-store' ) {
+      route = `${tab}/store-profile`;
+    }
+
+    this.router.navigateByUrl( `pages/account/user/${route}`, { skipLocationChange: false } );
   }
 
   updateSubtab( tab: string ): void {
