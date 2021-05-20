@@ -52,7 +52,7 @@ export class CollectionLeftSidebarComponent implements OnInit {
     private viewScroller: ViewportScroller,
     private categoryService: CategoryService,
   ) {
-    forkJoin( [ this.shopService.storeList(), this.categoryService.categoryList() ] )
+    forkJoin( [ this.shopService.storeList( 1, `report=${true}` ), this.categoryService.categoryList() ] )
       .subscribe( ( [ shopsResult, categoriesResult ] ) => {
         // Get Query params..
         this.route.queryParams.subscribe( params => {
@@ -65,7 +65,7 @@ export class CollectionLeftSidebarComponent implements OnInit {
 
           if ( isStore ) { this.hideFilters = true; }
 
-          const shops = [ ...shopsResult.docs ];
+          const shops = [ ...shopsResult ];
           const categories = [ ...categoriesResult ];
           const prices = [
             { _id: 'asc', name: 'Desde el más bajo' },
