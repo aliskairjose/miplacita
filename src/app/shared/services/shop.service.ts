@@ -312,6 +312,15 @@ export class ShopService {
     return this.http.delete( `stores/${id}/config/photo/${idphoto}` );
   }
 
+  /**
+   * 
+   * @param id de la tienda
+   * @param images arreglo de imagenes
+   */
+  deleteBanners( id: string, images: string[] ) {
+    return this.http.delete( `stores/${id}/config/photos`, { images } );
+  }
+
   getStore( id: string ): Observable<Store> {
     return this.http.get( `stores/${id}` ).pipe( map( data => data.result ) );
   }
@@ -319,7 +328,7 @@ export class ShopService {
   /*
     ---------------------------------------------
     --------------  Customize Shop  -------------
-    ---------------------------------------------
+    ---------------------------------------------}
   */
 
   /**

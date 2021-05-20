@@ -11,6 +11,8 @@ import { AuthService } from 'src/app/shared/services/auth.service';
 import { User } from 'src/app/shared/classes/user';
 import { Router } from '@angular/router';
 import { StorageService } from '../../services/storage.service';
+import { from } from 'rxjs';
+import { pluck } from 'rxjs/operators';
 
 @Component( {
   selector: 'app-shop-design',
@@ -93,20 +95,11 @@ export class ShopDesignComponent implements OnInit, OnChanges {
 
     // actualiza los banners si hay que eliminar alguno ya existente
     if ( this.bannersDelete.length ) {
-      const promises = [];
-      for ( const image of this.bannersDelete ) {
-        promises.push(
-          this.shopService.deleteBanner( this.store._id, image._id ).subscribe( ( result ) => {
-            if ( result.success ) {
-              this.bannersDelete.length = 0;
-              this.toastrService.info( result.message[ 0 ] );
-            }
-          } )
-        );
-      }
-      Promise.all( promises ).then( promisesResponse => {
-        this.ngOnInit();
-      } );
+      const images = [];
+      const source = from( this.bannersDelete );
+      source.pipe( pluck( '_id' ) ).subscribe( id => images.push( id ) );
+
+      this.shopService.deleteBanners( this.store._id, images ).subscribe( result => this.toastrService.info( result.message[ 0 ] ) );
     }
 
     // actualiza el logo de la tienda si hay uno nuevo

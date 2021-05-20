@@ -40,13 +40,13 @@ export class AccountManageComponent implements OnInit, OnChanges {
 
   ];
   adminStoreOptions = [
+    { name: 'Visitar Tienda', key: 'view-store', icon: 'assets/images/marketplace/images/icons/store.png' },
     { name: 'Mi Perfil', id: 'user-icon', key: 'profile', icon: 'assets/images/marketplace/images/icons/profile.png' },
     { name: 'Tablero', key: 'dashboard', icon: 'assets/images/marketplace/images/icons/tablero.png' },
     { name: 'Productos', key: 'products', icon: 'assets/images/marketplace/images/icons/productos.png' },
     { name: 'Órdenes', key: 'admin-orders', icon: 'assets/images/marketplace/images/icons/orders.png' },
     { name: 'Perfil de tienda', key: 'admin-store', icon: 'assets/images/marketplace/images/icons/store.png' },
     { name: 'Mis Tiendas', key: 'stores', icon: 'assets/images/marketplace/images/icons/store.png' },
-    { name: 'Visitar Tienda', key: 'view-store', icon: 'assets/images/marketplace/images/icons/store.png' },
     { name: 'Reportes', key: 'reports', icon: 'assets/images/marketplace/images/icons/report.png' },
     { name: 'Ayuda', id: 'big-icon', key: 'support', icon: 'assets/images/marketplace/images/icons/help.png' },
   ];

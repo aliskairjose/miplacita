@@ -120,7 +120,6 @@ export class UploadImageComponent implements OnInit, AfterViewInit, OnChanges, O
       return;
     }
     const image = this.imagesObject.find( i => i.url === url );
-    console.log( image )
     this.deleteImage.emit( image );
     this.images.splice( index, 1 );
 
