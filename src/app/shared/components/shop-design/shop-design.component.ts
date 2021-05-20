@@ -98,6 +98,7 @@ export class ShopDesignComponent implements OnInit, OnChanges {
         promises.push(
           this.shopService.deleteBanner( this.store._id, image._id ).subscribe( ( result ) => {
             if ( result.success ) {
+              this.bannersDelete.length = 0;
               this.toastrService.info( result.message[ 0 ] );
             }
           } )
