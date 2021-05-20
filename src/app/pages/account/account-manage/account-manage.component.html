@@ -58,10 +58,19 @@
 				<div class="admin-store-menu" *ngIf="user.role == 'merchant'">
 					<div *ngFor="let tab of adminStoreOptions" class="tab" (click)="updateTab(tab.key)"
 						[ngClass]="{'active': active===tab.key,'tab': active!==tab.key}">
-						<button class="btn btn-tab">
-							<img [src]="tab.icon" alt="" [id]="tab.id">
-							{{ tab.name }}
-						</button>
+						<ng-container *ngIf="tab.key === 'view-store'; else elseTemplate">
+							<button class="btn btn-tab">
+								<img [src]="tab.icon" alt="" [id]="tab.id">
+								<a [href]="selectedStore.url_store" target="_blank" rel="noopener noreferrer">{{ tab.name }}</a>
+							</button>
+						</ng-container>
+						<ng-template #elseTemplate>
+							<button class="btn btn-tab">
+								<img [src]="tab.icon" alt="" [id]="tab.id">
+								{{ tab.name }}
+							</button>
+						</ng-template>
+
 					</div>
 				</div>
 				<div class="admin-menu" *ngIf="user.role == 'admin'">
