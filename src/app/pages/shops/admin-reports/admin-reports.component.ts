@@ -32,8 +32,8 @@ export class AdminReportsComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-
     this.route.url.subscribe( url => {
+      console.log( url )
       this.active = url[ 2 ].path;
       this.subtab = url[ 3 ].path;
     } );

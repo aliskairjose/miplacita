@@ -11,6 +11,8 @@ import { AuthService } from 'src/app/shared/services/auth.service';
 import { User } from 'src/app/shared/classes/user';
 import { Router } from '@angular/router';
 import { StorageService } from '../../services/storage.service';
+import { from } from 'rxjs';
+import { pluck } from 'rxjs/operators';
 
 @Component( {
   selector: 'app-shop-design',
@@ -84,17 +86,8 @@ export class ShopDesignComponent implements OnInit, OnChanges {
       this.shopService.uploadImages( { images: this.images } ).subscribe( imageResponse => {
         if ( imageResponse.status === 'isOk' ) {
           this.images.length = 0;
-          const promises = [];
-          imageResponse.images.forEach( image => {
-            promises.push(
-              this.shopService.addBanner( this.store._id, { url: image } ).subscribe( _result => {
-                if ( _result.success ) { this.toastrService.info( _result.message[ 0 ] ); }
-              } )
-            );
-          } );
-          Promise.all( promises ).then( promisesAll => {
-            this.ngOnInit();
-          } );
+          const images: string[] = [ ...imageResponse.images ];
+          this.shopService.addBanners( this.store._id, images ).subscribe( result => this.toastrService.info( result.message[ 0 ] ) );
         }
       } );
 
@@ -102,26 +95,18 @@ export class ShopDesignComponent implements OnInit, OnChanges {
 
     // actualiza los banners si hay que eliminar alguno ya existente
     if ( this.bannersDelete.length ) {
-      const promises = [];
-      for ( const image of this.bannersDelete ) {
-        promises.push(
-          this.shopService.deleteBanner( this.store._id, image._id ).subscribe( ( result ) => {
-            if ( result.success ) {
-              this.toastrService.info( result.message[ 0 ] );
-            }
-          } )
-        );
-      }
-      Promise.all( promises ).then( promisesResponse => {
-        this.ngOnInit();
-      } );
+      const images = [];
+      const source = from( this.bannersDelete );
+      // seleccion de propiedad _id del array de objetos con pluck RXJS
+      source.pipe( pluck( '_id' ) ).subscribe( id => images.push( id ) );
+
+      this.shopService.deleteBanners( this.store._id, images ).subscribe( result => this.toastrService.info( result.message[ 0 ] ) );
     }
 
     // actualiza el logo de la tienda si hay uno nuevo
     if ( this.imageLogo.length && this.changeLogo ) {
       this.updateLogo();
     }
-
   }
 
   private updateLogo() {
@@ -147,7 +132,6 @@ export class ShopDesignComponent implements OnInit, OnChanges {
   }
   updateConfig(): void {
     const data = { color: this.color, font: this.fontSelected };
-
 
     this.shopService.config( this.store._id, data ).subscribe( response => {
       if ( response.success ) {
@@ -178,7 +162,8 @@ export class ShopDesignComponent implements OnInit, OnChanges {
    * @param images Banners
    */
   uploadBanner( images: string[] ): void {
-    this.images = [ ...images ];
+    const _images = [ ...this.images ];
+    this.images = [ ...images, ..._images ];
   }
 
   /**
