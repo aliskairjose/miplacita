@@ -56,7 +56,7 @@ export class ShopService {
    * @param params Los filtros que seran enviados al api, si se envia vacio traera todos las tiendas
    * store=sotreID&limit=10&owner_id=userId
    */
-  storeList( page = 1, params = '' ): Observable<Result<Store>> {
+  storeList( page = 1, params = '' ): Observable<any> {
     return this.http.get( `stores?page=${page}&${params}` ).pipe(
       map( ( response: Response<Store> ) => {
         if ( response.success ) {
@@ -318,7 +318,7 @@ export class ShopService {
    * @param images arreglo de imagenes
    */
   deleteBanners( id: string, images: string[] ) {
-    return this.http.delete( `stores/${id}/config/photos`, { images } );
+    return this.http.request( `stores/${id}/config/photos`, images );
   }
 
   getStore( id: string ): Observable<Store> {

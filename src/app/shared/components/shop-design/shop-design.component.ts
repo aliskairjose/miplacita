@@ -97,6 +97,7 @@ export class ShopDesignComponent implements OnInit, OnChanges {
     if ( this.bannersDelete.length ) {
       const images = [];
       const source = from( this.bannersDelete );
+      // seleccion de propiedad _id del array de objetos con pluck RXJS
       source.pipe( pluck( '_id' ) ).subscribe( id => images.push( id ) );
 
       this.shopService.deleteBanners( this.store._id, images ).subscribe( result => this.toastrService.info( result.message[ 0 ] ) );

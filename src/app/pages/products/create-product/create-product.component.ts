@@ -73,7 +73,7 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
   title = 'Crear producto';
   plan: Plan;
   changeImage = false;
-  marketplaceCheck = false;
+  marketplaceCheck: boolean;
 
   @Input() store: Store = {};
   @Output() reload: EventEmitter<boolean> = new EventEmitter<boolean>();
@@ -189,9 +189,9 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
     this.productForm.value.store = this.store._id;
     this.productForm.value.tax = ( price * tax ) / 100;
 
-    if ( !this.productForm.value.marketplace ) {
+    /* if ( !this.productForm.value.marketplace ) {
       this.productForm.value.marketplace = false;
-    }
+    } */
 
     if ( this.productForm.valid ) {
 
