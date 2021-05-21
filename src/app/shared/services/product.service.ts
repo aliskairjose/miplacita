@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
+import { Observable, Subject, Observer, from, pipe } from 'rxjs';
 import { HttpService } from './http.service';
 import { Product } from '../classes/product';
-import { map } from 'rxjs/operators';
+import { map, pluck } from 'rxjs/operators';
 import { Category } from '../classes/category';
 import { Response, Result } from '../classes/response';
 import { ToastrService } from 'ngx-toastr';
@@ -15,7 +15,8 @@ const state = {
   wishlist: JSON.parse( localStorage.wishlistItems || '[]' ),
   compare: JSON.parse( localStorage.compareItems || '[]' ),
   cart: JSON.parse( localStorage.cartItems || '[]' ),
-  isStore: JSON.parse( localStorage.isStore || null )
+  isStore: JSON.parse( localStorage.isStore || null ),
+  order: JSON.parse( localStorage.order || null )
 };
 
 @Injectable( {
@@ -336,8 +337,23 @@ export class ProductService {
     return true;
   }
 
+  removeOrderItem( product: Product ): boolean {
+    state.order.cart.forEach( ( c, index ) => {
+      const subIndex = c.products.findIndex( p => p._id === product._id );
+      if ( subIndex !== -1 ) {
+        state.order.cart[ index ].products.splice( subIndex, 1 );
+        if ( state.order.cart[ index ].products.length === 0 ) {
+          state.order.cart.splice( index, 1 );
+        }
+        this.storage.setItem( 'order', state.order );
+      }
+    } );
+    return true;
+  }
+
   // Remove Cart items
-  removeCartItem( product: Product ): any {
+  removeCartItem( product: Product ): boolean {
+    this.removeOrderItem( product );
     const index = state.cart.indexOf( product );
     state.cart.splice( index, 1 );
     this.storage.setItem( 'cartItems', state.cart );
@@ -360,6 +376,15 @@ export class ProductService {
         return ( prev + price * curr.quantity );
       }, 0 );
     } ) );
+  }
+
+  // Get Cart Items
+  public get orderItems(): Observable<any> {
+    const itemsStream = new Observable( observer => {
+      observer.next( state.order );
+      observer.complete();
+    } );
+    return itemsStream as Observable<any>;
   }
 
   /*

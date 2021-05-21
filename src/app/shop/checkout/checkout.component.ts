@@ -37,6 +37,7 @@ export class CheckoutComponent implements OnInit {
   couponAmount: number;
   newSubTotal: number;
   itbms = 0;
+  order: any = {};
 
   private _order: any;
   private _shipmentPrice = 0;
@@ -66,6 +67,13 @@ export class CheckoutComponent implements OnInit {
     } );
 
     this.productService.cartItems.subscribe( response => this.products = response );
+    this.productService.orderItems.subscribe( orderItems => {
+      if ( orderItems ) {
+        this._order = orderItems;
+      } else {
+        this._order = this.storage.getItem( 'order' );
+      }
+    } );
 
   }
 
@@ -76,7 +84,7 @@ export class CheckoutComponent implements OnInit {
     this.totalPrice = this.amount + this._shipmentPrice + this.getItms;
 
     this.store = this.storage.getItem( 'isStore' );
-    this._order = this.storage.getItem( 'order' );
+    // this._order = this.storage.getItem( 'order' );
     if ( Object.entries( this.store ).length !== 0 && this.auth.getUserRol() === 'client' ) {
       this.orderService.orderList( 1, `user=${this.auth.getUserActive()._id}` ).subscribe( res => {
         if ( res.docs.length === 0 ) {
@@ -92,6 +100,7 @@ export class CheckoutComponent implements OnInit {
       .cartTotalAmount()
       .pipe( map( total => {
         if ( !this.hasCoupon ) {
+          console.log( total, this.getItms, this.shipment );
           return total + this.shipment + this.getItms;
         }
       } ) );
