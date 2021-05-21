@@ -10,6 +10,7 @@ import { PaymentComponent } from '../../shared/components/payment/payment.compon
 import { Store } from '../../shared/classes/store';
 import { AuthService } from '../../shared/services/auth.service';
 import { StorageService } from '../../shared/services/storage.service';
+import { map } from 'rxjs/operators';
 
 const state = {
   user: JSON.parse( localStorage.getItem( 'mp_user' ) || null )
@@ -84,6 +85,16 @@ export class CheckoutComponent implements OnInit {
       } );
     }
 
+  }
+
+  get totalPayment(): Observable<number> {
+    return this.productService
+      .cartTotalAmount()
+      .pipe( map( total => {
+        if ( !this.hasCoupon ) {
+          return total + this.shipment + this.getItms;
+        }
+      } ) );
   }
 
   get shipment(): number {
@@ -161,5 +172,7 @@ export class CheckoutComponent implements OnInit {
       this.totalPrice = ( this.newSubTotal + this._shipmentPrice + this.getItms );
     }
   }
+
+
 
 }

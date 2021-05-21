@@ -103,6 +103,7 @@ export class DashboardComponent implements OnChanges {
     }
 
     this.dashboardService.dashboardStore( `store=${this.store._id}` ).subscribe( ( data: Dashboard ) => {
+      console.log( data );
       this.doughnutChartData.length = 0;
       this.doughnutChartLabels.length = 0;
       this.barChartData.length = 0;
