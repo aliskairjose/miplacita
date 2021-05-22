@@ -49,6 +49,7 @@ export class CheckoutComponent implements OnInit {
   @ViewChild( 'payment' ) payment: PaymentComponent;
 
   constructor(
+    private router: Router,
     private fb: FormBuilder,
     public auth: AuthService,
     private storage: StorageService,
@@ -136,18 +137,16 @@ export class CheckoutComponent implements OnInit {
 
     order.payment = payment;
 
-    console.log( order );
-
-    // if ( data.valid ) {
-    //   this.orderService.createOrder( order ).subscribe( response => {
-    //     if ( response.success ) {
-    //       this.storage.setItem( 'mp-store-shop', this.store );
-    //       this.storage.removeItem( 'order' );
-    //       this.productService.emptyCartItem();
-    //       this.router.navigate( [ '/shop/checkout/success' ] );
-    //     }
-    //   } );
-    // }
+    if ( data.valid ) {
+      this.orderService.createOrder( order ).subscribe( response => {
+        if ( response.success ) {
+          this.storage.setItem( 'mp-store-shop', this.store );
+          this.storage.removeItem( 'order' );
+          this.productService.emptyCartItem();
+          this.router.navigate( [ '/shop/checkout/success' ] );
+        }
+      } );
+    }
   }
 
   // Saldo de referido
