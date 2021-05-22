@@ -16,6 +16,11 @@ const state = {
   user: JSON.parse( localStorage.getItem( 'mp_user' ) || null )
 };
 
+export interface Compra {
+  address?: any;
+  cart?: any[];
+  user?: string;
+}
 @Component( {
   selector: 'app-checkout',
   templateUrl: './checkout.component.html',
@@ -37,9 +42,8 @@ export class CheckoutComponent implements OnInit {
   couponAmount: number;
   newSubTotal: number;
   itbms = 0;
-  order: any = {};
 
-  private _order: any;
+  private _order: Compra = {};
   private _shipmentPrice = 0;
 
   @ViewChild( 'payment' ) payment: PaymentComponent;
@@ -53,35 +57,20 @@ export class CheckoutComponent implements OnInit {
     private orderService: OrderService,
     public productService: ProductService,
   ) {
-
-    this.checkoutForm = this.fb.group( {
-      firstname: [ '', [ Validators.required, Validators.pattern( '[a-zA-Z][a-zA-Z ]+[a-zA-Z]$' ) ] ],
-      lastname: [ '', [ Validators.required, Validators.pattern( '[a-zA-Z][a-zA-Z ]+[a-zA-Z]$' ) ] ],
-      phone: [ '', [ Validators.required, Validators.pattern( '[0-9]+' ) ] ],
-      email: [ '', [ Validators.required, Validators.email ] ],
-      address: [ '', [ Validators.required, Validators.maxLength( 50 ) ] ],
-      country: [ '', Validators.required ],
-      town: [ '', Validators.required ],
-      state: [ '', Validators.required ],
-      postalcode: [ '', Validators.required ]
-    } );
-
     this.productService.cartItems.subscribe( response => this.products = response );
     this.productService.orderItems.subscribe( orderItems => {
-      if ( orderItems ) {
-        this._order = orderItems;
-      } else {
-        this._order = this.storage.getItem( 'order' );
-      }
+      if ( orderItems ) { this._order = orderItems; }
     } );
+
+    this.createForm();
 
   }
 
   async ngOnInit() {
     const date = new Date();
 
-    this.amount = await this.getTotalPrices();
-    this.totalPrice = this.amount + this._shipmentPrice + this.getItms;
+    // this.amount = await this.getTotalPrices();
+    // this.totalPrice = this.amount + this._shipmentPrice + this.getItms;
 
     this.store = this.storage.getItem( 'isStore' );
     // this._order = this.storage.getItem( 'order' );
@@ -99,15 +88,21 @@ export class CheckoutComponent implements OnInit {
     return this.productService
       .cartTotalAmount()
       .pipe( map( total => {
+        this.totalPrice = ( total + this.shipment + this.getItms ) - this.referedAmount;
         if ( !this.hasCoupon ) {
-          console.log( total, this.getItms, this.shipment );
-          return total + this.shipment + this.getItms;
+          return this.totalPrice;
         }
+        this.couponAmount = ( total * this.store.affiliate_program_amount ) / 100;
+        return this.totalPrice = total - this.couponAmount;
+
       } ) );
   }
 
   get shipment(): number {
     this._shipmentPrice = 0;
+    if ( !this._order.cart ) {
+      this._order = this.storage.getItem( 'order' );
+    }
     this._order.cart.forEach( detail => {
       this._shipmentPrice += detail.shipment_price;
     } );
@@ -139,7 +134,7 @@ export class CheckoutComponent implements OnInit {
     data = this.payment.onSubmit();
 
     // Metodo de pago
-    payment.push( { type: 'TDC', amount: ( ( this.totalPrice + this.shipment ) - this.referedAmount ), info: data.tdc } );
+    payment.push( { type: 'TDC', amount: this.totalPrice, info: data.tdc } );
     if ( this.referedAmount > 0 ) {
       payment.push( { type: 'refered', amount: this.referedAmount, info: { owner: data.tdc.owner } } );
     }
@@ -150,16 +145,18 @@ export class CheckoutComponent implements OnInit {
 
     order.payment = payment;
 
-    if ( data.valid ) {
-      this.orderService.createOrder( order ).subscribe( response => {
-        if ( response.success ) {
-          this.storage.setItem( 'mp-store-shop', this.store );
-          this.storage.removeItem( 'order' );
-          this.productService.emptyCartItem();
-          this.router.navigate( [ '/shop/checkout/success' ] );
-        }
-      } );
-    }
+    console.log( order );
+
+    // if ( data.valid ) {
+    //   this.orderService.createOrder( order ).subscribe( response => {
+    //     if ( response.success ) {
+    //       this.storage.setItem( 'mp-store-shop', this.store );
+    //       this.storage.removeItem( 'order' );
+    //       this.productService.emptyCartItem();
+    //       this.router.navigate( [ '/shop/checkout/success' ] );
+    //     }
+    //   } );
+    // }
   }
 
   // Saldo de referido
@@ -182,6 +179,18 @@ export class CheckoutComponent implements OnInit {
     }
   }
 
-
+  private createForm(): void {
+    this.checkoutForm = this.fb.group( {
+      firstname: [ '', [ Validators.required, Validators.pattern( '[a-zA-Z][a-zA-Z ]+[a-zA-Z]$' ) ] ],
+      lastname: [ '', [ Validators.required, Validators.pattern( '[a-zA-Z][a-zA-Z ]+[a-zA-Z]$' ) ] ],
+      phone: [ '', [ Validators.required, Validators.pattern( '[0-9]+' ) ] ],
+      email: [ '', [ Validators.required, Validators.email ] ],
+      address: [ '', [ Validators.required, Validators.maxLength( 50 ) ] ],
+      country: [ '', Validators.required ],
+      town: [ '', Validators.required ],
+      state: [ '', Validators.required ],
+      postalcode: [ '', Validators.required ]
+    } );
+  }
 
 }

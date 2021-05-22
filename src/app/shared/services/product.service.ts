@@ -16,7 +16,7 @@ const state = {
   compare: JSON.parse( localStorage.compareItems || '[]' ),
   cart: JSON.parse( localStorage.cartItems || '[]' ),
   isStore: JSON.parse( localStorage.isStore || null ),
-  order: JSON.parse( localStorage.order || null )
+  order: JSON.parse( localStorage.order || '[]' )
 };
 
 @Injectable( {
@@ -338,14 +338,15 @@ export class ProductService {
   }
 
   removeOrderItem( product: Product ): boolean {
-    state.order.cart.forEach( ( c, index ) => {
+    const order = this.storage.getItem( 'order' );
+    order.cart.forEach( ( c, index ) => {
       const subIndex = c.products.findIndex( p => p._id === product._id );
       if ( subIndex !== -1 ) {
-        state.order.cart[ index ].products.splice( subIndex, 1 );
-        if ( state.order.cart[ index ].products.length === 0 ) {
-          state.order.cart.splice( index, 1 );
+        order.cart[ index ].products.splice( subIndex, 1 );
+        if ( order.cart[ index ].products.length === 0 ) {
+          order.cart.splice( index, 1 );
         }
-        this.storage.setItem( 'order', state.order );
+        this.storage.setItem( 'order', order );
       }
     } );
     return true;
