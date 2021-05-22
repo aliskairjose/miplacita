@@ -75,6 +75,7 @@ export class ShippingComponent implements OnInit {
     } );
 
     this.shopService.storeObserver().subscribe( store => {
+      console.log( store );
       if ( store ) {
         this._products = this._products.filter( item => item.store._id === store._id );
       }
