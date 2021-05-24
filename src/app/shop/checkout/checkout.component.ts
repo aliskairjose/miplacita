@@ -113,12 +113,6 @@ export class CheckoutComponent implements OnInit {
     return this.productService.cartTotalAmount();
   }
 
-  private async getTotalPrices(): Promise<number> {
-    return new Promise<number>( resolve => {
-      this.productService.cartTotalAmount().subscribe( total => resolve( total ) );
-    } );
-  }
-
   onSubmit(): void {
     this.submitted = true;
     const payment = [];
@@ -133,10 +127,9 @@ export class CheckoutComponent implements OnInit {
 
     const order = this.storage.getItem( 'order' );
 
-    ( this.store ) ? order.type = 'store' : order.type = 'marketplace';
+    order.type = this.store ? 'store' : 'marketplace';
 
     order.payment = payment;
-
     if ( data.valid ) {
       this.orderService.createOrder( order ).subscribe( response => {
         if ( response.success ) {
