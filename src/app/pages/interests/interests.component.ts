@@ -122,6 +122,22 @@ export class InterestsComponent implements OnInit, OnDestroy {
   }
 
   saveInterests(): void {
+    const userForm = this.storage.getItem( 'userForm' );
+    if ( userForm.facebook_token ) {
+      this.storage.removeItem( 'prelogin' );
+      this.storage.removeItem( 'userForm' );
+      sessionStorage.clear();
+      if ( this.url ) {
+        this.router.navigate( [ this.url ] );
+      } else {
+        ( this.mustReturn )
+          ? this.router.navigate( [ 'shop/checkout/shipping' ], { queryParams: { config: this._config } } )
+          : this.router.navigate( [ '/shop/register/success' ] );
+      }
+      return;
+
+    }
+
     sessionStorage.removeItem( 'userForm' );
 
     const login = this.storage.getItem( 'prelogin' );
@@ -153,7 +169,6 @@ export class InterestsComponent implements OnInit, OnDestroy {
           this.saveInterests();
         }
       } );
-    } else {
     }
   }
 
