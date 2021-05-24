@@ -141,11 +141,15 @@ export class RegisterComponent implements OnInit {
 
     this.auth.socialLogin( data ).subscribe( ( result: AuthResponse ) => {
       if ( result.success ) {
-        // sessionStorage.setItem( 'userForm', JSON.stringify( result.user ) );
-        // this.registerSuccess = true;
-        this.storage.setItem( 'prelogin', this.registerForm.value );
-        this.storage.setItem( 'userForm', data.user );
-        this.storage.setItem( 'mp_token', data.token );
+        const preLogin = {
+          emai: data.user.email,
+          fullName: data.user.fullName,
+          role: data.user.role
+        };
+
+        this.storage.setItem( 'prelogin', preLogin );
+        this.storage.setItem( 'userForm', result.user );
+        this.storage.setItem( 'mp_token', result.token );
 
         if ( this.role === 'merchant' ) {
           this.registerSuccess = true;
