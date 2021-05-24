@@ -339,6 +339,9 @@ export class ProductService {
 
   removeOrderItem( product: Product ): boolean {
     const order = this.storage.getItem( 'order' );
+    if ( !order ) {
+      return;
+    }
     order.cart.forEach( ( c, index ) => {
       const subIndex = c.products.findIndex( p => p._id === product._id );
       if ( subIndex !== -1 ) {

@@ -52,15 +52,12 @@ export class CheckoutComponent implements OnInit {
     private router: Router,
     private fb: FormBuilder,
     public auth: AuthService,
-    private route: ActivatedRoute,
     private storage: StorageService,
     private orderService: OrderService,
     public productService: ProductService,
   ) {
     this.productService.cartItems.subscribe( response => this.products = response );
-    this.productService.orderItems.subscribe( orderItems => {
-      if ( orderItems ) { this._order = orderItems; }
-    } );
+    this.productService.orderItems.subscribe( orderItems => { if ( orderItems ) { this._order = orderItems; } } );
 
     this.createForm();
 
@@ -68,12 +65,7 @@ export class CheckoutComponent implements OnInit {
 
   async ngOnInit() {
     const date = new Date();
-
-    // this.amount = await this.getTotalPrices();
-    // this.totalPrice = this.amount + this._shipmentPrice + this.getItms;
-
     this.store = this.storage.getItem( 'isStore' );
-    // this._order = this.storage.getItem( 'order' );
     if ( Object.entries( this.store ).length !== 0 && this.auth.getUserRol() === 'client' ) {
       this.orderService.orderList( 1, `user=${this.auth.getUserActive()._id}` ).subscribe( res => {
         if ( res.docs.length === 0 ) {
@@ -145,18 +137,16 @@ export class CheckoutComponent implements OnInit {
 
     order.payment = payment;
 
-    console.log( order );
-
-    // if ( data.valid ) {
-    //   this.orderService.createOrder( order ).subscribe( response => {
-    //     if ( response.success ) {
-    //       this.storage.setItem( 'mp-store-shop', this.store );
-    //       this.storage.removeItem( 'order' );
-    //       this.productService.emptyCartItem();
-    //       this.router.navigate( [ '/shop/checkout/success' ] );
-    //     }
-    //   } );
-    // }
+    if ( data.valid ) {
+      this.orderService.createOrder( order ).subscribe( response => {
+        if ( response.success ) {
+          this.storage.setItem( 'mp-store-shop', this.store );
+          this.storage.removeItem( 'order' );
+          this.productService.emptyCartItem();
+          this.router.navigate( [ '/shop/checkout/success' ] );
+        }
+      } );
+    }
   }
 
   // Saldo de referido

@@ -31,7 +31,7 @@
 										Nombre es requerido.
 									</div>
 									<div *ngIf="submitted && addressForm.controls.name.errors?.pattern" class="text text-danger">
-										Name debe ser sólo letras.
+										Name debe ser solo letras.
 									</div>
 								</div>
 								<div class="form-group col-md-6 col-sm-6 col-xs-12">
@@ -42,12 +42,12 @@
 										Apellido es requerido.
 									</div>
 									<div *ngIf="submitted &&addressForm.controls.last_name.errors?.pattern" class="text text-danger">
-										Apellido debe ser sólo letras.
+										Apellido debe ser solo letras.
 									</div>
 								</div>
 								<div class="form-group col-md-6 col-sm-6 col-xs-12">
 									<div class="field-label">Teléfono</div>
-									<input mask="(+000)00000000" type="tel" name="phone" formControlName="phone"
+									<input mask="00000000" prefix="(+507)" type="tel" name="phone" formControlName="phone"
 										[value]="shippingAddress.phone" placeholder="" autocomplete="off" />
 									<div *ngIf="submitted && addressForm.controls.phone.errors?.required" class="text text-danger">
 										Teléfono es requerido.

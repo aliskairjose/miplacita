@@ -59,8 +59,8 @@
 								<!-- Phone -->
 								<div class="form-group col-lg-10 col-md-10 col-sm-12">
 									<div class="field-label font-weight-bold">Teléfono</div>
-									<input mask="(+000)00000000" type="tel" class="form-control" id="review" formControlName="phone"
-										[(ngModel)]="store.phone">
+									<input mask="00000000" prefix="(+507)" type="tel" class="form-control" id="review"
+										formControlName="phone" [(ngModel)]="store.phone">
 									<div *ngIf="submitted && f.phone.errors" class="invalid-feedback d-block">
 										<div *ngIf="f.phone.errors.required"> {{ required }} </div>
 									</div>
