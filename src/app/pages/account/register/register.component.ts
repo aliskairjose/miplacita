@@ -54,7 +54,6 @@ export class RegisterComponent implements OnInit {
     private formBuilder: FormBuilder,
     private socialService: SocialAuthService,
   ) {
-    // this.platformLocation.pushState( null, '', '/register' );
     this.createForm();
   }
 
@@ -78,10 +77,11 @@ export class RegisterComponent implements OnInit {
     if ( state.user ) { this.registerSuccess = true; }
 
     this.socialService.authState.subscribe( ( response: FacebookLoginResponse ) => {
-      const data = { fullname: '', token: '', email: '' };
+      const data = { fullname: '', token: '', email: '', role: '' };
       data.email = response.email;
       data.fullname = response.name;
       data.token = response.authToken;
+      data.role = this.role;
       this.registerFB( data );
     } );
   }
@@ -140,7 +140,6 @@ export class RegisterComponent implements OnInit {
   private registerFB( data: any ): void {
 
     this.auth.socialLogin( data ).subscribe( ( result: AuthResponse ) => {
-      console.log( 'RegisterFace', result )
       if ( result.success ) {
         this.storage.setLoginData( 'data', result );
         this.auth.authSubject( result.success );
