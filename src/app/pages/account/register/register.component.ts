@@ -158,7 +158,6 @@ export class RegisterComponent implements OnInit {
           const queryParams: any = {};
           queryParams.url = this.url;
           if ( this._config ) { queryParams.config = this._config; }
-
           this.router.navigate( [ '/pages/user/interests' ], { queryParams } );
         }
       }
