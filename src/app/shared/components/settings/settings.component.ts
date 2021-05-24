@@ -57,7 +57,7 @@ export class SettingsComponent implements OnInit {
 
     this.auth.authObserver().subscribe( ( isAuth: boolean ) => {
       this.isLoggedIn = isAuth;
-      if ( !isAuth ) { this.products = [] }
+      if ( !isAuth ) { this.products = []; }
     } );
 
     if ( this.previousRoute.getCurrentUrl() === '/home/marketplace' ) {
