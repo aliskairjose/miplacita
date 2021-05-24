@@ -129,7 +129,6 @@ export class ProductsComponent implements OnChanges, AfterViewInit {
         [ this.shopService.storeList( 1, params ),
         this.productService.productList( 1, params )
         ] )
-
         .subscribe( ( [ storeResponse, productsResponse ] ) => {
           this.plan = storeResponse.docs[ 0 ].plan;
           this.maxProducts = productsResponse.totalDocs;
@@ -139,13 +138,11 @@ export class ProductsComponent implements OnChanges, AfterViewInit {
 
     if ( this.role === 'admin' ) {
       this.fields.splice( 2, 0, 'Tienda' );
-
       this.shopService.storeList().subscribe( result => this.shops = [ ...result.docs ] );
     }
   }
 
   private deleteProduct( id: string ): void {
-
     this.productService.deleteProduct( id ).subscribe( response => {
       if ( response.success ) { this.toastrService.info( response.message[ 0 ] ); }
       setTimeout( () => { this.loadData(); }, 1500 );

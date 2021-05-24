@@ -126,7 +126,6 @@ export class InterestsComponent implements OnInit, OnDestroy {
 
     const login = this.storage.getItem( 'prelogin' );
 
-
     this.auth.login( login ).subscribe( data => {
       this.storage.setLoginData( 'data', data );
       this.auth.authSubject( data.success );
@@ -148,9 +147,7 @@ export class InterestsComponent implements OnInit, OnDestroy {
     this.submitted = true;
 
     if ( this.interestForm.valid ) {
-
       this.userService.addUserInterest( this.userform._id, { interest: this.interests } ).subscribe( response => {
-
         if ( response.success ) {
           this.toastrService.info( response.message[ 0 ] );
           this.saveInterests();
