@@ -142,9 +142,9 @@ export class RegisterComponent implements OnInit {
     this.auth.socialLogin( data ).subscribe( ( result: AuthResponse ) => {
       if ( result.success ) {
         const preLogin = {
-          emai: data.user.email,
-          fullName: data.user.fullName,
-          role: data.user.role
+          emai: result.user.email,
+          fullName: result.user.fullname,
+          role: result.user.role
         };
 
         this.storage.setItem( 'prelogin', preLogin );
