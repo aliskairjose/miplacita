@@ -140,6 +140,7 @@ export class RegisterComponent implements OnInit {
   private registerFB( data: any ): void {
 
     this.auth.socialLogin( data ).subscribe( ( result: AuthResponse ) => {
+      console.log( 'RegisterFace', result )
       if ( result.success ) {
         this.storage.setLoginData( 'data', result );
         this.auth.authSubject( result.success );

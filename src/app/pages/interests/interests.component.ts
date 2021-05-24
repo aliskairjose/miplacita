@@ -123,6 +123,7 @@ export class InterestsComponent implements OnInit, OnDestroy {
 
   saveInterests(): void {
     const userForm = this.storage.getItem( 'userForm' );
+    console.log( userForm );
     if ( userForm.facebook_token ) {
       this.storage.removeItem( 'prelogin' );
       this.storage.removeItem( 'userForm' );
