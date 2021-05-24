@@ -141,10 +141,12 @@ export class RegisterComponent implements OnInit {
 
     this.auth.socialLogin( data ).subscribe( ( result: AuthResponse ) => {
       if ( result.success ) {
+        this.storage.setLoginData( 'data', result );
+        this.auth.authSubject( result.success );
         const preLogin = {
-          emai: result.user.email,
-          fullName: result.user.fullname,
-          role: result.user.role
+          email: result.user.email,
+          fullname: result.user.fullname,
+          role: result.user.role,
         };
 
         this.storage.setItem( 'prelogin', preLogin );
@@ -158,7 +160,6 @@ export class RegisterComponent implements OnInit {
           const queryParams: any = {};
           queryParams.url = this.url;
           if ( this._config ) { queryParams.config = this._config; }
-
           this.router.navigate( [ '/pages/user/interests' ], { queryParams } );
         }
       }
