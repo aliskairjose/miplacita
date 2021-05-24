@@ -66,7 +66,7 @@ export class CheckoutComponent implements OnInit {
   async ngOnInit() {
     const date = new Date();
     this.store = this.storage.getItem( 'isStore' );
-    if ( Object.entries( this.store ).length !== 0 && this.auth.getUserRol() === 'client' ) {
+    if ( this.store && this.auth.getUserRol() === 'client' ) {
       this.orderService.orderList( 1, `user=${this.auth.getUserActive()._id}` ).subscribe( res => {
         if ( res.docs.length === 0 ) {
           this.isFirstShop = true;
