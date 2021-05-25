@@ -5,7 +5,7 @@
             <div class="card form-group text-center p-4">
                 <h3 class="font-weight-bold">Monto en ventas </h3>
                 <h3><strong>{{ amount | currency}}</strong></h3>
-                <h4>Te pagaremos el día <strong>{{ paymentDay }}</strong></h4>
+                <h4>Te pagaremos el día <strong>{{ paymentDay | date:"dd 'de' LLLL"}}</strong></h4>
             </div>
             <form [formGroup]="form" (ngSubmit)="onSubmit()" class="theme-form">
                 <div class="form-group">

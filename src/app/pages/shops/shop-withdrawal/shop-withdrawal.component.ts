@@ -14,7 +14,7 @@ import { ERROR_FORM } from '../../../shared/classes/global-constants';
   styleUrls: [ './shop-withdrawal.component.scss' ]
 } )
 export class ShopWithdrawalComponent implements OnInit, OnChanges {
-  paymentDay = '31/12/2020';
+  paymentDay: any;
   banks = banks.banks;
   form: FormGroup;
   submitted: boolean;
@@ -30,14 +30,17 @@ export class ShopWithdrawalComponent implements OnInit, OnChanges {
     private shopService: ShopService,
     private toastrService: ToastrService,
 
-  ) { this.createForm(); }
+  ) {
+    const date = new Date();
+    this.paymentDay = new Date( date.getFullYear(), date.getMonth() + 1, 0 );
+    this.createForm();
+  }
 
   ngOnChanges(): void {
     this.loadDebs();
   }
 
   // convenience getter for easy access to form fields
-  // tslint:disable-next-line: typedef
   get f() { return this.form.controls; }
 
   ngOnInit(): void {
