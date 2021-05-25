@@ -51,7 +51,6 @@ export class ShopWithdrawalComponent implements OnInit, OnChanges {
   onSubmit(): void {
     this.submitted = true;
     if ( this.form.valid ) {
-
       this.shopService.withdrawals( this.form.value, this.storeId ).subscribe( response => {
         if ( response.success ) {
           this.toastrService.info( response.message[ 0 ] );
@@ -63,7 +62,6 @@ export class ShopWithdrawalComponent implements OnInit, OnChanges {
   }
 
   private loadDebs(): void {
-
     this.shopService.getDebts( this.store._id ).subscribe( amount => this.amount = amount );
   }
 
