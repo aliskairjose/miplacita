@@ -232,7 +232,12 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
    * @description Guarda la variacion de producto!
    */
   saveVariable(): void {
+
     this.submitted = true;
+
+    this.sizeChecked = ( this.allVariations[ 0 ].size );
+    this.colorChecked = ( this.allVariations[ 0 ].color );
+
     if ( this.isEdit ) {
       const imagesLoading = async () => {
         const images: Array<any> = await this.uploadImage( this.productImages );

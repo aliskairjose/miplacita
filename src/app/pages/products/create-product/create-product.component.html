@@ -357,7 +357,7 @@
 											</div>
 										</div>
 										<div class="row col-12 col-lg-12">
-											<div class="col-lg-6" *ngIf="colorChecked || allVariations[0].color.name">
+											<div class="col-lg-6" *ngIf="colorChecked || allVariations[0].color?.name">
 												<!-- Color -->
 												<div class="form-group">
 													<div class="field-label">Color</div>
@@ -373,7 +373,7 @@
 													</div>
 												</div>
 											</div>
-											<div class="col-lg-6" *ngIf="sizeChecked || allVariations[0].size.name">
+											<div class="col-lg-6" *ngIf="sizeChecked || allVariations[0].size?.name">
 												<!-- Size -->
 												<div class="form-group">
 													<div class="field-label">Tamaño</div>

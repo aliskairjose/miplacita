@@ -101,7 +101,6 @@ export const customCurrencyMaskConfig = {
 @NgModule( {
   declarations: [
     ShopDesignComponent,
-    AddressComponent,
     HeaderOneComponent,
     FooterOneComponent,
     HeaderTwoComponent,
@@ -140,7 +139,6 @@ export const customCurrencyMaskConfig = {
     TimelineComponent,
     SearchComponent,
     ShopCardComponent,
-    PaymentComponent,
     CommentsComponent,
     ModalNewElementComponent,
     AddressComponent,
