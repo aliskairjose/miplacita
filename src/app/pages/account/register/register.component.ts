@@ -9,9 +9,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AuthResponse } from '../../../shared/classes/auth-response';
 import { FacebookLoginResponse } from '../../../shared/classes/facebook-login-response';
 import { MustMatch } from '../../../shared/helper/must-match.validator';
-import { PlatformLocation } from '@angular/common';
 import { ERROR_FORM, EMAIL_PATTERN } from '../../../shared/classes/global-constants';
-import { Config } from '../../../shared/classes/store';
 
 const state = { user: JSON.parse( sessionStorage.userForm || null ) };
 

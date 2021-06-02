@@ -173,7 +173,6 @@ export const customCurrencyMaskConfig = {
     SharedModule,
     CommonModule,
     FormsModule,
-    PagesRoutingModule,
     NgxSpinnerModule,
     GalleryModule.forRoot(),
     PagesRoutingModule,
