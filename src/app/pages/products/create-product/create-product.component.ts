@@ -336,7 +336,7 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
     if ( option === 3 ) {
       const callVariable = async () => {
         const res = await this.loadProductVariable( product._id );
-        this.allVariations = [ ...res ];
+        this.allVariations = [ ... new Set( res ) ];
       };
 
       callVariable();
