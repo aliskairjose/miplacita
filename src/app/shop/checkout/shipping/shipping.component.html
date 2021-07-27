@@ -22,35 +22,38 @@
 									<p> Completa estos datos para que tu vendedor sepa donde te encuentras ubicado
 									</p>
 								</div>
-								<form class="theme-form">
-									<div class="shipping-option" *ngIf="shipmentOptions.length">
-										<div *ngFor="let shipmentOption of shipmentOptions">
-											<p class="h5">Tienda - {{shipmentOption.name}}</p>
-											<div *ngIf="shipmentOption.shopOptions.length">
-												<div *ngFor="let item of shipmentOption.shopOptions; let i=index">
-													<div class="row mb-3">
-														<div class="option-box d-flex mx-auto py-3">
-															<div class="col-md-6">
-																<p class="my-auto text-capitalize">{{item.name}} - {{item.price | currency }}</p>
-															</div>
-															<div class="col offset-xl-4 text-center">
-																<input class="my-auto" type="radio" [checked]="i === 0" [value]="item._id"
-																	[name]="shipmentOption.name"
-																	(change)="selectOption(shipmentOption.id, $event.target.value )">
+								<div>
+									<form class="theme-form">
+										<div class="shipping-option" *ngIf="shipmentOptions.length">
+											<div *ngFor="let shipmentOption of shipmentOptions">
+												<p class="h5">Tienda - {{shipmentOption.name}}</p>
+												<div *ngIf="shipmentOption.shopOptions.length">
+													<div *ngFor="let item of shipmentOption.shopOptions; let i=index">
+														<div class="row mb-3">
+															<div class="option-box d-flex mx-auto py-3">
+																<div class="col-md-6">
+																	<p class="my-auto text-capitalize">{{item.name}} - {{item.price | currency }}</p>
+																</div>
+																<div class="col offset-xl-4 text-center">
+																	<input class="my-auto" type="radio" [checked]="i === 0" [value]="item._id"
+																		[name]="shipmentOption.name"
+																		(change)="selectOption(shipmentOption.id, $event.target.value )">
+																</div>
 															</div>
 														</div>
 													</div>
 												</div>
-											</div>
-											<div *ngIf="!shipmentOption.shopOptions.length">
-												La tienda no posee opciones de envío
+												<div *ngIf="!shipmentOption.shopOptions.length">
+													La tienda no posee opciones de envío
+												</div>
 											</div>
 										</div>
-									</div>
-								</form>
-								<div class="button-box d-flex justify-content-end align-items-end">
-									<div class="text-right">
-										<button (click)="checkout()" class="btn btn-solid-orange" [disabled]="isDisabled">Finalizar</button>
+									</form>
+									<div class="button-box d-flex justify-content-end align-items-end">
+										<div class="text-right">
+											<button (click)="checkout()" class="btn btn-solid-orange"
+												[disabled]="isDisabled">Finalizar</button>
+										</div>
 									</div>
 								</div>
 							</div>

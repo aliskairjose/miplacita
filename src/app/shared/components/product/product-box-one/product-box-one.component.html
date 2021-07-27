@@ -2,7 +2,7 @@
   <div class="img-wrapper d-flex justify-content-center" [ngClass]="{ 'img-wrapper-fix': horizontal }"
     [ngClass]="{ 'img-mobile': cartModal }">
     <div class="front my-auto" [ngClass]="{'auto-height': cartModal, 'custom-front': !cartModal}">
-      <a [routerLink]="['/shop/product/', product._id]" [queryParams]="{ config: config  }">
+      <a [routerLink]="['/shop/product/', product._id]">
         <img [lazyLoad]="product.images[0]?.url" class="img-fluid" alt="{{ product.name }}" />
       </a>
     </div>
@@ -46,7 +46,7 @@
   <!-- Detalle del producto -->
   <div class="product-detail">
     <div>
-      <a [routerLink]="['/shop/product/', product._id]" [queryParams]="{ config: config }">
+      <a [routerLink]="['/shop/product/', product._id]">
         <h6>{{ product?.name | titlecase }}</h6>
       </a>
       <div *ngIf="colors.length" class=" d-flex flex-column mb-2">
@@ -65,7 +65,7 @@
         </div>
       </div>
       <div *ngIf="!colors.length" style="height: 1.7rem;">
-        <small>No hay colores disponibles</small>
+        <small class="m-0">No hay colores disponibles</small>
       </div>
       <p class="mt-1 ">Colores disponibles</p>
 
@@ -74,7 +74,7 @@
       </div>
       <h4>
         {{ product?.price | currency }}
-        <small>({{product?.stock}} unidades disponibles)</small>
+        <small class="m-0 mt-1">({{product?.stock}} unidades disponibles)</small>
       </h4>
       <p class="mt-2">Calificación del producto</p>
       <bar-rating [readOnly] name="rating" [(rate)]="productRate" [max]="5" disabled></bar-rating>

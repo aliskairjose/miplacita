@@ -8,10 +8,10 @@ export const ERROR_FORM = {
   invalidEmail: 'Email inválido.',
   required: 'Campo obligatorio.',
   invalidUrl: 'Ingere una url válida.',
-  onlyLetter: 'Sólo se permiten caracteres',
+  onlyLetter: 'Solo se permiten caracteres',
   matchError: 'Los campos contraseña y Repetir contraseña deben coincidir',
-  onlyDigits: 'Sólo se permiten números',
-  maxStock: 'Su plan sólo permite un máximo de 8 en su inventario'
+  onlyDigits: 'Solo se permiten números',
+  maxStock: 'Su plan solo permite un máximo de 8 en su inventario'
 };
 export const BASIC_BENEFITS = [
   'Catálogo limitado a 10 productos',

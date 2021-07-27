@@ -36,9 +36,9 @@ export class ShippingComponent implements OnInit {
     user: '',
     address: {
       address: '',
-      name:'',
-      last_name:'',
-      email:'',
+      name: '',
+      last_name: '',
+      email: '',
       landMark: '',
       location: [],
       phone: ''
@@ -75,9 +75,9 @@ export class ShippingComponent implements OnInit {
     } );
 
     this.shopService.storeObserver().subscribe( store => {
+      console.log( store );
       if ( store ) {
-        const products = this._products.filter( item => item.store._id === store._id );
-        this._products = [ ...products ];
+        this._products = this._products.filter( item => item.store._id === store._id );
       }
     } );
 
@@ -96,14 +96,7 @@ export class ShippingComponent implements OnInit {
       if ( shop.shopOptions.length === 0 ) { this.isDisabled = true; }
       const detail = { ...this.detail };
       detail.store = shop.id;
-      const products = this._products.filter( value => {
-        if ( ( value.type === 'principal' ) && ( value.store._id === shop.id ) ) {
-          return value;
-        }
-        if ( ( value.type === 'variable' ) && ( value.store === shop.id ) ) {
-          return value;
-        }
-      } );
+      const products = this._products.filter( p => p.store._id === shop.id );
       detail.products = products;
       detail.shipment_option = shop.shopOptions[ 0 ]?._id;
       detail.shipment_price = shop.shopOptions[ 0 ]?.price;
@@ -130,13 +123,7 @@ export class ShippingComponent implements OnInit {
 
   ngOnInit(): void {
     this.getTotal.subscribe( amount => this.amount = amount );
-    this.route.queryParams.subscribe( queryParams => {
-      if ( queryParams.config ) {
-        this._config = queryParams.config;
-        const decod = window.atob( queryParams.config );
-        this.store = JSON.parse( decod );
-      }
-    } );
+    this.store = this.storage.getItem( 'isStore' );
   }
 
   public get getTotal(): Observable<number> {
@@ -180,10 +167,7 @@ export class ShippingComponent implements OnInit {
     this.order.address.email = shippingAddress.email;
 
     this.storage.setItem( 'order', this.order );
-    const queryParams: any = {};
-    queryParams.config = this._config;
-    //queryParams.order = window.btoa( JSON.stringify( this.order ) );
-    this.router.navigate( [ 'shop/checkout' ], { queryParams } );
+    this.router.navigate( [ 'shop/checkout' ] );
   }
 
   selectOption( shopId: string, optionId: string ): void {

@@ -56,7 +56,7 @@ export class ShopService {
    * @param params Los filtros que seran enviados al api, si se envia vacio traera todos las tiendas
    * store=sotreID&limit=10&owner_id=userId
    */
-  storeList( page = 1, params = '' ): Observable<Result<Store>> {
+  storeList( page = 1, params = '' ): Observable<any> {
     return this.http.get( `stores?page=${page}&${params}` ).pipe(
       map( ( response: Response<Store> ) => {
         if ( response.success ) {
@@ -174,6 +174,15 @@ export class ShopService {
    */
   addBanner( shopId: string, data: any ): Observable<any> {
     return this.http.post( `stores/${shopId}/config/photo`, data );
+  }
+
+  /**
+   * @description Carga de imagenes al banner
+   * @param shopId Id de la tienda a la que se coloca el banner
+   * @param data Arreglo de string de imagenes de banners
+   */
+  addBanners( shopId: string, data: string[] ): Observable<any> {
+    return this.http.post( `stores/${shopId}/config/photos`, { images_url: data } );
   }
 
   /*
@@ -303,6 +312,15 @@ export class ShopService {
     return this.http.delete( `stores/${id}/config/photo/${idphoto}` );
   }
 
+  /**
+   * 
+   * @param id de la tienda
+   * @param images arreglo de imagenes
+   */
+  deleteBanners( id: string, images: string[] ) {
+    return this.http.request( `stores/${id}/config/photos`, images );
+  }
+
   getStore( id: string ): Observable<Store> {
     return this.http.get( `stores/${id}` ).pipe( map( data => data.result ) );
   }
@@ -310,7 +328,7 @@ export class ShopService {
   /*
     ---------------------------------------------
     --------------  Customize Shop  -------------
-    ---------------------------------------------
+    ---------------------------------------------}
   */
 
   /**

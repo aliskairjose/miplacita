@@ -36,4 +36,16 @@ export class HttpService {
     const url = environment.apiUrl + endpoint;
     return this.http.delete( url );
   }
+
+  request( endpoint: string, data: any ): Observable<any> {
+    const httpOptions: any = {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    };
+    const url = environment.apiUrl + endpoint;
+
+    httpOptions.body = { images: data };
+    return this.http.request( 'delete', url, httpOptions );
+  }
 }

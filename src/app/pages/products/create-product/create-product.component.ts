@@ -4,7 +4,7 @@ import { forkJoin } from 'rxjs';
 
 import { Component, Input, OnDestroy, OnInit, TemplateRef, ViewChild, OnChanges, SimpleChanges, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { NgbModal, NgbModalOptions, NgbDateParserFormatter, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 
 import { Category } from '../../../shared/classes/category';
 import { Plan } from '../../../shared/classes/plan';
@@ -50,7 +50,6 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
   color = null;
   selectedColor: VariableProduct = {};
   colorChecked = false;
-
   sizes = [];
   size = '';
   selectedSize: VariableProduct = {};
@@ -73,7 +72,7 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
   title = 'Crear producto';
   plan: Plan;
   changeImage = false;
-  marketplaceCheck = false;
+  marketplaceCheck: boolean;
 
   @Input() store: Store = {};
   @Output() reload: EventEmitter<boolean> = new EventEmitter<boolean>();
@@ -87,15 +86,12 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
     private productService: ProductService,
     private categoryService: CategoryService,
     private confirmationDialogService: ConfirmationDialogService,
-    private calendar: NgbCalendar, public formatter: NgbDateParserFormatter
   ) {
     this.createForm();
     this.statusSelected = 'active';
     this.productData.name = '';
   }
 
-  // convenience getter for easy access to form fields
-  // tslint:disable-next-line: typedef
   get f() { return this.productForm.controls; }
   get v() { return this.variableForm.controls; }
 
@@ -189,10 +185,6 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
     this.productForm.value.store = this.store._id;
     this.productForm.value.tax = ( price * tax ) / 100;
 
-    if ( !this.productForm.value.marketplace ) {
-      this.productForm.value.marketplace = false;
-    }
-
     if ( this.productForm.valid ) {
 
       if ( this.status === 'add' && this.productImages.length === 0 ) {
@@ -240,7 +232,12 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
    * @description Guarda la variacion de producto!
    */
   saveVariable(): void {
+
     this.submitted = true;
+
+    this.sizeChecked = ( this.allVariations[ 0 ].size );
+    this.colorChecked = ( this.allVariations[ 0 ].color );
+
     if ( this.isEdit ) {
       const imagesLoading = async () => {
         const images: Array<any> = await this.uploadImage( this.productImages );
@@ -339,7 +336,7 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
     if ( option === 3 ) {
       const callVariable = async () => {
         const res = await this.loadProductVariable( product._id );
-        this.allVariations = [ ...res ];
+        this.allVariations = [ ... new Set( res ) ];
       };
 
       callVariable();
@@ -460,7 +457,6 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
       images: [ '' ],
     } );
 
-
   }
 
   private uploadImage( images ): Promise<any> {
@@ -501,7 +497,6 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
     if ( data.images ) {
       data.images.forEach( urlimage => {
         promises.push(
-
           this.productService.addProductoPhoto( this.productData._id, { url: urlimage.url } ).subscribe( result => {
             if ( result.success ) {
               this.toastrService.info( 'Foto agregada al producto' );

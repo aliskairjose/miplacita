@@ -10,11 +10,17 @@ import { PaymentComponent } from '../../shared/components/payment/payment.compon
 import { Store } from '../../shared/classes/store';
 import { AuthService } from '../../shared/services/auth.service';
 import { StorageService } from '../../shared/services/storage.service';
+import { map } from 'rxjs/operators';
 
 const state = {
   user: JSON.parse( localStorage.getItem( 'mp_user' ) || null )
 };
 
+export interface Compra {
+  address?: any;
+  cart?: any[];
+  user?: string;
+}
 @Component( {
   selector: 'app-checkout',
   templateUrl: './checkout.component.html',
@@ -35,8 +41,9 @@ export class CheckoutComponent implements OnInit {
   hasCoupon = false;
   couponAmount: number;
   newSubTotal: number;
+  itbms = 0;
 
-  private _order: any;
+  private _order: Compra = {};
   private _shipmentPrice = 0;
 
   @ViewChild( 'payment' ) payment: PaymentComponent;
@@ -45,34 +52,21 @@ export class CheckoutComponent implements OnInit {
     private router: Router,
     private fb: FormBuilder,
     public auth: AuthService,
-    private route: ActivatedRoute,
     private storage: StorageService,
     private orderService: OrderService,
     public productService: ProductService,
   ) {
+    this.productService.cartItems.subscribe( response => this.products = response );
+    this.productService.orderItems.subscribe( orderItems => { if ( orderItems ) { this._order = orderItems; } } );
 
-    this.checkoutForm = this.fb.group( {
-      firstname: [ '', [ Validators.required, Validators.pattern( '[a-zA-Z][a-zA-Z ]+[a-zA-Z]$' ) ] ],
-      lastname: [ '', [ Validators.required, Validators.pattern( '[a-zA-Z][a-zA-Z ]+[a-zA-Z]$' ) ] ],
-      phone: [ '', [ Validators.required, Validators.pattern( '[0-9]+' ) ] ],
-      email: [ '', [ Validators.required, Validators.email ] ],
-      address: [ '', [ Validators.required, Validators.maxLength( 50 ) ] ],
-      country: [ '', Validators.required ],
-      town: [ '', Validators.required ],
-      state: [ '', Validators.required ],
-      postalcode: [ '', Validators.required ]
-    } );
-
-    this.productService.cartItems.subscribe( response => { this.products = response; } );
+    this.createForm();
 
   }
 
-  ngOnInit(): void {
+  async ngOnInit() {
     const date = new Date();
-
     this.store = this.storage.getItem( 'isStore' );
-    this._order = this.storage.getItem( 'order' );
-    if ( Object.entries( this.store ).length !== 0 && this.auth.getUserRol() === 'client' ) {
+    if ( this.store && this.auth.getUserRol() === 'client' ) {
       this.orderService.orderList( 1, `user=${this.auth.getUserActive()._id}` ).subscribe( res => {
         if ( res.docs.length === 0 ) {
           this.isFirstShop = true;
@@ -80,15 +74,27 @@ export class CheckoutComponent implements OnInit {
       } );
     }
 
-    this.subTotal.subscribe( amount => {
-      this.amount = amount;
-      this.totalPrice = amount + this._shipmentPrice + this.getItms;
-    } );
+  }
 
+  get totalPayment(): Observable<number> {
+    return this.productService
+      .cartTotalAmount()
+      .pipe( map( total => {
+        this.totalPrice = ( total + this.shipment + this.getItms ) - this.referedAmount;
+        if ( !this.hasCoupon ) {
+          return this.totalPrice;
+        }
+        this.couponAmount = ( total * this.store.affiliate_program_amount ) / 100;
+        return this.totalPrice = total - this.couponAmount;
+
+      } ) );
   }
 
   get shipment(): number {
     this._shipmentPrice = 0;
+    if ( !this._order.cart ) {
+      this._order = this.storage.getItem( 'order' );
+    }
     this._order.cart.forEach( detail => {
       this._shipmentPrice += detail.shipment_price;
     } );
@@ -98,16 +104,12 @@ export class CheckoutComponent implements OnInit {
   get getItms(): number {
     this.itms = 0;
     this.products.forEach( ( product: Product ) => {
-      this.itms += product.tax;
+      this.itms += product.tax * product.quantity;
     } );
     return this.itms;
   }
 
   public get subTotal(): Observable<number> {
-    return this.productService.cartTotalAmount();
-  }
-
-  public get total(): Observable<number> {
     return this.productService.cartTotalAmount();
   }
 
@@ -118,17 +120,16 @@ export class CheckoutComponent implements OnInit {
     data = this.payment.onSubmit();
 
     // Metodo de pago
-    payment.push( { type: 'TDC', amount: ( ( this.totalPrice + this.shipment ) - this.referedAmount ), info: data.tdc } );
+    payment.push( { type: 'TDC', amount: this.totalPrice, info: data.tdc } );
     if ( this.referedAmount > 0 ) {
       payment.push( { type: 'refered', amount: this.referedAmount, info: { owner: data.tdc.owner } } );
     }
 
     const order = this.storage.getItem( 'order' );
 
-    ( this.store ) ? order.type = 'store' : order.type = 'marketplace';
+    order.type = this.store ? 'store' : 'marketplace';
 
     order.payment = payment;
-
     if ( data.valid ) {
       this.orderService.createOrder( order ).subscribe( response => {
         if ( response.success ) {
@@ -159,6 +160,20 @@ export class CheckoutComponent implements OnInit {
       this.newSubTotal = this.amount - this.couponAmount;
       this.totalPrice = ( this.newSubTotal + this._shipmentPrice + this.getItms );
     }
+  }
+
+  private createForm(): void {
+    this.checkoutForm = this.fb.group( {
+      firstname: [ '', [ Validators.required, Validators.pattern( '[a-zA-Z][a-zA-Z ]+[a-zA-Z]$' ) ] ],
+      lastname: [ '', [ Validators.required, Validators.pattern( '[a-zA-Z][a-zA-Z ]+[a-zA-Z]$' ) ] ],
+      phone: [ '', [ Validators.required, Validators.pattern( '[0-9]+' ) ] ],
+      email: [ '', [ Validators.required, Validators.email ] ],
+      address: [ '', [ Validators.required, Validators.maxLength( 50 ) ] ],
+      country: [ '', Validators.required ],
+      town: [ '', Validators.required ],
+      state: [ '', Validators.required ],
+      postalcode: [ '', Validators.required ]
+    } );
   }
 
 }

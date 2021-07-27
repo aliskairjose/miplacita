@@ -57,32 +57,22 @@ export class StorePageComponent implements OnInit, AfterViewInit {
     this.route.url.subscribe( ( url ) => {
 
       this.storeService.getStoreByUrl( url[ 0 ].path.toLocaleLowerCase() ).subscribe( store => {
+        let items = [];
         if ( !store.active ) {
           // Redireccionar hacia mensaje de tienda inactiva
           this.router.navigate( [ 'pages/store/inactive' ] );
           return;
         }
-        this.navService.isVisible$.next( false );
-
         this.store = { ...store };
+
+        this.productService.cartItems.subscribe( _items => {
+          items = _items.filter( i => i.store._id !== this.store._id );
+          items.forEach( _i => this.productService.removeCartItem( _i ) );
+        } );
+
+        this.navService.isVisible$.next( false );
         this.storageService.setItem( 'isStore', this.store );
         this.storeService.storeSubject( store );
-        if ( !this.storageService.getItem( 'isStore' ) ) {
-          this.storageService.setItem( 'isStore', store );
-          setTimeout( () => {
-            window.location.reload();
-          }, 10 );
-        }
-
-        if ( this.storageService.getItem( 'isStore' ) ) {
-          const s: Store = this.storageService.getItem( 'isStore' );
-          if ( s._id !== store._id ) {
-            this.storageService.setItem( 'isStore', store );
-            setTimeout( () => {
-              window.location.reload();
-            }, 10 );
-          }
-        }
         this.init();
 
       } );

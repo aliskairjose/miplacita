@@ -67,7 +67,10 @@
 					<tbody>
 						<tr *ngFor="let order of orders; let i=index">
 							<td class="text-center">
-								<p class="font-weight-bold">{{order.user.fullname}}</p>
+								<p class="font-weight-bold" *ngIf="order.user.fullname!=='invited_user'">{{order.user.fullname}}</p>
+								<p class="font-weight-bold" *ngIf="order.user.fullname==='invited_user'">
+									{{order.address.name}} {{order.address.last_name}}
+								</p>
 							</td>
 							<td *ngIf="role === 'admin' " class="text-center">{{order.store.name}}</td>
 							<td>

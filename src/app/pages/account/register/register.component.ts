@@ -9,9 +9,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AuthResponse } from '../../../shared/classes/auth-response';
 import { FacebookLoginResponse } from '../../../shared/classes/facebook-login-response';
 import { MustMatch } from '../../../shared/helper/must-match.validator';
-import { PlatformLocation } from '@angular/common';
 import { ERROR_FORM, EMAIL_PATTERN } from '../../../shared/classes/global-constants';
-import { Config } from '../../../shared/classes/store';
 
 const state = { user: JSON.parse( sessionStorage.userForm || null ) };
 
@@ -54,7 +52,6 @@ export class RegisterComponent implements OnInit {
     private formBuilder: FormBuilder,
     private socialService: SocialAuthService,
   ) {
-    // this.platformLocation.pushState( null, '', '/register' );
     this.createForm();
   }
 
@@ -78,10 +75,11 @@ export class RegisterComponent implements OnInit {
     if ( state.user ) { this.registerSuccess = true; }
 
     this.socialService.authState.subscribe( ( response: FacebookLoginResponse ) => {
-      const data = { fullname: '', token: '', email: '' };
+      const data = { fullname: '', token: '', email: '', role: '' };
       data.email = response.email;
       data.fullname = response.name;
       data.token = response.authToken;
+      data.role = this.role;
       this.registerFB( data );
     } );
   }
@@ -141,11 +139,17 @@ export class RegisterComponent implements OnInit {
 
     this.auth.socialLogin( data ).subscribe( ( result: AuthResponse ) => {
       if ( result.success ) {
-        // sessionStorage.setItem( 'userForm', JSON.stringify( result.user ) );
-        // this.registerSuccess = true;
-        this.storage.setItem( 'prelogin', this.registerForm.value );
-        this.storage.setItem( 'userForm', data.user );
-        this.storage.setItem( 'mp_token', data.token );
+        this.storage.setLoginData( 'data', result );
+        this.auth.authSubject( result.success );
+        const preLogin = {
+          email: result.user.email,
+          fullname: result.user.fullname,
+          role: result.user.role,
+        };
+
+        this.storage.setItem( 'prelogin', preLogin );
+        this.storage.setItem( 'userForm', result.user );
+        this.storage.setItem( 'mp_token', result.token );
 
         if ( this.role === 'merchant' ) {
           this.registerSuccess = true;
@@ -154,7 +158,6 @@ export class RegisterComponent implements OnInit {
           const queryParams: any = {};
           queryParams.url = this.url;
           if ( this._config ) { queryParams.config = this._config; }
-
           this.router.navigate( [ '/pages/user/interests' ], { queryParams } );
         }
       }

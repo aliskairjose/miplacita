@@ -122,10 +122,26 @@ export class InterestsComponent implements OnInit, OnDestroy {
   }
 
   saveInterests(): void {
+    const userForm = this.storage.getItem( 'userForm' );
+    console.log( userForm );
+    if ( userForm.facebook_token ) {
+      this.storage.removeItem( 'prelogin' );
+      this.storage.removeItem( 'userForm' );
+      sessionStorage.clear();
+      if ( this.url ) {
+        this.router.navigate( [ this.url ] );
+      } else {
+        ( this.mustReturn )
+          ? this.router.navigate( [ 'shop/checkout/shipping' ], { queryParams: { config: this._config } } )
+          : this.router.navigate( [ '/shop/register/success' ] );
+      }
+      return;
+
+    }
+
     sessionStorage.removeItem( 'userForm' );
 
     const login = this.storage.getItem( 'prelogin' );
-
 
     this.auth.login( login ).subscribe( data => {
       this.storage.setLoginData( 'data', data );
@@ -148,15 +164,12 @@ export class InterestsComponent implements OnInit, OnDestroy {
     this.submitted = true;
 
     if ( this.interestForm.valid ) {
-
       this.userService.addUserInterest( this.userform._id, { interest: this.interests } ).subscribe( response => {
-
         if ( response.success ) {
           this.toastrService.info( response.message[ 0 ] );
           this.saveInterests();
         }
       } );
-    } else {
     }
   }
 

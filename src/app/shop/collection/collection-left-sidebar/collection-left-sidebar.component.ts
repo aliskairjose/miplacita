@@ -10,6 +10,7 @@ import { Store } from '../../../shared/classes/store';
 import { Product } from '../../../shared/classes/product';
 import { forkJoin } from 'rxjs';
 import { Paginate } from '../../../shared/classes/paginate';
+import { StorageService } from '../../../shared/services/storage.service';
 
 const state = {
   isStore: JSON.parse( localStorage.isStore || null ),
@@ -46,22 +47,25 @@ export class CollectionLeftSidebarComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private shopService: ShopService,
+    private storageService: StorageService,
     private productService: ProductService,
     private viewScroller: ViewportScroller,
     private categoryService: CategoryService,
   ) {
-    forkJoin( [ this.shopService.storeList(), this.categoryService.categoryList() ] )
+    forkJoin( [ this.shopService.storeList( 1, `report=${true}` ), this.categoryService.categoryList() ] )
       .subscribe( ( [ shopsResult, categoriesResult ] ) => {
         // Get Query params..
         this.route.queryParams.subscribe( params => {
+          const isStore = this.storageService.getItem( 'isStore' );
           if ( params.id ) {
             this.shopService.getStore( params.id ).subscribe( ( store: Store ) => this.shopService.customizeShop( store.config ) );
           }
 
           this._storeId = params.id;
-          if ( params.store ) { this.hideFilters = true; }
 
-          const shops = [ ...shopsResult.docs ];
+          if ( isStore ) { this.hideFilters = true; }
+
+          const shops = [ ...shopsResult ];
           const categories = [ ...categoriesResult ];
           const prices = [
             { _id: 'asc', name: 'Desde el más bajo' },
@@ -119,10 +123,11 @@ export class CollectionLeftSidebarComponent implements OnInit {
   }
 
   loadProductList( page = 1 ): void {
-    this.params = `${this.params}&stock=true&status=active&data_public=true`;
+    const store: Store = this.storageService.getItem( 'isStore' );
+    const marketplace = store ? false : true;
+    this.params = `${this.params}&stock=true&status=active&data_public=true&marketplace=${marketplace}`;
 
     this.productService.productList( page, this.params ).subscribe( ( result: Result<Product> ) => {
-
       if ( this._storeId ) {
         this.products = result.docs.filter( item => item.store._id === this._storeId );
       } else {
