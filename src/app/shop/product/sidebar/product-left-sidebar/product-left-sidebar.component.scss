@@ -3,7 +3,9 @@
     width: 100%;
     height: auto;    
 }
-
+.thumbnail-image{
+    height: 100%;
+}
 @supports(object-fit: cover){
     .img-main-banner {
         height: 100%;
