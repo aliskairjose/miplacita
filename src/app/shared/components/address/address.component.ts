@@ -66,7 +66,10 @@ export class AddressComponent implements OnInit {
           if ( address.name ) {
             this.shippingAddress = { ...address };
           } else {
-
+            const fullname = this.user.fullname.split( ' ' );
+            const [ name, ...lastname ] = fullname;
+            this.shippingAddress.name = name;
+            this.shippingAddress.last_name = lastname.join( ' ' );
           }
           this.createForm();
           return;
