@@ -58,10 +58,10 @@
       <div class="show-div setting mp-setting">
         <div *ngIf="!isLoggedIn">
           <a [routerLink]="[ '/pages/login']" [queryParams]="{ role: _role, url: url }">
-            <h6 class="mp-item-menu">Iniciar sesión</h6>
+            <h5>Iniciar sesión</h5>
           </a>
           <a [routerLink]="[ '/pages/register']" [queryParams]="{ role: _role, url: url }">
-            <h6 class="mp-item-menu">Registrese</h6>
+            <h5>Registrese</h5>
           </a>
         </div>
         <div *ngIf="isLoggedIn">
