@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProductDetailsMainSlider, ProductDetailsThumbSlider } from '../../../../shared/data/slider';
 import { Product } from '../../../../shared/classes/product';
@@ -6,9 +6,9 @@ import { ProductService } from '../../../../shared/services/product.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ShopService } from '../../../../shared/services/shop.service';
 import { CategoryService } from '../../../../shared/services/category.service';
-import { Store, Config } from '../../../../shared/classes/store';
+import { Store } from '../../../../shared/classes/store';
 import { Category } from '../../../../shared/classes/category';
-import { ViewportScroller } from '@angular/common';
+import { Location, ViewportScroller } from '@angular/common';
 import { CommentsComponent } from '../../../../shared/components/comments/comments.component';
 import { NgbCarousel } from '@ng-bootstrap/ng-bootstrap';
 
@@ -54,6 +54,7 @@ export class ProductLeftSidebarComponent implements OnInit {
 
   constructor(
     private router: Router,
+    public location: Location,
     private route: ActivatedRoute,
     private shopService: ShopService,
     private spinner: NgxSpinnerService,
