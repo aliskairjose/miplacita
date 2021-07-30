@@ -1,8 +1,8 @@
 <app-header-one [sticky]="true" [isHidde]="false" [topbar]="false" [isSideMenu]="true" [hasSearchBar]="true">
 </app-header-one>
 
-<div class="pb-3 pointer" [routerLink]="['/shop/collection/left/sidebar']">
-  <section class=" p-0">
+<div class="pb-3">
+  <section class="p-0 pointer" [routerLink]="['/shop/collection/left/sidebar']">
     <ngb-carousel *ngIf="sliders.length>0" #ngcarousel>
       <ng-template *ngFor="let image of sliders" ngbSlide>
         <div class="picsum-img-wrapper w-100">
@@ -69,13 +69,13 @@
     </div>
   </section>
 
-  <section class="banner-mp p-0">
+  <section class="banner-mp p-0 pointer" [routerLink]="[ '/pages/register']" [queryParams]="{ role: 'merchant' }">
     <div class="banner-img w-100">
       <img class="w-100 h-100" src="assets/images/marketplace/images/banner2_.png">
     </div>
     <div class="banner-mp-container">
-      <a [routerLink]="[ '/pages/register']" [queryParams]="{ role: 'merchant' }" class="btn btn-white w-100">Vender
-        ahora</a>
+      <!-- <a [routerLink]="[ '/pages/register']" [queryParams]="{ role: 'merchant' }" class="btn btn-white w-100">Vender
+        ahora</a> -->
     </div>
   </section>
 

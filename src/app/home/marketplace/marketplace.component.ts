@@ -217,4 +217,8 @@ export class MarketplaceComponent implements OnInit, OnDestroy {
     document.documentElement.style.removeProperty( '--theme-deafult' );
   }
 
+  onClick( el: HTMLElement ) {
+    el.scrollIntoView( { behavior: 'smooth' } );
+  }
+
 }
