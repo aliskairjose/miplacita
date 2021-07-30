@@ -37,7 +37,7 @@
                 </section>
                 <div class="col-12 mt-3" *ngIf="product?.images?.length">
                   <div class="d-flex">
-                    <img class="w-100 col-3" *ngFor="let image of product?.images; let i = index" alt=""
+                    <img class="w-100 col-3 thumbnail-image" *ngFor="let image of product?.images; let i = index" alt=""
                       [src]="image.url" (click)="imageSeleted(i)">
                   </div>
                 </div>
