@@ -29,17 +29,15 @@ ngb-carousel {
     padding-left: 10%;
     padding-right: 10%;
 
-    & button{
+    & button {
         font-size: 0.8rem;
         word-wrap: normal;
         padding: 2px 2px;
-        width: 100% !important
+        width: 100% !important;
     }
 }
 
-@media (min-width: 768px) { 
-
-
+@media (min-width: 768px) {
     .banner-mp {
         height: 42vh;
         max-height: 42vh;
@@ -48,7 +46,7 @@ ngb-carousel {
     .banner-img {
         height: 42vh;
     }
-    
+
     .banner-mp-container {
         width: 40%;
         height: 42vh;
@@ -62,12 +60,12 @@ ngb-carousel {
             height: 55px;
         }
     }
-   
-  
+}
+.pointer {
+    cursor: pointer;
 }
 
-@media (min-width: 992px) { 
-
+@media (min-width: 992px) {
     .banner-mp {
         height: 70vh;
         max-height: 70vh;
@@ -76,7 +74,7 @@ ngb-carousel {
     .banner-img {
         height: 70vh;
     }
-    
+
     .banner-mp-container {
         width: 40%;
         height: 70vh;
@@ -91,4 +89,4 @@ ngb-carousel {
             height: 55px;
         }
     }
- }
+}
