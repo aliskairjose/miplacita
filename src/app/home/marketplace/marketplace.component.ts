@@ -13,7 +13,7 @@ import { StorageService } from '../../shared/services/storage.service';
 } )
 export class MarketplaceComponent implements OnInit, OnDestroy {
 
-  themeLogo = 'assets/images/marketplace/images/logo-m.png'; // Change Logo
+  themeLogo = 'assets/images/marketplace/svg/logo.svg'; // Change Logo
   products: Product[] = [];
   productCollections: any[] = [];
   ProductSliderConfig: any = ProductSlider;

@@ -4,7 +4,7 @@
 <div class="pb-3">
 
 	<!-- Home slider start-->
-	<section class="p-0">
+	<section class="section-b-space">
 		<ngb-carousel *ngIf="sliders.length>0" #ngcarousel>
 			<ng-template *ngFor="let image of sliders" ngbSlide>
 				<div class="picsum-img-wrapper w-100">
@@ -15,11 +15,11 @@
 	</section>
 	<!-- Pasos de registro start -->
 	<section class="section-b-space">
-		<div class="container-fill">
+		<div class="container">
 			<div class="row">
 				<div class="col">
-					<div class="title-purple text-center">
-						<h2>Se parte de nuestra comunidad</h2>
+					<div class="title-purple title1 text-center">
+						<h2 class="title-inner1">Se parte de nuestra comunidad</h2>
 						<p>Empecemos</p>
 					</div>
 				</div>
@@ -29,12 +29,12 @@
 					<div class="d-flex">
 						<div class="col service-block">
 							<div class="media">
-								<img class="icon-service" id="icon-2" src="/assets/images/marketplace/images/icons/logo-landing.png" />
+								<img class="icon-service" id="icon-2" src="assets/images/marketplace/svg/logo.svg" />
 							</div>
 						</div>
 						<div class="col service-block">
 							<div class="media">
-								<img class="icon-service" id="icon-2" src="/assets/images/marketplace/images/icons/select-plan.png" />
+								<img class="icon-service" id="icon-2" src="assets/images/marketplace/images/icons/select-plan.png" />
 								<div class="media-body" (click)="onClick(plan)">
 									<h4>Selecciona tu plan</h4>
 								</div>
@@ -42,7 +42,7 @@
 						</div>
 						<div class="col service-block">
 							<div class="media">
-								<img class="icon-service" id="icon-2" src="/assets/images/marketplace/images/icons/register.png" />
+								<img class="icon-service" id="icon-2" src="assets/images/marketplace/images/icons/register.png" />
 								<div class="media-body">
 									<a [routerLink]="[ '/pages/register']" [queryParams]="{ role: 'merchant' }">
 										<h4>Registrate</h4>
@@ -54,7 +54,7 @@
 					<div class="d-flex">
 						<div class="col service-block">
 							<div class="media">
-								<img class="icon-service" id="icon-2" src="/assets/images/marketplace/images/icons/create.png" />
+								<img class="icon-service" id="icon-2" src="assets/images/marketplace/images/icons/create.png" />
 								<div class="media-body">
 									<a [routerLink]="[ '/pages/register']" [queryParams]="{ role: 'merchant' }">
 										<h4>Crea tu tienda</h4>
@@ -64,7 +64,7 @@
 						</div>
 						<div class="col service-block">
 							<div class="media">
-								<img class="icon-service" id="icon-2" src="/assets/images/marketplace/images/icons/upload.png" />
+								<img class="icon-service" id="icon-2" src="assets/images/marketplace/images/icons/upload.png" />
 								<div class="media-body">
 									<h4>sube productos y vende</h4>
 								</div>
@@ -82,8 +82,8 @@
 		<div class="container">
 			<div class="row">
 				<div class="col">
-					<div class="title-purple title1 section-t-space mt-2 text-center">
-						<h2 class="title-inner1" #plan>¿Cuánto me cuesta?</h2>
+					<div class="title-purple title1 text-center">
+						<h2 class="title-inner1" #plan>Planes Disponibles</h2>
 						<p>Selecciona el tipo de plan que requiere tu negocio</p>
 					</div>
 				</div>
@@ -192,8 +192,9 @@
 	<section class="section-b-space">
 		<div class="row">
 			<div class="col">
-				<div class="title-purple title1 section-t-space mt-2 text-center">
-					<h2 class="title-inner1">Crea tu tienda</h2>
+				<div class="title-purple title1 text-center">
+					<h2 class="title-inner1">Todo en un solo lugar</h2>
+					<p>Has crecer tu negocio con todas las herramientas que tenemos disponible para ti</p>
 				</div>
 			</div>
 		</div>
@@ -222,8 +223,9 @@
 			<div class="container-fill">
 				<div class="row mb-3">
 					<div class="col">
-						<div class="title-purple text-center">
-							<h2>Preguntas frecuentes</h2>
+						<div class="title-purple title1 text-center">
+							<h2 class="title-inner1">Preguntas frecuentes</h2>
+							<p>Revisa las preguntas mas frecuentes de nuestros clientes</p>
 						</div>
 					</div>
 				</div>
