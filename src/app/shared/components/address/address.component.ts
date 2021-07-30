@@ -57,9 +57,7 @@ export class AddressComponent implements OnInit {
     if ( this.auth.isAuthenticated() ) {
       this.hideMessage = true;
       this.user = this.auth.getUserActive();
-      console.log( this.user )
       this.userService.getUserAddress( this.user._id ).subscribe( address => {
-        console.log( address )
         this._addressExist = true;
 
         if ( this.isProfile ) {
