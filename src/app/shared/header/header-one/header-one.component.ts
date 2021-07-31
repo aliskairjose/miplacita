@@ -100,7 +100,12 @@ export class HeaderOneComponent implements OnInit, OnChanges, AfterViewInit {
     this.isLoggedIn = this.auth.isAuthenticated();
 
     this.categoryService.categoryList().subscribe( ( response: Category[] ) => {
-      this.categories = [ ...response ];
+      const alls = [ {
+        _id: '',
+        description: 'Todas las categorías',
+        name: 'Todas las categorías'
+      } ];
+      this.categories = [ ...alls, ...response ];
     } );
 
     if ( this.isLoggedIn ) {
