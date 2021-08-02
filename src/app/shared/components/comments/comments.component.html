@@ -35,7 +35,7 @@
 			</div>
 		</div>
 		<hr>
-		<form [formGroup]="reviewForm" (ngSubmit)="onSubmit()" class="theme-form">
+		<form [formGroup]="reviewForm" (ngSubmit)="onSubmit()" class="theme-form" *ngIf="auth.isAuthenticated()">
 			<div class="row">
 				<div class="page-title mb-2 px-2">
 					<h3 class="mp-title">
@@ -71,7 +71,7 @@
 				<div *ngIf="submitted && f.commentary.errors?.required" class="invalid-feedback d-block">
 					Campo requerido
 				</div>
-				<div class="mt-2 mx-2 d-flex w-100 justify-content-mobile-first" *ngIf="auth.isAuthenticated()">
+				<div class="mt-2 mx-2 d-flex w-100 justify-content-mobile-first">
 					<button class="btn btn-solid-orange">Agregar comentario</button>
 				</div>
 			</div>
