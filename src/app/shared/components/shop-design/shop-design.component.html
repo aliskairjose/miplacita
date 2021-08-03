@@ -9,12 +9,11 @@
               Para agregar un nuevo banner a su tienda, seleccione (<img class="icon-small"
                 src="assets/images/marketplace/images/placeholder_.jpg" />).
             </label>
-
+            <small>Peso máximo 5 mb</small>
+            <small>Tamaño recomendado 1200px x 300px</small>
             <app-upload-image #banner type="banner" multiple="true" (deleteImage)="deleteBanner($event)"
               [imagesObject]="banners" (uploadImage)="uploadBanner($event)" type="banner"></app-upload-image>
           </div>
-          <small>Peso máximo 5 mb</small>
-          <small>Tamaño recomendado 1200px x 300px</small>
         </div>
         <!-- Tipografia y color -->
         <div class="col-sm-12 col-lg-5" id="special-padding">
@@ -49,9 +48,9 @@
               Para agregar un nuevo logo a su tienda, seleccione (<img class="icon-small"
                 src="assets/images/marketplace/images/placeholder_.jpg" />).
             </label>
+            <small>Peso máximo 2 mb</small>
             <app-upload-image #logo [images]="imageLogo" type="logo" (uploadImage)="uploadLogo($event)">
             </app-upload-image>
-            <small>Peso máximo 2 mb</small>
           </div>
         </div>
       </div>

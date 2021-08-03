@@ -68,8 +68,8 @@ export class CollectionLeftSidebarComponent implements OnInit {
           const shops = [ ...shopsResult ];
           const categories = [ ...categoriesResult ];
           const prices = [
-            { _id: 'asc', name: 'Desde el más bajo' },
-            { _id: 'desc', name: 'Desde el más alto' }
+            { _id: 'asc', name: 'De menor a mayor' },
+            { _id: 'desc', name: 'De mayor a menor' }
           ];
 
           let shopTag = [];

@@ -7,8 +7,12 @@
     margin: 0 auto;
     &:active {
         background-color: var(--theme-deafult);
-        color: white
+        color: white;
     }
+}
+
+small {
+    font-size: 13px;
 }
 
 #dropdownManual {
@@ -37,27 +41,24 @@
     flex-direction: column;
 }
 
-
 label {
     line-height: 25px;
     word-break: word-break;
 }
-@media(min-width: 576px){
+@media (min-width: 576px) {
     .color-fonts {
         display: flex;
         flex-direction: row;
     }
-
 }
-@media(max-width: 768px){
-    .optional{
+@media (max-width: 768px) {
+    .optional {
         display: none !important;
     }
-    .preview{
+    .preview {
         min-width: 45%;
         max-width: 45%;
         margin: 0 auto;
         height: 10vh;
     }
-
 }

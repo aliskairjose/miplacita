@@ -79,8 +79,8 @@ export class ProductLeftSidebarComponent implements OnInit {
     const params = `product=${id}&status=active&data_public=true`;
 
     this.prices = [
-      { _id: 'asc', name: 'Desde el más bajo' },
-      { _id: 'desc', name: 'Desde el más alto' }
+      { _id: 'asc', name: 'De menor a mayor' },
+      { _id: 'desc', name: 'De mayor a menor' }
     ];
 
     const shops = await this.stores();

@@ -20,8 +20,8 @@ export class SearchStoreComponent implements OnInit, OnChanges {
   color = '';
   subcategories: Category[];
   filterOptions = [
-    { value: 'asc', text: 'Desde el más bajo' },
-    { value: 'desc', text: 'Desde el más alto' },
+    { value: 'asc', text: 'De menor a mayor' },
+    { value: 'desc', text: 'De mayor a menor' },
   ];
 
   @Input() store: Store = {};
