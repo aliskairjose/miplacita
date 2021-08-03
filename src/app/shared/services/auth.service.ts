@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 import { Store } from '../classes/store';
 import { StorageService } from './storage.service';
 import { SocialAuthService } from 'angularx-social-login';
+import { ProductService } from './product.service';
 
 @Injectable( {
   providedIn: 'root'
@@ -19,6 +20,7 @@ export class AuthService {
   constructor(
     private router: Router,
     private http: HttpService,
+    private productSrv: ProductService,
     private storage: StorageService,
     private toastrService: ToastrService,
     private authService: SocialAuthService
@@ -48,6 +50,7 @@ export class AuthService {
       const store: Store = this.storage.getItem( 'isStore' );
       redirect = `/${store.url_store}`;
     }
+    this.productSrv.emptyCartItem();
     sessionStorage.clear();
     localStorage.clear();
     this.router.navigate( [ redirect ] );
