@@ -23,6 +23,7 @@ export class HeaderOneComponent implements OnInit, OnChanges, AfterViewInit {
   user: User;
   categories: Category[] = [];
   link = '/home';
+  show = false;
 
   @Input() mode: null;
   @Input() store: Store = {};
@@ -121,6 +122,9 @@ export class HeaderOneComponent implements OnInit, OnChanges, AfterViewInit {
         this.role = this.user.role;
       }
     } );
+
+    this.show = ( this.isLoggedIn && this.mode === 'edit' && this.role === 'merchant' );
+
   }
 
   private storeInfo( id: string ) {
