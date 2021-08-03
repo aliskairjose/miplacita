@@ -87,7 +87,7 @@ export class AccountManageComponent implements OnInit, OnChanges {
     this.init();
   }
 
-  init(): void {
+  init( newStore = false ): void {
     let provisionalSubtab = '';
 
     this.route.url.subscribe( url => {
@@ -112,11 +112,19 @@ export class AccountManageComponent implements OnInit, OnChanges {
           this.stores = [ ...stores.docs ];
           this.stores.push( { new_store: true } );
           this.subtab = provisionalSubtab;
-          if ( _store ) {
-            this.selectedStore = _store;
+
+          // Me indica si hay nueva tienda y la selecciona
+          if ( newStore ) {
+            const lastStore = this.stores[ this.stores.length - 2 ];
+            console.log( lastStore );
+            this.selectStore( lastStore );
           } else {
-            this.selectedStore = this.stores[ 0 ];
-            sessionStorage.setItem( 'store', JSON.stringify( this.stores[ 0 ] ) );
+            if ( _store ) {
+              this.selectedStore = _store;
+            } else {
+              this.selectedStore = this.stores[ 0 ];
+              sessionStorage.setItem( 'store', JSON.stringify( this.stores[ 0 ] ) );
+            }
           }
           this.shopService.storeSubject( this.selectedStore );
         }
@@ -160,6 +168,7 @@ export class AccountManageComponent implements OnInit, OnChanges {
   }
 
   async selectStore( store: Store ) {
+    console.log( store );
     this.selectedStore = { ...store };
     this.hasShipments = await this.loadZones( this.selectedStore._id );
     this.isConfigured = !store.config.color || !store.config.font || !store.config.images.length;
@@ -199,7 +208,7 @@ export class AccountManageComponent implements OnInit, OnChanges {
   close( type: boolean ) {
     this.modal.dismiss();
     if ( type ) {
-      this.init();
+      this.init( true );
     }
   }
 
@@ -207,7 +216,6 @@ export class AccountManageComponent implements OnInit, OnChanges {
     return new Promise( resolve => {
       this.shopService
         .findShipmentOptionByShop( id )
-
         .subscribe( shipments => {
           const res = shipments.length > 0 ? true : false;
           resolve( res );
