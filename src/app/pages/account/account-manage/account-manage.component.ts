@@ -116,8 +116,7 @@ export class AccountManageComponent implements OnInit, OnChanges {
           // Me indica si hay nueva tienda y la selecciona
           if ( newStore ) {
             const lastStore = this.stores[ this.stores.length - 2 ];
-            console.log( lastStore );
-            this.selectStore( lastStore );
+            this.selectStore( lastStore, true );
           } else {
             if ( _store ) {
               this.selectedStore = _store;
@@ -167,14 +166,15 @@ export class AccountManageComponent implements OnInit, OnChanges {
     this.auth.logout();
   }
 
-  async selectStore( store: Store ) {
-    console.log( store );
+  async selectStore( store: Store, isNew = false ) {
     this.selectedStore = { ...store };
-    this.hasShipments = await this.loadZones( this.selectedStore._id );
-    this.isConfigured = !store.config.color || !store.config.font || !store.config.images.length;
 
-    if ( this.isConfigured || !this.hasShipments ) {
-      this.openConfigModal();
+    if ( isNew ) {
+      this.router.navigateByUrl( 'pages/account/user/admin-store/design', { skipLocationChange: false } );
+    } else {
+      this.hasShipments = await this.loadZones( this.selectedStore._id );
+      this.isConfigured = !store.config.color || !store.config.font || !store.config.images.length;
+      if ( this.isConfigured || !this.hasShipments ) { this.openConfigModal(); }
     }
 
     this.shopService.storeSubject( store );
