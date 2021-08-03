@@ -43,6 +43,10 @@
                 ¿Dueño de tienda?, <a [routerLink]="[ '/pages/login']" [queryParams]="{ role: 'merchant' }">Iniciar
                   sesión como vendedor</a>
               </p>
+              <p *ngIf="role === 'merchant'">
+                ¿Quieres comprar?, <a [routerLink]="[ '/pages/login']" [queryParams]="{ role: 'client' }">Iniciar
+                  sesión como comprador</a>
+              </p>
             </div>
             <div class="form-group text-center">
               <button type="submit" class="btn btn-login btn-lg w-100">Iniciar sesión</button>
