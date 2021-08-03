@@ -1,6 +1,6 @@
 <section>
     <div class="container">
-        <div class="store-card">
+        <div class="store-card" *ngIf="!store.new_store">
             <div class="row" (click)="goToStore()">
                 <div class="w-100 h-100">
                     <img class="img mx-auto d-block h-100" [src]="store.logo" alt="">
@@ -27,6 +27,17 @@
                         <a [href]="store.url_store" target="_blank">Visitar tienda</a>
                     </div>
                 </div>
+            </div>
+        </div>
+        <div class="store-card d-flex justify-content-center align-items-center" *ngIf="store.new_store" id="newStore"
+            style="border: 1px solid  var(--theme-deafult); cursor: pointer" (click)="createStore()">
+            <div class="d-flex flex-column align-items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" fill="var(--theme-deafult)"
+                    class="bi bi-plus-lg" viewBox="0 0 16 16">
+                    <path
+                        d="M8 0a1 1 0 0 1 1 1v6h6a1 1 0 1 1 0 2H9v6a1 1 0 1 1-2 0V9H1a1 1 0 0 1 0-2h6V1a1 1 0 0 1 1-1z" />
+                </svg>
+                <p class="my-2">Agregar nueva tienda</p>
             </div>
         </div>
     </div>

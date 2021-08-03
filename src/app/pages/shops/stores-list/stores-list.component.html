@@ -19,7 +19,7 @@
 								<div class="no-slider row">
 									<ng-container *ngFor="let store of stores | slice:0:8">
 										<div class="store-box">
-											<app-shop-card [store]="store">
+											<app-shop-card [store]="store" (newStore)="addStore()">
 											</app-shop-card>
 										</div>
 									</ng-container>

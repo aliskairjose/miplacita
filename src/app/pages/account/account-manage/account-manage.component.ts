@@ -110,6 +110,7 @@ export class AccountManageComponent implements OnInit, OnChanges {
         if ( stores.docs.length ) {
           const _store = JSON.parse( sessionStorage.getItem( 'store' ) );
           this.stores = [ ...stores.docs ];
+          this.stores.push( { new_store: true } );
           this.subtab = provisionalSubtab;
           if ( _store ) {
             this.selectedStore = _store;

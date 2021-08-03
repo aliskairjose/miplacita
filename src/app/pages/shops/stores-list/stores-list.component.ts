@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnChanges } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, EventEmitter, Output } from '@angular/core';
 import { Store } from 'src/app/shared/classes/store';
 import { User } from 'src/app/shared/classes/user';
 import { AuthService } from 'src/app/shared/services/auth.service';
@@ -13,6 +13,7 @@ export class StoresListComponent implements OnInit, OnChanges {
   user: User;
 
   @Input() stores: Store[] = [];
+  @Output() newStore: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(
     private auth: AuthService,
@@ -35,6 +36,10 @@ export class StoresListComponent implements OnInit, OnChanges {
    */
   private myStores(): void {
     this.userService.myStores().subscribe( stores => this.stores = [ ...stores ] );
+  }
+
+  addStore(): void {
+    this.newStore.emit();
   }
 
 }
