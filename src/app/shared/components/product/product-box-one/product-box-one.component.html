@@ -77,7 +77,7 @@
         <small class="m-0 mt-1">({{product?.stock}} unidades disponibles)</small>
       </h4>
       <p class="mt-2">Calificación del producto</p>
-      <bar-rating [readOnly] name="rating" [(rate)]="productRate" [max]="5" disabled></bar-rating>
+      <bar-rating [readOnly]="true" name="rating" [(rate)]="productRate" [max]="5" disabled></bar-rating>
       <div *ngIf="storePage" class="row">
         <button class="btn btn-solid-orange fill w-100 mx-3" (click)="addToCart(product)"
           [ngStyle]="{'background-color': colorBtn, 'border-color': colorBtn}">Agregar al carrito</button>
