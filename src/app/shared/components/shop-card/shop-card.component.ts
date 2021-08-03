@@ -16,6 +16,7 @@ export class ShopCardComponent implements OnInit {
 
   @Input() store: Store;
   @Output() newStore: EventEmitter<any> = new EventEmitter<any>();
+  @Output() selectStore: EventEmitter<Store> = new EventEmitter<Store>();
 
   constructor(
     private router: Router,
@@ -38,5 +39,9 @@ export class ShopCardComponent implements OnInit {
 
   createStore(): void {
     this.newStore.emit();
+  }
+
+  select(): void {
+    this.selectStore.emit( this.store );
   }
 }

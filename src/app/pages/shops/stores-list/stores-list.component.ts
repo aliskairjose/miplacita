@@ -14,6 +14,7 @@ export class StoresListComponent implements OnInit, OnChanges {
 
   @Input() stores: Store[] = [];
   @Output() newStore: EventEmitter<any> = new EventEmitter<any>();
+  @Output() selectStore: EventEmitter<Store> = new EventEmitter<Store>();
 
   constructor(
     private auth: AuthService,
@@ -40,6 +41,10 @@ export class StoresListComponent implements OnInit, OnChanges {
 
   addStore(): void {
     this.newStore.emit();
+  }
+
+  select( store: Store ): void {
+    this.selectStore.emit( store );
   }
 
 }

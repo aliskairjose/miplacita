@@ -1,7 +1,7 @@
 <section>
     <div class="container">
         <div class="store-card" *ngIf="!store.new_store">
-            <div class="row" (click)="goToStore()">
+            <div class="row" (click)="select()">
                 <div class="w-100 h-100">
                     <img class="img mx-auto d-block h-100" [src]="store.logo" alt="">
                 </div>
@@ -24,7 +24,7 @@
                     <hr>
                     <div class="text-center pb-2">
                         <p>Creada: {{ store.created_at | date:'dd/MM/yyyy' }}</p>
-                        <a [href]="store.url_store" target="_blank">Visitar tienda</a>
+                        <a (click)="goToStore()" class="pointer">Visitar tienda</a>
                     </div>
                 </div>
             </div>

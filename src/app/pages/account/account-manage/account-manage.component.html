@@ -103,7 +103,8 @@
 				</div>
 				<div *ngIf="active==='stores'" class="" id="contact" user.role="tabpanel">
 					<div *ngIf="user.role !== 'admin'">
-						<app-stores-list [stores]="stores" (newStore)="createStore()"></app-stores-list>
+						<app-stores-list [stores]="stores" (newStore)="createStore()" (selectStore)="selectStore($event)">
+						</app-stores-list>
 					</div>
 					<app-shops *ngIf="user.role==='admin'"></app-shops>
 				</div>
