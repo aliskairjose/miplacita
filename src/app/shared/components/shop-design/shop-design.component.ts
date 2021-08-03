@@ -220,4 +220,9 @@ export class ShopDesignComponent implements OnInit, OnChanges {
       } );
     } );
   }
+
+  toStore(): void {
+    this.router.navigate( [ this.store.url_store ], { queryParams: { mode: 'edit' } } );
+  }
+
 }

@@ -24,6 +24,7 @@ export class HeaderOneComponent implements OnInit, OnChanges, AfterViewInit {
   categories: Category[] = [];
   link = '/home';
 
+  @Input() mode: null;
   @Input() store: Store = {};
   @Input() isStoreSearch: boolean;
   @Input() class: string;

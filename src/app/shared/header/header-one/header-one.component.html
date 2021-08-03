@@ -1,5 +1,21 @@
 <ngx-alerts></ngx-alerts>
-
+<ng-container *ngIf="mode ==='edit'">
+  <div class="w-100 banner-edit">
+    <a href="pages/account/user/products">Productos</a>
+    <label for="" class="mx-2">|</label>
+    <a href="pages/account/user/admin-orders">Órdenes</a>
+    <label for="" class="mx-2">|</label>
+    <a href="pages/account/user/admin-store/design">Diseño de tienda</a>
+    <label for="" class="mx-2">|</label>
+    <a href="">Zonas</a>
+    <label for="" class="mx-2">|</label>
+    <a href="pages/account/user/reports/daily-sales">Reportes</a>
+    <label for="" class="mx-2">|</label>
+    <a href="pages/account/user/profile">Perfil</a>
+    <label for="" class="mx-2">|</label>
+    <a href="pages/account/user/support">Ayuda</a>
+  </div>
+</ng-container>
 <header class="sticky pb-2" [ngClass]="class" [class.fixed]="stick && sticky" id="header">
   <div class="mobile-fix-option"></div>
   <div class="top-header" *ngIf="topbar">

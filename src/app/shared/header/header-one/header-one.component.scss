@@ -23,12 +23,23 @@ hr {
   display: inline;
 }
 
-@media (min-width: 768px) { 
+@media (min-width: 768px) {
   .small-device {
     display: none;
   }
   .lg-device {
     display: inline !important;
   }
+}
 
+.banner-edit {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: bisque;
+  height: 30px;
+}
+
+label {
+  align-self: flex-end;
 }

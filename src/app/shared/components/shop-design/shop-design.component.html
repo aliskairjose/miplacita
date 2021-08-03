@@ -58,7 +58,7 @@
       <div class="d-flex align-items-end flex-column mt-3">
         <div>
           <button class="btn btn-solid-orange mr-3" (click)="updateShopConfig()"> Actualizar diseño</button>
-          <a [href]="store.url_store" target="_blank" class="btn btn-solid-orange" (click)="updateShopConfig()">
+          <a (click)="toStore()" target="_blank" class="btn btn-solid-orange">
             Ver tienda
           </a>
           <button class="btn btn-solid-orange ml-3" *ngIf="register" [disabled]="!isReady" (click)="endRegister()">

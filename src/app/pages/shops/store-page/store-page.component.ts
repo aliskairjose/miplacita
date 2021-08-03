@@ -40,6 +40,7 @@ export class StorePageComponent implements OnInit, AfterViewInit {
     { value: 'price_order=desc', text: 'Precio de más alto a más bajo' },
     { value: 'featured=true', text: 'Lo más nuevo' }
   ];
+  mode = null;
 
   @ViewChild( 'settings' ) setting: SettingsComponent;
   @ViewChild( 'footer' ) footer: FooterOneComponent;
@@ -53,6 +54,9 @@ export class StorePageComponent implements OnInit, AfterViewInit {
     private productService: ProductService,
     private categoriesSevice: CategoryService
   ) {
+
+
+    this.mode = this.route.snapshot.queryParamMap.get( 'mode' );
 
     this.route.url.subscribe( ( url ) => {
 
