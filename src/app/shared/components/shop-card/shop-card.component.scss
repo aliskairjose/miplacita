@@ -1,4 +1,4 @@
-section{
+section {
     padding-top: 10px !important;
 }
 
@@ -24,7 +24,9 @@ section{
     margin-bottom: 1px;
     border-top-right-radius: 10px;
     border-top-left-radius: 10px;
-    & img {border-radius: 10px;}
+    & img {
+        border-radius: 10px;
+    }
 }
 
 .icon-orders {
@@ -43,7 +45,7 @@ section{
 @media (min-width: 576px) {
     .store-card {
         height: 45vh;
-        max-height:45vh;
+        max-height: 45vh;
     }
     .img {
         object-fit: cover;

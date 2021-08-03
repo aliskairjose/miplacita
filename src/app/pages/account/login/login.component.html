@@ -35,9 +35,13 @@
                 <div *ngIf="f.password.errors.required"> {{ required }} </div>
               </div>
             </div>
-            <div class="form-group d-flex justify-content-end">
+            <div class="form-group text-right">
               <p>¿Olvidó su contraseña?, haga click <a href="javascript:void(0)" (click)="passwordRecovery()">
                   aquí</a>
+              </p>
+              <p *ngIf="role === 'client'">
+                ¿Dueño de tienda?, <a [routerLink]="[ '/pages/login']" [queryParams]="{ role: 'merchant' }">Iniciar
+                  sesión como vendedor</a>
               </p>
             </div>
             <div class="form-group text-center">
