@@ -140,7 +140,7 @@ export class UserService {
    * @param userId Id del usuario
    */
   generateAffiliateCode( storeId: string, userId: string ): Observable<any> {
-    return this.http.get( `users/affiliate//program?store=${storeId}&user=${userId}` );
+    return this.http.get( `users/affiliate/program?store=${storeId}&user=${userId}` );
   }
 
   /*

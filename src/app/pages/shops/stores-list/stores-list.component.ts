@@ -21,11 +21,13 @@ export class StoresListComponent implements OnInit, OnChanges {
   ) {
     this.user = this.auth.getUserActive();
   }
+
   ngOnChanges(): void {
     if ( this.auth.getUserRol() === 'client' ) { this.myStores(); }
   }
 
   ngOnInit(): void {
+    console.log( this.stores );
   }
 
   /**
