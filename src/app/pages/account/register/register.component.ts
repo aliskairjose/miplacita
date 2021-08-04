@@ -41,6 +41,7 @@ export class RegisterComponent implements OnInit {
   icon = 'fa fa-eye';
   icon2 = 'fa fa-eye';
   private _config = '';
+  private status = null;
 
   private emailPattern = EMAIL_PATTERN;
 
@@ -62,8 +63,9 @@ export class RegisterComponent implements OnInit {
   ngOnInit(): void {
 
     this.route.queryParams.subscribe( params => {
+      console.log( params )
       if ( params.url ) { this.url = params.url; }
-
+      if ( params.status ) { this.status = params.status; }
       if ( params.config ) { this._config = params.config; }
 
       if ( params.role ) {
@@ -111,6 +113,7 @@ export class RegisterComponent implements OnInit {
             const queryParams: any = {};
             queryParams.url = this.url;
             if ( this._config ) { queryParams.config = this._config; }
+            if ( this.status ) { queryParams.status = 'void'; }
 
             this.router.navigate( [ '/pages/user/interests' ], { queryParams } );
           }

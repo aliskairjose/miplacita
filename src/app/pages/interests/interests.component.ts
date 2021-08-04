@@ -77,9 +77,8 @@ export class InterestsComponent implements OnInit, OnDestroy {
       if ( Object.keys( params ).length !== 0 ) {
         this.role = params.role;
         if ( params.status ) { this.mustReturn = true; }
-        if ( params.config ) {
+        if ( params.status ) {
           this.mustReturn = true;
-          this._config = params.config;
         }
         this.url = params?.url;
       }
@@ -123,7 +122,6 @@ export class InterestsComponent implements OnInit, OnDestroy {
 
   saveInterests(): void {
     const userForm = this.storage.getItem( 'userForm' );
-    console.log( userForm );
     if ( userForm.facebook_token ) {
       this.storage.removeItem( 'prelogin' );
       this.storage.removeItem( 'userForm' );
@@ -149,13 +147,9 @@ export class InterestsComponent implements OnInit, OnDestroy {
       this.storage.removeItem( 'prelogin' );
       this.storage.removeItem( 'userForm' );
       sessionStorage.clear();
-      if ( this.url ) {
-        this.router.navigate( [ this.url ] );
-      } else {
-        ( this.mustReturn )
-          ? this.router.navigate( [ 'shop/checkout/shipping' ], { queryParams: { config: this._config } } )
-          : this.router.navigate( [ '/shop/register/success' ] );
-      }
+      ( this.mustReturn )
+        ? this.router.navigate( [ 'shop/checkout/shipping' ] )
+        : this.router.navigate( [ '/shop/register/success' ] );
     } );
 
   }
