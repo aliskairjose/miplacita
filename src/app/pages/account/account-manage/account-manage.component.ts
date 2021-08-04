@@ -89,7 +89,6 @@ export class AccountManageComponent implements OnInit, OnChanges {
   }
 
   init( newStore = false ): void {
-    console.log( 'init' );
 
     let provisionalSubtab = '';
 

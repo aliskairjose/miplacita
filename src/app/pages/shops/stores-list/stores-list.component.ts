@@ -3,6 +3,7 @@ import { Store } from 'src/app/shared/classes/store';
 import { User } from 'src/app/shared/classes/user';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { UserService } from '../../../shared/services/user.service';
+import { StorageService } from '../../../shared/services/storage.service';
 
 @Component( {
   selector: 'app-stores-list',
@@ -19,6 +20,7 @@ export class StoresListComponent implements OnInit, OnChanges {
   constructor(
     private auth: AuthService,
     private userService: UserService,
+    private storage: StorageService,
 
   ) {
     this.user = this.auth.getUserActive();
@@ -29,14 +31,29 @@ export class StoresListComponent implements OnInit, OnChanges {
   }
 
   ngOnInit(): void {
-    console.log( this.stores );
   }
 
   /**
    * @description Tiendas donde el cliente ha comprado
    */
   private myStores(): void {
-    this.userService.myStores().subscribe( stores => this.stores = [ ...stores ] );
+    this.userService.myStores().subscribe( stores => {
+      const isStore = this.storage.getItem( 'isStore' );
+      const mainStore = {
+        name: 'Mi Placita',
+        created_at: '2021-03-01T15:49:28.699Z',
+        url_store: 'home',
+        logo: 'assets/images/marketplace/svg/logo.svg',
+        _id: ''
+      };
+      stores.unshift( mainStore );
+      if ( isStore ) {
+        const _stores = [ mainStore, isStore ];
+        this.stores.push( ..._stores );
+      } else {
+        this.stores = [ ...stores ];
+      }
+    } );
   }
 
   addStore(): void {
@@ -44,7 +61,7 @@ export class StoresListComponent implements OnInit, OnChanges {
   }
 
   select( store: Store ): void {
-    this.selectStore.emit( store );
+    if ( this.user.role === 'merchant' ) { this.selectStore.emit( store ); }
   }
 
 }
