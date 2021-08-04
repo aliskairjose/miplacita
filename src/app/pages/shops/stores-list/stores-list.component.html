@@ -18,7 +18,7 @@
 							<div>
 								<div class="no-slider row">
 									<ng-container *ngFor="let store of stores | slice:0:8">
-										<div class="store-box">
+										<div class="store-box" [ngClass]="{'selected-store': store._id === selectedStore._id}">
 											<app-shop-card [store]="store" (newStore)="addStore()" (selectStore)="select($event)">
 											</app-shop-card>
 										</div>

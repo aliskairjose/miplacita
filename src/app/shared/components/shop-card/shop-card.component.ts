@@ -21,7 +21,6 @@ export class ShopCardComponent implements OnInit {
   constructor(
     private router: Router,
     private auth: AuthService,
-    private amc: AccountManageComponent
   ) {
 
     this.user = this.auth.getUserActive();

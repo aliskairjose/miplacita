@@ -4,6 +4,7 @@ import { User } from 'src/app/shared/classes/user';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { UserService } from '../../../shared/services/user.service';
 import { StorageService } from '../../../shared/services/storage.service';
+import { ShopService } from '../../../shared/services/shop.service';
 
 @Component( {
   selector: 'app-stores-list',
@@ -12,6 +13,7 @@ import { StorageService } from '../../../shared/services/storage.service';
 } )
 export class StoresListComponent implements OnInit, OnChanges {
   user: User;
+  selectedStore: Store;
 
   @Input() stores: Store[] = [];
   @Output() newStore: EventEmitter<any> = new EventEmitter<any>();
@@ -21,9 +23,11 @@ export class StoresListComponent implements OnInit, OnChanges {
     private auth: AuthService,
     private userService: UserService,
     private storage: StorageService,
+    private shopService: ShopService,
 
   ) {
     this.user = this.auth.getUserActive();
+    this.shopService.storeObserver().subscribe( store => this.selectedStore = { ...store } );
   }
 
   ngOnChanges(): void {
