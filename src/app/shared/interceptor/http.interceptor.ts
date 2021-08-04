@@ -49,7 +49,7 @@ export class HttpInterceptor implements HttpInterceptor {
             this.router.navigate( [ 'login' ] );
             break;
           case 404:
-            const url = 'https://marketplace.dev.cronapis.com:3020/api/stores/find_by_url';
+            const url = 'find_by_url';
             if ( response.url.includes( url ) ) { this.router.navigate( [ 'home' ] ); }
             break;
           case 500:
