@@ -80,6 +80,7 @@ export class AccountManageComponent implements OnInit, OnChanges {
   }
 
   ngOnInit(): void {
+
     if ( localStorage.getItem( 'mp-store-shop' ) ) {
       const store: Store = this.storage.getItem( 'mp-store-shop' );
       if ( store.config ) { this.shopService.customizeShop( store.config ); }
@@ -88,6 +89,8 @@ export class AccountManageComponent implements OnInit, OnChanges {
   }
 
   init( newStore = false ): void {
+    console.log( 'init' );
+
     let provisionalSubtab = '';
 
     this.route.url.subscribe( url => {
