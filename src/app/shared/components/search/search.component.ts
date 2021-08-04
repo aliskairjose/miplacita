@@ -40,7 +40,7 @@ export class SearchComponent implements OnInit, OnChanges {
       this.searchForm.get( 'id' ).setValue( q?.id );
     } );
 
-    if ( Object.entries( this.store ).length ) {
+    if ( this.store && Object.entries( this.store ).length ) {
       this.searchForm.value.id = this.store._id;
     }
   }

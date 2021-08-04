@@ -66,11 +66,11 @@ export class SettingsComponent implements OnInit {
   }
 
   public setStore( store: Store ) {
-    this.url = store.url_store;
+    this.url = store?.url_store;
     this.config = window.btoa( JSON.stringify( store ) );
     const condicional = this.auth.getUserActive() && this.auth.getUserRol() === 'client';
     if ( condicional ) {
-      this.getAffiliate( store._id );
+      this.getAffiliate( store?._id );
     }
   }
 

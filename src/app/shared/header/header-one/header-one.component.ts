@@ -63,19 +63,23 @@ export class HeaderOneComponent implements OnInit, OnChanges, AfterViewInit {
   ngAfterViewInit(): void {
     if ( localStorage.getItem( 'mp-store-shop' ) ) {
       this.store = this.storage.getItem( 'mp-store-shop' );
-      this.shopService.customizeShop( this.store.config );
+      if ( this.store?.config ) {
+        this.shopService.customizeShop( this.store.config );
+      }
       this.settings.setStore( this.store );
-      this.themeLogo = this.store.logo;
-      this.link = `/${this.store.url_store}`;
+      this.themeLogo = this.store?.logo;
+      this.link = `/${this.store?.url_store}`;
     }
 
     if ( this.storage.getItem( 'isStore' ) ) {
       this.store = this.storage.getItem( 'isStore' );
       this.isStoreSearch = true;
-      this.shopService.customizeShop( this.store.config );
+      if ( this.store?.config ) {
+        this.shopService.customizeShop( this.store?.config );
+      }
       this.settings.setStore( this.store );
-      this.themeLogo = this.store.logo;
-      this.link = `/${this.store.url_store}`;
+      this.themeLogo = this.store?.logo;
+      this.link = `/${this.store?.url_store}`;
     }
   }
 

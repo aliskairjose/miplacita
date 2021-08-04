@@ -82,7 +82,7 @@ export class AccountManageComponent implements OnInit, OnChanges {
   ngOnInit(): void {
     if ( localStorage.getItem( 'mp-store-shop' ) ) {
       const store: Store = this.storage.getItem( 'mp-store-shop' );
-      this.shopService.customizeShop( store.config );
+      if ( store.config ) { this.shopService.customizeShop( store.config ); }
     }
     this.init();
   }
@@ -94,7 +94,6 @@ export class AccountManageComponent implements OnInit, OnChanges {
       this.active = url[ 2 ].path;
       if ( this.active === 'admin-store' && url.length > 3 ) {
         provisionalSubtab = url[ 3 ].path;
-        // this.subtab = 'design';
       } else if ( this.active === 'admin-store' && url.length === 3 ) {
         provisionalSubtab = 'store-profile';
       }
