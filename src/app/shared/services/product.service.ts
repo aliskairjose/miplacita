@@ -82,6 +82,10 @@ export class ProductService {
     );
   }
 
+  tiendasProductos( params = '' ): Observable<any> {
+    return this.http.get( `products/storesSearch?${params}` );
+  }
+
   /**
    * @description Obtiene la data del producto variable
    * @param id Id del producto base

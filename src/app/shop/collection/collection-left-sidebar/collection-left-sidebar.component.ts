@@ -113,6 +113,7 @@ export class CollectionLeftSidebarComponent implements OnInit {
           this.tags = [ ...shopTag, ...catTag, ...priceTag ]; // All Tags Array
 
           this.loadProductList( params?.page );
+          this.cargarTienda();
 
         } );
       } );
@@ -121,6 +122,19 @@ export class CollectionLeftSidebarComponent implements OnInit {
 
   ngOnInit(): void {
 
+  }
+
+  cargarTienda(): void {
+    const store: Store = this.storageService.getItem( 'isStore' );
+    const marketplace = store ? false : true;
+    let params = '';
+    if ( store ) {
+      params = `${this.params}&stock=true&status=active&data_public=true}`;
+    } else {
+      params = `${this.params}&stock=true&status=active&data_public=true&marketplace=${marketplace}`;
+    }
+
+    this.productService.tiendasProductos( params ).subscribe( response => this.shops = [ ...response.result ] );
   }
 
   loadProductList( page = 1 ): void {
@@ -147,12 +161,12 @@ export class CollectionLeftSidebarComponent implements OnInit {
         this.paginate.pages.push( i );
       }
 
-      const tiendas = [];
-      const uniqueStores = [];
-      from( this.products ).pipe( pluck( 'store' ) ).subscribe( s => tiendas.push( s ) );
-      from( tiendas ).pipe( distinct( t => t._id ) ).subscribe( r => uniqueStores.push( r ) );
+      // const tiendas = [];
+      // const uniqueStores = [];
+      // from( this.products ).pipe( pluck( 'store' ) ).subscribe( s => tiendas.push( s ) );
+      // from( tiendas ).pipe( distinct( t => t._id ) ).subscribe( r => uniqueStores.push( r ) );
 
-      this.shops = [ ...uniqueStores ];
+      // this.shops = [ ...uniqueStores ];
 
     } );
   }

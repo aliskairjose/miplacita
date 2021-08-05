@@ -11,22 +11,22 @@
                     <div class="mb-4">
                         <p class="text-default-color">{{ store.name }}</p>
                     </div>
-                    <div class="d-flex">
-                        <div class="d-flex icon-orders">
+                    <div class="text-center">
+                        <div class="d-flex icon-orders float-left" *ngIf="store.name !=='Mi Placita' ">
                             <img class="mx-auto" src="assets/images/marketplace/images/icons/store.png" alt="">
-                            <p class="mx-auto my-auto">Órdenes</p>
+                            <a (click)="toReferrals()" class="pointer float-left" *ngIf="store.name !=='Mi Placita' ">
+                                Ver referidos
+                            </a>
                         </div>
-                        <div class="d-flex icon-orders">
+                        <div class="d-flex icon-orders float-right">
                             <img class="mx-auto" src="assets/images/marketplace/images/icons/orders.png" alt="">
-                            <p class="mx-auto my-auto">Pedidos</p>
+                            <a (click)="goToStore()" class="pointer float-right">Visitar tienda</a>
                         </div>
                     </div>
                     <hr>
-                    <p class="text-center">Creada: {{ store.created_at | date:'dd/MM/yyyy' }}</p>
-                    <div class="text-center pb-2">
-                        <a (click)="toReferrals()" class="pointer float-left">Ver referidos</a>
-                        <a (click)="goToStore()" class="pointer float-right">Visitar tienda</a>
-                    </div>
+                    <p class="text-center" *ngIf="role === 'merchant'">
+                        Creada: {{ store.created_at | date:'dd/MM/yyyy'}}</p>
+
                 </div>
             </div>
         </div>
