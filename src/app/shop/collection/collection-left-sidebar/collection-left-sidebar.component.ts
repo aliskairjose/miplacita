@@ -8,9 +8,10 @@ import { ShopService } from '../../../shared/services/shop.service';
 import { Result } from '../../../shared/classes/response';
 import { Store } from '../../../shared/classes/store';
 import { Product } from '../../../shared/classes/product';
-import { forkJoin } from 'rxjs';
+import { forkJoin, from } from 'rxjs';
 import { Paginate } from '../../../shared/classes/paginate';
 import { StorageService } from '../../../shared/services/storage.service';
+import { pluck, map, distinct } from 'rxjs/operators';
 
 const state = {
   isStore: JSON.parse( localStorage.isStore || null ),
@@ -145,6 +146,14 @@ export class CollectionLeftSidebarComponent implements OnInit {
       for ( let i = 1; i <= this.paginate.totalPages; i++ ) {
         this.paginate.pages.push( i );
       }
+
+      const tiendas = [];
+      const uniqueStores = [];
+      from( this.products ).pipe( pluck( 'store' ) ).subscribe( s => tiendas.push( s ) );
+      from( tiendas ).pipe( distinct( t => t._id ) ).subscribe( r => uniqueStores.push( r ) );
+
+      this.shops = [ ...uniqueStores ];
+
     } );
   }
 

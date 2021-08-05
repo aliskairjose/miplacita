@@ -40,7 +40,7 @@ export class ShopsComponent implements OnInit, OnChanges {
   appliedFilter( event ): void {
     this.event = event;
     this.index = this._shops.indexOf( this.event.target.value );  // checked and unchecked value
-    this._shops = []
+    this._shops = [];
     if ( this.event.target.checked ) {
       this._shops.push( this.event.target.value );
     } else {
