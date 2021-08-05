@@ -110,8 +110,6 @@ export class SettingsComponent implements OnInit {
 
   private getAffiliate( storeId: string ): void {
     this.showBalance = true;
-
-
     this.shopService.getAffiliate( storeId, this.auth.getUserActive()._id ).subscribe( response => {
       this.balance = response.balance;
       this._referedCode = response.sponsor_code;
