@@ -11,7 +11,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import { Category } from '../../../shared/classes/category';
 import { SettingsComponent } from '../../../shared/components/settings/settings.component';
-import { Subject } from 'rxjs';
 import { NavService } from '../../../shared/services/nav.service';
 import { FooterOneComponent } from '../../../shared/footer/footer-one/footer-one.component';
 import { StorageService } from '../../../shared/services/storage.service';

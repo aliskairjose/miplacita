@@ -67,6 +67,7 @@ export class CommentsComponent implements OnInit {
       return this.productService.productReviews( id ).pipe(
         map( reviews => {
           this.reviews = [ ...reviews ];
+          // Con some  comprueba si al menos un elemento del array cumple con la condición implementada por la función proporcionada.
           this.disabledReview = reviews.some( r => r.user._id === this._user._id );
           this.clearForm();
           return this.calculateRate( reviews );
