@@ -49,10 +49,11 @@
       <a [routerLink]="['/shop/product/', product._id]">
         <h6>{{ product?.name | titlecase }}</h6>
       </a>
-      <div *ngIf="colors.length" class=" d-flex flex-column mb-2">
+      <div *ngIf="colors.length" class="d-flex flex-column mb-2">
         <ul class="color-variant" style="padding-top: 0px !important;" *ngIf="!search">
           <li [class]="color" *ngFor="let color of colors; index as i"
-            [ngStyle]="{'background-color': color.value, 'border': 'solid thin black'}">
+            [ngStyle]="{'background-color': color.value, 'border': 'solid thin black'}"
+            [routerLink]="['/shop/product/', product._id]">
           </li>
         </ul>
         <div *ngIf="search">
