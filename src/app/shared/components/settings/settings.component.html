@@ -92,7 +92,8 @@
           <hr>
           <div class="text-center">
             <div class="mp-item-menu text-referred">
-              <button class="btn btn btn-outline-light text-dark btn-sm" (click)="callServiceToCopy()">
+              <button class="btn btn btn-outline-light text-dark btn-sm" ngxClipboard [cbContent]="referedCode"
+                (cbOnSuccess)="copied($event)">
                 <label for="" class="font-weight-normal">Referir a un amigo</label>
               </button>
             </div>

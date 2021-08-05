@@ -8,7 +8,6 @@ import { AuthService } from '../../services/auth.service';
 import { PreviousRouteService } from '../../services/previous-route.service';
 import { ShopService } from '../../services/shop.service';
 import { Store } from 'src/app/shared/classes/store';
-import { ClipboardService } from 'ngx-clipboard';
 import { ToastrService } from 'ngx-toastr';
 
 @Component( {
@@ -27,7 +26,7 @@ export class SettingsComponent implements OnInit {
   store: Store = {};
   config = '';
   url = '';
-  private _referedCode: string;
+  referedCode: string;
 
   constructor(
     @Inject( PLATFORM_ID ) private platformId: object,
@@ -37,19 +36,12 @@ export class SettingsComponent implements OnInit {
     private translate: TranslateService,
     public productService: ProductService,
     private previousRoute: PreviousRouteService,
-    private _clipboardService: ClipboardService,
   ) {
 
     this.productService.cartItems.subscribe( response => { this.products = response; } );
   }
 
   ngOnInit(): void {
-
-    this._clipboardService.copyResponse$.subscribe( re => {
-      if ( re.isSuccess ) {
-        this.toast.info( 'El código se ha copiado al portapapeles!' );
-      }
-    } );
 
     this.role = this.auth.getUserRol();
     this.isLoggedIn = this.auth.isAuthenticated();
@@ -72,11 +64,6 @@ export class SettingsComponent implements OnInit {
     if ( condicional ) {
       this.getAffiliate( store?._id );
     }
-  }
-
-
-  callServiceToCopy() {
-    this._clipboardService.copy( this._referedCode );
   }
 
   changeLanguage( code ) {
@@ -108,12 +95,20 @@ export class SettingsComponent implements OnInit {
     this.auth.logout();
   }
 
+  copied( event ): void {
+    if ( event.isSuccess ) {
+      this.toast.info( 'El código se ha copiado al portapapeles!' );
+    }
+  }
+
   private getAffiliate( storeId: string ): void {
     this.showBalance = true;
     this.shopService.getAffiliate( storeId, this.auth.getUserActive()._id ).subscribe( response => {
       this.balance = response.balance;
-      this._referedCode = response.sponsor_code;
+      this.referedCode = response.sponsor_code;
     } );
   }
+
+
 
 }
