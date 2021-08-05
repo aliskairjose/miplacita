@@ -125,7 +125,11 @@ export class CollectionLeftSidebarComponent implements OnInit {
   loadProductList( page = 1 ): void {
     const store: Store = this.storageService.getItem( 'isStore' );
     const marketplace = store ? false : true;
-    this.params = `${this.params}&stock=true&status=active&data_public=true&marketplace=${marketplace}`;
+    if ( store ) {
+      this.params = `${this.params}&stock=true&status=active&data_public=true}`;
+    } else {
+      this.params = `${this.params}&stock=true&status=active&data_public=true&marketplace=${marketplace}`;
+    }
 
     this.productService.productList( page, this.params ).subscribe( ( result: Result<Product> ) => {
       if ( this._storeId ) {
