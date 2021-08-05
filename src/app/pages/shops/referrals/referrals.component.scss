@@ -2,3 +2,11 @@ img {
     height: 40px !important;
     margin-left: 5px;
 }
+
+.referido-container {
+    display: flex;
+    justify-content: space-evenly;
+    div {
+        width: 20vw;
+    }
+}
