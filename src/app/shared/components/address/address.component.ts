@@ -88,6 +88,11 @@ export class AddressComponent implements OnInit {
             }
             this.createForm();
           } );
+        } else {
+          const fullname = this.user.fullname.split( ' ' );
+          const [ name, ...lastname ] = fullname;
+          this.shippingAddress.name = name;
+          this.shippingAddress.last_name = lastname.join( ' ' );
         }
       } );
     }

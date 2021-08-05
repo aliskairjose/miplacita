@@ -30,10 +30,6 @@ export class ShopCardComponent implements OnInit {
   }
 
   goToStore() {
-    // this.router.navigate( [ 'pages/account/user/referrals' ] ) :
-    // ( this.user.role === 'client' ) ?
-    //   this.router.navigate( [ 'pages/account/user/referrals' ], { queryParams: { storeId: this.store._id } } ) :
-    //   this.router.navigate( [ this.store.url_store ] );
     this.router.navigate( [ this.store.url_store ] );
   }
 
