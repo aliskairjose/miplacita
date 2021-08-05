@@ -37,6 +37,11 @@ export class ShopCardComponent implements OnInit {
     this.router.navigate( [ this.store.url_store ] );
   }
 
+  toReferrals(): void {
+    this.router.navigate( [ 'pages/account/user/referrals' ], { queryParams: { storeId: this.store._id } } );
+  }
+
+
   createStore(): void {
     this.newStore.emit();
   }
