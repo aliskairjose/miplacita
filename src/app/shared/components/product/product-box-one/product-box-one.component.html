@@ -59,7 +59,8 @@
         <div *ngIf="search">
           <div *ngFor="let color of colors; index as i">
             <ul class="color-variant" style="padding-top: 0px !important;">
-              <li [class]="color" [ngStyle]="{'background-color': color.value, 'border': 'solid thin black'}">
+              <li [class]="color" [ngStyle]="{'background-color': color.value, 'border': 'solid thin black'}"
+                [routerLink]="['/shop/product/', product._id]">
               </li>
             </ul>
           </div>
