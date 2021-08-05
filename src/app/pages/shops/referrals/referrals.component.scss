@@ -8,5 +8,9 @@ img {
     justify-content: space-evenly;
     div {
         width: 20vw;
+        h4 {
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid #c6410f;
+        }
     }
 }
