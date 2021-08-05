@@ -53,7 +53,7 @@ export class StoresListComponent implements OnInit, OnChanges {
       stores.unshift( mainStore );
       if ( isStore ) {
         const _stores = [ mainStore, isStore ];
-        this.stores.push( ..._stores );
+        this.stores = [ ..._stores ];
       } else {
         this.stores = [ ...stores ];
       }
