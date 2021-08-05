@@ -84,6 +84,8 @@ export class HeaderOneComponent implements OnInit, OnChanges, AfterViewInit {
   }
 
   ngOnChanges( changes: SimpleChanges ): void {
+    this.show = ( this.store && this.role === 'merchant' && this.store.owner_id === this.user._id );
+
     if ( changes.store && Object.entries( changes?.store?.currentValue ).length !== 0 ) {
       this.link = `/${changes.store.currentValue.url_store}`;
       this.settings.setStore( changes.store.currentValue );
@@ -127,7 +129,6 @@ export class HeaderOneComponent implements OnInit, OnChanges, AfterViewInit {
       }
     } );
 
-    this.show = ( this.isLoggedIn && this.mode === 'edit' && this.role === 'merchant' );
 
   }
 
