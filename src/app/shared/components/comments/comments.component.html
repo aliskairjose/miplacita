@@ -35,7 +35,8 @@
 			</div>
 		</div>
 		<hr>
-		<form [formGroup]="reviewForm" (ngSubmit)="onSubmit()" class="theme-form" *ngIf="auth.isAuthenticated()">
+		<form [formGroup]="reviewForm" (ngSubmit)="onSubmit()" class="theme-form"
+			*ngIf="auth.isAuthenticated() && !disabledReview">
 			<div class="row">
 				<div class="page-title mb-2 px-2">
 					<h3 class="mp-title">

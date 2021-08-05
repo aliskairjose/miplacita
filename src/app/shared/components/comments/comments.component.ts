@@ -7,6 +7,7 @@ import { ToastrService } from 'ngx-toastr';
 import { User } from '../../classes/user';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
+import { StorageService } from '../../services/storage.service';
 
 @Component( {
   selector: 'app-comments',
@@ -19,7 +20,9 @@ export class CommentsComponent implements OnInit {
   submitted: boolean;
   reviews: Review[] = [];
   rating = 0;
+  disabledReview = false;
 
+  private _user: User = {};
   private _productId = '';
 
   constructor(
@@ -29,6 +32,8 @@ export class CommentsComponent implements OnInit {
     private productService: ProductService,
   ) {
     this.createForm();
+    this._user = this.auth.getUserActive();
+
   }
 
   // convenience getter for easy access to form fields
@@ -36,21 +41,20 @@ export class CommentsComponent implements OnInit {
   get f() { return this.reviewForm.controls; }
 
   ngOnInit(): void {
-
   }
 
   onSubmit(): void {
     this.submitted = true;
 
-    const user: User = this.auth.getUserActive();
+    // this._user = this.auth.getUserActive();
     this.reviewForm.value.product = this._productId;
-    this.reviewForm.value.user = user._id;
+    this.reviewForm.value.user = this._user._id;
 
     if ( this.reviewForm.valid ) {
 
       this.productService.addReview( this.reviewForm.value ).subscribe( ( review ) => {
         this.toastr.info( 'Gracias por dejar su comentario' );
-        review.user = { ...user };
+        review.user = { ...this._user };
         this.reviews.push( review );
         this.clearForm();
       } );
@@ -63,6 +67,7 @@ export class CommentsComponent implements OnInit {
       return this.productService.productReviews( id ).pipe(
         map( reviews => {
           this.reviews = [ ...reviews ];
+          this.disabledReview = reviews.some( r => r.user._id === this._user._id );
           this.clearForm();
           return this.calculateRate( reviews );
         } )
