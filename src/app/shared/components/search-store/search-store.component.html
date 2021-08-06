@@ -2,7 +2,7 @@
   <form [formGroup]="searchForm" (ngSubmit)="onSubmit()" class="theme-form">
     <div class="d-flex w-100">
       <div class="searh-box-mp d-flex w-100">
-        <div ngbDropdown class="">
+        <div ngbDropdown style="min-width: 5rem;">
           <button type="button" class="btn font-weight-normal " id="dropdownBasic1" ngbDropdownToggle>
             {{ subCategoryTitle }}
           </button>
@@ -11,7 +11,7 @@
               [value]="item._id" ngbDropdownItem>{{item.name}}</button>
           </div>
         </div>
-        <div ngbDropdown class="">
+        <div ngbDropdown style="min-width: 8rem;">
           <button type="button" class="btn font-weight-normal " id="dropdownBasic2" ngbDropdownToggle>
             {{ priceFilterText }}
           </button>
