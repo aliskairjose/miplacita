@@ -28,19 +28,25 @@ export class CollectionLeftSidebarComponent implements OnInit {
   layoutView = 'list-view';
   products: Product[] = [];
   categories: Category[] = [];
+
   shops: Store[] = [];
   brands: any[] = [];
   prices: any[] = [];
   tags: any[] = [];
+
   category: string;
   pageNo = 1;
   paginate: Paginate;
   sortBy: string; // Sorting Order
+
   mobileSidebar = false;
   loader = true;
   params: string;
   noData = false;
+
   hideFilters = false;
+  isStore: any = null;
+  routerLink = '/shop/collection/left/sidebar';
 
   private _storeId = '';
 
@@ -57,14 +63,20 @@ export class CollectionLeftSidebarComponent implements OnInit {
       .subscribe( ( [ shopsResult, categoriesResult ] ) => {
         // Get Query params..
         this.route.queryParams.subscribe( params => {
-          const isStore = this.storageService.getItem( 'isStore' );
+
+          this.isStore = this.storageService.getItem( 'isStore' );
+
+          if ( this.isStore ) {
+            this.routerLink = `/shop/collection/left/sidebar?name=&store=${this.isStore._id}&subcategory=&price_order=`;
+          }
+
           if ( params.id ) {
             this.shopService.getStore( params.id ).subscribe( ( store: Store ) => this.shopService.customizeShop( store.config ) );
           }
 
           this._storeId = params.id;
 
-          if ( isStore ) { this.hideFilters = true; }
+          if ( this.isStore ) { this.hideFilters = true; }
 
           const shops = [ ...shopsResult ];
           const categories = [ ...categoriesResult ];
@@ -125,10 +137,10 @@ export class CollectionLeftSidebarComponent implements OnInit {
   }
 
   cargarTienda(): void {
-    const store: Store = this.storageService.getItem( 'isStore' );
-    const marketplace = store ? false : true;
+    // const store: Store = this.storageService.getItem( 'isStore' );
+    const marketplace = this.isStore ? false : true;
     let params = '';
-    if ( store ) {
+    if ( this.isStore ) {
       params = `${this.params}&stock=true&status=active&data_public=true}`;
     } else {
       params = `${this.params}&stock=true&status=active&data_public=true&marketplace=${marketplace}`;
@@ -138,9 +150,9 @@ export class CollectionLeftSidebarComponent implements OnInit {
   }
 
   loadProductList( page = 1 ): void {
-    const store: Store = this.storageService.getItem( 'isStore' );
-    const marketplace = store ? false : true;
-    if ( store ) {
+    // const store: Store = this.storageService.getItem( 'isStore' );
+    const marketplace = this.isStore ? false : true;
+    if ( this.isStore ) {
       this.params = `${this.params}&stock=true&status=active&data_public=true}`;
     } else {
       this.params = `${this.params}&stock=true&status=active&data_public=true&marketplace=${marketplace}`;
@@ -160,13 +172,6 @@ export class CollectionLeftSidebarComponent implements OnInit {
       for ( let i = 1; i <= this.paginate.totalPages; i++ ) {
         this.paginate.pages.push( i );
       }
-
-      // const tiendas = [];
-      // const uniqueStores = [];
-      // from( this.products ).pipe( pluck( 'store' ) ).subscribe( s => tiendas.push( s ) );
-      // from( tiendas ).pipe( distinct( t => t._id ) ).subscribe( r => uniqueStores.push( r ) );
-
-      // this.shops = [ ...uniqueStores ];
 
     } );
   }
