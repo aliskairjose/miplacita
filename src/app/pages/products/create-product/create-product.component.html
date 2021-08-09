@@ -27,7 +27,7 @@
 									<div class="first-column">
 										<!-- Nombre -->
 										<div class="form-group ">
-											<div class="field-label">Nombre</div>
+											<div class="field-label">* Nombre</div>
 											<input formControlName="name" type="text" class="form-control" id="name" required=""
 												[(ngModel)]="productData.name" maxlength="60">
 											<div *ngIf="submitted && f.name.errors" class="invalid-feedback d-block">
@@ -39,7 +39,7 @@
 											<!-- Price -->
 											<div class="col-md-6">
 												<div class="form-group ">
-													<div class="field-label">Precio</div>
+													<div class="field-label">* Precio</div>
 													<input formControlName="price" currencyMask type="text" class="form-control" id="price"
 														required="" [(ngModel)]="productData.price">
 													<div *ngIf="submitted && f.price.errors" class="invalid-feedback d-block">
@@ -50,7 +50,7 @@
 											<!-- Tax -->
 											<div class="col-md-6">
 												<div class="form-group ">
-													<div class="field-label">Itbms (%)</div>
+													<div class="field-label">* Itbms (%)</div>
 													<input formControlName="tax" maxlength="4" currencyMask type="text" class="form-control"
 														id="itbms" required="" [(ngModel)]="productData.tax">
 													<div *ngIf="submitted && f.tax.errors" class="invalid-feedback d-block">
@@ -63,7 +63,7 @@
 											<!-- Color -->
 											<div class="col-md-6">
 												<div class="form-group">
-													<div class="field-label">Color</div>
+													<div class="field-label">* Color</div>
 													<select formControlName="color" class="form-control" name="color"
 														(change)="variableOptionSelected($event.target.value)">
 														<option value="" selected>Seleccione un color</option>
@@ -77,7 +77,7 @@
 											<!-- Size -->
 											<div class="col-md-6">
 												<div class="form-group">
-													<div class="field-label">Tamaño</div>
+													<div class="field-label"> * Tamaño</div>
 													<select formControlName="size" class="form-control" name="size"
 														(change)="variableOptionSelected($event.target.value)">
 														<option value="" selected>Seleccione un tamaño</option>
@@ -91,7 +91,7 @@
 										</div>
 										<!-- Categoria -->
 										<div class="form-group ">
-											<div class="field-label">Categoría</div>
+											<div class="field-label">* Categoría</div>
 											<select formControlName="category" class="form-control" name="category"
 												[(ngModel)]="selectedCategory" (change)="changeCategorySelection()">
 												<option value="" selected>Seleccione una categoría</option>
@@ -126,7 +126,7 @@
 										</div>
 										<!-- Descripcion -->
 										<div class="form-group">
-											<div class="field-label">Descripción</div>
+											<div class="field-label">* Descripción</div>
 											<textarea formControlName="description" type="text" class="form-control"
 												id="exampleFormControlTextarea1" placeholder="Descripción" maxlength="500"
 												[(ngModel)]="productData.description"></textarea>
@@ -157,13 +157,14 @@
 												</div>
 											</div>
 										</div>
+										<small class="text-danger">* Campos obligatorios</small>
 									</div>
 									<div class="second-column">
 										<div class="form-row">
 											<div class="col-lg-5 col-sm-12">
 												<!-- Cantidad disponible -->
 												<div class="form-group">
-													<div class="field-label">Cantidad disponible</div>
+													<div class="field-label">* Cantidad disponible</div>
 													<input formControlName="stock" type="number" class="form-control" id="available" required=""
 														[(ngModel)]="productData.stock" min="1">
 													<div *ngIf="submitted && f.stock.errors" class="invalid-feedback d-block">
@@ -177,7 +178,7 @@
 											<div class="col-lg-5 col-sm-12">
 												<!-- Dias de entrega -->
 												<div class="form-group">
-													<div class="field-label">Días de entrega</div>
+													<div class="field-label">* Días de entrega</div>
 													<input type="number" class="form-control" id="available" required=""
 														formControlName="deliveryDays" [(ngModel)]="productData.deliveryDays">
 													<div *ngIf="submitted && f.deliveryDays.errors?.required" class="invalid-feedback d-block">
