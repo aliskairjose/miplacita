@@ -68,6 +68,7 @@ export class AddressComponent implements OnInit {
             const [ name, ...lastname ] = fullname;
             this.shippingAddress.name = name;
             this.shippingAddress.last_name = lastname.join( ' ' );
+            this.shippingAddress.email = this.user.email;
           }
           this.createForm();
           return;
@@ -93,6 +94,7 @@ export class AddressComponent implements OnInit {
           const [ name, ...lastname ] = fullname;
           this.shippingAddress.name = name;
           this.shippingAddress.last_name = lastname.join( ' ' );
+          this.shippingAddress.email = this.user.email;
         }
       } );
     }
