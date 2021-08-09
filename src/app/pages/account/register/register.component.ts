@@ -129,7 +129,7 @@ export class RegisterComponent implements OnInit {
   private createForm(): void {
     this.registerForm = this.formBuilder.group( {
       role: [ '' ],
-      fullname: [ '', [ Validators.required, Validators.pattern( '[a-zA-Z ]*' ) ] ],
+      fullname: [ '', [ Validators.required, Validators.pattern( '^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+$' ) ] ],
       password: [ '', [ Validators.required, Validators.minLength( 8 ) ] ],
       passwordConfirmation: [ '', [ Validators.required, Validators.minLength( 8 ) ] ],
       email: [ '', [ Validators.required, Validators.pattern( this.emailPattern ) ] ],
