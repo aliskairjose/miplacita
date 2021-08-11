@@ -30,12 +30,15 @@ export class SearchComponent implements OnInit, OnChanges {
   }
 
   ngOnInit(): void {
-
   }
 
   ngOnChanges( changes: SimpleChanges ): void {
 
     this.route.queryParams.subscribe( q => {
+      if ( this.categories.length && q.category ) {
+        const category = this.categories.find( cat => cat._id === q.category );
+        this.updateCategory( category );
+      }
       this.search = q?.name;
       this.searchForm.get( 'id' ).setValue( q?.id );
     } );
@@ -77,6 +80,7 @@ export class SearchComponent implements OnInit, OnChanges {
   }
 
   updateCategory( item: Category ) {
+    console.log( 'updateCategory' );
     this.textCategory = item.name;
     this.searchForm.value.category = item._id;
   }
