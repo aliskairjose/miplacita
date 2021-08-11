@@ -13,11 +13,11 @@ header {
             line-height: normal;
             direction: ltr;
             text-align: left;
-            >li {
+            > li {
                 position: relative;
                 float: left;
                 display: block;
-                >a {
+                > a {
                     display: block;
                     padding-right: 45px;
                     color: #222222;
@@ -206,7 +206,7 @@ header {
                     }
                 }
                 &:hover {
-                    >a {
+                    > a {
                         color: var(--theme-deafult);
                     }
                 }
@@ -219,8 +219,8 @@ header {
     &.header-gym {
         .main-navbar {
             .nav-menu {
-                >li {
-                    >a {
+                > li {
+                    > a {
                         color: white;
                         padding-top: 22px;
                         padding-bottom: 22px;
@@ -232,8 +232,8 @@ header {
     &.header-tools {
         .main-navbar {
             .nav-menu {
-                >li {
-                    >a {
+                > li {
+                    > a {
                         padding-top: 25px;
                         padding-bottom: 25px;
                         .lable-nav {
@@ -275,8 +275,8 @@ header {
             left: 0;
             transition: all 0.5s ease;
             .sidebar-overlay {
-                opacity: 0.8;
-                visibility: visible;
+                // opacity: 0.8;
+                // visibility: visible;
             }
         }
         .sidebar-overlay {
@@ -412,11 +412,11 @@ header {
                 line-height: normal;
                 direction: ltr;
                 text-align: left;
-                >li {
+                > li {
                     position: relative;
                     float: left;
                     display: block;
-                    >a {
+                    > a {
                         text-transform: capitalize;
                         padding-right: 34px;
                         letter-spacing: 0.04em;
@@ -534,7 +534,7 @@ header {
     header {
         .main-navbar {
             .nav-menu {
-                >li {
+                > li {
                     .nav-submenu {
                         width: 200px;
                         display: none;
@@ -617,7 +617,7 @@ header {
                             }
                         }
                     }
-                    >ul {
+                    > ul {
                         display: none;
                         li {
                             a {
@@ -648,7 +648,7 @@ header {
                         }
                     }
                     &:hover {
-                        >ul {
+                        > ul {
                             display: block;
                         }
                     }
@@ -751,17 +751,17 @@ header {
         display: none !important;
     }
     .main-nav-center {
-        >nav {
+        > nav {
             text-align: center;
         }
         .sm {
             display: inline-block;
             vertical-align: middle;
-            >li {
+            > li {
                 .lable-nav {
                     top: 3px;
                 }
-                >a {
+                > a {
                     padding-top: 20px;
                     padding-bottom: 20px;
                 }
@@ -784,7 +784,7 @@ header {
         header {
             .main-navbar {
                 .nav-menu {
-                    >li {
+                    > li {
                         .nav-submenu {
                             li {
                                 a {
@@ -845,7 +845,7 @@ header {
         .layout3-menu {
             .light-font-menu {
                 li {
-                    >a {
+                    > a {
                         &,
                         &:hover,
                         &:active {
@@ -871,7 +871,7 @@ header {
             &.header-5 {
                 .top-header {
                     .header-dropdown {
-                        >li {
+                        > li {
                             &:last-child {
                                 padding: 15px 25px;
                                 padding-left: 0;
@@ -948,7 +948,7 @@ header {
                         align-items: center;
                     }
                 }
-                >li {
+                > li {
                     display: block;
                     float: none;
                     width: 100%;
@@ -960,7 +960,7 @@ header {
                         .sub-arrow {
                             right: 0;
                             &:before {
-                                content: '+';
+                                content: "+";
                                 font-family: inherit;
                                 position: relative;
                             }
@@ -984,7 +984,7 @@ header {
                                 .sub-arrow {
                                     right: 0;
                                     &:before {
-                                        content: '+';
+                                        content: "+";
                                         font-family: inherit;
                                         position: relative;
                                     }
@@ -1054,8 +1054,8 @@ header {
         &.header-gym {
             .main-navbar {
                 .nav-menu {
-                    >li {
-                        >a {
+                    > li {
+                        > a {
                             color: black;
                             padding-top: 10px;
                             padding-bottom: 10px;
@@ -1084,7 +1084,7 @@ header {
                             text-shadow: none;
                             border-radius: 4px;
                             &:before {
-                                content: '+';
+                                content: "+";
                                 font-family: inherit;
                                 position: relative;
                             }
@@ -1175,8 +1175,8 @@ header {
     .header-2 {
         .main-navbar {
             .nav-menu {
-                >li {
-                    >a {
+                > li {
+                    > a {
                         padding-top: 10px;
                         padding-bottom: 10px;
                     }
@@ -1330,7 +1330,7 @@ header {
     }
 }
 
-@media (max-width:577px) {
+@media (max-width: 577px) {
     .top-header {
         height: 0;
     }
@@ -1448,7 +1448,7 @@ header {
                         font-size: 22px;
                         color: $header-font;
                     }
-                    >div {
+                    > div {
                         img {
                             display: none;
                         }
@@ -1471,7 +1471,7 @@ header {
                         font-size: 22px;
                         color: $header-font;
                     }
-                    >div {
+                    > div {
                         img {
                             display: none;
                         }
@@ -1525,7 +1525,6 @@ header {
                         }
                     }
                 }
-
             }
         }
     }
