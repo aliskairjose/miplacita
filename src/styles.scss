@@ -244,6 +244,12 @@ input[type="checkbox"]:checked {
   }
 }
 
+textarea {
+  overflow: scroll;
+  resize: none;
+  height: 8rem !important;
+}
+
 .field-label {
   line-height: 24px;
   text-transform: capitalize;

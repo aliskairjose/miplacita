@@ -146,6 +146,7 @@ export class CollectionLeftSidebarComponent implements OnInit {
       params = `${this.params}&stock=true&status=active&data_public=true&marketplace=${marketplace}`;
     }
 
+    this.productService.categoriasProductos( params ).subscribe( response => this.categories = [ ...response.result ] );
     this.productService.tiendasProductos( params ).subscribe( response => this.shops = [ ...response.result ] );
   }
 
