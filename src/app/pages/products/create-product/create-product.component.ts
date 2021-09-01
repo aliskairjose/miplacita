@@ -37,8 +37,8 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
   modal: any;
   modal2: any;
   modalOpen = false;
-  modalOption: NgbModalOptions = {};
-  product: Product = {};
+  modalOption: NgbModalOptions = { };
+  product: Product = { };
   isEdit = false; // si es True deshabilita la edicion de color y talla
   create = 1;
   typesProduct = [];
@@ -48,15 +48,15 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
   colors = [];
   deleted = [];
   color = null;
-  selectedColor: VariableProduct = {};
+  selectedColor: VariableProduct = { };
   colorChecked = false;
   sizes = [];
   size = '';
-  selectedSize: VariableProduct = {};
+  selectedSize: VariableProduct = { };
   sizeChecked = false;
   categoryId = '';
   categories: Category[];
-  selectedSubcategory: any = {};
+  selectedSubcategory: any = { };
   productForm: FormGroup;
   variableForm: FormGroup;
   submitted: boolean;
@@ -68,13 +68,13 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
   selectedCategory = '';
   productImages: Array<string> = [];
   images = [];
-  productData: Product = {};
+  productData: Product = { };
   title = 'Crear producto';
   plan: Plan;
   changeImage = false;
   marketplaceCheck: boolean;
 
-  @Input() store: Store = {};
+  @Input() store: Store = { };
   @Output() reload: EventEmitter<boolean> = new EventEmitter<boolean>();
 
 
@@ -200,7 +200,7 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
         data.images = [];
 
         images.forEach( ( url: string, index ) => {
-          const image: Images = {};
+          const image: Images = { };
           image.url = url;
           image.principal = index === 0;
           data.images.push( image );
@@ -243,7 +243,7 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
         const images: Array<any> = await this.uploadImage( this.productImages );
         const _images = [] as any;
         images.forEach( ( url: string ) => {
-          const image: Images = {};
+          const image: Images = { };
           image.url = url;
           image.principal = false;
           _images.push( image );
@@ -274,7 +274,7 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
         const response: Array<any> = await this.uploadImage( this.productImages );
         const _images = [] as any;
         response.forEach( ( url: string, index: number ) => {
-          const image: Images = {};
+          const image: Images = { };
           image.url = url;
           ( index > 0 ) ? image.principal = false : image.principal = true;
           _images.push( image );
@@ -610,13 +610,13 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   private clear(): void {
-    this.product = {};
+    this.product = { };
     this.submitted = false;
     this.showForm = false;
     this.disabledBtn = true;
     this.colorChecked = false;
     this.sizeChecked = false;
-    this.productData = {};
+    this.productData = { };
     this.productData.name = '';
     this.deleted = [];
     this.deletePhoto = false;
@@ -653,9 +653,7 @@ export class CreateProductComponent implements OnInit, OnChanges, OnDestroy {
       this.productService.categoryList(),
       this.productService.getVariableProduct( this.store._id, 'color' ),
       this.productService.getVariableProduct( this.store._id, 'size' )
-
     ] )
-
       .subscribe( ( [ response, categories, colorResponse, sizeResponse ] ) => {
         this.plan = response.docs[ 0 ].plan;
         this.categories = [ ...categories ];
